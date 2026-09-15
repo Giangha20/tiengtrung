@@ -1424,7 +1424,7 @@ function speakWord(text) {
         window.speechSynthesis.cancel(); // Dừng câu đọc trước đó nếu đang đọc
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN'; // Ngôn ngữ Tiếng Trung
-        utterance.rate = 0.80;    // Tốc độ đọc vừa phải
+        utterance.rate = 0.65;    // Tốc độ đọc vừa phải
         window.speechSynthesis.speak(utterance);
     } else {
         alert("Trình duyệt của bạn không hỗ trợ phát âm!");
@@ -1437,4 +1437,227 @@ function speakCurrentTypingWord() {
     if (wordElement && wordElement.innerText) {
         speakWord(wordElement.innerText);
     }
+}// Biến toàn cục cho chế độ thi thử
+let examQuestions = [];
+let currentQuestionIndex = 0;
+let examScore = 0;
+
+// Bảng cấu hình số câu hỏi theo HSK
+const HSK_QUESTION_COUNT = {
+    "1": 30,
+    "2": 35,
+    "3": 40,
+    "4": 45
+};
+
+// Cập nhật thông tin màn hình bắt đầu thi
+function updateExamStartInfo() {
+    const levelSelect = document.getElementById('hsk-level');
+    const selectedLevel = levelSelect ? levelSelect.value : "1";
+    const count = HSK_QUESTION_COUNT[selectedLevel] || 30;
+
+    const levelTitle = document.getElementById('exam-level-title');
+    const infoText = document.getElementById('exam-info-text');
+
+    if (levelTitle) levelTitle.innerText = selectedLevel;
+    if (infoText) infoText.innerText = `Bài thi gồm ${count} câu hỏi trắc nghiệm từ vựng cấp độ HSK ${selectedLevel}.`;
+}
+
+// Hàm chuyển chế độ (Cập nhật thêm tính năng đổi số câu)
+function switchMode(mode) {
+    document.querySelectorAll('main > section').forEach(sec => sec.classList.remove('active'));
+    
+    if (mode === 'list') {
+        document.getElementById('list-mode').classList.add('active');
+    } else if (mode === 'typing') {
+        document.getElementById('typing-mode').classList.add('active');
+    } else if (mode === 'exam') {
+        document.getElementById('exam-mode').classList.add('active');
+        updateExamStartInfo();
+        resetExamUI();
+    }
+}
+
+// Bắt đầu bài thi
+function startExam() {
+    const levelSelect = document.getElementById('hsk-level');
+    const currentLevel = levelSelect ? levelSelect.value : "1";
+    const list = hskData[currentLevel];
+    const targetCount = HSK_QUESTION_COUNT[currentLevel] || 30;
+
+    if (!list || list.length < 4) {
+        alert("Chưa đủ dữ liệu từ vựng để thi thử level này!");
+        return;
+    }
+
+    // Trộn ngẫu nhiên danh sách từ vựng và lấy số câu tương ứng (30 hoặc 40)
+    const shuffledList = [...list].sort(() => 0.5 - Math.random());
+    const selectedWords = shuffledList.slice(0, Math.min(targetCount, list.length));
+
+    // Tạo bộ câu hỏi kèm 4 lựa chọn
+    examQuestions = selectedWords.map(targetWord => {
+        const distractors = list
+            .filter(w => w.word !== targetWord.word)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3);
+        
+        const options = [...distractors, targetWord].sort(() => 0.5 - Math.random());
+        return {
+            target: targetWord,
+            options: options
+        };
+    });
+
+    currentQuestionIndex = 0;
+    examScore = 0;
+
+    document.getElementById('exam-start-screen').classList.add('hidden');
+    document.getElementById('exam-result-screen').classList.add('hidden');
+    document.getElementById('exam-quiz-screen').classList.remove('hidden');
+
+    renderQuestion();
+}
+
+// Hiển thị câu hỏi
+function renderQuestion() {
+    const q = examQuestions[currentQuestionIndex];
+    document.getElementById('quiz-current').innerText = currentQuestionIndex + 1;
+    document.getElementById('quiz-total').innerText = examQuestions.length;
+    document.getElementById('quiz-score').innerText = examScore;
+    
+    document.getElementById('quiz-word').innerText = q.target.word;
+    document.getElementById('quiz-pinyin').innerText = q.target.pinyin ? `[${q.target.pinyin}]` : '';
+    
+    const optionsDiv = document.getElementById('quiz-options');
+    optionsDiv.innerHTML = '';
+    document.getElementById('quiz-feedback').innerText = '';
+    document.getElementById('next-quiz-btn').classList.add('hidden');
+
+    q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option-btn';
+        btn.innerText = opt.meaning;
+        btn.onclick = () => checkExamAnswer(opt, q.target, btn);
+        optionsDiv.appendChild(btn);
+    });
+}
+
+// Kiểm tra đáp án
+function checkExamAnswer(selected, correct, btn) {
+    const buttons = document.querySelectorAll('.quiz-option-btn');
+    buttons.forEach(b => b.disabled = true);
+
+    if (selected.word === correct.word) {
+        examScore++;
+        btn.style.backgroundColor = '#28a745';
+        btn.style.color = '#fff';
+        document.getElementById('quiz-feedback').innerText = '✅ Chính xác!';
+        document.getElementById('quiz-feedback').style.color = '#28a745';
+    } else {
+        btn.style.backgroundColor = '#dc3545';
+        btn.style.color = '#fff';
+        buttons.forEach(b => {
+            if (b.innerText === correct.meaning) {
+                b.style.backgroundColor = '#28a745';
+                b.style.color = '#fff';
+            }
+        });
+        document.getElementById('quiz-feedback').innerText = `❌ Sai rồi! Đáp án đúng: ${correct.meaning}`;
+        document.getElementById('quiz-feedback').style.color = '#dc3545';
+    }
+
+    document.getElementById('quiz-score').innerText = examScore;
+    document.getElementById('next-quiz-btn').classList.remove('hidden');
+}
+
+// Câu hỏi tiếp theo
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < examQuestions.length) {
+        renderQuestion();
+    } else {
+        finishExam();
+    }
+}
+
+// Kết thúc bài thi
+function finishExam() {
+    document.getElementById('exam-quiz-screen').classList.add('hidden');
+    document.getElementById('exam-result-screen').classList.remove('hidden');
+    
+    document.getElementById('final-score').innerText = examScore;
+    document.getElementById('final-total').innerText = examQuestions.length;
+
+    const percentage = (examScore / examQuestions.length) * 100;
+    let msg = '';
+    if (percentage === 100) msg = '🎉 Xuất sắc! Bạn đã đạt điểm tuyệt đối!';
+    else if (percentage >= 80) msg = '👏 Rất tốt! Bạn nắm rất vững từ vựng cấp độ này.';
+    else if (percentage >= 50) msg = '👍 Đạt yêu cầu! Hãy tiếp tục luyện tập để đạt điểm cao hơn.';
+    else msg = '💪 Cần cố gắng thêm! Hãy xem lại danh sách từ vựng và thử lại nhé.';
+    
+    document.getElementById('result-message').innerText = msg;
+}
+
+// Reset bài thi
+function resetExamUI() {
+    document.getElementById('exam-start-screen').classList.remove('hidden');
+    document.getElementById('exam-quiz-screen').classList.add('hidden');
+    document.getElementById('exam-result-screen').classList.add('hidden');
+}// 1. Cập nhật hàm chọn cấp độ HSK
+function changeLevel() {
+    const levelSelect = document.getElementById('hsk-level');
+    const selectedLevel = levelSelect ? levelSelect.value : "1";
+
+    if (typeof renderWordList === 'function') {
+        renderWordList();
+    }
+
+    if (typeof initTypingMode === 'function') {
+        initTypingMode();
+    }
+
+    // Tự động làm mới giao diện Thi thử theo HSK mới
+    if (typeof updateExamStartInfo === 'function') {
+        updateExamStartInfo();
+        resetExamUI();
+    }
+}
+
+// 2. Cập nhật hàm bắt đầu thi thử
+function startExam() {
+    const levelSelect = document.getElementById('hsk-level');
+    const currentLevel = levelSelect ? levelSelect.value : "1";
+    
+    const list = hskData[currentLevel];
+    const targetCount = HSK_QUESTION_COUNT[currentLevel] || 30;
+
+    if (!list || list.length < 4) {
+        alert(`Cấp độ HSK ${currentLevel} chưa có đủ dữ liệu từ vựng để tạo đề thi!`);
+        return;
+    }
+
+    const shuffledList = [...list].sort(() => 0.5 - Math.random());
+    const selectedWords = shuffledList.slice(0, Math.min(targetCount, list.length));
+
+    examQuestions = selectedWords.map(targetWord => {
+        const distractors = list
+            .filter(w => w.word !== targetWord.word)
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3);
+        
+        const options = [...distractors, targetWord].sort(() => 0.5 - Math.random());
+        return {
+            target: targetWord,
+            options: options
+        };
+    });
+
+    currentQuestionIndex = 0;
+    examScore = 0;
+
+    document.getElementById('exam-start-screen').classList.add('hidden');
+    document.getElementById('exam-result-screen').classList.add('hidden');
+    document.getElementById('exam-quiz-screen').classList.remove('hidden');
+
+    renderQuestion();
 }
