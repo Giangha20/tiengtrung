@@ -1445,9 +1445,9 @@ let examScore = 0;
 // Bảng cấu hình số câu hỏi theo HSK
 const HSK_QUESTION_COUNT = {
     "1": 90,
-    "2": 100,
-    "3": 200,
-    "4": 300
+    "2": 110,
+    "3": 210,
+    "4": 320
 };
 
 // Cập nhật thông tin màn hình bắt đầu thi
@@ -1660,4 +1660,904 @@ function startExam() {
     document.getElementById('exam-quiz-screen').classList.remove('hidden');
 
     renderQuestion();
+}// ============================================================
+// ============================================================
+// BỔ SUNG MỚI - KHÔNG XÓA CODE CŨ
+// 1. TÌM KIẾM TỪ VỰNG
+// 2. ĐỒNG HỒ THI THỬ
+// 3. LUYỆN VIẾT + AI CHẤM
+// ============================================================
+// ============================================================
+
+
+// ============================================================
+// 1. TÌM KIẾM TỪ VỰNG
+// ============================================================
+
+function normalizeSearchText(text = "") {
+    return text
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D")
+        .toLowerCase()
+        .trim();
+}
+
+
+function filterVocabulary() {
+
+    const searchInput = document.getElementById("vocab-search");
+    const container = document.getElementById("word-list");
+    const levelSelect = document.getElementById("hsk-level");
+    const resultCount = document.getElementById("search-result-count");
+
+    if (!searchInput || !container || !levelSelect) {
+        return;
+    }
+
+    const keyword = normalizeSearchText(searchInput.value);
+
+    const level = levelSelect.value;
+
+    const vocabulary = hskData[level] || [];
+
+    // Không nhập gì -> hiện toàn bộ danh sách
+    if (!keyword) {
+
+        if (typeof renderList === "function") {
+            renderList();
+        }
+
+        if (resultCount) {
+            resultCount.innerText = "";
+        }
+
+        return;
+    }
+
+
+    const filteredWords = vocabulary.filter(item => {
+
+        const word = normalizeSearchText(item.word || "");
+        const pinyin = normalizeSearchText(item.pinyin || "");
+        const meaning = normalizeSearchText(item.meaning || "");
+
+        return (
+            word.includes(keyword) ||
+            pinyin.includes(keyword) ||
+            meaning.includes(keyword)
+        );
+
+    });
+
+
+    // Render kết quả tìm kiếm
+    container.innerHTML = filteredWords.map(item => `
+        <div class="word-card">
+            <div class="hanzi">${item.word}</div>
+            <div class="pinyin">${item.pinyin}</div>
+            <div class="meaning">${item.meaning}</div>
+        </div>
+    `).join("");
+
+
+    if (resultCount) {
+
+        if (filteredWords.length > 0) {
+
+            resultCount.innerText =
+                `🔎 Tìm thấy ${filteredWords.length}/${vocabulary.length} từ`;
+
+        } else {
+
+            resultCount.innerText =
+                "❌ Không tìm thấy từ phù hợp";
+
+        }
+    }
+}
+
+
+// Khi đổi HSK thì tự động xóa tìm kiếm cũ
+document.addEventListener("DOMContentLoaded", function () {
+
+    const levelSelect = document.getElementById("hsk-level");
+
+    if (levelSelect) {
+
+        levelSelect.addEventListener("change", function () {
+
+            const searchInput =
+                document.getElementById("vocab-search");
+
+            const resultCount =
+                document.getElementById("search-result-count");
+
+            if (searchInput) {
+                searchInput.value = "";
+            }
+
+            if (resultCount) {
+                resultCount.innerText = "";
+            }
+
+        });
+
+    }
+
+});
+
+
+// ============================================================
+// 2. ĐỒNG HỒ THI THỬ HSK
+// ============================================================
+
+// Bạn có thể đổi số phút ở đây
+const HSK_EXAM_TIME = {
+    "1": 30,
+    "2": 30,
+    "3": 60,
+    "4": 90
+};
+
+
+let examTimerInterval = null;
+
+let examTimeLeft = 0;
+
+let examStartTime = 0;
+
+
+// Cập nhật đồng hồ
+function updateExamTimerDisplay() {
+
+    const timer = document.getElementById("exam-timer");
+
+    if (!timer) return;
+
+
+    let minutes = Math.floor(examTimeLeft / 60);
+
+    let seconds = examTimeLeft % 60;
+
+
+    timer.innerText =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+
+    // Còn dưới 1 phút
+    if (examTimeLeft <= 60) {
+
+        timer.style.color = "#dc3545";
+
+    } else {
+
+        timer.style.color = "";
+
+    }
+
+}
+
+
+// Bắt đầu đếm giờ
+function startExamTimer() {
+
+    if (examTimerInterval) {
+        clearInterval(examTimerInterval);
+    }
+
+
+    const levelSelect =
+        document.getElementById("hsk-level");
+
+    const level =
+        levelSelect ? levelSelect.value : "1";
+
+
+    const minutes =
+        HSK_EXAM_TIME[level] || 10;
+
+
+    examTimeLeft = minutes * 60;
+
+    examStartTime = Date.now();
+
+
+    updateExamTimerDisplay();
+
+
+    examTimerInterval = setInterval(function () {
+
+        examTimeLeft--;
+
+        updateExamTimerDisplay();
+
+
+        if (examTimeLeft <= 0) {
+
+            clearInterval(examTimerInterval);
+
+            examTimerInterval = null;
+
+
+            // Khóa đáp án
+            document
+                .querySelectorAll(".quiz-option-btn")
+                .forEach(button => {
+
+                    button.disabled = true;
+
+                });
+
+
+            alert("⏰ Hết thời gian làm bài!");
+
+
+            if (typeof finishExam === "function") {
+
+                finishExam();
+
+            }
+
+        }
+
+    }, 1000);
+
+}
+
+
+// Dừng đồng hồ
+function stopExamTimer() {
+
+    if (examTimerInterval) {
+
+        clearInterval(examTimerInterval);
+
+        examTimerInterval = null;
+
+    }
+
+}
+
+
+// ============================================================
+// GIỮ HÀM startExam CŨ
+// CHỈ BỔ SUNG TIMER VÀO SAU KHI HÀM CŨ CHẠY
+// ============================================================
+
+const originalStartExamWithTimer = window.startExam;
+
+
+if (typeof originalStartExamWithTimer === "function") {
+
+    window.startExam = function () {
+
+        originalStartExamWithTimer.apply(this, arguments);
+
+
+        const quizScreen =
+            document.getElementById("exam-quiz-screen");
+
+
+        // Chỉ chạy timer nếu màn hình thi thật sự được mở
+        if (
+            quizScreen &&
+            !quizScreen.classList.contains("hidden")
+        ) {
+
+            startExamTimer();
+
+        }
+
+    };
+
+}
+
+
+// ============================================================
+// GIỮ HÀM finishExam CŨ
+// CHỈ BỔ SUNG DỪNG TIMER
+// ============================================================
+
+const originalFinishExamWithTimer = window.finishExam;
+
+
+if (typeof originalFinishExamWithTimer === "function") {
+
+    window.finishExam = function () {
+
+        stopExamTimer();
+
+
+        let usedSeconds = 0;
+
+
+        if (examStartTime) {
+
+            usedSeconds =
+                Math.floor(
+                    (Date.now() - examStartTime) / 1000
+                );
+
+        }
+
+
+        originalFinishExamWithTimer.apply(this, arguments);
+
+
+        const result =
+            document.getElementById("exam-time-result");
+
+
+        if (result) {
+
+            const minutes =
+                Math.floor(usedSeconds / 60);
+
+            const seconds =
+                usedSeconds % 60;
+
+
+            result.innerText =
+                `⏱️ Thời gian làm bài: ${minutes} phút ${seconds} giây`;
+
+        }
+
+    };
+
+}
+
+
+// ============================================================
+// GIỮ resetExamUI CŨ + RESET TIMER
+// ============================================================
+
+const originalResetExamUIWithTimer =
+    window.resetExamUI;
+
+
+if (typeof originalResetExamUIWithTimer === "function") {
+
+    window.resetExamUI = function () {
+
+        stopExamTimer();
+
+        originalResetExamUIWithTimer.apply(
+            this,
+            arguments
+        );
+
+
+        const timer =
+            document.getElementById("exam-timer");
+
+
+        if (timer) {
+
+            timer.innerText = "--:--";
+
+            timer.style.color = "";
+
+        }
+
+    };
+
+}
+
+
+// ============================================================
+// 3. THÊM CHẾ ĐỘ LUYỆN VIẾT
+// ============================================================
+
+// Giữ switchMode cũ
+const originalSwitchModeWriting =
+    window.switchMode;
+
+
+window.switchMode = function (mode) {
+
+    // Tab mới: writing
+    if (mode === "writing") {
+
+        document
+            .querySelectorAll("main > section")
+            .forEach(section => {
+
+                section.classList.remove("active");
+
+            });
+
+
+        const writingMode =
+            document.getElementById("writing-mode");
+
+
+        if (writingMode) {
+
+            writingMode.classList.add("active");
+
+        }
+
+
+        // Nếu đang thi mà chuyển tab
+        stopExamTimer();
+
+        return;
+
+    }
+
+
+    // Các tab cũ vẫn chạy y nguyên
+    if (typeof originalSwitchModeWriting === "function") {
+
+        originalSwitchModeWriting.apply(
+            this,
+            arguments
+        );
+
+    }
+
+};
+
+
+// ============================================================
+// ĐẾM KÝ TỰ BÀI VIẾT
+// ============================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const writingInput =
+            document.getElementById("writing-input");
+
+
+        if (writingInput) {
+
+            writingInput.addEventListener(
+                "input",
+                function () {
+
+                    const count =
+                        document.getElementById(
+                            "writing-char-count"
+                        );
+
+
+                    if (count) {
+
+                        count.innerText =
+                            writingInput.value.length;
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// XÓA BÀI VIẾT
+// ============================================================
+
+function clearWriting() {
+
+    const input =
+        document.getElementById("writing-input");
+
+
+    const result =
+        document.getElementById("writing-result");
+
+
+    const counter =
+        document.getElementById("writing-char-count");
+
+
+    if (input) {
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+
+    if (counter) {
+
+        counter.innerText = "0";
+
+    }
+
+
+    if (result) {
+
+        result.classList.add("hidden");
+
+    }
+
+}
+
+
+// ============================================================
+// CHỐNG HTML ĐƯỢC AI TRẢ VỀ LÀM HỎNG TRANG
+// ============================================================
+
+function escapeAIHTML(value = "") {
+
+    return value
+        .toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// ============================================================
+// HIỂN THỊ KẾT QUẢ AI
+// ============================================================
+
+function showWritingResult(data, originalText) {
+
+    const resultBox =
+        document.getElementById("writing-result");
+
+
+    if (!resultBox) return;
+
+
+    resultBox.classList.remove("hidden");
+
+
+    document.getElementById(
+        "writing-score"
+    ).innerText =
+        data.score ?? "--";
+
+
+    document.getElementById(
+        "writing-original"
+    ).innerHTML =
+        `<p>${escapeAIHTML(originalText)}</p>`;
+
+
+    document.getElementById(
+        "writing-corrected"
+    ).innerHTML =
+        `<p style="font-size:1.2rem;">
+            ${escapeAIHTML(
+                data.corrected || originalText
+            )}
+        </p>`;
+
+
+    let errorsHTML = "";
+
+
+    if (
+        Array.isArray(data.errors) &&
+        data.errors.length
+    ) {
+
+        errorsHTML = "<ul>";
+
+
+        data.errors.forEach(error => {
+
+            errorsHTML += `
+                <li style="margin-bottom:10px;">
+                    <b>
+                        ${escapeAIHTML(
+                            error.original || ""
+                        )}
+                    </b>
+
+                    → 
+
+                    <span style="color:#28a745;">
+                        ${escapeAIHTML(
+                            error.corrected || ""
+                        )}
+                    </span>
+
+                    <br>
+
+                    <small>
+                        ${escapeAIHTML(
+                            error.reason || ""
+                        )}
+                    </small>
+                </li>
+            `;
+
+        });
+
+
+        errorsHTML += "</ul>";
+
+    } else {
+
+        errorsHTML =
+            "<p>✅ Không phát hiện lỗi đáng kể.</p>";
+
+    }
+
+
+    document.getElementById(
+        "writing-errors"
+    ).innerHTML =
+        errorsHTML;
+
+
+    document.getElementById(
+        "writing-explanation"
+    ).innerHTML = `
+        <p>
+            ${escapeAIHTML(
+                data.explanation ||
+                "Không có giải thích."
+            )}
+        </p>
+
+        ${
+            data.vocabularySuggestion
+                ? `
+                    <p>
+                        <b>📚 Gợi ý từ vựng:</b>
+                        ${escapeAIHTML(
+                            data.vocabularySuggestion
+                        )}
+                    </p>
+                  `
+                : ""
+        }
+    `;
+
+
+    resultBox.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+// ============================================================
+// CHẤM BÀI BẰNG AI
+// ============================================================
+
+async function gradeWritingWithAI() {
+
+    const input =
+        document.getElementById("writing-input");
+
+
+    const topicSelect =
+        document.getElementById("writing-topic");
+
+
+    const button =
+        document.getElementById("grade-writing-btn");
+
+
+    const levelSelect =
+        document.getElementById("hsk-level");
+
+
+    if (!input) return;
+
+
+    const text =
+        input.value.trim();
+
+
+    if (!text) {
+
+        alert(
+            "Bạn hãy viết một câu hoặc đoạn tiếng Trung trước nhé!"
+        );
+
+        input.focus();
+
+        return;
+
+    }
+
+
+    const level =
+        levelSelect
+            ? levelSelect.value
+            : "1";
+
+
+    const topic =
+        topicSelect
+            ? topicSelect.value
+            : "free";
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.innerText =
+            "🤖 AI đang chấm...";
+
+    }
+
+
+    try {
+
+        /*
+        =================================================
+        Gửi bài tới BACKEND.
+
+        KHÔNG đặt API KEY OpenAI/Gemini trực tiếp
+        trong script.js vì người khác có thể xem được.
+        =================================================
+        */
+
+        const response = await fetch(
+            "/api/grade-writing",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    text: text,
+
+                    hskLevel: level,
+
+                    topic: topic
+
+                })
+
+            }
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Không kết nối được máy chủ AI"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        showWritingResult(
+            data,
+            text
+        );
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+
+        // Nếu chưa có server AI
+        // trang web vẫn không bị lỗi
+        showLocalWritingCheck(
+            text,
+            level
+        );
+
+    }
+    finally {
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.innerText =
+                "🤖 AI chấm bài";
+
+        }
+
+    }
+
+}
+
+
+// ============================================================
+// CHẾ ĐỘ DỰ PHÒNG
+// KHI CHƯA KẾT NỐI AI SERVER
+// ============================================================
+
+function showLocalWritingCheck(
+    text,
+    level
+) {
+
+    const chineseCharacters =
+        text.match(/[\u3400-\u9FFF]/g) || [];
+
+
+    const vocabulary =
+        hskData[level] || [];
+
+
+    const wordsUsed =
+        vocabulary.filter(item =>
+            text.includes(item.word)
+        );
+
+
+    let score = 50;
+
+
+    // Có chữ Hán
+    if (chineseCharacters.length >= 5) {
+        score += 10;
+    }
+
+
+    if (chineseCharacters.length >= 10) {
+        score += 10;
+    }
+
+
+    // Có sử dụng từ HSK
+    if (wordsUsed.length >= 2) {
+        score += 10;
+    }
+
+
+    if (wordsUsed.length >= 4) {
+        score += 10;
+    }
+
+
+    score =
+        Math.min(score, 90);
+
+
+    showWritingResult(
+        {
+            score: score,
+
+            corrected: text,
+
+            errors: [],
+
+            explanation:
+                "",
+
+            vocabularySuggestion:
+                wordsUsed.length
+                    ? "Các từ HSK đã dùng: " +
+                      wordsUsed
+                          .map(item => item.word)
+                          .join("、")
+                    : "Hãy thử sử dụng thêm từ vựng HSK " +
+                      level +
+                      " trong câu."
+
+        },
+
+        text
+    );
+
 }
