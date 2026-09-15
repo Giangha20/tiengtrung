@@ -1797,7 +1797,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Bạn có thể đổi số phút ở đây
 const HSK_EXAM_TIME = {
     "1": 30,
-    "2": 30,
+    "2": 45,
     "3": 60,
     "4": 90
 };
