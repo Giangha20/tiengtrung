@@ -1444,10 +1444,10 @@ let examScore = 0;
 
 // Bảng cấu hình số câu hỏi theo HSK
 const HSK_QUESTION_COUNT = {
-    "1": 30,
-    "2": 35,
-    "3": 40,
-    "4": 45
+    "1": 90,
+    "2": 100,
+    "3": 200,
+    "4": 300
 };
 
 // Cập nhật thông tin màn hình bắt đầu thi
