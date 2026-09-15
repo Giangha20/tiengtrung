@@ -1424,7 +1424,7 @@ function speakWord(text) {
         window.speechSynthesis.cancel(); // Dừng câu đọc trước đó nếu đang đọc
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'zh-CN'; // Ngôn ngữ Tiếng Trung
-        utterance.rate = 0.73;    // Tốc độ đọc vừa phải
+        utterance.rate = 0.80;    // Tốc độ đọc vừa phải
         window.speechSynthesis.speak(utterance);
     } else {
         alert("Trình duyệt của bạn không hỗ trợ phát âm!");
