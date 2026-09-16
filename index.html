@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Học Tiếng Trung HSK 1-4 & Giao Tiếp</title>
+    <!-- Liên kết đến tệp manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Hỗ trợ hiển thị icon đẹp trên thiết bị iOS (iPhone/iPad) -->
+<link rel="apple-touch-icon" href="avatar.png">
+
+<!-- Tùy chỉnh thanh trạng thái trên iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tiếng Trung">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Hệ thống Ôn tập HSK & Luyện Giao Tiếp</h1>
+            <h1>Hệ thống Ôn tập HSK</h1>
             <div class="controls">
                 <select id="hsk-level" onchange="changeLevel()">
                     <option value="1">HSK 1</option>
@@ -163,7 +173,7 @@
                 <textarea
                     id="writing-input"
                     rows="7"
-                    placeholder="..."
+                    placeholder="Ví dụ: 我今天去学校学习汉语..."
                     style="
                         width:100%;
                         box-sizing:border-box;
@@ -212,10 +222,12 @@
                 <h4>📝 Câu bạn viết</h4>
                 <div id="writing-original"></div>
             </div>
+
             <div style="margin-top:15px;">
                 <h4>✅ Cách viết đề xuất</h4>
                 <div id="writing-corrected"></div>
             </div>
+
             <div style="margin-top:15px;">
                 <h4>🔍 Lỗi cần sửa</h4>
                 <div id="writing-errors"></div>
