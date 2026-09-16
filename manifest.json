@@ -1,0 +1,20 @@
+{
+  "name": "Tiếng Trung - Giang Hà",
+  "short_name": "Tiếng Trung",
+  "start_url": "/tiengtrung/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "avatar192.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "avatar.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
