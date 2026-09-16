@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Học Tiếng Trung HSK 1-4 & Giao Tiếp</title>
+    <title>Học Tiếng Trung HSK</title>
 
     <!-- PWA -->
     <link rel="manifest" href="./manifest.json">
@@ -30,6 +30,7 @@
                     <option value="2">HSK 2</option>
                     <option value="3">HSK 3</option>
                     <option value="4">HSK 4</option>
+                    <option value="5">HSK 5</option>
                 </select>
                 <button onclick="switchMode('list')">📚 Danh sách từ</button>
                 <button onclick="switchMode('typing')">⌨️ Bài tập gõ</button>
@@ -41,7 +42,7 @@
         <main>
             <!-- Chế độ 1: Danh sách từ vựng -->
             <section id="list-mode" class="active">
-                <h2>Danh sách từ vựng (<span id="total-words">0</span> từ) <i></i></h2>
+                <h2>Danh sách từ vựng (<span id="total-words">0</span> từ)</h2>
             <div class="vocab-search-box" style="margin: 15px 0;">
     <input
         type="text"
@@ -82,7 +83,7 @@
             <label for="typing-input">Gõ Pinyin (hoặc chữ Hán) của từ trên:</label>
             <input type="text" id="typing-input" placeholder="Nhập pinyin ví dụ: wo..." autocomplete="off">
             
-            <div class="action-buttons" style="display: flex; gap: 10px; margin-top: 10px;">
+            <div class="action-buttons">
                 <button onclick="checkTyping()">Kiểm tra</button>
                 <button onclick="skipTypingWord()" class="btn-skip" style="background-color: #6c757d; color: white;">Bỏ qua ⏭️</button>
             </div>
