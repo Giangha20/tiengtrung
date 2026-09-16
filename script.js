@@ -7953,7 +7953,7 @@ const HSK_QUESTION_COUNT = {
     "2": 110,
     "3": 210,
     "4": 320,
-    "5": 400
+    "5": 650
 };
 
 // Cập nhật thông tin màn hình bắt đầu thi
@@ -8253,10 +8253,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Bạn có thể đổi số phút ở đây
 const HSK_EXAM_TIME = {
     "1": 30,
-    "2": 30,
+    "2": 45,
     "3": 60,
     "4": 90,
-    "5": 120
+    "5": 180
 };
 
 
