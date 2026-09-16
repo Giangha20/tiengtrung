@@ -8090,27 +8090,10 @@ function finishExam() {
     document.getElementById('result-message').innerText = msg;
 }
 
-// Reset bài thi
 function resetExamUI() {
     document.getElementById('exam-start-screen').classList.remove('hidden');
     document.getElementById('exam-quiz-screen').classList.add('hidden');
     document.getElementById('exam-result-screen').classList.add('hidden');
-}// 1. Cập nhật hàm chọn cấp độ HSK
-
-
-// 2. Cập nhật hàm bắt đầu thi thử
-// ============================================================
-// BỔ SUNG MỚI - KHÔNG XÓA CODE CŨ
-// 1. TÌM KIẾM TỪ VỰNG
-// 2. ĐỒNG HỒ THI THỬ
-// 3. LUYỆN VIẾT + AI CHẤM
-// ============================================================
-
-
-// ============================================================
-// 1. TÌM KIẾM TỪ VỰNG
-// ============================================================
-
 
 function changeLevel() {
     const levelSelect = document.getElementById('hsk-level');
@@ -8253,7 +8236,8 @@ const HSK_EXAM_TIME = {
     "1": 30,
     "2": 30,
     "3": 60,
-    "4": 90
+    "4": 90,
+    "5": 120
 };
 
 
@@ -8412,11 +8396,6 @@ if (typeof originalStartExamWithTimer === "function") {
 }
 
 
-// ============================================================
-// GIỮ HÀM finishExam CŨ
-// CHỈ BỔ SUNG DỪNG TIMER
-// ============================================================
-
 const originalFinishExamWithTimer = window.finishExam;
 
 
@@ -8466,9 +8445,6 @@ if (typeof originalFinishExamWithTimer === "function") {
 }
 
 
-// ============================================================
-// GIỮ resetExamUI CŨ + RESET TIMER
-// ============================================================
 
 const originalResetExamUIWithTimer =
     window.resetExamUI;
@@ -8503,18 +8479,13 @@ if (typeof originalResetExamUIWithTimer === "function") {
 }
 
 
-// ============================================================
-// 3. THÊM CHẾ ĐỘ LUYỆN VIẾT
-// ============================================================
-
-// Giữ switchMode cũ
 const originalSwitchModeWriting =
     window.switchMode;
 
 
 window.switchMode = function (mode) {
 
-    // Tab mới: writing
+ 
     if (mode === "writing") {
 
         document
@@ -8927,12 +8898,6 @@ async function gradeWritingWithAI() {
 
 }
 
-
-// ============================================================
-// CHẾ ĐỘ DỰ PHÒNG
-// KHI CHƯA KẾT NỐI AI SERVER
-// ============================================================
-
 function showLocalWritingCheck(
     text,
     level
@@ -8950,7 +8915,6 @@ function showLocalWritingCheck(
         vocabulary.filter(item =>
             text.includes(item.word)
         );
-
 
     let score = 50;
 
