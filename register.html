@@ -176,22 +176,38 @@
 
         .show-password {
             position: absolute;
-
-            right: 10px;
+            right: 8px;
             top: 50%;
-
             transform: translateY(-50%);
 
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
+            padding: 0;
 
             border: none;
-
+            outline: none;
             background: transparent;
 
             cursor: pointer;
+            z-index: 5;
 
-            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+            line-height: 1;
+            color: #2d3436;
+            opacity: 1;
+        }
+
+        .show-password:hover {
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .show-password:focus-visible {
+            border-radius: 8px;
+            box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.15);
         }
 
         .register-btn {
@@ -366,6 +382,10 @@
                 color: #747d85;
             }
 
+            .show-password {
+                color: #f5f6fa;
+            }
+
             .login-text {
                 color: #b2bec3;
             }
@@ -484,6 +504,8 @@
                     type="button"
                     class="show-password"
                     onclick="togglePassword('password', this)"
+                    aria-label="Hiện hoặc ẩn mật khẩu"
+                    title="Hiện/ẩn mật khẩu"
                 >
                     👁
                 </button>
@@ -517,6 +539,8 @@
                     type="button"
                     class="show-password"
                     onclick="togglePassword('confirmPassword', this)"
+                    aria-label="Hiện hoặc ẩn mật khẩu nhập lại"
+                    title="Hiện/ẩn mật khẩu nhập lại"
                 >
                     👁
                 </button>
@@ -569,7 +593,7 @@ function togglePassword(id, button) {
     const input = document.getElementById(id);
     if (!input) return;
     input.type = input.type === "password" ? "text" : "password";
-    button.textContent = input.type === "password" ? "👁" : "🙈";
+    button.textContent = input.type === "password" ? "👁" : "👁️";
 }
 
 function showMessage(text, type) {
