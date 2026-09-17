@@ -7704,25 +7704,231 @@ let currentLevel = "1";
 let currentWordIndex = 0;
 let typingWordList = [];
 let currentCommFilter = "all";
+// ==========================================
+// FIREBASE - LƯU TIẾN ĐỘ HỌC TẬP TRÊN ĐÁM MÂY
+// ==========================================
+// Tiến trình được lưu theo Firebase UID, vì vậy mỗi tài khoản
+// có dữ liệu riêng và có thể tiếp tục học trên nhiều thiết bị.
 
-// Khởi tạo ứng dụng
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('hsk-level').addEventListener('change', (e) => {
-        currentLevel = e.target.value;
+let cloudProgress = {};
+let firebaseUserReady = false;
+
+function getCurrentUser() {
+    return window.currentFirebaseUser || null;
+}
+
+function getUserId() {
+    return getCurrentUser()?.uid || null;
+}
+
+function getProgress() {
+    return cloudProgress || {};
+}
+
+async function loadCloudProgress() {
+    const user = getCurrentUser();
+    if (!user || !window.firebaseDb) return {};
+
+    try {
+        const ref = firebaseDb
+            .collection("users")
+            .doc(user.uid)
+            .collection("appData")
+            .doc("progress");
+
+        const snap = await ref.get();
+
+        if (snap.exists) {
+            cloudProgress = snap.data() || {};
+            return cloudProgress;
+        }
+
+        // Nếu người dùng từng học bằng phiên bản localStorage cũ,
+        // thử chuyển tiến trình sang Firebase (không chuyển mật khẩu).
+        const legacyUserId = user.email || user.uid;
+        let legacy = {};
+        try {
+            const all = JSON.parse(
+                localStorage.getItem("gh_hsk_progress_v1") || "{}"
+            );
+            legacy = all[legacyUserId] || {};
+        } catch (e) {
+            legacy = {};
+        }
+
+        cloudProgress = legacy || {};
+
+        if (Object.keys(cloudProgress).length) {
+            await ref.set({
+                ...cloudProgress,
+                migratedFromLocalStorage: true,
+                migratedAt: new Date().toISOString()
+            });
+        }
+
+        return cloudProgress;
+    } catch (error) {
+        console.error("Không thể tải tiến trình Firebase:", error);
+        cloudProgress = {};
+        return {};
+    }
+}
+
+async function saveProgress(data) {
+    const user = getCurrentUser();
+
+    if (!user || !window.firebaseDb) {
+        console.warn("Chưa đăng nhập Firebase, chưa thể lưu tiến trình.");
+        return;
+    }
+
+    cloudProgress = {
+        ...cloudProgress,
+        ...data,
+        updatedAt: new Date().toISOString()
+    };
+
+    updateProgressUI();
+
+    try {
+        const ref = firebaseDb
+            .collection("users")
+            .doc(user.uid)
+            .collection("appData")
+            .doc("progress");
+
+        await ref.set(cloudProgress);
+    } catch (error) {
+        console.error("Không thể lưu tiến trình lên Firebase:", error);
+    }
+}
+
+async function clearCloudProgress() {
+    const user = getCurrentUser();
+    if (!user || !window.firebaseDb) return;
+
+    try {
+        await firebaseDb
+            .collection("users")
+            .doc(user.uid)
+            .collection("appData")
+            .doc("progress")
+            .delete();
+
+        cloudProgress = {};
+        updateProgressUI();
+    } catch (error) {
+        console.error("Không thể xóa tiến trình:", error);
+    }
+}
+
+function getLevelProgress(level) {
+    const progress = getProgress();
+    const typing = progress.typing?.[level] || {};
+    const total = (hskData[level] || []).length;
+    const completed = Math.min(
+        Number.isFinite(typing.completed) ? typing.completed : (typing.index || 0),
+        total
+    );
+    return {
+        completed,
+        total,
+        percent: total ? Math.round((completed / total) * 100) : 0,
+        exam: progress.exam?.[level] || null
+    };
+}
+
+function updateProgressUI() {
+    const levelSelect = document.getElementById('hsk-level');
+    if (!levelSelect) return;
+
+    let panel = document.getElementById('hsk-progress-panel');
+    if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'hsk-progress-panel';
+        panel.style.cssText = 'margin:12px 0 18px;padding:14px 16px;border:1px solid #ddd;border-radius:12px;background:#fff;';
+        levelSelect.parentElement?.insertAdjacentElement('afterend', panel);
+    }
+
+    const info = getLevelProgress(currentLevel);
+    const examText = info.exam
+        ? ` | Điểm thi gần nhất: ${info.exam.score}/${info.exam.total}`
+        : '';
+
+    panel.innerHTML = `
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px;">
+            <strong>📚 Tiến trình HSK ${currentLevel}</strong>
+            <strong>${info.percent}%</strong>
+        </div>
+        <div style="height:9px;background:#e9ecef;border-radius:99px;overflow:hidden;">
+            <div style="height:100%;width:${info.percent}%;background:#198754;transition:width .25s;"></div>
+        </div>
+        <div style="margin-top:8px;font-size:14px;color:#666;">
+            Từ đã luyện: ${info.completed}/${info.total}${examText}
+        </div>
+    `;
+}
+
+function restoreProgress() {
+    const progress = getProgress();
+    if (progress.currentLevel && hskData[progress.currentLevel]) {
+        currentLevel = progress.currentLevel;
+        const select = document.getElementById('hsk-level');
+        if (select) select.value = currentLevel;
+    }
+    updateProgressUI();
+}
+// Khởi tạo ứng dụng sau khi Firebase xác thực + tải tiến trình
+document.addEventListener('DOMContentLoaded', async () => {
+    const startApp = async () => {
+        const user = getCurrentUser();
+
+        if (!user) {
+            window.location.replace("./login.html");
+            return;
+        }
+
+        await loadCloudProgress();
+        firebaseUserReady = true;
+
+        const levelSelect = document.getElementById('hsk-level');
+        if (levelSelect) {
+            levelSelect.addEventListener('change', (e) => {
+                currentLevel = e.target.value;
+                saveProgress({ currentLevel });
+                renderList();
+                initTyping();
+                updateExamStartInfo();
+                resetExamUI();
+                updateProgressUI();
+
+                const searchInput = document.getElementById('vocab-search');
+                const resultCount = document.getElementById('search-result-count');
+                if (searchInput) searchInput.value = '';
+                if (resultCount) resultCount.textContent = '';
+            });
+        }
+
+        const typingInput = document.getElementById('typing-input');
+        if (typingInput) {
+            typingInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') checkTyping();
+            });
+        }
+
+        restoreProgress();
         renderList();
         initTyping();
         renderCommunication();
-    });
-    
-    document.getElementById('typing-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            checkTyping();
-        }
-    });
+        updateProgressUI();
+    };
 
-    renderList();
-    initTyping();
-    renderCommunication();
+    if (window.firebaseReady) {
+        await window.firebaseReady;
+        await startApp();
+    } else {
+        console.error("Firebase chưa được tải.");
+    }
 });
 
 // Chuyển Tab
@@ -7761,8 +7967,40 @@ function renderList() {
 
 // Khởi tạo bài tập gõ
 function initTyping() {
-    typingWordList = [...(hskData[currentLevel] || [])];
-    typingWordList.sort(() => Math.random() - 0.5); 
+    const list = [...(hskData[currentLevel] || [])];
+    const saved = getProgress().typing?.[currentLevel];
+
+    // Khôi phục đúng thứ tự từ và vị trí đang học nếu còn hợp lệ.
+    if (saved?.wordIds?.length === list.length) {
+        const byId = new Map(list.map((item, index) => [
+            `${item.word}|${item.pinyin}|${index}`, item
+        ]));
+        const restored = [];
+        const used = new Set();
+
+        saved.wordIds.forEach(id => {
+            const index = list.findIndex((item, i) =>
+                `${item.word}|${item.pinyin}|${i}` === id
+            );
+            if (index >= 0 && !used.has(index)) {
+                restored.push(list[index]);
+                used.add(index);
+            }
+        });
+
+        if (restored.length === list.length) {
+            typingWordList = restored;
+            currentWordIndex = Math.max(
+                0,
+                Math.min(Number(saved.index) || 0, typingWordList.length)
+            );
+            showTypingWord();
+            updateProgressUI();
+            return;
+        }
+    }
+
+    typingWordList = list.sort(() => Math.random() - 0.5);
     currentWordIndex = 0;
     showTypingWord();
 }
@@ -7826,6 +8064,22 @@ function checkTyping() {
 
 function nextTypingWord() {
     currentWordIndex++;
+
+    const wordIds = typingWordList.map((item, index) =>
+        `${item.word}|${item.pinyin}|${index}`
+    );
+
+    saveProgress({
+        typing: {
+            ...(getProgress().typing || {}),
+            [currentLevel]: {
+                index: currentWordIndex,
+                completed: Math.min(currentWordIndex, typingWordList.length),
+                wordIds
+            }
+        }
+    });
+
     showTypingWord();
 }
 
@@ -7953,7 +8207,7 @@ const HSK_QUESTION_COUNT = {
     "2": 110,
     "3": 210,
     "4": 320,
-    "5": 650
+    "5": 400
 };
 
 // Cập nhật thông tin màn hình bắt đầu thi
@@ -8061,6 +8315,19 @@ function checkExamAnswer(selected, correct, btn) {
     }
 
     document.getElementById('quiz-score').innerText = examScore;
+
+    saveProgress({
+        exam: {
+            ...(getProgress().exam || {}),
+            [currentLevel]: {
+                score: examScore,
+                total: examQuestions.length,
+                questionIndex: currentQuestionIndex,
+                finished: false
+            }
+        }
+    });
+
     document.getElementById('next-quiz-btn').classList.remove('hidden');
 }
 
@@ -8090,6 +8357,18 @@ function finishExam() {
     else msg = '💪 Cần cố gắng thêm! Hãy xem lại danh sách từ vựng và thử lại nhé.';
     
     document.getElementById('result-message').innerText = msg;
+
+    saveProgress({
+        exam: {
+            ...(getProgress().exam || {}),
+            [currentLevel]: {
+                score: examScore,
+                total: examQuestions.length,
+                questionIndex: examQuestions.length,
+                finished: true
+            }
+        }
+    });
 }
 
 // Reset bài thi
@@ -8117,6 +8396,8 @@ function resetExamUI() {
 function changeLevel() {
     const levelSelect = document.getElementById('hsk-level');
     currentLevel = levelSelect ? levelSelect.value : '1';
+
+    saveProgress({ currentLevel });
 
     renderList();
     initTyping();
@@ -8253,10 +8534,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Bạn có thể đổi số phút ở đây
 const HSK_EXAM_TIME = {
     "1": 30,
-    "2": 45,
+    "2": 30,
     "3": 60,
     "4": 90,
-    "5": 180
+    "5": 120
 };
 
 
@@ -8693,6 +8974,9 @@ function showWritingResult(data, originalText) {
         "writing-corrected"
     ).innerHTML =
         `<p style="font-size:1.2rem;">
+            ${data.corrected && data.corrected.trim() !== originalText.trim()
+                ? "✏️ Đã tự sửa: "
+                : "✅ Câu của bạn: "}
             ${escapeAIHTML(
                 data.corrected || originalText
             )}
@@ -8724,7 +9008,7 @@ function showWritingResult(data, originalText) {
 
                     <span style="color:#28a745;">
                         ${escapeAIHTML(
-                            error.corrected || ""
+                            (error.corrected || error.correction || "")
                         )}
                     </span>
 
@@ -8896,6 +9180,25 @@ async function gradeWritingWithAI() {
             await response.json();
 
 
+        // TỰ ĐỘNG SỬA NGAY TRONG Ô BÀI VIẾT
+        // Nếu AI thực sự đưa ra phiên bản khác, thay nội dung ô nhập
+        // bằng câu đã sửa để người học có thể tiếp tục chỉnh sửa.
+        if (
+            data &&
+            typeof data.corrected === "string" &&
+            data.corrected.trim() &&
+            data.corrected.trim() !== text
+        ) {
+            input.value = data.corrected.trim();
+
+            const count =
+                document.getElementById("writing-char-count");
+
+            if (count) {
+                count.innerText = input.value.length;
+            }
+        }
+
         showWritingResult(
             data,
             text
@@ -9011,3 +9314,25 @@ function showLocalWritingCheck(
     );
 
 }
+// ===============================
+// ĐĂNG XUẤT FIREBASE
+// ===============================
+document.addEventListener("DOMContentLoaded", function () {
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (!logoutBtn) return;
+
+    logoutBtn.addEventListener("click", async function () {
+        const ok = confirm("Bạn có chắc muốn đăng xuất không?");
+        if (!ok) return;
+
+        try {
+            if (window.firebaseAuth) {
+                await firebaseAuth.signOut();
+            }
+        } catch (error) {
+            console.error("Lỗi đăng xuất:", error);
+        }
+
+        window.location.replace("./login.html");
+    });
+});
