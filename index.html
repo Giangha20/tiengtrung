@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    <button id="logoutBtn" class="logout-btn" type="button">
+    ↪ Đăng xuất
+</button>
     <div class="container">
         <header>
             <h1>Hệ thống Ôn tập HSK</h1>
@@ -36,6 +39,7 @@
                 <button onclick="switchMode('typing')">⌨️ Bài tập gõ</button>
                 <button onclick="switchMode('exam')">📝 Bài tập HSK</button>
                 <button onclick="switchMode('writing')">🤖 Luyện viết AI</button>
+                
             </div>
         </header>
 
@@ -93,7 +97,7 @@
     </div>
 </section>
 <section id="exam-mode">
-                <h2> Bài tập HSK <span id="exam-level-title">1</span></h2>
+                <h2>Bài tập HSK <span id="exam-level-title">1</span></h2>
                 <div class="exam-container">
                     <!-- Màn hình bắt đầu -->
                     <div id="exam-start-screen" class="exam-card">
@@ -251,6 +255,11 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="./firebase-config.js"></script>
+    <script src="./firebase-init.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
