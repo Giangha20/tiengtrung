@@ -1571,3 +1571,161 @@ button:active {
         border-radius: 8px;
     }
 }
+
+
+/* =====================================================
+   NỀN VÒNG TRÒN TRANG TRÍ
+   - Chỉ là lớp nền phía sau nội dung
+   - Không che/đè lên chữ, nút hoặc card
+   ===================================================== */
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    isolation: isolate;
+}
+
+/* Lớp vòng tròn nền */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 8% 18%,
+            rgba(214, 48, 49, .10) 0,
+            rgba(214, 48, 49, .10) 32px,
+            transparent 33px
+        ),
+        radial-gradient(
+            circle at 92% 32%,
+            rgba(9, 132, 227, .09) 0,
+            rgba(9, 132, 227, .09) 58px,
+            transparent 59px
+        ),
+        radial-gradient(
+            circle at 5% 63%,
+            rgba(0, 184, 148, .08) 0,
+            rgba(0, 184, 148, .08) 46px,
+            transparent 47px
+        ),
+        radial-gradient(
+            circle at 96% 78%,
+            rgba(225, 112, 85, .09) 0,
+            rgba(225, 112, 85, .09) 72px,
+            transparent 73px
+        ),
+        radial-gradient(
+            circle at 18% 92%,
+            rgba(253, 203, 110, .10) 0,
+            rgba(253, 203, 110, .10) 24px,
+            transparent 25px
+        ),
+        radial-gradient(
+            circle at 78% 93%,
+            rgba(116, 185, 255, .08) 0,
+            rgba(116, 185, 255, .08) 40px,
+            transparent 41px
+        );
+
+    animation: backgroundCirclesFloat 10s ease-in-out infinite alternate;
+}
+
+/* Một lớp vòng tròn phụ nhỏ hơn, vẫn nằm phía sau */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 24% 35%,
+            rgba(214, 48, 49, .055) 0,
+            rgba(214, 48, 49, .055) 15px,
+            transparent 16px
+        ),
+        radial-gradient(
+            circle at 73% 18%,
+            rgba(9, 132, 227, .06) 0,
+            rgba(9, 132, 227, .06) 20px,
+            transparent 21px
+        ),
+        radial-gradient(
+            circle at 88% 58%,
+            rgba(0, 184, 148, .055) 0,
+            rgba(0, 184, 148, .055) 14px,
+            transparent 15px
+        ),
+        radial-gradient(
+            circle at 12% 78%,
+            rgba(225, 112, 85, .06) 0,
+            rgba(225, 112, 85, .06) 22px,
+            transparent 23px
+        );
+
+    animation: backgroundCirclesFloat2 13s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundCirclesFloat {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    25% {
+        transform: translate3d(12px, -10px, 0) scale(1.04);
+    }
+    50% {
+        transform: translate3d(-8px, 12px, 0) scale(.97);
+    }
+    75% {
+        transform: translate3d(10px, 6px, 0) scale(1.02);
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@keyframes backgroundCirclesFloat2 {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    25% {
+        transform: translate3d(-10px, 8px, 0) scale(.96);
+    }
+    50% {
+        transform: translate3d(8px, -12px, 0) scale(1.05);
+    }
+    75% {
+        transform: translate3d(-6px, -5px, 0) scale(.98);
+    }
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+
+/* Nhịp chuyển động nhẹ cho nền vòng tròn */
+body::before {
+    animation:
+        backgroundCirclesFloat 9s ease-in-out infinite,
+        backgroundCirclePulse 5s ease-in-out infinite;
+}
+
+body::after {
+    animation:
+        backgroundCirclesFloat2 12s ease-in-out infinite,
+        backgroundCirclePulse 6s ease-in-out 1s infinite;
+}
+
+@keyframes backgroundCirclePulse {
+    0%, 100% {
+        opacity: .78;
+    }
+    50% {
+        opacity: 1;
+    }
+}
