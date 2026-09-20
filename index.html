@@ -21,9 +21,6 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <button id="logoutBtn" class="logout-btn" type="button">
-    ↪ Đăng xuất
-</button>
     <div class="container">
         <header>
             <h1>Hệ thống Ôn tập HSK</h1>
@@ -34,16 +31,46 @@
                     <option value="3">HSK 3</option>
                     <option value="4">HSK 4</option>
                     <option value="5">HSK 5</option>
+                    <option value="6">HSK 6</option>
                 </select>
                 <button onclick="switchMode('list')">📚 Danh sách từ</button>
                 <button onclick="switchMode('typing')">⌨️ Bài tập gõ</button>
-                <button onclick="switchMode('exam')">📝 Bài tập HSK</button>
+                <button onclick="switchMode('exam')">📝 Thi thử HSK</button>
                 <button onclick="switchMode('writing')">🤖 Luyện viết AI</button>
-                
+                <button onclick="switchMode('handwriting')">✍️ Luyện viết chữ</button>
+                <button onclick="switchMode('progress')">📊 Tiến trình học</button>
             </div>
         </header>
 
         <main>
+            <!-- Chế độ: Tiến trình học -->
+            <section id="progress-mode">
+                <div class="progress-page-head">
+                    <div>
+                        <span class="progress-kicker">📊 TIẾN TRÌNH CÁ NHÂN</span>
+                        <h2>Tiến trình học của bạn</h2>
+                        <p>Tiến độ được lưu riêng theo tài khoản trên thiết bị này.</p>
+                    </div>
+                    <span id="progress-account" class="progress-account">Chưa đăng nhập</span>
+                </div>
+                <div class="progress-grid">
+                    <div class="progress-card"><span>📚 Cấp độ hiện tại</span><strong id="progress-level">HSK 1</strong><small id="progress-level-detail">Đang học</small></div>
+                    <div class="progress-card"><span>⌨️ Bài tập gõ</span><strong id="progress-typing">0%</strong><small id="progress-typing-detail">0 / 0 từ</small></div>
+                    <div class="progress-card"><span>✍️ Luyện viết chữ</span><strong id="progress-handwriting">0%</strong><small id="progress-handwriting-detail">Chưa bắt đầu</small></div>
+                    <div class="progress-card"><span>📝 Thi thử</span><strong id="progress-exam">0 bài</strong><small id="progress-exam-detail">Chưa có kết quả</small></div>
+                </div>
+                <div class="progress-main-card">
+                    <div class="progress-main-title"><b>Tiến độ HSK hiện tại</b><span id="progress-total-label">0 từ</span></div>
+                    <div class="progress-bar"><div id="progress-bar-fill"></div></div>
+                    <div class="progress-summary" id="progress-summary">Chưa có hoạt động học tập.</div>
+                    <div class="progress-actions">
+                        <button type="button" onclick="switchMode('list')">📚 Học từ vựng</button>
+                        <button type="button" onclick="switchMode('handwriting')">✍️ Luyện viết</button>
+                        <button type="button" onclick="resetMyProgress()" class="progress-reset">↻ Xóa tiến trình tài khoản này</button>
+                    </div>
+                </div>
+            </section>
+
             <!-- Chế độ 1: Danh sách từ vựng -->
             <section id="list-mode" class="active">
                 <h2>Danh sách từ vựng (<span id="total-words">0</span> từ)</h2>
@@ -97,11 +124,11 @@
     </div>
 </section>
 <section id="exam-mode">
-                <h2>Bài tập HSK <span id="exam-level-title">1</span></h2>
+                <h2>Thi thử HSK <span id="exam-level-title">1</span></h2>
                 <div class="exam-container">
                     <!-- Màn hình bắt đầu -->
                     <div id="exam-start-screen" class="exam-card">
-                        <p>Bài tập gồm câu hỏi trắc nghiệm từ vựng theo cấp độ đã chọn.</p>
+                        <p>Bài thi gồm câu hỏi trắc nghiệm từ vựng theo cấp độ đã chọn.</p>
                         <button onclick="startExam()" class="btn-primary">Bắt đầu làm bài 🚀</button>
                     </div>
 
@@ -252,14 +279,109 @@
     </div>
 
 </section>
+
+
+            <!-- Chế độ 5: Luyện viết chữ Hán -->
+            <section id="handwriting-mode">
+                <div class="handwriting-header">
+                    <div>
+                        <span class="handwriting-kicker">✍️ LUYỆN VIẾT HÁN TỰ</span>
+                        <h2>Luyện viết chữ Hán</h2>
+                        <p class="handwriting-subtitle">Viết theo ô mẫu, luyện đúng thứ tự nét và ghi nhớ mặt chữ.</p>
+                    </div>
+                    <div class="handwriting-badges">
+                        <span id="handwriting-level">HSK 1</span>
+                        <span id="hw-progress">0 / 0</span>
+                    </div>
+                </div>
+
+                <div class="handwriting-word-card">
+                    <div class="hw-word-main">
+                        <div class="hw-hanzi-row">
+                            <div id="handwriting-hanzi" class="hw-hanzi">我</div>
+                            <button type="button" class="hw-speak" onclick="speakHandwritingWord()" aria-label="Phát âm chữ Hán">🔊</button>
+                        </div>
+                        <div id="handwriting-pinyin" class="hw-pinyin">wǒ</div>
+                        <div id="handwriting-meaning" class="hw-meaning">tôi, tớ, mình</div>
+                    </div>
+                </div>
+
+                <div class="handwriting-layout">
+                    <div class="handwriting-practice-card">
+                        <div class="hw-card-title">
+                            <div>
+                                <strong>✍️ Ô luyện viết</strong>
+                                <span>Đặt ngón tay lên ô và viết chậm theo mẫu.</span>
+                            </div>
+                            <button type="button" id="hw-toggle-trace" class="hw-mini-btn">👁️ Mẫu nét</button>
+                        </div>
+
+                        <div class="handwriting-board-wrap">
+                            <div class="hw-grid-bg" aria-hidden="true"></div>
+                            <div id="trace-character" class="trace-character">我</div>
+                            <canvas id="handwriting-canvas" width="720" height="720" aria-label="Bảng luyện viết chữ Hán"></canvas>
+                        </div>
+
+                        <div class="hw-tools">
+                            <button type="button" id="hw-clear">🧹 Xóa</button>
+                            <button type="button" id="hw-prev">← Trước</button>
+                            <button type="button" id="hw-random">🎲 Ngẫu nhiên</button>
+                            <button type="button" id="hw-next">Tiếp →</button>
+                        </div>
+
+                        <div class="stroke-animation-card">
+                            <div class="stroke-animation-head">
+                                <div>
+                                    <strong>🎬 Xem cách viết từng nét</strong>
+                                    <span>Chữ sẽ hiện từng nét theo đúng thứ tự để người mới dễ quan sát.</span>
+                                </div>
+                                <span id="stroke-count-badge" class="stroke-count-badge">0 nét</span>
+                            </div>
+                            <div class="stroke-animation-stage">
+                                <div id="stroke-animation-character" aria-label="Hoạt ảnh thứ tự nét chữ Hán"></div>
+                                <div id="stroke-step-text" class="stroke-step-text">Nhấn “▶ Bắt đầu” để xem từng nét.</div>
+                            </div>
+                            <div class="stroke-animation-tools">
+                                <button type="button" id="stroke-replay">▶ Bắt đầu</button>
+                                <button type="button" id="stroke-speed">⚡ Tốc độ: Chậm</button>
+                                <button type="button" id="stroke-skip">⏭ Xem hoàn chỉnh</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="handwriting-guide-card">
+                        <div class="hw-guide-title">📖 Hướng dẫn viết chuẩn</div>
+                        <p class="hw-guide-intro">Ưu tiên <b>đúng thứ tự nét</b>, viết từ từ và giữ chữ cân đối trong ô.</p>
+                        <div class="stroke-rules">
+                            <div><b>1</b><span>Trên → dưới<br><small>从上到下</small></span></div>
+                            <div><b>2</b><span>Trái → phải<br><small>从左到右</small></span></div>
+                            <div><b>3</b><span>Ngang trước, dọc sau<br><small>先横后竖</small></span></div>
+                            <div><b>4</b><span>Phẩy trước, mác sau<br><small>先撇后捺</small></span></div>
+                            <div><b>5</b><span>Ngoài trước, trong sau<br><small>先外后内</small></span></div>
+                            <div><b>6</b><span>Trong trước, đóng khung sau<br><small>先里头后封口</small></span></div>
+                            <div><b>7</b><span>Giữa trước, hai bên sau<br><small>先中间后两边</small></span></div>
+                        </div>
+                        <div class="hw-tip-box">
+                            💡 <b>Mẹo:</b> Đừng cố viết nhanh. Hãy nhìn mẫu → nhớ thứ tự nét → viết → xóa → viết lại.
+                        </div>
+                    </aside>
+                </div>
+
+                <div class="hw-steps-card">
+                    <div class="hw-steps-title">🧠 Quy trình luyện 4 bước</div>
+                    <div class="hw-steps">
+                        <div><b>01</b><span>Nhìn mẫu</span><small>Quan sát cấu tạo chữ</small></div>
+                        <div><b>02</b><span>Viết theo nét mờ</span><small>Đi đúng hướng từng nét</small></div>
+                        <div><b>03</b><span>Tự viết</span><small>Tắt mẫu rồi viết lại</small></div>
+                        <div><b>04</b><span>So sánh</span><small>Kiểm tra bố cục và nét</small></div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-    <script src="./firebase-config.js"></script>
-    <script src="./firebase-init.js"></script>
-    <script src="./script.js"></script>
+    <script src="hsk6.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@2.1.0/dist/hanzi-writer-lib.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
