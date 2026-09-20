@@ -1,5 +1,3 @@
-
-// Dữ liệu Từ vựng HSK 1 (Đầy đủ 150/150 từ) và HSK 2 (Đầy đủ 150/150 từ)
 const hskData = {
     "1": [
         { word: "爱", pinyin: "ài", meaning: "yêu, thích" },
@@ -7699,235 +7697,75 @@ const hsk5Data = [
   }
 ]
 hskData[5] = hsk5Data;
+if (Array.isArray(window.HSK6_DATA)) hskData[6] = window.HSK6_DATA;
 
 let currentLevel = "1";
 let currentWordIndex = 0;
 let typingWordList = [];
 let currentCommFilter = "all";
-// ==========================================
-// FIREBASE - LƯU TIẾN ĐỘ HỌC TẬP TRÊN ĐÁM MÂY
-// ==========================================
-// Tiến trình được lưu theo Firebase UID, vì vậy mỗi tài khoản
-// có dữ liệu riêng và có thể tiếp tục học trên nhiều thiết bị.
 
-let cloudProgress = {};
-let firebaseUserReady = false;
-
-function getCurrentUser() {
-    return window.currentFirebaseUser || null;
-}
-
-function getUserId() {
-    return getCurrentUser()?.uid || null;
-}
-
-function getProgress() {
-    return cloudProgress || {};
-}
-
-async function loadCloudProgress() {
-    const user = getCurrentUser();
-    if (!user || !window.firebaseDb) return {};
-
-    try {
-        const ref = firebaseDb
-            .collection("users")
-            .doc(user.uid)
-            .collection("appData")
-            .doc("progress");
-
-        const snap = await ref.get();
-
-        if (snap.exists) {
-            cloudProgress = snap.data() || {};
-            return cloudProgress;
-        }
-
-        // Nếu người dùng từng học bằng phiên bản localStorage cũ,
-        // thử chuyển tiến trình sang Firebase (không chuyển mật khẩu).
-        const legacyUserId = user.email || user.uid;
-        let legacy = {};
-        try {
-            const all = JSON.parse(
-                localStorage.getItem("gh_hsk_progress_v1") || "{}"
-            );
-            legacy = all[legacyUserId] || {};
-        } catch (e) {
-            legacy = {};
-        }
-
-        cloudProgress = legacy || {};
-
-        if (Object.keys(cloudProgress).length) {
-            await ref.set({
-                ...cloudProgress,
-                migratedFromLocalStorage: true,
-                migratedAt: new Date().toISOString()
-            });
-        }
-
-        return cloudProgress;
-    } catch (error) {
-        console.error("Không thể tải tiến trình Firebase:", error);
-        cloudProgress = {};
-        return {};
-    }
-}
-
-async function saveProgress(data) {
-    const user = getCurrentUser();
-
-    if (!user || !window.firebaseDb) {
-        console.warn("Chưa đăng nhập Firebase, chưa thể lưu tiến trình.");
-        return;
-    }
-
-    cloudProgress = {
-        ...cloudProgress,
-        ...data,
-        updatedAt: new Date().toISOString()
-    };
-
-    updateProgressUI();
-
-    try {
-        const ref = firebaseDb
-            .collection("users")
-            .doc(user.uid)
-            .collection("appData")
-            .doc("progress");
-
-        await ref.set(cloudProgress);
-    } catch (error) {
-        console.error("Không thể lưu tiến trình lên Firebase:", error);
-    }
-}
-
-async function clearCloudProgress() {
-    const user = getCurrentUser();
-    if (!user || !window.firebaseDb) return;
-
-    try {
-        await firebaseDb
-            .collection("users")
-            .doc(user.uid)
-            .collection("appData")
-            .doc("progress")
-            .delete();
-
-        cloudProgress = {};
-        updateProgressUI();
-    } catch (error) {
-        console.error("Không thể xóa tiến trình:", error);
-    }
-}
-
-function getLevelProgress(level) {
-    const progress = getProgress();
-    const typing = progress.typing?.[level] || {};
-    const total = (hskData[level] || []).length;
-    const completed = Math.min(
-        Number.isFinite(typing.completed) ? typing.completed : (typing.index || 0),
-        total
-    );
-    return {
-        completed,
-        total,
-        percent: total ? Math.round((completed / total) * 100) : 0,
-        exam: progress.exam?.[level] || null
-    };
-}
-
-function updateProgressUI() {
-    const levelSelect = document.getElementById('hsk-level');
-    if (!levelSelect) return;
-
-    let panel = document.getElementById('hsk-progress-panel');
-    if (!panel) {
-        panel = document.createElement('div');
-        panel.id = 'hsk-progress-panel';
-        panel.style.cssText = 'margin:12px 0 18px;padding:14px 16px;border:1px solid #ddd;border-radius:12px;background:#fff;';
-        levelSelect.parentElement?.insertAdjacentElement('afterend', panel);
-    }
-
-    const info = getLevelProgress(currentLevel);
-    const examText = info.exam
-        ? ` | Điểm thi gần nhất: ${info.exam.score}/${info.exam.total}`
-        : '';
-
-    panel.innerHTML = `
-        <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px;">
-            <strong>📚 Tiến trình HSK ${currentLevel}</strong>
-            <strong>${info.percent}%</strong>
-        </div>
-        <div style="height:9px;background:#e9ecef;border-radius:99px;overflow:hidden;">
-            <div style="height:100%;width:${info.percent}%;background:#198754;transition:width .25s;"></div>
-        </div>
-        <div style="margin-top:8px;font-size:14px;color:#666;">
-            Từ đã luyện: ${info.completed}/${info.total}${examText}
-        </div>
-    `;
-}
-
-function restoreProgress() {
-    const progress = getProgress();
-    if (progress.currentLevel && hskData[progress.currentLevel]) {
-        currentLevel = progress.currentLevel;
-        const select = document.getElementById('hsk-level');
-        if (select) select.value = currentLevel;
-    }
-    updateProgressUI();
-}
-// Khởi tạo ứng dụng sau khi Firebase xác thực + tải tiến trình
+// Khởi tạo ứng dụng
 document.addEventListener('DOMContentLoaded', async () => {
-    const startApp = async () => {
-        const user = getCurrentUser();
+    const loader = document.getElementById('online-auth-loader');
 
+    try {
+        const user = window.ghAuthReady ? await window.ghAuthReady : null;
         if (!user) {
-            window.location.replace("./login.html");
+            if (loader) loader.innerHTML = '<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:360px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.10);"><div style="font-size:36px;">🔐</div><strong>Vui lòng đăng nhập</strong><p style="color:#718096;">Đang chuyển đến trang đăng nhập...</p></div>' ;
+            setTimeout(() => window.location.replace('./login.html'), 350);
             return;
         }
 
-        await loadCloudProgress();
-        firebaseUserReady = true;
+        const profile = await (window.ghAuth?.getProfile ? window.ghAuth.getProfile(user) : null);
+        window.ghUserProfile = profile || {};
+        const userChip = document.getElementById('online-user-chip');
+        if (userChip) userChip.textContent = '☁️ ' + (profile?.username || user.displayName || user.email || 'Tài khoản');
 
-        const levelSelect = document.getElementById('hsk-level');
-        if (levelSelect) {
-            levelSelect.addEventListener('change', (e) => {
-                currentLevel = e.target.value;
-                saveProgress({ currentLevel });
-                renderList();
-                initTyping();
-                updateExamStartInfo();
-                resetExamUI();
-                updateProgressUI();
+        document.getElementById('hsk-level').addEventListener('change', (e) => {
+            currentLevel = e.target.value;
+            renderList();
+            initTyping();
+            renderCommunication();
+            saveProgressData({ currentLevel });
+            saveHandwritingProgress();
+            if (document.getElementById('handwriting-canvas')) {
+                initHandwriting();
+            }
+        });
+        
+        document.getElementById('typing-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkTyping();
+            }
+        });
 
-                const searchInput = document.getElementById('vocab-search');
-                const resultCount = document.getElementById('search-result-count');
-                if (searchInput) searchInput.value = '';
-                if (resultCount) resultCount.textContent = '';
-            });
+        const saved = getProgressData();
+        if (saved.currentLevel) {
+            currentLevel = String(saved.currentLevel);
+            const select = document.getElementById('hsk-level');
+            if (select) select.value = currentLevel;
         }
-
-        const typingInput = document.getElementById('typing-input');
-        if (typingInput) {
-            typingInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') checkTyping();
-            });
-        }
-
-        restoreProgress();
         renderList();
         initTyping();
         renderCommunication();
+        initHandwriting();
         updateProgressUI();
-    };
 
-    if (window.firebaseReady) {
-        await window.firebaseReady;
-        await startApp();
-    } else {
-        console.error("Firebase chưa được tải.");
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) logoutBtn.addEventListener('click', async () => {
+            logoutBtn.disabled = true;
+            logoutBtn.textContent = 'Đang đăng xuất...';
+            try { await window.ghAuth.logout(); } finally { window.location.replace('./login.html'); }
+        });
+    } catch (error) {
+        console.error(error);
+        if (loader) loader.innerHTML = '<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:380px;text-align:center;"><div style="font-size:36px;">⚠️</div><strong>Không thể tải tài khoản</strong><p style="color:#718096;">Kiểm tra Firebase và kết nối Internet rồi tải lại trang.</p></div>' ;
+    } finally {
+        if (loader && window.ghCurrentUser) {
+            loader.style.opacity = '0';
+            loader.style.pointerEvents = 'none';
+            setTimeout(() => loader.remove(), 220);
+        }
     }
 });
 
@@ -7948,59 +7786,63 @@ function switchMode(mode) {
         resetExamUI();
     }
     if (mode === 'communication') renderCommunication();
+    if (mode === 'handwriting') initHandwriting();
+    if (mode === 'progress') updateProgressUI();
+}
+
+// Phát âm Mandarin bằng Speech Synthesis của trình duyệt
+function speakChinese(index) {
+    const list = hskData[currentLevel] || [];
+    const item = list[index];
+    if (!item || !item.word) return;
+
+    if (!('speechSynthesis' in window)) {
+        alert('Trình duyệt này không hỗ trợ phát âm.');
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(item.word);
+    utterance.lang = 'zh-CN';
+    utterance.rate = 0.78;
+    utterance.pitch = 1;
+
+    const voices = speechSynthesis.getVoices();
+    const voice = voices.find(v => /^zh-CN/i.test(v.lang));
+    if (voice) utterance.voice = voice;
+
+    speechSynthesis.speak(utterance);
 }
 
 // Render Danh sách từ
 function renderList() {
     const list = hskData[currentLevel] || [];
     const container = document.getElementById('word-list');
-    document.getElementById('total-words').textContent = list.length;
-    
-    container.innerHTML = list.map(item => `
+    const total = document.getElementById('total-words');
+
+    if (!container) return;
+    if (total) total.textContent = list.length;
+
+    container.innerHTML = list.map((item, index) => `
         <div class="word-card">
-            <div class="hanzi">${item.word}</div>
-            <div class="pinyin">${item.pinyin}</div>
-            <div class="meaning">${item.meaning}</div>
+            <div class="word-card-top">
+                <div class="hanzi">${item.word || ''}</div>
+                <button class="pronounce-btn" type="button"
+                    title="Phát âm tiếng Trung"
+                    aria-label="Phát âm ${item.word || ''}"
+                    onclick="speakChinese(${index})">🔊</button>
+            </div>
+            <div class="pinyin">${item.pinyin || ''}</div>
+            <div class="meaning">${item.meaning || ''}</div>
         </div>
     `).join('');
 }
 
 // Khởi tạo bài tập gõ
 function initTyping() {
-    const list = [...(hskData[currentLevel] || [])];
-    const saved = getProgress().typing?.[currentLevel];
-
-    // Khôi phục đúng thứ tự từ và vị trí đang học nếu còn hợp lệ.
-    if (saved?.wordIds?.length === list.length) {
-        const byId = new Map(list.map((item, index) => [
-            `${item.word}|${item.pinyin}|${index}`, item
-        ]));
-        const restored = [];
-        const used = new Set();
-
-        saved.wordIds.forEach(id => {
-            const index = list.findIndex((item, i) =>
-                `${item.word}|${item.pinyin}|${i}` === id
-            );
-            if (index >= 0 && !used.has(index)) {
-                restored.push(list[index]);
-                used.add(index);
-            }
-        });
-
-        if (restored.length === list.length) {
-            typingWordList = restored;
-            currentWordIndex = Math.max(
-                0,
-                Math.min(Number(saved.index) || 0, typingWordList.length)
-            );
-            showTypingWord();
-            updateProgressUI();
-            return;
-        }
-    }
-
-    typingWordList = list.sort(() => Math.random() - 0.5);
+    typingWordList = [...(hskData[currentLevel] || [])];
+    typingWordList.sort(() => Math.random() - 0.5); 
     currentWordIndex = 0;
     showTypingWord();
 }
@@ -8064,23 +7906,9 @@ function checkTyping() {
 
 function nextTypingWord() {
     currentWordIndex++;
-
-    const wordIds = typingWordList.map((item, index) =>
-        `${item.word}|${item.pinyin}|${index}`
-    );
-
-    saveProgress({
-        typing: {
-            ...(getProgress().typing || {}),
-            [currentLevel]: {
-                index: currentWordIndex,
-                completed: Math.min(currentWordIndex, typingWordList.length),
-                wordIds
-            }
-        }
-    });
-
+    saveProgressData({ currentLevel, typingCompleted: Math.max(Number(getProgressData().typingCompleted || 0), currentWordIndex) });
     showTypingWord();
+    updateProgressUI();
 }
 
 // ----------------------------------------------------
@@ -8207,7 +8035,8 @@ const HSK_QUESTION_COUNT = {
     "2": 110,
     "3": 210,
     "4": 320,
-    "5": 400
+    "5": 400,
+    "6": 400
 };
 
 // Cập nhật thông tin màn hình bắt đầu thi
@@ -8315,19 +8144,6 @@ function checkExamAnswer(selected, correct, btn) {
     }
 
     document.getElementById('quiz-score').innerText = examScore;
-
-    saveProgress({
-        exam: {
-            ...(getProgress().exam || {}),
-            [currentLevel]: {
-                score: examScore,
-                total: examQuestions.length,
-                questionIndex: currentQuestionIndex,
-                finished: false
-            }
-        }
-    });
-
     document.getElementById('next-quiz-btn').classList.remove('hidden');
 }
 
@@ -8350,6 +8166,20 @@ function finishExam() {
     document.getElementById('final-total').innerText = examQuestions.length;
 
     const percentage = (examScore / examQuestions.length) * 100;
+    const examResult = {
+        level: String(currentLevel),
+        score: examScore,
+        total: examQuestions.length,
+        percentage: Math.round(percentage),
+        completedAt: new Date().toISOString()
+    };
+    const oldProgress = getProgressData();
+    const oldExams = Array.isArray(oldProgress.exams) ? oldProgress.exams : [];
+    saveProgressData({
+        currentLevel: String(currentLevel),
+        exams: [...oldExams.slice(-49), examResult]
+    });
+
     let msg = '';
     if (percentage === 100) msg = '🎉 Xuất sắc! Bạn đã đạt điểm tuyệt đối!';
     else if (percentage >= 80) msg = '👏 Rất tốt! Bạn nắm rất vững từ vựng cấp độ này.';
@@ -8357,18 +8187,6 @@ function finishExam() {
     else msg = '💪 Cần cố gắng thêm! Hãy xem lại danh sách từ vựng và thử lại nhé.';
     
     document.getElementById('result-message').innerText = msg;
-
-    saveProgress({
-        exam: {
-            ...(getProgress().exam || {}),
-            [currentLevel]: {
-                score: examScore,
-                total: examQuestions.length,
-                questionIndex: examQuestions.length,
-                finished: true
-            }
-        }
-    });
 }
 
 // Reset bài thi
@@ -8396,8 +8214,7 @@ function resetExamUI() {
 function changeLevel() {
     const levelSelect = document.getElementById('hsk-level');
     currentLevel = levelSelect ? levelSelect.value : '1';
-
-    saveProgress({ currentLevel });
+    saveProgressData({ currentLevel });
 
     renderList();
     initTyping();
@@ -8788,59 +8605,34 @@ if (typeof originalResetExamUIWithTimer === "function") {
 
 
 // ============================================================
-// 3. THÊM CHẾ ĐỘ LUYỆN VIẾT
+// 3. CHẾ ĐỘ LUYỆN VIẾT CHỮ HÁN
 // ============================================================
 
-// Giữ switchMode cũ
-const originalSwitchModeWriting =
-    window.switchMode;
+const originalSwitchMode = window.switchMode;
 
+window.switchMode = function(mode) {
+    if (mode !== 'handwriting') {
+        return originalSwitchMode(mode);
+    }
 
-window.switchMode = function (mode) {
+    document.querySelectorAll('main > section, section').forEach(section => {
+        section.classList.remove('active');
+    });
 
-    // Tab mới: writing
-    if (mode === "writing") {
+    const section =
+        document.getElementById('handwriting-mode') ||
+        document.getElementById('handwriting');
 
-        document
-            .querySelectorAll("main > section")
-            .forEach(section => {
-
-                section.classList.remove("active");
-
-            });
-
-
-        const writingMode =
-            document.getElementById("writing-mode");
-
-
-        if (writingMode) {
-
-            writingMode.classList.add("active");
-
-        }
-
-
-        // Nếu đang thi mà chuyển tab
-        stopExamTimer();
-
+    if (!section) {
+        console.warn('Thiếu section #handwriting-mode hoặc #handwriting.');
         return;
-
     }
 
+    section.classList.add('active');
 
-    // Các tab cũ vẫn chạy y nguyên
-    if (typeof originalSwitchModeWriting === "function") {
-
-        originalSwitchModeWriting.apply(
-            this,
-            arguments
-        );
-
-    }
-
+    if (typeof stopExamTimer === 'function') stopExamTimer();
+    initHandwriting();
 };
-
 
 // ============================================================
 // ĐẾM KÝ TỰ BÀI VIẾT
@@ -8974,9 +8766,6 @@ function showWritingResult(data, originalText) {
         "writing-corrected"
     ).innerHTML =
         `<p style="font-size:1.2rem;">
-            ${data.corrected && data.corrected.trim() !== originalText.trim()
-                ? "✏️ Đã tự sửa: "
-                : "✅ Câu của bạn: "}
             ${escapeAIHTML(
                 data.corrected || originalText
             )}
@@ -9008,7 +8797,7 @@ function showWritingResult(data, originalText) {
 
                     <span style="color:#28a745;">
                         ${escapeAIHTML(
-                            (error.corrected || error.correction || "")
+                            error.corrected || ""
                         )}
                     </span>
 
@@ -9180,25 +8969,6 @@ async function gradeWritingWithAI() {
             await response.json();
 
 
-        // TỰ ĐỘNG SỬA NGAY TRONG Ô BÀI VIẾT
-        // Nếu AI thực sự đưa ra phiên bản khác, thay nội dung ô nhập
-        // bằng câu đã sửa để người học có thể tiếp tục chỉnh sửa.
-        if (
-            data &&
-            typeof data.corrected === "string" &&
-            data.corrected.trim() &&
-            data.corrected.trim() !== text
-        ) {
-            input.value = data.corrected.trim();
-
-            const count =
-                document.getElementById("writing-char-count");
-
-            if (count) {
-                count.innerText = input.value.length;
-            }
-        }
-
         showWritingResult(
             data,
             text
@@ -9314,25 +9084,559 @@ function showLocalWritingCheck(
     );
 
 }
-// ===============================
-// ĐĂNG XUẤT FIREBASE
-// ===============================
-document.addEventListener("DOMContentLoaded", function () {
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (!logoutBtn) return;
+// =====================================================
+// LƯU TIẾN TRÌNH ONLINE THEO TÀI KHOẢN FIREBASE
+// =====================================================
+let onlineProgressCache = {};
 
-    logoutBtn.addEventListener("click", async function () {
-        const ok = confirm("Bạn có chắc muốn đăng xuất không?");
-        if (!ok) return;
+function getLoggedUserForProgress() {
+    const user = window.ghCurrentUser || (window.ghAuth && window.ghAuth.getUser ? window.ghAuth.getUser() : null);
+    if (!user) return null;
+    return {
+        uid: user.uid,
+        email: user.email || '',
+        username: window.ghUserProfile?.username || user.displayName || user.email || 'Tài khoản'
+    };
+}
 
-        try {
-            if (window.firebaseAuth) {
-                await firebaseAuth.signOut();
-            }
-        } catch (error) {
-            console.error("Lỗi đăng xuất:", error);
+function getProgressData() {
+    if (window.ghAuth?.getProgress) {
+        onlineProgressCache = window.ghAuth.getProgress() || {};
+    }
+    return { ...onlineProgressCache };
+}
+
+function saveProgressData(patch) {
+    if (!window.ghAuth?.saveProgress) return;
+    onlineProgressCache = { ...onlineProgressCache, ...(patch || {}), updatedAt: new Date().toISOString() };
+    window.ghAuth.saveProgress(patch || {}).catch(error => {
+        console.warn('Không thể lưu tiến trình online:', error);
+    });
+}
+
+function updateProgressUI() {
+    const p = getProgressData();
+    const user = getLoggedUserForProgress();
+    const level = String(p.currentLevel || currentLevel || '1');
+    const total = (hskData[level] || []).length;
+    const typed = Math.min(Number(p.typingCompleted || 0), total);
+    const hwIndex = p.handwriting && String(p.handwriting.level) === level ? Number(p.handwriting.index || 0) : 0;
+    const hwPercent = total ? Math.min(100, Math.round(((hwIndex + 1) / total) * 100)) : 0;
+    const typingPercent = total ? Math.min(100, Math.round((typed / total) * 100)) : 0;
+    const exams = Array.isArray(p.exams) ? p.exams : [];
+
+    const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+    set('progress-account', user ? (user.username || user.email || 'Tài khoản') : 'Chưa đăng nhập');
+    set('progress-level', `HSK ${level}`);
+    set('progress-level-detail', `${total} từ trong cấp độ này`);
+    set('progress-typing', `${typingPercent}%`);
+    set('progress-typing-detail', `${typed} / ${total} từ đã hoàn thành`);
+    set('progress-handwriting', `${hwPercent}%`);
+    set('progress-handwriting-detail', total ? `Đang ở từ ${Math.min(hwIndex + 1, total)} / ${total}` : 'Chưa có dữ liệu');
+    set('progress-exam', `${exams.length} bài`);
+    const lastExam = exams[exams.length - 1];
+    set('progress-exam-detail', lastExam ? `${lastExam.score}/${lastExam.total} • HSK ${lastExam.level}` : 'Chưa có kết quả');
+    set('progress-total-label', `${total} từ HSK ${level}`);
+    const fill = document.getElementById('progress-bar-fill');
+    if (fill) fill.style.width = `${Math.max(typingPercent, hwPercent)}%`;
+    set('progress-summary', total ? `Bạn đang học HSK ${level}. Bài gõ đã hoàn thành ${typed}/${total}; luyện viết đang ở ${Math.min(hwIndex + 1, total)}/${total}.` : 'Chưa có dữ liệu học tập.');
+}
+
+async function resetMyProgress() {
+    if (!confirm('Xóa toàn bộ tiến trình học online của tài khoản này?')) return;
+    if (!window.ghAuth?.deleteProgress) return;
+    const ok = await window.ghAuth.deleteProgress();
+    if (!ok) { alert('Không thể xóa tiến trình online. Hãy kiểm tra kết nối.'); return; }
+    onlineProgressCache = {};
+    currentLevel = '1';
+    const select = document.getElementById('hsk-level');
+    if (select) select.value = '1';
+    renderList(); initTyping(); renderCommunication(); updateProgressUI();
+    alert('Đã xóa tiến trình online của tài khoản này.');
+}
+
+// =====================================================
+// LUYỆN VIẾT CHỮ HÁN
+// =====================================================
+
+let handwritingIndex = 0;
+let handwritingWords = [];
+let handwritingDrawing = false;
+let handwritingReady = false;
+let handwritingInkCanvas = null;
+let handwritingInkCtx = null;
+let handwritingMaskCanvas = null;
+let handwritingMaskCtx = null;
+
+function getHandwritingProgress() {
+    return getProgressData();
+}
+
+function saveHandwritingProgress() {
+    saveProgressData({
+        currentLevel,
+        handwriting: {
+            level: currentLevel,
+            index: handwritingIndex
+        }
+    });
+    updateProgressUI();
+}
+
+function setHandwritingText(hanzi, pinyin, meaning) {
+    const a = document.getElementById('handwriting-hanzi');
+    const b = document.getElementById('handwriting-pinyin');
+    const c = document.getElementById('handwriting-meaning');
+    const d = document.getElementById('trace-character');
+    const e = document.getElementById('handwriting-level');
+    const f = document.getElementById('hw-progress');
+
+    if (a) a.textContent = hanzi;
+    if (b) b.textContent = pinyin;
+    if (c) c.textContent = meaning;
+    if (d) d.textContent = hanzi;
+    if (typeof buildHandwritingMask === 'function') buildHandwritingMask(hanzi);
+    if (e) e.textContent = `HSK ${currentLevel}`;
+    if (f) f.textContent = handwritingWords.length
+        ? `${handwritingIndex + 1} / ${handwritingWords.length}`
+        : '0 / 0';
+
+    // Cập nhật hoạt ảnh thứ tự nét theo chữ hiện tại.
+    if (typeof window.updateStrokeOrderAnimation === 'function') {
+        window.updateStrokeOrderAnimation();
+    }
+}
+
+function initHandwriting() {
+    const canvas = document.getElementById('handwriting-canvas');
+    if (!canvas) return;
+
+    handwritingWords = hskData[currentLevel] || [];
+
+    if (!handwritingWords.length) {
+        setHandwritingText(
+            '暂无',
+            '',
+            `Chưa có dữ liệu HSK ${currentLevel}`
+        );
+        return;
+    }
+
+    const progress = getHandwritingProgress();
+
+    if (
+        progress.handwriting &&
+        String(progress.handwriting.level) === String(currentLevel)
+    ) {
+        handwritingIndex = Number(progress.handwriting.index) || 0;
+    } else {
+        handwritingIndex = 0;
+    }
+
+    handwritingIndex =
+        Math.max(0, Math.min(handwritingIndex, handwritingWords.length - 1));
+
+    setupHandwritingCanvas();
+    showHandwritingWord();
+}
+
+function showHandwritingWord() {
+    if (!handwritingWords.length) return;
+
+    const item = handwritingWords[handwritingIndex] || {};
+    const hanzi = item.word || item.hanzi || item.chinese || '';
+    const pinyin = item.pinyin || '';
+    const meaning = item.meaning || item.vietnamese || item.vi || '';
+
+    setHandwritingText(hanzi, pinyin, meaning);
+    clearHandwritingCanvas();
+    saveHandwritingProgress();
+}
+
+function setupHandwritingCanvas() {
+    const canvas = document.getElementById('handwriting-canvas');
+    if (!canvas || handwritingReady) return;
+
+    handwritingReady = true;
+
+    // Canvas phụ để giữ nét người dùng vẽ.
+    // Nét sẽ được cắt theo hình chữ Hán mẫu để không bị vẽ tràn ra ngoài chữ.
+    const inkCanvas = document.createElement('canvas');
+    inkCanvas.width = canvas.width;
+    inkCanvas.height = canvas.height;
+    const inkCtx = inkCanvas.getContext('2d');
+
+    const ctx = canvas.getContext('2d');
+    let lastPoint = null;
+
+    inkCtx.lineWidth = 18;
+    inkCtx.lineCap = 'round';
+    inkCtx.lineJoin = 'round';
+    inkCtx.strokeStyle = 'rgba(25, 30, 36, 0.72)';
+
+    // Canvas mask dùng chính chữ đang luyện làm vùng cho phép vẽ.
+    const maskCanvas = document.createElement('canvas');
+    maskCanvas.width = canvas.width;
+    maskCanvas.height = canvas.height;
+    const maskCtx = maskCanvas.getContext('2d');
+
+    handwritingInkCanvas = inkCanvas;
+    handwritingInkCtx = inkCtx;
+    handwritingMaskCanvas = maskCanvas;
+    handwritingMaskCtx = maskCtx;
+
+    const pos = e => {
+        const rect = canvas.getBoundingClientRect();
+        const p = e.touches ? e.touches[0] : e;
+        return {
+            x: (p.clientX - rect.left) * canvas.width / rect.width,
+            y: (p.clientY - rect.top) * canvas.height / rect.height
+        };
+    };
+
+    const renderInk = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.drawImage(inkCanvas, 0, 0);
+
+        // Chỉ giữ lại phần nét nằm trong thân chữ mẫu.
+        ctx.globalCompositeOperation = 'destination-in';
+        ctx.drawImage(maskCanvas, 0, 0);
+        ctx.globalCompositeOperation = 'source-over';
+    };
+
+    const start = e => {
+        e.preventDefault();
+        handwritingDrawing = true;
+        lastPoint = pos(e);
+        inkCtx.beginPath();
+        inkCtx.moveTo(lastPoint.x, lastPoint.y);
+    };
+
+    const draw = e => {
+        if (!handwritingDrawing) return;
+        e.preventDefault();
+
+        const p = pos(e);
+
+        // Làm mượt nét để khi kéo ngón tay trên điện thoại không bị răng cưa.
+        if (lastPoint) {
+            const midX = (lastPoint.x + p.x) / 2;
+            const midY = (lastPoint.y + p.y) / 2;
+            inkCtx.quadraticCurveTo(lastPoint.x, lastPoint.y, midX, midY);
+            inkCtx.stroke();
+            inkCtx.beginPath();
+            inkCtx.moveTo(midX, midY);
         }
 
-        window.location.replace("./login.html");
-    });
+        lastPoint = p;
+        renderInk();
+    };
+
+    const stop = () => {
+        if (!handwritingDrawing) return;
+        handwritingDrawing = false;
+        lastPoint = null;
+        inkCtx.closePath();
+    };
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stop);
+    canvas.addEventListener('mouseleave', stop);
+    canvas.addEventListener('touchstart', start, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchend', stop);
+    canvas.addEventListener('touchcancel', stop);
+
+    // Lưu hàm render để đổi chữ / xóa nét mà không phải gắn lại event.
+    window.renderHandwritingInk = renderInk;
+}
+
+function buildHandwritingMask(hanzi) {
+    if (!handwritingMaskCanvas || !handwritingMaskCtx) return;
+
+    const c = handwritingMaskCanvas;
+    const ctx = handwritingMaskCtx;
+    ctx.clearRect(0, 0, c.width, c.height);
+
+    if (!hanzi) return;
+
+    const chars = String(hanzi).trim();
+    const count = Math.max(1, [...chars].length);
+    let fontSize = 500;
+
+    if (count === 2) fontSize = 330;
+    else if (count === 3) fontSize = 250;
+    else if (count >= 4) fontSize = 190;
+
+    ctx.fillStyle = '#000';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = `700 ${fontSize}px "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif`;
+    ctx.fillText(chars, c.width / 2, c.height / 2);
+}
+
+function clearHandwritingCanvas() {
+    const canvas = document.getElementById('handwriting-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (handwritingInkCtx && handwritingInkCanvas) {
+        handwritingInkCtx.clearRect(0, 0, handwritingInkCanvas.width, handwritingInkCanvas.height);
+    }
+
+    if (typeof window.renderHandwritingInk === 'function') {
+        window.renderHandwritingInk();
+    }
+}
+
+function nextHandwritingWord(step) {
+    if (!handwritingWords.length) return;
+    handwritingIndex =
+        (handwritingIndex + step + handwritingWords.length) %
+        handwritingWords.length;
+    showHandwritingWord();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const prev = document.getElementById('hw-prev');
+    const next = document.getElementById('hw-next');
+    const clear = document.getElementById('hw-clear');
+    const random = document.getElementById('hw-random');
+    const trace = document.getElementById('hw-toggle-trace');
+
+    if (prev) prev.onclick = () => nextHandwritingWord(-1);
+    if (next) next.onclick = () => nextHandwritingWord(1);
+    if (clear) clear.onclick = clearHandwritingCanvas;
+
+    if (random) {
+        random.onclick = () => {
+            if (!handwritingWords.length) return;
+            handwritingIndex =
+                Math.floor(Math.random() * handwritingWords.length);
+            showHandwritingWord();
+        };
+    }
+
+    if (trace) {
+        trace.onclick = () => {
+            const el = document.getElementById('trace-character');
+            if (el) {
+                el.style.display =
+                    el.style.display === 'none' ? 'block' : 'none';
+            }
+        };
+    }
 });
+
+
+// ============================================================
+// NÂNG CẤP LUYỆN VIẾT - MOBILE + PHÁT ÂM
+// ============================================================
+function speakHandwritingWord() {
+    const item = handwritingWords[handwritingIndex] || {};
+    const word = item.word || item.hanzi || item.chinese || '';
+    if (!word || !('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = 'zh-CN';
+    u.rate = 0.72;
+    u.pitch = 1;
+    const voices = speechSynthesis.getVoices();
+    const voice = voices.find(v => /^zh-CN/i.test(v.lang));
+    if (voice) u.voice = voice;
+    speechSynthesis.speak(u);
+}
+
+// Khi đổi level, nếu đang ở tab luyện viết thì cập nhật ngay chữ mẫu.
+(function patchHandwritingLevelChange(){
+    document.addEventListener('DOMContentLoaded', function(){
+        const select = document.getElementById('hsk-level');
+        if (!select) return;
+        select.addEventListener('change', function(){
+            const active = document.getElementById('handwriting-mode');
+            if (active && active.classList.contains('active')) {
+                handwritingReady = false;
+                initHandwriting();
+            }
+        });
+    });
+})();
+
+// ============================================================
+// HOẠT ẢNH THỨ TỰ NÉT HÁN TỰ
+// Dùng Hanzi Writer để hiển thị đúng hình dáng và thứ tự từng nét.
+// ============================================================
+(function initStrokeOrderAnimation(){
+    let strokeWriter = null;
+    let strokeChars = [];
+    let strokeCharIndex = 0;
+    let strokeSpeed = 1.25;
+    let strokePlaying = false;
+
+    function getCurrentHanzi(){
+        const item = handwritingWords[handwritingIndex] || {};
+        return String(item.word || item.hanzi || item.chinese || '').trim();
+    }
+
+    function getStrokeHost(){
+        return document.getElementById('stroke-animation-character');
+    }
+
+    function setStrokeText(text){
+        const el = document.getElementById('stroke-step-text');
+        if (el) el.textContent = text;
+    }
+
+    function setStrokeCount(count){
+        const el = document.getElementById('stroke-count-badge');
+        if (el) el.textContent = `${count || 0} nét`;
+    }
+
+    function clearStrokeWriter(){
+        strokePlaying = false;
+        if (strokeWriter && typeof strokeWriter.cancelQuiz === 'function') {
+            try { strokeWriter.cancelQuiz(); } catch(e) {}
+        }
+        strokeWriter = null;
+        const host = getStrokeHost();
+        if (host) host.innerHTML = '';
+    }
+
+    function renderStrokeCharacter(char, autoPlay){
+        const host = getStrokeHost();
+        if (!host) return;
+
+        clearStrokeWriter();
+        host.innerHTML = '';
+
+        if (!char) {
+            setStrokeCount(0);
+            setStrokeText('Chưa có chữ để hướng dẫn.');
+            return;
+        }
+
+        if (typeof window.HanziWriter !== 'function') {
+            setStrokeCount(0);
+            setStrokeText('Không tải được dữ liệu thứ tự nét. Bạn vẫn có thể luyện viết trong ô bên trên.');
+            return;
+        }
+
+        try {
+            strokeWriter = HanziWriter.create(host, char, {
+                width: 200,
+                height: 170,
+                padding: 5,
+                showOutline: true,
+                showCharacter: false,
+                strokeAnimationSpeed: strokeSpeed,
+                strokeFadeDuration: 220,
+                strokeHighlightSpeed: strokeSpeed,
+                drawingFadeDuration: 200,
+                highlightOnComplete: false,
+                drawingColor: '#0984e3',
+                strokeColor: '#d63031',
+                outlineColor: 'rgba(9,132,227,.18)',
+                radicalColor: '#0984e3',
+                showHintAfterMisses: 0
+            });
+
+            // Lấy số nét từ dữ liệu ký tự mà Hanzi Writer tải.
+            const count = strokeWriter._charData && Array.isArray(strokeWriter._charData.strokes)
+                ? strokeWriter._charData.strokes.length
+                : 0;
+            setStrokeCount(count);
+            setStrokeText(`Chữ “${char}” có ${count || '?'} nét. Quan sát từng nét từ từ.`);
+
+            if (autoPlay) playCurrentStrokeAnimation();
+        } catch (err) {
+            console.warn('Không thể khởi tạo hoạt ảnh thứ tự nét:', err);
+            setStrokeText(`Không thể phát hoạt ảnh chữ “${char}”.`);
+        }
+    }
+
+    function playCurrentStrokeAnimation(){
+        if (!strokeWriter) return;
+        strokePlaying = true;
+        setStrokeText(`▶ Đang hướng dẫn chữ “${strokeChars[strokeCharIndex] || getCurrentHanzi()}” từng nét...`);
+
+        try {
+            strokeWriter.animateCharacter({
+                onComplete: function(){
+                    strokePlaying = false;
+                    const char = strokeChars[strokeCharIndex] || getCurrentHanzi();
+                    const count = strokeWriter._charData && strokeWriter._charData.strokes
+                        ? strokeWriter._charData.strokes.length : 0;
+                    setStrokeText(`✅ Đã xem đủ ${count || ''} nét của chữ “${char}”. Hãy thử tự viết lại ở ô phía trên.`);
+                }
+            });
+        } catch (err) {
+            strokePlaying = false;
+            console.warn('Lỗi phát hoạt ảnh:', err);
+        }
+    }
+
+    function replayStrokeAnimation(){
+        const text = getCurrentHanzi();
+        strokeChars = [...text].filter(Boolean);
+        strokeCharIndex = 0;
+        if (!strokeChars.length) return;
+        renderStrokeCharacter(strokeChars[0], true);
+    }
+
+    function skipStrokeAnimation(){
+        if (!strokeWriter) return;
+        try {
+            strokeWriter.showCharacter({
+                showOutline: true,
+                showCharacter: true
+            });
+            strokePlaying = false;
+            const char = strokeChars[strokeCharIndex] || getCurrentHanzi();
+            const count = strokeWriter._charData && strokeWriter._charData.strokes
+                ? strokeWriter._charData.strokes.length : 0;
+            setStrokeText(`👀 Đây là chữ hoàn chỉnh. Nhấn “▶ Bắt đầu” để xem lại từng nét.`);
+            setStrokeCount(count);
+        } catch(e) {}
+    }
+
+    function updateStrokeAnimationForWord(){
+        const text = getCurrentHanzi();
+        strokeChars = [...text].filter(Boolean);
+        strokeCharIndex = 0;
+        if (!strokeChars.length) {
+            clearStrokeWriter();
+            setStrokeText('Chưa có chữ để hướng dẫn.');
+            setStrokeCount(0);
+            return;
+        }
+        renderStrokeCharacter(strokeChars[0], false);
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+        const replay = document.getElementById('stroke-replay');
+        const speed = document.getElementById('stroke-speed');
+        const skip = document.getElementById('stroke-skip');
+
+        if (replay) replay.addEventListener('click', replayStrokeAnimation);
+        if (skip) skip.addEventListener('click', skipStrokeAnimation);
+        if (speed) speed.addEventListener('click', function(){
+            if (strokeSpeed === 1.25) {
+                strokeSpeed = 2.1;
+                speed.textContent = '⚡ Tốc độ: Nhanh';
+            } else {
+                strokeSpeed = 1.25;
+                speed.textContent = '⚡ Tốc độ: Chậm';
+            }
+            if (strokeWriter) renderStrokeCharacter(strokeChars[strokeCharIndex] || getCurrentHanzi(), false);
+        });
+
+        updateStrokeAnimationForWord();
+    });
+
+    // Được gọi sau mỗi lần đổi chữ Hán.
+    window.updateStrokeOrderAnimation = updateStrokeAnimationForWord;
+})();
