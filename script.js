@@ -7805,6 +7805,7 @@ function switchMode(mode) {
     section.classList.add('active');
 
     if (mode === 'typing') initTyping();
+    if (mode === 'listening') initListening();
     if (mode === 'exam') {
         updateExamStartInfo();
         resetExamUI();
@@ -9789,3 +9790,86 @@ function speakHandwritingWord() {
     window.updateStrokeOrderAnimation=update;
 })();
 
+
+
+// ============================================================
+// LUYỆN NGHE PHẢN XẠ - CHỌN CÂU ĐÚNG
+// Không cần file âm thanh ngoài: dùng SpeechSynthesis của trình duyệt,
+// vì vậy có thể chạy offline nếu thiết bị có giọng zh-CN/zh-TW.
+// ============================================================
+const LISTENING_BANK = [
+ {level:1,audio:'你好。',pinyin:'Nǐ hǎo.',options:['你好。','你好吗？','谢谢你。','再见。'],correct:0},
+ {level:1,audio:'你叫什么名字？',pinyin:'Nǐ jiào shénme míngzi?',options:['你叫什么名字？','你住在哪里？','你是哪国人？','你喜欢什么？'],correct:0},
+ {level:1,audio:'我叫王明。',pinyin:'Wǒ jiào Wáng Míng.',options:['我叫王明。','我姓王。','我是学生。','我很好。'],correct:0},
+ {level:1,audio:'谢谢你。',pinyin:'Xièxie nǐ.',options:['对不起。','谢谢你。','没关系。','请进。'],correct:1},
+ {level:1,audio:'明天见。',pinyin:'Míngtiān jiàn.',options:['昨天见。','明天见。','现在见。','晚上好。'],correct:1},
+ {level:1,audio:'我喜欢喝茶。',pinyin:'Wǒ xǐhuan hē chá.',options:['我喜欢喝咖啡。','我喜欢吃米饭。','我喜欢喝茶。','我不喝茶。'],correct:2},
+ {level:2,audio:'你今天忙不忙？',pinyin:'Nǐ jīntiān máng bu máng?',options:['你今天忙不忙？','你今天累不累？','你明天去不去？','你喜欢不喜欢？'],correct:0},
+ {level:2,audio:'我正在学习汉语。',pinyin:'Wǒ zhèngzài xuéxí Hànyǔ.',options:['我正在学习英语。','我正在学习汉语。','我已经学完汉语了。','我不学习汉语。'],correct:1},
+ {level:2,audio:'请给我一杯水。',pinyin:'Qǐng gěi wǒ yì bēi shuǐ.',options:['请给我一杯茶。','请给我一瓶水。','请给我一杯水。','请给我一碗饭。'],correct:2},
+ {level:2,audio:'他昨天没有上班。',pinyin:'Tā zuótiān méiyǒu shàngbān.',options:['他昨天上班了。','他今天没有上班。','他昨天没有上班。','他明天不上班。'],correct:2},
+ {level:3,audio:'我已经吃过晚饭了。',pinyin:'Wǒ yǐjīng chīguò wǎnfàn le.',options:['我正在吃晚饭。','我还没吃晚饭。','我已经吃过晚饭了。','我明天吃晚饭。'],correct:2},
+ {level:3,audio:'如果下雨，我们就不出去了。',pinyin:'Rúguǒ xiàyǔ, wǒmen jiù bù chūqù le.',options:['如果下雨，我们就不出去了。','如果下雨，我们还是出去。','因为下雨，所以我们已经回来了。','虽然下雨，但是我们没出门。'],correct:0},
+ {level:3,audio:'她比我早到十分钟。',pinyin:'Tā bǐ wǒ zǎo dào shí fēnzhōng.',options:['她比我晚到十分钟。','她和我同时到。','她比我早到十分钟。','她比我早走十分钟。'],correct:2},
+ {level:3,audio:'请你把门关上。',pinyin:'Qǐng nǐ bǎ mén guān shàng.',options:['请你把窗户打开。','请你把门关上。','请你把灯关掉。','请你把门打开。'],correct:1},
+ {level:4,audio:'虽然天气很冷，但是他还是坚持跑步。',pinyin:'Suīrán tiānqì hěn lěng, dànshì tā háishi jiānchí pǎobù.',options:['天气很冷，所以他没有跑步。','天气不冷，但是他坚持跑步。','虽然天气很冷，但是他还是坚持跑步。','因为天气很热，所以他去跑步。'],correct:2},
+ {level:4,audio:'我们应该提前做好准备。',pinyin:'Wǒmen yīnggāi tíqián zuò hǎo zhǔnbèi.',options:['我们应该提前做好准备。','我们已经取消了准备。','我们不需要提前准备。','我们准备得太晚了。'],correct:0},
+ {level:4,audio:'这件事情给我留下了深刻的印象。',pinyin:'Zhè jiàn shìqing gěi wǒ liúxià le shēnkè de yìnxiàng.',options:['这件事情让我觉得很无聊。','这件事情给我留下了深刻的印象。','这件事情已经被我忘记了。','这件事情没有发生过。'],correct:1},
+ {level:5,audio:'经过讨论以后，大家终于达成了一致意见。',pinyin:'Jīngguò tǎolùn yǐhòu, dàjiā zhōngyú dáchéng le yízhì yìjiàn.',options:['大家没有进行讨论。','大家马上改变了意见。','大家经过讨论后达成了一致意见。','大家拒绝了这个意见。'],correct:2},
+ {level:5,audio:'这个问题需要从多个角度进行分析。',pinyin:'Zhège wèntí xūyào cóng duō gè jiǎodù jìnxíng fēnxī.',options:['这个问题不需要分析。','这个问题只能从一个角度看。','这个问题需要从多个角度进行分析。','这个问题已经完全解决了。'],correct:2},
+ {level:6,audio:'无论遇到什么困难，我们都应该保持冷静。',pinyin:'Wúlùn yùdào shénme kùnnan, wǒmen dōu yīnggāi bǎochí lěngjìng.',options:['遇到困难时应该马上放弃。','无论遇到什么困难，我们都应该保持冷静。','只有没有困难时才能保持冷静。','遇到困难以后就不要行动。'],correct:1}
+];
+let listeningQuestions=[], listeningIndex=0, listeningScore=0, listeningAnswered=false;
+function initListening(){
+  const level=Number(document.getElementById('hsk-level')?.value||1);
+  listeningQuestions=LISTENING_BANK.filter(x=>x.level<=Math.max(1,level));
+  if(!listeningQuestions.length) listeningQuestions=[...LISTENING_BANK];
+  listeningQuestions=[...listeningQuestions].sort(()=>Math.random()-0.5);
+  listeningIndex=0; listeningScore=0; listeningAnswered=false;
+  renderListeningQuestion();
+}
+function speakListeningSentence(){
+  const q=listeningQuestions[listeningIndex]; if(!q) return;
+  if(!('speechSynthesis' in window)){ const h=document.getElementById('listening-hint'); if(h) h.textContent='Thiết bị không hỗ trợ đọc tiếng Trung.'; return; }
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); u.pitch=1;
+  const voices=speechSynthesis.getVoices(); const v=voices.find(x=>/^zh-(CN|TW)/i.test(x.lang)); if(v) u.voice=v;
+  speechSynthesis.speak(u);
+}
+function renderListeningQuestion(){
+  const q=listeningQuestions[listeningIndex]; if(!q) return;
+  listeningAnswered=false;
+  document.getElementById('listening-round').textContent=`Câu ${listeningIndex+1} / ${listeningQuestions.length}`;
+  document.getElementById('listening-level-label').textContent=`HSK ${q.level}`;
+  document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex}`;
+  document.getElementById('listening-feedback').textContent='';
+  document.getElementById('listening-hint').textContent='Bấm “Nghe câu”, tập trung vào âm thanh rồi chọn một đáp án.';
+  const next=document.getElementById('listening-next'); if(next) next.disabled=true;
+  const box=document.getElementById('listening-options'); box.innerHTML='';
+  q.options.forEach((text,i)=>{const b=document.createElement('button');b.type='button';b.className='listening-option';b.textContent=text;b.addEventListener('click',()=>checkListening(i));box.appendChild(b);});
+  setTimeout(speakListeningSentence,180);
+}
+function checkListening(choice){
+  if(listeningAnswered) return; listeningAnswered=true;
+  const q=listeningQuestions[listeningIndex]; const buttons=[...document.querySelectorAll('.listening-option')]; buttons.forEach(b=>b.disabled=true);
+  if(choice===q.correct){ listeningScore++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').textContent='Chính xác!'; document.getElementById('listening-feedback').style.color='#00a67d'; }
+  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').textContent=`Chưa đúng. Câu nghe là: ${q.audio}`; document.getElementById('listening-feedback').style.color='#d63031'; }
+  document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
+  document.getElementById('listening-hint').textContent=`Pinyin: ${q.pinyin}`;
+  document.getElementById('listening-next').disabled=false;
+}
+function nextListeningQuestion(){
+  if(!listeningAnswered) return;
+  listeningIndex++;
+  if(listeningIndex>=listeningQuestions.length){
+    const total=listeningQuestions.length, pct=Math.round(listeningScore/total*100);
+    document.getElementById('listening-feedback').textContent=`Hoàn thành ${total} câu • ${listeningScore} đúng (${pct}%). Bấm “Luyện nghe” trên menu để làm bộ mới.`;
+    document.getElementById('listening-next').disabled=true; return;
+  }
+  renderListeningQuestion();
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('listening-play')?.addEventListener('click',speakListeningSentence);
+  document.getElementById('listening-replay')?.addEventListener('click',speakListeningSentence);
+  document.getElementById('listening-next')?.addEventListener('click',nextListeningQuestion);
+});
