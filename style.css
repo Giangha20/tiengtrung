@@ -1994,3 +1994,18 @@ body.dark-mode .action-btn {
 #logout-btn svg,.logout-btn svg,[data-action="logout"] svg{width:23px!important;height:23px!important;flex:0 0 23px}
 button .icon,button .nav-icon,button .menu-icon{width:22px!important;height:22px!important;flex:0 0 22px}
 @media(max-width:520px){#logout-btn,.logout-btn,[data-action="logout"]{width:46px;min-width:46px;padding:0;border-radius:50%!important;gap:0}#logout-btn .logout-text,.logout-btn .logout-text,[data-action="logout"] .logout-text,#logout-btn .btn-text,.logout-btn .btn-text{display:none}}
+
+
+/* ===== Luyện nghe: kho câu lớn + câu sai ===== */
+.listening-wrong-tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;justify-content:center}
+.listening-wrong-tools .listening-secondary-btn{border-radius:999px;padding:9px 14px}
+.wrong-count-badge{display:inline-flex;min-width:22px;height:22px;padding:0 6px;align-items:center;justify-content:center;border-radius:999px;background:#ffe7e7;color:#c53030;font-size:.82rem;font-weight:800}
+.listening-wrong-panel{margin-top:16px;border:1px solid #e7edf5;border-radius:18px;padding:14px;background:rgba(255,255,255,.72)}
+.wrong-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.wrong-panel-head span{font-size:.9rem;color:#718096}
+.wrong-item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid #edf1f6;border-radius:14px;background:#fff;margin-top:8px}
+.wrong-item-text{min-width:0}
+.wrong-item-text strong{display:block;font-size:1.02rem}
+.wrong-item-text small{display:block;margin-top:4px;color:#718096}
+.wrong-item button{border-radius:999px;padding:8px 11px}
+@media(max-width:520px){.wrong-item{grid-template-columns:1fr}.wrong-item button{width:100%}}

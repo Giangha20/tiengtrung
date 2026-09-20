@@ -7811,7 +7811,7 @@ function switchMode(mode) {
         resetExamUI();
     }
     if (mode === 'communication') renderCommunication();
-    if (mode === 'handwriting') initHandwriting();
+    if (mode === 'handwriting') return;
     if (mode === 'progress') updateProgressUI();
 }
 
@@ -9775,7 +9775,9 @@ function speakHandwritingWord() {
         renderCharacter(strokeChars[0],false);
     }
 
-    document.addEventListener('DOMContentLoaded',()=>{
+    function startWrongListening(){ const wrong=getWrongListening(); if(!wrong.length){ const f=document.getElementById('listening-feedback'); if(f)f.textContent='Bạn chưa có câu sai để ôn.'; return; } listeningQuestions=wrong.map(q=>{const pool=[...LISTENING_BANK.filter(x=>x.audio!==q.audio),...wrong.filter(x=>x.audio!==q.audio)]; const opts=[q.audio,...pool.sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio)]; const unique=[...new Set(opts)].slice(0,4).sort(()=>Math.random()-0.5); return {...q,level:'Ôn sai',options:unique,correct:unique.indexOf(q.audio)}; }).sort(()=>Math.random()-0.5); listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningWrongMode=true; renderListeningQuestion(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
+function clearWrongListening(){ localStorage.removeItem(LISTENING_WRONG_KEY); updateWrongListeningUI(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
+document.addEventListener('DOMContentLoaded',()=>{
         const replayBtn=document.getElementById('stroke-replay');
         const speedBtn=document.getElementById('stroke-speed');
         const skipBtn=document.getElementById('stroke-skip');
@@ -9798,34 +9800,2118 @@ function speakHandwritingWord() {
 // vì vậy có thể chạy offline nếu thiết bị có giọng zh-CN/zh-TW.
 // ============================================================
 const LISTENING_BANK = [
- {level:1,audio:'你好。',pinyin:'Nǐ hǎo.',options:['你好。','你好吗？','谢谢你。','再见。'],correct:0},
- {level:1,audio:'你叫什么名字？',pinyin:'Nǐ jiào shénme míngzi?',options:['你叫什么名字？','你住在哪里？','你是哪国人？','你喜欢什么？'],correct:0},
- {level:1,audio:'我叫王明。',pinyin:'Wǒ jiào Wáng Míng.',options:['我叫王明。','我姓王。','我是学生。','我很好。'],correct:0},
- {level:1,audio:'谢谢你。',pinyin:'Xièxie nǐ.',options:['对不起。','谢谢你。','没关系。','请进。'],correct:1},
- {level:1,audio:'明天见。',pinyin:'Míngtiān jiàn.',options:['昨天见。','明天见。','现在见。','晚上好。'],correct:1},
- {level:1,audio:'我喜欢喝茶。',pinyin:'Wǒ xǐhuan hē chá.',options:['我喜欢喝咖啡。','我喜欢吃米饭。','我喜欢喝茶。','我不喝茶。'],correct:2},
- {level:2,audio:'你今天忙不忙？',pinyin:'Nǐ jīntiān máng bu máng?',options:['你今天忙不忙？','你今天累不累？','你明天去不去？','你喜欢不喜欢？'],correct:0},
- {level:2,audio:'我正在学习汉语。',pinyin:'Wǒ zhèngzài xuéxí Hànyǔ.',options:['我正在学习英语。','我正在学习汉语。','我已经学完汉语了。','我不学习汉语。'],correct:1},
- {level:2,audio:'请给我一杯水。',pinyin:'Qǐng gěi wǒ yì bēi shuǐ.',options:['请给我一杯茶。','请给我一瓶水。','请给我一杯水。','请给我一碗饭。'],correct:2},
- {level:2,audio:'他昨天没有上班。',pinyin:'Tā zuótiān méiyǒu shàngbān.',options:['他昨天上班了。','他今天没有上班。','他昨天没有上班。','他明天不上班。'],correct:2},
- {level:3,audio:'我已经吃过晚饭了。',pinyin:'Wǒ yǐjīng chīguò wǎnfàn le.',options:['我正在吃晚饭。','我还没吃晚饭。','我已经吃过晚饭了。','我明天吃晚饭。'],correct:2},
- {level:3,audio:'如果下雨，我们就不出去了。',pinyin:'Rúguǒ xiàyǔ, wǒmen jiù bù chūqù le.',options:['如果下雨，我们就不出去了。','如果下雨，我们还是出去。','因为下雨，所以我们已经回来了。','虽然下雨，但是我们没出门。'],correct:0},
- {level:3,audio:'她比我早到十分钟。',pinyin:'Tā bǐ wǒ zǎo dào shí fēnzhōng.',options:['她比我晚到十分钟。','她和我同时到。','她比我早到十分钟。','她比我早走十分钟。'],correct:2},
- {level:3,audio:'请你把门关上。',pinyin:'Qǐng nǐ bǎ mén guān shàng.',options:['请你把窗户打开。','请你把门关上。','请你把灯关掉。','请你把门打开。'],correct:1},
- {level:4,audio:'虽然天气很冷，但是他还是坚持跑步。',pinyin:'Suīrán tiānqì hěn lěng, dànshì tā háishi jiānchí pǎobù.',options:['天气很冷，所以他没有跑步。','天气不冷，但是他坚持跑步。','虽然天气很冷，但是他还是坚持跑步。','因为天气很热，所以他去跑步。'],correct:2},
- {level:4,audio:'我们应该提前做好准备。',pinyin:'Wǒmen yīnggāi tíqián zuò hǎo zhǔnbèi.',options:['我们应该提前做好准备。','我们已经取消了准备。','我们不需要提前准备。','我们准备得太晚了。'],correct:0},
- {level:4,audio:'这件事情给我留下了深刻的印象。',pinyin:'Zhè jiàn shìqing gěi wǒ liúxià le shēnkè de yìnxiàng.',options:['这件事情让我觉得很无聊。','这件事情给我留下了深刻的印象。','这件事情已经被我忘记了。','这件事情没有发生过。'],correct:1},
- {level:5,audio:'经过讨论以后，大家终于达成了一致意见。',pinyin:'Jīngguò tǎolùn yǐhòu, dàjiā zhōngyú dáchéng le yízhì yìjiàn.',options:['大家没有进行讨论。','大家马上改变了意见。','大家经过讨论后达成了一致意见。','大家拒绝了这个意见。'],correct:2},
- {level:5,audio:'这个问题需要从多个角度进行分析。',pinyin:'Zhège wèntí xūyào cóng duō gè jiǎodù jìnxíng fēnxī.',options:['这个问题不需要分析。','这个问题只能从一个角度看。','这个问题需要从多个角度进行分析。','这个问题已经完全解决了。'],correct:2},
- {level:6,audio:'无论遇到什么困难，我们都应该保持冷静。',pinyin:'Wúlùn yùdào shénme kùnnan, wǒmen dōu yīnggāi bǎochí lěngjìng.',options:['遇到困难时应该马上放弃。','无论遇到什么困难，我们都应该保持冷静。','只有没有困难时才能保持冷静。','遇到困难以后就不要行动。'],correct:1}
+ {
+  "level": 1,
+  "audio": "你好。",
+  "pinyin": "Nǐ hǎo.",
+  "options": [
+   "我今天不太忙。",
+   "你好。",
+   "对不起。",
+   "我很好，谢谢。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "早上好。",
+  "pinyin": "Zǎoshang hǎo.",
+  "options": [
+   "你现在有空吗？",
+   "早上好。",
+   "你叫什么名字？",
+   "没关系。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "晚上好。",
+  "pinyin": "Wǎnshang hǎo.",
+  "options": [
+   "晚上好。",
+   "请坐。",
+   "我现在有空。",
+   "我叫李明。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 1,
+  "audio": "再见。",
+  "pinyin": "Zàijiàn.",
+  "options": [
+   "你几点起床？",
+   "再见。",
+   "请进。",
+   "你是哪国人？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "明天见。",
+  "pinyin": "Míngtiān jiàn.",
+  "options": [
+   "我是越南人。",
+   "明天见。",
+   "请问，洗手间在哪里？",
+   "我七点起床。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "谢谢。",
+  "pinyin": "Xièxie.",
+  "options": [
+   "谢谢。",
+   "你好吗？",
+   "你是学生吗？",
+   "你几点睡觉？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 1,
+  "audio": "不客气。",
+  "pinyin": "Bú kèqi.",
+  "options": [
+   "我很好，谢谢。",
+   "我十一点睡觉。",
+   "不客气。",
+   "我是学生。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "对不起。",
+  "pinyin": "Duìbuqǐ.",
+  "options": [
+   "你吃饭了吗？",
+   "你今天忙吗？",
+   "你叫什么名字？",
+   "对不起。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "没关系。",
+  "pinyin": "Méi guānxi.",
+  "options": [
+   "我今天不太忙。",
+   "我还没吃饭。",
+   "我叫李明。",
+   "没关系。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "请坐。",
+  "pinyin": "Qǐng zuò.",
+  "options": [
+   "你是哪国人？",
+   "你现在有空吗？",
+   "我吃过了。",
+   "请坐。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "请进。",
+  "pinyin": "Qǐng jìn.",
+  "options": [
+   "我是越南人。",
+   "请进。",
+   "你想吃什么？",
+   "我现在有空。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "请问，洗手间在哪里？",
+  "pinyin": "Qǐngwèn, xǐshǒujiān zài nǎlǐ?",
+  "options": [
+   "你是学生吗？",
+   "我想吃面条。",
+   "你几点起床？",
+   "请问，洗手间在哪里？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "你好吗？",
+  "pinyin": "Nǐ hǎo ma?",
+  "options": [
+   "我喜欢吃米饭。",
+   "你好吗？",
+   "我是学生。",
+   "我七点起床。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "我很好，谢谢。",
+  "pinyin": "Wǒ hěn hǎo, xièxie.",
+  "options": [
+   "你几点睡觉？",
+   "你今天忙吗？",
+   "你喜欢喝茶吗？",
+   "我很好，谢谢。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "你叫什么名字？",
+  "pinyin": "Nǐ jiào shénme míngzi?",
+  "options": [
+   "我十一点睡觉。",
+   "你叫什么名字？",
+   "我喜欢喝咖啡。",
+   "我今天不太忙。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "我叫李明。",
+  "pinyin": "Wǒ jiào Lǐ Míng.",
+  "options": [
+   "请给我一杯水。",
+   "你吃饭了吗？",
+   "我叫李明。",
+   "你现在有空吗？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "你是哪国人？",
+  "pinyin": "Nǐ shì nǎ guó rén?",
+  "options": [
+   "我还没吃饭。",
+   "再来一杯，谢谢。",
+   "你是哪国人？",
+   "我现在有空。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "我是越南人。",
+  "pinyin": "Wǒ shì Yuènán rén.",
+  "options": [
+   "这个多少钱？",
+   "你几点起床？",
+   "我是越南人。",
+   "我吃过了。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "你是学生吗？",
+  "pinyin": "Nǐ shì xuésheng ma?",
+  "options": [
+   "你想吃什么？",
+   "我七点起床。",
+   "你是学生吗？",
+   "太贵了。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "我是学生。",
+  "pinyin": "Wǒ shì xuésheng.",
+  "options": [
+   "可以便宜一点吗？",
+   "我想吃面条。",
+   "我是学生。",
+   "你几点睡觉？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "你今天忙吗？",
+  "pinyin": "Nǐ jīntiān máng ma?",
+  "options": [
+   "你今天忙吗？",
+   "我要买这个。",
+   "我喜欢吃米饭。",
+   "我十一点睡觉。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 1,
+  "audio": "我今天不太忙。",
+  "pinyin": "Wǒ jīntiān bú tài máng.",
+  "options": [
+   "我不要这个。",
+   "你吃饭了吗？",
+   "我今天不太忙。",
+   "你喜欢喝茶吗？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "你现在有空吗？",
+  "pinyin": "Nǐ xiànzài yǒu kòng ma?",
+  "options": [
+   "可以刷卡吗？",
+   "我喜欢喝咖啡。",
+   "你现在有空吗？",
+   "我还没吃饭。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "我现在有空。",
+  "pinyin": "Wǒ xiànzài yǒu kòng.",
+  "options": [
+   "请给我一杯水。",
+   "我现在有空。",
+   "我吃过了。",
+   "请给我一个袋子。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "你几点起床？",
+  "pinyin": "Nǐ jǐ diǎn qǐchuáng?",
+  "options": [
+   "你几点起床？",
+   "地铁站在哪里？",
+   "你想吃什么？",
+   "再来一杯，谢谢。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 1,
+  "audio": "我七点起床。",
+  "pinyin": "Wǒ qī diǎn qǐchuáng.",
+  "options": [
+   "车站离这里很近。",
+   "我想吃面条。",
+   "这个多少钱？",
+   "我七点起床。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "你几点睡觉？",
+  "pinyin": "Nǐ jǐ diǎn shuìjiào?",
+  "options": [
+   "你几点睡觉？",
+   "我喜欢吃米饭。",
+   "请往前走。",
+   "太贵了。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 1,
+  "audio": "我十一点睡觉。",
+  "pinyin": "Wǒ shíyī diǎn shuìjiào.",
+  "options": [
+   "可以便宜一点吗？",
+   "你喜欢喝茶吗？",
+   "我十一点睡觉。",
+   "然后向左转。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "你吃饭了吗？",
+  "pinyin": "Nǐ chīfàn le ma?",
+  "options": [
+   "请向右转。",
+   "我要买这个。",
+   "你吃饭了吗？",
+   "我喜欢喝咖啡。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "我还没吃饭。",
+  "pinyin": "Wǒ hái méi chīfàn.",
+  "options": [
+   "我不要这个。",
+   "我找不到路了。",
+   "我还没吃饭。",
+   "请给我一杯水。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "我吃过了。",
+  "pinyin": "Wǒ chīguò le.",
+  "options": [
+   "再来一杯，谢谢。",
+   "可以刷卡吗？",
+   "你可以带我去吗？",
+   "我吃过了。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "你想吃什么？",
+  "pinyin": "Nǐ xiǎng chī shénme?",
+  "options": [
+   "这个多少钱？",
+   "请给我一个袋子。",
+   "我坐公交车去学校。",
+   "你想吃什么？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "我想吃面条。",
+  "pinyin": "Wǒ xiǎng chī miàntiáo.",
+  "options": [
+   "今天下雨了。",
+   "我想吃面条。",
+   "太贵了。",
+   "地铁站在哪里？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "我喜欢吃米饭。",
+  "pinyin": "Wǒ xǐhuan chī mǐfàn.",
+  "options": [
+   "车站离这里很近。",
+   "明天天气很好。",
+   "可以便宜一点吗？",
+   "我喜欢吃米饭。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "你喜欢喝茶吗？",
+  "pinyin": "Nǐ xǐhuan hē chá ma?",
+  "options": [
+   "今天很冷。",
+   "你喜欢喝茶吗？",
+   "请往前走。",
+   "我要买这个。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "我喜欢喝咖啡。",
+  "pinyin": "Wǒ xǐhuan hē kāfēi.",
+  "options": [
+   "我喜欢喝咖啡。",
+   "我不要这个。",
+   "今天太热了。",
+   "然后向左转。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 1,
+  "audio": "请给我一杯水。",
+  "pinyin": "Qǐng gěi wǒ yì bēi shuǐ.",
+  "options": [
+   "请向右转。",
+   "请给我一杯水。",
+   "可以刷卡吗？",
+   "你住在哪里？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "再来一杯，谢谢。",
+  "pinyin": "Zài lái yì bēi, xièxie.",
+  "options": [
+   "我找不到路了。",
+   "我住在海防。",
+   "请给我一个袋子。",
+   "再来一杯，谢谢。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "这个多少钱？",
+  "pinyin": "Zhège duōshao qián?",
+  "options": [
+   "你可以带我去吗？",
+   "你家有几个人？",
+   "地铁站在哪里？",
+   "这个多少钱？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "太贵了。",
+  "pinyin": "Tài guì le.",
+  "options": [
+   "我家有四个人。",
+   "我坐公交车去学校。",
+   "车站离这里很近。",
+   "太贵了。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "可以便宜一点吗？",
+  "pinyin": "Kěyǐ piányi yìdiǎn ma?",
+  "options": [
+   "今天下雨了。",
+   "可以便宜一点吗？",
+   "你有兄弟姐妹吗？",
+   "请往前走。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "我要买这个。",
+  "pinyin": "Wǒ yào mǎi zhège.",
+  "options": [
+   "明天天气很好。",
+   "我有一个姐姐。",
+   "然后向左转。",
+   "我要买这个。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "我不要这个。",
+  "pinyin": "Wǒ bú yào zhège.",
+  "options": [
+   "这是我的朋友。",
+   "请向右转。",
+   "今天很冷。",
+   "我不要这个。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "可以刷卡吗？",
+  "pinyin": "Kěyǐ shuākǎ ma?",
+  "options": [
+   "我找不到路了。",
+   "可以刷卡吗？",
+   "我们认识很多年了。",
+   "今天太热了。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "请给我一个袋子。",
+  "pinyin": "Qǐng gěi wǒ yí ge dàizi.",
+  "options": [
+   "你住在哪里？",
+   "你周末做什么？",
+   "请给我一个袋子。",
+   "你可以带我去吗？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "地铁站在哪里？",
+  "pinyin": "Dìtiě zhàn zài nǎlǐ?",
+  "options": [
+   "我住在海防。",
+   "我喜欢在家看电影。",
+   "地铁站在哪里？",
+   "我坐公交车去学校。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "车站离这里很近。",
+  "pinyin": "Chēzhàn lí zhèlǐ hěn jìn.",
+  "options": [
+   "今天下雨了。",
+   "你家有几个人？",
+   "车站离这里很近。",
+   "我们一起去吃饭吧。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "请往前走。",
+  "pinyin": "Qǐng wǎng qián zǒu.",
+  "options": [
+   "请往前走。",
+   "好啊，我很期待。",
+   "明天天气很好。",
+   "我家有四个人。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 1,
+  "audio": "然后向左转。",
+  "pinyin": "Ránhòu xiàng zuǒ zhuǎn.",
+  "options": [
+   "今天很冷。",
+   "你有兄弟姐妹吗？",
+   "你会说中文吗？",
+   "然后向左转。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 1,
+  "audio": "请向右转。",
+  "pinyin": "Qǐng xiàng yòu zhuǎn.",
+  "options": [
+   "今天太热了。",
+   "我有一个姐姐。",
+   "请向右转。",
+   "我会说一点中文。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "我找不到路了。",
+  "pinyin": "Wǒ zhǎo bú dào lù le.",
+  "options": [
+   "这是我的朋友。",
+   "我找不到路了。",
+   "你学中文多久了？",
+   "你住在哪里？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "你可以带我去吗？",
+  "pinyin": "Nǐ kěyǐ dài wǒ qù ma?",
+  "options": [
+   "我学中文一年了。",
+   "你可以带我去吗？",
+   "我住在海防。",
+   "我们认识很多年了。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 1,
+  "audio": "我坐公交车去学校。",
+  "pinyin": "Wǒ zuò gōngjiāo chē qù xuéxiào.",
+  "options": [
+   "你家有几个人？",
+   "你周末做什么？",
+   "我坐公交车去学校。",
+   "请你说慢一点。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "今天下雨了。",
+  "pinyin": "Jīntiān xiàyǔ le.",
+  "options": [
+   "我家有四个人。",
+   "我没听清楚。",
+   "今天下雨了。",
+   "我喜欢在家看电影。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 1,
+  "audio": "明天天气很好。",
+  "pinyin": "Míngtiān tiānqì hěn hǎo.",
+  "options": [
+   "明天天气很好。",
+   "请再说一遍。",
+   "我们一起去吃饭吧。",
+   "你有兄弟姐妹吗？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "今天很冷。",
+  "pinyin": "Jīntiān hěn lěng.",
+  "options": [
+   "我有一个姐姐。",
+   "今天很冷。",
+   "这个词是什么意思？",
+   "好啊，我很期待。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "今天太热了。",
+  "pinyin": "Jīntiān tài rè le.",
+  "options": [
+   "今天太热了。",
+   "这个字怎么读？",
+   "这是我的朋友。",
+   "你会说中文吗？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "你住在哪里？",
+  "pinyin": "Nǐ zhù zài nǎlǐ?",
+  "options": [
+   "你住在哪里？",
+   "我会说一点中文。",
+   "我们认识很多年了。",
+   "我不知道。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "我住在海防。",
+  "pinyin": "Wǒ zhù zài Hǎifáng.",
+  "options": [
+   "你学中文多久了？",
+   "我明白了。",
+   "你周末做什么？",
+   "我住在海防。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "你家有几个人？",
+  "pinyin": "Nǐ jiā yǒu jǐ ge rén?",
+  "options": [
+   "我喜欢在家看电影。",
+   "我学中文一年了。",
+   "你家有几个人？",
+   "我还不明白。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "我家有四个人。",
+  "pinyin": "Wǒ jiā yǒu sì ge rén.",
+  "options": [
+   "我家有四个人。",
+   "你什么时候下班？",
+   "请你说慢一点。",
+   "我们一起去吃饭吧。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "你有兄弟姐妹吗？",
+  "pinyin": "Nǐ yǒu xiōngdì jiěmèi ma?",
+  "options": [
+   "你有兄弟姐妹吗？",
+   "我六点下班。",
+   "我没听清楚。",
+   "好啊，我很期待。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "我有一个姐姐。",
+  "pinyin": "Wǒ yǒu yí ge jiějie.",
+  "options": [
+   "今天工作很忙。",
+   "我有一个姐姐。",
+   "请再说一遍。",
+   "你会说中文吗？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "这是我的朋友。",
+  "pinyin": "Zhè shì wǒ de péngyou.",
+  "options": [
+   "这是我的朋友。",
+   "我会说一点中文。",
+   "这个词是什么意思？",
+   "我正在开会。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "我们认识很多年了。",
+  "pinyin": "Wǒmen rènshi hěn duō nián le.",
+  "options": [
+   "请把文件发给我。",
+   "这个字怎么读？",
+   "我们认识很多年了。",
+   "你学中文多久了？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "你周末做什么？",
+  "pinyin": "Nǐ zhōumò zuò shénme?",
+  "options": [
+   "我不知道。",
+   "你周末做什么？",
+   "我学中文一年了。",
+   "我马上发给你。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "我喜欢在家看电影。",
+  "pinyin": "Wǒ xǐhuan zài jiā kàn diànyǐng.",
+  "options": [
+   "我明白了。",
+   "我喜欢在家看电影。",
+   "你收到我的消息了吗？",
+   "请你说慢一点。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "我们一起去吃饭吧。",
+  "pinyin": "Wǒmen yìqǐ qù chīfàn ba.",
+  "options": [
+   "我刚刚看到了。",
+   "我没听清楚。",
+   "我还不明白。",
+   "我们一起去吃饭吧。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "好啊，我很期待。",
+  "pinyin": "Hǎo a, wǒ hěn qīdài.",
+  "options": [
+   "请再说一遍。",
+   "我们下午再联系。",
+   "你什么时候下班？",
+   "好啊，我很期待。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "你会说中文吗？",
+  "pinyin": "Nǐ huì shuō Zhōngwén ma?",
+  "options": [
+   "这个问题很重要。",
+   "我六点下班。",
+   "这个词是什么意思？",
+   "你会说中文吗？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "我会说一点中文。",
+  "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.",
+  "options": [
+   "你能帮我一下吗？",
+   "这个字怎么读？",
+   "今天工作很忙。",
+   "我会说一点中文。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "你学中文多久了？",
+  "pinyin": "Nǐ xué Zhōngwén duōjiǔ le?",
+  "options": [
+   "当然可以。",
+   "你学中文多久了？",
+   "我正在开会。",
+   "我不知道。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "我学中文一年了。",
+  "pinyin": "Wǒ xué Zhōngwén yì nián le.",
+  "options": [
+   "我明白了。",
+   "我学中文一年了。",
+   "请把文件发给我。",
+   "你需要我做什么？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "请你说慢一点。",
+  "pinyin": "Qǐng nǐ shuō màn yìdiǎn.",
+  "options": [
+   "我还不明白。",
+   "我马上发给你。",
+   "请等我五分钟。",
+   "请你说慢一点。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "我没听清楚。",
+  "pinyin": "Wǒ méi tīng qīngchu.",
+  "options": [
+   "我没听清楚。",
+   "你收到我的消息了吗？",
+   "你什么时候下班？",
+   "不用着急。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "请再说一遍。",
+  "pinyin": "Qǐng zài shuō yí biàn.",
+  "options": [
+   "别担心。",
+   "请再说一遍。",
+   "我刚刚看到了。",
+   "我六点下班。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "这个词是什么意思？",
+  "pinyin": "Zhège cí shì shénme yìsi?",
+  "options": [
+   "今天工作很忙。",
+   "我们下午再联系。",
+   "我忘记带手机了。",
+   "这个词是什么意思？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "这个字怎么读？",
+  "pinyin": "Zhège zì zěnme dú?",
+  "options": [
+   "这个字怎么读？",
+   "我的手机没电了。",
+   "这个问题很重要。",
+   "我正在开会。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "我不知道。",
+  "pinyin": "Wǒ bù zhīdào.",
+  "options": [
+   "你可以给我充电器吗？",
+   "请把文件发给我。",
+   "你能帮我一下吗？",
+   "我不知道。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "我明白了。",
+  "pinyin": "Wǒ míngbai le.",
+  "options": [
+   "没问题。",
+   "我明白了。",
+   "当然可以。",
+   "我马上发给你。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "我还不明白。",
+  "pinyin": "Wǒ hái bù míngbai.",
+  "options": [
+   "我还不明白。",
+   "你收到我的消息了吗？",
+   "你需要我做什么？",
+   "你什么时候有空？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "你什么时候下班？",
+  "pinyin": "Nǐ shénme shíhou xiàbān?",
+  "options": [
+   "请等我五分钟。",
+   "我刚刚看到了。",
+   "晚上八点以后我有空。",
+   "你什么时候下班？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "我六点下班。",
+  "pinyin": "Wǒ liù diǎn xiàbān.",
+  "options": [
+   "我六点下班。",
+   "不用着急。",
+   "我们下午再联系。",
+   "我们几点见面？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "今天工作很忙。",
+  "pinyin": "Jīntiān gōngzuò hěn máng.",
+  "options": [
+   "这个问题很重要。",
+   "下午三点见。",
+   "别担心。",
+   "今天工作很忙。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "我正在开会。",
+  "pinyin": "Wǒ zhèngzài kāihuì.",
+  "options": [
+   "我已经到了。",
+   "我忘记带手机了。",
+   "我正在开会。",
+   "你能帮我一下吗？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "请把文件发给我。",
+  "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ.",
+  "options": [
+   "我的手机没电了。",
+   "请把文件发给我。",
+   "你在哪里？",
+   "当然可以。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "我马上发给你。",
+  "pinyin": "Wǒ mǎshàng fā gěi nǐ.",
+  "options": [
+   "我在门口等你。",
+   "我马上发给你。",
+   "你需要我做什么？",
+   "你可以给我充电器吗？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "你收到我的消息了吗？",
+  "pinyin": "Nǐ shōudào wǒ de xiāoxi le ma?",
+  "options": [
+   "你收到我的消息了吗？",
+   "请等我五分钟。",
+   "没问题。",
+   "路上小心。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "我刚刚看到了。",
+  "pinyin": "Wǒ gānggāng kàndào le.",
+  "options": [
+   "不用着急。",
+   "我刚刚看到了。",
+   "到了给我发消息。",
+   "你什么时候有空？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "我们下午再联系。",
+  "pinyin": "Wǒmen xiàwǔ zài liánxì.",
+  "options": [
+   "晚上八点以后我有空。",
+   "别担心。",
+   "我们下午再联系。",
+   "我今天感觉很好。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "这个问题很重要。",
+  "pinyin": "Zhège wèntí hěn zhòngyào.",
+  "options": [
+   "我有一点累。",
+   "我忘记带手机了。",
+   "我们几点见面？",
+   "这个问题很重要。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "你能帮我一下吗？",
+  "pinyin": "Nǐ néng bāng wǒ yíxià ma?",
+  "options": [
+   "你需要休息一下。",
+   "你能帮我一下吗？",
+   "我的手机没电了。",
+   "下午三点见。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "当然可以。",
+  "pinyin": "Dāngrán kěyǐ.",
+  "options": [
+   "我已经到了。",
+   "我昨天睡得很晚。",
+   "当然可以。",
+   "你可以给我充电器吗？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "你需要我做什么？",
+  "pinyin": "Nǐ xūyào wǒ zuò shénme?",
+  "options": [
+   "你在哪里？",
+   "你需要我做什么？",
+   "没问题。",
+   "今天早点睡吧。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "请等我五分钟。",
+  "pinyin": "Qǐng děng wǒ wǔ fēnzhōng.",
+  "options": [
+   "你最近怎么样？",
+   "请等我五分钟。",
+   "我在门口等你。",
+   "你什么时候有空？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "不用着急。",
+  "pinyin": "Bú yòng zháojí.",
+  "options": [
+   "最近一切都不错。",
+   "路上小心。",
+   "不用着急。",
+   "晚上八点以后我有空。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "别担心。",
+  "pinyin": "Bié dānxīn.",
+  "options": [
+   "到了给我发消息。",
+   "我们几点见面？",
+   "别担心。",
+   "你为什么不开心？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "我忘记带手机了。",
+  "pinyin": "Wǒ wàngjì dài shǒujī le.",
+  "options": [
+   "我忘记带手机了。",
+   "我今天感觉很好。",
+   "没什么，只是有点累。",
+   "下午三点见。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "我的手机没电了。",
+  "pinyin": "Wǒ de shǒujī méi diàn le.",
+  "options": [
+   "别想太多。",
+   "我的手机没电了。",
+   "我已经到了。",
+   "我有一点累。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "你可以给我充电器吗？",
+  "pinyin": "Nǐ kěyǐ gěi wǒ chōngdiànqì ma?",
+  "options": [
+   "你在哪里？",
+   "你可以给我充电器吗？",
+   "我想订一个房间。",
+   "你需要休息一下。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "没问题。",
+  "pinyin": "Méi wèntí.",
+  "options": [
+   "我在门口等你。",
+   "我昨天睡得很晚。",
+   "请问还有空房吗？",
+   "没问题。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "你什么时候有空？",
+  "pinyin": "Nǐ shénme shíhou yǒu kòng?",
+  "options": [
+   "路上小心。",
+   "我想住两晚。",
+   "你什么时候有空？",
+   "今天早点睡吧。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "晚上八点以后我有空。",
+  "pinyin": "Wǎnshang bā diǎn yǐhòu wǒ yǒu kòng.",
+  "options": [
+   "到了给我发消息。",
+   "早餐几点开始？",
+   "晚上八点以后我有空。",
+   "你最近怎么样？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "我们几点见面？",
+  "pinyin": "Wǒmen jǐ diǎn jiànmiàn?",
+  "options": [
+   "最近一切都不错。",
+   "请给我一张发票。",
+   "我们几点见面？",
+   "我今天感觉很好。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "下午三点见。",
+  "pinyin": "Xiàwǔ sān diǎn jiàn.",
+  "options": [
+   "你为什么不开心？",
+   "下午三点见。",
+   "我有一点累。",
+   "我的房间在哪里？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "我已经到了。",
+  "pinyin": "Wǒ yǐjīng dào le.",
+  "options": [
+   "我已经到了。",
+   "电梯在哪里？",
+   "你需要休息一下。",
+   "没什么，只是有点累。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "你在哪里？",
+  "pinyin": "Nǐ zài nǎlǐ?",
+  "options": [
+   "别想太多。",
+   "无线网络的密码是什么？",
+   "我昨天睡得很晚。",
+   "你在哪里？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "我在门口等你。",
+  "pinyin": "Wǒ zài ménkǒu děng nǐ.",
+  "options": [
+   "我想订一个房间。",
+   "我在门口等你。",
+   "我想买一张火车票。",
+   "今天早点睡吧。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 2,
+  "audio": "路上小心。",
+  "pinyin": "Lùshang xiǎoxīn.",
+  "options": [
+   "请问还有空房吗？",
+   "你最近怎么样？",
+   "路上小心。",
+   "下一班车几点出发？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "到了给我发消息。",
+  "pinyin": "Dào le gěi wǒ fā xiāoxi.",
+  "options": [
+   "到了给我发消息。",
+   "我想住两晚。",
+   "最近一切都不错。",
+   "我要去机场。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "我今天感觉很好。",
+  "pinyin": "Wǒ jīntiān gǎnjué hěn hǎo.",
+  "options": [
+   "请问需要多长时间？",
+   "你为什么不开心？",
+   "早餐几点开始？",
+   "我今天感觉很好。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 2,
+  "audio": "我有一点累。",
+  "pinyin": "Wǒ yǒu yìdiǎn lèi.",
+  "options": [
+   "我有一点累。",
+   "请给我一张发票。",
+   "现在路上堵车吗？",
+   "没什么，只是有点累。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "你需要休息一下。",
+  "pinyin": "Nǐ xūyào xiūxi yíxià.",
+  "options": [
+   "我的房间在哪里？",
+   "我们快迟到了。",
+   "你需要休息一下。",
+   "别想太多。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 2,
+  "audio": "我昨天睡得很晚。",
+  "pinyin": "Wǒ zuótiān shuì de hěn wǎn.",
+  "options": [
+   "我昨天睡得很晚。",
+   "请开快一点。",
+   "电梯在哪里？",
+   "我想订一个房间。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 2,
+  "audio": "今天早点睡吧。",
+  "pinyin": "Jīntiān zǎodiǎn shuì ba.",
+  "options": [
+   "今天早点睡吧。",
+   "请问还有空房吗？",
+   "请在这里停车。",
+   "无线网络的密码是什么？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "你最近怎么样？",
+  "pinyin": "Nǐ zuìjìn zěnmeyàng?",
+  "options": [
+   "我想买一张火车票。",
+   "你最近怎么样？",
+   "你觉得这个办法怎么样？",
+   "我想住两晚。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "最近一切都不错。",
+  "pinyin": "Zuìjìn yíqiè dōu búcuò.",
+  "options": [
+   "下一班车几点出发？",
+   "我觉得可以试试。",
+   "最近一切都不错。",
+   "早餐几点开始？"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "你为什么不开心？",
+  "pinyin": "Nǐ wèishénme bù kāixīn?",
+  "options": [
+   "请给我一张发票。",
+   "你为什么不开心？",
+   "我们先讨论一下。",
+   "我要去机场。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "没什么，只是有点累。",
+  "pinyin": "Méi shénme, zhǐshì yǒudiǎn lèi.",
+  "options": [
+   "没什么，只是有点累。",
+   "我同意你的看法。",
+   "请问需要多长时间？",
+   "我的房间在哪里？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "别想太多。",
+  "pinyin": "Bié xiǎng tài duō.",
+  "options": [
+   "我不太同意。",
+   "别想太多。",
+   "电梯在哪里？",
+   "现在路上堵车吗？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "我想订一个房间。",
+  "pinyin": "Wǒ xiǎng dìng yí ge fángjiān.",
+  "options": [
+   "我想订一个房间。",
+   "让我想一想。",
+   "我们快迟到了。",
+   "无线网络的密码是什么？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "请问还有空房吗？",
+  "pinyin": "Qǐngwèn hái yǒu kòngfáng ma?",
+  "options": [
+   "请问还有空房吗？",
+   "这个问题需要时间。",
+   "我想买一张火车票。",
+   "请开快一点。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "我想住两晚。",
+  "pinyin": "Wǒ xiǎng zhù liǎng wǎn.",
+  "options": [
+   "下一班车几点出发？",
+   "我想住两晚。",
+   "我们以后再决定。",
+   "请在这里停车。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "早餐几点开始？",
+  "pinyin": "Zǎocān jǐ diǎn kāishǐ?",
+  "options": [
+   "这个方法比较简单。",
+   "你觉得这个办法怎么样？",
+   "早餐几点开始？",
+   "我要去机场。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "请给我一张发票。",
+  "pinyin": "Qǐng gěi wǒ yì zhāng fāpiào.",
+  "options": [
+   "这样做比较方便。",
+   "我觉得可以试试。",
+   "请问需要多长时间？",
+   "请给我一张发票。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "我的房间在哪里？",
+  "pinyin": "Wǒ de fángjiān zài nǎlǐ?",
+  "options": [
+   "我们先讨论一下。",
+   "我的房间在哪里？",
+   "现在路上堵车吗？",
+   "虽然很忙，但是我会完成。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "电梯在哪里？",
+  "pinyin": "Diàntī zài nǎlǐ?",
+  "options": [
+   "如果有问题，请告诉我。",
+   "我们快迟到了。",
+   "电梯在哪里？",
+   "我同意你的看法。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "无线网络的密码是什么？",
+  "pinyin": "Wúxiàn wǎngluò de mìmǎ shì shénme?",
+  "options": [
+   "我不太同意。",
+   "请开快一点。",
+   "因为下雨，所以我们没有出去。",
+   "无线网络的密码是什么？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "我想买一张火车票。",
+  "pinyin": "Wǒ xiǎng mǎi yì zhāng huǒchē piào.",
+  "options": [
+   "我想买一张火车票。",
+   "如果明天有时间，我们一起去。",
+   "请在这里停车。",
+   "让我想一想。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "下一班车几点出发？",
+  "pinyin": "Xià yì bān chē jǐ diǎn chūfā?",
+  "options": [
+   "下一班车几点出发？",
+   "只要努力，就会进步。",
+   "你觉得这个办法怎么样？",
+   "这个问题需要时间。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "我要去机场。",
+  "pinyin": "Wǒ yào qù jīchǎng.",
+  "options": [
+   "学习语言需要坚持。",
+   "我们以后再决定。",
+   "我要去机场。",
+   "我觉得可以试试。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "请问需要多长时间？",
+  "pinyin": "Qǐngwèn xūyào duō cháng shíjiān?",
+  "options": [
+   "这个方法比较简单。",
+   "我们先讨论一下。",
+   "请问需要多长时间？",
+   "每天练习一点儿很重要。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "现在路上堵车吗？",
+  "pinyin": "Xiànzài lùshang dǔchē ma?",
+  "options": [
+   "不要害怕说错。",
+   "这样做比较方便。",
+   "我同意你的看法。",
+   "现在路上堵车吗？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "我们快迟到了。",
+  "pinyin": "Wǒmen kuài chídào le.",
+  "options": [
+   "我不太同意。",
+   "虽然很忙，但是我会完成。",
+   "听不懂的时候可以再听一次。",
+   "我们快迟到了。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "请开快一点。",
+  "pinyin": "Qǐng kāi kuài yìdiǎn.",
+  "options": [
+   "请开快一点。",
+   "让我想一想。",
+   "先听清楚，再回答。",
+   "如果有问题，请告诉我。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "请在这里停车。",
+  "pinyin": "Qǐng zài zhèlǐ tíngchē.",
+  "options": [
+   "这个问题需要时间。",
+   "你好。",
+   "因为下雨，所以我们没有出去。",
+   "请在这里停车。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "你觉得这个办法怎么样？",
+  "pinyin": "Nǐ juéde zhège bànfǎ zěnmeyàng?",
+  "options": [
+   "如果明天有时间，我们一起去。",
+   "早上好。",
+   "我们以后再决定。",
+   "你觉得这个办法怎么样？"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "我觉得可以试试。",
+  "pinyin": "Wǒ juéde kěyǐ shìshi.",
+  "options": [
+   "我觉得可以试试。",
+   "这个方法比较简单。",
+   "只要努力，就会进步。",
+   "晚上好。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "我们先讨论一下。",
+  "pinyin": "Wǒmen xiān tǎolùn yíxià.",
+  "options": [
+   "我们先讨论一下。",
+   "再见。",
+   "这样做比较方便。",
+   "学习语言需要坚持。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "我同意你的看法。",
+  "pinyin": "Wǒ tóngyì nǐ de kànfǎ.",
+  "options": [
+   "我同意你的看法。",
+   "明天见。",
+   "虽然很忙，但是我会完成。",
+   "每天练习一点儿很重要。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "我不太同意。",
+  "pinyin": "Wǒ bú tài tóngyì.",
+  "options": [
+   "谢谢。",
+   "不要害怕说错。",
+   "如果有问题，请告诉我。",
+   "我不太同意。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "让我想一想。",
+  "pinyin": "Ràng wǒ xiǎng yì xiǎng.",
+  "options": [
+   "因为下雨，所以我们没有出去。",
+   "让我想一想。",
+   "听不懂的时候可以再听一次。",
+   "不客气。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "这个问题需要时间。",
+  "pinyin": "Zhège wèntí xūyào shíjiān.",
+  "options": [
+   "对不起。",
+   "先听清楚，再回答。",
+   "如果明天有时间，我们一起去。",
+   "这个问题需要时间。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "我们以后再决定。",
+  "pinyin": "Wǒmen yǐhòu zài juédìng.",
+  "options": [
+   "我们以后再决定。",
+   "没关系。",
+   "只要努力，就会进步。",
+   "你好。"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "这个方法比较简单。",
+  "pinyin": "Zhège fāngfǎ bǐjiào jiǎndān.",
+  "options": [
+   "请坐。",
+   "早上好。",
+   "学习语言需要坚持。",
+   "这个方法比较简单。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "这样做比较方便。",
+  "pinyin": "Zhèyàng zuò bǐjiào fāngbiàn.",
+  "options": [
+   "每天练习一点儿很重要。",
+   "请进。",
+   "这样做比较方便。",
+   "晚上好。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "虽然很忙，但是我会完成。",
+  "pinyin": "Suīrán hěn máng, dànshì wǒ huì wánchéng.",
+  "options": [
+   "虽然很忙，但是我会完成。",
+   "再见。",
+   "不要害怕说错。",
+   "请问，洗手间在哪里？"
+  ],
+  "correct": 0
+ },
+ {
+  "level": 3,
+  "audio": "如果有问题，请告诉我。",
+  "pinyin": "Rúguǒ yǒu wèntí, qǐng gàosu wǒ.",
+  "options": [
+   "你好吗？",
+   "明天见。",
+   "如果有问题，请告诉我。",
+   "听不懂的时候可以再听一次。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "因为下雨，所以我们没有出去。",
+  "pinyin": "Yīnwèi xiàyǔ, suǒyǐ wǒmen méiyǒu chūqù.",
+  "options": [
+   "先听清楚，再回答。",
+   "因为下雨，所以我们没有出去。",
+   "谢谢。",
+   "我很好，谢谢。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "如果明天有时间，我们一起去。",
+  "pinyin": "Rúguǒ míngtiān yǒu shíjiān, wǒmen yìqǐ qù.",
+  "options": [
+   "你好。",
+   "如果明天有时间，我们一起去。",
+   "不客气。",
+   "你叫什么名字？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "只要努力，就会进步。",
+  "pinyin": "Zhǐyào nǔlì, jiù huì jìnbù.",
+  "options": [
+   "我叫李明。",
+   "只要努力，就会进步。",
+   "早上好。",
+   "对不起。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "学习语言需要坚持。",
+  "pinyin": "Xuéxí yǔyán xūyào jiānchí.",
+  "options": [
+   "没关系。",
+   "学习语言需要坚持。",
+   "晚上好。",
+   "你是哪国人？"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "每天练习一点儿很重要。",
+  "pinyin": "Měitiān liànxí yìdiǎnr hěn zhòngyào.",
+  "options": [
+   "再见。",
+   "我是越南人。",
+   "每天练习一点儿很重要。",
+   "请坐。"
+  ],
+  "correct": 2
+ },
+ {
+  "level": 3,
+  "audio": "不要害怕说错。",
+  "pinyin": "Bú yào hàipà shuō cuò.",
+  "options": [
+   "你是学生吗？",
+   "不要害怕说错。",
+   "明天见。",
+   "请进。"
+  ],
+  "correct": 1
+ },
+ {
+  "level": 3,
+  "audio": "听不懂的时候可以再听一次。",
+  "pinyin": "Tīng bù dǒng de shíhou kěyǐ zài tīng yí cì.",
+  "options": [
+   "我是学生。",
+   "谢谢。",
+   "请问，洗手间在哪里？",
+   "听不懂的时候可以再听一次。"
+  ],
+  "correct": 3
+ },
+ {
+  "level": 3,
+  "audio": "先听清楚，再回答。",
+  "pinyin": "Xiān tīng qīngchu, zài huídá.",
+  "options": [
+   "你今天忙吗？",
+   "你好吗？",
+   "不客气。",
+   "先听清楚，再回答。"
+  ],
+  "correct": 3
+ },
+{"level": 1, "audio": "你好吗？", "pinyin": "Nǐ hǎo ma?"},
+{"level": 1, "audio": "我很好，谢谢。", "pinyin": "Wǒ hěn hǎo, xièxie."},
+{"level": 1, "audio": "你叫什么？", "pinyin": "Nǐ jiào shénme?"},
+{"level": 1, "audio": "我是越南人。", "pinyin": "Wǒ shì Yuènán rén."},
+{"level": 1, "audio": "我住在海防。", "pinyin": "Wǒ zhù zài Hǎifáng."},
+{"level": 1, "audio": "你会说中文吗？", "pinyin": "Nǐ huì shuō Zhōngwén ma?"},
+{"level": 1, "audio": "我会说一点中文。", "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén."},
+{"level": 1, "audio": "请说慢一点。", "pinyin": "Qǐng shuō màn yìdiǎn."},
+{"level": 1, "audio": "请再说一遍。", "pinyin": "Qǐng zài shuō yí biàn."},
+{"level": 1, "audio": "我听不清楚。", "pinyin": "Wǒ tīng bù qīngchu."},
+{"level": 1, "audio": "这个怎么读？", "pinyin": "Zhège zěnme dú?"},
+{"level": 1, "audio": "这个字是什么意思？", "pinyin": "Zhège zì shì shénme yìsi?"},
+{"level": 1, "audio": "你怎么写这个字？", "pinyin": "Nǐ zěnme xiě zhège zì?"},
+{"level": 1, "audio": "我不知道。", "pinyin": "Wǒ bù zhīdào."},
+{"level": 1, "audio": "我明白了。", "pinyin": "Wǒ míngbai le."},
+{"level": 1, "audio": "我还不明白。", "pinyin": "Wǒ hái bù míngbai."},
+{"level": 1, "audio": "没关系。", "pinyin": "Méi guānxi."},
+{"level": 1, "audio": "谢谢你的帮助。", "pinyin": "Xièxie nǐ de bāngzhù."},
+{"level": 1, "audio": "不用客气。", "pinyin": "Bú yòng kèqi."},
+{"level": 1, "audio": "对不起。", "pinyin": "Duìbuqǐ."},
+{"level": 1, "audio": "没事。", "pinyin": "Méi shì."},
+{"level": 1, "audio": "请坐。", "pinyin": "Qǐng zuò."},
+{"level": 1, "audio": "请进。", "pinyin": "Qǐng jìn."},
+{"level": 1, "audio": "请等一下。", "pinyin": "Qǐng děng yíxià."},
+{"level": 1, "audio": "我马上回来。", "pinyin": "Wǒ mǎshàng huílái."},
+{"level": 1, "audio": "现在几点？", "pinyin": "Xiànzài jǐ diǎn?"},
+{"level": 1, "audio": "现在八点半。", "pinyin": "Xiànzài bā diǎn bàn."},
+{"level": 1, "audio": "今天星期几？", "pinyin": "Jīntiān xīngqī jǐ?"},
+{"level": 1, "audio": "今天星期一。", "pinyin": "Jīntiān xīngqī yī."},
+{"level": 1, "audio": "明天见。", "pinyin": "Míngtiān jiàn."},
+{"level": 1, "audio": "昨天我很忙。", "pinyin": "Zuótiān wǒ hěn máng."},
+{"level": 1, "audio": "今天我有空。", "pinyin": "Jīntiān wǒ yǒu kòng."},
+{"level": 1, "audio": "明天我要上课。", "pinyin": "Míngtiān wǒ yào shàngkè."},
+{"level": 1, "audio": "你几点起床？", "pinyin": "Nǐ jǐ diǎn qǐchuáng?"},
+{"level": 1, "audio": "我七点起床。", "pinyin": "Wǒ qī diǎn qǐchuáng."},
+{"level": 1, "audio": "你几点睡觉？", "pinyin": "Nǐ jǐ diǎn shuìjiào?"},
+{"level": 1, "audio": "我十一点睡觉。", "pinyin": "Wǒ shíyī diǎn shuìjiào."},
+{"level": 1, "audio": "你吃早饭了吗？", "pinyin": "Nǐ chī zǎofàn le ma?"},
+{"level": 1, "audio": "我已经吃过了。", "pinyin": "Wǒ yǐjīng chīguo le."},
+{"level": 1, "audio": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?"},
+{"level": 1, "audio": "我想吃面条。", "pinyin": "Wǒ xiǎng chī miàntiáo."},
+{"level": 1, "audio": "我不吃辣。", "pinyin": "Wǒ bù chī là."},
+{"level": 1, "audio": "这个很好吃。", "pinyin": "Zhège hěn hǎochī."},
+{"level": 1, "audio": "可以给我菜单吗？", "pinyin": "Kěyǐ gěi wǒ càidān ma?"},
+{"level": 1, "audio": "请给我一碗米饭。", "pinyin": "Qǐng gěi wǒ yì wǎn mǐfàn."},
+{"level": 1, "audio": "我买两杯咖啡。", "pinyin": "Wǒ mǎi liǎng bēi kāfēi."},
+{"level": 1, "audio": "可以刷卡吗？", "pinyin": "Kěyǐ shuākǎ ma?"},
+{"level": 1, "audio": "可以用手机付款吗？", "pinyin": "Kěyǐ yòng shǒujī fùkuǎn ma?"},
+{"level": 1, "audio": "请给我一张发票。", "pinyin": "Qǐng gěi wǒ yì zhāng fāpiào."},
+{"level": 1, "audio": "我只是看看。", "pinyin": "Wǒ zhǐshì kànkan."},
+{"level": 1, "audio": "有别的颜色吗？", "pinyin": "Yǒu bié de yánsè ma?"},
+{"level": 1, "audio": "有大一点的吗？", "pinyin": "Yǒu dà yìdiǎn de ma?"},
+{"level": 1, "audio": "这个太小了。", "pinyin": "Zhège tài xiǎo le."},
+{"level": 1, "audio": "我可以试穿吗？", "pinyin": "Wǒ kěyǐ shìchuān ma?"},
+{"level": 1, "audio": "一共多少钱？", "pinyin": "Yígòng duōshao qián?"},
+{"level": 1, "audio": "给你五十块。", "pinyin": "Gěi nǐ wǔshí kuài."},
+{"level": 1, "audio": "找您十块钱。", "pinyin": "Zhǎo nín shí kuài qián."},
+{"level": 1, "audio": "公交车站在哪里？", "pinyin": "Gōngjiāo chē zhàn zài nǎlǐ?"},
+{"level": 1, "audio": "我要去火车站。", "pinyin": "Wǒ yào qù huǒchēzhàn."},
+{"level": 1, "audio": "这辆车去市中心吗？", "pinyin": "Zhè liàng chē qù shì zhōngxīn ma?"},
+{"level": 1, "audio": "我坐错车了。", "pinyin": "Wǒ zuò cuò chē le."},
+{"level": 1, "audio": "请在这里停车。", "pinyin": "Qǐng zài zhèlǐ tíngchē."},
+{"level": 1, "audio": "还有多远？", "pinyin": "Hái yǒu duō yuǎn?"},
+{"level": 1, "audio": "大概需要多久？", "pinyin": "Dàgài xūyào duōjiǔ?"},
+{"level": 1, "audio": "我们快到了。", "pinyin": "Wǒmen kuài dào le."},
+{"level": 1, "audio": "我迷路了。", "pinyin": "Wǒ mílù le."},
+{"level": 1, "audio": "请帮我看一下地图。", "pinyin": "Qǐng bāng wǒ kàn yíxià dìtú."},
+{"level": 1, "audio": "左边有一家银行。", "pinyin": "Zuǒbian yǒu yì jiā yínháng."},
+{"level": 1, "audio": "右边就是超市。", "pinyin": "Yòubian jiù shì chāoshì."},
+{"level": 1, "audio": "一直往前走。", "pinyin": "Yìzhí wǎng qián zǒu."},
+{"level": 2, "audio": "在第二个路口右转。", "pinyin": "Zài dì èr ge lùkǒu yòu zhuǎn."},
+{"level": 2, "audio": "今天很热。", "pinyin": "Jīntiān hěn rè."},
+{"level": 2, "audio": "今天有点冷。", "pinyin": "Jīntiān yǒudiǎn lěng."},
+{"level": 2, "audio": "外面下雨了。", "pinyin": "Wàimiàn xiàyǔ le."},
+{"level": 2, "audio": "别忘了带雨伞。", "pinyin": "Bié wàngle dài yǔsǎn."},
+{"level": 2, "audio": "天气越来越好了。", "pinyin": "Tiānqì yuèláiyuè hǎo le."},
+{"level": 2, "audio": "你喜欢什么运动？", "pinyin": "Nǐ xǐhuan shénme yùndòng?"},
+{"level": 2, "audio": "我喜欢打篮球。", "pinyin": "Wǒ xǐhuan dǎ lánqiú."},
+{"level": 2, "audio": "我周末喜欢看电影。", "pinyin": "Wǒ zhōumò xǐhuan kàn diànyǐng."},
+{"level": 2, "audio": "你喜欢听什么音乐？", "pinyin": "Nǐ xǐhuan tīng shénme yīnyuè?"},
+{"level": 2, "audio": "我喜欢听中文歌。", "pinyin": "Wǒ xǐhuan tīng Zhōngwén gē."},
+{"level": 2, "audio": "你有几个兄弟姐妹？", "pinyin": "Nǐ yǒu jǐ ge xiōngdì jiěmèi?"},
+{"level": 2, "audio": "我有一个妹妹。", "pinyin": "Wǒ yǒu yí ge mèimei."},
+{"level": 2, "audio": "我和朋友住在一起。", "pinyin": "Wǒ hé péngyou zhù zài yìqǐ."},
+{"level": 2, "audio": "我今天要去学校。", "pinyin": "Wǒ jīntiān yào qù xuéxiào."},
+{"level": 2, "audio": "老师正在上课。", "pinyin": "Lǎoshī zhèngzài shàngkè."},
+{"level": 2, "audio": "请打开书。", "pinyin": "Qǐng dǎkāi shū."},
+{"level": 2, "audio": "请看第三页。", "pinyin": "Qǐng kàn dì sān yè."},
+{"level": 2, "audio": "这个问题很简单。", "pinyin": "Zhège wèntí hěn jiǎndān."},
+{"level": 2, "audio": "这个问题有点难。", "pinyin": "Zhège wèntí yǒudiǎn nán."},
+{"level": 2, "audio": "我需要再练习。", "pinyin": "Wǒ xūyào zài liànxí."},
+{"level": 2, "audio": "我每天学习一个小时。", "pinyin": "Wǒ měitiān xuéxí yí ge xiǎoshí."},
+{"level": 2, "audio": "你什么时候开始学中文？", "pinyin": "Nǐ shénme shíhou kāishǐ xué Zhōngwén?"},
+{"level": 2, "audio": "我去年开始学中文。", "pinyin": "Wǒ qùnián kāishǐ xué Zhōngwén."},
+{"level": 2, "audio": "我的中文进步了一点。", "pinyin": "Wǒ de Zhōngwén jìnbù le yìdiǎn."},
+{"level": 2, "audio": "我需要多听多说。", "pinyin": "Wǒ xūyào duō tīng duō shuō."},
+{"level": 2, "audio": "你能给我一个例子吗？", "pinyin": "Nǐ néng gěi wǒ yí ge lìzi ma?"},
+{"level": 2, "audio": "请写在黑板上。", "pinyin": "Qǐng xiě zài hēibǎn shàng."},
+{"level": 2, "audio": "我忘记这个词了。", "pinyin": "Wǒ wàngjì zhège cí le."},
+{"level": 2, "audio": "这个词怎么用？", "pinyin": "Zhège cí zěnme yòng?"},
+{"level": 2, "audio": "你能解释一下吗？", "pinyin": "Nǐ néng jiěshì yíxià ma?"},
+{"level": 2, "audio": "我觉得这个方法很好。", "pinyin": "Wǒ juéde zhège fāngfǎ hěn hǎo."},
+{"level": 2, "audio": "我们一起练习吧。", "pinyin": "Wǒmen yìqǐ liànxí ba."},
+{"level": 2, "audio": "你准备好了吗？", "pinyin": "Nǐ zhǔnbèi hǎo le ma?"},
+{"level": 2, "audio": "我准备好了。", "pinyin": "Wǒ zhǔnbèi hǎo le."},
+{"level": 2, "audio": "加油，你可以的。", "pinyin": "Jiāyóu, nǐ kěyǐ de."},
+{"level": 2, "audio": "不要紧张。", "pinyin": "Bú yào jǐnzhāng."},
+{"level": 2, "audio": "慢慢来。", "pinyin": "Mànman lái."},
+{"level": 2, "audio": "你做得很好。", "pinyin": "Nǐ zuò de hěn hǎo."},
+{"level": 2, "audio": "再试一次。", "pinyin": "Zài shì yí cì."},
+{"level": 2, "audio": "我今天感觉不错。", "pinyin": "Wǒ jīntiān gǎnjué búcuò."},
+{"level": 2, "audio": "我有点累。", "pinyin": "Wǒ yǒudiǎn lèi."},
+{"level": 2, "audio": "我需要休息一下。", "pinyin": "Wǒ xūyào xiūxi yíxià."},
+{"level": 2, "audio": "你今天怎么样？", "pinyin": "Nǐ jīntiān zěnmeyàng?"},
+{"level": 2, "audio": "最近过得怎么样？", "pinyin": "Zuìjìn guò de zěnmeyàng?"},
+{"level": 2, "audio": "最近一切都很好。", "pinyin": "Zuìjìn yíqiè dōu hěn hǎo."},
+{"level": 2, "audio": "你吃午饭了吗？", "pinyin": "Nǐ chī wǔfàn le ma?"},
+{"level": 2, "audio": "我们中午一起吃饭吧。", "pinyin": "Wǒmen zhōngwǔ yìqǐ chīfàn ba."},
+{"level": 2, "audio": "晚饭我想吃饺子。", "pinyin": "Wǎnfàn wǒ xiǎng chī jiǎozi."},
+{"level": 2, "audio": "你想喝茶还是咖啡？", "pinyin": "Nǐ xiǎng hē chá háishi kāfēi?"},
+{"level": 2, "audio": "我要一杯热茶。", "pinyin": "Wǒ yào yì bēi rè chá."},
+{"level": 2, "audio": "水太烫了。", "pinyin": "Shuǐ tài tàng le."},
+{"level": 2, "audio": "小心，地上很滑。", "pinyin": "Xiǎoxīn, dìshang hěn huá."},
+{"level": 2, "audio": "请关一下门。", "pinyin": "Qǐng guān yíxià mén."},
+{"level": 2, "audio": "请把窗户打开。", "pinyin": "Qǐng bǎ chuānghu dǎkāi."},
+{"level": 2, "audio": "手机没电了。", "pinyin": "Shǒujī méi diàn le."},
+{"level": 2, "audio": "你的电话响了。", "pinyin": "Nǐ de diànhuà xiǎng le."},
+{"level": 2, "audio": "我一会儿给你打电话。", "pinyin": "Wǒ yíhuìr gěi nǐ dǎ diànhuà."},
+{"level": 2, "audio": "请给我发个消息。", "pinyin": "Qǐng gěi wǒ fā ge xiāoxi."},
+{"level": 2, "audio": "我现在不方便接电话。", "pinyin": "Wǒ xiànzài bù fāngbiàn jiē diànhuà."},
+{"level": 3, "audio": "网络有点慢。", "pinyin": "Wǎngluò yǒudiǎn màn."},
+{"level": 3, "audio": "密码是什么？", "pinyin": "Mìmǎ shì shénme?"},
+{"level": 3, "audio": "请稍等一下。", "pinyin": "Qǐng shāo děng yíxià."},
+{"level": 3, "audio": "我马上处理。", "pinyin": "Wǒ mǎshàng chǔlǐ."},
+{"level": 3, "audio": "这个文件在哪里？", "pinyin": "Zhège wénjiàn zài nǎlǐ?"},
+{"level": 3, "audio": "请把文件发给我。", "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ."},
+{"level": 3, "audio": "我已经收到文件了。", "pinyin": "Wǒ yǐjīng shōudào wénjiàn le."},
+{"level": 3, "audio": "我们下午开会。", "pinyin": "Wǒmen xiàwǔ kāihuì."},
+{"level": 3, "audio": "会议几点开始？", "pinyin": "Huìyì jǐ diǎn kāishǐ?"},
+{"level": 3, "audio": "请提前十分钟到。", "pinyin": "Qǐng tíqián shí fēnzhōng dào."},
+{"level": 3, "audio": "今天的工作完成了吗？", "pinyin": "Jīntiān de gōngzuò wánchéng le ma?"},
+{"level": 3, "audio": "我还差一点。", "pinyin": "Wǒ hái chà yìdiǎn."},
+{"level": 3, "audio": "我已经完成了。", "pinyin": "Wǒ yǐjīng wánchéng le."},
+{"level": 3, "audio": "我们明天再讨论。", "pinyin": "Wǒmen míngtiān zài tǎolùn."},
+{"level": 3, "audio": "这个建议很好。", "pinyin": "Zhège jiànyì hěn hǎo."},
+{"level": 3, "audio": "我同意你的看法。", "pinyin": "Wǒ tóngyì nǐ de kànfǎ."},
+{"level": 3, "audio": "我有不同的意见。", "pinyin": "Wǒ yǒu bùtóng de yìjiàn."},
+{"level": 3, "audio": "我们需要找到解决办法。", "pinyin": "Wǒmen xūyào zhǎodào jiějué bànfǎ."},
+{"level": 3, "audio": "你能解释原因吗？", "pinyin": "Nǐ néng jiěshì yuányīn ma?"},
+{"level": 3, "audio": "因为今天下雨，所以我没出去。", "pinyin": "Yīnwèi jīntiān xiàyǔ, suǒyǐ wǒ méi chūqù."},
+{"level": 3, "audio": "如果有问题，请告诉我。", "pinyin": "Rúguǒ yǒu wèntí, qǐng gàosu wǒ."},
+{"level": 3, "audio": "虽然很忙，但是我会完成。", "pinyin": "Suīrán hěn máng, dànshì wǒ huì wánchéng."},
+{"level": 3, "audio": "除了中文，我还学习英语。", "pinyin": "Chúle Zhōngwén, wǒ hái xuéxí Yīngyǔ."},
+{"level": 3, "audio": "我希望以后可以说得更流利。", "pinyin": "Wǒ xīwàng yǐhòu kěyǐ shuō de gèng liúlì."},
+{"level": 3, "audio": "我每天都听中文。", "pinyin": "Wǒ měitiān dōu tīng Zhōngwén."},
+{"level": 3, "audio": "我正在练习听力。", "pinyin": "Wǒ zhèngzài liànxí tīnglì."},
+{"level": 3, "audio": "听力对学习语言很重要。", "pinyin": "Tīnglì duì xuéxí yǔyán hěn zhòngyào."},
+{"level": 3, "audio": "先听关键词，再理解整句话。", "pinyin": "Xiān tīng guānjiàncí, zài lǐjiě zhěng jù huà."},
+{"level": 3, "audio": "听不懂也不要马上放弃。", "pinyin": "Tīng bù dǒng yě bú yào mǎshàng fàngqì."},
+{"level": 3, "audio": "多听几遍就会越来越熟悉。", "pinyin": "Duō tīng jǐ biàn jiù huì yuèláiyuè shúxī."},
+{"level": 3, "audio": "今天我们练习十句话。", "pinyin": "Jīntiān wǒmen liànxí shí jù huà."},
+{"level": 3, "audio": "明天继续练习。", "pinyin": "Míngtiān jìxù liànxí."},
+{"level": 3, "audio": "祝你学习进步。", "pinyin": "Zhù nǐ xuéxí jìnbù."},
+{"level": 3, "audio": "祝你今天开心。", "pinyin": "Zhù nǐ jīntiān kāixīn."},
+{"level": 3, "audio": "祝你一路顺风。", "pinyin": "Zhù nǐ yílù shùnfēng."},
+{"level": 3, "audio": "欢迎来到我们的中文课程。", "pinyin": "Huānyíng láidào wǒmen de Zhōngwén kèchéng."},
+{"level": 3, "audio": "今天的内容很简单。", "pinyin": "Jīntiān de nèiróng hěn jiǎndān."},
+{"level": 3, "audio": "下一题会稍微难一点。", "pinyin": "Xià yì tí huì shāowéi nán yìdiǎn."},
+{"level": 3, "audio": "答错了也没关系。", "pinyin": "Dá cuò le yě méi guānxi."},
+{"level": 3, "audio": "把错题再听一遍。", "pinyin": "Bǎ cuòtí zài tīng yí biàn."},
+{"level": 3, "audio": "重复练习可以提高反应速度。", "pinyin": "Chóngfù liànxí kěyǐ tígāo fǎnyìng sùdù."},
+{"level": 3, "audio": "听到熟悉的词就先记下来。", "pinyin": "Tīngdào shúxī de cí jiù xiān jì xiàlái."},
+{"level": 3, "audio": "先不要看拼音。", "pinyin": "Xiān bú yào kàn pīnyīn."},
+{"level": 3, "audio": "听完以后再看答案。", "pinyin": "Tīng wán yǐhòu zài kàn dáàn."},
+{"level": 3, "audio": "你可以再听一次。", "pinyin": "Nǐ kěyǐ zài tīng yí cì."},
+{"level": 3, "audio": "现在开始下一题。", "pinyin": "Xiànzài kāishǐ xià yì tí."},
+{"level": 3, "audio": "准备好就开始吧。", "pinyin": "Zhǔnbèi hǎo jiù kāishǐ ba."},
+{"level": 3, "audio": "请集中注意力。", "pinyin": "Qǐng jízhōng zhùyìlì."},
+{"level": 3, "audio": "认真听，不要着急。", "pinyin": "Rènzhēn tīng, bú yào zháojí."},
+{"level": 3, "audio": "你的反应越来越快了。", "pinyin": "Nǐ de fǎnyìng yuèláiyuè kuài le."},
+{"level": 3, "audio": "今天比昨天进步了。", "pinyin": "Jīntiān bǐ zuótiān jìnbù le."},
+{"level": 3, "audio": "坚持下去一定会有进步。", "pinyin": "Jiānchí xiàqù yídìng huì yǒu jìnbù."},
+{"level": 3, "audio": "学习语言需要时间。", "pinyin": "Xuéxí yǔyán xūyào shíjiān."},
+{"level": 3, "audio": "每天一点点就很好。", "pinyin": "Měitiān yìdiǎndiǎn jiù hěn hǎo."},
+{"level": 3, "audio": "我喜欢用中文聊天。", "pinyin": "Wǒ xǐhuan yòng Zhōngwén liáotiān."},
+{"level": 3, "audio": "你平时跟谁练习中文？", "pinyin": "Nǐ píngshí gēn shéi liànxí Zhōngwén?"},
+{"level": 3, "audio": "我跟朋友一起练习。", "pinyin": "Wǒ gēn péngyou yìqǐ liànxí."},
+{"level": 3, "audio": "我们每天晚上聊天。", "pinyin": "Wǒmen měitiān wǎnshang liáotiān."},
+{"level": 3, "audio": "你觉得中文难吗？", "pinyin": "Nǐ juéde Zhōngwén nán ma?"},
+{"level": 3, "audio": "开始的时候有一点难。", "pinyin": "Kāishǐ de shíhou yǒu yìdiǎn nán."},
+{"level": 3, "audio": "现在我觉得容易多了。", "pinyin": "Xiànzài wǒ juéde róngyì duō le."},
+{"level": 3, "audio": "我最喜欢学口语。", "pinyin": "Wǒ zuì xǐhuan xué kǒuyǔ."},
+{"level": 3, "audio": "我想提高听力。", "pinyin": "Wǒ xiǎng tígāo tīnglì."},
+{"level": 3, "audio": "我也想提高发音。", "pinyin": "Wǒ yě xiǎng tígāo fāyīn."},
+{"level": 3, "audio": "请纠正我的发音。", "pinyin": "Qǐng jiūzhèng wǒ de fāyīn."},
+{"level": 3, "audio": "这个音怎么发？", "pinyin": "Zhège yīn zěnme fā?"},
+{"level": 3, "audio": "我说得对吗？", "pinyin": "Wǒ shuō de duì ma?"},
+{"level": 3, "audio": "差不多，再注意声调。", "pinyin": "Chàbuduō, zài zhùyì shēngdiào."},
+{"level": 3, "audio": "第一声要保持平稳。", "pinyin": "Dì yī shēng yào bǎochí píngwěn."},
+{"level": 3, "audio": "第三声要注意变化。", "pinyin": "Dì sān shēng yào zhùyì biànhuà."},
+{"level": 3, "audio": "请跟我读一遍。", "pinyin": "Qǐng gēn wǒ dú yí biàn."},
+{"level": 3, "audio": "轮到你了。", "pinyin": "Lún dào nǐ le."},
+{"level": 3, "audio": "该你回答了。", "pinyin": "Gāi nǐ huídá le."},
+{"level": 3, "audio": "你准备好回答了吗？", "pinyin": "Nǐ zhǔnbèi hǎo huídá le ma?"},
+{"level": 3, "audio": "我还需要一点时间。", "pinyin": "Wǒ hái xūyào yìdiǎn shíjiān."},
+{"level": 3, "audio": "没问题，我等你。", "pinyin": "Méi wèntí, wǒ děng nǐ."},
+{"level": 3, "audio": "我们从第一题开始。", "pinyin": "Wǒmen cóng dì yī tí kāishǐ."},
+{"level": 3, "audio": "这一题你答对了。", "pinyin": "Zhè yì tí nǐ dá duì le."},
+{"level": 3, "audio": "这一题你答错了。", "pinyin": "Zhè yì tí nǐ dá cuò le."},
+{"level": 3, "audio": "再听一次，你会听出来的。", "pinyin": "Zài tīng yí cì, nǐ huì tīng chūlái de."},
+{"level": 3, "audio": "不要只记答案，要听懂句子。", "pinyin": "Bú yào zhǐ jì dáàn, yào tīng dǒng jùzi."},
+{"level": 3, "audio": "把新单词放进句子里学习。", "pinyin": "Bǎ xīn dāncí fàng jìn jùzi lǐ xuéxí."},
+{"level": 3, "audio": "这样更容易记住。", "pinyin": "Zhèyàng gèng róngyì jìzhù."},
+{"level": 3, "audio": "今天就练到这里。", "pinyin": "Jīntiān jiù liàn dào zhèlǐ."},
+{"level": 3, "audio": "下次我们继续。", "pinyin": "Xià cì wǒmen jìxù."},
+{"level": 3, "audio": "你已经做得很好了。", "pinyin": "Nǐ yǐjīng zuò de hěn hǎo le."},
+{"level": 3, "audio": "继续保持。", "pinyin": "Jìxù bǎochí."},
+{"level": 3, "audio": "加油！", "pinyin": "Jiāyóu!"}
+
 ];
-let listeningQuestions=[], listeningIndex=0, listeningScore=0, listeningAnswered=false;
+let listeningQuestions=[], listeningIndex=0, listeningScore=0, listeningAnswered=false, listeningWrongMode=false;
+const LISTENING_WRONG_KEY='giangha_listening_wrong_v3';
+function getWrongListening(){ try{return JSON.parse(localStorage.getItem(LISTENING_WRONG_KEY)||'[]');}catch(e){return [];} }
+function setWrongListening(items){ try{localStorage.setItem(LISTENING_WRONG_KEY,JSON.stringify(items.slice(-300)));}catch(e){} updateWrongListeningUI(); }
+function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning||'')}</small></div><button type="button" onclick="speakWrongListening(${i})">🔊 Nghe lại</button></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q||!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); speechSynthesis.speak(u); }
 function initListening(){
+  listeningWrongMode=false;
   const level=Number(document.getElementById('hsk-level')?.value||1);
   listeningQuestions=LISTENING_BANK.filter(x=>x.level<=Math.max(1,level));
+  listeningQuestions=listeningQuestions.map(q=>{ if(q.options&&q.options.length===4)return q; const pool=LISTENING_BANK.filter(x=>x!==q && x.level<=Math.max(1,level)); const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3); const opts=[q.audio,...ds.map(x=>x.audio)].sort(()=>Math.random()-0.5); return {...q,options:opts,correct:opts.indexOf(q.audio)}; });
   if(!listeningQuestions.length) listeningQuestions=[...LISTENING_BANK];
+  const recentKey='giangha_listening_recent_v2';
+  let recent=[]; try { recent=JSON.parse(sessionStorage.getItem(recentKey)||'[]'); } catch(e){}
+  const fresh=listeningQuestions.filter(q=>!recent.includes(q.audio));
+  if(fresh.length >= Math.min(20,listeningQuestions.length)) listeningQuestions=fresh;
   listeningQuestions=[...listeningQuestions].sort(()=>Math.random()-0.5);
   listeningIndex=0; listeningScore=0; listeningAnswered=false;
+  try { sessionStorage.setItem(recentKey, JSON.stringify(listeningQuestions.map(q=>q.audio))); } catch(e){}
   renderListeningQuestion();
 }
 function speakListeningSentence(){
@@ -9852,8 +11938,8 @@ function renderListeningQuestion(){
 function checkListening(choice){
   if(listeningAnswered) return; listeningAnswered=true;
   const q=listeningQuestions[listeningIndex]; const buttons=[...document.querySelectorAll('.listening-option')]; buttons.forEach(b=>b.disabled=true);
-  if(choice===q.correct){ listeningScore++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').textContent='Chính xác!'; document.getElementById('listening-feedback').style.color='#00a67d'; }
-  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').textContent=`Chưa đúng. Câu nghe là: ${q.audio}`; document.getElementById('listening-feedback').style.color='#d63031'; }
+  if(choice===q.correct){ listeningScore++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').textContent='Chính xác!'; document.getElementById('listening-feedback').style.color='#00a67d'; if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); } }
+  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').textContent=`Chưa đúng. Câu nghe là: ${q.audio}`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:q.pinyin||'',meaning:q.meaning||''}); setWrongListening(wrong); }
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
   document.getElementById('listening-hint').textContent=`Pinyin: ${q.pinyin}`;
   document.getElementById('listening-next').disabled=false;
@@ -9868,8 +11954,13 @@ function nextListeningQuestion(){
   }
   renderListeningQuestion();
 }
+function startWrongListening(){ const wrong=getWrongListening(); if(!wrong.length){ const f=document.getElementById('listening-feedback'); if(f)f.textContent='Bạn chưa có câu sai để ôn.'; return; } listeningQuestions=wrong.map(q=>{const pool=[...LISTENING_BANK.filter(x=>x.audio!==q.audio),...wrong.filter(x=>x.audio!==q.audio)]; const opts=[q.audio,...pool.sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio)]; const unique=[...new Set(opts)].slice(0,4).sort(()=>Math.random()-0.5); return {...q,level:'Ôn sai',options:unique,correct:unique.indexOf(q.audio)}; }).sort(()=>Math.random()-0.5); listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningWrongMode=true; renderListeningQuestion(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
+function clearWrongListening(){ localStorage.removeItem(LISTENING_WRONG_KEY); updateWrongListeningUI(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('listening-play')?.addEventListener('click',speakListeningSentence);
   document.getElementById('listening-replay')?.addEventListener('click',speakListeningSentence);
   document.getElementById('listening-next')?.addEventListener('click',nextListeningQuestion);
+  document.getElementById('listening-wrong-mode')?.addEventListener('click',startWrongListening);
+  document.getElementById('listening-clear-wrong')?.addEventListener('click',clearWrongListening);
+  updateWrongListeningUI();
 });
