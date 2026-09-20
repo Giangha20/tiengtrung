@@ -2026,3 +2026,6 @@ button .ui-icon{pointer-events:none}
 
 /* Nghĩa tiếng Việt sau khi trả lời Luyện nghe */
 .listening-meaning{margin-top:8px;padding:10px 12px;border-radius:12px;background:rgba(9,132,227,.08);color:inherit;font-weight:600;line-height:1.5}.listening-answer{margin-top:6px;font-weight:600}
+
+/* FINAL CLEAN: font stack supports Vietnamese diacritics consistently. */
+.meaning{font-family:"Noto Sans","Segoe UI",Arial,sans-serif;unicode-bidi:plaintext;}
