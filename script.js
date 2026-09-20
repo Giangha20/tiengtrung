@@ -11890,32 +11890,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "你好吗？",
-  "pinyin": "Nǐ hǎo ma?",
-  "meaning": "Bạn khỏe không?",
-  "options": [
-   "你想吃什么？",
-   "为了准备明天的工作，她今晚还要听音乐。",
-   "你好。",
-   "你好吗？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "我很好，谢谢。",
-  "pinyin": "Wǒ hěn hǎo, xièxie.",
-  "meaning": "Tôi khỏe, cảm ơn.",
-  "options": [
-   "我很好，谢谢。",
-   "公交车站在哪里？",
-   "再来一杯，谢谢。",
-   "你从哪里来？"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
   "audio": "你叫什么？",
   "pinyin": "Nǐ jiào shénme?",
   "meaning": "Bạn tên là gì?",
@@ -11929,58 +11903,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "我是越南人。",
-  "pinyin": "Wǒ shì Yuènán rén.",
-  "meaning": "Tôi là người Việt Nam。",
-  "options": [
-   "我是越南人。",
-   "虽然时间不多，但是哥哥还是完成了吃饭。",
-   "周末的时候，朋友喜欢去中国吃饭。",
-   "早上好。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "我住在海防。",
-  "pinyin": "Wǒ zhù zài Hǎifáng.",
-  "meaning": "Tôi sống ở Hải Phòng.",
-  "options": [
-   "我住在海防。",
-   "他每天都要看书。",
-   "虽然时间不多，但是哥哥还是完成了吃饭。",
-   "请进。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "你会说中文吗？",
-  "pinyin": "Nǐ huì shuō Zhōngwén ma?",
-  "meaning": "Bạn biết nói tiếng Trung không?",
-  "options": [
-   "你觉得喝水很重要。",
-   "请给我一张发票。",
-   "请在这里停车。",
-   "你会说中文吗？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "我会说一点中文。",
-  "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.",
-  "meaning": "Tôi biết nói một chút tiếng Trung.",
-  "options": [
-   "请向右转。",
-   "我会说一点中文。",
-   "我只是看看。",
-   "昨天我很忙。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
   "audio": "请说慢一点。",
   "pinyin": "Qǐng shuō màn yìdiǎn.",
   "meaning": "Xin hãy nói chậm một chút.",
@@ -11989,19 +11911,6 @@ const LISTENING_BANK = [
    "你吃饭了吗？",
    "请坐。",
    "请说慢一点。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "请再说一遍。",
-  "pinyin": "Qǐng zài shuō yí biàn.",
-  "meaning": "Hãy nói lại một lần nữa.",
-  "options": [
-   "我听说同学最近在商店负责工作。",
-   "为了买东西，哥哥提前来到中国。",
-   "为了买东西，他提前来到中国。",
-   "请再说一遍。"
   ],
   "correct": 3
  },
@@ -12059,58 +11968,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "我不知道。",
-  "pinyin": "Wǒ bù zhīdào.",
-  "meaning": "Tôi không biết.",
-  "options": [
-   "我不知道。",
-   "为了买东西，朋友提前来到中国。",
-   "我希望明天可以继续睡觉。",
-   "如果有时间，妈妈会去商店听音乐。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "我明白了。",
-  "pinyin": "Wǒ míngbai le.",
-  "meaning": "Tôi hiểu rồi.",
-  "options": [
-   "我明白了。",
-   "我从越南来。",
-   "他已经把手机带到中国了。",
-   "可以刷卡吗？"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "我还不明白。",
-  "pinyin": "Wǒ hái bù míngbai.",
-  "meaning": "Tôi vẫn chưa hiểu.",
-  "options": [
-   "医生希望明天可以继续睡觉。",
-   "我还不明白。",
-   "老师已经把手机带到中国了。",
-   "因为工作很忙，她只能晚上工作。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "没关系。",
-  "pinyin": "Méi guānxi.",
-  "meaning": "Không sao.",
-  "options": [
-   "今天姐姐在商店喝水。",
-   "我喜欢吃米饭。",
-   "最近医生常常需要买东西。",
-   "没关系。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
   "audio": "谢谢你的帮助。",
   "pinyin": "Xièxie nǐ de bāngzhù.",
   "meaning": "Cảm ơn bạn đã giúp đỡ.",
@@ -12137,19 +11994,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "对不起。",
-  "pinyin": "Duìbuqǐ.",
-  "meaning": "Xin lỗi.",
-  "options": [
-   "他告诉我，他最近正在学习。",
-   "一共多少钱？",
-   "对不起。",
-   "因为工作很忙，姐姐只能晚上工作。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
   "audio": "没事。",
   "pinyin": "Méi shì.",
   "meaning": "Không sao đâu.",
@@ -12160,32 +12004,6 @@ const LISTENING_BANK = [
    "没事。"
   ],
   "correct": 3
- },
- {
-  "level": 1,
-  "audio": "请坐。",
-  "pinyin": "Qǐng zuò.",
-  "meaning": "Mời ngồi.",
-  "options": [
-   "为了买东西，他提前来到中国。",
-   "学生觉得喝水很重要。",
-   "请坐。",
-   "可以用手机付款吗？"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "请进。",
-  "pinyin": "Qǐng jìn.",
-  "meaning": "Mời vào.",
-  "options": [
-   "我不喜欢喝咖啡。",
-   "请进。",
-   "会议结束以后，老师马上回到中国继续学习。",
-   "我只是看看。"
-  ],
-  "correct": 1
  },
  {
   "level": 1,
@@ -12267,19 +12085,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "明天见。",
-  "pinyin": "Míngtiān jiàn.",
-  "meaning": "Hẹn gặp lại ngày mai.",
-  "options": [
-   "我听说妈妈最近在商店负责工作。",
-   "我告诉我，他最近正在学习。",
-   "明天见。",
-   "同学正在商店回家。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
   "audio": "昨天我很忙。",
   "pinyin": "Zuótiān wǒ hěn máng.",
   "meaning": "Hôm qua tôi rất bận.",
@@ -12319,58 +12124,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "你几点起床？",
-  "pinyin": "Nǐ jǐ diǎn qǐchuáng?",
-  "meaning": "Bạn thức dậy lúc mấy giờ?",
-  "options": [
-   "你是学生吗？",
-   "我是学生。",
-   "如果有时间，妈妈会去商店听音乐。",
-   "你几点起床？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "我七点起床。",
-  "pinyin": "Wǒ qī diǎn qǐchuáng.",
-  "meaning": "Tôi thức dậy lúc bảy giờ.",
-  "options": [
-   "我只是看看。",
-   "他已经把手机带到中国了。",
-   "如果计划没有变化，她下午会在商店回家。",
-   "我七点起床。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "你几点睡觉？",
-  "pinyin": "Nǐ jǐ diǎn shuìjiào?",
-  "meaning": "Bạn đi ngủ lúc mấy giờ?",
-  "options": [
-   "请坐。",
-   "你几点睡觉？",
-   "最近他常常需要买东西。",
-   "周末的时候，他喜欢去中国吃饭。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "我十一点睡觉。",
-  "pinyin": "Wǒ shíyī diǎn shuìjiào.",
-  "meaning": "Tôi đi ngủ lúc mười một giờ.",
-  "options": [
-   "为了买东西，哥哥提前来到中国。",
-   "我是学生。",
-   "我十一点睡觉。",
-   "周末的时候，医生喜欢去中国吃饭。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
   "audio": "你吃早饭了吗？",
   "pinyin": "Nǐ chī zǎofàn le ma?",
   "meaning": "Bạn ăn sáng chưa?",
@@ -12392,32 +12145,6 @@ const LISTENING_BANK = [
    "我已经吃过了。",
    "为了准备明天的工作，你今晚还要听音乐。",
    "我是越南人。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "你想吃什么？",
-  "pinyin": "Nǐ xiǎng chī shénme?",
-  "meaning": "Bạn muốn ăn gì?",
-  "options": [
-   "昨天你在商店休息，所以回家比较晚。",
-   "你几点睡觉？",
-   "请问，洗手间在哪里？",
-   "你想吃什么？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "我想吃面条。",
-  "pinyin": "Wǒ xiǎng chī miàntiáo.",
-  "meaning": "Tôi muốn ăn mì.",
-  "options": [
-   "晚上好。",
-   "我想吃面条。",
-   "今天同学在商店喝水。",
-   "老师已经把手机带到中国了。"
   ],
   "correct": 1
  },
@@ -12488,19 +12215,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "可以刷卡吗？",
-  "pinyin": "Kěyǐ shuākǎ ma?",
-  "meaning": "Có thể thanh toán bằng thẻ không?",
-  "options": [
-   "我听说学生最近在商店负责工作。",
-   "再来一杯，谢谢。",
-   "不用客气。",
-   "可以刷卡吗？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
   "audio": "可以用手机付款吗？",
   "pinyin": "Kěyǐ yòng shǒujī fùkuǎn ma?",
   "meaning": "Có thể thanh toán bằng điện thoại không?",
@@ -12511,19 +12225,6 @@ const LISTENING_BANK = [
    "左边有一家银行。"
   ],
   "correct": 1
- },
- {
-  "level": 1,
-  "audio": "请给我一张发票。",
-  "pinyin": "Qǐng gěi wǒ yì zhāng fāpiào.",
-  "meaning": "Làm ơn cho tôi một hóa đơn.",
-  "options": [
-   "你想吃什么？",
-   "她正在检查咖啡，准备开始休息。",
-   "请给我一张发票。",
-   "今天星期几？"
-  ],
-  "correct": 2
  },
  {
   "level": 1,
@@ -12680,19 +12381,6 @@ const LISTENING_BANK = [
    "最近我常常需要买东西。"
   ],
   "correct": 2
- },
- {
-  "level": 1,
-  "audio": "请在这里停车。",
-  "pinyin": "Qǐng zài zhèlǐ tíngchē.",
-  "meaning": "Xin dừng xe ở đây.",
-  "options": [
-   "有大一点的吗？",
-   "这辆车去市中心吗？",
-   "我七点起床。",
-   "请在这里停车。"
-  ],
-  "correct": 3
  },
  {
   "level": 1,
@@ -13645,19 +13333,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 3,
-  "audio": "请把文件发给我。",
-  "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ.",
-  "meaning": "Làm ơn gửi tài liệu cho tôi.",
-  "options": [
-   "因为工作很忙，老师只能晚上买东西。",
-   "我们每天晚上聊天。",
-   "请把文件发给我。",
-   "让我想一想。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
   "audio": "我已经收到文件了。",
   "pinyin": "Wǒ yǐjīng shōudào wénjiàn le.",
   "meaning": "Tôi đã nhận được tài liệu rồi.",
@@ -13775,19 +13450,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 3,
-  "audio": "我同意你的看法。",
-  "pinyin": "Wǒ tóngyì nǐ de kànfǎ.",
-  "meaning": "Tôi đồng ý với quan điểm của bạn.",
-  "options": [
-   "我同意你的看法。",
-   "轮到你了。",
-   "老师希望明天可以继续买东西。",
-   "这个文件在哪里？"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
   "audio": "我有不同的意见。",
   "pinyin": "Wǒ yǒu bùtóng de yìjiàn.",
   "meaning": "Tôi có ý kiến khác.",
@@ -13835,32 +13497,6 @@ const LISTENING_BANK = [
    "我告诉我，他最近正在练习发音。",
    "不要害怕说错。",
    "会议结束以后，哥哥马上回到医院继续解决问题。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "如果有问题，请告诉我。",
-  "pinyin": "Rúguǒ yǒu wèntí, qǐng gàosu wǒ.",
-  "meaning": "Nếu có vấn đề, hãy nói cho tôi biết.",
-  "options": [
-   "为了准备明天的工作，经理今晚还要计划旅行。",
-   "如果有问题，请告诉我。",
-   "虽然很忙，但是我会完成。",
-   "最近老师常常需要准备考试。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "虽然很忙，但是我会完成。",
-  "pinyin": "Suīrán hěn máng, dànshì wǒ huì wánchéng.",
-  "meaning": "Mặc dù rất bận nhưng tôi sẽ hoàn thành.",
-  "options": [
-   "虽然很忙，但是我会完成。",
-   "该你回答了。",
-   "只要努力，就会进步。",
-   "这个决定对大家都很重要。"
   ],
   "correct": 0
  },
@@ -36972,19 +36608,6 @@ const LISTENING_BANK = [
  },
  {
   "level": 1,
-  "audio": "今天很热。",
-  "pinyin": "Jīntiān hěn rè.",
-  "options": [
-   "今天很热。",
-   "我叫小王。",
-   "不客气。",
-   "我十一点睡觉。"
-  ],
-  "correct": 0,
-  "meaning": "Hôm nay rất nóng."
- },
- {
-  "level": 1,
   "audio": "再见，明天见。",
   "pinyin": "Zàijiàn, míngtiān jiàn.",
   "options": [
@@ -37333,19 +36956,6 @@ const LISTENING_BANK = [
   ],
   "correct": 3,
   "meaning": "Hôm nay lạnh hơn hôm qua."
- },
- {
-  "level": 2,
-  "audio": "我每天坐公交车上班。",
-  "pinyin": "Wǒ měitiān zuò gōngjiāo chē shàngbān.",
-  "options": [
-   "你吃过饭了吗？",
-   "今天太热了。",
-   "我每天坐公交车上班。",
-   "我家有四个人。"
-  ],
-  "correct": 2,
-  "meaning": "Mỗi ngày tôi đi làm bằng xe buýt."
  },
  {
   "level": 2,
@@ -40367,7 +39977,7 @@ function updateListeningProgressUI(){
   const fill=document.getElementById('listening-progress-fill'); if(fill)fill.style.width=pct+'%';
 }
 function setWrongListening(items){ try{localStorage.setItem(LISTENING_WRONG_KEY,JSON.stringify(items.slice(-300)));}catch(e){} updateWrongListeningUI(); }
-function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning || getListeningMeaning(q) || '')}</small></div><div class="wrong-item-actions"><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
+function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(getListeningPinyin(q))}<br>${escapeHtml(q.meaning || getListeningMeaning(q) || '')}</small></div><div class="wrong-item-actions"><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q||!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); speechSynthesis.speak(u); }
 
@@ -40666,9 +40276,21 @@ const LISTENING_VI_MEANINGS = {
   "继续保持。": "Hãy tiếp tục duy trì nhé.",
   "加油！": "Cố lên!"
 };
+function getListeningPinyin(q){
+  if(!q) return '';
+  if(q.pinyin && String(q.pinyin).trim()) return String(q.pinyin).trim();
+  try {
+    if(window.pinyinPro && typeof window.pinyinPro.pinyin === 'function' && q.audio){
+      const py = window.pinyinPro.pinyin(q.audio, { toneType: 'symbol' });
+      if(py){ q.pinyin = py; return py; }
+    }
+  } catch(e) {}
+  return '';
+}
+
 function getListeningMeaning(q){
-  if(q && q.meaning) return q.meaning;
-  if(q && LISTENING_VI_MEANINGS[q.audio]) return LISTENING_VI_MEANINGS[q.audio];
+  if(q && q.audio && LISTENING_VI_MEANINGS[q.audio]) return LISTENING_VI_MEANINGS[q.audio];
+  if(q && q.meaning) return String(q.meaning).trim();
   const words = hskData && hskData[currentLevel] ? hskData[currentLevel] : [];
   const hit = words.find(w => w && w.word === q?.audio);
   return hit?.meaning || '';
@@ -40682,7 +40304,7 @@ function initListening(){
   if(!Array.isArray(LISTENING_BANK)||!LISTENING_BANK.length){ const h=document.getElementById('listening-hint'); if(h)h.textContent='Chưa tải được dữ liệu Luyện nghe. Hãy kiểm tra file script.js.'; return; }
   listeningQuestions=LISTENING_BANK.filter(x=>Number(x.level)===Math.max(1,level));
   listeningQuestions=listeningQuestions.map(q=>{ if(q.options&&q.options.length===4)return q; const pool=LISTENING_BANK.filter(x=>x!==q && x.level<=Math.max(1,level)); const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3); const opts=[q.audio,...ds.map(x=>x.audio)].sort(()=>Math.random()-0.5); return {...q,options:opts,correct:opts.indexOf(q.audio)}; });
-  if(!listeningQuestions.length) listeningQuestions=[...LISTENING_BANK];
+  if(!listeningQuestions.length){ const h=document.getElementById('listening-hint'); if(h)h.textContent=`HSK ${level} hiện chưa có dữ liệu Luyện nghe.`; const box=document.getElementById('listening-options'); if(box)box.innerHTML=''; return; }
   const recentKey='giangha_listening_recent_v2';
   let recent=[]; try { recent=JSON.parse(sessionStorage.getItem(recentKey)||'[]'); } catch(e){}
   const fresh=listeningQuestions.filter(q=>!recent.includes(q.audio));
@@ -40721,11 +40343,11 @@ function checkListening(choice){
   const qMeaning = getListeningMeaning(q);
   const meaning = qMeaning ? `Nghĩa tiếng Việt: ${qMeaning}` : 'Nghĩa tiếng Việt: chưa có dữ liệu cho câu này.';
   if(choice===q.correct){ listeningScore++; listeningSessionCorrect++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✓ Chính xác!</strong><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#00a67d'; if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); } }
-  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✗ Chưa đúng.</strong><div class="listening-answer">Đáp án: ${q.audio}</div><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:q.pinyin||'',meaning:getListeningMeaning(q)}); setWrongListening(wrong); }
+  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✗ Chưa đúng.</strong><div class="listening-answer">Đáp án: ${q.audio}</div><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:getListeningPinyin(q),meaning:getListeningMeaning(q)}); setWrongListening(wrong); }
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
   saveListeningProgress();
   updateListeningProgressUI();
-  document.getElementById('listening-hint').textContent=q.pinyin?`Pinyin: ${q.pinyin}`:'Nghe lại câu để kiểm tra cách phát âm.';
+  const py=getListeningPinyin(q); document.getElementById('listening-hint').textContent=py?`Pinyin: ${py}`:'Nghe lại câu để kiểm tra cách phát âm.';
   document.getElementById('listening-next').disabled=false;
 }
 function nextListeningQuestion(){
@@ -40773,8 +40395,6 @@ function continueListening(){
   renderListeningQuestion();
 }
 
-function startWrongListening(){ const wrong=getWrongListening(); if(!wrong.length){ const f=document.getElementById('listening-feedback'); if(f)f.textContent='Bạn chưa có câu sai để ôn.'; return; } listeningQuestions=wrong.map(q=>{const pool=[...LISTENING_BANK.filter(x=>x.audio!==q.audio),...wrong.filter(x=>x.audio!==q.audio)]; const opts=[q.audio,...pool.sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio)]; const unique=[...new Set(opts)].slice(0,4).sort(()=>Math.random()-0.5); return {...q,level:'Ôn sai',options:unique,correct:unique.indexOf(q.audio)}; }).sort(()=>Math.random()-0.5); listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningWrongMode=true; renderListeningQuestion(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
-function clearWrongListening(){ localStorage.removeItem(LISTENING_WRONG_KEY); updateWrongListeningUI(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('listening-play')?.addEventListener('click',speakListeningSentence);
   document.getElementById('listening-replay')?.addEventListener('click',speakListeningSentence);

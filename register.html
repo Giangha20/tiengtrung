@@ -661,31 +661,31 @@
                 const confirmPassword = document.getElementById("confirmPassword").value;
                 const btn = this.querySelector('button[type="submit"]');
 
-                if (username.length < 3) return showMessage("<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Tên tài khoản phải có ít nhất 3 ký tự.", "error");
-                if (password.length < 6) return showMessage("<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Mật khẩu phải có ít nhất 6 ký tự.", "error");
-                if (password !== confirmPassword) return showMessage("<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Mật khẩu nhập lại không khớp.", "error");
+                if (username.length < 3) return showMessage("Tên tài khoản phải có ít nhất 3 ký tự.", "error");
+                if (password.length < 6) return showMessage("Mật khẩu phải có ít nhất 6 ký tự.", "error");
+                if (password !== confirmPassword) return showMessage("Mật khẩu nhập lại không khớp.", "error");
 
                 if (btn) { btn.disabled = true; btn.dataset.oldText = btn.textContent; btn.textContent = "Đang tạo tài khoản..."; }
                 try {
                     await window.ghAuth.register(email, password, username);
-                    showMessage("<svg class="ui-icon" aria-hidden="true"><use href="#icon-check"></use></svg> Tạo tài khoản thành công! Đang chuyển sang đăng nhập...", "success");
+                    showMessage("Tạo tài khoản thành công! Đang chuyển sang đăng nhập...", "success");
                     setTimeout(() => window.location.replace("./login.html"), 900);
                 } catch (error) {
                     console.error("Firebase register error:", error);
                     const messages = {
-                        "auth/email-already-in-use": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Email này đã được đăng ký.",
-                        "auth/invalid-email": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Email không hợp lệ.",
-                        "auth/weak-password": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Mật khẩu quá yếu.",
-                        "auth/operation-not-allowed": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Firebase Email/Password chưa được bật.",
-                        "auth/network-request-failed": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Không có kết nối mạng hoặc Firebase bị chặn."
+                        "auth/email-already-in-use": "Email này đã được đăng ký.",
+                        "auth/invalid-email": "Email không hợp lệ.",
+                        "auth/weak-password": "Mật khẩu quá yếu.",
+                        "auth/operation-not-allowed": "Firebase Email/Password chưa được bật.",
+                        "auth/network-request-failed": "Không có kết nối mạng hoặc Firebase bị chặn."
                     };
-                    showMessage(messages[error.code] || ("<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Đăng ký thất bại: " + (error.message || error)), "error");
+                    showMessage(messages[error.code] || ("Đăng ký thất bại: " + (error.message || error)), "error");
                     if (btn) { btn.disabled = false; btn.textContent = btn.dataset.oldText || "Đăng ký"; }
                 }
             });
         } catch (error) {
             console.error("Firebase bootstrap error:", error);
-            showMessage("<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Không thể khởi tạo Firebase. Kiểm tra firebase-config.js, Firebase SDK và Authorized domains.", "error");
+            showMessage("Không thể khởi tạo Firebase. Kiểm tra firebase-config.js, Firebase SDK và Authorized domains.", "error");
         }
     }
 

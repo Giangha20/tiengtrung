@@ -640,7 +640,7 @@
             showPasswordButton.addEventListener("click", function () {
                 const hidden = passwordInput.type === "password";
                 passwordInput.type = hidden ? "text" : "password";
-                showPasswordButton.textContent = hidden ? "<svg class="ui-icon" aria-hidden="true"><use href="#icon-eye"></use></svg>️" : "<svg class="ui-icon" aria-hidden="true"><use href="#icon-eye-off"></use></svg>";
+                showPasswordButton.innerHTML = hidden ? '<svg class="ui-icon" aria-hidden="true"><use href="#icon-eye"></use></svg>' : '<svg class="ui-icon" aria-hidden="true"><use href="#icon-eye-off"></use></svg>';
                 showPasswordButton.setAttribute("aria-label", hidden ? "Ẩn mật khẩu" : "Hiện mật khẩu");
             });
         }
@@ -675,14 +675,14 @@
                 } catch (error) {
                     console.error("Firebase login error:", error);
                     const messages = {
-                        "auth/invalid-credential": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Email hoặc mật khẩu không đúng.",
-                        "auth/user-not-found": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Không tìm thấy tài khoản.",
-                        "auth/wrong-password": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Mật khẩu không đúng.",
-                        "auth/too-many-requests": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Có quá nhiều lần thử. Vui lòng thử lại sau.",
-                        "auth/network-request-failed": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Không có kết nối mạng hoặc Firebase bị chặn.",
-                        "auth/operation-not-allowed": "<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Firebase chưa bật đăng nhập Email/Password."
+                        "auth/invalid-credential": "Email hoặc mật khẩu không đúng.",
+                        "auth/user-not-found": "Không tìm thấy tài khoản.",
+                        "auth/wrong-password": "Mật khẩu không đúng.",
+                        "auth/too-many-requests": "Có quá nhiều lần thử. Vui lòng thử lại sau.",
+                        "auth/network-request-failed": "Không có kết nối mạng hoặc Firebase bị chặn.",
+                        "auth/operation-not-allowed": "Firebase chưa bật đăng nhập Email/Password."
                     };
-                    alert(messages[error.code] || ("<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Đăng nhập thất bại: " + (error.message || error)));
+                    alert(messages[error.code] || ("Đăng nhập thất bại: " + (error.message || error)));
                     if (btn) { btn.disabled = false; btn.textContent = btn.dataset.oldText || "Đăng nhập"; }
                 }
             });
@@ -694,7 +694,7 @@
             }).catch(function () {});
         } catch (error) {
             console.error("Firebase bootstrap error:", error);
-            alert("<svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg> Không thể khởi tạo Firebase. Kiểm tra firebase-config.js, Firebase SDK và Authorized domains.");
+            alert("Không thể khởi tạo Firebase. Kiểm tra firebase-config.js, Firebase SDK và Authorized domains.");
         }
     }
 
