@@ -1,3 +1,5 @@
+
+// Dữ liệu Từ vựng HSK 1 (Đầy đủ 150/150 từ) và HSK 2 (Đầy đủ 150/150 từ)
 const hskData = {
     "1": [
         { word: "爱", pinyin: "ài", meaning: "yêu, thích" },
@@ -7709,10 +7711,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('online-auth-loader');
 
     try {
+        // Chờ Firebase xác nhận trạng thái đăng nhập lần đầu, không redirect sớm khi SDK còn đang khởi tạo.
         const user = window.ghAuthReady ? await window.ghAuthReady : null;
         if (!user) {
-            if (loader) loader.innerHTML = '<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:360px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.10);"><div style="font-size:36px;">🔐</div><strong>Vui lòng đăng nhập</strong><p style="color:#718096;">Đang chuyển đến trang đăng nhập...</p></div>' ;
-            setTimeout(() => window.location.replace('./login.html'), 350);
+            if (loader) loader.innerHTML = '<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:380px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.10);"><div style="font-size:36px;">🔐</div><strong>Phiên đăng nhập không tồn tại</strong><p style="color:#718096;">Đang chuyển đến trang đăng nhập...</p></div>';
+            setTimeout(() => window.location.replace('./login.html'), 700);
             return;
         }
 
