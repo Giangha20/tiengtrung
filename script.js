@@ -7753,18 +7753,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const userChip = document.getElementById('online-user-chip');
         if (userChip) userChip.textContent = ' ' + (profile?.username || user.displayName || user.email || 'Tài khoản');
 
-        document.getElementById('hsk-level').addEventListener('change', (e) => {
-            currentLevel = e.target.value;
-            renderList();
-            initTyping();
-            renderCommunication();
-            saveProgressData({ currentLevel });
-            saveHandwritingProgress();
-            if (document.getElementById('handwriting-canvas')) {
-                initHandwriting();
-            }
-        });
-        
         document.getElementById('typing-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkTyping();
@@ -8242,17 +8230,34 @@ function resetExamUI() {
 
 function changeLevel() {
     const levelSelect = document.getElementById('hsk-level');
-    currentLevel = levelSelect ? levelSelect.value : '1';
+    currentLevel = levelSelect ? String(levelSelect.value) : '1';
     saveProgressData({ currentLevel });
 
+    // Đồng bộ TẤT CẢ các mục theo HSK mới.
+    // Không chuyển tab tự động: người dùng vẫn ở đúng mục đang mở.
     renderList();
     initTyping();
+    renderCommunication();
     updateExamStartInfo();
     resetExamUI();
+    updateProgressUI();
+
+    // Luyện viết AI dùng chung dữ liệu HSK hiện tại.
+    if (document.getElementById('handwriting-canvas')) {
+        initHandwriting();
+    }
+
+    // Nếu đang đứng ở Luyện nghe thì tải ngay bộ câu của HSK mới.
+    const listeningSection = document.getElementById('listening-mode');
+    if (listeningSection && listeningSection.classList.contains('active')) {
+        initListening();
+    } else {
+        const listeningLevel = document.getElementById('listening-level-label');
+        if (listeningLevel) listeningLevel.textContent = `HSK ${currentLevel}`;
+    }
 
     const searchInput = document.getElementById('vocab-search');
     const resultCount = document.getElementById('search-result-count');
-
     if (searchInput) searchInput.value = '';
     if (resultCount) resultCount.textContent = '';
 }
@@ -36939,7 +36944,7 @@ function updateListeningProgressUI(){
   const fill=document.getElementById('listening-progress-fill'); if(fill)fill.style.width=pct+'%';
 }
 function setWrongListening(items){ try{localStorage.setItem(LISTENING_WRONG_KEY,JSON.stringify(items.slice(-300)));}catch(e){} updateWrongListeningUI(); }
-function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning||'')}</small></div><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
+function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning||'')}</small></div><div class="wrong-item-actions"><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q||!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); speechSynthesis.speak(u); }
 function initListening(){
