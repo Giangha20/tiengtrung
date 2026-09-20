@@ -9812,2097 +9812,27103 @@ document.addEventListener('DOMContentLoaded',()=>{
 // vì vậy có thể chạy offline nếu thiết bị có giọng zh-CN/zh-TW.
 // ============================================================
 const LISTENING_BANK = [
- {
-  "level": 1,
-  "audio": "你好。",
-  "pinyin": "Nǐ hǎo.",
-  "options": [
-   "我今天不太忙。",
-   "你好。",
-   "对不起。",
-   "我很好，谢谢。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "早上好。",
-  "pinyin": "Zǎoshang hǎo.",
-  "options": [
-   "你现在有空吗？",
-   "早上好。",
-   "你叫什么名字？",
-   "没关系。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "晚上好。",
-  "pinyin": "Wǎnshang hǎo.",
-  "options": [
-   "晚上好。",
-   "请坐。",
-   "我现在有空。",
-   "我叫李明。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "再见。",
-  "pinyin": "Zàijiàn.",
-  "options": [
-   "你几点起床？",
-   "再见。",
-   "请进。",
-   "你是哪国人？"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "明天见。",
-  "pinyin": "Míngtiān jiàn.",
-  "options": [
-   "我是越南人。",
-   "明天见。",
-   "请问，洗手间在哪里？",
-   "我七点起床。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "谢谢。",
-  "pinyin": "Xièxie.",
-  "options": [
-   "谢谢。",
-   "你好吗？",
-   "你是学生吗？",
-   "你几点睡觉？"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "不客气。",
-  "pinyin": "Bú kèqi.",
-  "options": [
-   "我很好，谢谢。",
-   "我十一点睡觉。",
-   "不客气。",
-   "我是学生。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "对不起。",
-  "pinyin": "Duìbuqǐ.",
-  "options": [
-   "你吃饭了吗？",
-   "你今天忙吗？",
-   "你叫什么名字？",
-   "对不起。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "没关系。",
-  "pinyin": "Méi guānxi.",
-  "options": [
-   "我今天不太忙。",
-   "我还没吃饭。",
-   "我叫李明。",
-   "没关系。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "请坐。",
-  "pinyin": "Qǐng zuò.",
-  "options": [
-   "你是哪国人？",
-   "你现在有空吗？",
-   "我吃过了。",
-   "请坐。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "请进。",
-  "pinyin": "Qǐng jìn.",
-  "options": [
-   "我是越南人。",
-   "请进。",
-   "你想吃什么？",
-   "我现在有空。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "请问，洗手间在哪里？",
-  "pinyin": "Qǐngwèn, xǐshǒujiān zài nǎlǐ?",
-  "options": [
-   "你是学生吗？",
-   "我想吃面条。",
-   "你几点起床？",
-   "请问，洗手间在哪里？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "你好吗？",
-  "pinyin": "Nǐ hǎo ma?",
-  "options": [
-   "我喜欢吃米饭。",
-   "你好吗？",
-   "我是学生。",
-   "我七点起床。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "我很好，谢谢。",
-  "pinyin": "Wǒ hěn hǎo, xièxie.",
-  "options": [
-   "你几点睡觉？",
-   "你今天忙吗？",
-   "你喜欢喝茶吗？",
-   "我很好，谢谢。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "你叫什么名字？",
-  "pinyin": "Nǐ jiào shénme míngzi?",
-  "options": [
-   "我十一点睡觉。",
-   "你叫什么名字？",
-   "我喜欢喝咖啡。",
-   "我今天不太忙。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "我叫李明。",
-  "pinyin": "Wǒ jiào Lǐ Míng.",
-  "options": [
-   "请给我一杯水。",
-   "你吃饭了吗？",
-   "我叫李明。",
-   "你现在有空吗？"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "你是哪国人？",
-  "pinyin": "Nǐ shì nǎ guó rén?",
-  "options": [
-   "我还没吃饭。",
-   "再来一杯，谢谢。",
-   "你是哪国人？",
-   "我现在有空。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "我是越南人。",
-  "pinyin": "Wǒ shì Yuènán rén.",
-  "options": [
-   "这个多少钱？",
-   "你几点起床？",
-   "我是越南人。",
-   "我吃过了。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "你是学生吗？",
-  "pinyin": "Nǐ shì xuésheng ma?",
-  "options": [
-   "你想吃什么？",
-   "我七点起床。",
-   "你是学生吗？",
-   "太贵了。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "我是学生。",
-  "pinyin": "Wǒ shì xuésheng.",
-  "options": [
-   "可以便宜一点吗？",
-   "我想吃面条。",
-   "我是学生。",
-   "你几点睡觉？"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "你今天忙吗？",
-  "pinyin": "Nǐ jīntiān máng ma?",
-  "options": [
-   "你今天忙吗？",
-   "我要买这个。",
-   "我喜欢吃米饭。",
-   "我十一点睡觉。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "我今天不太忙。",
-  "pinyin": "Wǒ jīntiān bú tài máng.",
-  "options": [
-   "我不要这个。",
-   "你吃饭了吗？",
-   "我今天不太忙。",
-   "你喜欢喝茶吗？"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "你现在有空吗？",
-  "pinyin": "Nǐ xiànzài yǒu kòng ma?",
-  "options": [
-   "可以刷卡吗？",
-   "我喜欢喝咖啡。",
-   "你现在有空吗？",
-   "我还没吃饭。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "我现在有空。",
-  "pinyin": "Wǒ xiànzài yǒu kòng.",
-  "options": [
-   "请给我一杯水。",
-   "我现在有空。",
-   "我吃过了。",
-   "请给我一个袋子。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "你几点起床？",
-  "pinyin": "Nǐ jǐ diǎn qǐchuáng?",
-  "options": [
-   "你几点起床？",
-   "地铁站在哪里？",
-   "你想吃什么？",
-   "再来一杯，谢谢。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "我七点起床。",
-  "pinyin": "Wǒ qī diǎn qǐchuáng.",
-  "options": [
-   "车站离这里很近。",
-   "我想吃面条。",
-   "这个多少钱？",
-   "我七点起床。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "你几点睡觉？",
-  "pinyin": "Nǐ jǐ diǎn shuìjiào?",
-  "options": [
-   "你几点睡觉？",
-   "我喜欢吃米饭。",
-   "请往前走。",
-   "太贵了。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "我十一点睡觉。",
-  "pinyin": "Wǒ shíyī diǎn shuìjiào.",
-  "options": [
-   "可以便宜一点吗？",
-   "你喜欢喝茶吗？",
-   "我十一点睡觉。",
-   "然后向左转。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "你吃饭了吗？",
-  "pinyin": "Nǐ chīfàn le ma?",
-  "options": [
-   "请向右转。",
-   "我要买这个。",
-   "你吃饭了吗？",
-   "我喜欢喝咖啡。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "我还没吃饭。",
-  "pinyin": "Wǒ hái méi chīfàn.",
-  "options": [
-   "我不要这个。",
-   "我找不到路了。",
-   "我还没吃饭。",
-   "请给我一杯水。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "我吃过了。",
-  "pinyin": "Wǒ chīguò le.",
-  "options": [
-   "再来一杯，谢谢。",
-   "可以刷卡吗？",
-   "你可以带我去吗？",
-   "我吃过了。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "你想吃什么？",
-  "pinyin": "Nǐ xiǎng chī shénme?",
-  "options": [
-   "这个多少钱？",
-   "请给我一个袋子。",
-   "我坐公交车去学校。",
-   "你想吃什么？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "我想吃面条。",
-  "pinyin": "Wǒ xiǎng chī miàntiáo.",
-  "options": [
-   "今天下雨了。",
-   "我想吃面条。",
-   "太贵了。",
-   "地铁站在哪里？"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "我喜欢吃米饭。",
-  "pinyin": "Wǒ xǐhuan chī mǐfàn.",
-  "options": [
-   "车站离这里很近。",
-   "明天天气很好。",
-   "可以便宜一点吗？",
-   "我喜欢吃米饭。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "你喜欢喝茶吗？",
-  "pinyin": "Nǐ xǐhuan hē chá ma?",
-  "options": [
-   "今天很冷。",
-   "你喜欢喝茶吗？",
-   "请往前走。",
-   "我要买这个。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "我喜欢喝咖啡。",
-  "pinyin": "Wǒ xǐhuan hē kāfēi.",
-  "options": [
-   "我喜欢喝咖啡。",
-   "我不要这个。",
-   "今天太热了。",
-   "然后向左转。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "请给我一杯水。",
-  "pinyin": "Qǐng gěi wǒ yì bēi shuǐ.",
-  "options": [
-   "请向右转。",
-   "请给我一杯水。",
-   "可以刷卡吗？",
-   "你住在哪里？"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "再来一杯，谢谢。",
-  "pinyin": "Zài lái yì bēi, xièxie.",
-  "options": [
-   "我找不到路了。",
-   "我住在海防。",
-   "请给我一个袋子。",
-   "再来一杯，谢谢。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "这个多少钱？",
-  "pinyin": "Zhège duōshao qián?",
-  "options": [
-   "你可以带我去吗？",
-   "你家有几个人？",
-   "地铁站在哪里？",
-   "这个多少钱？"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "太贵了。",
-  "pinyin": "Tài guì le.",
-  "options": [
-   "我家有四个人。",
-   "我坐公交车去学校。",
-   "车站离这里很近。",
-   "太贵了。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "可以便宜一点吗？",
-  "pinyin": "Kěyǐ piányi yìdiǎn ma?",
-  "options": [
-   "今天下雨了。",
-   "可以便宜一点吗？",
-   "你有兄弟姐妹吗？",
-   "请往前走。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "我要买这个。",
-  "pinyin": "Wǒ yào mǎi zhège.",
-  "options": [
-   "明天天气很好。",
-   "我有一个姐姐。",
-   "然后向左转。",
-   "我要买这个。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "我不要这个。",
-  "pinyin": "Wǒ bú yào zhège.",
-  "options": [
-   "这是我的朋友。",
-   "请向右转。",
-   "今天很冷。",
-   "我不要这个。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "可以刷卡吗？",
-  "pinyin": "Kěyǐ shuākǎ ma?",
-  "options": [
-   "我找不到路了。",
-   "可以刷卡吗？",
-   "我们认识很多年了。",
-   "今天太热了。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "请给我一个袋子。",
-  "pinyin": "Qǐng gěi wǒ yí ge dàizi.",
-  "options": [
-   "你住在哪里？",
-   "你周末做什么？",
-   "请给我一个袋子。",
-   "你可以带我去吗？"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "地铁站在哪里？",
-  "pinyin": "Dìtiě zhàn zài nǎlǐ?",
-  "options": [
-   "我住在海防。",
-   "我喜欢在家看电影。",
-   "地铁站在哪里？",
-   "我坐公交车去学校。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "车站离这里很近。",
-  "pinyin": "Chēzhàn lí zhèlǐ hěn jìn.",
-  "options": [
-   "今天下雨了。",
-   "你家有几个人？",
-   "车站离这里很近。",
-   "我们一起去吃饭吧。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "请往前走。",
-  "pinyin": "Qǐng wǎng qián zǒu.",
-  "options": [
-   "请往前走。",
-   "好啊，我很期待。",
-   "明天天气很好。",
-   "我家有四个人。"
-  ],
-  "correct": 0
- },
- {
-  "level": 1,
-  "audio": "然后向左转。",
-  "pinyin": "Ránhòu xiàng zuǒ zhuǎn.",
-  "options": [
-   "今天很冷。",
-   "你有兄弟姐妹吗？",
-   "你会说中文吗？",
-   "然后向左转。"
-  ],
-  "correct": 3
- },
- {
-  "level": 1,
-  "audio": "请向右转。",
-  "pinyin": "Qǐng xiàng yòu zhuǎn.",
-  "options": [
-   "今天太热了。",
-   "我有一个姐姐。",
-   "请向右转。",
-   "我会说一点中文。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "我找不到路了。",
-  "pinyin": "Wǒ zhǎo bú dào lù le.",
-  "options": [
-   "这是我的朋友。",
-   "我找不到路了。",
-   "你学中文多久了？",
-   "你住在哪里？"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "你可以带我去吗？",
-  "pinyin": "Nǐ kěyǐ dài wǒ qù ma?",
-  "options": [
-   "我学中文一年了。",
-   "你可以带我去吗？",
-   "我住在海防。",
-   "我们认识很多年了。"
-  ],
-  "correct": 1
- },
- {
-  "level": 1,
-  "audio": "我坐公交车去学校。",
-  "pinyin": "Wǒ zuò gōngjiāo chē qù xuéxiào.",
-  "options": [
-   "你家有几个人？",
-   "你周末做什么？",
-   "我坐公交车去学校。",
-   "请你说慢一点。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "今天下雨了。",
-  "pinyin": "Jīntiān xiàyǔ le.",
-  "options": [
-   "我家有四个人。",
-   "我没听清楚。",
-   "今天下雨了。",
-   "我喜欢在家看电影。"
-  ],
-  "correct": 2
- },
- {
-  "level": 1,
-  "audio": "明天天气很好。",
-  "pinyin": "Míngtiān tiānqì hěn hǎo.",
-  "options": [
-   "明天天气很好。",
-   "请再说一遍。",
-   "我们一起去吃饭吧。",
-   "你有兄弟姐妹吗？"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "今天很冷。",
-  "pinyin": "Jīntiān hěn lěng.",
-  "options": [
-   "我有一个姐姐。",
-   "今天很冷。",
-   "这个词是什么意思？",
-   "好啊，我很期待。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "今天太热了。",
-  "pinyin": "Jīntiān tài rè le.",
-  "options": [
-   "今天太热了。",
-   "这个字怎么读？",
-   "这是我的朋友。",
-   "你会说中文吗？"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "你住在哪里？",
-  "pinyin": "Nǐ zhù zài nǎlǐ?",
-  "options": [
-   "你住在哪里？",
-   "我会说一点中文。",
-   "我们认识很多年了。",
-   "我不知道。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "我住在海防。",
-  "pinyin": "Wǒ zhù zài Hǎifáng.",
-  "options": [
-   "你学中文多久了？",
-   "我明白了。",
-   "你周末做什么？",
-   "我住在海防。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "你家有几个人？",
-  "pinyin": "Nǐ jiā yǒu jǐ ge rén?",
-  "options": [
-   "我喜欢在家看电影。",
-   "我学中文一年了。",
-   "你家有几个人？",
-   "我还不明白。"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "我家有四个人。",
-  "pinyin": "Wǒ jiā yǒu sì ge rén.",
-  "options": [
-   "我家有四个人。",
-   "你什么时候下班？",
-   "请你说慢一点。",
-   "我们一起去吃饭吧。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "你有兄弟姐妹吗？",
-  "pinyin": "Nǐ yǒu xiōngdì jiěmèi ma?",
-  "options": [
-   "你有兄弟姐妹吗？",
-   "我六点下班。",
-   "我没听清楚。",
-   "好啊，我很期待。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "我有一个姐姐。",
-  "pinyin": "Wǒ yǒu yí ge jiějie.",
-  "options": [
-   "今天工作很忙。",
-   "我有一个姐姐。",
-   "请再说一遍。",
-   "你会说中文吗？"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "这是我的朋友。",
-  "pinyin": "Zhè shì wǒ de péngyou.",
-  "options": [
-   "这是我的朋友。",
-   "我会说一点中文。",
-   "这个词是什么意思？",
-   "我正在开会。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "我们认识很多年了。",
-  "pinyin": "Wǒmen rènshi hěn duō nián le.",
-  "options": [
-   "请把文件发给我。",
-   "这个字怎么读？",
-   "我们认识很多年了。",
-   "你学中文多久了？"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "你周末做什么？",
-  "pinyin": "Nǐ zhōumò zuò shénme?",
-  "options": [
-   "我不知道。",
-   "你周末做什么？",
-   "我学中文一年了。",
-   "我马上发给你。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "我喜欢在家看电影。",
-  "pinyin": "Wǒ xǐhuan zài jiā kàn diànyǐng.",
-  "options": [
-   "我明白了。",
-   "我喜欢在家看电影。",
-   "你收到我的消息了吗？",
-   "请你说慢一点。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "我们一起去吃饭吧。",
-  "pinyin": "Wǒmen yìqǐ qù chīfàn ba.",
-  "options": [
-   "我刚刚看到了。",
-   "我没听清楚。",
-   "我还不明白。",
-   "我们一起去吃饭吧。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "好啊，我很期待。",
-  "pinyin": "Hǎo a, wǒ hěn qīdài.",
-  "options": [
-   "请再说一遍。",
-   "我们下午再联系。",
-   "你什么时候下班？",
-   "好啊，我很期待。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "你会说中文吗？",
-  "pinyin": "Nǐ huì shuō Zhōngwén ma?",
-  "options": [
-   "这个问题很重要。",
-   "我六点下班。",
-   "这个词是什么意思？",
-   "你会说中文吗？"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "我会说一点中文。",
-  "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.",
-  "options": [
-   "你能帮我一下吗？",
-   "这个字怎么读？",
-   "今天工作很忙。",
-   "我会说一点中文。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "你学中文多久了？",
-  "pinyin": "Nǐ xué Zhōngwén duōjiǔ le?",
-  "options": [
-   "当然可以。",
-   "你学中文多久了？",
-   "我正在开会。",
-   "我不知道。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "我学中文一年了。",
-  "pinyin": "Wǒ xué Zhōngwén yì nián le.",
-  "options": [
-   "我明白了。",
-   "我学中文一年了。",
-   "请把文件发给我。",
-   "你需要我做什么？"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "请你说慢一点。",
-  "pinyin": "Qǐng nǐ shuō màn yìdiǎn.",
-  "options": [
-   "我还不明白。",
-   "我马上发给你。",
-   "请等我五分钟。",
-   "请你说慢一点。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "我没听清楚。",
-  "pinyin": "Wǒ méi tīng qīngchu.",
-  "options": [
-   "我没听清楚。",
-   "你收到我的消息了吗？",
-   "你什么时候下班？",
-   "不用着急。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "请再说一遍。",
-  "pinyin": "Qǐng zài shuō yí biàn.",
-  "options": [
-   "别担心。",
-   "请再说一遍。",
-   "我刚刚看到了。",
-   "我六点下班。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "这个词是什么意思？",
-  "pinyin": "Zhège cí shì shénme yìsi?",
-  "options": [
-   "今天工作很忙。",
-   "我们下午再联系。",
-   "我忘记带手机了。",
-   "这个词是什么意思？"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "这个字怎么读？",
-  "pinyin": "Zhège zì zěnme dú?",
-  "options": [
-   "这个字怎么读？",
-   "我的手机没电了。",
-   "这个问题很重要。",
-   "我正在开会。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "我不知道。",
-  "pinyin": "Wǒ bù zhīdào.",
-  "options": [
-   "你可以给我充电器吗？",
-   "请把文件发给我。",
-   "你能帮我一下吗？",
-   "我不知道。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "我明白了。",
-  "pinyin": "Wǒ míngbai le.",
-  "options": [
-   "没问题。",
-   "我明白了。",
-   "当然可以。",
-   "我马上发给你。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "我还不明白。",
-  "pinyin": "Wǒ hái bù míngbai.",
-  "options": [
-   "我还不明白。",
-   "你收到我的消息了吗？",
-   "你需要我做什么？",
-   "你什么时候有空？"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "你什么时候下班？",
-  "pinyin": "Nǐ shénme shíhou xiàbān?",
-  "options": [
-   "请等我五分钟。",
-   "我刚刚看到了。",
-   "晚上八点以后我有空。",
-   "你什么时候下班？"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "我六点下班。",
-  "pinyin": "Wǒ liù diǎn xiàbān.",
-  "options": [
-   "我六点下班。",
-   "不用着急。",
-   "我们下午再联系。",
-   "我们几点见面？"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "今天工作很忙。",
-  "pinyin": "Jīntiān gōngzuò hěn máng.",
-  "options": [
-   "这个问题很重要。",
-   "下午三点见。",
-   "别担心。",
-   "今天工作很忙。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "我正在开会。",
-  "pinyin": "Wǒ zhèngzài kāihuì.",
-  "options": [
-   "我已经到了。",
-   "我忘记带手机了。",
-   "我正在开会。",
-   "你能帮我一下吗？"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "请把文件发给我。",
-  "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ.",
-  "options": [
-   "我的手机没电了。",
-   "请把文件发给我。",
-   "你在哪里？",
-   "当然可以。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "我马上发给你。",
-  "pinyin": "Wǒ mǎshàng fā gěi nǐ.",
-  "options": [
-   "我在门口等你。",
-   "我马上发给你。",
-   "你需要我做什么？",
-   "你可以给我充电器吗？"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "你收到我的消息了吗？",
-  "pinyin": "Nǐ shōudào wǒ de xiāoxi le ma?",
-  "options": [
-   "你收到我的消息了吗？",
-   "请等我五分钟。",
-   "没问题。",
-   "路上小心。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "我刚刚看到了。",
-  "pinyin": "Wǒ gānggāng kàndào le.",
-  "options": [
-   "不用着急。",
-   "我刚刚看到了。",
-   "到了给我发消息。",
-   "你什么时候有空？"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "我们下午再联系。",
-  "pinyin": "Wǒmen xiàwǔ zài liánxì.",
-  "options": [
-   "晚上八点以后我有空。",
-   "别担心。",
-   "我们下午再联系。",
-   "我今天感觉很好。"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "这个问题很重要。",
-  "pinyin": "Zhège wèntí hěn zhòngyào.",
-  "options": [
-   "我有一点累。",
-   "我忘记带手机了。",
-   "我们几点见面？",
-   "这个问题很重要。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "你能帮我一下吗？",
-  "pinyin": "Nǐ néng bāng wǒ yíxià ma?",
-  "options": [
-   "你需要休息一下。",
-   "你能帮我一下吗？",
-   "我的手机没电了。",
-   "下午三点见。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "当然可以。",
-  "pinyin": "Dāngrán kěyǐ.",
-  "options": [
-   "我已经到了。",
-   "我昨天睡得很晚。",
-   "当然可以。",
-   "你可以给我充电器吗？"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "你需要我做什么？",
-  "pinyin": "Nǐ xūyào wǒ zuò shénme?",
-  "options": [
-   "你在哪里？",
-   "你需要我做什么？",
-   "没问题。",
-   "今天早点睡吧。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "请等我五分钟。",
-  "pinyin": "Qǐng děng wǒ wǔ fēnzhōng.",
-  "options": [
-   "你最近怎么样？",
-   "请等我五分钟。",
-   "我在门口等你。",
-   "你什么时候有空？"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "不用着急。",
-  "pinyin": "Bú yòng zháojí.",
-  "options": [
-   "最近一切都不错。",
-   "路上小心。",
-   "不用着急。",
-   "晚上八点以后我有空。"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "别担心。",
-  "pinyin": "Bié dānxīn.",
-  "options": [
-   "到了给我发消息。",
-   "我们几点见面？",
-   "别担心。",
-   "你为什么不开心？"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "我忘记带手机了。",
-  "pinyin": "Wǒ wàngjì dài shǒujī le.",
-  "options": [
-   "我忘记带手机了。",
-   "我今天感觉很好。",
-   "没什么，只是有点累。",
-   "下午三点见。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "我的手机没电了。",
-  "pinyin": "Wǒ de shǒujī méi diàn le.",
-  "options": [
-   "别想太多。",
-   "我的手机没电了。",
-   "我已经到了。",
-   "我有一点累。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "你可以给我充电器吗？",
-  "pinyin": "Nǐ kěyǐ gěi wǒ chōngdiànqì ma?",
-  "options": [
-   "你在哪里？",
-   "你可以给我充电器吗？",
-   "我想订一个房间。",
-   "你需要休息一下。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "没问题。",
-  "pinyin": "Méi wèntí.",
-  "options": [
-   "我在门口等你。",
-   "我昨天睡得很晚。",
-   "请问还有空房吗？",
-   "没问题。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "你什么时候有空？",
-  "pinyin": "Nǐ shénme shíhou yǒu kòng?",
-  "options": [
-   "路上小心。",
-   "我想住两晚。",
-   "你什么时候有空？",
-   "今天早点睡吧。"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "晚上八点以后我有空。",
-  "pinyin": "Wǎnshang bā diǎn yǐhòu wǒ yǒu kòng.",
-  "options": [
-   "到了给我发消息。",
-   "早餐几点开始？",
-   "晚上八点以后我有空。",
-   "你最近怎么样？"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "我们几点见面？",
-  "pinyin": "Wǒmen jǐ diǎn jiànmiàn?",
-  "options": [
-   "最近一切都不错。",
-   "请给我一张发票。",
-   "我们几点见面？",
-   "我今天感觉很好。"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "下午三点见。",
-  "pinyin": "Xiàwǔ sān diǎn jiàn.",
-  "options": [
-   "你为什么不开心？",
-   "下午三点见。",
-   "我有一点累。",
-   "我的房间在哪里？"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "我已经到了。",
-  "pinyin": "Wǒ yǐjīng dào le.",
-  "options": [
-   "我已经到了。",
-   "电梯在哪里？",
-   "你需要休息一下。",
-   "没什么，只是有点累。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "你在哪里？",
-  "pinyin": "Nǐ zài nǎlǐ?",
-  "options": [
-   "别想太多。",
-   "无线网络的密码是什么？",
-   "我昨天睡得很晚。",
-   "你在哪里？"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "我在门口等你。",
-  "pinyin": "Wǒ zài ménkǒu děng nǐ.",
-  "options": [
-   "我想订一个房间。",
-   "我在门口等你。",
-   "我想买一张火车票。",
-   "今天早点睡吧。"
-  ],
-  "correct": 1
- },
- {
-  "level": 2,
-  "audio": "路上小心。",
-  "pinyin": "Lùshang xiǎoxīn.",
-  "options": [
-   "请问还有空房吗？",
-   "你最近怎么样？",
-   "路上小心。",
-   "下一班车几点出发？"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "到了给我发消息。",
-  "pinyin": "Dào le gěi wǒ fā xiāoxi.",
-  "options": [
-   "到了给我发消息。",
-   "我想住两晚。",
-   "最近一切都不错。",
-   "我要去机场。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "我今天感觉很好。",
-  "pinyin": "Wǒ jīntiān gǎnjué hěn hǎo.",
-  "options": [
-   "请问需要多长时间？",
-   "你为什么不开心？",
-   "早餐几点开始？",
-   "我今天感觉很好。"
-  ],
-  "correct": 3
- },
- {
-  "level": 2,
-  "audio": "我有一点累。",
-  "pinyin": "Wǒ yǒu yìdiǎn lèi.",
-  "options": [
-   "我有一点累。",
-   "请给我一张发票。",
-   "现在路上堵车吗？",
-   "没什么，只是有点累。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "你需要休息一下。",
-  "pinyin": "Nǐ xūyào xiūxi yíxià.",
-  "options": [
-   "我的房间在哪里？",
-   "我们快迟到了。",
-   "你需要休息一下。",
-   "别想太多。"
-  ],
-  "correct": 2
- },
- {
-  "level": 2,
-  "audio": "我昨天睡得很晚。",
-  "pinyin": "Wǒ zuótiān shuì de hěn wǎn.",
-  "options": [
-   "我昨天睡得很晚。",
-   "请开快一点。",
-   "电梯在哪里？",
-   "我想订一个房间。"
-  ],
-  "correct": 0
- },
- {
-  "level": 2,
-  "audio": "今天早点睡吧。",
-  "pinyin": "Jīntiān zǎodiǎn shuì ba.",
-  "options": [
-   "今天早点睡吧。",
-   "请问还有空房吗？",
-   "请在这里停车。",
-   "无线网络的密码是什么？"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "你最近怎么样？",
-  "pinyin": "Nǐ zuìjìn zěnmeyàng?",
-  "options": [
-   "我想买一张火车票。",
-   "你最近怎么样？",
-   "你觉得这个办法怎么样？",
-   "我想住两晚。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "最近一切都不错。",
-  "pinyin": "Zuìjìn yíqiè dōu búcuò.",
-  "options": [
-   "下一班车几点出发？",
-   "我觉得可以试试。",
-   "最近一切都不错。",
-   "早餐几点开始？"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "你为什么不开心？",
-  "pinyin": "Nǐ wèishénme bù kāixīn?",
-  "options": [
-   "请给我一张发票。",
-   "你为什么不开心？",
-   "我们先讨论一下。",
-   "我要去机场。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "没什么，只是有点累。",
-  "pinyin": "Méi shénme, zhǐshì yǒudiǎn lèi.",
-  "options": [
-   "没什么，只是有点累。",
-   "我同意你的看法。",
-   "请问需要多长时间？",
-   "我的房间在哪里？"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "别想太多。",
-  "pinyin": "Bié xiǎng tài duō.",
-  "options": [
-   "我不太同意。",
-   "别想太多。",
-   "电梯在哪里？",
-   "现在路上堵车吗？"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "我想订一个房间。",
-  "pinyin": "Wǒ xiǎng dìng yí ge fángjiān.",
-  "options": [
-   "我想订一个房间。",
-   "让我想一想。",
-   "我们快迟到了。",
-   "无线网络的密码是什么？"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "请问还有空房吗？",
-  "pinyin": "Qǐngwèn hái yǒu kòngfáng ma?",
-  "options": [
-   "请问还有空房吗？",
-   "这个问题需要时间。",
-   "我想买一张火车票。",
-   "请开快一点。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "我想住两晚。",
-  "pinyin": "Wǒ xiǎng zhù liǎng wǎn.",
-  "options": [
-   "下一班车几点出发？",
-   "我想住两晚。",
-   "我们以后再决定。",
-   "请在这里停车。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "早餐几点开始？",
-  "pinyin": "Zǎocān jǐ diǎn kāishǐ?",
-  "options": [
-   "这个方法比较简单。",
-   "你觉得这个办法怎么样？",
-   "早餐几点开始？",
-   "我要去机场。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "请给我一张发票。",
-  "pinyin": "Qǐng gěi wǒ yì zhāng fāpiào.",
-  "options": [
-   "这样做比较方便。",
-   "我觉得可以试试。",
-   "请问需要多长时间？",
-   "请给我一张发票。"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "我的房间在哪里？",
-  "pinyin": "Wǒ de fángjiān zài nǎlǐ?",
-  "options": [
-   "我们先讨论一下。",
-   "我的房间在哪里？",
-   "现在路上堵车吗？",
-   "虽然很忙，但是我会完成。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "电梯在哪里？",
-  "pinyin": "Diàntī zài nǎlǐ?",
-  "options": [
-   "如果有问题，请告诉我。",
-   "我们快迟到了。",
-   "电梯在哪里？",
-   "我同意你的看法。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "无线网络的密码是什么？",
-  "pinyin": "Wúxiàn wǎngluò de mìmǎ shì shénme?",
-  "options": [
-   "我不太同意。",
-   "请开快一点。",
-   "因为下雨，所以我们没有出去。",
-   "无线网络的密码是什么？"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "我想买一张火车票。",
-  "pinyin": "Wǒ xiǎng mǎi yì zhāng huǒchē piào.",
-  "options": [
-   "我想买一张火车票。",
-   "如果明天有时间，我们一起去。",
-   "请在这里停车。",
-   "让我想一想。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "下一班车几点出发？",
-  "pinyin": "Xià yì bān chē jǐ diǎn chūfā?",
-  "options": [
-   "下一班车几点出发？",
-   "只要努力，就会进步。",
-   "你觉得这个办法怎么样？",
-   "这个问题需要时间。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "我要去机场。",
-  "pinyin": "Wǒ yào qù jīchǎng.",
-  "options": [
-   "学习语言需要坚持。",
-   "我们以后再决定。",
-   "我要去机场。",
-   "我觉得可以试试。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "请问需要多长时间？",
-  "pinyin": "Qǐngwèn xūyào duō cháng shíjiān?",
-  "options": [
-   "这个方法比较简单。",
-   "我们先讨论一下。",
-   "请问需要多长时间？",
-   "每天练习一点儿很重要。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "现在路上堵车吗？",
-  "pinyin": "Xiànzài lùshang dǔchē ma?",
-  "options": [
-   "不要害怕说错。",
-   "这样做比较方便。",
-   "我同意你的看法。",
-   "现在路上堵车吗？"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "我们快迟到了。",
-  "pinyin": "Wǒmen kuài chídào le.",
-  "options": [
-   "我不太同意。",
-   "虽然很忙，但是我会完成。",
-   "听不懂的时候可以再听一次。",
-   "我们快迟到了。"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "请开快一点。",
-  "pinyin": "Qǐng kāi kuài yìdiǎn.",
-  "options": [
-   "请开快一点。",
-   "让我想一想。",
-   "先听清楚，再回答。",
-   "如果有问题，请告诉我。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "请在这里停车。",
-  "pinyin": "Qǐng zài zhèlǐ tíngchē.",
-  "options": [
-   "这个问题需要时间。",
-   "你好。",
-   "因为下雨，所以我们没有出去。",
-   "请在这里停车。"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "你觉得这个办法怎么样？",
-  "pinyin": "Nǐ juéde zhège bànfǎ zěnmeyàng?",
-  "options": [
-   "如果明天有时间，我们一起去。",
-   "早上好。",
-   "我们以后再决定。",
-   "你觉得这个办法怎么样？"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "我觉得可以试试。",
-  "pinyin": "Wǒ juéde kěyǐ shìshi.",
-  "options": [
-   "我觉得可以试试。",
-   "这个方法比较简单。",
-   "只要努力，就会进步。",
-   "晚上好。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "我们先讨论一下。",
-  "pinyin": "Wǒmen xiān tǎolùn yíxià.",
-  "options": [
-   "我们先讨论一下。",
-   "再见。",
-   "这样做比较方便。",
-   "学习语言需要坚持。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "我同意你的看法。",
-  "pinyin": "Wǒ tóngyì nǐ de kànfǎ.",
-  "options": [
-   "我同意你的看法。",
-   "明天见。",
-   "虽然很忙，但是我会完成。",
-   "每天练习一点儿很重要。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "我不太同意。",
-  "pinyin": "Wǒ bú tài tóngyì.",
-  "options": [
-   "谢谢。",
-   "不要害怕说错。",
-   "如果有问题，请告诉我。",
-   "我不太同意。"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "让我想一想。",
-  "pinyin": "Ràng wǒ xiǎng yì xiǎng.",
-  "options": [
-   "因为下雨，所以我们没有出去。",
-   "让我想一想。",
-   "听不懂的时候可以再听一次。",
-   "不客气。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "这个问题需要时间。",
-  "pinyin": "Zhège wèntí xūyào shíjiān.",
-  "options": [
-   "对不起。",
-   "先听清楚，再回答。",
-   "如果明天有时间，我们一起去。",
-   "这个问题需要时间。"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "我们以后再决定。",
-  "pinyin": "Wǒmen yǐhòu zài juédìng.",
-  "options": [
-   "我们以后再决定。",
-   "没关系。",
-   "只要努力，就会进步。",
-   "你好。"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "这个方法比较简单。",
-  "pinyin": "Zhège fāngfǎ bǐjiào jiǎndān.",
-  "options": [
-   "请坐。",
-   "早上好。",
-   "学习语言需要坚持。",
-   "这个方法比较简单。"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "这样做比较方便。",
-  "pinyin": "Zhèyàng zuò bǐjiào fāngbiàn.",
-  "options": [
-   "每天练习一点儿很重要。",
-   "请进。",
-   "这样做比较方便。",
-   "晚上好。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "虽然很忙，但是我会完成。",
-  "pinyin": "Suīrán hěn máng, dànshì wǒ huì wánchéng.",
-  "options": [
-   "虽然很忙，但是我会完成。",
-   "再见。",
-   "不要害怕说错。",
-   "请问，洗手间在哪里？"
-  ],
-  "correct": 0
- },
- {
-  "level": 3,
-  "audio": "如果有问题，请告诉我。",
-  "pinyin": "Rúguǒ yǒu wèntí, qǐng gàosu wǒ.",
-  "options": [
-   "你好吗？",
-   "明天见。",
-   "如果有问题，请告诉我。",
-   "听不懂的时候可以再听一次。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "因为下雨，所以我们没有出去。",
-  "pinyin": "Yīnwèi xiàyǔ, suǒyǐ wǒmen méiyǒu chūqù.",
-  "options": [
-   "先听清楚，再回答。",
-   "因为下雨，所以我们没有出去。",
-   "谢谢。",
-   "我很好，谢谢。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "如果明天有时间，我们一起去。",
-  "pinyin": "Rúguǒ míngtiān yǒu shíjiān, wǒmen yìqǐ qù.",
-  "options": [
-   "你好。",
-   "如果明天有时间，我们一起去。",
-   "不客气。",
-   "你叫什么名字？"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "只要努力，就会进步。",
-  "pinyin": "Zhǐyào nǔlì, jiù huì jìnbù.",
-  "options": [
-   "我叫李明。",
-   "只要努力，就会进步。",
-   "早上好。",
-   "对不起。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "学习语言需要坚持。",
-  "pinyin": "Xuéxí yǔyán xūyào jiānchí.",
-  "options": [
-   "没关系。",
-   "学习语言需要坚持。",
-   "晚上好。",
-   "你是哪国人？"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "每天练习一点儿很重要。",
-  "pinyin": "Měitiān liànxí yìdiǎnr hěn zhòngyào.",
-  "options": [
-   "再见。",
-   "我是越南人。",
-   "每天练习一点儿很重要。",
-   "请坐。"
-  ],
-  "correct": 2
- },
- {
-  "level": 3,
-  "audio": "不要害怕说错。",
-  "pinyin": "Bú yào hàipà shuō cuò.",
-  "options": [
-   "你是学生吗？",
-   "不要害怕说错。",
-   "明天见。",
-   "请进。"
-  ],
-  "correct": 1
- },
- {
-  "level": 3,
-  "audio": "听不懂的时候可以再听一次。",
-  "pinyin": "Tīng bù dǒng de shíhou kěyǐ zài tīng yí cì.",
-  "options": [
-   "我是学生。",
-   "谢谢。",
-   "请问，洗手间在哪里？",
-   "听不懂的时候可以再听一次。"
-  ],
-  "correct": 3
- },
- {
-  "level": 3,
-  "audio": "先听清楚，再回答。",
-  "pinyin": "Xiān tīng qīngchu, zài huídá.",
-  "options": [
-   "你今天忙吗？",
-   "你好吗？",
-   "不客气。",
-   "先听清楚，再回答。"
-  ],
-  "correct": 3
- },
-{"level": 1, "audio": "你好吗？", "pinyin": "Nǐ hǎo ma?"},
-{"level": 1, "audio": "我很好，谢谢。", "pinyin": "Wǒ hěn hǎo, xièxie."},
-{"level": 1, "audio": "你叫什么？", "pinyin": "Nǐ jiào shénme?"},
-{"level": 1, "audio": "我是越南人。", "pinyin": "Wǒ shì Yuènán rén."},
-{"level": 1, "audio": "我住在海防。", "pinyin": "Wǒ zhù zài Hǎifáng."},
-{"level": 1, "audio": "你会说中文吗？", "pinyin": "Nǐ huì shuō Zhōngwén ma?"},
-{"level": 1, "audio": "我会说一点中文。", "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén."},
-{"level": 1, "audio": "请说慢一点。", "pinyin": "Qǐng shuō màn yìdiǎn."},
-{"level": 1, "audio": "请再说一遍。", "pinyin": "Qǐng zài shuō yí biàn."},
-{"level": 1, "audio": "我听不清楚。", "pinyin": "Wǒ tīng bù qīngchu."},
-{"level": 1, "audio": "这个怎么读？", "pinyin": "Zhège zěnme dú?"},
-{"level": 1, "audio": "这个字是什么意思？", "pinyin": "Zhège zì shì shénme yìsi?"},
-{"level": 1, "audio": "你怎么写这个字？", "pinyin": "Nǐ zěnme xiě zhège zì?"},
-{"level": 1, "audio": "我不知道。", "pinyin": "Wǒ bù zhīdào."},
-{"level": 1, "audio": "我明白了。", "pinyin": "Wǒ míngbai le."},
-{"level": 1, "audio": "我还不明白。", "pinyin": "Wǒ hái bù míngbai."},
-{"level": 1, "audio": "没关系。", "pinyin": "Méi guānxi."},
-{"level": 1, "audio": "谢谢你的帮助。", "pinyin": "Xièxie nǐ de bāngzhù."},
-{"level": 1, "audio": "不用客气。", "pinyin": "Bú yòng kèqi."},
-{"level": 1, "audio": "对不起。", "pinyin": "Duìbuqǐ."},
-{"level": 1, "audio": "没事。", "pinyin": "Méi shì."},
-{"level": 1, "audio": "请坐。", "pinyin": "Qǐng zuò."},
-{"level": 1, "audio": "请进。", "pinyin": "Qǐng jìn."},
-{"level": 1, "audio": "请等一下。", "pinyin": "Qǐng děng yíxià."},
-{"level": 1, "audio": "我马上回来。", "pinyin": "Wǒ mǎshàng huílái."},
-{"level": 1, "audio": "现在几点？", "pinyin": "Xiànzài jǐ diǎn?"},
-{"level": 1, "audio": "现在八点半。", "pinyin": "Xiànzài bā diǎn bàn."},
-{"level": 1, "audio": "今天星期几？", "pinyin": "Jīntiān xīngqī jǐ?"},
-{"level": 1, "audio": "今天星期一。", "pinyin": "Jīntiān xīngqī yī."},
-{"level": 1, "audio": "明天见。", "pinyin": "Míngtiān jiàn."},
-{"level": 1, "audio": "昨天我很忙。", "pinyin": "Zuótiān wǒ hěn máng."},
-{"level": 1, "audio": "今天我有空。", "pinyin": "Jīntiān wǒ yǒu kòng."},
-{"level": 1, "audio": "明天我要上课。", "pinyin": "Míngtiān wǒ yào shàngkè."},
-{"level": 1, "audio": "你几点起床？", "pinyin": "Nǐ jǐ diǎn qǐchuáng?"},
-{"level": 1, "audio": "我七点起床。", "pinyin": "Wǒ qī diǎn qǐchuáng."},
-{"level": 1, "audio": "你几点睡觉？", "pinyin": "Nǐ jǐ diǎn shuìjiào?"},
-{"level": 1, "audio": "我十一点睡觉。", "pinyin": "Wǒ shíyī diǎn shuìjiào."},
-{"level": 1, "audio": "你吃早饭了吗？", "pinyin": "Nǐ chī zǎofàn le ma?"},
-{"level": 1, "audio": "我已经吃过了。", "pinyin": "Wǒ yǐjīng chīguo le."},
-{"level": 1, "audio": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?"},
-{"level": 1, "audio": "我想吃面条。", "pinyin": "Wǒ xiǎng chī miàntiáo."},
-{"level": 1, "audio": "我不吃辣。", "pinyin": "Wǒ bù chī là."},
-{"level": 1, "audio": "这个很好吃。", "pinyin": "Zhège hěn hǎochī."},
-{"level": 1, "audio": "可以给我菜单吗？", "pinyin": "Kěyǐ gěi wǒ càidān ma?"},
-{"level": 1, "audio": "请给我一碗米饭。", "pinyin": "Qǐng gěi wǒ yì wǎn mǐfàn."},
-{"level": 1, "audio": "我买两杯咖啡。", "pinyin": "Wǒ mǎi liǎng bēi kāfēi."},
-{"level": 1, "audio": "可以刷卡吗？", "pinyin": "Kěyǐ shuākǎ ma?"},
-{"level": 1, "audio": "可以用手机付款吗？", "pinyin": "Kěyǐ yòng shǒujī fùkuǎn ma?"},
-{"level": 1, "audio": "请给我一张发票。", "pinyin": "Qǐng gěi wǒ yì zhāng fāpiào."},
-{"level": 1, "audio": "我只是看看。", "pinyin": "Wǒ zhǐshì kànkan."},
-{"level": 1, "audio": "有别的颜色吗？", "pinyin": "Yǒu bié de yánsè ma?"},
-{"level": 1, "audio": "有大一点的吗？", "pinyin": "Yǒu dà yìdiǎn de ma?"},
-{"level": 1, "audio": "这个太小了。", "pinyin": "Zhège tài xiǎo le."},
-{"level": 1, "audio": "我可以试穿吗？", "pinyin": "Wǒ kěyǐ shìchuān ma?"},
-{"level": 1, "audio": "一共多少钱？", "pinyin": "Yígòng duōshao qián?"},
-{"level": 1, "audio": "给你五十块。", "pinyin": "Gěi nǐ wǔshí kuài."},
-{"level": 1, "audio": "找您十块钱。", "pinyin": "Zhǎo nín shí kuài qián."},
-{"level": 1, "audio": "公交车站在哪里？", "pinyin": "Gōngjiāo chē zhàn zài nǎlǐ?"},
-{"level": 1, "audio": "我要去火车站。", "pinyin": "Wǒ yào qù huǒchēzhàn."},
-{"level": 1, "audio": "这辆车去市中心吗？", "pinyin": "Zhè liàng chē qù shì zhōngxīn ma?"},
-{"level": 1, "audio": "我坐错车了。", "pinyin": "Wǒ zuò cuò chē le."},
-{"level": 1, "audio": "请在这里停车。", "pinyin": "Qǐng zài zhèlǐ tíngchē."},
-{"level": 1, "audio": "还有多远？", "pinyin": "Hái yǒu duō yuǎn?"},
-{"level": 1, "audio": "大概需要多久？", "pinyin": "Dàgài xūyào duōjiǔ?"},
-{"level": 1, "audio": "我们快到了。", "pinyin": "Wǒmen kuài dào le."},
-{"level": 1, "audio": "我迷路了。", "pinyin": "Wǒ mílù le."},
-{"level": 1, "audio": "请帮我看一下地图。", "pinyin": "Qǐng bāng wǒ kàn yíxià dìtú."},
-{"level": 1, "audio": "左边有一家银行。", "pinyin": "Zuǒbian yǒu yì jiā yínháng."},
-{"level": 1, "audio": "右边就是超市。", "pinyin": "Yòubian jiù shì chāoshì."},
-{"level": 1, "audio": "一直往前走。", "pinyin": "Yìzhí wǎng qián zǒu."},
-{"level": 2, "audio": "在第二个路口右转。", "pinyin": "Zài dì èr ge lùkǒu yòu zhuǎn."},
-{"level": 2, "audio": "今天很热。", "pinyin": "Jīntiān hěn rè."},
-{"level": 2, "audio": "今天有点冷。", "pinyin": "Jīntiān yǒudiǎn lěng."},
-{"level": 2, "audio": "外面下雨了。", "pinyin": "Wàimiàn xiàyǔ le."},
-{"level": 2, "audio": "别忘了带雨伞。", "pinyin": "Bié wàngle dài yǔsǎn."},
-{"level": 2, "audio": "天气越来越好了。", "pinyin": "Tiānqì yuèláiyuè hǎo le."},
-{"level": 2, "audio": "你喜欢什么运动？", "pinyin": "Nǐ xǐhuan shénme yùndòng?"},
-{"level": 2, "audio": "我喜欢打篮球。", "pinyin": "Wǒ xǐhuan dǎ lánqiú."},
-{"level": 2, "audio": "我周末喜欢看电影。", "pinyin": "Wǒ zhōumò xǐhuan kàn diànyǐng."},
-{"level": 2, "audio": "你喜欢听什么音乐？", "pinyin": "Nǐ xǐhuan tīng shénme yīnyuè?"},
-{"level": 2, "audio": "我喜欢听中文歌。", "pinyin": "Wǒ xǐhuan tīng Zhōngwén gē."},
-{"level": 2, "audio": "你有几个兄弟姐妹？", "pinyin": "Nǐ yǒu jǐ ge xiōngdì jiěmèi?"},
-{"level": 2, "audio": "我有一个妹妹。", "pinyin": "Wǒ yǒu yí ge mèimei."},
-{"level": 2, "audio": "我和朋友住在一起。", "pinyin": "Wǒ hé péngyou zhù zài yìqǐ."},
-{"level": 2, "audio": "我今天要去学校。", "pinyin": "Wǒ jīntiān yào qù xuéxiào."},
-{"level": 2, "audio": "老师正在上课。", "pinyin": "Lǎoshī zhèngzài shàngkè."},
-{"level": 2, "audio": "请打开书。", "pinyin": "Qǐng dǎkāi shū."},
-{"level": 2, "audio": "请看第三页。", "pinyin": "Qǐng kàn dì sān yè."},
-{"level": 2, "audio": "这个问题很简单。", "pinyin": "Zhège wèntí hěn jiǎndān."},
-{"level": 2, "audio": "这个问题有点难。", "pinyin": "Zhège wèntí yǒudiǎn nán."},
-{"level": 2, "audio": "我需要再练习。", "pinyin": "Wǒ xūyào zài liànxí."},
-{"level": 2, "audio": "我每天学习一个小时。", "pinyin": "Wǒ měitiān xuéxí yí ge xiǎoshí."},
-{"level": 2, "audio": "你什么时候开始学中文？", "pinyin": "Nǐ shénme shíhou kāishǐ xué Zhōngwén?"},
-{"level": 2, "audio": "我去年开始学中文。", "pinyin": "Wǒ qùnián kāishǐ xué Zhōngwén."},
-{"level": 2, "audio": "我的中文进步了一点。", "pinyin": "Wǒ de Zhōngwén jìnbù le yìdiǎn."},
-{"level": 2, "audio": "我需要多听多说。", "pinyin": "Wǒ xūyào duō tīng duō shuō."},
-{"level": 2, "audio": "你能给我一个例子吗？", "pinyin": "Nǐ néng gěi wǒ yí ge lìzi ma?"},
-{"level": 2, "audio": "请写在黑板上。", "pinyin": "Qǐng xiě zài hēibǎn shàng."},
-{"level": 2, "audio": "我忘记这个词了。", "pinyin": "Wǒ wàngjì zhège cí le."},
-{"level": 2, "audio": "这个词怎么用？", "pinyin": "Zhège cí zěnme yòng?"},
-{"level": 2, "audio": "你能解释一下吗？", "pinyin": "Nǐ néng jiěshì yíxià ma?"},
-{"level": 2, "audio": "我觉得这个方法很好。", "pinyin": "Wǒ juéde zhège fāngfǎ hěn hǎo."},
-{"level": 2, "audio": "我们一起练习吧。", "pinyin": "Wǒmen yìqǐ liànxí ba."},
-{"level": 2, "audio": "你准备好了吗？", "pinyin": "Nǐ zhǔnbèi hǎo le ma?"},
-{"level": 2, "audio": "我准备好了。", "pinyin": "Wǒ zhǔnbèi hǎo le."},
-{"level": 2, "audio": "加油，你可以的。", "pinyin": "Jiāyóu, nǐ kěyǐ de."},
-{"level": 2, "audio": "不要紧张。", "pinyin": "Bú yào jǐnzhāng."},
-{"level": 2, "audio": "慢慢来。", "pinyin": "Mànman lái."},
-{"level": 2, "audio": "你做得很好。", "pinyin": "Nǐ zuò de hěn hǎo."},
-{"level": 2, "audio": "再试一次。", "pinyin": "Zài shì yí cì."},
-{"level": 2, "audio": "我今天感觉不错。", "pinyin": "Wǒ jīntiān gǎnjué búcuò."},
-{"level": 2, "audio": "我有点累。", "pinyin": "Wǒ yǒudiǎn lèi."},
-{"level": 2, "audio": "我需要休息一下。", "pinyin": "Wǒ xūyào xiūxi yíxià."},
-{"level": 2, "audio": "你今天怎么样？", "pinyin": "Nǐ jīntiān zěnmeyàng?"},
-{"level": 2, "audio": "最近过得怎么样？", "pinyin": "Zuìjìn guò de zěnmeyàng?"},
-{"level": 2, "audio": "最近一切都很好。", "pinyin": "Zuìjìn yíqiè dōu hěn hǎo."},
-{"level": 2, "audio": "你吃午饭了吗？", "pinyin": "Nǐ chī wǔfàn le ma?"},
-{"level": 2, "audio": "我们中午一起吃饭吧。", "pinyin": "Wǒmen zhōngwǔ yìqǐ chīfàn ba."},
-{"level": 2, "audio": "晚饭我想吃饺子。", "pinyin": "Wǎnfàn wǒ xiǎng chī jiǎozi."},
-{"level": 2, "audio": "你想喝茶还是咖啡？", "pinyin": "Nǐ xiǎng hē chá háishi kāfēi?"},
-{"level": 2, "audio": "我要一杯热茶。", "pinyin": "Wǒ yào yì bēi rè chá."},
-{"level": 2, "audio": "水太烫了。", "pinyin": "Shuǐ tài tàng le."},
-{"level": 2, "audio": "小心，地上很滑。", "pinyin": "Xiǎoxīn, dìshang hěn huá."},
-{"level": 2, "audio": "请关一下门。", "pinyin": "Qǐng guān yíxià mén."},
-{"level": 2, "audio": "请把窗户打开。", "pinyin": "Qǐng bǎ chuānghu dǎkāi."},
-{"level": 2, "audio": "手机没电了。", "pinyin": "Shǒujī méi diàn le."},
-{"level": 2, "audio": "你的电话响了。", "pinyin": "Nǐ de diànhuà xiǎng le."},
-{"level": 2, "audio": "我一会儿给你打电话。", "pinyin": "Wǒ yíhuìr gěi nǐ dǎ diànhuà."},
-{"level": 2, "audio": "请给我发个消息。", "pinyin": "Qǐng gěi wǒ fā ge xiāoxi."},
-{"level": 2, "audio": "我现在不方便接电话。", "pinyin": "Wǒ xiànzài bù fāngbiàn jiē diànhuà."},
-{"level": 3, "audio": "网络有点慢。", "pinyin": "Wǎngluò yǒudiǎn màn."},
-{"level": 3, "audio": "密码是什么？", "pinyin": "Mìmǎ shì shénme?"},
-{"level": 3, "audio": "请稍等一下。", "pinyin": "Qǐng shāo děng yíxià."},
-{"level": 3, "audio": "我马上处理。", "pinyin": "Wǒ mǎshàng chǔlǐ."},
-{"level": 3, "audio": "这个文件在哪里？", "pinyin": "Zhège wénjiàn zài nǎlǐ?"},
-{"level": 3, "audio": "请把文件发给我。", "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ."},
-{"level": 3, "audio": "我已经收到文件了。", "pinyin": "Wǒ yǐjīng shōudào wénjiàn le."},
-{"level": 3, "audio": "我们下午开会。", "pinyin": "Wǒmen xiàwǔ kāihuì."},
-{"level": 3, "audio": "会议几点开始？", "pinyin": "Huìyì jǐ diǎn kāishǐ?"},
-{"level": 3, "audio": "请提前十分钟到。", "pinyin": "Qǐng tíqián shí fēnzhōng dào."},
-{"level": 3, "audio": "今天的工作完成了吗？", "pinyin": "Jīntiān de gōngzuò wánchéng le ma?"},
-{"level": 3, "audio": "我还差一点。", "pinyin": "Wǒ hái chà yìdiǎn."},
-{"level": 3, "audio": "我已经完成了。", "pinyin": "Wǒ yǐjīng wánchéng le."},
-{"level": 3, "audio": "我们明天再讨论。", "pinyin": "Wǒmen míngtiān zài tǎolùn."},
-{"level": 3, "audio": "这个建议很好。", "pinyin": "Zhège jiànyì hěn hǎo."},
-{"level": 3, "audio": "我同意你的看法。", "pinyin": "Wǒ tóngyì nǐ de kànfǎ."},
-{"level": 3, "audio": "我有不同的意见。", "pinyin": "Wǒ yǒu bùtóng de yìjiàn."},
-{"level": 3, "audio": "我们需要找到解决办法。", "pinyin": "Wǒmen xūyào zhǎodào jiějué bànfǎ."},
-{"level": 3, "audio": "你能解释原因吗？", "pinyin": "Nǐ néng jiěshì yuányīn ma?"},
-{"level": 3, "audio": "因为今天下雨，所以我没出去。", "pinyin": "Yīnwèi jīntiān xiàyǔ, suǒyǐ wǒ méi chūqù."},
-{"level": 3, "audio": "如果有问题，请告诉我。", "pinyin": "Rúguǒ yǒu wèntí, qǐng gàosu wǒ."},
-{"level": 3, "audio": "虽然很忙，但是我会完成。", "pinyin": "Suīrán hěn máng, dànshì wǒ huì wánchéng."},
-{"level": 3, "audio": "除了中文，我还学习英语。", "pinyin": "Chúle Zhōngwén, wǒ hái xuéxí Yīngyǔ."},
-{"level": 3, "audio": "我希望以后可以说得更流利。", "pinyin": "Wǒ xīwàng yǐhòu kěyǐ shuō de gèng liúlì."},
-{"level": 3, "audio": "我每天都听中文。", "pinyin": "Wǒ měitiān dōu tīng Zhōngwén."},
-{"level": 3, "audio": "我正在练习听力。", "pinyin": "Wǒ zhèngzài liànxí tīnglì."},
-{"level": 3, "audio": "听力对学习语言很重要。", "pinyin": "Tīnglì duì xuéxí yǔyán hěn zhòngyào."},
-{"level": 3, "audio": "先听关键词，再理解整句话。", "pinyin": "Xiān tīng guānjiàncí, zài lǐjiě zhěng jù huà."},
-{"level": 3, "audio": "听不懂也不要马上放弃。", "pinyin": "Tīng bù dǒng yě bú yào mǎshàng fàngqì."},
-{"level": 3, "audio": "多听几遍就会越来越熟悉。", "pinyin": "Duō tīng jǐ biàn jiù huì yuèláiyuè shúxī."},
-{"level": 3, "audio": "今天我们练习十句话。", "pinyin": "Jīntiān wǒmen liànxí shí jù huà."},
-{"level": 3, "audio": "明天继续练习。", "pinyin": "Míngtiān jìxù liànxí."},
-{"level": 3, "audio": "祝你学习进步。", "pinyin": "Zhù nǐ xuéxí jìnbù."},
-{"level": 3, "audio": "祝你今天开心。", "pinyin": "Zhù nǐ jīntiān kāixīn."},
-{"level": 3, "audio": "祝你一路顺风。", "pinyin": "Zhù nǐ yílù shùnfēng."},
-{"level": 3, "audio": "欢迎来到我们的中文课程。", "pinyin": "Huānyíng láidào wǒmen de Zhōngwén kèchéng."},
-{"level": 3, "audio": "今天的内容很简单。", "pinyin": "Jīntiān de nèiróng hěn jiǎndān."},
-{"level": 3, "audio": "下一题会稍微难一点。", "pinyin": "Xià yì tí huì shāowéi nán yìdiǎn."},
-{"level": 3, "audio": "答错了也没关系。", "pinyin": "Dá cuò le yě méi guānxi."},
-{"level": 3, "audio": "把错题再听一遍。", "pinyin": "Bǎ cuòtí zài tīng yí biàn."},
-{"level": 3, "audio": "重复练习可以提高反应速度。", "pinyin": "Chóngfù liànxí kěyǐ tígāo fǎnyìng sùdù."},
-{"level": 3, "audio": "听到熟悉的词就先记下来。", "pinyin": "Tīngdào shúxī de cí jiù xiān jì xiàlái."},
-{"level": 3, "audio": "先不要看拼音。", "pinyin": "Xiān bú yào kàn pīnyīn."},
-{"level": 3, "audio": "听完以后再看答案。", "pinyin": "Tīng wán yǐhòu zài kàn dáàn."},
-{"level": 3, "audio": "你可以再听一次。", "pinyin": "Nǐ kěyǐ zài tīng yí cì."},
-{"level": 3, "audio": "现在开始下一题。", "pinyin": "Xiànzài kāishǐ xià yì tí."},
-{"level": 3, "audio": "准备好就开始吧。", "pinyin": "Zhǔnbèi hǎo jiù kāishǐ ba."},
-{"level": 3, "audio": "请集中注意力。", "pinyin": "Qǐng jízhōng zhùyìlì."},
-{"level": 3, "audio": "认真听，不要着急。", "pinyin": "Rènzhēn tīng, bú yào zháojí."},
-{"level": 3, "audio": "你的反应越来越快了。", "pinyin": "Nǐ de fǎnyìng yuèláiyuè kuài le."},
-{"level": 3, "audio": "今天比昨天进步了。", "pinyin": "Jīntiān bǐ zuótiān jìnbù le."},
-{"level": 3, "audio": "坚持下去一定会有进步。", "pinyin": "Jiānchí xiàqù yídìng huì yǒu jìnbù."},
-{"level": 3, "audio": "学习语言需要时间。", "pinyin": "Xuéxí yǔyán xūyào shíjiān."},
-{"level": 3, "audio": "每天一点点就很好。", "pinyin": "Měitiān yìdiǎndiǎn jiù hěn hǎo."},
-{"level": 3, "audio": "我喜欢用中文聊天。", "pinyin": "Wǒ xǐhuan yòng Zhōngwén liáotiān."},
-{"level": 3, "audio": "你平时跟谁练习中文？", "pinyin": "Nǐ píngshí gēn shéi liànxí Zhōngwén?"},
-{"level": 3, "audio": "我跟朋友一起练习。", "pinyin": "Wǒ gēn péngyou yìqǐ liànxí."},
-{"level": 3, "audio": "我们每天晚上聊天。", "pinyin": "Wǒmen měitiān wǎnshang liáotiān."},
-{"level": 3, "audio": "你觉得中文难吗？", "pinyin": "Nǐ juéde Zhōngwén nán ma?"},
-{"level": 3, "audio": "开始的时候有一点难。", "pinyin": "Kāishǐ de shíhou yǒu yìdiǎn nán."},
-{"level": 3, "audio": "现在我觉得容易多了。", "pinyin": "Xiànzài wǒ juéde róngyì duō le."},
-{"level": 3, "audio": "我最喜欢学口语。", "pinyin": "Wǒ zuì xǐhuan xué kǒuyǔ."},
-{"level": 3, "audio": "我想提高听力。", "pinyin": "Wǒ xiǎng tígāo tīnglì."},
-{"level": 3, "audio": "我也想提高发音。", "pinyin": "Wǒ yě xiǎng tígāo fāyīn."},
-{"level": 3, "audio": "请纠正我的发音。", "pinyin": "Qǐng jiūzhèng wǒ de fāyīn."},
-{"level": 3, "audio": "这个音怎么发？", "pinyin": "Zhège yīn zěnme fā?"},
-{"level": 3, "audio": "我说得对吗？", "pinyin": "Wǒ shuō de duì ma?"},
-{"level": 3, "audio": "差不多，再注意声调。", "pinyin": "Chàbuduō, zài zhùyì shēngdiào."},
-{"level": 3, "audio": "第一声要保持平稳。", "pinyin": "Dì yī shēng yào bǎochí píngwěn."},
-{"level": 3, "audio": "第三声要注意变化。", "pinyin": "Dì sān shēng yào zhùyì biànhuà."},
-{"level": 3, "audio": "请跟我读一遍。", "pinyin": "Qǐng gēn wǒ dú yí biàn."},
-{"level": 3, "audio": "轮到你了。", "pinyin": "Lún dào nǐ le."},
-{"level": 3, "audio": "该你回答了。", "pinyin": "Gāi nǐ huídá le."},
-{"level": 3, "audio": "你准备好回答了吗？", "pinyin": "Nǐ zhǔnbèi hǎo huídá le ma?"},
-{"level": 3, "audio": "我还需要一点时间。", "pinyin": "Wǒ hái xūyào yìdiǎn shíjiān."},
-{"level": 3, "audio": "没问题，我等你。", "pinyin": "Méi wèntí, wǒ děng nǐ."},
-{"level": 3, "audio": "我们从第一题开始。", "pinyin": "Wǒmen cóng dì yī tí kāishǐ."},
-{"level": 3, "audio": "这一题你答对了。", "pinyin": "Zhè yì tí nǐ dá duì le."},
-{"level": 3, "audio": "这一题你答错了。", "pinyin": "Zhè yì tí nǐ dá cuò le."},
-{"level": 3, "audio": "再听一次，你会听出来的。", "pinyin": "Zài tīng yí cì, nǐ huì tīng chūlái de."},
-{"level": 3, "audio": "不要只记答案，要听懂句子。", "pinyin": "Bú yào zhǐ jì dáàn, yào tīng dǒng jùzi."},
-{"level": 3, "audio": "把新单词放进句子里学习。", "pinyin": "Bǎ xīn dāncí fàng jìn jùzi lǐ xuéxí."},
-{"level": 3, "audio": "这样更容易记住。", "pinyin": "Zhèyàng gèng róngyì jìzhù."},
-{"level": 3, "audio": "今天就练到这里。", "pinyin": "Jīntiān jiù liàn dào zhèlǐ."},
-{"level": 3, "audio": "下次我们继续。", "pinyin": "Xià cì wǒmen jìxù."},
-{"level": 3, "audio": "你已经做得很好了。", "pinyin": "Nǐ yǐjīng zuò de hěn hǎo le."},
-{"level": 3, "audio": "继续保持。", "pinyin": "Jìxù bǎochí."},
-{"level": 3, "audio": "加油！", "pinyin": "Jiāyóu!"}
-
+  {
+    "level": 1,
+    "audio": "你好。",
+    "pinyin": "Nǐ hǎo.",
+    "options": [
+      "我今天不太忙。",
+      "你好。",
+      "对不起。",
+      "我很好，谢谢。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "早上好。",
+    "pinyin": "Zǎoshang hǎo.",
+    "options": [
+      "你现在有空吗？",
+      "早上好。",
+      "你叫什么名字？",
+      "没关系。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "晚上好。",
+    "pinyin": "Wǎnshang hǎo.",
+    "options": [
+      "晚上好。",
+      "请坐。",
+      "我现在有空。",
+      "我叫李明。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "再见。",
+    "pinyin": "Zàijiàn.",
+    "options": [
+      "你几点起床？",
+      "再见。",
+      "请进。",
+      "你是哪国人？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "明天见。",
+    "pinyin": "Míngtiān jiàn.",
+    "options": [
+      "我是越南人。",
+      "明天见。",
+      "请问，洗手间在哪里？",
+      "我七点起床。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "谢谢。",
+    "pinyin": "Xièxie.",
+    "options": [
+      "谢谢。",
+      "你好吗？",
+      "你是学生吗？",
+      "你几点睡觉？"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "不客气。",
+    "pinyin": "Bú kèqi.",
+    "options": [
+      "我很好，谢谢。",
+      "我十一点睡觉。",
+      "不客气。",
+      "我是学生。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "对不起。",
+    "pinyin": "Duìbuqǐ.",
+    "options": [
+      "你吃饭了吗？",
+      "你今天忙吗？",
+      "你叫什么名字？",
+      "对不起。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "没关系。",
+    "pinyin": "Méi guānxi.",
+    "options": [
+      "我今天不太忙。",
+      "我还没吃饭。",
+      "我叫李明。",
+      "没关系。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "请坐。",
+    "pinyin": "Qǐng zuò.",
+    "options": [
+      "你是哪国人？",
+      "你现在有空吗？",
+      "我吃过了。",
+      "请坐。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "请进。",
+    "pinyin": "Qǐng jìn.",
+    "options": [
+      "我是越南人。",
+      "请进。",
+      "你想吃什么？",
+      "我现在有空。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "请问，洗手间在哪里？",
+    "pinyin": "Qǐngwèn, xǐshǒujiān zài nǎlǐ?",
+    "options": [
+      "你是学生吗？",
+      "我想吃面条。",
+      "你几点起床？",
+      "请问，洗手间在哪里？"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "你好吗？",
+    "pinyin": "Nǐ hǎo ma?",
+    "options": [
+      "我喜欢吃米饭。",
+      "你好吗？",
+      "我是学生。",
+      "我七点起床。"
+    ],
+    "correct": 1,
+    "meaning": "Bạn khỏe không?"
+  },
+  {
+    "level": 1,
+    "audio": "我很好，谢谢。",
+    "pinyin": "Wǒ hěn hǎo, xièxie.",
+    "options": [
+      "你几点睡觉？",
+      "你今天忙吗？",
+      "你喜欢喝茶吗？",
+      "我很好，谢谢。"
+    ],
+    "correct": 3,
+    "meaning": "Tôi khỏe, cảm ơn."
+  },
+  {
+    "level": 1,
+    "audio": "你叫什么名字？",
+    "pinyin": "Nǐ jiào shénme míngzi?",
+    "options": [
+      "我十一点睡觉。",
+      "你叫什么名字？",
+      "我喜欢喝咖啡。",
+      "我今天不太忙。"
+    ],
+    "correct": 1,
+    "meaning": "Bạn tên gì?"
+  },
+  {
+    "level": 1,
+    "audio": "我叫李明。",
+    "pinyin": "Wǒ jiào Lǐ Míng.",
+    "options": [
+      "请给我一杯水。",
+      "你吃饭了吗？",
+      "我叫李明。",
+      "你现在有空吗？"
+    ],
+    "correct": 2,
+    "meaning": "Tôi tên là Lý Minh。"
+  },
+  {
+    "level": 1,
+    "audio": "你是哪国人？",
+    "pinyin": "Nǐ shì nǎ guó rén?",
+    "options": [
+      "我还没吃饭。",
+      "再来一杯，谢谢。",
+      "你是哪国人？",
+      "我现在有空。"
+    ],
+    "correct": 2,
+    "meaning": "Bạn là người nước nào?"
+  },
+  {
+    "level": 1,
+    "audio": "我是越南人。",
+    "pinyin": "Wǒ shì Yuènán rén.",
+    "options": [
+      "这个多少钱？",
+      "你几点起床？",
+      "我是越南人。",
+      "我吃过了。"
+    ],
+    "correct": 2,
+    "meaning": "Tôi là người Việt Nam。"
+  },
+  {
+    "level": 1,
+    "audio": "你是学生吗？",
+    "pinyin": "Nǐ shì xuésheng ma?",
+    "options": [
+      "你想吃什么？",
+      "我七点起床。",
+      "你是学生吗？",
+      "太贵了。"
+    ],
+    "correct": 2,
+    "meaning": "Bạn là học sinh/sinh viên phải không?"
+  },
+  {
+    "level": 1,
+    "audio": "我是学生。",
+    "pinyin": "Wǒ shì xuésheng.",
+    "options": [
+      "可以便宜一点吗？",
+      "我想吃面条。",
+      "我是学生。",
+      "你几点睡觉？"
+    ],
+    "correct": 2,
+    "meaning": "Tôi là học sinh/sinh viên。"
+  },
+  {
+    "level": 1,
+    "audio": "你今天忙吗？",
+    "pinyin": "Nǐ jīntiān máng ma?",
+    "options": [
+      "你今天忙吗？",
+      "我要买这个。",
+      "我喜欢吃米饭。",
+      "我十一点睡觉。"
+    ],
+    "correct": 0,
+    "meaning": "Hôm nay bạn có bận không?"
+  },
+  {
+    "level": 1,
+    "audio": "我今天不太忙。",
+    "pinyin": "Wǒ jīntiān bú tài máng.",
+    "options": [
+      "我不要这个。",
+      "你吃饭了吗？",
+      "我今天不太忙。",
+      "你喜欢喝茶吗？"
+    ],
+    "correct": 2,
+    "meaning": "Hôm nay tôi không bận lắm."
+  },
+  {
+    "level": 1,
+    "audio": "你现在有空吗？",
+    "pinyin": "Nǐ xiànzài yǒu kòng ma?",
+    "options": [
+      "可以刷卡吗？",
+      "我喜欢喝咖啡。",
+      "你现在有空吗？",
+      "我还没吃饭。"
+    ],
+    "correct": 2,
+    "meaning": "Bây giờ bạn có rảnh không?"
+  },
+  {
+    "level": 1,
+    "audio": "我现在有空。",
+    "pinyin": "Wǒ xiànzài yǒu kòng.",
+    "options": [
+      "请给我一杯水。",
+      "我现在有空。",
+      "我吃过了。",
+      "请给我一个袋子。"
+    ],
+    "correct": 1,
+    "meaning": "Bây giờ tôi có thời gian/rảnh."
+  },
+  {
+    "level": 1,
+    "audio": "你几点起床？",
+    "pinyin": "Nǐ jǐ diǎn qǐchuáng?",
+    "options": [
+      "你几点起床？",
+      "地铁站在哪里？",
+      "你想吃什么？",
+      "再来一杯，谢谢。"
+    ],
+    "correct": 0,
+    "meaning": "Bạn thức dậy lúc mấy giờ?"
+  },
+  {
+    "level": 1,
+    "audio": "我七点起床。",
+    "pinyin": "Wǒ qī diǎn qǐchuáng.",
+    "options": [
+      "车站离这里很近。",
+      "我想吃面条。",
+      "这个多少钱？",
+      "我七点起床。"
+    ],
+    "correct": 3,
+    "meaning": "Tôi thức dậy lúc bảy giờ."
+  },
+  {
+    "level": 1,
+    "audio": "你几点睡觉？",
+    "pinyin": "Nǐ jǐ diǎn shuìjiào?",
+    "options": [
+      "你几点睡觉？",
+      "我喜欢吃米饭。",
+      "请往前走。",
+      "太贵了。"
+    ],
+    "correct": 0,
+    "meaning": "Bạn đi ngủ lúc mấy giờ?"
+  },
+  {
+    "level": 1,
+    "audio": "我十一点睡觉。",
+    "pinyin": "Wǒ shíyī diǎn shuìjiào.",
+    "options": [
+      "可以便宜一点吗？",
+      "你喜欢喝茶吗？",
+      "我十一点睡觉。",
+      "然后向左转。"
+    ],
+    "correct": 2,
+    "meaning": "Tôi đi ngủ lúc mười một giờ."
+  },
+  {
+    "level": 1,
+    "audio": "你吃饭了吗？",
+    "pinyin": "Nǐ chīfàn le ma?",
+    "options": [
+      "请向右转。",
+      "我要买这个。",
+      "你吃饭了吗？",
+      "我喜欢喝咖啡。"
+    ],
+    "correct": 2,
+    "meaning": "Bạn ăn cơm chưa?"
+  },
+  {
+    "level": 1,
+    "audio": "我还没吃饭。",
+    "pinyin": "Wǒ hái méi chīfàn.",
+    "options": [
+      "我不要这个。",
+      "我找不到路了。",
+      "我还没吃饭。",
+      "请给我一杯水。"
+    ],
+    "correct": 2,
+    "meaning": "Tôi vẫn chưa ăn cơm."
+  },
+  {
+    "level": 1,
+    "audio": "我吃过了。",
+    "pinyin": "Wǒ chīguò le.",
+    "options": [
+      "再来一杯，谢谢。",
+      "可以刷卡吗？",
+      "你可以带我去吗？",
+      "我吃过了。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "你想吃什么？",
+    "pinyin": "Nǐ xiǎng chī shénme?",
+    "options": [
+      "这个多少钱？",
+      "请给我一个袋子。",
+      "我坐公交车去学校。",
+      "你想吃什么？"
+    ],
+    "correct": 3,
+    "meaning": "Bạn muốn ăn gì?"
+  },
+  {
+    "level": 1,
+    "audio": "我想吃面条。",
+    "pinyin": "Wǒ xiǎng chī miàntiáo.",
+    "options": [
+      "今天下雨了。",
+      "我想吃面条。",
+      "太贵了。",
+      "地铁站在哪里？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢吃米饭。",
+    "pinyin": "Wǒ xǐhuan chī mǐfàn.",
+    "options": [
+      "车站离这里很近。",
+      "明天天气很好。",
+      "可以便宜一点吗？",
+      "我喜欢吃米饭。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢喝茶吗？",
+    "pinyin": "Nǐ xǐhuan hē chá ma?",
+    "options": [
+      "今天很冷。",
+      "你喜欢喝茶吗？",
+      "请往前走。",
+      "我要买这个。"
+    ],
+    "correct": 1,
+    "meaning": "Bạn có thích uống trà không?"
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢喝咖啡。",
+    "pinyin": "Wǒ xǐhuan hē kāfēi.",
+    "options": [
+      "我喜欢喝咖啡。",
+      "我不要这个。",
+      "今天太热了。",
+      "然后向左转。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "请给我一杯水。",
+    "pinyin": "Qǐng gěi wǒ yì bēi shuǐ.",
+    "options": [
+      "请向右转。",
+      "请给我一杯水。",
+      "可以刷卡吗？",
+      "你住在哪里？"
+    ],
+    "correct": 1,
+    "meaning": "Làm ơn cho tôi một cốc nước."
+  },
+  {
+    "level": 1,
+    "audio": "再来一杯，谢谢。",
+    "pinyin": "Zài lái yì bēi, xièxie.",
+    "options": [
+      "我找不到路了。",
+      "我住在海防。",
+      "请给我一个袋子。",
+      "再来一杯，谢谢。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "这个多少钱？",
+    "pinyin": "Zhège duōshao qián?",
+    "options": [
+      "你可以带我去吗？",
+      "你家有几个人？",
+      "地铁站在哪里？",
+      "这个多少钱？"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "太贵了。",
+    "pinyin": "Tài guì le.",
+    "options": [
+      "我家有四个人。",
+      "我坐公交车去学校。",
+      "车站离这里很近。",
+      "太贵了。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "可以便宜一点吗？",
+    "pinyin": "Kěyǐ piányi yìdiǎn ma?",
+    "options": [
+      "今天下雨了。",
+      "可以便宜一点吗？",
+      "你有兄弟姐妹吗？",
+      "请往前走。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "我要买这个。",
+    "pinyin": "Wǒ yào mǎi zhège.",
+    "options": [
+      "明天天气很好。",
+      "我有一个姐姐。",
+      "然后向左转。",
+      "我要买这个。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "我不要这个。",
+    "pinyin": "Wǒ bú yào zhège.",
+    "options": [
+      "这是我的朋友。",
+      "请向右转。",
+      "今天很冷。",
+      "我不要这个。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "可以刷卡吗？",
+    "pinyin": "Kěyǐ shuākǎ ma?",
+    "options": [
+      "我找不到路了。",
+      "可以刷卡吗？",
+      "我们认识很多年了。",
+      "今天太热了。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "请给我一个袋子。",
+    "pinyin": "Qǐng gěi wǒ yí ge dàizi.",
+    "options": [
+      "你住在哪里？",
+      "你周末做什么？",
+      "请给我一个袋子。",
+      "你可以带我去吗？"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "地铁站在哪里？",
+    "pinyin": "Dìtiě zhàn zài nǎlǐ?",
+    "options": [
+      "我住在海防。",
+      "我喜欢在家看电影。",
+      "地铁站在哪里？",
+      "我坐公交车去学校。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "车站离这里很近。",
+    "pinyin": "Chēzhàn lí zhèlǐ hěn jìn.",
+    "options": [
+      "今天下雨了。",
+      "你家有几个人？",
+      "车站离这里很近。",
+      "我们一起去吃饭吧。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "请往前走。",
+    "pinyin": "Qǐng wǎng qián zǒu.",
+    "options": [
+      "请往前走。",
+      "好啊，我很期待。",
+      "明天天气很好。",
+      "我家有四个人。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "然后向左转。",
+    "pinyin": "Ránhòu xiàng zuǒ zhuǎn.",
+    "options": [
+      "今天很冷。",
+      "你有兄弟姐妹吗？",
+      "你会说中文吗？",
+      "然后向左转。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "请向右转。",
+    "pinyin": "Qǐng xiàng yòu zhuǎn.",
+    "options": [
+      "今天太热了。",
+      "我有一个姐姐。",
+      "请向右转。",
+      "我会说一点中文。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "我找不到路了。",
+    "pinyin": "Wǒ zhǎo bú dào lù le.",
+    "options": [
+      "这是我的朋友。",
+      "我找不到路了。",
+      "你学中文多久了？",
+      "你住在哪里？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "你可以带我去吗？",
+    "pinyin": "Nǐ kěyǐ dài wǒ qù ma?",
+    "options": [
+      "我学中文一年了。",
+      "你可以带我去吗？",
+      "我住在海防。",
+      "我们认识很多年了。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "我坐公交车去学校。",
+    "pinyin": "Wǒ zuò gōngjiāo chē qù xuéxiào.",
+    "options": [
+      "你家有几个人？",
+      "你周末做什么？",
+      "我坐公交车去学校。",
+      "请你说慢一点。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "今天下雨了。",
+    "pinyin": "Jīntiān xiàyǔ le.",
+    "options": [
+      "我家有四个人。",
+      "我没听清楚。",
+      "今天下雨了。",
+      "我喜欢在家看电影。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "明天天气很好。",
+    "pinyin": "Míngtiān tiānqì hěn hǎo.",
+    "options": [
+      "明天天气很好。",
+      "请再说一遍。",
+      "我们一起去吃饭吧。",
+      "你有兄弟姐妹吗？"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "今天很冷。",
+    "pinyin": "Jīntiān hěn lěng.",
+    "options": [
+      "我有一个姐姐。",
+      "今天很冷。",
+      "这个词是什么意思？",
+      "好啊，我很期待。"
+    ],
+    "correct": 1,
+    "meaning": "Hôm nay rất lạnh."
+  },
+  {
+    "level": 2,
+    "audio": "今天太热了。",
+    "pinyin": "Jīntiān tài rè le.",
+    "options": [
+      "今天太热了。",
+      "这个字怎么读？",
+      "这是我的朋友。",
+      "你会说中文吗？"
+    ],
+    "correct": 0,
+    "meaning": "Hôm nay nóng quá."
+  },
+  {
+    "level": 2,
+    "audio": "你住在哪里？",
+    "pinyin": "Nǐ zhù zài nǎlǐ?",
+    "options": [
+      "你住在哪里？",
+      "我会说一点中文。",
+      "我们认识很多年了。",
+      "我不知道。"
+    ],
+    "correct": 0,
+    "meaning": "Bạn sống ở đâu?"
+  },
+  {
+    "level": 2,
+    "audio": "我住在海防。",
+    "pinyin": "Wǒ zhù zài Hǎifáng.",
+    "options": [
+      "你学中文多久了？",
+      "我明白了。",
+      "你周末做什么？",
+      "我住在海防。"
+    ],
+    "correct": 3,
+    "meaning": "Tôi sống ở Hải Phòng."
+  },
+  {
+    "level": 2,
+    "audio": "你家有几个人？",
+    "pinyin": "Nǐ jiā yǒu jǐ ge rén?",
+    "options": [
+      "我喜欢在家看电影。",
+      "我学中文一年了。",
+      "你家有几个人？",
+      "我还不明白。"
+    ],
+    "correct": 2,
+    "meaning": "Nhà bạn có mấy người?"
+  },
+  {
+    "level": 2,
+    "audio": "我家有四个人。",
+    "pinyin": "Wǒ jiā yǒu sì ge rén.",
+    "options": [
+      "我家有四个人。",
+      "你什么时候下班？",
+      "请你说慢一点。",
+      "我们一起去吃饭吧。"
+    ],
+    "correct": 0,
+    "meaning": "Nhà tôi có bốn người."
+  },
+  {
+    "level": 2,
+    "audio": "你有兄弟姐妹吗？",
+    "pinyin": "Nǐ yǒu xiōngdì jiěmèi ma?",
+    "options": [
+      "你有兄弟姐妹吗？",
+      "我六点下班。",
+      "我没听清楚。",
+      "好啊，我很期待。"
+    ],
+    "correct": 0,
+    "meaning": "Bạn có anh chị em không?"
+  },
+  {
+    "level": 2,
+    "audio": "我有一个姐姐。",
+    "pinyin": "Wǒ yǒu yí ge jiějie.",
+    "options": [
+      "今天工作很忙。",
+      "我有一个姐姐。",
+      "请再说一遍。",
+      "你会说中文吗？"
+    ],
+    "correct": 1,
+    "meaning": "Tôi có một chị gái."
+  },
+  {
+    "level": 2,
+    "audio": "这是我的朋友。",
+    "pinyin": "Zhè shì wǒ de péngyou.",
+    "options": [
+      "这是我的朋友。",
+      "我会说一点中文。",
+      "这个词是什么意思？",
+      "我正在开会。"
+    ],
+    "correct": 0,
+    "meaning": "Đây là bạn của tôi."
+  },
+  {
+    "level": 2,
+    "audio": "我们认识很多年了。",
+    "pinyin": "Wǒmen rènshi hěn duō nián le.",
+    "options": [
+      "请把文件发给我。",
+      "这个字怎么读？",
+      "我们认识很多年了。",
+      "你学中文多久了？"
+    ],
+    "correct": 2,
+    "meaning": "Chúng tôi quen nhau nhiều năm rồi."
+  },
+  {
+    "level": 2,
+    "audio": "你周末做什么？",
+    "pinyin": "Nǐ zhōumò zuò shénme?",
+    "options": [
+      "我不知道。",
+      "你周末做什么？",
+      "我学中文一年了。",
+      "我马上发给你。"
+    ],
+    "correct": 1,
+    "meaning": "Cuối tuần bạn làm gì?"
+  },
+  {
+    "level": 2,
+    "audio": "我喜欢在家看电影。",
+    "pinyin": "Wǒ xǐhuan zài jiā kàn diànyǐng.",
+    "options": [
+      "我明白了。",
+      "我喜欢在家看电影。",
+      "你收到我的消息了吗？",
+      "请你说慢一点。"
+    ],
+    "correct": 1,
+    "meaning": "Tôi thích xem phim ở nhà."
+  },
+  {
+    "level": 2,
+    "audio": "我们一起去吃饭吧。",
+    "pinyin": "Wǒmen yìqǐ qù chīfàn ba.",
+    "options": [
+      "我刚刚看到了。",
+      "我没听清楚。",
+      "我还不明白。",
+      "我们一起去吃饭吧。"
+    ],
+    "correct": 3,
+    "meaning": "Chúng ta cùng đi ăn nhé."
+  },
+  {
+    "level": 2,
+    "audio": "好啊，我很期待。",
+    "pinyin": "Hǎo a, wǒ hěn qīdài.",
+    "options": [
+      "请再说一遍。",
+      "我们下午再联系。",
+      "你什么时候下班？",
+      "好啊，我很期待。"
+    ],
+    "correct": 3,
+    "meaning": "Được, tôi rất mong chờ."
+  },
+  {
+    "level": 2,
+    "audio": "你会说中文吗？",
+    "pinyin": "Nǐ huì shuō Zhōngwén ma?",
+    "options": [
+      "这个问题很重要。",
+      "我六点下班。",
+      "这个词是什么意思？",
+      "你会说中文吗？"
+    ],
+    "correct": 3,
+    "meaning": "Bạn biết nói tiếng Trung không?"
+  },
+  {
+    "level": 2,
+    "audio": "我会说一点中文。",
+    "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.",
+    "options": [
+      "你能帮我一下吗？",
+      "这个字怎么读？",
+      "今天工作很忙。",
+      "我会说一点中文。"
+    ],
+    "correct": 3,
+    "meaning": "Tôi biết nói một chút tiếng Trung."
+  },
+  {
+    "level": 2,
+    "audio": "你学中文多久了？",
+    "pinyin": "Nǐ xué Zhōngwén duōjiǔ le?",
+    "options": [
+      "当然可以。",
+      "你学中文多久了？",
+      "我正在开会。",
+      "我不知道。"
+    ],
+    "correct": 1,
+    "meaning": "Bạn học tiếng Trung bao lâu rồi?"
+  },
+  {
+    "level": 2,
+    "audio": "我学中文一年了。",
+    "pinyin": "Wǒ xué Zhōngwén yì nián le.",
+    "options": [
+      "我明白了。",
+      "我学中文一年了。",
+      "请把文件发给我。",
+      "你需要我做什么？"
+    ],
+    "correct": 1,
+    "meaning": "Tôi học tiếng Trung được một năm rồi."
+  },
+  {
+    "level": 2,
+    "audio": "请你说慢一点。",
+    "pinyin": "Qǐng nǐ shuō màn yìdiǎn.",
+    "options": [
+      "我还不明白。",
+      "我马上发给你。",
+      "请等我五分钟。",
+      "请你说慢一点。"
+    ],
+    "correct": 3,
+    "meaning": "Bạn nói chậm một chút nhé."
+  },
+  {
+    "level": 2,
+    "audio": "我没听清楚。",
+    "pinyin": "Wǒ méi tīng qīngchu.",
+    "options": [
+      "我没听清楚。",
+      "你收到我的消息了吗？",
+      "你什么时候下班？",
+      "不用着急。"
+    ],
+    "correct": 0,
+    "meaning": "Tôi không nghe rõ."
+  },
+  {
+    "level": 2,
+    "audio": "请再说一遍。",
+    "pinyin": "Qǐng zài shuō yí biàn.",
+    "options": [
+      "别担心。",
+      "请再说一遍。",
+      "我刚刚看到了。",
+      "我六点下班。"
+    ],
+    "correct": 1,
+    "meaning": "Hãy nói lại một lần nữa."
+  },
+  {
+    "level": 2,
+    "audio": "这个词是什么意思？",
+    "pinyin": "Zhège cí shì shénme yìsi?",
+    "options": [
+      "今天工作很忙。",
+      "我们下午再联系。",
+      "我忘记带手机了。",
+      "这个词是什么意思？"
+    ],
+    "correct": 3,
+    "meaning": "Từ này có nghĩa là gì?"
+  },
+  {
+    "level": 2,
+    "audio": "这个字怎么读？",
+    "pinyin": "Zhège zì zěnme dú?",
+    "options": [
+      "这个字怎么读？",
+      "我的手机没电了。",
+      "这个问题很重要。",
+      "我正在开会。"
+    ],
+    "correct": 0,
+    "meaning": "Chữ này đọc thế nào?"
+  },
+  {
+    "level": 2,
+    "audio": "我不知道。",
+    "pinyin": "Wǒ bù zhīdào.",
+    "options": [
+      "你可以给我充电器吗？",
+      "请把文件发给我。",
+      "你能帮我一下吗？",
+      "我不知道。"
+    ],
+    "correct": 3,
+    "meaning": "Tôi không biết."
+  },
+  {
+    "level": 2,
+    "audio": "我明白了。",
+    "pinyin": "Wǒ míngbai le.",
+    "options": [
+      "没问题。",
+      "我明白了。",
+      "当然可以。",
+      "我马上发给你。"
+    ],
+    "correct": 1,
+    "meaning": "Tôi hiểu rồi."
+  },
+  {
+    "level": 2,
+    "audio": "我还不明白。",
+    "pinyin": "Wǒ hái bù míngbai.",
+    "options": [
+      "我还不明白。",
+      "你收到我的消息了吗？",
+      "你需要我做什么？",
+      "你什么时候有空？"
+    ],
+    "correct": 0,
+    "meaning": "Tôi vẫn chưa hiểu."
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候下班？",
+    "pinyin": "Nǐ shénme shíhou xiàbān?",
+    "options": [
+      "请等我五分钟。",
+      "我刚刚看到了。",
+      "晚上八点以后我有空。",
+      "你什么时候下班？"
+    ],
+    "correct": 3,
+    "meaning": "Khi nào bạn tan làm?"
+  },
+  {
+    "level": 2,
+    "audio": "我六点下班。",
+    "pinyin": "Wǒ liù diǎn xiàbān.",
+    "options": [
+      "我六点下班。",
+      "不用着急。",
+      "我们下午再联系。",
+      "我们几点见面？"
+    ],
+    "correct": 0,
+    "meaning": "Tôi tan làm lúc sáu giờ."
+  },
+  {
+    "level": 2,
+    "audio": "今天工作很忙。",
+    "pinyin": "Jīntiān gōngzuò hěn máng.",
+    "options": [
+      "这个问题很重要。",
+      "下午三点见。",
+      "别担心。",
+      "今天工作很忙。"
+    ],
+    "correct": 3,
+    "meaning": "Hôm nay công việc rất bận."
+  },
+  {
+    "level": 2,
+    "audio": "我正在开会。",
+    "pinyin": "Wǒ zhèngzài kāihuì.",
+    "options": [
+      "我已经到了。",
+      "我忘记带手机了。",
+      "我正在开会。",
+      "你能帮我一下吗？"
+    ],
+    "correct": 2,
+    "meaning": "Tôi đang họp."
+  },
+  {
+    "level": 2,
+    "audio": "请把文件发给我。",
+    "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ.",
+    "options": [
+      "我的手机没电了。",
+      "请把文件发给我。",
+      "你在哪里？",
+      "当然可以。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我马上发给你。",
+    "pinyin": "Wǒ mǎshàng fā gěi nǐ.",
+    "options": [
+      "我在门口等你。",
+      "我马上发给你。",
+      "你需要我做什么？",
+      "你可以给我充电器吗？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "你收到我的消息了吗？",
+    "pinyin": "Nǐ shōudào wǒ de xiāoxi le ma?",
+    "options": [
+      "你收到我的消息了吗？",
+      "请等我五分钟。",
+      "没问题。",
+      "路上小心。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我刚刚看到了。",
+    "pinyin": "Wǒ gānggāng kàndào le.",
+    "options": [
+      "不用着急。",
+      "我刚刚看到了。",
+      "到了给我发消息。",
+      "你什么时候有空？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我们下午再联系。",
+    "pinyin": "Wǒmen xiàwǔ zài liánxì.",
+    "options": [
+      "晚上八点以后我有空。",
+      "别担心。",
+      "我们下午再联系。",
+      "我今天感觉很好。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "这个问题很重要。",
+    "pinyin": "Zhège wèntí hěn zhòngyào.",
+    "options": [
+      "我有一点累。",
+      "我忘记带手机了。",
+      "我们几点见面？",
+      "这个问题很重要。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "你能帮我一下吗？",
+    "pinyin": "Nǐ néng bāng wǒ yíxià ma?",
+    "options": [
+      "你需要休息一下。",
+      "你能帮我一下吗？",
+      "我的手机没电了。",
+      "下午三点见。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "当然可以。",
+    "pinyin": "Dāngrán kěyǐ.",
+    "options": [
+      "我已经到了。",
+      "我昨天睡得很晚。",
+      "当然可以。",
+      "你可以给我充电器吗？"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "你需要我做什么？",
+    "pinyin": "Nǐ xūyào wǒ zuò shénme?",
+    "options": [
+      "你在哪里？",
+      "你需要我做什么？",
+      "没问题。",
+      "今天早点睡吧。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "请等我五分钟。",
+    "pinyin": "Qǐng děng wǒ wǔ fēnzhōng.",
+    "options": [
+      "你最近怎么样？",
+      "请等我五分钟。",
+      "我在门口等你。",
+      "你什么时候有空？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "不用着急。",
+    "pinyin": "Bú yòng zháojí.",
+    "options": [
+      "最近一切都不错。",
+      "路上小心。",
+      "不用着急。",
+      "晚上八点以后我有空。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "别担心。",
+    "pinyin": "Bié dānxīn.",
+    "options": [
+      "到了给我发消息。",
+      "我们几点见面？",
+      "别担心。",
+      "你为什么不开心？"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我忘记带手机了。",
+    "pinyin": "Wǒ wàngjì dài shǒujī le.",
+    "options": [
+      "我忘记带手机了。",
+      "我今天感觉很好。",
+      "没什么，只是有点累。",
+      "下午三点见。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我的手机没电了。",
+    "pinyin": "Wǒ de shǒujī méi diàn le.",
+    "options": [
+      "别想太多。",
+      "我的手机没电了。",
+      "我已经到了。",
+      "我有一点累。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "你可以给我充电器吗？",
+    "pinyin": "Nǐ kěyǐ gěi wǒ chōngdiànqì ma?",
+    "options": [
+      "你在哪里？",
+      "你可以给我充电器吗？",
+      "我想订一个房间。",
+      "你需要休息一下。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "没问题。",
+    "pinyin": "Méi wèntí.",
+    "options": [
+      "我在门口等你。",
+      "我昨天睡得很晚。",
+      "请问还有空房吗？",
+      "没问题。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候有空？",
+    "pinyin": "Nǐ shénme shíhou yǒu kòng?",
+    "options": [
+      "路上小心。",
+      "我想住两晚。",
+      "你什么时候有空？",
+      "今天早点睡吧。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "晚上八点以后我有空。",
+    "pinyin": "Wǎnshang bā diǎn yǐhòu wǒ yǒu kòng.",
+    "options": [
+      "到了给我发消息。",
+      "早餐几点开始？",
+      "晚上八点以后我有空。",
+      "你最近怎么样？"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我们几点见面？",
+    "pinyin": "Wǒmen jǐ diǎn jiànmiàn?",
+    "options": [
+      "最近一切都不错。",
+      "请给我一张发票。",
+      "我们几点见面？",
+      "我今天感觉很好。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "下午三点见。",
+    "pinyin": "Xiàwǔ sān diǎn jiàn.",
+    "options": [
+      "你为什么不开心？",
+      "下午三点见。",
+      "我有一点累。",
+      "我的房间在哪里？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我已经到了。",
+    "pinyin": "Wǒ yǐjīng dào le.",
+    "options": [
+      "我已经到了。",
+      "电梯在哪里？",
+      "你需要休息一下。",
+      "没什么，只是有点累。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "你在哪里？",
+    "pinyin": "Nǐ zài nǎlǐ?",
+    "options": [
+      "别想太多。",
+      "无线网络的密码是什么？",
+      "我昨天睡得很晚。",
+      "你在哪里？"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我在门口等你。",
+    "pinyin": "Wǒ zài ménkǒu děng nǐ.",
+    "options": [
+      "我想订一个房间。",
+      "我在门口等你。",
+      "我想买一张火车票。",
+      "今天早点睡吧。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "路上小心。",
+    "pinyin": "Lùshang xiǎoxīn.",
+    "options": [
+      "请问还有空房吗？",
+      "你最近怎么样？",
+      "路上小心。",
+      "下一班车几点出发？"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "到了给我发消息。",
+    "pinyin": "Dào le gěi wǒ fā xiāoxi.",
+    "options": [
+      "到了给我发消息。",
+      "我想住两晚。",
+      "最近一切都不错。",
+      "我要去机场。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我今天感觉很好。",
+    "pinyin": "Wǒ jīntiān gǎnjué hěn hǎo.",
+    "options": [
+      "请问需要多长时间？",
+      "你为什么不开心？",
+      "早餐几点开始？",
+      "我今天感觉很好。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我有一点累。",
+    "pinyin": "Wǒ yǒu yìdiǎn lèi.",
+    "options": [
+      "我有一点累。",
+      "请给我一张发票。",
+      "现在路上堵车吗？",
+      "没什么，只是有点累。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "你需要休息一下。",
+    "pinyin": "Nǐ xūyào xiūxi yíxià.",
+    "options": [
+      "我的房间在哪里？",
+      "我们快迟到了。",
+      "你需要休息一下。",
+      "别想太多。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "我昨天睡得很晚。",
+    "pinyin": "Wǒ zuótiān shuì de hěn wǎn.",
+    "options": [
+      "我昨天睡得很晚。",
+      "请开快一点。",
+      "电梯在哪里？",
+      "我想订一个房间。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 2,
+    "audio": "今天早点睡吧。",
+    "pinyin": "Jīntiān zǎodiǎn shuì ba.",
+    "options": [
+      "今天早点睡吧。",
+      "请问还有空房吗？",
+      "请在这里停车。",
+      "无线网络的密码是什么？"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "你最近怎么样？",
+    "pinyin": "Nǐ zuìjìn zěnmeyàng?",
+    "options": [
+      "我想买一张火车票。",
+      "你最近怎么样？",
+      "你觉得这个办法怎么样？",
+      "我想住两晚。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "最近一切都不错。",
+    "pinyin": "Zuìjìn yíqiè dōu búcuò.",
+    "options": [
+      "下一班车几点出发？",
+      "我觉得可以试试。",
+      "最近一切都不错。",
+      "早餐几点开始？"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "你为什么不开心？",
+    "pinyin": "Nǐ wèishénme bù kāixīn?",
+    "options": [
+      "请给我一张发票。",
+      "你为什么不开心？",
+      "我们先讨论一下。",
+      "我要去机场。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "没什么，只是有点累。",
+    "pinyin": "Méi shénme, zhǐshì yǒudiǎn lèi.",
+    "options": [
+      "没什么，只是有点累。",
+      "我同意你的看法。",
+      "请问需要多长时间？",
+      "我的房间在哪里？"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "别想太多。",
+    "pinyin": "Bié xiǎng tài duō.",
+    "options": [
+      "我不太同意。",
+      "别想太多。",
+      "电梯在哪里？",
+      "现在路上堵车吗？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我想订一个房间。",
+    "pinyin": "Wǒ xiǎng dìng yí ge fángjiān.",
+    "options": [
+      "我想订一个房间。",
+      "让我想一想。",
+      "我们快迟到了。",
+      "无线网络的密码是什么？"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "请问还有空房吗？",
+    "pinyin": "Qǐngwèn hái yǒu kòngfáng ma?",
+    "options": [
+      "请问还有空房吗？",
+      "这个问题需要时间。",
+      "我想买一张火车票。",
+      "请开快一点。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我想住两晚。",
+    "pinyin": "Wǒ xiǎng zhù liǎng wǎn.",
+    "options": [
+      "下一班车几点出发？",
+      "我想住两晚。",
+      "我们以后再决定。",
+      "请在这里停车。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "早餐几点开始？",
+    "pinyin": "Zǎocān jǐ diǎn kāishǐ?",
+    "options": [
+      "这个方法比较简单。",
+      "你觉得这个办法怎么样？",
+      "早餐几点开始？",
+      "我要去机场。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "请给我一张发票。",
+    "pinyin": "Qǐng gěi wǒ yì zhāng fāpiào.",
+    "options": [
+      "这样做比较方便。",
+      "我觉得可以试试。",
+      "请问需要多长时间？",
+      "请给我一张发票。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我的房间在哪里？",
+    "pinyin": "Wǒ de fángjiān zài nǎlǐ?",
+    "options": [
+      "我们先讨论一下。",
+      "我的房间在哪里？",
+      "现在路上堵车吗？",
+      "虽然很忙，但是我会完成。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "电梯在哪里？",
+    "pinyin": "Diàntī zài nǎlǐ?",
+    "options": [
+      "如果有问题，请告诉我。",
+      "我们快迟到了。",
+      "电梯在哪里？",
+      "我同意你的看法。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "无线网络的密码是什么？",
+    "pinyin": "Wúxiàn wǎngluò de mìmǎ shì shénme?",
+    "options": [
+      "我不太同意。",
+      "请开快一点。",
+      "因为下雨，所以我们没有出去。",
+      "无线网络的密码是什么？"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我想买一张火车票。",
+    "pinyin": "Wǒ xiǎng mǎi yì zhāng huǒchē piào.",
+    "options": [
+      "我想买一张火车票。",
+      "如果明天有时间，我们一起去。",
+      "请在这里停车。",
+      "让我想一想。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "下一班车几点出发？",
+    "pinyin": "Xià yì bān chē jǐ diǎn chūfā?",
+    "options": [
+      "下一班车几点出发？",
+      "只要努力，就会进步。",
+      "你觉得这个办法怎么样？",
+      "这个问题需要时间。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我要去机场。",
+    "pinyin": "Wǒ yào qù jīchǎng.",
+    "options": [
+      "学习语言需要坚持。",
+      "我们以后再决定。",
+      "我要去机场。",
+      "我觉得可以试试。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "请问需要多长时间？",
+    "pinyin": "Qǐngwèn xūyào duō cháng shíjiān?",
+    "options": [
+      "这个方法比较简单。",
+      "我们先讨论一下。",
+      "请问需要多长时间？",
+      "每天练习一点儿很重要。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "现在路上堵车吗？",
+    "pinyin": "Xiànzài lùshang dǔchē ma?",
+    "options": [
+      "不要害怕说错。",
+      "这样做比较方便。",
+      "我同意你的看法。",
+      "现在路上堵车吗？"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我们快迟到了。",
+    "pinyin": "Wǒmen kuài chídào le.",
+    "options": [
+      "我不太同意。",
+      "虽然很忙，但是我会完成。",
+      "听不懂的时候可以再听一次。",
+      "我们快迟到了。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "请开快一点。",
+    "pinyin": "Qǐng kāi kuài yìdiǎn.",
+    "options": [
+      "请开快一点。",
+      "让我想一想。",
+      "先听清楚，再回答。",
+      "如果有问题，请告诉我。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "请在这里停车。",
+    "pinyin": "Qǐng zài zhèlǐ tíngchē.",
+    "options": [
+      "这个问题需要时间。",
+      "你好。",
+      "因为下雨，所以我们没有出去。",
+      "请在这里停车。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "你觉得这个办法怎么样？",
+    "pinyin": "Nǐ juéde zhège bànfǎ zěnmeyàng?",
+    "options": [
+      "如果明天有时间，我们一起去。",
+      "早上好。",
+      "我们以后再决定。",
+      "你觉得这个办法怎么样？"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我觉得可以试试。",
+    "pinyin": "Wǒ juéde kěyǐ shìshi.",
+    "options": [
+      "我觉得可以试试。",
+      "这个方法比较简单。",
+      "只要努力，就会进步。",
+      "晚上好。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我们先讨论一下。",
+    "pinyin": "Wǒmen xiān tǎolùn yíxià.",
+    "options": [
+      "我们先讨论一下。",
+      "再见。",
+      "这样做比较方便。",
+      "学习语言需要坚持。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我同意你的看法。",
+    "pinyin": "Wǒ tóngyì nǐ de kànfǎ.",
+    "options": [
+      "我同意你的看法。",
+      "明天见。",
+      "虽然很忙，但是我会完成。",
+      "每天练习一点儿很重要。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我不太同意。",
+    "pinyin": "Wǒ bú tài tóngyì.",
+    "options": [
+      "谢谢。",
+      "不要害怕说错。",
+      "如果有问题，请告诉我。",
+      "我不太同意。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "让我想一想。",
+    "pinyin": "Ràng wǒ xiǎng yì xiǎng.",
+    "options": [
+      "因为下雨，所以我们没有出去。",
+      "让我想一想。",
+      "听不懂的时候可以再听一次。",
+      "不客气。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "这个问题需要时间。",
+    "pinyin": "Zhège wèntí xūyào shíjiān.",
+    "options": [
+      "对不起。",
+      "先听清楚，再回答。",
+      "如果明天有时间，我们一起去。",
+      "这个问题需要时间。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "我们以后再决定。",
+    "pinyin": "Wǒmen yǐhòu zài juédìng.",
+    "options": [
+      "我们以后再决定。",
+      "没关系。",
+      "只要努力，就会进步。",
+      "你好。"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "这个方法比较简单。",
+    "pinyin": "Zhège fāngfǎ bǐjiào jiǎndān.",
+    "options": [
+      "请坐。",
+      "早上好。",
+      "学习语言需要坚持。",
+      "这个方法比较简单。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "这样做比较方便。",
+    "pinyin": "Zhèyàng zuò bǐjiào fāngbiàn.",
+    "options": [
+      "每天练习一点儿很重要。",
+      "请进。",
+      "这样做比较方便。",
+      "晚上好。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "虽然很忙，但是我会完成。",
+    "pinyin": "Suīrán hěn máng, dànshì wǒ huì wánchéng.",
+    "options": [
+      "虽然很忙，但是我会完成。",
+      "再见。",
+      "不要害怕说错。",
+      "请问，洗手间在哪里？"
+    ],
+    "correct": 0,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "如果有问题，请告诉我。",
+    "pinyin": "Rúguǒ yǒu wèntí, qǐng gàosu wǒ.",
+    "options": [
+      "你好吗？",
+      "明天见。",
+      "如果有问题，请告诉我。",
+      "听不懂的时候可以再听一次。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "因为下雨，所以我们没有出去。",
+    "pinyin": "Yīnwèi xiàyǔ, suǒyǐ wǒmen méiyǒu chūqù.",
+    "options": [
+      "先听清楚，再回答。",
+      "因为下雨，所以我们没有出去。",
+      "谢谢。",
+      "我很好，谢谢。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "如果明天有时间，我们一起去。",
+    "pinyin": "Rúguǒ míngtiān yǒu shíjiān, wǒmen yìqǐ qù.",
+    "options": [
+      "你好。",
+      "如果明天有时间，我们一起去。",
+      "不客气。",
+      "你叫什么名字？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "只要努力，就会进步。",
+    "pinyin": "Zhǐyào nǔlì, jiù huì jìnbù.",
+    "options": [
+      "我叫李明。",
+      "只要努力，就会进步。",
+      "早上好。",
+      "对不起。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "学习语言需要坚持。",
+    "pinyin": "Xuéxí yǔyán xūyào jiānchí.",
+    "options": [
+      "没关系。",
+      "学习语言需要坚持。",
+      "晚上好。",
+      "你是哪国人？"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "每天练习一点儿很重要。",
+    "pinyin": "Měitiān liànxí yìdiǎnr hěn zhòngyào.",
+    "options": [
+      "再见。",
+      "我是越南人。",
+      "每天练习一点儿很重要。",
+      "请坐。"
+    ],
+    "correct": 2,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "不要害怕说错。",
+    "pinyin": "Bú yào hàipà shuō cuò.",
+    "options": [
+      "你是学生吗？",
+      "不要害怕说错。",
+      "明天见。",
+      "请进。"
+    ],
+    "correct": 1,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "听不懂的时候可以再听一次。",
+    "pinyin": "Tīng bù dǒng de shíhou kěyǐ zài tīng yí cì.",
+    "options": [
+      "我是学生。",
+      "谢谢。",
+      "请问，洗手间在哪里？",
+      "听不懂的时候可以再听一次。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 3,
+    "audio": "先听清楚，再回答。",
+    "pinyin": "Xiān tīng qīngchu, zài huídá.",
+    "options": [
+      "你今天忙吗？",
+      "你好吗？",
+      "不客气。",
+      "先听清楚，再回答。"
+    ],
+    "correct": 3,
+    "meaning": ""
+  },
+  {
+    "level": 1,
+    "audio": "你好吗？",
+    "pinyin": "Nǐ hǎo ma?",
+    "meaning": "Bạn khỏe không?",
+    "options": [
+      "你想吃什么？",
+      "为了准备明天的工作，她今晚还要听音乐。",
+      "你好。",
+      "你好吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我很好，谢谢。",
+    "pinyin": "Wǒ hěn hǎo, xièxie.",
+    "meaning": "Tôi khỏe, cảm ơn.",
+    "options": [
+      "我很好，谢谢。",
+      "公交车站在哪里？",
+      "再来一杯，谢谢。",
+      "你从哪里来？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "你叫什么？",
+    "pinyin": "Nǐ jiào shénme?",
+    "meaning": "",
+    "options": [
+      "再见。",
+      "你叫什么？",
+      "谢谢你的帮助。",
+      "请等一下。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我是越南人。",
+    "pinyin": "Wǒ shì Yuènán rén.",
+    "meaning": "Tôi là người Việt Nam。",
+    "options": [
+      "我是越南人。",
+      "虽然时间不多，但是哥哥还是完成了吃饭。",
+      "周末的时候，朋友喜欢去中国吃饭。",
+      "早上好。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我住在海防。",
+    "pinyin": "Wǒ zhù zài Hǎifáng.",
+    "meaning": "Tôi sống ở Hải Phòng.",
+    "options": [
+      "我住在海防。",
+      "他每天都要看书。",
+      "虽然时间不多，但是哥哥还是完成了吃饭。",
+      "请进。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "你会说中文吗？",
+    "pinyin": "Nǐ huì shuō Zhōngwén ma?",
+    "meaning": "Bạn biết nói tiếng Trung không?",
+    "options": [
+      "你觉得喝水很重要。",
+      "请给我一张发票。",
+      "请在这里停车。",
+      "你会说中文吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我会说一点中文。",
+    "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.",
+    "meaning": "Tôi biết nói một chút tiếng Trung.",
+    "options": [
+      "请向右转。",
+      "我会说一点中文。",
+      "我只是看看。",
+      "昨天我很忙。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "请说慢一点。",
+    "pinyin": "Qǐng shuō màn yìdiǎn.",
+    "meaning": "",
+    "options": [
+      "我坐错车了。",
+      "你吃饭了吗？",
+      "请坐。",
+      "请说慢一点。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请再说一遍。",
+    "pinyin": "Qǐng zài shuō yí biàn.",
+    "meaning": "Hãy nói lại một lần nữa.",
+    "options": [
+      "我听说同学最近在商店负责工作。",
+      "为了买东西，哥哥提前来到中国。",
+      "为了买东西，他提前来到中国。",
+      "请再说一遍。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我听不清楚。",
+    "pinyin": "Wǒ tīng bù qīngchu.",
+    "meaning": "",
+    "options": [
+      "这个字是什么意思？",
+      "我听不清楚。",
+      "他希望明天可以继续睡觉。",
+      "然后向左转。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "这个怎么读？",
+    "pinyin": "Zhège zěnme dú?",
+    "meaning": "",
+    "options": [
+      "会议结束以后，医生马上回到中国继续学习。",
+      "虽然时间不多，但是他还是完成了吃饭。",
+      "再见。",
+      "这个怎么读？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "这个字是什么意思？",
+    "pinyin": "Zhège zì shì shénme yìsi?",
+    "meaning": "",
+    "options": [
+      "你叫什么？",
+      "这个字是什么意思？",
+      "可以给我菜单吗？",
+      "为了准备明天的工作，学生今晚还要听音乐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "你怎么写这个字？",
+    "pinyin": "Nǐ zěnme xiě zhège zì?",
+    "meaning": "",
+    "options": [
+      "医生每天都要看书。",
+      "你怎么写这个字？",
+      "会议结束以后，爸爸马上回到中国继续学习。",
+      "这个很好吃。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我不知道。",
+    "pinyin": "Wǒ bù zhīdào.",
+    "meaning": "Tôi không biết.",
+    "options": [
+      "我不知道。",
+      "为了买东西，朋友提前来到中国。",
+      "我希望明天可以继续睡觉。",
+      "如果有时间，妈妈会去商店听音乐。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我明白了。",
+    "pinyin": "Wǒ míngbai le.",
+    "meaning": "Tôi hiểu rồi.",
+    "options": [
+      "我明白了。",
+      "我从越南来。",
+      "他已经把手机带到中国了。",
+      "可以刷卡吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我还不明白。",
+    "pinyin": "Wǒ hái bù míngbai.",
+    "meaning": "Tôi vẫn chưa hiểu.",
+    "options": [
+      "医生希望明天可以继续睡觉。",
+      "我还不明白。",
+      "老师已经把手机带到中国了。",
+      "因为工作很忙，她只能晚上工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "没关系。",
+    "pinyin": "Méi guānxi.",
+    "meaning": "",
+    "options": [
+      "今天姐姐在商店喝水。",
+      "我喜欢吃米饭。",
+      "最近医生常常需要买东西。",
+      "没关系。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "谢谢你的帮助。",
+    "pinyin": "Xièxie nǐ de bāngzhù.",
+    "meaning": "",
+    "options": [
+      "为了买东西，老师提前来到中国。",
+      "谢谢你的帮助。",
+      "大概需要多久？",
+      "谢谢。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "不用客气。",
+    "pinyin": "Bú yòng kèqi.",
+    "meaning": "",
+    "options": [
+      "我很好，谢谢。",
+      "如果有时间，你会去商店听音乐。",
+      "如果计划没有变化，经理下午会在商店回家。",
+      "不用客气。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "对不起。",
+    "pinyin": "Duìbuqǐ.",
+    "meaning": "",
+    "options": [
+      "他告诉我，他最近正在学习。",
+      "一共多少钱？",
+      "对不起。",
+      "因为工作很忙，姐姐只能晚上工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "没事。",
+    "pinyin": "Méi shì.",
+    "meaning": "",
+    "options": [
+      "请坐。",
+      "没关系。",
+      "我买两杯咖啡。",
+      "没事。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请坐。",
+    "pinyin": "Qǐng zuò.",
+    "meaning": "",
+    "options": [
+      "为了买东西，他提前来到中国。",
+      "学生觉得喝水很重要。",
+      "请坐。",
+      "可以用手机付款吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "请进。",
+    "pinyin": "Qǐng jìn.",
+    "meaning": "",
+    "options": [
+      "我不喜欢喝咖啡。",
+      "请进。",
+      "会议结束以后，老师马上回到中国继续学习。",
+      "我只是看看。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "请等一下。",
+    "pinyin": "Qǐng děng yíxià.",
+    "meaning": "",
+    "options": [
+      "请等一下。",
+      "请给我一个袋子。",
+      "我不要这个。",
+      "因为工作很忙，姐姐只能晚上工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我马上回来。",
+    "pinyin": "Wǒ mǎshàng huílái.",
+    "meaning": "",
+    "options": [
+      "我马上回来。",
+      "虽然时间不多，但是哥哥还是完成了吃饭。",
+      "为了买东西，医生提前来到中国。",
+      "医生每天都要看书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "现在几点？",
+    "pinyin": "Xiànzài jǐ diǎn?",
+    "meaning": "Bây giờ là mấy giờ?",
+    "options": [
+      "你好吗？",
+      "现在几点？",
+      "请说慢一点。",
+      "请在这里停车。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "现在八点半。",
+    "pinyin": "Xiànzài bā diǎn bàn.",
+    "meaning": "",
+    "options": [
+      "我要买这个。",
+      "我是越南人。",
+      "现在八点半。",
+      "我只是看看。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "今天星期几？",
+    "pinyin": "Jīntiān xīngqī jǐ?",
+    "meaning": "Hôm nay là thứ mấy?",
+    "options": [
+      "不客气。",
+      "今天星期几？",
+      "我已经吃过了。",
+      "妈妈正在商店回家。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "今天星期一。",
+    "pinyin": "Jīntiān xīngqī yī.",
+    "meaning": "",
+    "options": [
+      "今天星期一。",
+      "我只是看看。",
+      "经理觉得喝水很重要。",
+      "如果有时间，她会去商店听音乐。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "明天见。",
+    "pinyin": "Míngtiān jiàn.",
+    "meaning": "",
+    "options": [
+      "我听说妈妈最近在商店负责工作。",
+      "我告诉我，他最近正在学习。",
+      "明天见。",
+      "同学正在商店回家。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "昨天我很忙。",
+    "pinyin": "Zuótiān wǒ hěn máng.",
+    "meaning": "",
+    "options": [
+      "昨天我很忙。",
+      "为了买东西，医生提前来到中国。",
+      "给你五十块。",
+      "你几点睡觉？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "今天我有空。",
+    "pinyin": "Jīntiān wǒ yǒu kòng.",
+    "meaning": "",
+    "options": [
+      "今天我有空。",
+      "最近哥哥常常需要买东西。",
+      "我希望明天可以继续睡觉。",
+      "公交车站在哪里？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "明天我要上课。",
+    "pinyin": "Míngtiān wǒ yào shàngkè.",
+    "meaning": "",
+    "options": [
+      "这个字是什么意思？",
+      "我想吃面条。",
+      "为了准备明天的工作，你今晚还要听音乐。",
+      "明天我要上课。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你几点起床？",
+    "pinyin": "Nǐ jǐ diǎn qǐchuáng?",
+    "meaning": "Bạn thức dậy lúc mấy giờ?",
+    "options": [
+      "你是学生吗？",
+      "我是学生。",
+      "如果有时间，妈妈会去商店听音乐。",
+      "你几点起床？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我七点起床。",
+    "pinyin": "Wǒ qī diǎn qǐchuáng.",
+    "meaning": "Tôi thức dậy lúc bảy giờ.",
+    "options": [
+      "我只是看看。",
+      "他已经把手机带到中国了。",
+      "如果计划没有变化，她下午会在商店回家。",
+      "我七点起床。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你几点睡觉？",
+    "pinyin": "Nǐ jǐ diǎn shuìjiào?",
+    "meaning": "Bạn đi ngủ lúc mấy giờ?",
+    "options": [
+      "请坐。",
+      "你几点睡觉？",
+      "最近他常常需要买东西。",
+      "周末的时候，他喜欢去中国吃饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我十一点睡觉。",
+    "pinyin": "Wǒ shíyī diǎn shuìjiào.",
+    "meaning": "Tôi đi ngủ lúc mười một giờ.",
+    "options": [
+      "为了买东西，哥哥提前来到中国。",
+      "我是学生。",
+      "我十一点睡觉。",
+      "周末的时候，医生喜欢去中国吃饭。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "你吃早饭了吗？",
+    "pinyin": "Nǐ chī zǎofàn le ma?",
+    "meaning": "",
+    "options": [
+      "爸爸希望明天可以继续睡觉。",
+      "你吃早饭了吗？",
+      "可以刷卡吗？",
+      "爸爸每天都要看书。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我已经吃过了。",
+    "pinyin": "Wǒ yǐjīng chīguo le.",
+    "meaning": "",
+    "options": [
+      "请给我一张发票。",
+      "我已经吃过了。",
+      "为了准备明天的工作，你今晚还要听音乐。",
+      "我是越南人。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "你想吃什么？",
+    "pinyin": "Nǐ xiǎng chī shénme?",
+    "meaning": "Bạn muốn ăn gì?",
+    "options": [
+      "昨天你在商店休息，所以回家比较晚。",
+      "你几点睡觉？",
+      "请问，洗手间在哪里？",
+      "你想吃什么？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我想吃面条。",
+    "pinyin": "Wǒ xiǎng chī miàntiáo.",
+    "meaning": "",
+    "options": [
+      "晚上好。",
+      "我想吃面条。",
+      "今天同学在商店喝水。",
+      "老师已经把手机带到中国了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我不吃辣。",
+    "pinyin": "Wǒ bù chī là.",
+    "meaning": "",
+    "options": [
+      "我不吃辣。",
+      "最近爸爸常常需要买东西。",
+      "医生告诉我，他最近正在学习。",
+      "如果计划没有变化，她下午会在商店回家。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "这个很好吃。",
+    "pinyin": "Zhège hěn hǎochī.",
+    "meaning": "",
+    "options": [
+      "早上好。",
+      "今天妈妈在商店喝水。",
+      "因为工作很忙，学生只能晚上工作。",
+      "这个很好吃。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "可以给我菜单吗？",
+    "pinyin": "Kěyǐ gěi wǒ càidān ma?",
+    "meaning": "",
+    "options": [
+      "你几点睡觉？",
+      "可以给我菜单吗？",
+      "我今天不太忙。",
+      "为了买东西，朋友提前来到中国。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "请给我一碗米饭。",
+    "pinyin": "Qǐng gěi wǒ yì wǎn mǐfàn.",
+    "meaning": "",
+    "options": [
+      "为了买东西，我提前来到中国。",
+      "请给我一个袋子。",
+      "请给我一碗米饭。",
+      "你几点睡觉？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我买两杯咖啡。",
+    "pinyin": "Wǒ mǎi liǎng bēi kāfēi.",
+    "meaning": "",
+    "options": [
+      "我迷路了。",
+      "经理正在检查咖啡，准备开始休息。",
+      "我买两杯咖啡。",
+      "我喜欢喝咖啡。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "可以刷卡吗？",
+    "pinyin": "Kěyǐ shuākǎ ma?",
+    "meaning": "",
+    "options": [
+      "我听说学生最近在商店负责工作。",
+      "再来一杯，谢谢。",
+      "不用客气。",
+      "可以刷卡吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "可以用手机付款吗？",
+    "pinyin": "Kěyǐ yòng shǒujī fùkuǎn ma?",
+    "meaning": "",
+    "options": [
+      "她喜欢看书。",
+      "可以用手机付款吗？",
+      "我住在海防。",
+      "左边有一家银行。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "请给我一张发票。",
+    "pinyin": "Qǐng gěi wǒ yì zhāng fāpiào.",
+    "meaning": "",
+    "options": [
+      "你想吃什么？",
+      "她正在检查咖啡，准备开始休息。",
+      "请给我一张发票。",
+      "今天星期几？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我只是看看。",
+    "pinyin": "Wǒ zhǐshì kànkan.",
+    "meaning": "",
+    "options": [
+      "如果有时间，经理会去商店听音乐。",
+      "请给我一碗米饭。",
+      "你今天忙吗？",
+      "我只是看看。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "有别的颜色吗？",
+    "pinyin": "Yǒu bié de yánsè ma?",
+    "meaning": "",
+    "options": [
+      "给你五十块。",
+      "如果有时间，妈妈会去商店听音乐。",
+      "有别的颜色吗？",
+      "爸爸每天都要看书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "有大一点的吗？",
+    "pinyin": "Yǒu dà yìdiǎn de ma?",
+    "meaning": "",
+    "options": [
+      "再来一杯，谢谢。",
+      "我现在有空。",
+      "有大一点的吗？",
+      "妈妈正在检查咖啡，准备开始休息。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "这个太小了。",
+    "pinyin": "Zhège tài xiǎo le.",
+    "meaning": "",
+    "options": [
+      "谢谢。",
+      "这个太小了。",
+      "如果有时间，她会去商店听音乐。",
+      "天气很好。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我可以试穿吗？",
+    "pinyin": "Wǒ kěyǐ shìchuān ma?",
+    "meaning": "",
+    "options": [
+      "因为工作很忙，学生只能晚上工作。",
+      "哥哥已经把手机带到中国了。",
+      "我可以试穿吗？",
+      "学生正在检查咖啡，准备开始休息。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "一共多少钱？",
+    "pinyin": "Yígòng duōshao qián?",
+    "meaning": "",
+    "options": [
+      "如果计划没有变化，她下午会在商店回家。",
+      "我要去火车站。",
+      "一共多少钱？",
+      "请给我一个袋子。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "给你五十块。",
+    "pinyin": "Gěi nǐ wǔshí kuài.",
+    "meaning": "",
+    "options": [
+      "周末的时候，我喜欢去中国吃饭。",
+      "给你五十块。",
+      "你几点起床？",
+      "我喜欢吃米饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "找您十块钱。",
+    "pinyin": "Zhǎo nín shí kuài qián.",
+    "meaning": "",
+    "options": [
+      "我是越南人。",
+      "周末的时候，朋友喜欢去中国吃饭。",
+      "找您十块钱。",
+      "你几点睡觉？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "公交车站在哪里？",
+    "pinyin": "Gōngjiāo chē zhàn zài nǎlǐ?",
+    "meaning": "",
+    "options": [
+      "会议结束以后，我马上回到中国继续学习。",
+      "我很好，谢谢。",
+      "公交车站在哪里？",
+      "晚上好。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我要去火车站。",
+    "pinyin": "Wǒ yào qù huǒchēzhàn.",
+    "meaning": "",
+    "options": [
+      "我要去火车站。",
+      "你今年几岁？",
+      "姐姐觉得喝水很重要。",
+      "经过讨论，我决定在中国看书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "这辆车去市中心吗？",
+    "pinyin": "Zhè liàng chē qù shì zhōngxīn ma?",
+    "meaning": "",
+    "options": [
+      "这辆车去市中心吗？",
+      "这个怎么读？",
+      "经理正在检查咖啡，准备开始休息。",
+      "医生告诉我，他最近正在学习。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我坐错车了。",
+    "pinyin": "Wǒ zuò cuò chē le.",
+    "meaning": "",
+    "options": [
+      "为了准备明天的工作，学生今晚还要听音乐。",
+      "为了买东西，老师提前来到中国。",
+      "我坐错车了。",
+      "最近我常常需要买东西。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "请在这里停车。",
+    "pinyin": "Qǐng zài zhèlǐ tíngchē.",
+    "meaning": "",
+    "options": [
+      "有大一点的吗？",
+      "这辆车去市中心吗？",
+      "我七点起床。",
+      "请在这里停车。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "还有多远？",
+    "pinyin": "Hái yǒu duō yuǎn?",
+    "meaning": "",
+    "options": [
+      "经过讨论，他决定在中国看书。",
+      "明天我要上课。",
+      "今天同学在商店喝水。",
+      "还有多远？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "大概需要多久？",
+    "pinyin": "Dàgài xūyào duōjiǔ?",
+    "meaning": "",
+    "options": [
+      "同学正在商店回家。",
+      "大概需要多久？",
+      "这辆车去市中心吗？",
+      "经理觉得喝水很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我们快到了。",
+    "pinyin": "Wǒmen kuài dào le.",
+    "meaning": "",
+    "options": [
+      "会议结束以后，老师马上回到中国继续学习。",
+      "请给我一碗米饭。",
+      "我们快到了。",
+      "我喜欢喝咖啡。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我迷路了。",
+    "pinyin": "Wǒ mílù le.",
+    "meaning": "",
+    "options": [
+      "我不要这个。",
+      "昨天姐姐在商店休息，所以回家比较晚。",
+      "最近哥哥常常需要买东西。",
+      "我迷路了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请帮我看一下地图。",
+    "pinyin": "Qǐng bāng wǒ kàn yíxià dìtú.",
+    "meaning": "",
+    "options": [
+      "这个太小了。",
+      "今天姐姐在商店喝水。",
+      "请帮我看一下地图。",
+      "大概需要多久？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "左边有一家银行。",
+    "pinyin": "Zuǒbian yǒu yì jiā yínháng.",
+    "meaning": "",
+    "options": [
+      "不用客气。",
+      "为了准备明天的工作，妈妈今晚还要听音乐。",
+      "昨天经理在商店休息，所以回家比较晚。",
+      "左边有一家银行。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "右边就是超市。",
+    "pinyin": "Yòubian jiù shì chāoshì.",
+    "meaning": "",
+    "options": [
+      "我想吃米饭。",
+      "请往前走。",
+      "我马上回来。",
+      "右边就是超市。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "一直往前走。",
+    "pinyin": "Yìzhí wǎng qián zǒu.",
+    "meaning": "",
+    "options": [
+      "可以便宜一点吗？",
+      "他每天都要看书。",
+      "一直往前走。",
+      "请坐。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "在第二个路口右转。",
+    "pinyin": "Zài dì èr ge lùkǒu yòu zhuǎn.",
+    "meaning": "",
+    "options": [
+      "虽然时间不多，但是姐姐还是完成了打电话。",
+      "在第二个路口右转。",
+      "好啊，我很期待。",
+      "经过讨论，你决定在上海做作业。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "今天很热。",
+    "pinyin": "Jīntiān hěn rè.",
+    "meaning": "",
+    "options": [
+      "会议结束以后，你马上回到机场继续听音乐。",
+      "今天很热。",
+      "明天我们一起去公园吧。",
+      "我有一个姐姐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "今天有点冷。",
+    "pinyin": "Jīntiān yǒudiǎn lěng.",
+    "meaning": "",
+    "options": [
+      "我已经到了。",
+      "爸爸正在商店旅行。",
+      "今天有点冷。",
+      "这个词是什么意思？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "外面下雨了。",
+    "pinyin": "Wàimiàn xiàyǔ le.",
+    "meaning": "Bên ngoài đang mưa.",
+    "options": [
+      "今天很冷。",
+      "我有点累。",
+      "我有一个妹妹。",
+      "外面下雨了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "别忘了带雨伞。",
+    "pinyin": "Bié wàngle dài yǔsǎn.",
+    "meaning": "",
+    "options": [
+      "晚饭我想吃饺子。",
+      "我觉得做饭很重要。",
+      "别忘了带雨伞。",
+      "这件衣服多少钱？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "天气越来越好了。",
+    "pinyin": "Tiānqì yuèláiyuè hǎo le.",
+    "meaning": "",
+    "options": [
+      "姐姐希望明天可以继续运动。",
+      "天气越来越好了。",
+      "路上小心。",
+      "你有几个兄弟姐妹？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你喜欢什么运动？",
+    "pinyin": "Nǐ xǐhuan shénme yùndòng?",
+    "meaning": "",
+    "options": [
+      "我忘记带手机了。",
+      "你喜欢什么运动？",
+      "他正在检查照片，准备开始旅行。",
+      "妈妈希望明天可以继续运动。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我喜欢打篮球。",
+    "pinyin": "Wǒ xǐhuan dǎ lánqiú.",
+    "meaning": "",
+    "options": [
+      "我正在开会。",
+      "你住在哪里？",
+      "会议结束以后，医生马上回到餐厅继续听音乐。",
+      "我喜欢打篮球。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我周末喜欢看电影。",
+    "pinyin": "Wǒ zhōumò xǐhuan kàn diànyǐng.",
+    "meaning": "",
+    "options": [
+      "你在哪里？",
+      "我周末喜欢看电影。",
+      "如果计划没有变化，我下午会在图书馆看电影。",
+      "请给我发个消息。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你喜欢听什么音乐？",
+    "pinyin": "Nǐ xǐhuan tīng shénme yīnyuè?",
+    "meaning": "",
+    "options": [
+      "你喜欢听什么音乐？",
+      "我喜欢打篮球。",
+      "这件衣服多少钱？",
+      "经过讨论，我的同学决定在餐厅打电话。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我喜欢听中文歌。",
+    "pinyin": "Wǒ xǐhuan tīng Zhōngwén gē.",
+    "meaning": "",
+    "options": [
+      "我的朋友正在检查咖啡，准备开始买东西。",
+      "我每天早上跑步。",
+      "我喜欢听中文歌。",
+      "这本书很有意思。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你有几个兄弟姐妹？",
+    "pinyin": "Nǐ yǒu jǐ ge xiōngdì jiěmèi?",
+    "meaning": "",
+    "options": [
+      "路上小心。",
+      "你有几个兄弟姐妹？",
+      "他比我高一点。",
+      "今天他在超市坐地铁。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我有一个妹妹。",
+    "pinyin": "Wǒ yǒu yí ge mèimei.",
+    "meaning": "",
+    "options": [
+      "我有一个妹妹。",
+      "请打开书。",
+      "请把窗户打开。",
+      "这个问题很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我和朋友住在一起。",
+    "pinyin": "Wǒ hé péngyou zhù zài yìqǐ.",
+    "meaning": "",
+    "options": [
+      "水太烫了。",
+      "我需要多听多说。",
+      "我和朋友住在一起。",
+      "我喜欢打篮球。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我今天要去学校。",
+    "pinyin": "Wǒ jīntiān yào qù xuéxiào.",
+    "meaning": "",
+    "options": [
+      "我今天要去学校。",
+      "昨天爸爸在医院看电影，所以回家比较晚。",
+      "我有一个姐姐。",
+      "我的中文进步了一点。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "老师正在上课。",
+    "pinyin": "Lǎoshī zhèngzài shàngkè.",
+    "meaning": "",
+    "options": [
+      "老师正在上课。",
+      "为了准备明天的工作，哥哥今晚还要坐地铁。",
+      "同事希望明天可以继续听音乐。",
+      "今天很热。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "请打开书。",
+    "pinyin": "Qǐng dǎkāi shū.",
+    "meaning": "",
+    "options": [
+      "请打开书。",
+      "请你说慢一点。",
+      "为了准备明天的工作，孩子今晚还要旅行。",
+      "请再说一遍。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "请看第三页。",
+    "pinyin": "Qǐng kàn dì sān yè.",
+    "meaning": "",
+    "options": [
+      "昨天老师在餐厅学习汉语，所以回家比较晚。",
+      "请看第三页。",
+      "我今天感觉很好。",
+      "我听说哥哥最近在医院负责学习汉语。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个问题很简单。",
+    "pinyin": "Zhège wèntí hěn jiǎndān.",
+    "meaning": "",
+    "options": [
+      "如果计划没有变化，爸爸下午会在家里学习汉语。",
+      "再试一次。",
+      "手机没电了。",
+      "这个问题很简单。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个问题有点难。",
+    "pinyin": "Zhège wèntí yǒudiǎn nán.",
+    "meaning": "",
+    "options": [
+      "晚上八点以后我有空。",
+      "虽然时间不多，但是她还是完成了工作。",
+      "我听说他最近在学校负责看电影。",
+      "这个问题有点难。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我需要再练习。",
+    "pinyin": "Wǒ xūyào zài liànxí.",
+    "meaning": "",
+    "options": [
+      "我需要再练习。",
+      "今天很冷。",
+      "为了准备明天的工作，孩子今晚还要旅行。",
+      "我听说我的朋友最近在上海负责看电影。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我每天学习一个小时。",
+    "pinyin": "Wǒ měitiān xuéxí yí ge xiǎoshí.",
+    "meaning": "",
+    "options": [
+      "为了准备明天的工作，我的朋友今晚还要买东西。",
+      "不要紧张。",
+      "如果有时间，我会去机场学习汉语。",
+      "我每天学习一个小时。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候开始学中文？",
+    "pinyin": "Nǐ shénme shíhou kāishǐ xué Zhōngwén?",
+    "meaning": "",
+    "options": [
+      "我听说我最近在商店负责学习汉语。",
+      "我听说哥哥最近在医院负责学习汉语。",
+      "这个字怎么读？",
+      "你什么时候开始学中文？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我去年开始学中文。",
+    "pinyin": "Wǒ qùnián kāishǐ xué Zhōngwén.",
+    "meaning": "",
+    "options": [
+      "我今天感觉不错。",
+      "我去年开始学中文。",
+      "今天很热。",
+      "同事每天都要运动。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我的中文进步了一点。",
+    "pinyin": "Wǒ de Zhōngwén jìnbù le yìdiǎn.",
+    "meaning": "",
+    "options": [
+      "这本书很有意思。",
+      "因为工作很忙，哥哥只能晚上旅行。",
+      "如果计划没有变化，老师下午会在医院做饭。",
+      "我的中文进步了一点。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我需要多听多说。",
+    "pinyin": "Wǒ xūyào duō tīng duō shuō.",
+    "meaning": "",
+    "options": [
+      "我需要多听多说。",
+      "最近我的同学常常需要准备考试。",
+      "如果有时间，哥哥会去北京做饭。",
+      "小心，地上很滑。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你能给我一个例子吗？",
+    "pinyin": "Nǐ néng gěi wǒ yí ge lìzi ma?",
+    "meaning": "",
+    "options": [
+      "你能给我一个例子吗？",
+      "我听说孩子最近在超市负责学习汉语。",
+      "你学中文多久了？",
+      "今天我的朋友在公司旅行。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "请写在黑板上。",
+    "pinyin": "Qǐng xiě zài hēibǎn shàng.",
+    "meaning": "",
+    "options": [
+      "今天孩子在车站坐地铁。",
+      "请写在黑板上。",
+      "手机没电了。",
+      "我们下午再联系。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我忘记这个词了。",
+    "pinyin": "Wǒ wàngjì zhège cí le.",
+    "meaning": "",
+    "options": [
+      "你需要我做什么？",
+      "我忘记这个词了。",
+      "我六点下班。",
+      "你住在哪里？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个词怎么用？",
+    "pinyin": "Zhège cí zěnme yòng?",
+    "meaning": "",
+    "options": [
+      "因为工作很忙，老师只能晚上坐地铁。",
+      "他觉得做饭很重要。",
+      "同事已经把汉语书带到北京了。",
+      "这个词怎么用？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你能解释一下吗？",
+    "pinyin": "Nǐ néng jiěshì yíxià ma?",
+    "meaning": "",
+    "options": [
+      "你能解释一下吗？",
+      "他正在餐厅坐地铁。",
+      "这个词是什么意思？",
+      "周末的时候，医生喜欢去北京运动。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我觉得这个方法很好。",
+    "pinyin": "Wǒ juéde zhège fāngfǎ hěn hǎo.",
+    "meaning": "",
+    "options": [
+      "昨天哥哥在超市看电影，所以回家比较晚。",
+      "我觉得这个方法很好。",
+      "我需要休息一下。",
+      "如果计划没有变化，我下午会在图书馆看电影。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我们一起练习吧。",
+    "pinyin": "Wǒmen yìqǐ liànxí ba.",
+    "meaning": "",
+    "options": [
+      "周末的时候，她喜欢去机场准备考试。",
+      "我们一起练习吧。",
+      "为了准备明天的工作，爸爸今晚还要坐地铁。",
+      "今天很热。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你准备好了吗？",
+    "pinyin": "Nǐ zhǔnbèi hǎo le ma?",
+    "meaning": "",
+    "options": [
+      "如果有时间，我会去机场学习汉语。",
+      "你准备好了吗？",
+      "你有兄弟姐妹吗？",
+      "我去年开始学中文。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我准备好了。",
+    "pinyin": "Wǒ zhǔnbèi hǎo le.",
+    "meaning": "",
+    "options": [
+      "我明白了。",
+      "最近你常常需要运动。",
+      "我准备好了。",
+      "今天很热。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "加油，你可以的。",
+    "pinyin": "Jiāyóu, nǐ kěyǐ de.",
+    "meaning": "",
+    "options": [
+      "这个词是什么意思？",
+      "孩子正在上海买东西。",
+      "加油，你可以的。",
+      "这是我的朋友。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "不要紧张。",
+    "pinyin": "Bú yào jǐnzhāng.",
+    "meaning": "",
+    "options": [
+      "你需要我做什么？",
+      "我已经吃过午饭了。",
+      "我正在检查照片，准备开始旅行。",
+      "不要紧张。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "慢慢来。",
+    "pinyin": "Mànman lái.",
+    "meaning": "",
+    "options": [
+      "因为工作很忙，孩子只能晚上旅行。",
+      "慢慢来。",
+      "我一会儿给你打电话。",
+      "你会说中文吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你做得很好。",
+    "pinyin": "Nǐ zuò de hěn hǎo.",
+    "meaning": "",
+    "options": [
+      "我学中文一年了。",
+      "你做得很好。",
+      "请再说一遍。",
+      "因为工作很忙，哥哥只能晚上旅行。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "再试一次。",
+    "pinyin": "Zài shì yí cì.",
+    "meaning": "",
+    "options": [
+      "再试一次。",
+      "他比我高一点。",
+      "我家有四个人。",
+      "哥哥正在检查自行车，准备开始坐地铁。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我今天感觉不错。",
+    "pinyin": "Wǒ jīntiān gǎnjué búcuò.",
+    "meaning": "",
+    "options": [
+      "我听说他最近在学校负责看电影。",
+      "为了准备明天的工作，孩子今晚还要旅行。",
+      "我今天感觉不错。",
+      "你需要我做什么？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我有点累。",
+    "pinyin": "Wǒ yǒudiǎn lèi.",
+    "meaning": "",
+    "options": [
+      "爸爸正在商店旅行。",
+      "姐姐希望明天可以继续运动。",
+      "我有点累。",
+      "外面下雨了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我需要休息一下。",
+    "pinyin": "Wǒ xūyào xiūxi yíxià.",
+    "meaning": "",
+    "options": [
+      "我需要休息一下。",
+      "我准备好了。",
+      "为了准备明天的工作，哥哥今晚还要坐地铁。",
+      "今天很冷。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你今天怎么样？",
+    "pinyin": "Nǐ jīntiān zěnmeyàng?",
+    "meaning": "",
+    "options": [
+      "如果有时间，哥哥会去北京做饭。",
+      "如果有时间，孩子会去图书馆做饭。",
+      "你有几个兄弟姐妹？",
+      "你今天怎么样？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "最近过得怎么样？",
+    "pinyin": "Zuìjìn guò de zěnmeyàng?",
+    "meaning": "",
+    "options": [
+      "最近过得怎么样？",
+      "为了准备明天的工作，我的朋友今晚还要买东西。",
+      "这个词怎么用？",
+      "会议结束以后，她马上回到超市继续运动。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "最近一切都很好。",
+    "pinyin": "Zuìjìn yíqiè dōu hěn hǎo.",
+    "meaning": "",
+    "options": [
+      "最近一切都很好。",
+      "爸爸正在检查咖啡，准备开始买东西。",
+      "因为工作很忙，我的朋友只能晚上坐地铁。",
+      "我忘记这个词了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你吃午饭了吗？",
+    "pinyin": "Nǐ chī wǔfàn le ma?",
+    "meaning": "",
+    "options": [
+      "你能帮我一下吗？",
+      "你什么时候开始学中文？",
+      "你每天都要听音乐。",
+      "你吃午饭了吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我们中午一起吃饭吧。",
+    "pinyin": "Wǒmen zhōngwǔ yìqǐ chīfàn ba.",
+    "meaning": "",
+    "options": [
+      "我周末喜欢看电影。",
+      "我们中午一起吃饭吧。",
+      "她已经把报纸带到家里了。",
+      "如果有时间，爸爸会去公司看电影。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "晚饭我想吃饺子。",
+    "pinyin": "Wǎnfàn wǒ xiǎng chī jiǎozi.",
+    "meaning": "",
+    "options": [
+      "今天哥哥在公园买东西。",
+      "虽然时间不多，但是妈妈还是完成了打电话。",
+      "我今天感觉很好。",
+      "晚饭我想吃饺子。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你想喝茶还是咖啡？",
+    "pinyin": "Nǐ xiǎng hē chá háishi kāfēi?",
+    "meaning": "",
+    "options": [
+      "你想喝茶还是咖啡？",
+      "孩子正在检查自行车，准备开始坐地铁。",
+      "孩子觉得看电影很重要。",
+      "我的同学希望明天可以继续听音乐。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我要一杯热茶。",
+    "pinyin": "Wǒ yào yì bēi rè chá.",
+    "meaning": "",
+    "options": [
+      "今天我的朋友在公司旅行。",
+      "我要一杯热茶。",
+      "明天我们一起去公园吧。",
+      "我家有四个人。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "水太烫了。",
+    "pinyin": "Shuǐ tài tàng le.",
+    "meaning": "",
+    "options": [
+      "水太烫了。",
+      "今天老师在学校旅行。",
+      "因为工作很忙，孩子只能晚上旅行。",
+      "周末的时候，你喜欢去图书馆运动。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "小心，地上很滑。",
+    "pinyin": "Xiǎoxīn, dìshang hěn huá.",
+    "meaning": "",
+    "options": [
+      "小心，地上很滑。",
+      "今天早点睡吧。",
+      "我已经吃过午饭了。",
+      "昨天孩子在公司做饭，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "请关一下门。",
+    "pinyin": "Qǐng guān yíxià mén.",
+    "meaning": "",
+    "options": [
+      "如果计划没有变化，老师下午会在医院做饭。",
+      "请关一下门。",
+      "今天他在超市坐地铁。",
+      "我们坐出租车去车站。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "请把窗户打开。",
+    "pinyin": "Qǐng bǎ chuānghu dǎkāi.",
+    "meaning": "",
+    "options": [
+      "我的同学希望明天可以继续听音乐。",
+      "因为工作很忙，哥哥只能晚上旅行。",
+      "请把窗户打开。",
+      "请打开书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "手机没电了。",
+    "pinyin": "Shǒujī méi diàn le.",
+    "meaning": "",
+    "options": [
+      "这件衣服多少钱？",
+      "你告诉我，他最近正在打电话。",
+      "手机没电了。",
+      "当然可以。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你的电话响了。",
+    "pinyin": "Nǐ de diànhuà xiǎng le.",
+    "meaning": "",
+    "options": [
+      "你需要我做什么？",
+      "这家饭店的菜很好吃。",
+      "我需要多听多说。",
+      "你的电话响了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我一会儿给你打电话。",
+    "pinyin": "Wǒ yíhuìr gěi nǐ dǎ diànhuà.",
+    "meaning": "",
+    "options": [
+      "这家饭店的菜很好吃。",
+      "我有一个妹妹。",
+      "我一会儿给你打电话。",
+      "你喜欢什么运动？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "请给我发个消息。",
+    "pinyin": "Qǐng gěi wǒ fā ge xiāoxi.",
+    "meaning": "",
+    "options": [
+      "会议结束以后，她马上回到超市继续运动。",
+      "我的同学已经把报纸带到公司了。",
+      "因为工作很忙，孩子只能晚上旅行。",
+      "请给我发个消息。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我现在不方便接电话。",
+    "pinyin": "Wǒ xiànzài bù fāngbiàn jiē diànhuà.",
+    "meaning": "",
+    "options": [
+      "姐姐希望明天可以继续运动。",
+      "我现在不方便接电话。",
+      "我的朋友觉得做饭很重要。",
+      "我们下午再联系。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "网络有点慢。",
+    "pinyin": "Wǎngluò yǒudiǎn màn.",
+    "meaning": "",
+    "options": [
+      "请提前十分钟到。",
+      "哥哥已经把护照带到上海了。",
+      "如果有时间，经理会去餐厅安排时间。",
+      "网络有点慢。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "密码是什么？",
+    "pinyin": "Mìmǎ shì shénme?",
+    "meaning": "",
+    "options": [
+      "我正在检查电脑，准备开始练习发音。",
+      "每天一点点就很好。",
+      "密码是什么？",
+      "周末的时候，老师喜欢去公司介绍自己。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "请稍等一下。",
+    "pinyin": "Qǐng shāo děng yíxià.",
+    "meaning": "",
+    "options": [
+      "为了准备明天的工作，老师今晚还要买东西。",
+      "我们下午三点开会。",
+      "请稍等一下。",
+      "昨天经理在图书馆安排时间，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我马上处理。",
+    "pinyin": "Wǒ mǎshàng chǔlǐ.",
+    "meaning": "",
+    "options": [
+      "我马上处理。",
+      "老师希望明天可以继续介绍自己。",
+      "网络有点慢。",
+      "这样做比较方便。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "这个文件在哪里？",
+    "pinyin": "Zhège wénjiàn zài nǎlǐ?",
+    "meaning": "",
+    "options": [
+      "这个文件在哪里？",
+      "先不要看拼音。",
+      "会议结束以后，我马上回到公园继续练习发音。",
+      "今天经理在北京安排时间。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "请把文件发给我。",
+    "pinyin": "Qǐng bǎ wénjiàn fā gěi wǒ.",
+    "meaning": "",
+    "options": [
+      "因为工作很忙，老师只能晚上买东西。",
+      "我们每天晚上聊天。",
+      "请把文件发给我。",
+      "让我想一想。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我已经收到文件了。",
+    "pinyin": "Wǒ yǐjīng shōudào wénjiàn le.",
+    "meaning": "",
+    "options": [
+      "今天老师在图书馆准备考试。",
+      "我已经收到文件了。",
+      "继续保持。",
+      "重复练习可以提高反应速度。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我们下午开会。",
+    "pinyin": "Wǒmen xiàwǔ kāihuì.",
+    "meaning": "",
+    "options": [
+      "为了准备明天的工作，我今晚还要练习发音。",
+      "我们下午开会。",
+      "学习语言需要坚持。",
+      "如果计划没有变化，哥哥下午会在医院完成作业。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "会议几点开始？",
+    "pinyin": "Huìyì jǐ diǎn kāishǐ?",
+    "meaning": "",
+    "options": [
+      "会议几点开始？",
+      "经理正在检查手机，准备开始安排时间。",
+      "为了安排时间，经理提前来到广州。",
+      "哥哥每天都要参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "请提前十分钟到。",
+    "pinyin": "Qǐng tíqián shí fēnzhōng dào.",
+    "meaning": "",
+    "options": [
+      "重复练习可以提高反应速度。",
+      "我正在检查电脑，准备开始练习发音。",
+      "最近哥哥常常需要参加会议。",
+      "请提前十分钟到。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "今天的工作完成了吗？",
+    "pinyin": "Jīntiān de gōngzuò wánchéng le ma?",
+    "meaning": "",
+    "options": [
+      "我的房间在哪里？",
+      "如果明天有时间，我们一起去。",
+      "为了计划旅行，经理提前来到北京。",
+      "今天的工作完成了吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我还差一点。",
+    "pinyin": "Wǒ hái chà yìdiǎn.",
+    "meaning": "",
+    "options": [
+      "老师希望明天可以继续准备考试。",
+      "因为工作很忙，老师只能晚上准备考试。",
+      "周末的时候，哥哥喜欢去上海解决问题。",
+      "我还差一点。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我已经完成了。",
+    "pinyin": "Wǒ yǐjīng wánchéng le.",
+    "meaning": "",
+    "options": [
+      "这一题你答对了。",
+      "我已经完成了。",
+      "最近哥哥常常需要参加会议。",
+      "我们需要提前准备材料。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我们明天再讨论。",
+    "pinyin": "Wǒmen míngtiān zài tǎolùn.",
+    "meaning": "",
+    "options": [
+      "我告诉我，他最近正在打扫房间。",
+      "虽然时间不多，但是经理还是完成了安排时间。",
+      "我们明天再讨论。",
+      "这样做比较方便。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "这个建议很好。",
+    "pinyin": "Zhège jiànyì hěn hǎo.",
+    "meaning": "",
+    "options": [
+      "你为什么不开心？",
+      "因为工作很忙，我只能晚上练习发音。",
+      "这个建议很好。",
+      "经理觉得安排时间很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我同意你的看法。",
+    "pinyin": "Wǒ tóngyì nǐ de kànfǎ.",
+    "meaning": "",
+    "options": [
+      "我同意你的看法。",
+      "轮到你了。",
+      "老师希望明天可以继续买东西。",
+      "这个文件在哪里？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我有不同的意见。",
+    "pinyin": "Wǒ yǒu bùtóng de yìjiàn.",
+    "meaning": "",
+    "options": [
+      "这样更容易记住。",
+      "经过讨论，经理决定在图书馆安排时间。",
+      "听不懂也不要马上放弃。",
+      "我有不同的意见。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们需要找到解决办法。",
+    "pinyin": "Wǒmen xūyào zhǎodào jiějué bànfǎ.",
+    "meaning": "",
+    "options": [
+      "网络有点慢。",
+      "我们需要找到解决办法。",
+      "最近哥哥常常需要解决问题。",
+      "如果明天有时间，我们一起去。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你能解释原因吗？",
+    "pinyin": "Nǐ néng jiěshì yuányīn ma?",
+    "meaning": "",
+    "options": [
+      "你能解释原因吗？",
+      "老师正在公司介绍自己。",
+      "哥哥希望明天可以继续完成作业。",
+      "如果有问题，请告诉我。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "因为今天下雨，所以我没出去。",
+    "pinyin": "Yīnwèi jīntiān xiàyǔ, suǒyǐ wǒ méi chūqù.",
+    "meaning": "",
+    "options": [
+      "因为今天下雨，所以我没出去。",
+      "我告诉我，他最近正在练习发音。",
+      "不要害怕说错。",
+      "会议结束以后，哥哥马上回到医院继续解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "如果有问题，请告诉我。",
+    "pinyin": "Rúguǒ yǒu wèntí, qǐng gàosu wǒ.",
+    "meaning": "",
+    "options": [
+      "为了准备明天的工作，经理今晚还要计划旅行。",
+      "如果有问题，请告诉我。",
+      "虽然很忙，但是我会完成。",
+      "最近老师常常需要准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "虽然很忙，但是我会完成。",
+    "pinyin": "Suīrán hěn máng, dànshì wǒ huì wánchéng.",
+    "meaning": "",
+    "options": [
+      "虽然很忙，但是我会完成。",
+      "该你回答了。",
+      "只要努力，就会进步。",
+      "这个决定对大家都很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "除了中文，我还学习英语。",
+    "pinyin": "Chúle Zhōngwén, wǒ hái xuéxí Yīngyǔ.",
+    "meaning": "",
+    "options": [
+      "我们快迟到了。",
+      "我最喜欢学口语。",
+      "准备好就开始吧。",
+      "除了中文，我还学习英语。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我希望以后可以说得更流利。",
+    "pinyin": "Wǒ xīwàng yǐhòu kěyǐ shuō de gèng liúlì.",
+    "meaning": "",
+    "options": [
+      "我希望以后可以说得更流利。",
+      "为了联系朋友，经理提前来到图书馆。",
+      "我最喜欢学口语。",
+      "经过讨论，经理决定在餐厅计划旅行。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我每天都听中文。",
+    "pinyin": "Wǒ měitiān dōu tīng Zhōngwén.",
+    "meaning": "",
+    "options": [
+      "我每天都听中文。",
+      "继续保持。",
+      "周末的时候，哥哥喜欢去家里完成作业。",
+      "哥哥觉得完成作业很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我正在练习听力。",
+    "pinyin": "Wǒ zhèngzài liànxí tīnglì.",
+    "meaning": "",
+    "options": [
+      "我正在练习听力。",
+      "你对这个计划有什么建议？",
+      "因为工作很忙，我只能晚上练习发音。",
+      "先听关键词，再理解整句话。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "听力对学习语言很重要。",
+    "pinyin": "Tīnglì duì xuéxí yǔyán hěn zhòngyào.",
+    "meaning": "",
+    "options": [
+      "听力对学习语言很重要。",
+      "为了准备明天的工作，我今晚还要学习汉语。",
+      "经理觉得计划旅行很重要。",
+      "今天的内容很简单。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "先听关键词，再理解整句话。",
+    "pinyin": "Xiān tīng guānjiàncí, zài lǐjiě zhěng jù huà.",
+    "meaning": "",
+    "options": [
+      "先听关键词，再理解整句话。",
+      "我每天都要打扫房间。",
+      "你觉得中文难吗？",
+      "如果计划没有变化，经理下午会在图书馆计划旅行。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "听不懂也不要马上放弃。",
+    "pinyin": "Tīng bù dǒng yě bú yào mǎshàng fàngqì.",
+    "meaning": "",
+    "options": [
+      "明天继续练习。",
+      "听不懂也不要马上放弃。",
+      "这个问题需要时间。",
+      "会议结束以后，哥哥马上回到医院继续解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "多听几遍就会越来越熟悉。",
+    "pinyin": "Duō tīng jǐ biàn jiù huì yuèláiyuè shúxī.",
+    "meaning": "",
+    "options": [
+      "多听几遍就会越来越熟悉。",
+      "哥哥每天都要解决问题。",
+      "再听一次，你会听出来的。",
+      "会议结束以后，哥哥马上回到上海继续参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "今天我们练习十句话。",
+    "pinyin": "Jīntiān wǒmen liànxí shí jù huà.",
+    "meaning": "",
+    "options": [
+      "今天我们练习十句话。",
+      "你已经做得很好了。",
+      "重复练习可以提高反应速度。",
+      "我正在检查电脑，准备开始练习发音。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "明天继续练习。",
+    "pinyin": "Míngtiān jìxù liànxí.",
+    "meaning": "",
+    "options": [
+      "我也想提高发音。",
+      "轮到你了。",
+      "明天继续练习。",
+      "老师正在检查雨伞，准备开始准备考试。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "祝你学习进步。",
+    "pinyin": "Zhù nǐ xuéxí jìnbù.",
+    "meaning": "",
+    "options": [
+      "为了准备明天的工作，我今晚还要打扫房间。",
+      "为了计划旅行，经理提前来到北京。",
+      "祝你学习进步。",
+      "如果计划没有变化，经理下午会在图书馆计划旅行。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "祝你今天开心。",
+    "pinyin": "Zhù nǐ jīntiān kāixīn.",
+    "meaning": "",
+    "options": [
+      "祝你今天开心。",
+      "你平时跟谁练习中文？",
+      "周末的时候，哥哥喜欢去家里完成作业。",
+      "现在我觉得容易多了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "祝你一路顺风。",
+    "pinyin": "Zhù nǐ yílù shùnfēng.",
+    "meaning": "",
+    "options": [
+      "哥哥希望明天可以继续参加会议。",
+      "经理已经把地图带到广州了。",
+      "哥哥已经把护照带到上海了。",
+      "祝你一路顺风。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "欢迎来到我们的中文课程。",
+    "pinyin": "Huānyíng láidào wǒmen de Zhōngwén kèchéng.",
+    "meaning": "",
+    "options": [
+      "经理告诉我，他最近正在联系朋友。",
+      "经过讨论，我决定在医院学习汉语。",
+      "除了中文，我还学习英语。",
+      "欢迎来到我们的中文课程。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "今天的内容很简单。",
+    "pinyin": "Jīntiān de nèiróng hěn jiǎndān.",
+    "meaning": "",
+    "options": [
+      "因为今天下雨，所以我没出去。",
+      "这样做比较方便。",
+      "今天的内容很简单。",
+      "这件事情没有你想象的那么复杂。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "下一题会稍微难一点。",
+    "pinyin": "Xià yì tí huì shāowéi nán yìdiǎn.",
+    "meaning": "",
+    "options": [
+      "虽然时间不多，但是哥哥还是完成了解决问题。",
+      "下一题会稍微难一点。",
+      "我们先讨论一下。",
+      "哥哥希望明天可以继续参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "答错了也没关系。",
+    "pinyin": "Dá cuò le yě méi guānxi.",
+    "meaning": "",
+    "options": [
+      "会议结束以后，哥哥马上回到医院继续解决问题。",
+      "今天我在上海练习发音。",
+      "答错了也没关系。",
+      "哥哥希望明天可以继续完成作业。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "把错题再听一遍。",
+    "pinyin": "Bǎ cuòtí zài tīng yí biàn.",
+    "meaning": "",
+    "options": [
+      "这一题你答错了。",
+      "你的反应越来越快了。",
+      "把错题再听一遍。",
+      "昨天经理在广州计划旅行，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "重复练习可以提高反应速度。",
+    "pinyin": "Chóngfù liànxí kěyǐ tígāo fǎnyìng sùdù.",
+    "meaning": "",
+    "options": [
+      "重复练习可以提高反应速度。",
+      "今天经理在图书馆计划旅行。",
+      "我们下午开会。",
+      "这件事情没有你想象的那么复杂。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "听到熟悉的词就先记下来。",
+    "pinyin": "Tīngdào shúxī de cí jiù xiān jì xiàlái.",
+    "meaning": "",
+    "options": [
+      "如果计划没有变化，哥哥下午会在公园参加会议。",
+      "因为工作很忙，经理只能晚上安排时间。",
+      "你觉得这个办法怎么样？",
+      "听到熟悉的词就先记下来。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "先不要看拼音。",
+    "pinyin": "Xiān bú yào kàn pīnyīn.",
+    "meaning": "",
+    "options": [
+      "没问题，我等你。",
+      "学习语言需要时间。",
+      "先不要看拼音。",
+      "这个方法比较简单。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "听完以后再看答案。",
+    "pinyin": "Tīng wán yǐhòu zài kàn dáàn.",
+    "meaning": "",
+    "options": [
+      "最近哥哥常常需要完成作业。",
+      "学习语言需要时间。",
+      "听完以后再看答案。",
+      "我正在练习听力。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "你可以再听一次。",
+    "pinyin": "Nǐ kěyǐ zài tīng yí cì.",
+    "meaning": "",
+    "options": [
+      "现在路上堵车吗？",
+      "今天我在公园学习汉语。",
+      "这个方法比较简单。",
+      "你可以再听一次。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "现在开始下一题。",
+    "pinyin": "Xiànzài kāishǐ xià yì tí.",
+    "meaning": "",
+    "options": [
+      "听不懂的时候可以再听一次。",
+      "现在开始下一题。",
+      "你平时跟谁练习中文？",
+      "为了安排时间，经理提前来到广州。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "准备好就开始吧。",
+    "pinyin": "Zhǔnbèi hǎo jiù kāishǐ ba.",
+    "meaning": "",
+    "options": [
+      "哥哥觉得参加会议很重要。",
+      "下一班车几点出发？",
+      "我觉得可以试试。",
+      "准备好就开始吧。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请集中注意力。",
+    "pinyin": "Qǐng jízhōng zhùyìlì.",
+    "meaning": "",
+    "options": [
+      "请集中注意力。",
+      "我听说经理最近在公司负责联系朋友。",
+      "我们明天再讨论。",
+      "经理正在公司联系朋友。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "认真听，不要着急。",
+    "pinyin": "Rènzhēn tīng, bú yào zháojí.",
+    "meaning": "",
+    "options": [
+      "会议结束以后，哥哥马上回到公园继续完成作业。",
+      "会议结束以后，哥哥马上回到医院继续解决问题。",
+      "认真听，不要着急。",
+      "我同意你的看法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "你的反应越来越快了。",
+    "pinyin": "Nǐ de fǎnyìng yuèláiyuè kuài le.",
+    "meaning": "",
+    "options": [
+      "你的反应越来越快了。",
+      "这个问题需要时间。",
+      "欢迎来到我们的中文课程。",
+      "昨天经理在北京联系朋友，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "今天比昨天进步了。",
+    "pinyin": "Jīntiān bǐ zuótiān jìnbù le.",
+    "meaning": "",
+    "options": [
+      "无线网络的密码是什么？",
+      "准备好就开始吧。",
+      "经理正在检查手机，准备开始安排时间。",
+      "今天比昨天进步了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "坚持下去一定会有进步。",
+    "pinyin": "Jiānchí xiàqù yídìng huì yǒu jìnbù.",
+    "meaning": "",
+    "options": [
+      "如果计划没有变化，老师下午会在图书馆介绍自己。",
+      "我已经把照片带到学校了。",
+      "今天老师在图书馆准备考试。",
+      "坚持下去一定会有进步。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "学习语言需要时间。",
+    "pinyin": "Xuéxí yǔyán xūyào shíjiān.",
+    "meaning": "",
+    "options": [
+      "为了安排时间，经理提前来到广州。",
+      "学习语言需要时间。",
+      "我们下午三点开会。",
+      "我喜欢用中文聊天。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "每天一点点就很好。",
+    "pinyin": "Měitiān yìdiǎndiǎn jiù hěn hǎo.",
+    "meaning": "",
+    "options": [
+      "准备好就开始吧。",
+      "听完以后再看答案。",
+      "每天一点点就很好。",
+      "我说得对吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我喜欢用中文聊天。",
+    "pinyin": "Wǒ xǐhuan yòng Zhōngwén liáotiān.",
+    "meaning": "",
+    "options": [
+      "周末的时候，我喜欢去上海学习汉语。",
+      "我喜欢用中文聊天。",
+      "我正在检查机票，准备开始打扫房间。",
+      "如果计划没有变化，经理下午会在北京安排时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你平时跟谁练习中文？",
+    "pinyin": "Nǐ píngshí gēn shéi liànxí Zhōngwén?",
+    "meaning": "",
+    "options": [
+      "经过讨论，经理决定在图书馆安排时间。",
+      "祝你一路顺风。",
+      "你平时跟谁练习中文？",
+      "我们下午三点开会。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我跟朋友一起练习。",
+    "pinyin": "Wǒ gēn péngyou yìqǐ liànxí.",
+    "meaning": "",
+    "options": [
+      "我跟朋友一起练习。",
+      "早餐几点开始？",
+      "听力对学习语言很重要。",
+      "哥哥每天都要解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我们每天晚上聊天。",
+    "pinyin": "Wǒmen měitiān wǎnshang liáotiān.",
+    "meaning": "",
+    "options": [
+      "我们以后再决定。",
+      "虽然时间不多，但是经理还是完成了安排时间。",
+      "我们每天晚上聊天。",
+      "会议结束以后，哥哥马上回到上海继续参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "你觉得中文难吗？",
+    "pinyin": "Nǐ juéde Zhōngwén nán ma?",
+    "meaning": "",
+    "options": [
+      "如果计划没有变化，哥哥下午会在公园参加会议。",
+      "虽然时间不多，但是我还是完成了学习汉语。",
+      "你觉得中文难吗？",
+      "我觉得可以试试。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "开始的时候有一点难。",
+    "pinyin": "Kāishǐ de shíhou yǒu yìdiǎn nán.",
+    "meaning": "",
+    "options": [
+      "我每天都要打扫房间。",
+      "开始的时候有一点难。",
+      "我马上处理。",
+      "多听几遍就会越来越熟悉。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "现在我觉得容易多了。",
+    "pinyin": "Xiànzài wǒ juéde róngyì duō le.",
+    "meaning": "",
+    "options": [
+      "现在我觉得容易多了。",
+      "我们从第一题开始。",
+      "虽然时间不多，但是我还是完成了打扫房间。",
+      "我们应该先解决最重要的问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我最喜欢学口语。",
+    "pinyin": "Wǒ zuì xǐhuan xué kǒuyǔ.",
+    "meaning": "",
+    "options": [
+      "我最喜欢学口语。",
+      "我告诉我，他最近正在练习发音。",
+      "我要去机场。",
+      "开始的时候有一点难。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我想提高听力。",
+    "pinyin": "Wǒ xiǎng tígāo tīnglì.",
+    "meaning": "",
+    "options": [
+      "密码是什么？",
+      "听完以后再看答案。",
+      "先不要看拼音。",
+      "我想提高听力。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我也想提高发音。",
+    "pinyin": "Wǒ yě xiǎng tígāo fāyīn.",
+    "meaning": "",
+    "options": [
+      "我要去机场。",
+      "我也想提高发音。",
+      "祝你一路顺风。",
+      "这个建议很好。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "请纠正我的发音。",
+    "pinyin": "Qǐng jiūzhèng wǒ de fāyīn.",
+    "meaning": "",
+    "options": [
+      "祝你学习进步。",
+      "没什么，只是有点累。",
+      "请纠正我的发音。",
+      "你最近怎么样？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "这个音怎么发？",
+    "pinyin": "Zhège yīn zěnme fā?",
+    "meaning": "",
+    "options": [
+      "加油！",
+      "这个音怎么发？",
+      "虽然很忙，但是我会完成。",
+      "我想住两晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我说得对吗？",
+    "pinyin": "Wǒ shuō de duì ma?",
+    "meaning": "",
+    "options": [
+      "周末的时候，哥哥喜欢去家里完成作业。",
+      "昨天哥哥在公园解决问题，所以回家比较晚。",
+      "我告诉我，他最近正在打扫房间。",
+      "我说得对吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "差不多，再注意声调。",
+    "pinyin": "Chàbuduō, zài zhùyì shēngdiào.",
+    "meaning": "",
+    "options": [
+      "差不多，再注意声调。",
+      "会议结束以后，老师马上回到北京继续介绍自己。",
+      "经理已经把地图带到广州了。",
+      "这个问题需要时间。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "第一声要保持平稳。",
+    "pinyin": "Dì yī shēng yào bǎochí píngwěn.",
+    "meaning": "",
+    "options": [
+      "第一声要保持平稳。",
+      "我已经完成了。",
+      "这个音怎么发？",
+      "哥哥已经把护照带到上海了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "第三声要注意变化。",
+    "pinyin": "Dì sān shēng yào zhùyì biànhuà.",
+    "meaning": "",
+    "options": [
+      "第三声要注意变化。",
+      "我听说经理最近在机场负责计划旅行。",
+      "我的房间在哪里？",
+      "为了安排时间，经理提前来到广州。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "请跟我读一遍。",
+    "pinyin": "Qǐng gēn wǒ dú yí biàn.",
+    "meaning": "",
+    "options": [
+      "请跟我读一遍。",
+      "我已经把照片带到学校了。",
+      "我同意你的看法。",
+      "听不懂也不要马上放弃。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "轮到你了。",
+    "pinyin": "Lún dào nǐ le.",
+    "meaning": "",
+    "options": [
+      "会议结束以后，老师马上回到图书馆继续买东西。",
+      "老师每天都要买东西。",
+      "老师希望明天可以继续介绍自己。",
+      "轮到你了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "该你回答了。",
+    "pinyin": "Gāi nǐ huídá le.",
+    "meaning": "",
+    "options": [
+      "如果有时间，哥哥会去超市参加会议。",
+      "该你回答了。",
+      "你的反应越来越快了。",
+      "会议几点开始？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你准备好回答了吗？",
+    "pinyin": "Nǐ zhǔnbèi hǎo huídá le ma?",
+    "meaning": "",
+    "options": [
+      "你准备好回答了吗？",
+      "老师正在机场准备考试。",
+      "如果有时间，哥哥会去车站完成作业。",
+      "我已经把资料发给你了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我还需要一点时间。",
+    "pinyin": "Wǒ hái xūyào yìdiǎn shíjiān.",
+    "meaning": "",
+    "options": [
+      "密码是什么？",
+      "我还需要一点时间。",
+      "经过讨论，我决定在医院学习汉语。",
+      "为了安排时间，经理提前来到广州。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "没问题，我等你。",
+    "pinyin": "Méi wèntí, wǒ děng nǐ.",
+    "meaning": "",
+    "options": [
+      "为了准备明天的工作，老师今晚还要介绍自己。",
+      "没问题，我等你。",
+      "我们从第一题开始。",
+      "不要害怕说错。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我们从第一题开始。",
+    "pinyin": "Wǒmen cóng dì yī tí kāishǐ.",
+    "meaning": "",
+    "options": [
+      "虽然很忙，但是我会完成。",
+      "我们从第一题开始。",
+      "我喜欢用中文聊天。",
+      "我同意你的看法。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "这一题你答对了。",
+    "pinyin": "Zhè yì tí nǐ dá duì le.",
+    "meaning": "",
+    "options": [
+      "这一题你答对了。",
+      "经过讨论，经理决定在图书馆安排时间。",
+      "听不懂的时候可以再听一次。",
+      "会议结束以后，老师马上回到北京继续介绍自己。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "这一题你答错了。",
+    "pinyin": "Zhè yì tí nǐ dá cuò le.",
+    "meaning": "",
+    "options": [
+      "这一题你答错了。",
+      "加油！",
+      "我正在家里练习发音。",
+      "你对这个计划有什么建议？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "再听一次，你会听出来的。",
+    "pinyin": "Zài tīng yí cì, nǐ huì tīng chūlái de.",
+    "meaning": "",
+    "options": [
+      "我喜欢用中文聊天。",
+      "如果有时间，哥哥会去超市参加会议。",
+      "他正在准备考试，所以很忙。",
+      "再听一次，你会听出来的。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "不要只记答案，要听懂句子。",
+    "pinyin": "Bú yào zhǐ jì dáàn, yào tīng dǒng jùzi.",
+    "meaning": "",
+    "options": [
+      "不要只记答案，要听懂句子。",
+      "虽然很忙，但是我会完成。",
+      "这个音怎么发？",
+      "昨天经理在广州计划旅行，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "把新单词放进句子里学习。",
+    "pinyin": "Bǎ xīn dāncí fàng jìn jùzi lǐ xuéxí.",
+    "meaning": "",
+    "options": [
+      "哥哥已经把护照带到上海了。",
+      "老师希望明天可以继续准备考试。",
+      "最近哥哥常常需要参加会议。",
+      "把新单词放进句子里学习。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "这样更容易记住。",
+    "pinyin": "Zhèyàng gèng róngyì jìzhù.",
+    "meaning": "",
+    "options": [
+      "听力对学习语言很重要。",
+      "我正在检查机票，准备开始打扫房间。",
+      "这样更容易记住。",
+      "我们下午开会。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "今天就练到这里。",
+    "pinyin": "Jīntiān jiù liàn dào zhèlǐ.",
+    "meaning": "",
+    "options": [
+      "我喜欢用中文聊天。",
+      "这个建议很好。",
+      "今天就练到这里。",
+      "请跟我读一遍。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "下次我们继续。",
+    "pinyin": "Xià cì wǒmen jìxù.",
+    "meaning": "",
+    "options": [
+      "下次我们继续。",
+      "如果有时间，哥哥会去车站完成作业。",
+      "哥哥觉得完成作业很重要。",
+      "虽然很忙，但是我会完成。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "你已经做得很好了。",
+    "pinyin": "Nǐ yǐjīng zuò de hěn hǎo le.",
+    "meaning": "",
+    "options": [
+      "你已经做得很好了。",
+      "这个决定对大家都很重要。",
+      "因为下雨，所以我们没有出去。",
+      "我正在车站学习汉语。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "继续保持。",
+    "pinyin": "Jìxù bǎochí.",
+    "meaning": "",
+    "options": [
+      "请问需要多长时间？",
+      "昨天哥哥在家里参加会议，所以回家比较晚。",
+      "不要害怕说错。",
+      "继续保持。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "加油！",
+    "pinyin": "Jiāyóu!",
+    "meaning": "",
+    "options": [
+      "我想订一个房间。",
+      "周末的时候，老师喜欢去公司介绍自己。",
+      "加油！",
+      "如果计划没有变化，哥哥下午会在公园参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "今天你在商店喝水。",
+    "meaning": "今天，你在商店喝水。",
+    "options": [
+      "他在学校学习。",
+      "为了准备明天的工作，经理今晚还要听音乐。",
+      "今天你在商店喝水。",
+      "学生觉得喝水很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "老师每天都要看书。",
+    "meaning": "老师每天都要看书。",
+    "options": [
+      "我今年二十岁。",
+      "我从越南来。",
+      "周末的时候，爸爸喜欢去中国吃饭。",
+      "老师每天都要看书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "如果有时间，妈妈会去商店听音乐。",
+    "meaning": "如果有时间，妈妈会去商店听音乐。",
+    "options": [
+      "如果有时间，妈妈会去商店听音乐。",
+      "我听说妈妈最近在商店负责工作。",
+      "今天星期一。",
+      "早上好。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "为了买东西，哥哥提前来到中国。",
+    "meaning": "为了买东西，哥哥提前来到中国。",
+    "options": [
+      "我喜欢喝茶。",
+      "明天我要上课。",
+      "你现在有空吗？",
+      "为了买东西，哥哥提前来到中国。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "经理正在商店回家。",
+    "meaning": "经理正在商店回家。",
+    "options": [
+      "你觉得喝水很重要。",
+      "我叫李明。",
+      "你怎么写这个字？",
+      "经理正在商店回家。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "他希望明天可以继续睡觉。",
+    "meaning": "他希望明天可以继续睡觉。",
+    "options": [
+      "虽然时间不多，但是老师还是完成了吃饭。",
+      "爸爸希望明天可以继续睡觉。",
+      "老师告诉我，他最近正在学习。",
+      "他希望明天可以继续睡觉。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "昨天学生在商店休息，所以回家比较晚。",
+    "meaning": "昨天，学生在商店休息，所以回家比较晚。",
+    "options": [
+      "昨天经理在商店休息，所以回家比较晚。",
+      "昨天学生在商店休息，所以回家比较晚。",
+      "请向右转。",
+      "最近哥哥常常需要买东西。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "爸爸告诉我，他最近正在学习。",
+    "meaning": "爸爸告诉我，他最近正在学习。",
+    "options": [
+      "找您十块钱。",
+      "老师已经把手机带到中国了。",
+      "如果有时间，你会去商店听音乐。",
+      "爸爸告诉我，他最近正在学习。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "因为工作很忙，同学只能晚上工作。",
+    "meaning": "因为工作很忙，同学只能晚上工作。",
+    "options": [
+      "会议结束以后，我马上回到中国继续学习。",
+      "早上好。",
+      "朋友希望明天可以继续睡觉。",
+      "因为工作很忙，同学只能晚上工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "周末的时候，我喜欢去中国吃饭。",
+    "meaning": "周末的时候，我喜欢去中国吃饭。",
+    "options": [
+      "周末的时候，我喜欢去中国吃饭。",
+      "如果计划没有变化，姐姐下午会在商店回家。",
+      "你从哪里来？",
+      "我七点起床。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "她觉得喝水很重要。",
+    "meaning": "她觉得喝水很重要。",
+    "options": [
+      "请给我一杯水。",
+      "她觉得喝水很重要。",
+      "他每天都要看书。",
+      "妈妈正在商店回家。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "经过讨论，朋友决定在中国看书。",
+    "meaning": "经过讨论，朋友决定在中国看书。",
+    "options": [
+      "经过讨论，朋友决定在中国看书。",
+      "最近哥哥常常需要买东西。",
+      "我不吃辣。",
+      "请给我一张发票。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "为了准备明天的工作，姐姐今晚还要听音乐。",
+    "meaning": "为了准备明天的工作，姐姐今晚还要听音乐。",
+    "options": [
+      "医生每天都要看书。",
+      "为了准备明天的工作，姐姐今晚还要听音乐。",
+      "你好吗？",
+      "经理觉得喝水很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "最近医生常常需要买东西。",
+    "meaning": "最近，医生常常需要买东西。",
+    "options": [
+      "请进。",
+      "他每天都要看书。",
+      "最近他常常需要买东西。",
+      "最近医生常常需要买东西。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "如果计划没有变化，你下午会在商店回家。",
+    "meaning": "如果计划没有变化，你下午会在商店回家。",
+    "options": [
+      "会议结束以后，医生马上回到中国继续学习。",
+      "谢谢。",
+      "老师已经把手机带到中国了。",
+      "如果计划没有变化，你下午会在商店回家。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "老师已经把手机带到中国了。",
+    "meaning": "老师已经把手机带到中国了。",
+    "options": [
+      "朋友希望明天可以继续睡觉。",
+      "你想吃什么？",
+      "你可以带我去吗？",
+      "老师已经把手机带到中国了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "妈妈正在检查咖啡，准备开始休息。",
+    "meaning": "妈妈正在检查咖啡，准备开始休息。",
+    "options": [
+      "经过讨论，老师决定在中国看书。",
+      "请再说一遍。",
+      "妈妈正在检查咖啡，准备开始休息。",
+      "今天星期一。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "会议结束以后，哥哥马上回到中国继续学习。",
+    "meaning": "会议结束以后，哥哥马上回到中国继续学习。",
+    "options": [
+      "如果计划没有变化，经理下午会在商店回家。",
+      "找您十块钱。",
+      "会议结束以后，哥哥马上回到中国继续学习。",
+      "如果计划没有变化，同学下午会在商店回家。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我听说经理最近在商店负责工作。",
+    "meaning": "我听说，经理最近在商店负责工作。",
+    "options": [
+      "左边有一家银行。",
+      "你几点起床？",
+      "我听说经理最近在商店负责工作。",
+      "朋友每天都要看书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "虽然时间不多，但是他还是完成了吃饭。",
+    "meaning": "虽然时间不多，但是他还是完成了吃饭。",
+    "options": [
+      "虽然时间不多，但是他还是完成了吃饭。",
+      "他已经把手机带到中国了。",
+      "今天星期五。",
+      "经理正在商店回家。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "今天学生在商店喝水。",
+    "meaning": "今天，学生在商店喝水。",
+    "options": [
+      "虽然时间不多，但是爸爸还是完成了吃饭。",
+      "会议结束以后，我马上回到中国继续学习。",
+      "我每天坐公交车上班。",
+      "今天学生在商店喝水。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "爸爸每天都要看书。",
+    "meaning": "爸爸每天都要看书。",
+    "options": [
+      "为了买东西，我提前来到中国。",
+      "我听说妈妈最近在商店负责工作。",
+      "爸爸每天都要看书。",
+      "没关系。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "如果有时间，同学会去商店听音乐。",
+    "meaning": "如果有时间，同学会去商店听音乐。",
+    "options": [
+      "如果有时间，同学会去商店听音乐。",
+      "没关系。",
+      "我从越南来。",
+      "她觉得喝水很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "为了买东西，我提前来到中国。",
+    "meaning": "为了买东西，我提前来到中国。",
+    "options": [
+      "我已经把手机带到中国了。",
+      "你会说中文吗？",
+      "昨天妈妈在商店休息，所以回家比较晚。",
+      "为了买东西，我提前来到中国。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "她正在商店回家。",
+    "meaning": "她正在商店回家。",
+    "options": [
+      "爸爸告诉我，他最近正在学习。",
+      "今天经理在商店喝水。",
+      "如果计划没有变化，你下午会在商店回家。",
+      "她正在商店回家。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "朋友希望明天可以继续睡觉。",
+    "meaning": "朋友希望明天可以继续睡觉。",
+    "options": [
+      "你喜欢喝茶吗？",
+      "她正在检查咖啡，准备开始休息。",
+      "我可以试穿吗？",
+      "朋友希望明天可以继续睡觉。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "昨天姐姐在商店休息，所以回家比较晚。",
+    "meaning": "昨天，姐姐在商店休息，所以回家比较晚。",
+    "options": [
+      "周末的时候，医生喜欢去中国吃饭。",
+      "昨天姐姐在商店休息，所以回家比较晚。",
+      "今天经理在商店喝水。",
+      "会议结束以后，老师马上回到中国继续学习。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "医生告诉我，他最近正在学习。",
+    "meaning": "医生告诉我，他最近正在学习。",
+    "options": [
+      "医生告诉我，他最近正在学习。",
+      "请给我一张发票。",
+      "我喜欢吃米饭。",
+      "如果计划没有变化，妈妈下午会在商店回家。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "因为工作很忙，你只能晚上工作。",
+    "meaning": "因为工作很忙，你只能晚上工作。",
+    "options": [
+      "因为工作很忙，你只能晚上工作。",
+      "会议结束以后，哥哥马上回到中国继续学习。",
+      "医生希望明天可以继续睡觉。",
+      "我想吃面条。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "周末的时候，老师喜欢去中国吃饭。",
+    "meaning": "周末的时候，老师喜欢去中国吃饭。",
+    "options": [
+      "我找不到路了。",
+      "我很好，谢谢。",
+      "我十一点睡觉。",
+      "周末的时候，老师喜欢去中国吃饭。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "妈妈觉得喝水很重要。",
+    "meaning": "妈妈觉得喝水很重要。",
+    "options": [
+      "周末的时候，爸爸喜欢去中国吃饭。",
+      "今天星期五。",
+      "我听说姐姐最近在商店负责工作。",
+      "妈妈觉得喝水很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "经过讨论，哥哥决定在中国看书。",
+    "meaning": "经过讨论，哥哥决定在中国看书。",
+    "options": [
+      "我听说她最近在商店负责工作。",
+      "我吃过了。",
+      "我现在有空。",
+      "经过讨论，哥哥决定在中国看书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "为了准备明天的工作，经理今晚还要听音乐。",
+    "meaning": "为了准备明天的工作，经理今晚还要听音乐。",
+    "options": [
+      "你想吃什么？",
+      "老师告诉我，他最近正在学习。",
+      "我十一点睡觉。",
+      "为了准备明天的工作，经理今晚还要听音乐。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "最近他常常需要买东西。",
+    "meaning": "最近，他常常需要买东西。",
+    "options": [
+      "会议结束以后，我马上回到中国继续学习。",
+      "老师已经把手机带到中国了。",
+      "最近他常常需要买东西。",
+      "经过讨论，他决定在中国看书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "如果计划没有变化，学生下午会在商店回家。",
+    "meaning": "如果计划没有变化，学生下午会在商店回家。",
+    "options": [
+      "会议结束以后，他马上回到中国继续学习。",
+      "我希望明天可以继续睡觉。",
+      "如果计划没有变化，学生下午会在商店回家。",
+      "如果有时间，同学会去商店听音乐。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "爸爸已经把手机带到中国了。",
+    "meaning": "爸爸已经把手机带到中国了。",
+    "options": [
+      "有大一点的吗？",
+      "请往前走。",
+      "会议结束以后，医生马上回到中国继续学习。",
+      "爸爸已经把手机带到中国了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "同学正在检查咖啡，准备开始休息。",
+    "meaning": "同学正在检查咖啡，准备开始休息。",
+    "options": [
+      "我不喜欢喝咖啡。",
+      "我可以试穿吗？",
+      "同学正在检查咖啡，准备开始休息。",
+      "如果计划没有变化，妈妈下午会在商店回家。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "会议结束以后，我马上回到中国继续学习。",
+    "meaning": "会议结束以后，我马上回到中国继续学习。",
+    "options": [
+      "经理觉得喝水很重要。",
+      "会议结束以后，我马上回到中国继续学习。",
+      "给你五十块。",
+      "医生已经把手机带到中国了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我听说她最近在商店负责工作。",
+    "meaning": "我听说，她最近在商店负责工作。",
+    "options": [
+      "车站离这里很近。",
+      "我听说同学最近在商店负责工作。",
+      "现在几点？",
+      "我听说她最近在商店负责工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "虽然时间不多，但是朋友还是完成了吃饭。",
+    "meaning": "虽然时间不多，但是朋友还是完成了吃饭。",
+    "options": [
+      "昨天经理在商店休息，所以回家比较晚。",
+      "虽然时间不多，但是朋友还是完成了吃饭。",
+      "你想吃什么？",
+      "请说慢一点。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "今天姐姐在商店喝水。",
+    "meaning": "今天，姐姐在商店喝水。",
+    "options": [
+      "虽然时间不多，但是医生还是完成了吃饭。",
+      "今天姐姐在商店喝水。",
+      "请说慢一点。",
+      "会议结束以后，哥哥马上回到中国继续学习。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "医生每天都要看书。",
+    "meaning": "医生每天都要看书。",
+    "options": [
+      "因为工作很忙，你只能晚上工作。",
+      "医生每天都要看书。",
+      "我七点起床。",
+      "学生正在商店回家。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "如果有时间，你会去商店听音乐。",
+    "meaning": "如果有时间，你会去商店听音乐。",
+    "options": [
+      "如果有时间，你会去商店听音乐。",
+      "右边就是超市。",
+      "你现在有空吗？",
+      "为了买东西，哥哥提前来到中国。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "为了买东西，老师提前来到中国。",
+    "meaning": "为了买东西，老师提前来到中国。",
+    "options": [
+      "为了买东西，老师提前来到中国。",
+      "我不喜欢喝咖啡。",
+      "我听说学生最近在商店负责工作。",
+      "姐姐正在商店回家。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "妈妈正在商店回家。",
+    "meaning": "妈妈正在商店回家。",
+    "options": [
+      "如果有时间，你会去商店听音乐。",
+      "可以给我菜单吗？",
+      "她觉得喝水很重要。",
+      "妈妈正在商店回家。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "哥哥希望明天可以继续睡觉。",
+    "meaning": "哥哥希望明天可以继续睡觉。",
+    "options": [
+      "他在学校学习。",
+      "哥哥希望明天可以继续睡觉。",
+      "今天姐姐在商店喝水。",
+      "我找不到路了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "昨天经理在商店休息，所以回家比较晚。",
+    "meaning": "昨天，经理在商店休息，所以回家比较晚。",
+    "options": [
+      "你几点睡觉？",
+      "今天妈妈在商店喝水。",
+      "经过讨论，爸爸决定在中国看书。",
+      "昨天经理在商店休息，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "他告诉我，他最近正在学习。",
+    "meaning": "他告诉我，他最近正在学习。",
+    "options": [
+      "他告诉我，他最近正在学习。",
+      "她喜欢看书。",
+      "昨天她在商店休息，所以回家比较晚。",
+      "为了买东西，老师提前来到中国。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "因为工作很忙，学生只能晚上工作。",
+    "meaning": "因为工作很忙，学生只能晚上工作。",
+    "options": [
+      "一共多少钱？",
+      "因为工作很忙，学生只能晚上工作。",
+      "我要买这个。",
+      "现在几点？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "周末的时候，爸爸喜欢去中国吃饭。",
+    "meaning": "周末的时候，爸爸喜欢去中国吃饭。",
+    "options": [
+      "我找不到路了。",
+      "我是越南人。",
+      "请进。",
+      "周末的时候，爸爸喜欢去中国吃饭。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "同学觉得喝水很重要。",
+    "meaning": "同学觉得喝水很重要。",
+    "options": [
+      "同学觉得喝水很重要。",
+      "哥哥每天都要看书。",
+      "妈妈觉得喝水很重要。",
+      "你怎么写这个字？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "经过讨论，我决定在中国看书。",
+    "meaning": "经过讨论，我决定在中国看书。",
+    "options": [
+      "经过讨论，我决定在中国看书。",
+      "为了准备明天的工作，妈妈今晚还要听音乐。",
+      "请坐。",
+      "会议结束以后，朋友马上回到中国继续学习。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "为了准备明天的工作，她今晚还要听音乐。",
+    "meaning": "为了准备明天的工作，她今晚还要听音乐。",
+    "options": [
+      "会议结束以后，爸爸马上回到中国继续学习。",
+      "同学正在检查咖啡，准备开始休息。",
+      "为了准备明天的工作，她今晚还要听音乐。",
+      "虽然时间不多，但是爸爸还是完成了吃饭。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "最近朋友常常需要买东西。",
+    "meaning": "最近，朋友常常需要买东西。",
+    "options": [
+      "哥哥已经把手机带到中国了。",
+      "最近朋友常常需要买东西。",
+      "请给我一杯水。",
+      "如果有时间，她会去商店听音乐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "如果计划没有变化，姐姐下午会在商店回家。",
+    "meaning": "如果计划没有变化，姐姐下午会在商店回家。",
+    "options": [
+      "医生已经把手机带到中国了。",
+      "你几点睡觉？",
+      "如果计划没有变化，姐姐下午会在商店回家。",
+      "经过讨论，朋友决定在中国看书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "医生已经把手机带到中国了。",
+    "meaning": "医生已经把手机带到中国了。",
+    "options": [
+      "姐姐觉得喝水很重要。",
+      "医生已经把手机带到中国了。",
+      "我可以试穿吗？",
+      "你想吃什么？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "你正在检查咖啡，准备开始休息。",
+    "meaning": "你正在检查咖啡，准备开始休息。",
+    "options": [
+      "请坐。",
+      "爸爸告诉我，他最近正在学习。",
+      "你正在检查咖啡，准备开始休息。",
+      "请进。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "会议结束以后，老师马上回到中国继续学习。",
+    "meaning": "会议结束以后，老师马上回到中国继续学习。",
+    "options": [
+      "她喜欢看书。",
+      "哥哥告诉我，他最近正在学习。",
+      "请问，洗手间在哪里？",
+      "会议结束以后，老师马上回到中国继续学习。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我听说妈妈最近在商店负责工作。",
+    "meaning": "我听说，妈妈最近在商店负责工作。",
+    "options": [
+      "周末的时候，他喜欢去中国吃饭。",
+      "我听说妈妈最近在商店负责工作。",
+      "这个怎么读？",
+      "因为工作很忙，同学只能晚上工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "虽然时间不多，但是哥哥还是完成了吃饭。",
+    "meaning": "虽然时间不多，但是哥哥还是完成了吃饭。",
+    "options": [
+      "朋友告诉我，他最近正在学习。",
+      "虽然时间不多，但是哥哥还是完成了吃饭。",
+      "最近老师常常需要买东西。",
+      "我迷路了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "今天经理在商店喝水。",
+    "meaning": "今天，经理在商店喝水。",
+    "options": [
+      "今天经理在商店喝水。",
+      "因为工作很忙，她只能晚上工作。",
+      "我叫李明。",
+      "请向右转。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他每天都要看书。",
+    "meaning": "他每天都要看书。",
+    "options": [
+      "我不吃辣。",
+      "再来一杯，谢谢。",
+      "明天见。",
+      "他每天都要看书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "如果有时间，学生会去商店听音乐。",
+    "meaning": "如果有时间，学生会去商店听音乐。",
+    "options": [
+      "为了买东西，我提前来到中国。",
+      "姐姐正在商店回家。",
+      "如果有时间，学生会去商店听音乐。",
+      "因为工作很忙，你只能晚上工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "为了买东西，爸爸提前来到中国。",
+    "meaning": "为了买东西，爸爸提前来到中国。",
+    "options": [
+      "为了买东西，爸爸提前来到中国。",
+      "最近我常常需要买东西。",
+      "请给我一张发票。",
+      "周末的时候，哥哥喜欢去中国吃饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "同学正在商店回家。",
+    "meaning": "同学正在商店回家。",
+    "options": [
+      "再来一杯，谢谢。",
+      "有大一点的吗？",
+      "同学正在商店回家。",
+      "爸爸告诉我，他最近正在学习。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我希望明天可以继续睡觉。",
+    "meaning": "我希望明天可以继续睡觉。",
+    "options": [
+      "我希望明天可以继续睡觉。",
+      "你正在检查咖啡，准备开始休息。",
+      "我找不到路了。",
+      "经过讨论，哥哥决定在中国看书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "昨天她在商店休息，所以回家比较晚。",
+    "meaning": "昨天，她在商店休息，所以回家比较晚。",
+    "options": [
+      "昨天她在商店休息，所以回家比较晚。",
+      "会议结束以后，医生马上回到中国继续学习。",
+      "朋友已经把手机带到中国了。",
+      "我已经把手机带到中国了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "朋友告诉我，他最近正在学习。",
+    "meaning": "朋友告诉我，他最近正在学习。",
+    "options": [
+      "老师希望明天可以继续睡觉。",
+      "你几点睡觉？",
+      "你是学生吗？",
+      "朋友告诉我，他最近正在学习。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "因为工作很忙，姐姐只能晚上工作。",
+    "meaning": "因为工作很忙，姐姐只能晚上工作。",
+    "options": [
+      "会议结束以后，他马上回到中国继续学习。",
+      "因为工作很忙，姐姐只能晚上工作。",
+      "为了买东西，爸爸提前来到中国。",
+      "右边就是超市。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "周末的时候，医生喜欢去中国吃饭。",
+    "meaning": "周末的时候，医生喜欢去中国吃饭。",
+    "options": [
+      "周末的时候，朋友喜欢去中国吃饭。",
+      "我现在有空。",
+      "周末的时候，医生喜欢去中国吃饭。",
+      "我住在海防。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "你觉得喝水很重要。",
+    "meaning": "你觉得喝水很重要。",
+    "options": [
+      "我想吃面条。",
+      "谢谢。",
+      "今天星期五。",
+      "你觉得喝水很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "经过讨论，老师决定在中国看书。",
+    "meaning": "经过讨论，老师决定在中国看书。",
+    "options": [
+      "经过讨论，老师决定在中国看书。",
+      "你好。",
+      "周末的时候，医生喜欢去中国吃饭。",
+      "没关系。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "为了准备明天的工作，妈妈今晚还要听音乐。",
+    "meaning": "为了准备明天的工作，妈妈今晚还要听音乐。",
+    "options": [
+      "为了准备明天的工作，学生今晚还要听音乐。",
+      "经理正在商店回家。",
+      "对不起。",
+      "为了准备明天的工作，妈妈今晚还要听音乐。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "最近哥哥常常需要买东西。",
+    "meaning": "最近，哥哥常常需要买东西。",
+    "options": [
+      "请在这里停车。",
+      "最近爸爸常常需要买东西。",
+      "最近哥哥常常需要买东西。",
+      "最近医生常常需要买东西。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "如果计划没有变化，经理下午会在商店回家。",
+    "meaning": "如果计划没有变化，经理下午会在商店回家。",
+    "options": [
+      "如果计划没有变化，经理下午会在商店回家。",
+      "经过讨论，朋友决定在中国看书。",
+      "我叫李明。",
+      "虽然时间不多，但是爸爸还是完成了吃饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他已经把手机带到中国了。",
+    "meaning": "他已经把手机带到中国了。",
+    "options": [
+      "虽然时间不多，但是我还是完成了吃饭。",
+      "没关系。",
+      "他已经把手机带到中国了。",
+      "同学正在商店回家。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "学生正在检查咖啡，准备开始休息。",
+    "meaning": "学生正在检查咖啡，准备开始休息。",
+    "options": [
+      "哥哥每天都要看书。",
+      "学生正在检查咖啡，准备开始休息。",
+      "你好吗？",
+      "再来一杯，谢谢。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "会议结束以后，爸爸马上回到中国继续学习。",
+    "meaning": "会议结束以后，爸爸马上回到中国继续学习。",
+    "options": [
+      "爸爸希望明天可以继续睡觉。",
+      "昨天学生在商店休息，所以回家比较晚。",
+      "会议结束以后，爸爸马上回到中国继续学习。",
+      "这个太小了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我听说同学最近在商店负责工作。",
+    "meaning": "我听说，同学最近在商店负责工作。",
+    "options": [
+      "现在三点。",
+      "请再说一遍。",
+      "我听说同学最近在商店负责工作。",
+      "我买两杯咖啡。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "虽然时间不多，但是我还是完成了吃饭。",
+    "meaning": "虽然时间不多，但是我还是完成了吃饭。",
+    "options": [
+      "老师每天都要看书。",
+      "可以便宜一点吗？",
+      "晚上好。",
+      "虽然时间不多，但是我还是完成了吃饭。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "今天她在商店喝水。",
+    "meaning": "今天，她在商店喝水。",
+    "options": [
+      "今天她在商店喝水。",
+      "左边有一家银行。",
+      "请帮我看一下地图。",
+      "爸爸希望明天可以继续睡觉。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "朋友每天都要看书。",
+    "meaning": "朋友每天都要看书。",
+    "options": [
+      "朋友每天都要看书。",
+      "学生正在商店回家。",
+      "因为工作很忙，学生只能晚上工作。",
+      "这辆车去市中心吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "如果有时间，姐姐会去商店听音乐。",
+    "meaning": "如果有时间，姐姐会去商店听音乐。",
+    "options": [
+      "我喜欢听音乐。",
+      "为了买东西，他提前来到中国。",
+      "如果有时间，姐姐会去商店听音乐。",
+      "请向右转。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "为了买东西，医生提前来到中国。",
+    "meaning": "为了买东西，医生提前来到中国。",
+    "options": [
+      "会议结束以后，朋友马上回到中国继续学习。",
+      "为了买东西，医生提前来到中国。",
+      "对不起。",
+      "我明白了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "你正在商店回家。",
+    "meaning": "你正在商店回家。",
+    "options": [
+      "我想吃面条。",
+      "你正在商店回家。",
+      "今天同学在商店喝水。",
+      "同学正在检查咖啡，准备开始休息。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "老师希望明天可以继续睡觉。",
+    "meaning": "老师希望明天可以继续睡觉。",
+    "options": [
+      "你可以带我去吗？",
+      "你好。",
+      "为了买东西，老师提前来到中国。",
+      "老师希望明天可以继续睡觉。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "昨天妈妈在商店休息，所以回家比较晚。",
+    "meaning": "昨天，妈妈在商店休息，所以回家比较晚。",
+    "options": [
+      "你吃早饭了吗？",
+      "最近医生常常需要买东西。",
+      "昨天妈妈在商店休息，所以回家比较晚。",
+      "请等一下。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "哥哥告诉我，他最近正在学习。",
+    "meaning": "哥哥告诉我，他最近正在学习。",
+    "options": [
+      "哥哥告诉我，他最近正在学习。",
+      "周末的时候，老师喜欢去中国吃饭。",
+      "这个很好吃。",
+      "最近爸爸常常需要买东西。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "因为工作很忙，经理只能晚上工作。",
+    "meaning": "因为工作很忙，经理只能晚上工作。",
+    "options": [
+      "明天天气很好。",
+      "老师每天都要看书。",
+      "因为工作很忙，经理只能晚上工作。",
+      "今天星期五。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "周末的时候，他喜欢去中国吃饭。",
+    "meaning": "周末的时候，他喜欢去中国吃饭。",
+    "options": [
+      "我只是看看。",
+      "请给我一碗米饭。",
+      "周末的时候，他喜欢去中国吃饭。",
+      "请等一下。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "学生觉得喝水很重要。",
+    "meaning": "学生觉得喝水很重要。",
+    "options": [
+      "最近医生常常需要买东西。",
+      "学生觉得喝水很重要。",
+      "我们快到了。",
+      "今天同学在商店喝水。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "经过讨论，爸爸决定在中国看书。",
+    "meaning": "经过讨论，爸爸决定在中国看书。",
+    "options": [
+      "可以用手机付款吗？",
+      "经过讨论，爸爸决定在中国看书。",
+      "没关系。",
+      "虽然时间不多，但是老师还是完成了吃饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "为了准备明天的工作，同学今晚还要听音乐。",
+    "meaning": "为了准备明天的工作，同学今晚还要听音乐。",
+    "options": [
+      "为了准备明天的工作，同学今晚还要听音乐。",
+      "我七点起床。",
+      "周末的时候，老师喜欢去中国吃饭。",
+      "经过讨论，老师决定在中国看书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "最近我常常需要买东西。",
+    "meaning": "最近，我常常需要买东西。",
+    "options": [
+      "请给我一张发票。",
+      "为了准备明天的工作，同学今晚还要听音乐。",
+      "最近我常常需要买东西。",
+      "妈妈正在检查咖啡，准备开始休息。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "如果计划没有变化，她下午会在商店回家。",
+    "meaning": "如果计划没有变化，她下午会在商店回家。",
+    "options": [
+      "昨天她在商店休息，所以回家比较晚。",
+      "为了准备明天的工作，你今晚还要听音乐。",
+      "如果计划没有变化，她下午会在商店回家。",
+      "我喜欢喝茶。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "朋友已经把手机带到中国了。",
+    "meaning": "朋友已经把手机带到中国了。",
+    "options": [
+      "昨天我很忙。",
+      "请给我一杯水。",
+      "朋友已经把手机带到中国了。",
+      "因为工作很忙，姐姐只能晚上工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "姐姐正在检查咖啡，准备开始休息。",
+    "meaning": "姐姐正在检查咖啡，准备开始休息。",
+    "options": [
+      "姐姐正在检查咖啡，准备开始休息。",
+      "我想吃面条。",
+      "妈妈觉得喝水很重要。",
+      "我听说妈妈最近在商店负责工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "会议结束以后，医生马上回到中国继续学习。",
+    "meaning": "会议结束以后，医生马上回到中国继续学习。",
+    "options": [
+      "哥哥每天都要看书。",
+      "如果计划没有变化，学生下午会在商店回家。",
+      "我只是看看。",
+      "会议结束以后，医生马上回到中国继续学习。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我听说你最近在商店负责工作。",
+    "meaning": "我听说，你最近在商店负责工作。",
+    "options": [
+      "我找不到路了。",
+      "我七点起床。",
+      "我听说你最近在商店负责工作。",
+      "你想吃什么？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "虽然时间不多，但是老师还是完成了吃饭。",
+    "meaning": "虽然时间不多，但是老师还是完成了吃饭。",
+    "options": [
+      "请坐。",
+      "虽然时间不多，但是老师还是完成了吃饭。",
+      "这个太小了。",
+      "今天同学在商店喝水。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "今天妈妈在商店喝水。",
+    "meaning": "今天，妈妈在商店喝水。",
+    "options": [
+      "我今天不太忙。",
+      "如果计划没有变化，她下午会在商店回家。",
+      "今天妈妈在商店喝水。",
+      "早上好。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "哥哥每天都要看书。",
+    "meaning": "哥哥每天都要看书。",
+    "options": [
+      "哥哥每天都要看书。",
+      "我坐错车了。",
+      "现在三点。",
+      "我听不清楚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "如果有时间，经理会去商店听音乐。",
+    "meaning": "如果有时间，经理会去商店听音乐。",
+    "options": [
+      "学生正在检查咖啡，准备开始休息。",
+      "如果有时间，经理会去商店听音乐。",
+      "因为工作很忙，学生只能晚上工作。",
+      "她喜欢看书。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "为了买东西，他提前来到中国。",
+    "meaning": "为了买东西，他提前来到中国。",
+    "options": [
+      "为了买东西，他提前来到中国。",
+      "哥哥告诉我，他最近正在学习。",
+      "因为工作很忙，姐姐只能晚上工作。",
+      "经过讨论，医生决定在中国看书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "学生正在商店回家。",
+    "meaning": "学生正在商店回家。",
+    "options": [
+      "你好吗？",
+      "学生正在商店回家。",
+      "请在这里停车。",
+      "我可以试穿吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "爸爸希望明天可以继续睡觉。",
+    "meaning": "爸爸希望明天可以继续睡觉。",
+    "options": [
+      "我坐错车了。",
+      "因为工作很忙，妈妈只能晚上工作。",
+      "爸爸希望明天可以继续睡觉。",
+      "这个太小了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "昨天同学在商店休息，所以回家比较晚。",
+    "meaning": "昨天，同学在商店休息，所以回家比较晚。",
+    "options": [
+      "我听说同学最近在商店负责工作。",
+      "昨天同学在商店休息，所以回家比较晚。",
+      "为了准备明天的工作，学生今晚还要听音乐。",
+      "我还没吃饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我告诉我，他最近正在学习。",
+    "meaning": "我告诉我，他最近正在学习。",
+    "options": [
+      "公交车站在哪里？",
+      "他告诉我，他最近正在学习。",
+      "我告诉我，他最近正在学习。",
+      "今天学生在商店喝水。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "因为工作很忙，她只能晚上工作。",
+    "meaning": "因为工作很忙，她只能晚上工作。",
+    "options": [
+      "因为工作很忙，她只能晚上工作。",
+      "我还不明白。",
+      "昨天姐姐在商店休息，所以回家比较晚。",
+      "有大一点的吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "周末的时候，朋友喜欢去中国吃饭。",
+    "meaning": "周末的时候，朋友喜欢去中国吃饭。",
+    "options": [
+      "你今年几岁？",
+      "有别的颜色吗？",
+      "周末的时候，朋友喜欢去中国吃饭。",
+      "你吃早饭了吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "姐姐觉得喝水很重要。",
+    "meaning": "姐姐觉得喝水很重要。",
+    "options": [
+      "请说慢一点。",
+      "姐姐觉得喝水很重要。",
+      "你今年几岁？",
+      "我是学生。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "经过讨论，医生决定在中国看书。",
+    "meaning": "经过讨论，医生决定在中国看书。",
+    "options": [
+      "你现在有空吗？",
+      "为了准备明天的工作，同学今晚还要听音乐。",
+      "可以用手机付款吗？",
+      "经过讨论，医生决定在中国看书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "为了准备明天的工作，你今晚还要听音乐。",
+    "meaning": "为了准备明天的工作，你今晚还要听音乐。",
+    "options": [
+      "她觉得喝水很重要。",
+      "为了准备明天的工作，你今晚还要听音乐。",
+      "我坐公交车去学校。",
+      "虽然时间不多，但是我还是完成了吃饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "最近老师常常需要买东西。",
+    "meaning": "最近，老师常常需要买东西。",
+    "options": [
+      "这辆车去市中心吗？",
+      "老师已经把手机带到中国了。",
+      "最近老师常常需要买东西。",
+      "经过讨论，哥哥决定在中国看书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "如果计划没有变化，妈妈下午会在商店回家。",
+    "meaning": "如果计划没有变化，妈妈下午会在商店回家。",
+    "options": [
+      "如果有时间，姐姐会去商店听音乐。",
+      "经过讨论，哥哥决定在中国看书。",
+      "如果计划没有变化，妈妈下午会在商店回家。",
+      "为了买东西，朋友提前来到中国。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "哥哥已经把手机带到中国了。",
+    "meaning": "哥哥已经把手机带到中国了。",
+    "options": [
+      "他告诉我，他最近正在学习。",
+      "有大一点的吗？",
+      "哥哥已经把手机带到中国了。",
+      "我坐错车了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "经理正在检查咖啡，准备开始休息。",
+    "meaning": "经理正在检查咖啡，准备开始休息。",
+    "options": [
+      "经理正在检查咖啡，准备开始休息。",
+      "爸爸每天都要看书。",
+      "我不要这个。",
+      "今天妈妈在商店喝水。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "会议结束以后，他马上回到中国继续学习。",
+    "meaning": "会议结束以后，他马上回到中国继续学习。",
+    "options": [
+      "周末的时候，医生喜欢去中国吃饭。",
+      "会议结束以后，他马上回到中国继续学习。",
+      "这个字是什么意思？",
+      "我马上回来。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我听说学生最近在商店负责工作。",
+    "meaning": "我听说，学生最近在商店负责工作。",
+    "options": [
+      "她正在商店回家。",
+      "如果有时间，姐姐会去商店听音乐。",
+      "我听说学生最近在商店负责工作。",
+      "可以用手机付款吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "虽然时间不多，但是爸爸还是完成了吃饭。",
+    "meaning": "虽然时间不多，但是爸爸还是完成了吃饭。",
+    "options": [
+      "会议结束以后，医生马上回到中国继续学习。",
+      "你今年几岁？",
+      "我是学生。",
+      "虽然时间不多，但是爸爸还是完成了吃饭。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "今天同学在商店喝水。",
+    "meaning": "今天，同学在商店喝水。",
+    "options": [
+      "朋友告诉我，他最近正在学习。",
+      "我听说她最近在商店负责工作。",
+      "今天同学在商店喝水。",
+      "请等一下。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我每天都要看书。",
+    "meaning": "我每天都要看书。",
+    "options": [
+      "我买两杯咖啡。",
+      "请进。",
+      "我们快到了。",
+      "我每天都要看书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "如果有时间，她会去商店听音乐。",
+    "meaning": "如果有时间，她会去商店听音乐。",
+    "options": [
+      "如果有时间，她会去商店听音乐。",
+      "再来一杯，谢谢。",
+      "她觉得喝水很重要。",
+      "我听说同学最近在商店负责工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "为了买东西，朋友提前来到中国。",
+    "meaning": "为了买东西，朋友提前来到中国。",
+    "options": [
+      "为了买东西，朋友提前来到中国。",
+      "如果计划没有变化，学生下午会在商店回家。",
+      "请再说一遍。",
+      "这个太小了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "姐姐正在商店回家。",
+    "meaning": "姐姐正在商店回家。",
+    "options": [
+      "我坐错车了。",
+      "姐姐正在商店回家。",
+      "因为工作很忙，经理只能晚上工作。",
+      "你现在有空吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "医生希望明天可以继续睡觉。",
+    "meaning": "医生希望明天可以继续睡觉。",
+    "options": [
+      "请坐。",
+      "医生希望明天可以继续睡觉。",
+      "为了买东西，医生提前来到中国。",
+      "你今年几岁？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "昨天你在商店休息，所以回家比较晚。",
+    "meaning": "昨天，你在商店休息，所以回家比较晚。",
+    "options": [
+      "请帮我看一下地图。",
+      "昨天你在商店休息，所以回家比较晚。",
+      "太贵了。",
+      "朋友已经把手机带到中国了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "老师告诉我，他最近正在学习。",
+    "meaning": "老师告诉我，他最近正在学习。",
+    "options": [
+      "因为工作很忙，同学只能晚上工作。",
+      "学生觉得喝水很重要。",
+      "你几点起床？",
+      "老师告诉我，他最近正在学习。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "因为工作很忙，妈妈只能晚上工作。",
+    "meaning": "因为工作很忙，妈妈只能晚上工作。",
+    "options": [
+      "太贵了。",
+      "谢谢你的帮助。",
+      "我迷路了。",
+      "因为工作很忙，妈妈只能晚上工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "周末的时候，哥哥喜欢去中国吃饭。",
+    "meaning": "周末的时候，哥哥喜欢去中国吃饭。",
+    "options": [
+      "周末的时候，哥哥喜欢去中国吃饭。",
+      "可以用手机付款吗？",
+      "大概需要多久？",
+      "我想吃米饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "经理觉得喝水很重要。",
+    "meaning": "经理觉得喝水很重要。",
+    "options": [
+      "经理觉得喝水很重要。",
+      "如果有时间，学生会去商店听音乐。",
+      "一直往前走。",
+      "最近他常常需要买东西。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "经过讨论，他决定在中国看书。",
+    "meaning": "经过讨论，他决定在中国看书。",
+    "options": [
+      "你今天忙吗？",
+      "有大一点的吗？",
+      "经过讨论，他决定在中国看书。",
+      "没事。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "为了准备明天的工作，学生今晚还要听音乐。",
+    "meaning": "为了准备明天的工作，学生今晚还要听音乐。",
+    "options": [
+      "如果有时间，她会去商店听音乐。",
+      "为了准备明天的工作，学生今晚还要听音乐。",
+      "我会说一点中文。",
+      "如果计划没有变化，经理下午会在商店回家。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "最近爸爸常常需要买东西。",
+    "meaning": "最近，爸爸常常需要买东西。",
+    "options": [
+      "最近爸爸常常需要买东西。",
+      "我听不清楚。",
+      "你现在有空吗？",
+      "我喜欢吃米饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "如果计划没有变化，同学下午会在商店回家。",
+    "meaning": "如果计划没有变化，同学下午会在商店回家。",
+    "options": [
+      "今天妈妈在商店喝水。",
+      "我今天不太忙。",
+      "如果计划没有变化，同学下午会在商店回家。",
+      "请帮我看一下地图。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我已经把手机带到中国了。",
+    "meaning": "我已经把手机带到中国了。",
+    "options": [
+      "可以用手机付款吗？",
+      "我已经把手机带到中国了。",
+      "昨天学生在商店休息，所以回家比较晚。",
+      "我告诉我，他最近正在学习。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "她正在检查咖啡，准备开始休息。",
+    "meaning": "她正在检查咖啡，准备开始休息。",
+    "options": [
+      "还有多远？",
+      "会议结束以后，他马上回到中国继续学习。",
+      "她正在检查咖啡，准备开始休息。",
+      "我找不到路了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "会议结束以后，朋友马上回到中国继续学习。",
+    "meaning": "会议结束以后，朋友马上回到中国继续学习。",
+    "options": [
+      "同学觉得喝水很重要。",
+      "会议结束以后，朋友马上回到中国继续学习。",
+      "你是学生吗？",
+      "大概需要多久？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我听说姐姐最近在商店负责工作。",
+    "meaning": "我听说，姐姐最近在商店负责工作。",
+    "options": [
+      "最近爸爸常常需要买东西。",
+      "为了准备明天的工作，同学今晚还要听音乐。",
+      "朋友希望明天可以继续睡觉。",
+      "我听说姐姐最近在商店负责工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "虽然时间不多，但是医生还是完成了吃饭。",
+    "meaning": "虽然时间不多，但是医生还是完成了吃饭。",
+    "options": [
+      "虽然时间不多，但是医生还是完成了吃饭。",
+      "我今年二十岁。",
+      "妈妈正在检查咖啡，准备开始休息。",
+      "你吃早饭了吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "今天他在超市坐地铁。",
+    "meaning": "今天，他在超市坐地铁。",
+    "options": [
+      "最近医生常常需要听音乐。",
+      "水太烫了。",
+      "今天他在超市坐地铁。",
+      "你做得很好。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我的同学每天都要听音乐。",
+    "meaning": "我的同学每天都要听音乐。",
+    "options": [
+      "我的同学每天都要听音乐。",
+      "会议结束以后，你马上回到机场继续听音乐。",
+      "会议结束以后，同事马上回到学校继续准备考试。",
+      "你周末做什么？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "如果有时间，爸爸会去公司看电影。",
+    "meaning": "如果有时间，爸爸会去公司看电影。",
+    "options": [
+      "你收到我的消息了吗？",
+      "如果计划没有变化，我的朋友下午会在车站做饭。",
+      "如果有时间，爸爸会去公司看电影。",
+      "我的同学每天都要听音乐。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "为了做作业，姐姐提前来到车站。",
+    "meaning": "为了做作业，姐姐提前来到车站。",
+    "options": [
+      "手机没电了。",
+      "如果计划没有变化，哥哥下午会在公司学习汉语。",
+      "我的同学告诉我，他最近正在工作。",
+      "为了做作业，姐姐提前来到车站。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我正在北京买东西。",
+    "meaning": "我正在北京买东西。",
+    "options": [
+      "我正在北京买东西。",
+      "妈妈希望明天可以继续运动。",
+      "最近她常常需要运动。",
+      "不用着急。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "她希望明天可以继续准备考试。",
+    "meaning": "她希望明天可以继续准备考试。",
+    "options": [
+      "她希望明天可以继续准备考试。",
+      "他觉得做饭很重要。",
+      "你有几个兄弟姐妹？",
+      "如果计划没有变化，老师下午会在医院做饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "昨天老师在餐厅学习汉语，所以回家比较晚。",
+    "meaning": "昨天，老师在餐厅学习汉语，所以回家比较晚。",
+    "options": [
+      "如果有时间，他会去车站学习汉语。",
+      "我有一个妹妹。",
+      "我周末通常在家休息。",
+      "昨天老师在餐厅学习汉语，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "妈妈告诉我，他最近正在工作。",
+    "meaning": "妈妈告诉我，他最近正在工作。",
+    "options": [
+      "为了做作业，妈妈提前来到机场。",
+      "如果计划没有变化，爸爸下午会在家里学习汉语。",
+      "妈妈告诉我，他最近正在工作。",
+      "请把窗户打开。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "因为工作很忙，孩子只能晚上旅行。",
+    "meaning": "因为工作很忙，孩子只能晚上旅行。",
+    "options": [
+      "她告诉我，他最近正在打电话。",
+      "因为工作很忙，孩子只能晚上旅行。",
+      "如果计划没有变化，爸爸下午会在家里学习汉语。",
+      "我马上发给你。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "周末的时候，你喜欢去图书馆运动。",
+    "meaning": "周末的时候，你喜欢去图书馆运动。",
+    "options": [
+      "请打开书。",
+      "我不知道。",
+      "周末的时候，你喜欢去图书馆运动。",
+      "慢慢来。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我的朋友觉得做饭很重要。",
+    "meaning": "我的朋友觉得做饭很重要。",
+    "options": [
+      "我的朋友觉得做饭很重要。",
+      "如果计划没有变化，孩子下午会在北京看电影。",
+      "请你说慢一点。",
+      "我们认识很多年了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "经过讨论，同事决定在机场打电话。",
+    "meaning": "经过讨论，同事决定在机场打电话。",
+    "options": [
+      "我已经到了。",
+      "我每天学习一个小时。",
+      "你可以帮我一下吗？",
+      "经过讨论，同事决定在机场打电话。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "为了准备明天的工作，哥哥今晚还要坐地铁。",
+    "meaning": "为了准备明天的工作，哥哥今晚还要坐地铁。",
+    "options": [
+      "哥哥正在检查自行车，准备开始坐地铁。",
+      "你收到我的消息了吗？",
+      "你周末做什么？",
+      "为了准备明天的工作，哥哥今晚还要坐地铁。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "最近医生常常需要听音乐。",
+    "meaning": "最近，医生常常需要听音乐。",
+    "options": [
+      "我有点累。",
+      "如果有时间，我的朋友会去商店看电影。",
+      "最近医生常常需要听音乐。",
+      "我住在海防。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "如果计划没有变化，他下午会在公园看电影。",
+    "meaning": "如果计划没有变化，他下午会在公园看电影。",
+    "options": [
+      "水太烫了。",
+      "最近同事常常需要准备考试。",
+      "如果计划没有变化，他下午会在公园看电影。",
+      "我正在做作业。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我的同学已经把报纸带到公司了。",
+    "meaning": "我的同学已经把报纸带到公司了。",
+    "options": [
+      "我觉得做饭很重要。",
+      "这个词怎么用？",
+      "我马上发给你。",
+      "我的同学已经把报纸带到公司了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "爸爸正在检查咖啡，准备开始买东西。",
+    "meaning": "爸爸正在检查咖啡，准备开始买东西。",
+    "options": [
+      "老师觉得学习汉语很重要。",
+      "老师正在检查咖啡，准备开始买东西。",
+      "爸爸正在检查咖啡，准备开始买东西。",
+      "你需要休息一下。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "会议结束以后，姐姐马上回到北京继续准备考试。",
+    "meaning": "会议结束以后，姐姐马上回到北京继续准备考试。",
+    "options": [
+      "你昨天几点回家？",
+      "同事告诉我，他最近正在工作。",
+      "请打开书。",
+      "会议结束以后，姐姐马上回到北京继续准备考试。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我听说我最近在商店负责学习汉语。",
+    "meaning": "我听说，我最近在商店负责学习汉语。",
+    "options": [
+      "我听说我最近在商店负责学习汉语。",
+      "你希望明天可以继续准备考试。",
+      "我有点累。",
+      "周末的时候，妈妈喜欢去家里听音乐。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "虽然时间不多，但是她还是完成了工作。",
+    "meaning": "虽然时间不多，但是她还是完成了工作。",
+    "options": [
+      "我听说爸爸最近在餐厅负责做饭。",
+      "虽然时间不多，但是她还是完成了工作。",
+      "请等我五分钟。",
+      "会议结束以后，姐姐马上回到北京继续准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "今天老师在学校旅行。",
+    "meaning": "今天，老师在学校旅行。",
+    "options": [
+      "今天老师在学校旅行。",
+      "我听说哥哥最近在医院负责学习汉语。",
+      "我喜欢在家看电影。",
+      "我不知道。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "妈妈每天都要运动。",
+    "meaning": "妈妈每天都要运动。",
+    "options": [
+      "最近妈妈常常需要听音乐。",
+      "为了准备明天的工作，老师今晚还要坐地铁。",
+      "这是我的朋友。",
+      "妈妈每天都要运动。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "如果有时间，孩子会去图书馆做饭。",
+    "meaning": "如果有时间，孩子会去图书馆做饭。",
+    "options": [
+      "经过讨论，医生决定在学校做作业。",
+      "如果有时间，孩子会去图书馆做饭。",
+      "我们下午再联系。",
+      "我在门口等你。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "为了打电话，你提前来到家里。",
+    "meaning": "为了打电话，你提前来到家里。",
+    "options": [
+      "我没听清楚。",
+      "周末的时候，医生喜欢去北京运动。",
+      "为了打电话，你提前来到家里。",
+      "我正在做作业。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我的朋友正在机场坐地铁。",
+    "meaning": "我的朋友正在机场坐地铁。",
+    "options": [
+      "我的朋友正在机场坐地铁。",
+      "你什么时候有空？",
+      "她每天都要听音乐。",
+      "哥哥正在学校买东西。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "同事希望明天可以继续听音乐。",
+    "meaning": "同事希望明天可以继续听音乐。",
+    "options": [
+      "请等我五分钟。",
+      "我六点下班。",
+      "经过讨论，同事决定在机场打电话。",
+      "同事希望明天可以继续听音乐。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "昨天哥哥在超市看电影，所以回家比较晚。",
+    "meaning": "昨天，哥哥在超市看电影，所以回家比较晚。",
+    "options": [
+      "你吃午饭了吗？",
+      "为了工作，她提前来到上海。",
+      "因为工作很忙，孩子只能晚上旅行。",
+      "昨天哥哥在超市看电影，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "医生告诉我，他最近正在做作业。",
+    "meaning": "医生告诉我，他最近正在做作业。",
+    "options": [
+      "医生告诉我，他最近正在做作业。",
+      "晚饭我想吃饺子。",
+      "请给我发个消息。",
+      "她已经把报纸带到家里了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "因为工作很忙，他只能晚上买东西。",
+    "meaning": "因为工作很忙，他只能晚上买东西。",
+    "options": [
+      "因为工作很忙，他只能晚上买东西。",
+      "我的同学告诉我，他最近正在工作。",
+      "会议结束以后，姐姐马上回到北京继续准备考试。",
+      "虽然时间不多，但是她还是完成了工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "周末的时候，我的同学喜欢去车站准备考试。",
+    "meaning": "周末的时候，我的同学喜欢去车站准备考试。",
+    "options": [
+      "如果计划没有变化，老师下午会在医院做饭。",
+      "会议结束以后，姐姐马上回到北京继续准备考试。",
+      "周末的时候，我的同学喜欢去车站准备考试。",
+      "因为工作很忙，爸爸只能晚上旅行。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "爸爸觉得学习汉语很重要。",
+    "meaning": "爸爸觉得学习汉语很重要。",
+    "options": [
+      "老师正在检查咖啡，准备开始买东西。",
+      "爸爸觉得学习汉语很重要。",
+      "这个问题很重要。",
+      "虽然时间不多，但是同事还是完成了做作业。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "经过讨论，姐姐决定在商店工作。",
+    "meaning": "经过讨论，姐姐决定在商店工作。",
+    "options": [
+      "我今天要去学校。",
+      "经过讨论，姐姐决定在商店工作。",
+      "为了准备明天的工作，老师今晚还要坐地铁。",
+      "姐姐已经把衣服带到机场了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "为了准备明天的工作，我今晚还要旅行。",
+    "meaning": "为了准备明天的工作，我今晚还要旅行。",
+    "options": [
+      "我们坐出租车去车站。",
+      "你希望明天可以继续准备考试。",
+      "为了准备明天的工作，我今晚还要旅行。",
+      "爸爸觉得学习汉语很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "最近她常常需要运动。",
+    "meaning": "最近，她常常需要运动。",
+    "options": [
+      "我有一个姐姐。",
+      "最近她常常需要运动。",
+      "我觉得做饭很重要。",
+      "你需要休息一下。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "如果计划没有变化，老师下午会在医院做饭。",
+    "meaning": "如果计划没有变化，老师下午会在医院做饭。",
+    "options": [
+      "我的同学告诉我，他最近正在工作。",
+      "如果计划没有变化，老师下午会在医院做饭。",
+      "我的朋友正在机场坐地铁。",
+      "会议结束以后，姐姐马上回到北京继续准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "妈妈已经把汉语书带到图书馆了。",
+    "meaning": "妈妈已经把汉语书带到图书馆了。",
+    "options": [
+      "我每天学习一个小时。",
+      "因为工作很忙，我的朋友只能晚上坐地铁。",
+      "妈妈已经把汉语书带到图书馆了。",
+      "老师正在检查咖啡，准备开始买东西。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "孩子正在检查自行车，准备开始坐地铁。",
+    "meaning": "孩子正在检查自行车，准备开始坐地铁。",
+    "options": [
+      "孩子正在检查自行车，准备开始坐地铁。",
+      "最近我的同学常常需要准备考试。",
+      "周末的时候，姐姐喜欢去上海运动。",
+      "如果有时间，爸爸会去公司看电影。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "会议结束以后，你马上回到机场继续听音乐。",
+    "meaning": "会议结束以后，你马上回到机场继续听音乐。",
+    "options": [
+      "请再说一遍。",
+      "我想换一个房间。",
+      "会议结束以后，你马上回到机场继续听音乐。",
+      "如果有时间，老师会去家里看电影。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我听说我的朋友最近在上海负责看电影。",
+    "meaning": "我听说，我的朋友最近在上海负责看电影。",
+    "options": [
+      "我听说我的朋友最近在上海负责看电影。",
+      "我喜欢打篮球。",
+      "我准备好了。",
+      "昨天我的朋友在公园学习汉语，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "虽然时间不多，但是同事还是完成了做作业。",
+    "meaning": "虽然时间不多，但是同事还是完成了做作业。",
+    "options": [
+      "我周末通常在家休息。",
+      "虽然时间不多，但是同事还是完成了做作业。",
+      "你能解释一下吗？",
+      "我需要多听多说。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "今天哥哥在公园买东西。",
+    "meaning": "今天，哥哥在公园买东西。",
+    "options": [
+      "在第二个路口右转。",
+      "爸爸正在检查咖啡，准备开始买东西。",
+      "你家有几个人？",
+      "今天哥哥在公园买东西。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "医生每天都要准备考试。",
+    "meaning": "医生每天都要准备考试。",
+    "options": [
+      "我晚上九点回家。",
+      "我今天感觉不错。",
+      "医生每天都要准备考试。",
+      "会议结束以后，同事马上回到学校继续准备考试。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "如果有时间，他会去车站学习汉语。",
+    "meaning": "如果有时间，他会去车站学习汉语。",
+    "options": [
+      "如果有时间，他会去车站学习汉语。",
+      "同事希望明天可以继续听音乐。",
+      "我的同学希望明天可以继续听音乐。",
+      "虽然时间不多，但是你还是完成了工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "为了工作，我的同学提前来到北京。",
+    "meaning": "为了工作，我的同学提前来到北京。",
+    "options": [
+      "我觉得这个方法很好。",
+      "为了工作，我的同学提前来到北京。",
+      "虽然时间不多，但是她还是完成了工作。",
+      "如果计划没有变化，我的朋友下午会在车站做饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "爸爸正在商店旅行。",
+    "meaning": "爸爸正在商店旅行。",
+    "options": [
+      "周末的时候，她喜欢去机场准备考试。",
+      "爸爸正在商店旅行。",
+      "我们下午再联系。",
+      "如果计划没有变化，老师下午会在医院做饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "姐姐希望明天可以继续运动。",
+    "meaning": "姐姐希望明天可以继续运动。",
+    "options": [
+      "外面下雨了。",
+      "哥哥正在检查自行车，准备开始坐地铁。",
+      "医生已经把衣服带到车站了。",
+      "姐姐希望明天可以继续运动。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "昨天我在学校做饭，所以回家比较晚。",
+    "meaning": "昨天，我在学校做饭，所以回家比较晚。",
+    "options": [
+      "昨天我在学校做饭，所以回家比较晚。",
+      "你有兄弟姐妹吗？",
+      "再试一次。",
+      "我去年开始学中文。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "她告诉我，他最近正在打电话。",
+    "meaning": "她告诉我，他最近正在打电话。",
+    "options": [
+      "为了打电话，医生提前来到商店。",
+      "你昨天几点回家？",
+      "她告诉我，他最近正在打电话。",
+      "我今天感觉不错。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "因为工作很忙，老师只能晚上坐地铁。",
+    "meaning": "因为工作很忙，老师只能晚上坐地铁。",
+    "options": [
+      "经过讨论，我的同学决定在餐厅打电话。",
+      "我忘记这个词了。",
+      "因为工作很忙，老师只能晚上坐地铁。",
+      "经过讨论，妈妈决定在超市工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "周末的时候，妈妈喜欢去家里听音乐。",
+    "meaning": "周末的时候，妈妈喜欢去家里听音乐。",
+    "options": [
+      "周末的时候，妈妈喜欢去家里听音乐。",
+      "我正在开会。",
+      "这个问题有点难。",
+      "如果有时间，孩子会去图书馆做饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "孩子觉得看电影很重要。",
+    "meaning": "孩子觉得看电影很重要。",
+    "options": [
+      "你在哪里？",
+      "再试一次。",
+      "为了准备明天的工作，我的朋友今晚还要买东西。",
+      "孩子觉得看电影很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "经过讨论，你决定在上海做作业。",
+    "meaning": "经过讨论，你决定在上海做作业。",
+    "options": [
+      "你在哪里？",
+      "爸爸正在检查咖啡，准备开始买东西。",
+      "我听说我最近在商店负责学习汉语。",
+      "经过讨论，你决定在上海做作业。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "为了准备明天的工作，我的朋友今晚还要买东西。",
+    "meaning": "为了准备明天的工作，我的朋友今晚还要买东西。",
+    "options": [
+      "为了准备明天的工作，我的朋友今晚还要买东西。",
+      "妈妈希望明天可以继续运动。",
+      "最近她常常需要运动。",
+      "我已经到了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "最近同事常常需要准备考试。",
+    "meaning": "最近，同事常常需要准备考试。",
+    "options": [
+      "最近同事常常需要准备考试。",
+      "他比我高一点。",
+      "医生告诉我，他最近正在做作业。",
+      "别忘了带雨伞。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "如果计划没有变化，哥哥下午会在公司学习汉语。",
+    "meaning": "如果计划没有变化，哥哥下午会在公司学习汉语。",
+    "options": [
+      "同事告诉我，他最近正在工作。",
+      "他正在检查照片，准备开始旅行。",
+      "如果计划没有变化，哥哥下午会在公司学习汉语。",
+      "最近一切都很好。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "医生已经把衣服带到车站了。",
+    "meaning": "医生已经把衣服带到车站了。",
+    "options": [
+      "不要紧张。",
+      "因为工作很忙，哥哥只能晚上旅行。",
+      "我有一个妹妹。",
+      "医生已经把衣服带到车站了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "他正在检查照片，准备开始旅行。",
+    "meaning": "他正在检查照片，准备开始旅行。",
+    "options": [
+      "我需要再练习。",
+      "如果计划没有变化，我的朋友下午会在车站做饭。",
+      "你什么时候下班？",
+      "他正在检查照片，准备开始旅行。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "会议结束以后，我的同学马上回到商店继续运动。",
+    "meaning": "会议结束以后，我的同学马上回到商店继续运动。",
+    "options": [
+      "爸爸觉得学习汉语很重要。",
+      "会议结束以后，我的同学马上回到商店继续运动。",
+      "我喜欢打篮球。",
+      "最近医生常常需要听音乐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我听说爸爸最近在餐厅负责做饭。",
+    "meaning": "我听说，爸爸最近在餐厅负责做饭。",
+    "options": [
+      "天气越来越好了。",
+      "我听说爸爸最近在餐厅负责做饭。",
+      "我已经到了。",
+      "我觉得这个方法很好。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "虽然时间不多，但是姐姐还是完成了打电话。",
+    "meaning": "虽然时间不多，但是姐姐还是完成了打电话。",
+    "options": [
+      "我喜欢听中文歌。",
+      "你收到我的消息了吗？",
+      "虽然时间不多，但是姐姐还是完成了打电话。",
+      "我每天早上跑步。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "今天我在医院坐地铁。",
+    "meaning": "今天，我在医院坐地铁。",
+    "options": [
+      "医生希望明天可以继续准备考试。",
+      "虽然时间不多，但是姐姐还是完成了打电话。",
+      "今天我在医院坐地铁。",
+      "今天工作很忙。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "她每天都要听音乐。",
+    "meaning": "她每天都要听音乐。",
+    "options": [
+      "为了打电话，医生提前来到商店。",
+      "别担心。",
+      "她每天都要听音乐。",
+      "你什么时候开始学中文？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "如果有时间，老师会去家里看电影。",
+    "meaning": "如果有时间，老师会去家里看电影。",
+    "options": [
+      "你会说中文吗？",
+      "会议结束以后，姐姐马上回到北京继续准备考试。",
+      "如果有时间，老师会去家里看电影。",
+      "为了准备明天的工作，孩子今晚还要旅行。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "为了做作业，妈妈提前来到机场。",
+    "meaning": "为了做作业，妈妈提前来到机场。",
+    "options": [
+      "姐姐希望明天可以继续运动。",
+      "我刚刚看到了。",
+      "为了做作业，妈妈提前来到机场。",
+      "这本书很有意思。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "孩子正在上海买东西。",
+    "meaning": "孩子正在上海买东西。",
+    "options": [
+      "我今天要去学校。",
+      "孩子正在上海买东西。",
+      "我的同学告诉我，他最近正在工作。",
+      "我今天感觉不错。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你希望明天可以继续准备考试。",
+    "meaning": "你希望明天可以继续准备考试。",
+    "options": [
+      "我的中文进步了一点。",
+      "最近你常常需要运动。",
+      "你告诉我，他最近正在打电话。",
+      "你希望明天可以继续准备考试。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "昨天我的朋友在公园学习汉语，所以回家比较晚。",
+    "meaning": "昨天，我的朋友在公园学习汉语，所以回家比较晚。",
+    "options": [
+      "昨天我的朋友在公园学习汉语，所以回家比较晚。",
+      "我有一个妹妹。",
+      "我已经到了。",
+      "你需要我做什么？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "同事告诉我，他最近正在工作。",
+    "meaning": "同事告诉我，他最近正在工作。",
+    "options": [
+      "同事告诉我，他最近正在工作。",
+      "虽然时间不多，但是医生还是完成了工作。",
+      "如果计划没有变化，我的朋友下午会在车站做饭。",
+      "你学中文多久了？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "因为工作很忙，哥哥只能晚上旅行。",
+    "meaning": "因为工作很忙，哥哥只能晚上旅行。",
+    "options": [
+      "我听说老师最近在公园负责做饭。",
+      "因为工作很忙，哥哥只能晚上旅行。",
+      "今天很冷。",
+      "我每天学习一个小时。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "周末的时候，医生喜欢去北京运动。",
+    "meaning": "周末的时候，医生喜欢去北京运动。",
+    "options": [
+      "妈妈希望明天可以继续运动。",
+      "最近同事常常需要准备考试。",
+      "周末的时候，医生喜欢去北京运动。",
+      "我的同学每天都要听音乐。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "他觉得做饭很重要。",
+    "meaning": "他觉得做饭很重要。",
+    "options": [
+      "你学中文多久了？",
+      "你能给我一个例子吗？",
+      "在第二个路口右转。",
+      "他觉得做饭很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "经过讨论，我的同学决定在餐厅打电话。",
+    "meaning": "经过讨论，我的同学决定在餐厅打电话。",
+    "options": [
+      "我要一杯热茶。",
+      "慢慢来。",
+      "经过讨论，我的同学决定在餐厅打电话。",
+      "为了做作业，同事提前来到餐厅。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "为了准备明天的工作，爸爸今晚还要坐地铁。",
+    "meaning": "为了准备明天的工作，爸爸今晚还要坐地铁。",
+    "options": [
+      "会议结束以后，我的同学马上回到商店继续运动。",
+      "这个词怎么用？",
+      "为了准备明天的工作，爸爸今晚还要坐地铁。",
+      "请打开书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "最近姐姐常常需要听音乐。",
+    "meaning": "最近，姐姐常常需要听音乐。",
+    "options": [
+      "我周末喜欢看电影。",
+      "我有一个妹妹。",
+      "最近姐姐常常需要听音乐。",
+      "这个问题有点难。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "如果计划没有变化，我下午会在图书馆看电影。",
+    "meaning": "如果计划没有变化，我下午会在图书馆看电影。",
+    "options": [
+      "你什么时候有空？",
+      "我的朋友觉得做饭很重要。",
+      "如果计划没有变化，我下午会在图书馆看电影。",
+      "你需要休息一下。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "她已经把报纸带到家里了。",
+    "meaning": "她已经把报纸带到家里了。",
+    "options": [
+      "我周末喜欢看电影。",
+      "我听说我的朋友最近在上海负责看电影。",
+      "你家有几个人？",
+      "她已经把报纸带到家里了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "老师正在检查咖啡，准备开始买东西。",
+    "meaning": "老师正在检查咖啡，准备开始买东西。",
+    "options": [
+      "虽然时间不多，但是妈妈还是完成了打电话。",
+      "老师正在检查咖啡，准备开始买东西。",
+      "因为工作很忙，老师只能晚上坐地铁。",
+      "你什么时候开始学中文？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "会议结束以后，妈妈马上回到上海继续准备考试。",
+    "meaning": "会议结束以后，妈妈马上回到上海继续准备考试。",
+    "options": [
+      "今天很热。",
+      "我已经到了。",
+      "我不知道。",
+      "会议结束以后，妈妈马上回到上海继续准备考试。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我听说孩子最近在超市负责学习汉语。",
+    "meaning": "我听说，孩子最近在超市负责学习汉语。",
+    "options": [
+      "我听说孩子最近在超市负责学习汉语。",
+      "我昨天睡得很晚。",
+      "会议结束以后，姐姐马上回到北京继续准备考试。",
+      "这个词是什么意思？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "虽然时间不多，但是你还是完成了工作。",
+    "meaning": "虽然时间不多，但是你还是完成了工作。",
+    "options": [
+      "今天工作很忙。",
+      "我的中文进步了一点。",
+      "妈妈告诉我，他最近正在工作。",
+      "虽然时间不多，但是你还是完成了工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "今天我的朋友在公司旅行。",
+    "meaning": "今天，我的朋友在公司旅行。",
+    "options": [
+      "哥哥正在检查自行车，准备开始坐地铁。",
+      "今天我的朋友在公司旅行。",
+      "因为工作很忙，老师只能晚上坐地铁。",
+      "如果有时间，爸爸会去公司看电影。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "同事每天都要运动。",
+    "meaning": "同事每天都要运动。",
+    "options": [
+      "经过讨论，妈妈决定在超市工作。",
+      "同事每天都要运动。",
+      "这个字怎么读？",
+      "因为工作很忙，孩子只能晚上旅行。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "如果有时间，哥哥会去北京做饭。",
+    "meaning": "如果有时间，哥哥会去北京做饭。",
+    "options": [
+      "我们中午一起吃饭吧。",
+      "因为工作很忙，爸爸只能晚上旅行。",
+      "你住在哪里？",
+      "如果有时间，哥哥会去北京做饭。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "为了打电话，医生提前来到商店。",
+    "meaning": "为了打电话，医生提前来到商店。",
+    "options": [
+      "你收到我的消息了吗？",
+      "我有一点累。",
+      "为了打电话，医生提前来到商店。",
+      "如果有时间，哥哥会去北京做饭。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "他正在餐厅坐地铁。",
+    "meaning": "他正在餐厅坐地铁。",
+    "options": [
+      "他正在餐厅坐地铁。",
+      "我还不明白。",
+      "下午三点见。",
+      "昨天爸爸在医院看电影，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我的同学希望明天可以继续听音乐。",
+    "meaning": "我的同学希望明天可以继续听音乐。",
+    "options": [
+      "姐姐希望明天可以继续运动。",
+      "我的同学希望明天可以继续听音乐。",
+      "我需要休息一下。",
+      "我要一杯热茶。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "昨天爸爸在医院看电影，所以回家比较晚。",
+    "meaning": "昨天，爸爸在医院看电影，所以回家比较晚。",
+    "options": [
+      "虽然时间不多，但是医生还是完成了工作。",
+      "我的中文进步了一点。",
+      "因为工作很忙，他只能晚上买东西。",
+      "昨天爸爸在医院看电影，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "姐姐告诉我，他最近正在做作业。",
+    "meaning": "姐姐告诉我，他最近正在做作业。",
+    "options": [
+      "姐姐告诉我，他最近正在做作业。",
+      "你喜欢听什么音乐？",
+      "我觉得这个方法很好。",
+      "你想喝茶还是咖啡？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "因为工作很忙，我只能晚上买东西。",
+    "meaning": "因为工作很忙，我只能晚上买东西。",
+    "options": [
+      "因为工作很忙，我只能晚上买东西。",
+      "再试一次。",
+      "我有点累。",
+      "请把窗户打开。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "周末的时候，她喜欢去机场准备考试。",
+    "meaning": "周末的时候，她喜欢去机场准备考试。",
+    "options": [
+      "我住在海防。",
+      "这是我的朋友。",
+      "周末的时候，她喜欢去机场准备考试。",
+      "老师正在检查咖啡，准备开始买东西。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "老师觉得学习汉语很重要。",
+    "meaning": "老师觉得学习汉语很重要。",
+    "options": [
+      "老师觉得学习汉语很重要。",
+      "我听说孩子最近在超市负责学习汉语。",
+      "我已经吃过午饭了。",
+      "姐姐每天都要准备考试。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "经过讨论，妈妈决定在超市工作。",
+    "meaning": "经过讨论，妈妈决定在超市工作。",
+    "options": [
+      "经过讨论，妈妈决定在超市工作。",
+      "我没听清楚。",
+      "我有一个姐姐。",
+      "在第二个路口右转。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "为了准备明天的工作，孩子今晚还要旅行。",
+    "meaning": "为了准备明天的工作，孩子今晚还要旅行。",
+    "options": [
+      "经过讨论，我的同学决定在餐厅打电话。",
+      "经过讨论，你决定在上海做作业。",
+      "如果计划没有变化，哥哥下午会在公司学习汉语。",
+      "为了准备明天的工作，孩子今晚还要旅行。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "最近你常常需要运动。",
+    "meaning": "最近，你常常需要运动。",
+    "options": [
+      "老师觉得学习汉语很重要。",
+      "我们中午一起吃饭吧。",
+      "我的同学希望明天可以继续听音乐。",
+      "最近你常常需要运动。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "如果计划没有变化，我的朋友下午会在车站做饭。",
+    "meaning": "如果计划没有变化，我的朋友下午会在车站做饭。",
+    "options": [
+      "我住在海防。",
+      "今天老师在学校旅行。",
+      "如果计划没有变化，我的朋友下午会在车站做饭。",
+      "虽然时间不多，但是同事还是完成了做作业。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "同事已经把汉语书带到北京了。",
+    "meaning": "同事已经把汉语书带到北京了。",
+    "options": [
+      "同事已经把汉语书带到北京了。",
+      "请把窗户打开。",
+      "我的朋友正在检查咖啡，准备开始买东西。",
+      "你可以帮我一下吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "哥哥正在检查自行车，准备开始坐地铁。",
+    "meaning": "哥哥正在检查自行车，准备开始坐地铁。",
+    "options": [
+      "你已经把报纸带到商店了。",
+      "哥哥正在检查自行车，准备开始坐地铁。",
+      "会议结束以后，你马上回到机场继续听音乐。",
+      "会议结束以后，她马上回到超市继续运动。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "会议结束以后，医生马上回到餐厅继续听音乐。",
+    "meaning": "会议结束以后，医生马上回到餐厅继续听音乐。",
+    "options": [
+      "因为工作很忙，他只能晚上买东西。",
+      "慢慢来。",
+      "医生告诉我，他最近正在做作业。",
+      "会议结束以后，医生马上回到餐厅继续听音乐。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我听说他最近在学校负责看电影。",
+    "meaning": "我听说，他最近在学校负责看电影。",
+    "options": [
+      "会议结束以后，你马上回到机场继续听音乐。",
+      "如果计划没有变化，孩子下午会在北京看电影。",
+      "这个词是什么意思？",
+      "我听说他最近在学校负责看电影。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "虽然时间不多，但是我的同学还是完成了做作业。",
+    "meaning": "虽然时间不多，但是我的同学还是完成了做作业。",
+    "options": [
+      "虽然时间不多，但是我的同学还是完成了做作业。",
+      "今天早点睡吧。",
+      "你在哪里？",
+      "如果有时间，我会去机场学习汉语。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "今天爸爸在图书馆买东西。",
+    "meaning": "今天，爸爸在图书馆买东西。",
+    "options": [
+      "你能解释一下吗？",
+      "今天爸爸在图书馆买东西。",
+      "为了做作业，同事提前来到餐厅。",
+      "我今天感觉很好。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "姐姐每天都要准备考试。",
+    "meaning": "姐姐每天都要准备考试。",
+    "options": [
+      "姐姐每天都要准备考试。",
+      "在第二个路口右转。",
+      "他比我高一点。",
+      "你已经把报纸带到商店了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "如果有时间，我会去机场学习汉语。",
+    "meaning": "如果有时间，我会去机场学习汉语。",
+    "options": [
+      "哥哥觉得看电影很重要。",
+      "如果有时间，我会去机场学习汉语。",
+      "我们一起练习吧。",
+      "你告诉我，他最近正在打电话。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "为了工作，她提前来到上海。",
+    "meaning": "为了工作，她提前来到上海。",
+    "options": [
+      "如果计划没有变化，他下午会在公园看电影。",
+      "为了工作，她提前来到上海。",
+      "孩子正在检查自行车，准备开始坐地铁。",
+      "请关一下门。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "老师正在超市旅行。",
+    "meaning": "老师正在超市旅行。",
+    "options": [
+      "妈妈每天都要运动。",
+      "为了准备明天的工作，爸爸今晚还要坐地铁。",
+      "老师正在超市旅行。",
+      "为了准备明天的工作，我今晚还要旅行。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "妈妈希望明天可以继续运动。",
+    "meaning": "妈妈希望明天可以继续运动。",
+    "options": [
+      "我的朋友觉得做饭很重要。",
+      "你有几个兄弟姐妹？",
+      "老师正在上课。",
+      "妈妈希望明天可以继续运动。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "昨天孩子在公司做饭，所以回家比较晚。",
+    "meaning": "昨天，孩子在公司做饭，所以回家比较晚。",
+    "options": [
+      "昨天孩子在公司做饭，所以回家比较晚。",
+      "我会说一点中文。",
+      "你今天怎么样？",
+      "虽然时间不多，但是我的同学还是完成了做作业。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你告诉我，他最近正在打电话。",
+    "meaning": "你告诉我，他最近正在打电话。",
+    "options": [
+      "如果有时间，他会去车站学习汉语。",
+      "你告诉我，他最近正在打电话。",
+      "我的朋友正在检查咖啡，准备开始买东西。",
+      "会议结束以后，姐姐马上回到北京继续准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "因为工作很忙，我的朋友只能晚上坐地铁。",
+    "meaning": "因为工作很忙，我的朋友只能晚上坐地铁。",
+    "options": [
+      "我忘记这个词了。",
+      "因为工作很忙，我的朋友只能晚上坐地铁。",
+      "我今天感觉很好。",
+      "妈妈已经把汉语书带到图书馆了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "周末的时候，同事喜欢去商店听音乐。",
+    "meaning": "周末的时候，同事喜欢去商店听音乐。",
+    "options": [
+      "我听说爸爸最近在餐厅负责做饭。",
+      "你喜欢什么运动？",
+      "到了给我发消息。",
+      "周末的时候，同事喜欢去商店听音乐。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "哥哥觉得看电影很重要。",
+    "meaning": "哥哥觉得看电影很重要。",
+    "options": [
+      "哥哥觉得看电影很重要。",
+      "我有一个姐姐。",
+      "你学中文多久了？",
+      "这个问题很简单。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "经过讨论，医生决定在学校做作业。",
+    "meaning": "经过讨论，医生决定在学校做作业。",
+    "options": [
+      "今天工作很忙。",
+      "虽然时间不多，但是她还是完成了工作。",
+      "经过讨论，医生决定在学校做作业。",
+      "老师觉得学习汉语很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "为了准备明天的工作，他今晚还要买东西。",
+    "meaning": "为了准备明天的工作，他今晚还要买东西。",
+    "options": [
+      "为了准备明天的工作，他今晚还要买东西。",
+      "周末的时候，医生喜欢去北京运动。",
+      "你准备好了吗？",
+      "我的朋友正在检查咖啡，准备开始买东西。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "最近我的同学常常需要准备考试。",
+    "meaning": "最近，我的同学常常需要准备考试。",
+    "options": [
+      "因为工作很忙，爸爸只能晚上旅行。",
+      "最近我的同学常常需要准备考试。",
+      "我明白了。",
+      "我的朋友正在检查咖啡，准备开始买东西。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "如果计划没有变化，爸爸下午会在家里学习汉语。",
+    "meaning": "如果计划没有变化，爸爸下午会在家里学习汉语。",
+    "options": [
+      "我忘记这个词了。",
+      "你想喝茶还是咖啡？",
+      "同事每天都要运动。",
+      "如果计划没有变化，爸爸下午会在家里学习汉语。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "姐姐已经把衣服带到机场了。",
+    "meaning": "姐姐已经把衣服带到机场了。",
+    "options": [
+      "这家饭店的菜很好吃。",
+      "姐姐已经把衣服带到机场了。",
+      "你的电话响了。",
+      "虽然时间不多，但是同事还是完成了做作业。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我正在检查照片，准备开始旅行。",
+    "meaning": "我正在检查照片，准备开始旅行。",
+    "options": [
+      "你在哪里？",
+      "这个词是什么意思？",
+      "我正在检查照片，准备开始旅行。",
+      "虽然时间不多，但是妈妈还是完成了打电话。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "会议结束以后，她马上回到超市继续运动。",
+    "meaning": "会议结束以后，她马上回到超市继续运动。",
+    "options": [
+      "今天爸爸在图书馆买东西。",
+      "会议结束以后，她马上回到超市继续运动。",
+      "昨天爸爸在医院看电影，所以回家比较晚。",
+      "我们几点见面？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我听说老师最近在公园负责做饭。",
+    "meaning": "我听说，老师最近在公园负责做饭。",
+    "options": [
+      "请看第三页。",
+      "我听说老师最近在公园负责做饭。",
+      "孩子觉得看电影很重要。",
+      "没问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "虽然时间不多，但是妈妈还是完成了打电话。",
+    "meaning": "虽然时间不多，但是妈妈还是完成了打电话。",
+    "options": [
+      "虽然时间不多，但是妈妈还是完成了打电话。",
+      "你会说中文吗？",
+      "同事希望明天可以继续听音乐。",
+      "为了准备明天的工作，孩子今晚还要旅行。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "今天孩子在车站坐地铁。",
+    "meaning": "今天，孩子在车站坐地铁。",
+    "options": [
+      "我正在检查照片，准备开始旅行。",
+      "今天孩子在车站坐地铁。",
+      "手机没电了。",
+      "我学中文一年了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你每天都要听音乐。",
+    "meaning": "你每天都要听音乐。",
+    "options": [
+      "哥哥正在学校买东西。",
+      "你每天都要听音乐。",
+      "这个问题有点难。",
+      "你的电话响了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "如果有时间，我的朋友会去商店看电影。",
+    "meaning": "如果有时间，我的朋友会去商店看电影。",
+    "options": [
+      "我喜欢打篮球。",
+      "昨天我的朋友在公园学习汉语，所以回家比较晚。",
+      "如果有时间，我的朋友会去商店看电影。",
+      "到了给我发消息。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "为了做作业，同事提前来到餐厅。",
+    "meaning": "为了做作业，同事提前来到餐厅。",
+    "options": [
+      "我今天感觉不错。",
+      "周末的时候，姐姐喜欢去上海运动。",
+      "为了做作业，同事提前来到餐厅。",
+      "如果计划没有变化，他下午会在公园看电影。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "哥哥正在学校买东西。",
+    "meaning": "哥哥正在学校买东西。",
+    "options": [
+      "虽然时间不多，但是姐姐还是完成了打电话。",
+      "今天早点睡吧。",
+      "你住在哪里？",
+      "哥哥正在学校买东西。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "医生希望明天可以继续准备考试。",
+    "meaning": "医生希望明天可以继续准备考试。",
+    "options": [
+      "医生已经把衣服带到车站了。",
+      "医生希望明天可以继续准备考试。",
+      "我不知道。",
+      "你喜欢听什么音乐？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "昨天他在图书馆学习汉语，所以回家比较晚。",
+    "meaning": "昨天，他在图书馆学习汉语，所以回家比较晚。",
+    "options": [
+      "我听说爸爸最近在餐厅负责做饭。",
+      "昨天他在图书馆学习汉语，所以回家比较晚。",
+      "会议结束以后，同事马上回到学校继续准备考试。",
+      "我喜欢打篮球。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我的同学告诉我，他最近正在工作。",
+    "meaning": "我的同学告诉我，他最近正在工作。",
+    "options": [
+      "周末的时候，医生喜欢去北京运动。",
+      "我的同学告诉我，他最近正在工作。",
+      "不要紧张。",
+      "今天太热了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "因为工作很忙，爸爸只能晚上旅行。",
+    "meaning": "因为工作很忙，爸爸只能晚上旅行。",
+    "options": [
+      "因为工作很忙，爸爸只能晚上旅行。",
+      "医生希望明天可以继续准备考试。",
+      "你想喝茶还是咖啡？",
+      "今天太热了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "周末的时候，姐姐喜欢去上海运动。",
+    "meaning": "周末的时候，姐姐喜欢去上海运动。",
+    "options": [
+      "你准备好了吗？",
+      "孩子正在检查自行车，准备开始坐地铁。",
+      "经过讨论，我的同学决定在餐厅打电话。",
+      "周末的时候，姐姐喜欢去上海运动。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我觉得做饭很重要。",
+    "meaning": "我觉得做饭很重要。",
+    "options": [
+      "为了工作，她提前来到上海。",
+      "请再说一遍。",
+      "今天他在超市坐地铁。",
+      "我觉得做饭很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "经过讨论，她决定在公园打电话。",
+    "meaning": "经过讨论，她决定在公园打电话。",
+    "options": [
+      "经过讨论，她决定在公园打电话。",
+      "昨天我在学校做饭，所以回家比较晚。",
+      "我正在检查照片，准备开始旅行。",
+      "你住在哪里？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "为了准备明天的工作，老师今晚还要坐地铁。",
+    "meaning": "为了准备明天的工作，老师今晚还要坐地铁。",
+    "options": [
+      "你能解释一下吗？",
+      "医生已经把衣服带到车站了。",
+      "今天孩子在车站坐地铁。",
+      "为了准备明天的工作，老师今晚还要坐地铁。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "最近妈妈常常需要听音乐。",
+    "meaning": "最近，妈妈常常需要听音乐。",
+    "options": [
+      "我喜欢在家看电影。",
+      "路上小心。",
+      "最近妈妈常常需要听音乐。",
+      "我去年开始学中文。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "如果计划没有变化，孩子下午会在北京看电影。",
+    "meaning": "如果计划没有变化，孩子下午会在北京看电影。",
+    "options": [
+      "会议结束以后，我的同学马上回到商店继续运动。",
+      "今天早点睡吧。",
+      "我听说他最近在学校负责看电影。",
+      "如果计划没有变化，孩子下午会在北京看电影。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你已经把报纸带到商店了。",
+    "meaning": "你已经把报纸带到商店了。",
+    "options": [
+      "到了给我发消息。",
+      "这件衣服多少钱？",
+      "你已经把报纸带到商店了。",
+      "请看第三页。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我的朋友正在检查咖啡，准备开始买东西。",
+    "meaning": "我的朋友正在检查咖啡，准备开始买东西。",
+    "options": [
+      "我的朋友正在检查咖啡，准备开始买东西。",
+      "我的朋友觉得做饭很重要。",
+      "这个问题很重要。",
+      "我在门口等你。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "会议结束以后，同事马上回到学校继续准备考试。",
+    "meaning": "会议结束以后，同事马上回到学校继续准备考试。",
+    "options": [
+      "我忘记带手机了。",
+      "会议结束以后，同事马上回到学校继续准备考试。",
+      "水太烫了。",
+      "我昨天去了超市。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我听说哥哥最近在医院负责学习汉语。",
+    "meaning": "我听说，哥哥最近在医院负责学习汉语。",
+    "options": [
+      "这个问题有点难。",
+      "为了准备明天的工作，爸爸今晚还要坐地铁。",
+      "你每天都要听音乐。",
+      "我听说哥哥最近在医院负责学习汉语。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "虽然时间不多，但是医生还是完成了工作。",
+    "meaning": "虽然时间不多，但是医生还是完成了工作。",
+    "options": [
+      "虽然时间不多，但是医生还是完成了工作。",
+      "我有一个妹妹。",
+      "你昨天几点回家？",
+      "我正在做作业。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "今天老师在餐厅介绍自己。",
+    "meaning": "今天，老师在餐厅介绍自己。",
+    "options": [
+      "哥哥希望明天可以继续完成作业。",
+      "该你回答了。",
+      "我正在车站学习汉语。",
+      "今天老师在餐厅介绍自己。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "哥哥每天都要完成作业。",
+    "meaning": "哥哥每天都要完成作业。",
+    "options": [
+      "哥哥每天都要完成作业。",
+      "下一班车几点出发？",
+      "老师正在机场准备考试。",
+      "我希望你能理解我的意思。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "如果有时间，经理会去机场联系朋友。",
+    "meaning": "如果有时间，经理会去机场联系朋友。",
+    "options": [
+      "我正在家里练习发音。",
+      "如果有时间，经理会去机场联系朋友。",
+      "我有不同的意见。",
+      "昨天哥哥在上海完成作业，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了练习发音，我提前来到医院。",
+    "meaning": "为了练习发音，我提前来到医院。",
+    "options": [
+      "经过讨论，经理决定在北京联系朋友。",
+      "为了练习发音，我提前来到医院。",
+      "这个问题需要时间。",
+      "加油！"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "老师正在广州买东西。",
+    "meaning": "老师正在广州买东西。",
+    "options": [
+      "老师正在广州买东西。",
+      "你最近怎么样？",
+      "会议结束以后，我马上回到医院继续学习汉语。",
+      "让我想一想。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "哥哥希望明天可以继续解决问题。",
+    "meaning": "哥哥希望明天可以继续解决问题。",
+    "options": [
+      "老师希望明天可以继续介绍自己。",
+      "老师正在检查礼物，准备开始介绍自己。",
+      "虽然时间不多，但是哥哥还是完成了参加会议。",
+      "哥哥希望明天可以继续解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "昨天经理在图书馆安排时间，所以回家比较晚。",
+    "meaning": "昨天，经理在图书馆安排时间，所以回家比较晚。",
+    "options": [
+      "网络有点慢。",
+      "哥哥希望明天可以继续参加会议。",
+      "虽然很忙，但是我会完成。",
+      "昨天经理在图书馆安排时间，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我告诉我，他最近正在学习汉语。",
+    "meaning": "我告诉我，他最近正在学习汉语。",
+    "options": [
+      "你对这个计划有什么建议？",
+      "我告诉我，他最近正在学习汉语。",
+      "我还差一点。",
+      "请按照说明完成这项工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "因为工作很忙，老师只能晚上准备考试。",
+    "meaning": "因为工作很忙，老师只能晚上准备考试。",
+    "options": [
+      "今天就练到这里。",
+      "坚持下去一定会有进步。",
+      "因为工作很忙，老师只能晚上准备考试。",
+      "因为工作很忙，老师只能晚上介绍自己。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "周末的时候，哥哥喜欢去公园参加会议。",
+    "meaning": "周末的时候，哥哥喜欢去公园参加会议。",
+    "options": [
+      "你对这个计划有什么建议？",
+      "哥哥已经把自行车带到家里了。",
+      "周末的时候，哥哥喜欢去公园参加会议。",
+      "请在这里停车。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经理觉得计划旅行很重要。",
+    "meaning": "经理觉得计划旅行很重要。",
+    "options": [
+      "今天老师在餐厅介绍自己。",
+      "因为工作很忙，我只能晚上学习汉语。",
+      "经理觉得计划旅行很重要。",
+      "现在我觉得容易多了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我决定在超市打扫房间。",
+    "meaning": "经过讨论，我决定在超市打扫房间。",
+    "options": [
+      "没问题，我等你。",
+      "你对这个计划有什么建议？",
+      "经过讨论，我决定在超市打扫房间。",
+      "经理觉得联系朋友很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "为了准备明天的工作，老师今晚还要介绍自己。",
+    "meaning": "为了准备明天的工作，老师今晚还要介绍自己。",
+    "options": [
+      "为了准备明天的工作，老师今晚还要介绍自己。",
+      "这个决定对大家都很重要。",
+      "经理告诉我，他最近正在安排时间。",
+      "今天我在上海练习发音。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "最近哥哥常常需要完成作业。",
+    "meaning": "最近，哥哥常常需要完成作业。",
+    "options": [
+      "哥哥每天都要解决问题。",
+      "最近哥哥常常需要完成作业。",
+      "因为工作很忙，老师只能晚上介绍自己。",
+      "我想提高听力。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果计划没有变化，经理下午会在餐厅联系朋友。",
+    "meaning": "如果计划没有变化，经理下午会在餐厅联系朋友。",
+    "options": [
+      "明天继续练习。",
+      "请问还有空房吗？",
+      "我们需要找到解决办法。",
+      "如果计划没有变化，经理下午会在餐厅联系朋友。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我已经把电脑带到上海了。",
+    "meaning": "我已经把电脑带到上海了。",
+    "options": [
+      "你平时跟谁练习中文？",
+      "我已经把电脑带到上海了。",
+      "最近我常常需要打扫房间。",
+      "别想太多。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "老师正在检查中文书，准备开始买东西。",
+    "meaning": "老师正在检查中文书，准备开始买东西。",
+    "options": [
+      "老师正在检查中文书，准备开始买东西。",
+      "我已经完成了。",
+      "我还需要一点时间。",
+      "你最近怎么样？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "会议结束以后，哥哥马上回到医院继续解决问题。",
+    "meaning": "会议结束以后，哥哥马上回到医院继续解决问题。",
+    "options": [
+      "为了学习汉语，我提前来到上海。",
+      "因为下雨，所以我们没有出去。",
+      "这个建议很好。",
+      "会议结束以后，哥哥马上回到医院继续解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我听说经理最近在广州负责安排时间。",
+    "meaning": "我听说，经理最近在广州负责安排时间。",
+    "options": [
+      "老师希望明天可以继续买东西。",
+      "我听说经理最近在广州负责安排时间。",
+      "再听一次，你会听出来的。",
+      "无线网络的密码是什么？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "虽然时间不多，但是我还是完成了学习汉语。",
+    "meaning": "虽然时间不多，但是我还是完成了学习汉语。",
+    "options": [
+      "我正在车站学习汉语。",
+      "下一班车几点出发？",
+      "虽然时间不多，但是我还是完成了学习汉语。",
+      "学习语言需要时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "今天老师在图书馆准备考试。",
+    "meaning": "今天，老师在图书馆准备考试。",
+    "options": [
+      "会议结束以后，老师马上回到图书馆继续买东西。",
+      "如果计划没有变化，经理下午会在餐厅联系朋友。",
+      "今天老师在图书馆准备考试。",
+      "我最喜欢学口语。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "哥哥每天都要参加会议。",
+    "meaning": "哥哥每天都要参加会议。",
+    "options": [
+      "我听说老师最近在广州负责准备考试。",
+      "哥哥每天都要参加会议。",
+      "你对这个计划有什么建议？",
+      "我听说哥哥最近在家里负责解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果有时间，经理会去银行计划旅行。",
+    "meaning": "如果有时间，经理会去银行计划旅行。",
+    "options": [
+      "如果有时间，经理会去银行计划旅行。",
+      "你对这个计划有什么建议？",
+      "我们应该先解决最重要的问题。",
+      "经理正在检查手机，准备开始安排时间。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "为了打扫房间，我提前来到公园。",
+    "meaning": "为了打扫房间，我提前来到公园。",
+    "options": [
+      "今天就练到这里。",
+      "昨天经理在图书馆安排时间，所以回家比较晚。",
+      "为了打扫房间，我提前来到公园。",
+      "我每天都要打扫房间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "老师正在公司介绍自己。",
+    "meaning": "老师正在公司介绍自己。",
+    "options": [
+      "答错了也没关系。",
+      "你准备好回答了吗？",
+      "经理告诉我，他最近正在安排时间。",
+      "老师正在公司介绍自己。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "哥哥希望明天可以继续完成作业。",
+    "meaning": "哥哥希望明天可以继续完成作业。",
+    "options": [
+      "老师每天都要买东西。",
+      "没什么，只是有点累。",
+      "哥哥希望明天可以继续完成作业。",
+      "请开快一点。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "昨天经理在北京联系朋友，所以回家比较晚。",
+    "meaning": "昨天，经理在北京联系朋友，所以回家比较晚。",
+    "options": [
+      "现在路上堵车吗？",
+      "我们需要提前准备材料。",
+      "昨天经理在北京联系朋友，所以回家比较晚。",
+      "为了打扫房间，我提前来到公园。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我告诉我，他最近正在练习发音。",
+    "meaning": "我告诉我，他最近正在练习发音。",
+    "options": [
+      "我告诉我，他最近正在练习发音。",
+      "这样做比较方便。",
+      "你的反应越来越快了。",
+      "因为工作很忙，老师只能晚上介绍自己。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "因为工作很忙，老师只能晚上买东西。",
+    "meaning": "因为工作很忙，老师只能晚上买东西。",
+    "options": [
+      "请告诉我详细的地址。",
+      "因为工作很忙，老师只能晚上买东西。",
+      "请集中注意力。",
+      "如果计划没有变化，经理下午会在图书馆计划旅行。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "周末的时候，哥哥喜欢去上海解决问题。",
+    "meaning": "周末的时候，哥哥喜欢去上海解决问题。",
+    "options": [
+      "最近一切都不错。",
+      "哥哥每天都要参加会议。",
+      "请在这里停车。",
+      "周末的时候，哥哥喜欢去上海解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "经理觉得安排时间很重要。",
+    "meaning": "经理觉得安排时间很重要。",
+    "options": [
+      "你为什么不开心？",
+      "经理觉得安排时间很重要。",
+      "你觉得中文难吗？",
+      "虽然时间不多，但是哥哥还是完成了参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我决定在医院学习汉语。",
+    "meaning": "经过讨论，我决定在医院学习汉语。",
+    "options": [
+      "经理正在公司联系朋友。",
+      "如果有时间，哥哥会去超市参加会议。",
+      "经过讨论，我决定在医院学习汉语。",
+      "认真听，不要着急。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "为了准备明天的工作，老师今晚还要准备考试。",
+    "meaning": "为了准备明天的工作，老师今晚还要准备考试。",
+    "options": [
+      "每天一点点就很好。",
+      "最近哥哥常常需要参加会议。",
+      "为了准备明天的工作，老师今晚还要准备考试。",
+      "我说得对吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "最近哥哥常常需要参加会议。",
+    "meaning": "最近，哥哥常常需要参加会议。",
+    "options": [
+      "经过讨论，我决定在超市打扫房间。",
+      "最近哥哥常常需要参加会议。",
+      "你觉得这个办法怎么样？",
+      "周末的时候，老师喜欢去广州买东西。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果计划没有变化，经理下午会在图书馆计划旅行。",
+    "meaning": "如果计划没有变化，经理下午会在图书馆计划旅行。",
+    "options": [
+      "无线网络的密码是什么？",
+      "我马上处理。",
+      "我告诉我，他最近正在打扫房间。",
+      "如果计划没有变化，经理下午会在图书馆计划旅行。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我已经把机票带到家里了。",
+    "meaning": "我已经把机票带到家里了。",
+    "options": [
+      "我希望以后可以说得更流利。",
+      "加油！",
+      "这样做比较方便。",
+      "我已经把机票带到家里了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "老师正在检查礼物，准备开始介绍自己。",
+    "meaning": "老师正在检查礼物，准备开始介绍自己。",
+    "options": [
+      "老师每天都要准备考试。",
+      "为了打扫房间，我提前来到公园。",
+      "老师正在检查礼物，准备开始介绍自己。",
+      "你已经做得很好了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "会议结束以后，哥哥马上回到公园继续完成作业。",
+    "meaning": "会议结束以后，哥哥马上回到公园继续完成作业。",
+    "options": [
+      "会议结束以后，哥哥马上回到公园继续完成作业。",
+      "下一题会稍微难一点。",
+      "经过讨论，经理决定在餐厅计划旅行。",
+      "听到熟悉的词就先记下来。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我听说经理最近在公司负责联系朋友。",
+    "meaning": "我听说，经理最近在公司负责联系朋友。",
+    "options": [
+      "请按照说明完成这项工作。",
+      "我听说经理最近在公司负责联系朋友。",
+      "虽然时间不多，但是我还是完成了打扫房间。",
+      "如果计划没有变化，经理下午会在北京安排时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "虽然时间不多，但是我还是完成了练习发音。",
+    "meaning": "虽然时间不多，但是我还是完成了练习发音。",
+    "options": [
+      "虽然时间不多，但是我还是完成了练习发音。",
+      "虽然时间不多，但是经理还是完成了安排时间。",
+      "最近我常常需要打扫房间。",
+      "哥哥觉得参加会议很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "今天老师在北京买东西。",
+    "meaning": "今天，老师在北京买东西。",
+    "options": [
+      "今天老师在北京买东西。",
+      "因为工作很忙，我只能晚上练习发音。",
+      "会议结束以后，老师马上回到图书馆继续买东西。",
+      "请给我一张发票。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "哥哥每天都要解决问题。",
+    "meaning": "哥哥每天都要解决问题。",
+    "options": [
+      "哥哥每天都要解决问题。",
+      "我的房间在哪里？",
+      "如果有时间，经理会去银行计划旅行。",
+      "虽然时间不多，但是哥哥还是完成了参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "如果有时间，经理会去餐厅安排时间。",
+    "meaning": "如果有时间，经理会去餐厅安排时间。",
+    "options": [
+      "我们先讨论一下。",
+      "经理觉得计划旅行很重要。",
+      "今天我们练习十句话。",
+      "如果有时间，经理会去餐厅安排时间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "为了学习汉语，我提前来到上海。",
+    "meaning": "为了学习汉语，我提前来到上海。",
+    "options": [
+      "为了学习汉语，我提前来到上海。",
+      "早餐几点开始？",
+      "我听说老师最近在广州负责准备考试。",
+      "请问还有空房吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "老师正在机场准备考试。",
+    "meaning": "老师正在机场准备考试。",
+    "options": [
+      "为了学习汉语，我提前来到上海。",
+      "经理觉得联系朋友很重要。",
+      "老师正在机场准备考试。",
+      "没什么，只是有点累。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "哥哥希望明天可以继续参加会议。",
+    "meaning": "哥哥希望明天可以继续参加会议。",
+    "options": [
+      "哥哥希望明天可以继续参加会议。",
+      "先不要看拼音。",
+      "这个建议很好。",
+      "先听关键词，再理解整句话。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "昨天经理在广州计划旅行，所以回家比较晚。",
+    "meaning": "昨天，经理在广州计划旅行，所以回家比较晚。",
+    "options": [
+      "今天老师在图书馆准备考试。",
+      "我们先讨论一下。",
+      "如果明天下雨，我们就改天再去。",
+      "昨天经理在广州计划旅行，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我告诉我，他最近正在打扫房间。",
+    "meaning": "我告诉我，他最近正在打扫房间。",
+    "options": [
+      "我想住两晚。",
+      "我告诉我，他最近正在打扫房间。",
+      "经理觉得计划旅行很重要。",
+      "今天比昨天进步了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "因为工作很忙，老师只能晚上介绍自己。",
+    "meaning": "因为工作很忙，老师只能晚上介绍自己。",
+    "options": [
+      "因为工作很忙，老师只能晚上介绍自己。",
+      "老师正在广州买东西。",
+      "这样更容易记住。",
+      "今天我在公园学习汉语。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "周末的时候，哥哥喜欢去家里完成作业。",
+    "meaning": "周末的时候，哥哥喜欢去家里完成作业。",
+    "options": [
+      "请按照说明完成这项工作。",
+      "周末的时候，哥哥喜欢去家里完成作业。",
+      "我每天都要打扫房间。",
+      "为了完成作业，哥哥提前来到公园。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "经理觉得联系朋友很重要。",
+    "meaning": "经理觉得联系朋友很重要。",
+    "options": [
+      "经理觉得联系朋友很重要。",
+      "请提前十分钟到。",
+      "我听说经理最近在广州负责安排时间。",
+      "经理觉得计划旅行很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我决定在公园练习发音。",
+    "meaning": "经过讨论，我决定在公园练习发音。",
+    "options": [
+      "虽然时间不多，但是我还是完成了练习发音。",
+      "经过讨论，我决定在公园练习发音。",
+      "周末的时候，哥哥喜欢去公园参加会议。",
+      "祝你今天开心。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了准备明天的工作，老师今晚还要买东西。",
+    "meaning": "为了准备明天的工作，老师今晚还要买东西。",
+    "options": [
+      "虽然时间不多，但是我还是完成了练习发音。",
+      "为了安排时间，经理提前来到广州。",
+      "我的房间在哪里？",
+      "为了准备明天的工作，老师今晚还要买东西。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "最近哥哥常常需要解决问题。",
+    "meaning": "最近，哥哥常常需要解决问题。",
+    "options": [
+      "每天一点点就很好。",
+      "最近哥哥常常需要解决问题。",
+      "老师希望明天可以继续介绍自己。",
+      "我正在练习听力。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果计划没有变化，经理下午会在北京安排时间。",
+    "meaning": "如果计划没有变化，经理下午会在北京安排时间。",
+    "options": [
+      "如果计划没有变化，经理下午会在北京安排时间。",
+      "经理已经把地图带到广州了。",
+      "我们每天晚上聊天。",
+      "欢迎来到我们的中文课程。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经把照片带到学校了。",
+    "meaning": "我已经把照片带到学校了。",
+    "options": [
+      "欢迎来到我们的中文课程。",
+      "我已经把照片带到学校了。",
+      "虽然时间不多，但是哥哥还是完成了参加会议。",
+      "今天老师在图书馆准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "老师正在检查雨伞，准备开始准备考试。",
+    "meaning": "老师正在检查雨伞，准备开始准备考试。",
+    "options": [
+      "下一班车几点出发？",
+      "听不懂的时候可以再听一次。",
+      "老师正在检查雨伞，准备开始准备考试。",
+      "我们应该先解决最重要的问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "会议结束以后，哥哥马上回到上海继续参加会议。",
+    "meaning": "会议结束以后，哥哥马上回到上海继续参加会议。",
+    "options": [
+      "该你回答了。",
+      "会议结束以后，哥哥马上回到上海继续参加会议。",
+      "今天经理在北京安排时间。",
+      "哥哥每天都要参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我听说经理最近在机场负责计划旅行。",
+    "meaning": "我听说，经理最近在机场负责计划旅行。",
+    "options": [
+      "哥哥觉得参加会议很重要。",
+      "我听说经理最近在机场负责计划旅行。",
+      "请按照说明完成这项工作。",
+      "周末的时候，老师喜欢去公司介绍自己。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "虽然时间不多，但是我还是完成了打扫房间。",
+    "meaning": "虽然时间不多，但是我还是完成了打扫房间。",
+    "options": [
+      "没什么，只是有点累。",
+      "不要害怕说错。",
+      "祝你一路顺风。",
+      "虽然时间不多，但是我还是完成了打扫房间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "今天老师在广州介绍自己。",
+    "meaning": "今天，老师在广州介绍自己。",
+    "options": [
+      "昨天哥哥在家里参加会议，所以回家比较晚。",
+      "今天老师在广州介绍自己。",
+      "坚持下去一定会有进步。",
+      "先听关键词，再理解整句话。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果有时间，哥哥会去车站完成作业。",
+    "meaning": "如果有时间，哥哥会去车站完成作业。",
+    "options": [
+      "今天我在上海练习发音。",
+      "这一题你答对了。",
+      "这样做比较方便。",
+      "如果有时间，哥哥会去车站完成作业。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "为了联系朋友，经理提前来到图书馆。",
+    "meaning": "为了联系朋友，经理提前来到图书馆。",
+    "options": [
+      "只要努力，就会进步。",
+      "欢迎来到我们的中文课程。",
+      "我们应该先解决最重要的问题。",
+      "为了联系朋友，经理提前来到图书馆。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我正在家里练习发音。",
+    "meaning": "我正在家里练习发音。",
+    "options": [
+      "我正在家里练习发音。",
+      "经过讨论，经理决定在图书馆安排时间。",
+      "会议结束以后，我马上回到公园继续练习发音。",
+      "我说得对吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "老师希望明天可以继续买东西。",
+    "meaning": "老师希望明天可以继续买东西。",
+    "options": [
+      "我还需要一点时间。",
+      "因为下雨，所以我们没有出去。",
+      "老师希望明天可以继续买东西。",
+      "今天的工作完成了吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "昨天哥哥在公园解决问题，所以回家比较晚。",
+    "meaning": "昨天，哥哥在公园解决问题，所以回家比较晚。",
+    "options": [
+      "周末的时候，老师喜欢去公司介绍自己。",
+      "这个决定对大家都很重要。",
+      "昨天哥哥在公园解决问题，所以回家比较晚。",
+      "虽然时间不多，但是我还是完成了打扫房间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经理告诉我，他最近正在安排时间。",
+    "meaning": "经理告诉我，他最近正在安排时间。",
+    "options": [
+      "如果计划没有变化，经理下午会在北京安排时间。",
+      "经理觉得计划旅行很重要。",
+      "多听几遍就会越来越熟悉。",
+      "经理告诉我，他最近正在安排时间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "因为工作很忙，我只能晚上学习汉语。",
+    "meaning": "因为工作很忙，我只能晚上学习汉语。",
+    "options": [
+      "因为工作很忙，我只能晚上学习汉语。",
+      "现在开始下一题。",
+      "我同意你的看法。",
+      "经过讨论，经理决定在图书馆安排时间。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "周末的时候，老师喜欢去北京准备考试。",
+    "meaning": "周末的时候，老师喜欢去北京准备考试。",
+    "options": [
+      "周末的时候，老师喜欢去北京准备考试。",
+      "经理觉得安排时间很重要。",
+      "今天就练到这里。",
+      "我喜欢用中文聊天。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "哥哥觉得参加会议很重要。",
+    "meaning": "哥哥觉得参加会议很重要。",
+    "options": [
+      "经理告诉我，他最近正在安排时间。",
+      "每天一点点就很好。",
+      "哥哥觉得参加会议很重要。",
+      "重复练习可以提高反应速度。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，经理决定在餐厅计划旅行。",
+    "meaning": "经过讨论，经理决定在餐厅计划旅行。",
+    "options": [
+      "如果计划没有变化，经理下午会在北京安排时间。",
+      "经过讨论，经理决定在餐厅计划旅行。",
+      "因为工作很忙，我只能晚上练习发音。",
+      "为了打扫房间，我提前来到公园。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了准备明天的工作，我今晚还要打扫房间。",
+    "meaning": "为了准备明天的工作，我今晚还要打扫房间。",
+    "options": [
+      "最近老师常常需要准备考试。",
+      "祝你今天开心。",
+      "为了准备明天的工作，我今晚还要打扫房间。",
+      "你觉得中文难吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "最近老师常常需要介绍自己。",
+    "meaning": "最近，老师常常需要介绍自己。",
+    "options": [
+      "最近老师常常需要介绍自己。",
+      "虽然时间不多，但是我还是完成了学习汉语。",
+      "如果计划没有变化，经理下午会在北京安排时间。",
+      "除了中文，我还学习英语。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "如果计划没有变化，哥哥下午会在医院完成作业。",
+    "meaning": "如果计划没有变化，哥哥下午会在医院完成作业。",
+    "options": [
+      "如果计划没有变化，哥哥下午会在医院完成作业。",
+      "老师正在检查中文书，准备开始买东西。",
+      "你可以再听一次。",
+      "加油！"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "经理已经把地图带到广州了。",
+    "meaning": "经理已经把地图带到广州了。",
+    "options": [
+      "你为什么不开心？",
+      "加油！",
+      "你觉得中文难吗？",
+      "经理已经把地图带到广州了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我正在检查电脑，准备开始练习发音。",
+    "meaning": "我正在检查电脑，准备开始练习发音。",
+    "options": [
+      "我还差一点。",
+      "我正在检查电脑，准备开始练习发音。",
+      "今天经理在北京安排时间。",
+      "请问需要多长时间？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "会议结束以后，老师马上回到图书馆继续买东西。",
+    "meaning": "会议结束以后，老师马上回到图书馆继续买东西。",
+    "options": [
+      "我每天都听中文。",
+      "因为工作很忙，我只能晚上打扫房间。",
+      "周末的时候，哥哥喜欢去上海解决问题。",
+      "会议结束以后，老师马上回到图书馆继续买东西。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我听说哥哥最近在家里负责解决问题。",
+    "meaning": "我听说，哥哥最近在家里负责解决问题。",
+    "options": [
+      "请开快一点。",
+      "听完以后再看答案。",
+      "周末的时候，老师喜欢去公司介绍自己。",
+      "我听说哥哥最近在家里负责解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "虽然时间不多，但是经理还是完成了安排时间。",
+    "meaning": "虽然时间不多，但是经理还是完成了安排时间。",
+    "options": [
+      "我们应该先解决最重要的问题。",
+      "我跟朋友一起练习。",
+      "虽然时间不多，但是经理还是完成了安排时间。",
+      "我正在检查电脑，准备开始练习发音。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "今天我在公园学习汉语。",
+    "meaning": "今天，我在公园学习汉语。",
+    "options": [
+      "经理告诉我，他最近正在计划旅行。",
+      "老师希望明天可以继续准备考试。",
+      "今天我在公园学习汉语。",
+      "如果有时间，经理会去餐厅安排时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "老师每天都要准备考试。",
+    "meaning": "老师每天都要准备考试。",
+    "options": [
+      "我已经收到文件了。",
+      "今天老师在广州介绍自己。",
+      "请不要忘记带身份证。",
+      "老师每天都要准备考试。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "如果有时间，哥哥会去超市参加会议。",
+    "meaning": "如果有时间，哥哥会去超市参加会议。",
+    "options": [
+      "如果有时间，哥哥会去超市参加会议。",
+      "我已经把资料发给你了。",
+      "周末的时候，我喜欢去上海学习汉语。",
+      "老师正在公司介绍自己。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "为了计划旅行，经理提前来到北京。",
+    "meaning": "为了计划旅行，经理提前来到北京。",
+    "options": [
+      "为了计划旅行，经理提前来到北京。",
+      "请问还有空房吗？",
+      "开始的时候有一点难。",
+      "我听说哥哥最近在家里负责解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我正在学校打扫房间。",
+    "meaning": "我正在学校打扫房间。",
+    "options": [
+      "经理已经把地图带到广州了。",
+      "请给我一张发票。",
+      "会议结束以后，我马上回到医院继续学习汉语。",
+      "我正在学校打扫房间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "老师希望明天可以继续介绍自己。",
+    "meaning": "老师希望明天可以继续介绍自己。",
+    "options": [
+      "今天老师在广州介绍自己。",
+      "周末的时候，老师喜欢去广州买东西。",
+      "虽然时间不多，但是我还是完成了打扫房间。",
+      "老师希望明天可以继续介绍自己。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "昨天哥哥在上海完成作业，所以回家比较晚。",
+    "meaning": "昨天，哥哥在上海完成作业，所以回家比较晚。",
+    "options": [
+      "虽然时间不多，但是我还是完成了打扫房间。",
+      "因为今天下雨，所以我没出去。",
+      "昨天哥哥在上海完成作业，所以回家比较晚。",
+      "电梯在哪里？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经理告诉我，他最近正在联系朋友。",
+    "meaning": "经理告诉我，他最近正在联系朋友。",
+    "options": [
+      "经理告诉我，他最近正在联系朋友。",
+      "祝你学习进步。",
+      "老师正在检查雨伞，准备开始准备考试。",
+      "我正在家里练习发音。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "因为工作很忙，我只能晚上练习发音。",
+    "meaning": "因为工作很忙，我只能晚上练习发音。",
+    "options": [
+      "下一班车几点出发？",
+      "为了准备明天的工作，我今晚还要学习汉语。",
+      "因为工作很忙，我只能晚上练习发音。",
+      "你为什么不开心？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "周末的时候，老师喜欢去广州买东西。",
+    "meaning": "周末的时候，老师喜欢去广州买东西。",
+    "options": [
+      "如果计划没有变化，经理下午会在餐厅联系朋友。",
+      "周末的时候，老师喜欢去广州买东西。",
+      "今天老师在北京买东西。",
+      "我们明天再讨论。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "哥哥觉得解决问题很重要。",
+    "meaning": "哥哥觉得解决问题很重要。",
+    "options": [
+      "哥哥觉得解决问题很重要。",
+      "经理觉得安排时间很重要。",
+      "昨天哥哥在公园解决问题，所以回家比较晚。",
+      "哥哥告诉我，他最近正在解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，经理决定在图书馆安排时间。",
+    "meaning": "经过讨论，经理决定在图书馆安排时间。",
+    "options": [
+      "经过讨论，经理决定在北京联系朋友。",
+      "请集中注意力。",
+      "每天练习一点儿很重要。",
+      "经过讨论，经理决定在图书馆安排时间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "为了准备明天的工作，我今晚还要学习汉语。",
+    "meaning": "为了准备明天的工作，我今晚还要学习汉语。",
+    "options": [
+      "现在路上堵车吗？",
+      "经理正在检查地图，准备开始联系朋友。",
+      "为了准备明天的工作，我今晚还要学习汉语。",
+      "我们先讨论一下。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "最近老师常常需要准备考试。",
+    "meaning": "最近，老师常常需要准备考试。",
+    "options": [
+      "最近老师常常需要准备考试。",
+      "请把文件发给我。",
+      "我想提高听力。",
+      "虽然很忙，但是我会完成。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "如果计划没有变化，哥哥下午会在公园参加会议。",
+    "meaning": "如果计划没有变化，哥哥下午会在公园参加会议。",
+    "options": [
+      "今天我在上海练习发音。",
+      "我们明天再讨论。",
+      "虽然时间不多，但是经理还是完成了安排时间。",
+      "如果计划没有变化，哥哥下午会在公园参加会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "经理已经把文件带到公司了。",
+    "meaning": "经理已经把文件带到公司了。",
+    "options": [
+      "现在开始下一题。",
+      "经理告诉我，他最近正在安排时间。",
+      "我告诉我，他最近正在打扫房间。",
+      "经理已经把文件带到公司了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我正在检查机票，准备开始打扫房间。",
+    "meaning": "我正在检查机票，准备开始打扫房间。",
+    "options": [
+      "我正在检查机票，准备开始打扫房间。",
+      "我听说哥哥最近在学校负责完成作业。",
+      "因为今天下雨，所以我没出去。",
+      "请告诉我详细的地址。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "会议结束以后，老师马上回到北京继续介绍自己。",
+    "meaning": "会议结束以后，老师马上回到北京继续介绍自己。",
+    "options": [
+      "会议结束以后，老师马上回到北京继续介绍自己。",
+      "为了准备明天的工作，经理今晚还要计划旅行。",
+      "你能解释原因吗？",
+      "准备好就开始吧。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我听说哥哥最近在学校负责完成作业。",
+    "meaning": "我听说，哥哥最近在学校负责完成作业。",
+    "options": [
+      "为了准备明天的工作，老师今晚还要买东西。",
+      "请稍等一下。",
+      "我听说哥哥最近在学校负责完成作业。",
+      "把新单词放进句子里学习。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "虽然时间不多，但是经理还是完成了联系朋友。",
+    "meaning": "虽然时间不多，但是经理还是完成了联系朋友。",
+    "options": [
+      "没问题，我等你。",
+      "虽然时间不多，但是经理还是完成了联系朋友。",
+      "老师希望明天可以继续介绍自己。",
+      "学习语言需要坚持。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "今天我在上海练习发音。",
+    "meaning": "今天，我在上海练习发音。",
+    "options": [
+      "今天我在上海练习发音。",
+      "虽然时间不多，但是我还是完成了练习发音。",
+      "别想太多。",
+      "我同意你的看法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "老师每天都要买东西。",
+    "meaning": "老师每天都要买东西。",
+    "options": [
+      "如果计划没有变化，经理下午会在北京安排时间。",
+      "老师每天都要买东西。",
+      "经理觉得计划旅行很重要。",
+      "老师正在检查雨伞，准备开始准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果有时间，哥哥会去医院解决问题。",
+    "meaning": "如果有时间，哥哥会去医院解决问题。",
+    "options": [
+      "这一题你答对了。",
+      "如果有时间，哥哥会去医院解决问题。",
+      "下一题会稍微难一点。",
+      "如果计划没有变化，老师下午会在餐厅买东西。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了安排时间，经理提前来到广州。",
+    "meaning": "为了安排时间，经理提前来到广州。",
+    "options": [
+      "明天继续练习。",
+      "我说得对吗？",
+      "听力对学习语言很重要。",
+      "为了安排时间，经理提前来到广州。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我正在车站学习汉语。",
+    "meaning": "我正在车站学习汉语。",
+    "options": [
+      "经理觉得联系朋友很重要。",
+      "最近哥哥常常需要参加会议。",
+      "下一班车几点出发？",
+      "我正在车站学习汉语。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "老师希望明天可以继续准备考试。",
+    "meaning": "老师希望明天可以继续准备考试。",
+    "options": [
+      "你准备好回答了吗？",
+      "如果计划没有变化，经理下午会在图书馆计划旅行。",
+      "老师希望明天可以继续准备考试。",
+      "我每天都要学习汉语。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "昨天哥哥在家里参加会议，所以回家比较晚。",
+    "meaning": "昨天，哥哥在家里参加会议，所以回家比较晚。",
+    "options": [
+      "我们快迟到了。",
+      "他正在准备考试，所以很忙。",
+      "我们下午三点开会。",
+      "昨天哥哥在家里参加会议，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "经理告诉我，他最近正在计划旅行。",
+    "meaning": "经理告诉我，他最近正在计划旅行。",
+    "options": [
+      "会议结束以后，我马上回到医院继续学习汉语。",
+      "经理告诉我，他最近正在计划旅行。",
+      "请把文件发给我。",
+      "这一题你答错了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "因为工作很忙，我只能晚上打扫房间。",
+    "meaning": "因为工作很忙，我只能晚上打扫房间。",
+    "options": [
+      "因为工作很忙，我只能晚上打扫房间。",
+      "这件事情没有你想象的那么复杂。",
+      "我觉得可以试试。",
+      "准备好就开始吧。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "周末的时候，老师喜欢去公司介绍自己。",
+    "meaning": "周末的时候，老师喜欢去公司介绍自己。",
+    "options": [
+      "我跟朋友一起练习。",
+      "为了安排时间，经理提前来到广州。",
+      "我还需要一点时间。",
+      "周末的时候，老师喜欢去公司介绍自己。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "哥哥觉得完成作业很重要。",
+    "meaning": "哥哥觉得完成作业很重要。",
+    "options": [
+      "你平时跟谁练习中文？",
+      "如果计划没有变化，经理下午会在图书馆计划旅行。",
+      "我正在练习听力。",
+      "哥哥觉得完成作业很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，经理决定在北京联系朋友。",
+    "meaning": "经过讨论，经理决定在北京联系朋友。",
+    "options": [
+      "每天练习一点儿很重要。",
+      "经过讨论，经理决定在北京联系朋友。",
+      "经过讨论，经理决定在餐厅计划旅行。",
+      "最近我常常需要打扫房间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了准备明天的工作，我今晚还要练习发音。",
+    "meaning": "为了准备明天的工作，我今晚还要练习发音。",
+    "options": [
+      "因为工作很忙，老师只能晚上买东西。",
+      "周末的时候，我喜欢去上海学习汉语。",
+      "不要只记答案，要听懂句子。",
+      "为了准备明天的工作，我今晚还要练习发音。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "如果计划没有变化，老师下午会在餐厅买东西。",
+    "meaning": "如果计划没有变化，老师下午会在餐厅买东西。",
+    "options": [
+      "会议结束以后，老师马上回到图书馆继续买东西。",
+      "答错了也没关系。",
+      "如果计划没有变化，老师下午会在餐厅买东西。",
+      "明天继续练习。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "哥哥已经把护照带到上海了。",
+    "meaning": "哥哥已经把护照带到上海了。",
+    "options": [
+      "今天老师在餐厅介绍自己。",
+      "哥哥已经把自行车带到家里了。",
+      "我听说经理最近在广州负责安排时间。",
+      "哥哥已经把护照带到上海了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "经理正在检查手机，准备开始安排时间。",
+    "meaning": "经理正在检查手机，准备开始安排时间。",
+    "options": [
+      "哥哥希望明天可以继续参加会议。",
+      "经理正在检查手机，准备开始安排时间。",
+      "周末的时候，哥哥喜欢去家里完成作业。",
+      "别想太多。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "会议结束以后，我马上回到医院继续学习汉语。",
+    "meaning": "会议结束以后，我马上回到医院继续学习汉语。",
+    "options": [
+      "经理觉得安排时间很重要。",
+      "你觉得中文难吗？",
+      "为了安排时间，经理提前来到广州。",
+      "会议结束以后，我马上回到医院继续学习汉语。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我听说老师最近在广州负责准备考试。",
+    "meaning": "我听说，老师最近在广州负责准备考试。",
+    "options": [
+      "我听说哥哥最近在学校负责完成作业。",
+      "我听说老师最近在广州负责准备考试。",
+      "答错了也没关系。",
+      "如果有时间，经理会去餐厅安排时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "虽然时间不多，但是哥哥还是完成了参加会议。",
+    "meaning": "虽然时间不多，但是哥哥还是完成了参加会议。",
+    "options": [
+      "昨天老师在北京买东西，所以回家比较晚。",
+      "虽然时间不多，但是哥哥还是完成了参加会议。",
+      "最近一切都不错。",
+      "哥哥希望明天可以继续参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "今天经理在图书馆计划旅行。",
+    "meaning": "今天，经理在图书馆计划旅行。",
+    "options": [
+      "虽然时间不多，但是经理还是完成了联系朋友。",
+      "网络有点慢。",
+      "今天经理在图书馆计划旅行。",
+      "没什么，只是有点累。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我每天都要打扫房间。",
+    "meaning": "我每天都要打扫房间。",
+    "options": [
+      "我每天都要打扫房间。",
+      "经过讨论，哥哥决定在医院参加会议。",
+      "如果有时间，哥哥会去超市参加会议。",
+      "我们需要提前准备材料。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "如果有时间，老师会去银行介绍自己。",
+    "meaning": "如果有时间，老师会去银行介绍自己。",
+    "options": [
+      "经理已经把文件带到公司了。",
+      "如果有时间，老师会去银行介绍自己。",
+      "第三声要注意变化。",
+      "我同意你的看法。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了完成作业，哥哥提前来到公园。",
+    "meaning": "为了完成作业，哥哥提前来到公园。",
+    "options": [
+      "这个音怎么发？",
+      "如果明天下雨，我们就改天再去。",
+      "为了完成作业，哥哥提前来到公园。",
+      "哥哥每天都要解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经理正在公司联系朋友。",
+    "meaning": "经理正在公司联系朋友。",
+    "options": [
+      "我同意你的看法。",
+      "我想住两晚。",
+      "经理正在公司联系朋友。",
+      "把错题再听一遍。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我希望明天可以继续练习发音。",
+    "meaning": "我希望明天可以继续练习发音。",
+    "options": [
+      "我希望明天可以继续练习发音。",
+      "因为工作很忙，我只能晚上学习汉语。",
+      "如果有时间，老师会去银行介绍自己。",
+      "不要害怕说错。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "昨天老师在北京买东西，所以回家比较晚。",
+    "meaning": "昨天，老师在北京买东西，所以回家比较晚。",
+    "options": [
+      "哥哥希望明天可以继续完成作业。",
+      "我的房间在哪里？",
+      "经理告诉我，他最近正在计划旅行。",
+      "昨天老师在北京买东西，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "哥哥告诉我，他最近正在解决问题。",
+    "meaning": "哥哥告诉我，他最近正在解决问题。",
+    "options": [
+      "我还需要一点时间。",
+      "哥哥告诉我，他最近正在解决问题。",
+      "虽然时间不多，但是我还是完成了练习发音。",
+      "哥哥觉得完成作业很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "因为工作很忙，经理只能晚上安排时间。",
+    "meaning": "因为工作很忙，经理只能晚上安排时间。",
+    "options": [
+      "周末的时候，哥哥喜欢去上海解决问题。",
+      "因为工作很忙，经理只能晚上安排时间。",
+      "听不懂的时候可以再听一次。",
+      "你觉得这个办法怎么样？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "周末的时候，我喜欢去上海学习汉语。",
+    "meaning": "周末的时候，我喜欢去上海学习汉语。",
+    "options": [
+      "学习语言需要时间。",
+      "今天我在上海练习发音。",
+      "请给我一张发票。",
+      "周末的时候，我喜欢去上海学习汉语。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "老师觉得准备考试很重要。",
+    "meaning": "老师觉得准备考试很重要。",
+    "options": [
+      "如果计划没有变化，老师下午会在图书馆介绍自己。",
+      "今天的内容很简单。",
+      "老师觉得准备考试很重要。",
+      "请提前十分钟到。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，哥哥决定在医院参加会议。",
+    "meaning": "经过讨论，哥哥决定在医院参加会议。",
+    "options": [
+      "经过讨论，哥哥决定在医院参加会议。",
+      "你最近怎么样？",
+      "没问题，我等你。",
+      "这件事情没有你想象的那么复杂。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "为了准备明天的工作，经理今晚还要计划旅行。",
+    "meaning": "为了准备明天的工作，经理今晚还要计划旅行。",
+    "options": [
+      "周末的时候，我喜欢去上海学习汉语。",
+      "我们快迟到了。",
+      "为了准备明天的工作，经理今晚还要计划旅行。",
+      "为了准备明天的工作，我今晚还要练习发音。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "最近我常常需要打扫房间。",
+    "meaning": "最近，我常常需要打扫房间。",
+    "options": [
+      "你可以再听一次。",
+      "请集中注意力。",
+      "最近我常常需要打扫房间。",
+      "如果计划没有变化，哥哥下午会在公园参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "如果计划没有变化，老师下午会在图书馆介绍自己。",
+    "meaning": "如果计划没有变化，老师下午会在图书馆介绍自己。",
+    "options": [
+      "如果有时间，哥哥会去医院解决问题。",
+      "请纠正我的发音。",
+      "如果计划没有变化，老师下午会在图书馆介绍自己。",
+      "听完以后再看答案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "哥哥已经把自行车带到家里了。",
+    "meaning": "哥哥已经把自行车带到家里了。",
+    "options": [
+      "如果有时间，哥哥会去车站完成作业。",
+      "我听说经理最近在公司负责联系朋友。",
+      "哥哥已经把自行车带到家里了。",
+      "我们快迟到了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经理正在检查地图，准备开始联系朋友。",
+    "meaning": "经理正在检查地图，准备开始联系朋友。",
+    "options": [
+      "老师希望明天可以继续介绍自己。",
+      "经理正在检查地图，准备开始联系朋友。",
+      "虽然时间不多，但是我还是完成了练习发音。",
+      "我还需要一点时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "会议结束以后，我马上回到公园继续练习发音。",
+    "meaning": "会议结束以后，我马上回到公园继续练习发音。",
+    "options": [
+      "哥哥希望明天可以继续参加会议。",
+      "周末的时候，哥哥喜欢去家里完成作业。",
+      "会议结束以后，我马上回到公园继续练习发音。",
+      "没什么，只是有点累。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我听说老师最近在公司负责买东西。",
+    "meaning": "我听说，老师最近在公司负责买东西。",
+    "options": [
+      "我听说老师最近在公司负责买东西。",
+      "下一题会稍微难一点。",
+      "今天我在上海练习发音。",
+      "虽然很忙，但是我会完成。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "虽然时间不多，但是哥哥还是完成了解决问题。",
+    "meaning": "虽然时间不多，但是哥哥还是完成了解决问题。",
+    "options": [
+      "今天我在公园学习汉语。",
+      "虽然时间不多，但是哥哥还是完成了解决问题。",
+      "经过讨论，经理决定在餐厅计划旅行。",
+      "老师希望明天可以继续介绍自己。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "今天经理在北京安排时间。",
+    "meaning": "今天，经理在北京安排时间。",
+    "options": [
+      "我不太同意。",
+      "我每天都要打扫房间。",
+      "今天经理在北京安排时间。",
+      "别想太多。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我每天都要学习汉语。",
+    "meaning": "我每天都要学习汉语。",
+    "options": [
+      "为了准备明天的工作，老师今晚还要介绍自己。",
+      "我每天都要学习汉语。",
+      "这一题你答错了。",
+      "为了联系朋友，经理提前来到图书馆。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "今天经理在餐厅参加会议。",
+    "meaning": "今天，经理在餐厅参加会议。",
+    "options": [
+      "今天经理在餐厅参加会议。",
+      "昨天记者在广州调整时间，所以回家比较晚。",
+      "会议结束以后，经理马上回到北京继续讨论计划。",
+      "记者已经把护照带到机场了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "邻居每天都要检查文件。",
+    "meaning": "邻居每天都要检查文件。",
+    "options": [
+      "邻居每天都要检查文件。",
+      "如果计划没有变化，邻居下午会在博物馆检查文件。",
+      "记者觉得申请签证很重要。",
+      "为了准备明天的工作，经理今晚还要提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果有时间，记者会去会议室调整时间。",
+    "meaning": "如果有时间，记者会去会议室调整时间。",
+    "options": [
+      "如果有时间，记者会去会议室调整时间。",
+      "邻居每天都要联系客户。",
+      "经理希望明天可以继续提高效率。",
+      "如果计划没有变化，邻居下午会在博物馆检查文件。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了学习新知识，我的同事提前来到博物馆。",
+    "meaning": "为了学习新知识，我的同事提前来到博物馆。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要讨论计划。",
+      "为了学习新知识，我的同事提前来到博物馆。",
+      "最近邻居常常需要解决问题。",
+      "周末的时候，经理喜欢去机场参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经理正在公司讨论计划。",
+    "meaning": "经理正在公司讨论计划。",
+    "options": [
+      "经理正在公司讨论计划。",
+      "我听说记者最近在公司负责申请签证。",
+      "他负责联系客户并安排会议时间。",
+      "记者觉得安排工作很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "邻居希望明天可以继续联系客户。",
+    "meaning": "邻居希望明天可以继续联系客户。",
+    "options": [
+      "经理正在公司讨论计划。",
+      "邻居希望明天可以继续联系客户。",
+      "昨天记者在广州调整时间，所以回家比较晚。",
+      "经过讨论，记者决定在广州调整时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "昨天记者在北京申请签证，所以回家比较晚。",
+    "meaning": "昨天，记者在北京申请签证，所以回家比较晚。",
+    "options": [
+      "昨天记者在北京申请签证，所以回家比较晚。",
+      "如果有时间，邻居会去银行解决问题。",
+      "我听说邻居最近在学校负责联系客户。",
+      "最近我的同事常常需要准备报告。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我的同事告诉我，他最近正在完成任务。",
+    "meaning": "我的同事告诉我，他最近正在完成任务。",
+    "options": [
+      "如果计划没有变化，邻居下午会在上海解决问题。",
+      "我的同事告诉我，他最近正在完成任务。",
+      "因为工作很忙，我的同事只能晚上准备报告。",
+      "为了准备报告，我的同事提前来到上海。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "因为工作很忙，经理只能晚上提高效率。",
+    "meaning": "因为工作很忙，经理只能晚上提高效率。",
+    "options": [
+      "周末的时候，邻居喜欢去家里联系客户。",
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "因为工作很忙，经理只能晚上提高效率。",
+      "经过讨论，邻居决定在博物馆解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "周末的时候，邻居喜欢去上海解决问题。",
+    "meaning": "周末的时候，邻居喜欢去上海解决问题。",
+    "options": [
+      "昨天记者在广州调整时间，所以回家比较晚。",
+      "会议结束以后，我的同事马上回到上海继续学习新知识。",
+      "为了准备明天的工作，我的同事今晚还要完成任务。",
+      "周末的时候，邻居喜欢去上海解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "记者觉得安排工作很重要。",
+    "meaning": "记者觉得安排工作很重要。",
+    "options": [
+      "虽然时间不多，但是我的同事还是完成了完成任务。",
+      "经理觉得提高效率很重要。",
+      "邻居希望明天可以继续联系客户。",
+      "记者觉得安排工作很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过讨论，我的同事决定在银行准备报告。",
+    "meaning": "经过讨论，我的同事决定在银行准备报告。",
+    "options": [
+      "经过讨论，邻居决定在博物馆解决问题。",
+      "经过讨论，我的同事决定在银行准备报告。",
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "虽然时间不多，但是邻居还是完成了联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了准备明天的工作，经理今晚还要参加会议。",
+    "meaning": "为了准备明天的工作，经理今晚还要参加会议。",
+    "options": [
+      "我的同事告诉我，他最近正在学习新知识。",
+      "周末的时候，经理喜欢去广州提高效率。",
+      "为了准备明天的工作，经理今晚还要参加会议。",
+      "经过讨论，记者决定在广州调整时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "最近邻居常常需要检查文件。",
+    "meaning": "最近，邻居常常需要检查文件。",
+    "options": [
+      "虽然时间不多，但是记者还是完成了申请签证。",
+      "经过讨论，我的同事决定在银行准备报告。",
+      "经理每天都要讨论计划。",
+      "最近邻居常常需要检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有变化，记者下午会在餐厅调整时间。",
+    "meaning": "如果计划没有变化，记者下午会在餐厅调整时间。",
+    "options": [
+      "如果有时间，记者会去会议室调整时间。",
+      "周末的时候，邻居喜欢去上海解决问题。",
+      "经理每天都要讨论计划。",
+      "如果计划没有变化，记者下午会在餐厅调整时间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "我的同事已经把合同带到家里了。",
+    "meaning": "我的同事已经把合同带到家里了。",
+    "options": [
+      "我的同事每天都要完成任务。",
+      "经过讨论，记者决定在餐厅安排工作。",
+      "我的同事已经把合同带到家里了。",
+      "最近经理常常需要提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经理正在检查电子邮件，准备开始讨论计划。",
+    "meaning": "经理正在检查电子邮件，准备开始讨论计划。",
+    "options": [
+      "最近邻居常常需要联系客户。",
+      "经理正在检查电子邮件，准备开始讨论计划。",
+      "邻居希望明天可以继续检查文件。",
+      "为了安排工作，记者提前来到广州。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "会议结束以后，邻居马上回到博物馆继续联系客户。",
+    "meaning": "会议结束以后，邻居马上回到博物馆继续联系客户。",
+    "options": [
+      "最近邻居常常需要解决问题。",
+      "我听说邻居最近在火车站负责检查文件。",
+      "会议结束以后，邻居马上回到博物馆继续联系客户。",
+      "经理希望明天可以继续提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "我听说记者最近在公司负责申请签证。",
+    "meaning": "我听说，记者最近在公司负责申请签证。",
+    "options": [
+      "邻居希望明天可以继续检查文件。",
+      "周末的时候，经理喜欢去广州提高效率。",
+      "我听说记者最近在公司负责申请签证。",
+      "今天我的同事在家里学习新知识。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间不多，但是我的同事还是完成了完成任务。",
+    "meaning": "虽然时间不多，但是我的同事还是完成了完成任务。",
+    "options": [
+      "虽然时间不多，但是我的同事还是完成了完成任务。",
+      "如果有时间，邻居会去上海检查文件。",
+      "虽然时间不多，但是记者还是完成了调整时间。",
+      "如果有时间，邻居会去博物馆联系客户。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "今天经理在北京提高效率。",
+    "meaning": "今天，经理在北京提高效率。",
+    "options": [
+      "今天经理在北京提高效率。",
+      "虽然时间不多，但是我的同事还是完成了完成任务。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "昨天邻居在家里检查文件，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "邻居每天都要解决问题。",
+    "meaning": "邻居每天都要解决问题。",
+    "options": [
+      "我的同事正在火车站准备报告。",
+      "经理正在会议室提高效率。",
+      "如果有时间，邻居会去上海检查文件。",
+      "邻居每天都要解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果有时间，记者会去医院安排工作。",
+    "meaning": "如果有时间，记者会去医院安排工作。",
+    "options": [
+      "今天经理在北京提高效率。",
+      "如果有时间，记者会去医院安排工作。",
+      "今天我的同事在上海完成任务。",
+      "虽然时间不多，但是我的同事还是完成了学习新知识。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了准备报告，我的同事提前来到上海。",
+    "meaning": "为了准备报告，我的同事提前来到上海。",
+    "options": [
+      "为了准备报告，我的同事提前来到上海。",
+      "如果有时间，邻居会去图书馆检查文件。",
+      "为了准备明天的工作，经理今晚还要提高效率。",
+      "经理正在检查调查结果，准备开始参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经理正在机场参加会议。",
+    "meaning": "经理正在机场参加会议。",
+    "options": [
+      "会议结束以后，邻居马上回到上海继续检查文件。",
+      "为了准备明天的工作，记者今晚还要安排工作。",
+      "经理正在机场参加会议。",
+      "为了准备报告，我的同事提前来到上海。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "邻居希望明天可以继续检查文件。",
+    "meaning": "邻居希望明天可以继续检查文件。",
+    "options": [
+      "为了准备明天的工作，我的同事今晚还要完成任务。",
+      "邻居每天都要解决问题。",
+      "邻居希望明天可以继续检查文件。",
+      "我的同事已经把新闻报道带到学校了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "昨天记者在广州调整时间，所以回家比较晚。",
+    "meaning": "昨天，记者在广州调整时间，所以回家比较晚。",
+    "options": [
+      "最近经理常常需要参加会议。",
+      "会议结束以后，邻居马上回到上海继续检查文件。",
+      "昨天记者在广州调整时间，所以回家比较晚。",
+      "邻居希望明天可以继续解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "我的同事告诉我，他最近正在学习新知识。",
+    "meaning": "我的同事告诉我，他最近正在学习新知识。",
+    "options": [
+      "我的同事正在图书馆完成任务。",
+      "我的同事告诉我，他最近正在学习新知识。",
+      "邻居觉得检查文件很重要。",
+      "周末的时候，经理喜欢去机场参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "因为工作很忙，经理只能晚上讨论计划。",
+    "meaning": "因为工作很忙，经理只能晚上讨论计划。",
+    "options": [
+      "经理希望明天可以继续参加会议。",
+      "周末的时候，邻居喜欢去上海解决问题。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "因为工作很忙，经理只能晚上讨论计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "周末的时候，邻居喜欢去家里联系客户。",
+    "meaning": "周末的时候，邻居喜欢去家里联系客户。",
+    "options": [
+      "如果计划没有变化，记者下午会在餐厅调整时间。",
+      "周末的时候，邻居喜欢去家里联系客户。",
+      "我们需要根据实际情况作出决定。",
+      "记者告诉我，他最近正在安排工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "记者觉得申请签证很重要。",
+    "meaning": "记者觉得申请签证很重要。",
+    "options": [
+      "今天我的同事在学校准备报告。",
+      "记者觉得申请签证很重要。",
+      "我听说记者最近在会议室负责安排工作。",
+      "虽然时间不多，但是记者还是完成了调整时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过讨论，我的同事决定在博物馆完成任务。",
+    "meaning": "经过讨论，我的同事决定在博物馆完成任务。",
+    "options": [
+      "经理正在检查电子邮件，准备开始讨论计划。",
+      "经过讨论，我的同事决定在博物馆完成任务。",
+      "我听说邻居最近在图书馆负责解决问题。",
+      "最近邻居常常需要联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了准备明天的工作，经理今晚还要提高效率。",
+    "meaning": "为了准备明天的工作，经理今晚还要提高效率。",
+    "options": [
+      "邻居已经把手机带到学校了。",
+      "如果计划没有变化，经理下午会在北京参加会议。",
+      "周末的时候，经理喜欢去机场参加会议。",
+      "为了准备明天的工作，经理今晚还要提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "最近邻居常常需要解决问题。",
+    "meaning": "最近，邻居常常需要解决问题。",
+    "options": [
+      "为了申请签证，记者提前来到公司。",
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "最近邻居常常需要解决问题。",
+      "邻居希望明天可以继续解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有变化，记者下午会在北京安排工作。",
+    "meaning": "如果计划没有变化，记者下午会在北京安排工作。",
+    "options": [
+      "邻居告诉我，他最近正在联系客户。",
+      "记者觉得申请签证很重要。",
+      "因为工作很忙，经理只能晚上讨论计划。",
+      "如果计划没有变化，记者下午会在北京安排工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "我的同事已经把新闻报道带到学校了。",
+    "meaning": "我的同事已经把新闻报道带到学校了。",
+    "options": [
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "经理正在检查调查结果，准备开始参加会议。",
+      "为了准备报告，我的同事提前来到上海。",
+      "我的同事已经把新闻报道带到学校了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经理正在检查调查结果，准备开始参加会议。",
+    "meaning": "经理正在检查调查结果，准备开始参加会议。",
+    "options": [
+      "经理正在检查调查结果，准备开始参加会议。",
+      "我的同事正在检查申请表，准备开始完成任务。",
+      "周末的时候，我的同事喜欢去家里完成任务。",
+      "我听说记者最近在公司负责申请签证。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "会议结束以后，邻居马上回到上海继续检查文件。",
+    "meaning": "会议结束以后，邻居马上回到上海继续检查文件。",
+    "options": [
+      "会议结束以后，邻居马上回到上海继续检查文件。",
+      "我听说邻居最近在火车站负责检查文件。",
+      "为了安排工作，记者提前来到广州。",
+      "记者已经把工作计划带到公司了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我听说记者最近在机场负责调整时间。",
+    "meaning": "我听说，记者最近在机场负责调整时间。",
+    "options": [
+      "虽然时间不多，但是记者还是完成了安排工作。",
+      "经理正在检查项目报告，准备开始提高效率。",
+      "会议结束以后，经理马上回到北京继续讨论计划。",
+      "我听说记者最近在机场负责调整时间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间不多，但是我的同事还是完成了学习新知识。",
+    "meaning": "虽然时间不多，但是我的同事还是完成了学习新知识。",
+    "options": [
+      "我听说记者最近在会议室负责安排工作。",
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "今天经理在餐厅参加会议。",
+      "邻居希望明天可以继续检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "今天经理在广州讨论计划。",
+    "meaning": "今天，经理在广州讨论计划。",
+    "options": [
+      "会议结束以后，经理马上回到广州继续参加会议。",
+      "我的同事已经把合同带到家里了。",
+      "我的同事告诉我，他最近正在完成任务。",
+      "今天经理在广州讨论计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "邻居每天都要联系客户。",
+    "meaning": "邻居每天都要联系客户。",
+    "options": [
+      "邻居每天都要联系客户。",
+      "如果计划没有变化，记者下午会在餐厅调整时间。",
+      "周末的时候，经理喜欢去广州提高效率。",
+      "如果有时间，邻居会去上海检查文件。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果有时间，记者会去餐厅申请签证。",
+    "meaning": "如果有时间，记者会去餐厅申请签证。",
+    "options": [
+      "最近我的同事常常需要准备报告。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "经理每天都要讨论计划。",
+      "经过讨论，我的同事决定在博物馆完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了完成任务，我的同事提前来到家里。",
+    "meaning": "为了完成任务，我的同事提前来到家里。",
+    "options": [
+      "为了完成任务，我的同事提前来到家里。",
+      "记者已经把电脑带到会议室了。",
+      "周末的时候，经理喜欢去广州提高效率。",
+      "我的同事已经把合同带到家里了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经理正在会议室提高效率。",
+    "meaning": "经理正在会议室提高效率。",
+    "options": [
+      "昨天经理在广州讨论计划，所以回家比较晚。",
+      "虽然时间不多，但是我的同事还是完成了完成任务。",
+      "我的同事正在银行学习新知识。",
+      "经理正在会议室提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "邻居希望明天可以继续解决问题。",
+    "meaning": "邻居希望明天可以继续解决问题。",
+    "options": [
+      "我听说记者最近在机场负责调整时间。",
+      "邻居希望明天可以继续解决问题。",
+      "我的同事正在图书馆完成任务。",
+      "如果计划没有变化，记者下午会在广州申请签证。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "昨天记者在公司安排工作，所以回家比较晚。",
+    "meaning": "昨天，记者在公司安排工作，所以回家比较晚。",
+    "options": [
+      "虽然时间不多，但是邻居还是完成了联系客户。",
+      "昨天记者在公司安排工作，所以回家比较晚。",
+      "我的同事正在学校学习新知识。",
+      "如果计划没有变化，邻居下午会在博物馆检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "我的同事告诉我，他最近正在准备报告。",
+    "meaning": "我的同事告诉我，他最近正在准备报告。",
+    "options": [
+      "我听说经理最近在机场负责讨论计划。",
+      "今天经理在餐厅参加会议。",
+      "我的同事正在火车站准备报告。",
+      "我的同事告诉我，他最近正在准备报告。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "因为工作很忙，经理只能晚上参加会议。",
+    "meaning": "因为工作很忙，经理只能晚上参加会议。",
+    "options": [
+      "邻居希望明天可以继续解决问题。",
+      "会议结束以后，邻居马上回到上海继续检查文件。",
+      "因为工作很忙，经理只能晚上参加会议。",
+      "经理觉得提高效率很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "周末的时候，邻居喜欢去学校检查文件。",
+    "meaning": "周末的时候，邻居喜欢去学校检查文件。",
+    "options": [
+      "周末的时候，邻居喜欢去学校检查文件。",
+      "我们需要根据实际情况作出决定。",
+      "会议结束以后，经理马上回到广州继续参加会议。",
+      "为了完成任务，我的同事提前来到家里。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "记者觉得调整时间很重要。",
+    "meaning": "记者觉得调整时间很重要。",
+    "options": [
+      "为了申请签证，记者提前来到公司。",
+      "邻居希望明天可以继续联系客户。",
+      "记者已经把工作计划带到公司了。",
+      "记者觉得调整时间很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过讨论，我的同事决定在上海学习新知识。",
+    "meaning": "经过讨论，我的同事决定在上海学习新知识。",
+    "options": [
+      "经理希望明天可以继续参加会议。",
+      "为了调整时间，记者提前来到机场。",
+      "我的同事正在火车站准备报告。",
+      "经过讨论，我的同事决定在上海学习新知识。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了准备明天的工作，经理今晚还要讨论计划。",
+    "meaning": "为了准备明天的工作，经理今晚还要讨论计划。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要讨论计划。",
+      "经理正在检查调查结果，准备开始参加会议。",
+      "为了准备明天的工作，经理今晚还要提高效率。",
+      "经理正在检查电子邮件，准备开始讨论计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "最近邻居常常需要联系客户。",
+    "meaning": "最近，邻居常常需要联系客户。",
+    "options": [
+      "会议结束以后，经理马上回到公司继续提高效率。",
+      "最近邻居常常需要联系客户。",
+      "记者已经把电脑带到会议室了。",
+      "为了准备明天的工作，经理今晚还要参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有变化，记者下午会在广州申请签证。",
+    "meaning": "如果计划没有变化，记者下午会在广州申请签证。",
+    "options": [
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "会议结束以后，邻居马上回到家里继续解决问题。",
+      "如果有时间，记者会去医院安排工作。",
+      "我听说邻居最近在学校负责联系客户。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我的同事已经把申请表带到火车站了。",
+    "meaning": "我的同事已经把申请表带到火车站了。",
+    "options": [
+      "经过讨论，我的同事决定在博物馆完成任务。",
+      "周末的时候，邻居喜欢去上海解决问题。",
+      "我的同事已经把申请表带到火车站了。",
+      "最近经理常常需要提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经理正在检查项目报告，准备开始提高效率。",
+    "meaning": "经理正在检查项目报告，准备开始提高效率。",
+    "options": [
+      "为了准备明天的工作，我的同事今晚还要学习新知识。",
+      "如果计划没有变化，邻居下午会在家里联系客户。",
+      "经理正在检查项目报告，准备开始提高效率。",
+      "经过讨论，记者决定在北京申请签证。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "会议结束以后，邻居马上回到家里继续解决问题。",
+    "meaning": "会议结束以后，邻居马上回到家里继续解决问题。",
+    "options": [
+      "会议结束以后，邻居马上回到家里继续解决问题。",
+      "虽然遇到了一些困难，但是项目还是按时完成了。",
+      "会议结束以后，经理马上回到广州继续参加会议。",
+      "经理觉得提高效率很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我听说记者最近在会议室负责安排工作。",
+    "meaning": "我听说，记者最近在会议室负责安排工作。",
+    "options": [
+      "今天记者在广州申请签证。",
+      "如果计划没有变化，邻居下午会在博物馆检查文件。",
+      "我听说记者最近在会议室负责安排工作。",
+      "因为工作很忙，记者只能晚上申请签证。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间不多，但是我的同事还是完成了准备报告。",
+    "meaning": "虽然时间不多，但是我的同事还是完成了准备报告。",
+    "options": [
+      "为了准备报告，我的同事提前来到上海。",
+      "虽然时间不多，但是我的同事还是完成了准备报告。",
+      "为了准备明天的工作，我的同事今晚还要准备报告。",
+      "因为工作很忙，我的同事只能晚上准备报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "今天经理在公司参加会议。",
+    "meaning": "今天，经理在公司参加会议。",
+    "options": [
+      "经理觉得提高效率很重要。",
+      "今天经理在公司参加会议。",
+      "为了准备明天的工作，记者今晚还要安排工作。",
+      "虽然时间不多，但是我的同事还是完成了完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果有时间，邻居会去图书馆检查文件。",
+    "meaning": "如果有时间，邻居会去图书馆检查文件。",
+    "options": [
+      "记者已经把电脑带到会议室了。",
+      "记者告诉我，他最近正在调整时间。",
+      "如果有时间，邻居会去图书馆检查文件。",
+      "虽然时间不多，但是记者还是完成了申请签证。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了调整时间，记者提前来到北京。",
+    "meaning": "为了调整时间，记者提前来到北京。",
+    "options": [
+      "今天我的同事在家里学习新知识。",
+      "经过讨论，记者决定在餐厅安排工作。",
+      "虽然时间不多，但是邻居还是完成了联系客户。",
+      "为了调整时间，记者提前来到北京。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "我的同事正在学校学习新知识。",
+    "meaning": "我的同事正在学校学习新知识。",
+    "options": [
+      "邻居觉得检查文件很重要。",
+      "我的同事正在学校学习新知识。",
+      "记者已经把护照带到机场了。",
+      "今天我的同事在上海完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经理希望明天可以继续讨论计划。",
+    "meaning": "经理希望明天可以继续讨论计划。",
+    "options": [
+      "经理希望明天可以继续讨论计划。",
+      "如果计划没有变化，经理下午会在北京参加会议。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "我听说记者最近在公司负责申请签证。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "昨天邻居在上海联系客户，所以回家比较晚。",
+    "meaning": "昨天，邻居在上海联系客户，所以回家比较晚。",
+    "options": [
+      "昨天邻居在上海联系客户，所以回家比较晚。",
+      "记者已经把工作计划带到公司了。",
+      "为了申请签证，记者提前来到公司。",
+      "周末的时候，邻居喜欢去学校检查文件。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "记者告诉我，他最近正在申请签证。",
+    "meaning": "记者告诉我，他最近正在申请签证。",
+    "options": [
+      "我听说记者最近在会议室负责安排工作。",
+      "他负责联系客户并安排会议时间。",
+      "记者告诉我，他最近正在申请签证。",
+      "经理正在检查调查结果，准备开始参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "因为工作很忙，我的同事只能晚上完成任务。",
+    "meaning": "因为工作很忙，我的同事只能晚上完成任务。",
+    "options": [
+      "因为工作很忙，我的同事只能晚上完成任务。",
+      "如果计划没有变化，经理下午会在北京参加会议。",
+      "最近邻居常常需要检查文件。",
+      "邻居觉得检查文件很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "周末的时候，经理喜欢去广州提高效率。",
+    "meaning": "周末的时候，经理喜欢去广州提高效率。",
+    "options": [
+      "昨天邻居在家里检查文件，所以回家比较晚。",
+      "周末的时候，经理喜欢去广州提高效率。",
+      "最近经理常常需要提高效率。",
+      "记者觉得调整时间很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "邻居觉得解决问题很重要。",
+    "meaning": "邻居觉得解决问题很重要。",
+    "options": [
+      "我听说邻居最近在学校负责联系客户。",
+      "如果有时间，记者会去医院安排工作。",
+      "邻居觉得解决问题很重要。",
+      "今天经理在餐厅参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过讨论，记者决定在餐厅安排工作。",
+    "meaning": "经过讨论，记者决定在餐厅安排工作。",
+    "options": [
+      "经过讨论，记者决定在餐厅安排工作。",
+      "最近邻居常常需要检查文件。",
+      "经理希望明天可以继续参加会议。",
+      "虽然时间不多，但是记者还是完成了调整时间。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了准备明天的工作，我的同事今晚还要准备报告。",
+    "meaning": "为了准备明天的工作，我的同事今晚还要准备报告。",
+    "options": [
+      "经过讨论，记者决定在北京申请签证。",
+      "为了准备明天的工作，我的同事今晚还要准备报告。",
+      "记者告诉我，他最近正在申请签证。",
+      "邻居觉得联系客户很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "最近经理常常需要参加会议。",
+    "meaning": "最近，经理常常需要参加会议。",
+    "options": [
+      "最近我的同事常常需要准备报告。",
+      "最近经理常常需要参加会议。",
+      "今天经理在餐厅参加会议。",
+      "如果计划没有变化，记者下午会在餐厅调整时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有变化，邻居下午会在博物馆检查文件。",
+    "meaning": "如果计划没有变化，邻居下午会在博物馆检查文件。",
+    "options": [
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "如果计划没有变化，邻居下午会在博物馆检查文件。",
+      "我的同事正在检查新闻报道，准备开始准备报告。",
+      "周末的时候，经理喜欢去机场参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "记者已经把工作计划带到公司了。",
+    "meaning": "记者已经把工作计划带到公司了。",
+    "options": [
+      "如果有时间，邻居会去银行解决问题。",
+      "记者已经把工作计划带到公司了。",
+      "因为工作很忙，经理只能晚上参加会议。",
+      "因为工作很忙，我的同事只能晚上准备报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "我的同事正在检查合同，准备开始学习新知识。",
+    "meaning": "我的同事正在检查合同，准备开始学习新知识。",
+    "options": [
+      "因为工作很忙，经理只能晚上讨论计划。",
+      "我的同事正在检查合同，准备开始学习新知识。",
+      "我的同事正在检查新闻报道，准备开始准备报告。",
+      "经过认真讨论，我们决定改变原来的计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "会议结束以后，经理马上回到北京继续讨论计划。",
+    "meaning": "会议结束以后，经理马上回到北京继续讨论计划。",
+    "options": [
+      "我的同事正在检查新闻报道，准备开始准备报告。",
+      "经理希望明天可以继续提高效率。",
+      "会议结束以后，经理马上回到北京继续讨论计划。",
+      "最近经理常常需要讨论计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "我听说邻居最近在学校负责联系客户。",
+    "meaning": "我听说，邻居最近在学校负责联系客户。",
+    "options": [
+      "我听说邻居最近在图书馆负责解决问题。",
+      "记者正在检查工作计划，准备开始调整时间。",
+      "我听说邻居最近在学校负责联系客户。",
+      "为了准备明天的工作，经理今晚还要讨论计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间不多，但是记者还是完成了申请签证。",
+    "meaning": "虽然时间不多，但是记者还是完成了申请签证。",
+    "options": [
+      "邻居觉得解决问题很重要。",
+      "为了准备报告，我的同事提前来到上海。",
+      "虽然时间不多，但是记者还是完成了申请签证。",
+      "如果计划没有变化，记者下午会在北京安排工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "今天我的同事在上海完成任务。",
+    "meaning": "今天，我的同事在上海完成任务。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要参加会议。",
+      "邻居觉得联系客户很重要。",
+      "如果计划没有变化，邻居下午会在家里联系客户。",
+      "今天我的同事在上海完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经理每天都要提高效率。",
+    "meaning": "经理每天都要提高效率。",
+    "options": [
+      "如果有时间，邻居会去上海检查文件。",
+      "因为工作很忙，经理只能晚上提高效率。",
+      "经理每天都要提高效率。",
+      "虽然时间不多，但是我的同事还是完成了完成任务。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果有时间，邻居会去银行解决问题。",
+    "meaning": "如果有时间，邻居会去银行解决问题。",
+    "options": [
+      "如果计划没有变化，邻居下午会在博物馆检查文件。",
+      "记者已经把护照带到机场了。",
+      "经理正在检查项目报告，准备开始提高效率。",
+      "如果有时间，邻居会去银行解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了安排工作，记者提前来到广州。",
+    "meaning": "为了安排工作，记者提前来到广州。",
+    "options": [
+      "因为工作很忙，我的同事只能晚上学习新知识。",
+      "为了安排工作，记者提前来到广州。",
+      "我的同事正在检查申请表，准备开始完成任务。",
+      "邻居每天都要解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "我的同事正在火车站准备报告。",
+    "meaning": "我的同事正在火车站准备报告。",
+    "options": [
+      "记者告诉我，他最近正在调整时间。",
+      "我的同事正在火车站准备报告。",
+      "最近邻居常常需要解决问题。",
+      "因为工作很忙，我的同事只能晚上完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经理希望明天可以继续参加会议。",
+    "meaning": "经理希望明天可以继续参加会议。",
+    "options": [
+      "经理希望明天可以继续参加会议。",
+      "邻居每天都要检查文件。",
+      "邻居觉得解决问题很重要。",
+      "为了提高效率，公司正在调整工作流程。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "昨天邻居在家里检查文件，所以回家比较晚。",
+    "meaning": "昨天，邻居在家里检查文件，所以回家比较晚。",
+    "options": [
+      "周末的时候，邻居喜欢去上海解决问题。",
+      "会议结束以后，经理马上回到公司继续提高效率。",
+      "为了准备明天的工作，我的同事今晚还要完成任务。",
+      "昨天邻居在家里检查文件，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "记者告诉我，他最近正在调整时间。",
+    "meaning": "记者告诉我，他最近正在调整时间。",
+    "options": [
+      "经理每天都要参加会议。",
+      "记者告诉我，他最近正在调整时间。",
+      "我的同事正在检查申请表，准备开始完成任务。",
+      "如果有时间，记者会去医院安排工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "因为工作很忙，我的同事只能晚上学习新知识。",
+    "meaning": "因为工作很忙，我的同事只能晚上学习新知识。",
+    "options": [
+      "邻居每天都要检查文件。",
+      "因为工作很忙，我的同事只能晚上学习新知识。",
+      "因为工作很忙，记者只能晚上申请签证。",
+      "记者告诉我，他最近正在调整时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "周末的时候，经理喜欢去公司讨论计划。",
+    "meaning": "周末的时候，经理喜欢去公司讨论计划。",
+    "options": [
+      "经理每天都要参加会议。",
+      "周末的时候，经理喜欢去广州提高效率。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "周末的时候，经理喜欢去公司讨论计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "邻居觉得联系客户很重要。",
+    "meaning": "邻居觉得联系客户很重要。",
+    "options": [
+      "我的同事告诉我，他最近正在准备报告。",
+      "经过讨论，我的同事决定在博物馆完成任务。",
+      "邻居觉得联系客户很重要。",
+      "今天经理在公司参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过讨论，记者决定在北京申请签证。",
+    "meaning": "经过讨论，记者决定在北京申请签证。",
+    "options": [
+      "昨天经理在广州讨论计划，所以回家比较晚。",
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "为了准备明天的工作，经理今晚还要提高效率。",
+      "经过讨论，记者决定在北京申请签证。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了准备明天的工作，我的同事今晚还要完成任务。",
+    "meaning": "为了准备明天的工作，我的同事今晚还要完成任务。",
+    "options": [
+      "如果有时间，记者会去医院安排工作。",
+      "经理正在公司讨论计划。",
+      "最近经理常常需要讨论计划。",
+      "为了准备明天的工作，我的同事今晚还要完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "最近经理常常需要提高效率。",
+    "meaning": "最近，经理常常需要提高效率。",
+    "options": [
+      "经理希望明天可以继续参加会议。",
+      "我的同事已经把申请表带到火车站了。",
+      "最近经理常常需要提高效率。",
+      "经过讨论，记者决定在餐厅安排工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有变化，邻居下午会在上海解决问题。",
+    "meaning": "如果计划没有变化，邻居下午会在上海解决问题。",
+    "options": [
+      "我的同事正在银行学习新知识。",
+      "我的同事正在图书馆完成任务。",
+      "会议结束以后，我的同事马上回到上海继续学习新知识。",
+      "如果计划没有变化，邻居下午会在上海解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "记者已经把护照带到机场了。",
+    "meaning": "记者已经把护照带到机场了。",
+    "options": [
+      "邻居觉得联系客户很重要。",
+      "记者已经把护照带到机场了。",
+      "如果有时间，邻居会去图书馆检查文件。",
+      "最近经理常常需要参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "我的同事正在检查新闻报道，准备开始准备报告。",
+    "meaning": "我的同事正在检查新闻报道，准备开始准备报告。",
+    "options": [
+      "今天经理在北京提高效率。",
+      "我的同事正在检查新闻报道，准备开始准备报告。",
+      "为了准备明天的工作，我的同事今晚还要学习新知识。",
+      "会议结束以后，经理马上回到广州继续参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "会议结束以后，经理马上回到广州继续参加会议。",
+    "meaning": "会议结束以后，经理马上回到广州继续参加会议。",
+    "options": [
+      "会议结束以后，经理马上回到广州继续参加会议。",
+      "今天经理在北京提高效率。",
+      "如果计划没有变化，记者下午会在北京安排工作。",
+      "虽然时间不多，但是记者还是完成了安排工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我听说邻居最近在火车站负责检查文件。",
+    "meaning": "我听说，邻居最近在火车站负责检查文件。",
+    "options": [
+      "为了调整时间，记者提前来到北京。",
+      "我听说邻居最近在火车站负责检查文件。",
+      "虽然时间不多，但是记者还是完成了调整时间。",
+      "如果有时间，邻居会去博物馆联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间不多，但是记者还是完成了调整时间。",
+    "meaning": "虽然时间不多，但是记者还是完成了调整时间。",
+    "options": [
+      "虽然时间不多，但是记者还是完成了调整时间。",
+      "会议结束以后，邻居马上回到家里继续解决问题。",
+      "如果计划没有变化，经理下午会在北京参加会议。",
+      "会议结束以后，邻居马上回到上海继续检查文件。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "今天我的同事在家里学习新知识。",
+    "meaning": "今天，我的同事在家里学习新知识。",
+    "options": [
+      "经理正在检查调查结果，准备开始参加会议。",
+      "今天我的同事在家里学习新知识。",
+      "我的同事正在检查合同，准备开始学习新知识。",
+      "虽然时间不多，但是记者还是完成了安排工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经理每天都要讨论计划。",
+    "meaning": "经理每天都要讨论计划。",
+    "options": [
+      "虽然时间不多，但是记者还是完成了调整时间。",
+      "经理每天都要讨论计划。",
+      "经过讨论，记者决定在广州调整时间。",
+      "虽然时间不多，但是记者还是完成了安排工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果有时间，邻居会去博物馆联系客户。",
+    "meaning": "如果有时间，邻居会去博物馆联系客户。",
+    "options": [
+      "我的同事已经把合同带到家里了。",
+      "如果有时间，邻居会去博物馆联系客户。",
+      "如果计划没有变化，记者下午会在北京安排工作。",
+      "记者觉得安排工作很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了申请签证，记者提前来到公司。",
+    "meaning": "为了申请签证，记者提前来到公司。",
+    "options": [
+      "为了申请签证，记者提前来到公司。",
+      "最近邻居常常需要联系客户。",
+      "邻居每天都要解决问题。",
+      "邻居希望明天可以继续检查文件。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我的同事正在图书馆完成任务。",
+    "meaning": "我的同事正在图书馆完成任务。",
+    "options": [
+      "今天我的同事在上海完成任务。",
+      "我的同事告诉我，他最近正在完成任务。",
+      "我的同事正在图书馆完成任务。",
+      "记者告诉我，他最近正在申请签证。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经理希望明天可以继续提高效率。",
+    "meaning": "经理希望明天可以继续提高效率。",
+    "options": [
+      "会议结束以后，经理马上回到北京继续讨论计划。",
+      "如果有时间，记者会去医院安排工作。",
+      "经理希望明天可以继续提高效率。",
+      "周末的时候，邻居喜欢去学校检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "昨天邻居在学校解决问题，所以回家比较晚。",
+    "meaning": "昨天，邻居在学校解决问题，所以回家比较晚。",
+    "options": [
+      "我的同事告诉我，他最近正在学习新知识。",
+      "邻居每天都要检查文件。",
+      "因为工作很忙，经理只能晚上参加会议。",
+      "昨天邻居在学校解决问题，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "记者告诉我，他最近正在安排工作。",
+    "meaning": "记者告诉我，他最近正在安排工作。",
+    "options": [
+      "记者告诉我，他最近正在安排工作。",
+      "虽然时间不多，但是邻居还是完成了联系客户。",
+      "周末的时候，经理喜欢去广州提高效率。",
+      "经过讨论，邻居决定在博物馆解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "因为工作很忙，我的同事只能晚上准备报告。",
+    "meaning": "因为工作很忙，我的同事只能晚上准备报告。",
+    "options": [
+      "邻居觉得检查文件很重要。",
+      "今天我的同事在家里学习新知识。",
+      "最近邻居常常需要解决问题。",
+      "因为工作很忙，我的同事只能晚上准备报告。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "周末的时候，经理喜欢去机场参加会议。",
+    "meaning": "周末的时候，经理喜欢去机场参加会议。",
+    "options": [
+      "我听说记者最近在公司负责申请签证。",
+      "经理正在机场参加会议。",
+      "我听说邻居最近在学校负责联系客户。",
+      "周末的时候，经理喜欢去机场参加会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "邻居觉得检查文件很重要。",
+    "meaning": "邻居觉得检查文件很重要。",
+    "options": [
+      "我的同事告诉我，他最近正在学习新知识。",
+      "邻居觉得检查文件很重要。",
+      "昨天邻居在学校解决问题，所以回家比较晚。",
+      "邻居已经把手机带到学校了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过讨论，记者决定在广州调整时间。",
+    "meaning": "经过讨论，记者决定在广州调整时间。",
+    "options": [
+      "我的同事正在图书馆完成任务。",
+      "经过讨论，记者决定在广州调整时间。",
+      "经理觉得提高效率很重要。",
+      "因为工作很忙，我的同事只能晚上学习新知识。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了准备明天的工作，我的同事今晚还要学习新知识。",
+    "meaning": "为了准备明天的工作，我的同事今晚还要学习新知识。",
+    "options": [
+      "因为工作很忙，经理只能晚上提高效率。",
+      "邻居已经把手机带到学校了。",
+      "邻居每天都要解决问题。",
+      "为了准备明天的工作，我的同事今晚还要学习新知识。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "最近经理常常需要讨论计划。",
+    "meaning": "最近，经理常常需要讨论计划。",
+    "options": [
+      "如果计划没有变化，邻居下午会在家里联系客户。",
+      "邻居觉得解决问题很重要。",
+      "昨天经理在广州讨论计划，所以回家比较晚。",
+      "最近经理常常需要讨论计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有变化，邻居下午会在家里联系客户。",
+    "meaning": "如果计划没有变化，邻居下午会在家里联系客户。",
+    "options": [
+      "如果计划没有变化，邻居下午会在家里联系客户。",
+      "我的同事告诉我，他最近正在准备报告。",
+      "记者觉得申请签证很重要。",
+      "因为工作很忙，我的同事只能晚上学习新知识。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "记者已经把电脑带到会议室了。",
+    "meaning": "记者已经把电脑带到会议室了。",
+    "options": [
+      "记者已经把电脑带到会议室了。",
+      "因为工作很忙，我的同事只能晚上完成任务。",
+      "经理正在检查项目报告，准备开始提高效率。",
+      "经过讨论，记者决定在餐厅安排工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我的同事正在检查申请表，准备开始完成任务。",
+    "meaning": "我的同事正在检查申请表，准备开始完成任务。",
+    "options": [
+      "周末的时候，经理喜欢去机场参加会议。",
+      "经理每天都要参加会议。",
+      "我的同事正在检查申请表，准备开始完成任务。",
+      "会议结束以后，我的同事马上回到上海继续学习新知识。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "会议结束以后，经理马上回到公司继续提高效率。",
+    "meaning": "会议结束以后，经理马上回到公司继续提高效率。",
+    "options": [
+      "周末的时候，邻居喜欢去上海解决问题。",
+      "会议结束以后，经理马上回到公司继续提高效率。",
+      "因为工作很忙，我的同事只能晚上完成任务。",
+      "邻居希望明天可以继续解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "我听说邻居最近在图书馆负责解决问题。",
+    "meaning": "我听说，邻居最近在图书馆负责解决问题。",
+    "options": [
+      "经理每天都要参加会议。",
+      "我听说邻居最近在图书馆负责解决问题。",
+      "因为工作很忙，经理只能晚上提高效率。",
+      "我的同事正在火车站准备报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间不多，但是记者还是完成了安排工作。",
+    "meaning": "虽然时间不多，但是记者还是完成了安排工作。",
+    "options": [
+      "今天经理在广州讨论计划。",
+      "我的同事正在火车站准备报告。",
+      "虽然时间不多，但是记者还是完成了安排工作。",
+      "我听说邻居最近在火车站负责检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "今天我的同事在学校准备报告。",
+    "meaning": "今天，我的同事在学校准备报告。",
+    "options": [
+      "我的同事正在火车站准备报告。",
+      "为了调整时间，记者提前来到机场。",
+      "今天我的同事在学校准备报告。",
+      "我听说邻居最近在火车站负责检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经理每天都要参加会议。",
+    "meaning": "经理每天都要参加会议。",
+    "options": [
+      "周末的时候，经理喜欢去公司讨论计划。",
+      "记者觉得调整时间很重要。",
+      "昨天邻居在上海联系客户，所以回家比较晚。",
+      "经理每天都要参加会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果有时间，邻居会去上海检查文件。",
+    "meaning": "如果有时间，邻居会去上海检查文件。",
+    "options": [
+      "周末的时候，经理喜欢去广州提高效率。",
+      "我的同事正在检查合同，准备开始学习新知识。",
+      "记者告诉我，他最近正在安排工作。",
+      "如果有时间，邻居会去上海检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了调整时间，记者提前来到机场。",
+    "meaning": "为了调整时间，记者提前来到机场。",
+    "options": [
+      "我听说邻居最近在图书馆负责解决问题。",
+      "经理正在检查调查结果，准备开始参加会议。",
+      "邻居希望明天可以继续检查文件。",
+      "为了调整时间，记者提前来到机场。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "我的同事正在银行学习新知识。",
+    "meaning": "我的同事正在银行学习新知识。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要讨论计划。",
+      "我的同事正在银行学习新知识。",
+      "记者已经把护照带到机场了。",
+      "会议结束以后，我的同事马上回到上海继续学习新知识。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "昨天经理在广州讨论计划，所以回家比较晚。",
+    "meaning": "昨天，经理在广州讨论计划，所以回家比较晚。",
+    "options": [
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "昨天经理在广州讨论计划，所以回家比较晚。",
+      "我的同事已经把新闻报道带到学校了。",
+      "会议结束以后，经理马上回到广州继续参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "邻居告诉我，他最近正在联系客户。",
+    "meaning": "邻居告诉我，他最近正在联系客户。",
+    "options": [
+      "我听说记者最近在机场负责调整时间。",
+      "邻居告诉我，他最近正在联系客户。",
+      "最近经理常常需要参加会议。",
+      "虽然时间不多，但是邻居还是完成了联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "因为工作很忙，记者只能晚上申请签证。",
+    "meaning": "因为工作很忙，记者只能晚上申请签证。",
+    "options": [
+      "我的同事正在学校学习新知识。",
+      "邻居希望明天可以继续解决问题。",
+      "因为工作很忙，记者只能晚上申请签证。",
+      "我听说经理最近在机场负责讨论计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "周末的时候，我的同事喜欢去家里完成任务。",
+    "meaning": "周末的时候，我的同事喜欢去家里完成任务。",
+    "options": [
+      "因为工作很忙，我的同事只能晚上完成任务。",
+      "因为工作很忙，经理只能晚上提高效率。",
+      "今天我的同事在上海完成任务。",
+      "周末的时候，我的同事喜欢去家里完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经理觉得提高效率很重要。",
+    "meaning": "经理觉得提高效率很重要。",
+    "options": [
+      "记者已经把电脑带到会议室了。",
+      "经理觉得提高效率很重要。",
+      "为了准备明天的工作，我的同事今晚还要完成任务。",
+      "经过讨论，邻居决定在博物馆解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过讨论，邻居决定在博物馆解决问题。",
+    "meaning": "经过讨论，邻居决定在博物馆解决问题。",
+    "options": [
+      "邻居希望明天可以继续联系客户。",
+      "经过讨论，邻居决定在博物馆解决问题。",
+      "如果有时间，邻居会去上海检查文件。",
+      "如果有时间，记者会去医院安排工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了准备明天的工作，记者今晚还要安排工作。",
+    "meaning": "为了准备明天的工作，记者今晚还要安排工作。",
+    "options": [
+      "经理每天都要参加会议。",
+      "最近经理常常需要提高效率。",
+      "为了准备明天的工作，记者今晚还要安排工作。",
+      "会议结束以后，邻居马上回到家里继续解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "最近我的同事常常需要准备报告。",
+    "meaning": "最近，我的同事常常需要准备报告。",
+    "options": [
+      "我听说邻居最近在学校负责联系客户。",
+      "今天我的同事在学校准备报告。",
+      "最近我的同事常常需要准备报告。",
+      "我的同事告诉我，他最近正在完成任务。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有变化，经理下午会在北京参加会议。",
+    "meaning": "如果计划没有变化，经理下午会在北京参加会议。",
+    "options": [
+      "如果计划没有变化，经理下午会在北京参加会议。",
+      "为了提高效率，公司正在调整工作流程。",
+      "为了准备明天的工作，经理今晚还要参加会议。",
+      "我的同事正在检查合同，准备开始学习新知识。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "邻居已经把手机带到学校了。",
+    "meaning": "邻居已经把手机带到学校了。",
+    "options": [
+      "我的同事告诉我，他最近正在准备报告。",
+      "邻居已经把手机带到学校了。",
+      "我的同事正在检查合同，准备开始学习新知识。",
+      "最近邻居常常需要解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "记者正在检查工作计划，准备开始调整时间。",
+    "meaning": "记者正在检查工作计划，准备开始调整时间。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要讨论计划。",
+      "记者觉得安排工作很重要。",
+      "周末的时候，经理喜欢去机场参加会议。",
+      "记者正在检查工作计划，准备开始调整时间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "会议结束以后，我的同事马上回到上海继续学习新知识。",
+    "meaning": "会议结束以后，我的同事马上回到上海继续学习新知识。",
+    "options": [
+      "为了准备明天的工作，我的同事今晚还要完成任务。",
+      "会议结束以后，我的同事马上回到上海继续学习新知识。",
+      "邻居已经把手机带到学校了。",
+      "邻居觉得检查文件很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "我听说经理最近在机场负责讨论计划。",
+    "meaning": "我听说，经理最近在机场负责讨论计划。",
+    "options": [
+      "记者已经把工作计划带到公司了。",
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "我听说经理最近在机场负责讨论计划。",
+      "邻居觉得解决问题很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间不多，但是邻居还是完成了联系客户。",
+    "meaning": "虽然时间不多，但是邻居还是完成了联系客户。",
+    "options": [
+      "会议结束以后，经理马上回到公司继续提高效率。",
+      "记者觉得调整时间很重要。",
+      "今天经理在北京提高效率。",
+      "虽然时间不多，但是邻居还是完成了联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "今天记者在广州申请签证。",
+    "meaning": "今天，记者在广州申请签证。",
+    "options": [
+      "今天记者在广州申请签证。",
+      "经过讨论，记者决定在北京申请签证。",
+      "我听说邻居最近在图书馆负责解决问题。",
+      "如果有时间，记者会去医院安排工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "我的同事每天都要完成任务。",
+    "meaning": "我的同事每天都要完成任务。",
+    "options": [
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "为了学习新知识，我的同事提前来到博物馆。",
+      "我的同事告诉我，他最近正在完成任务。",
+      "我的同事每天都要完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "今天记者在北京解决问题。",
+    "meaning": "今天，记者在北京解决问题。",
+    "options": [
+      "因为工作很忙，记者只能晚上申请项目。",
+      "周末的时候，记者喜欢去广州申请项目。",
+      "经过讨论，同事决定在城市中心调查情况。",
+      "今天记者在北京解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "企业家每天都要提高效率。",
+    "meaning": "企业家每天都要提高效率。",
+    "options": [
+      "记者每天都要申请项目。",
+      "同事每天都要调查情况。",
+      "因为工作很忙，志愿者只能晚上交换意见。",
+      "企业家每天都要提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "如果有时间，志愿者会去图书馆讨论方案。",
+    "meaning": "如果有时间，志愿者会去图书馆讨论方案。",
+    "options": [
+      "同事每天都要调查情况。",
+      "周末的时候，记者喜欢去广州申请项目。",
+      "如果有时间，志愿者会去图书馆讨论方案。",
+      "如果计划没有变化，志愿者下午会在图书馆交换意见。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "为了分析数据，同事提前来到广州。",
+    "meaning": "为了分析数据，同事提前来到广州。",
+    "options": [
+      "志愿者告诉我，他最近正在讨论方案。",
+      "记者正在会议中心改进方法。",
+      "为了分析数据，同事提前来到广州。",
+      "同事告诉我，他最近正在调查情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "记者正在会议中心改进方法。",
+    "meaning": "记者正在会议中心改进方法。",
+    "options": [
+      "会议结束以后，同事马上回到城市中心继续分析数据。",
+      "记者正在会议中心改进方法。",
+      "经过讨论，志愿者决定在大学讨论方案。",
+      "周末的时候，记者喜欢去会议中心解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "企业家希望明天可以继续承担责任。",
+    "meaning": "企业家希望明天可以继续承担责任。",
+    "options": [
+      "昨天志愿者在博物馆完成研究，所以回家比较晚。",
+      "虽然时间不多，但是同事还是完成了分析数据。",
+      "企业家希望明天可以继续承担责任。",
+      "周末的时候，企业家喜欢去广州承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "昨天志愿者在大学交换意见，所以回家比较晚。",
+    "meaning": "昨天，志愿者在大学交换意见，所以回家比较晚。",
+    "options": [
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "企业家希望明天可以继续提高效率。",
+      "同事已经把技术文件带到机场了。",
+      "最近记者常常需要解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "同事告诉我，他最近正在调查情况。",
+    "meaning": "同事告诉我，他最近正在调查情况。",
+    "options": [
+      "会议结束以后，记者马上回到公司继续改进方法。",
+      "会议结束以后，同事马上回到城市中心继续分析数据。",
+      "同事告诉我，他最近正在调查情况。",
+      "我听说企业家最近在北京负责调整计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "因为工作很忙，记者只能晚上申请项目。",
+    "meaning": "因为工作很忙，记者只能晚上申请项目。",
+    "options": [
+      "因为工作很忙，同事只能晚上分析数据。",
+      "虽然时间不多，但是志愿者还是完成了完成研究。",
+      "因为工作很忙，记者只能晚上申请项目。",
+      "企业家希望明天可以继续承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "周末的时候，企业家喜欢去机场调整计划。",
+    "meaning": "周末的时候，企业家喜欢去机场调整计划。",
+    "options": [
+      "周末的时候，企业家喜欢去机场调整计划。",
+      "周末的时候，企业家喜欢去广州承担责任。",
+      "同事告诉我，他最近正在调查情况。",
+      "我听说企业家最近在大学负责提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "志愿者觉得完成研究很重要。",
+    "meaning": "志愿者觉得完成研究很重要。",
+    "options": [
+      "为了准备明天的工作，同事今晚还要积累经验。",
+      "志愿者觉得完成研究很重要。",
+      "经过讨论，同事决定在公司积累经验。",
+      "如果有时间，企业家会去机场提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "经过讨论，同事决定在公司积累经验。",
+    "meaning": "经过讨论，同事决定在公司积累经验。",
+    "options": [
+      "同事告诉我，他最近正在分析数据。",
+      "经过讨论，同事决定在公司积累经验。",
+      "志愿者已经把市场信息带到机场了。",
+      "企业必须不断提高自身的竞争力。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "为了准备明天的工作，记者今晚还要解决问题。",
+    "meaning": "为了准备明天的工作，记者今晚还要解决问题。",
+    "options": [
+      "为了准备明天的工作，记者今晚还要解决问题。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。",
+      "同事正在检查技术文件，准备开始积累经验。",
+      "如果有时间，志愿者会去机场完成研究。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "最近企业家常常需要提高效率。",
+    "meaning": "最近，企业家常常需要提高效率。",
+    "options": [
+      "企业必须不断提高自身的竞争力。",
+      "今天记者在上海解决问题。",
+      "企业家每天都要承担责任。",
+      "最近企业家常常需要提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "如果计划没有变化，志愿者下午会在研究中心讨论方案。",
+    "meaning": "如果计划没有变化，志愿者下午会在研究中心讨论方案。",
+    "options": [
+      "如果计划没有变化，志愿者下午会在研究中心讨论方案。",
+      "企业家每天都要承担责任。",
+      "虽然时间不多，但是企业家还是完成了承担责任。",
+      "这项研究的结果为我们提供了新的思路。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "同事已经把合同条款带到图书馆了。",
+    "meaning": "同事已经把合同条款带到图书馆了。",
+    "options": [
+      "同事已经把合同条款带到图书馆了。",
+      "今天同事在图书馆积累经验。",
+      "我听说企业家最近在大学负责提高效率。",
+      "我听说志愿者最近在医院负责讨论方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "记者正在检查学习资料，准备开始改进方法。",
+    "meaning": "记者正在检查学习资料，准备开始改进方法。",
+    "options": [
+      "记者正在检查学习资料，准备开始改进方法。",
+      "同事已经把技术文件带到机场了。",
+      "周末的时候，记者喜欢去实验室改进方法。",
+      "企业家希望明天可以继续提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "会议结束以后，企业家马上回到会议中心继续承担责任。",
+    "meaning": "会议结束以后，企业家马上回到会议中心继续承担责任。",
+    "options": [
+      "虽然时间不多，但是同事还是完成了积累经验。",
+      "如果计划没有变化，记者下午会在图书馆解决问题。",
+      "会议结束以后，企业家马上回到会议中心继续承担责任。",
+      "今天同事在研究中心调查情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "我听说志愿者最近在城市中心负责交换意见。",
+    "meaning": "我听说，志愿者最近在城市中心负责交换意见。",
+    "options": [
+      "记者每天都要改进方法。",
+      "我听说志愿者最近在城市中心负责交换意见。",
+      "同事告诉我，他最近正在积累经验。",
+      "会议结束以后，企业家马上回到公司继续提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间不多，但是同事还是完成了调查情况。",
+    "meaning": "虽然时间不多，但是同事还是完成了调查情况。",
+    "options": [
+      "如果有时间，企业家会去会议中心提高效率。",
+      "虽然时间不多，但是同事还是完成了调查情况。",
+      "同事已经把合同条款带到图书馆了。",
+      "周末的时候，同事喜欢去实验室调查情况。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "今天记者在博物馆申请项目。",
+    "meaning": "今天，记者在博物馆申请项目。",
+    "options": [
+      "同事告诉我，他最近正在调查情况。",
+      "同事正在城市中心积累经验。",
+      "因为工作很忙，记者只能晚上改进方法。",
+      "今天记者在博物馆申请项目。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "企业家每天都要调整计划。",
+    "meaning": "企业家每天都要调整计划。",
+    "options": [
+      "企业家希望明天可以继续承担责任。",
+      "为了积累经验，同事提前来到实验室。",
+      "企业家每天都要调整计划。",
+      "因为工作很忙，记者只能晚上解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "如果有时间，志愿者会去机场完成研究。",
+    "meaning": "如果有时间，志愿者会去机场完成研究。",
+    "options": [
+      "如果计划没有变化，企业家下午会在机场承担责任。",
+      "如果有时间，志愿者会去机场完成研究。",
+      "为了准备明天的工作，记者今晚还要解决问题。",
+      "周末的时候，记者喜欢去广州申请项目。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "为了积累经验，同事提前来到实验室。",
+    "meaning": "为了积累经验，同事提前来到实验室。",
+    "options": [
+      "会议结束以后，同事马上回到城市中心继续分析数据。",
+      "志愿者正在检查市场信息，准备开始讨论方案。",
+      "会议结束以后，记者马上回到公司继续改进方法。",
+      "为了积累经验，同事提前来到实验室。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "记者正在公司解决问题。",
+    "meaning": "记者正在公司解决问题。",
+    "options": [
+      "同事正在检查会议记录，准备开始调查情况。",
+      "志愿者告诉我，他最近正在完成研究。",
+      "同事告诉我，他最近正在积累经验。",
+      "记者正在公司解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "企业家希望明天可以继续提高效率。",
+    "meaning": "企业家希望明天可以继续提高效率。",
+    "options": [
+      "今天记者在博物馆申请项目。",
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "企业家希望明天可以继续提高效率。",
+      "周末的时候，记者喜欢去会议中心解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "昨天志愿者在北京讨论方案，所以回家比较晚。",
+    "meaning": "昨天，志愿者在北京讨论方案，所以回家比较晚。",
+    "options": [
+      "昨天志愿者在博物馆完成研究，所以回家比较晚。",
+      "昨天志愿者在北京讨论方案，所以回家比较晚。",
+      "虽然时间不多，但是企业家还是完成了承担责任。",
+      "今天记者在研究中心改进方法。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "同事告诉我，他最近正在分析数据。",
+    "meaning": "同事告诉我，他最近正在分析数据。",
+    "options": [
+      "因为工作很忙，记者只能晚上改进方法。",
+      "同事告诉我，他最近正在分析数据。",
+      "最近企业家常常需要调整计划。",
+      "会议结束以后，企业家马上回到城市中心继续调整计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "因为工作很忙，记者只能晚上改进方法。",
+    "meaning": "因为工作很忙，记者只能晚上改进方法。",
+    "options": [
+      "因为工作很忙，记者只能晚上改进方法。",
+      "经过讨论，同事决定在医院分析数据。",
+      "记者正在公司解决问题。",
+      "周末的时候，企业家喜欢去实验室提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "周末的时候，企业家喜欢去广州承担责任。",
+    "meaning": "周末的时候，企业家喜欢去广州承担责任。",
+    "options": [
+      "如果计划没有变化，记者下午会在图书馆解决问题。",
+      "周末的时候，企业家喜欢去广州承担责任。",
+      "同事正在检查合同条款，准备开始分析数据。",
+      "志愿者告诉我，他最近正在讨论方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "志愿者觉得交换意见很重要。",
+    "meaning": "志愿者觉得交换意见很重要。",
+    "options": [
+      "我听说企业家最近在北京负责调整计划。",
+      "因为工作很忙，同事只能晚上调查情况。",
+      "志愿者觉得交换意见很重要。",
+      "我听说企业家最近在医院负责承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "经过讨论，同事决定在城市中心调查情况。",
+    "meaning": "经过讨论，同事决定在城市中心调查情况。",
+    "options": [
+      "同事正在检查技术文件，准备开始积累经验。",
+      "志愿者觉得讨论方案很重要。",
+      "为了准备明天的工作，同事今晚还要积累经验。",
+      "经过讨论，同事决定在城市中心调查情况。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了准备明天的工作，记者今晚还要申请项目。",
+    "meaning": "为了准备明天的工作，记者今晚还要申请项目。",
+    "options": [
+      "为了准备明天的工作，记者今晚还要申请项目。",
+      "同事正在大学分析数据。",
+      "会议结束以后，企业家马上回到会议中心继续承担责任。",
+      "志愿者已经把项目计划带到广州了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "最近企业家常常需要调整计划。",
+    "meaning": "最近，企业家常常需要调整计划。",
+    "options": [
+      "我听说企业家最近在大学负责提高效率。",
+      "最近企业家常常需要调整计划。",
+      "同事告诉我，他最近正在调查情况。",
+      "因为工作很忙，同事只能晚上调查情况。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "如果计划没有变化，志愿者下午会在上海完成研究。",
+    "meaning": "如果计划没有变化，志愿者下午会在上海完成研究。",
+    "options": [
+      "今天记者在研究中心改进方法。",
+      "如果计划没有变化，志愿者下午会在上海完成研究。",
+      "企业家觉得提高效率很重要。",
+      "经过分析，我们发现问题比想象中更加复杂。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "同事已经把技术文件带到机场了。",
+    "meaning": "同事已经把技术文件带到机场了。",
+    "options": [
+      "会议结束以后，企业家马上回到公司继续提高效率。",
+      "志愿者觉得完成研究很重要。",
+      "虽然时间不多，但是志愿者还是完成了讨论方案。",
+      "同事已经把技术文件带到机场了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "记者正在检查申请材料，准备开始解决问题。",
+    "meaning": "记者正在检查申请材料，准备开始解决问题。",
+    "options": [
+      "如果有时间，志愿者会去广州交换意见。",
+      "为了准备明天的工作，记者今晚还要申请项目。",
+      "企业必须不断提高自身的竞争力。",
+      "记者正在检查申请材料，准备开始解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "会议结束以后，企业家马上回到公司继续提高效率。",
+    "meaning": "会议结束以后，企业家马上回到公司继续提高效率。",
+    "options": [
+      "记者觉得申请项目很重要。",
+      "记者希望明天可以继续解决问题。",
+      "会议结束以后，企业家马上回到公司继续提高效率。",
+      "为了准备明天的工作，同事今晚还要调查情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "我听说志愿者最近在医院负责讨论方案。",
+    "meaning": "我听说，志愿者最近在医院负责讨论方案。",
+    "options": [
+      "周末的时候，记者喜欢去会议中心解决问题。",
+      "如果有时间，企业家会去广州调整计划。",
+      "记者正在检查申请材料，准备开始解决问题。",
+      "我听说志愿者最近在医院负责讨论方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间不多，但是同事还是完成了分析数据。",
+    "meaning": "虽然时间不多，但是同事还是完成了分析数据。",
+    "options": [
+      "为了分析数据，同事提前来到广州。",
+      "虽然时间不多，但是同事还是完成了分析数据。",
+      "如果有时间，企业家会去会议中心提高效率。",
+      "志愿者告诉我，他最近正在讨论方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "今天记者在研究中心改进方法。",
+    "meaning": "今天，记者在研究中心改进方法。",
+    "options": [
+      "因为工作很忙，记者只能晚上申请项目。",
+      "如果计划没有变化，企业家下午会在上海提高效率。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。",
+      "今天记者在研究中心改进方法。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "企业家每天都要承担责任。",
+    "meaning": "企业家每天都要承担责任。",
+    "options": [
+      "记者希望明天可以继续解决问题。",
+      "今天记者在北京解决问题。",
+      "经过讨论，同事决定在城市中心调查情况。",
+      "企业家每天都要承担责任。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "如果有时间，志愿者会去广州交换意见。",
+    "meaning": "如果有时间，志愿者会去广州交换意见。",
+    "options": [
+      "志愿者已经把统计结果带到实验室了。",
+      "周末的时候，同事喜欢去实验室调查情况。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。",
+      "如果有时间，志愿者会去广州交换意见。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了调查情况，同事提前来到会议中心。",
+    "meaning": "为了调查情况，同事提前来到会议中心。",
+    "options": [
+      "为了准备明天的工作，同事今晚还要分析数据。",
+      "今天同事在研究中心调查情况。",
+      "企业家觉得提高效率很重要。",
+      "为了调查情况，同事提前来到会议中心。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "记者正在城市中心申请项目。",
+    "meaning": "记者正在城市中心申请项目。",
+    "options": [
+      "记者正在城市中心申请项目。",
+      "同事告诉我，他最近正在调查情况。",
+      "我听说企业家最近在医院负责承担责任。",
+      "企业家每天都要提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "企业家希望明天可以继续调整计划。",
+    "meaning": "企业家希望明天可以继续调整计划。",
+    "options": [
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "志愿者告诉我，他最近正在完成研究。",
+      "如果计划没有变化，企业家下午会在上海提高效率。",
+      "企业家希望明天可以继续调整计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "昨天志愿者在博物馆完成研究，所以回家比较晚。",
+    "meaning": "昨天，志愿者在博物馆完成研究，所以回家比较晚。",
+    "options": [
+      "同事告诉我，他最近正在分析数据。",
+      "昨天志愿者在博物馆完成研究，所以回家比较晚。",
+      "记者正在检查申请材料，准备开始解决问题。",
+      "因为工作很忙，同事只能晚上积累经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "同事告诉我，他最近正在积累经验。",
+    "meaning": "同事告诉我，他最近正在积累经验。",
+    "options": [
+      "经过讨论，志愿者决定在城市中心完成研究。",
+      "同事正在检查会议记录，准备开始调查情况。",
+      "会议结束以后，企业家马上回到城市中心继续调整计划。",
+      "同事告诉我，他最近正在积累经验。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "因为工作很忙，记者只能晚上解决问题。",
+    "meaning": "因为工作很忙，记者只能晚上解决问题。",
+    "options": [
+      "因为工作很忙，记者只能晚上解决问题。",
+      "企业家觉得调整计划很重要。",
+      "昨天企业家在研究中心调整计划，所以回家比较晚。",
+      "今天同事在上海分析数据。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "周末的时候，企业家喜欢去实验室提高效率。",
+    "meaning": "周末的时候，企业家喜欢去实验室提高效率。",
+    "options": [
+      "周末的时候，企业家喜欢去实验室提高效率。",
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "如果有时间，企业家会去广州调整计划。",
+      "记者觉得申请项目很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "志愿者觉得讨论方案很重要。",
+    "meaning": "志愿者觉得讨论方案很重要。",
+    "options": [
+      "志愿者觉得讨论方案很重要。",
+      "因为工作很忙，同事只能晚上调查情况。",
+      "最近企业家常常需要提高效率。",
+      "如果有时间，志愿者会去机场完成研究。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "经过讨论，同事决定在医院分析数据。",
+    "meaning": "经过讨论，同事决定在医院分析数据。",
+    "options": [
+      "为了准备明天的工作，记者今晚还要改进方法。",
+      "志愿者已经把统计结果带到实验室了。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。",
+      "经过讨论，同事决定在医院分析数据。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了准备明天的工作，记者今晚还要改进方法。",
+    "meaning": "为了准备明天的工作，记者今晚还要改进方法。",
+    "options": [
+      "为了准备明天的工作，记者今晚还要改进方法。",
+      "我听说志愿者最近在大学负责完成研究。",
+      "会议结束以后，记者马上回到公司继续改进方法。",
+      "会议结束以后，企业家马上回到城市中心继续调整计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "最近企业家常常需要承担责任。",
+    "meaning": "最近，企业家常常需要承担责任。",
+    "options": [
+      "周末的时候，企业家喜欢去机场调整计划。",
+      "如果有时间，志愿者会去广州交换意见。",
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "最近企业家常常需要承担责任。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "如果计划没有变化，志愿者下午会在图书馆交换意见。",
+    "meaning": "如果计划没有变化，志愿者下午会在图书馆交换意见。",
+    "options": [
+      "会议结束以后，同事马上回到城市中心继续分析数据。",
+      "如果计划没有变化，志愿者下午会在图书馆交换意见。",
+      "最近记者常常需要解决问题。",
+      "企业家希望明天可以继续提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "同事已经把会议记录带到广州了。",
+    "meaning": "同事已经把会议记录带到广州了。",
+    "options": [
+      "同事已经把会议记录带到广州了。",
+      "为了分析数据，同事提前来到广州。",
+      "最近企业家常常需要提高效率。",
+      "昨天企业家在博物馆提高效率，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "记者正在检查调查数据，准备开始申请项目。",
+    "meaning": "记者正在检查调查数据，准备开始申请项目。",
+    "options": [
+      "虽然时间不多，但是志愿者还是完成了讨论方案。",
+      "志愿者觉得讨论方案很重要。",
+      "记者正在检查调查数据，准备开始申请项目。",
+      "最近企业家常常需要提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "会议结束以后，企业家马上回到城市中心继续调整计划。",
+    "meaning": "会议结束以后，企业家马上回到城市中心继续调整计划。",
+    "options": [
+      "经过讨论，志愿者决定在医院交换意见。",
+      "记者正在检查申请材料，准备开始解决问题。",
+      "会议结束以后，企业家马上回到城市中心继续调整计划。",
+      "企业家希望明天可以继续调整计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "我听说志愿者最近在大学负责完成研究。",
+    "meaning": "我听说，志愿者最近在大学负责完成研究。",
+    "options": [
+      "志愿者告诉我，他最近正在交换意见。",
+      "同事正在大学分析数据。",
+      "企业家觉得承担责任很重要。",
+      "我听说志愿者最近在大学负责完成研究。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间不多，但是同事还是完成了积累经验。",
+    "meaning": "虽然时间不多，但是同事还是完成了积累经验。",
+    "options": [
+      "经过讨论，志愿者决定在大学讨论方案。",
+      "虽然时间不多，但是同事还是完成了积累经验。",
+      "如果计划没有变化，企业家下午会在图书馆调整计划。",
+      "记者希望明天可以继续申请项目。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "今天记者在上海解决问题。",
+    "meaning": "今天，记者在上海解决问题。",
+    "options": [
+      "记者每天都要解决问题。",
+      "周末的时候，记者喜欢去广州申请项目。",
+      "今天记者在上海解决问题。",
+      "如果计划没有变化，记者下午会在图书馆解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "如果有时间，企业家会去机场提高效率。",
+    "meaning": "如果有时间，企业家会去机场提高效率。",
+    "options": [
+      "如果有时间，企业家会去机场提高效率。",
+      "同事正在检查技术文件，准备开始积累经验。",
+      "我听说志愿者最近在大学负责完成研究。",
+      "最近企业家常常需要承担责任。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "为了讨论方案，志愿者提前来到实验室。",
+    "meaning": "为了讨论方案，志愿者提前来到实验室。",
+    "options": [
+      "周末的时候，企业家喜欢去广州承担责任。",
+      "为了讨论方案，志愿者提前来到实验室。",
+      "我听说志愿者最近在医院负责讨论方案。",
+      "记者每天都要申请项目。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "同事正在公司分析数据。",
+    "meaning": "同事正在公司分析数据。",
+    "options": [
+      "同事正在公司分析数据。",
+      "因为工作很忙，同事只能晚上积累经验。",
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "经过讨论，同事决定在公司积累经验。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "记者希望明天可以继续改进方法。",
+    "meaning": "记者希望明天可以继续改进方法。",
+    "options": [
+      "虽然时间不多，但是志愿者还是完成了完成研究。",
+      "记者希望明天可以继续改进方法。",
+      "经过讨论，志愿者决定在医院交换意见。",
+      "为了准备明天的工作，志愿者今晚还要完成研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "昨天企业家在北京承担责任，所以回家比较晚。",
+    "meaning": "昨天，企业家在北京承担责任，所以回家比较晚。",
+    "options": [
+      "昨天企业家在北京承担责任，所以回家比较晚。",
+      "经过讨论，同事决定在城市中心调查情况。",
+      "如果有时间，企业家会去机场提高效率。",
+      "同事正在医院调查情况。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "志愿者告诉我，他最近正在交换意见。",
+    "meaning": "志愿者告诉我，他最近正在交换意见。",
+    "options": [
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "志愿者告诉我，他最近正在交换意见。",
+      "会议结束以后，企业家马上回到公司继续提高效率。",
+      "虽然时间不多，但是同事还是完成了积累经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "因为工作很忙，同事只能晚上调查情况。",
+    "meaning": "因为工作很忙，同事只能晚上调查情况。",
+    "options": [
+      "为了完成研究，志愿者提前来到会议中心。",
+      "因为工作很忙，同事只能晚上调查情况。",
+      "虽然时间不多，但是同事还是完成了调查情况。",
+      "经过讨论，志愿者决定在城市中心完成研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "周末的时候，记者喜欢去广州申请项目。",
+    "meaning": "周末的时候，记者喜欢去广州申请项目。",
+    "options": [
+      "因为工作很忙，志愿者只能晚上交换意见。",
+      "记者正在检查学习资料，准备开始改进方法。",
+      "周末的时候，记者喜欢去广州申请项目。",
+      "企业必须不断提高自身的竞争力。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "企业家觉得调整计划很重要。",
+    "meaning": "企业家觉得调整计划很重要。",
+    "options": [
+      "经过讨论，志愿者决定在城市中心完成研究。",
+      "企业家觉得调整计划很重要。",
+      "最近企业家常常需要承担责任。",
+      "最近记者常常需要解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "经过讨论，志愿者决定在城市中心完成研究。",
+    "meaning": "经过讨论，志愿者决定在城市中心完成研究。",
+    "options": [
+      "如果有时间，企业家会去会议中心提高效率。",
+      "同事正在城市中心积累经验。",
+      "如果有时间，志愿者会去广州交换意见。",
+      "经过讨论，志愿者决定在城市中心完成研究。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了准备明天的工作，同事今晚还要积累经验。",
+    "meaning": "为了准备明天的工作，同事今晚还要积累经验。",
+    "options": [
+      "为了准备明天的工作，同事今晚还要分析数据。",
+      "为了准备明天的工作，同事今晚还要积累经验。",
+      "记者正在检查学习资料，准备开始改进方法。",
+      "记者每天都要解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "最近记者常常需要解决问题。",
+    "meaning": "最近，记者常常需要解决问题。",
+    "options": [
+      "昨天志愿者在博物馆完成研究，所以回家比较晚。",
+      "为了积累经验，同事提前来到实验室。",
+      "最近记者常常需要解决问题。",
+      "如果有时间，志愿者会去广州交换意见。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "如果计划没有变化，企业家下午会在上海提高效率。",
+    "meaning": "如果计划没有变化，企业家下午会在上海提高效率。",
+    "options": [
+      "面对变化，我们应该保持理性和耐心。",
+      "如果计划没有变化，企业家下午会在上海提高效率。",
+      "志愿者已经把统计结果带到实验室了。",
+      "为了准备明天的工作，志愿者今晚还要完成研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "志愿者已经把市场信息带到机场了。",
+    "meaning": "志愿者已经把市场信息带到机场了。",
+    "options": [
+      "志愿者已经把市场信息带到机场了。",
+      "记者希望明天可以继续申请项目。",
+      "会议结束以后，企业家马上回到会议中心继续承担责任。",
+      "如果有时间，企业家会去机场提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "同事正在检查合同条款，准备开始分析数据。",
+    "meaning": "同事正在检查合同条款，准备开始分析数据。",
+    "options": [
+      "同事正在检查合同条款，准备开始分析数据。",
+      "志愿者觉得讨论方案很重要。",
+      "为了准备明天的工作，志愿者今晚还要完成研究。",
+      "我听说企业家最近在医院负责承担责任。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "会议结束以后，记者马上回到公司继续改进方法。",
+    "meaning": "会议结束以后，记者马上回到公司继续改进方法。",
+    "options": [
+      "如果计划没有变化，记者下午会在图书馆解决问题。",
+      "会议结束以后，记者马上回到公司继续改进方法。",
+      "为了交换意见，志愿者提前来到公司。",
+      "记者希望明天可以继续申请项目。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "我听说企业家最近在医院负责承担责任。",
+    "meaning": "我听说，企业家最近在医院负责承担责任。",
+    "options": [
+      "因为工作很忙，同事只能晚上调查情况。",
+      "如果有时间，志愿者会去机场完成研究。",
+      "同事已经把合同条款带到图书馆了。",
+      "我听说企业家最近在医院负责承担责任。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间不多，但是志愿者还是完成了交换意见。",
+    "meaning": "虽然时间不多，但是志愿者还是完成了交换意见。",
+    "options": [
+      "这项研究的结果为我们提供了新的思路。",
+      "虽然时间不多，但是志愿者还是完成了交换意见。",
+      "经过讨论，企业家决定在医院调整计划。",
+      "虽然时间不多，但是志愿者还是完成了讨论方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "今天同事在研究中心调查情况。",
+    "meaning": "今天，同事在研究中心调查情况。",
+    "options": [
+      "同事已经把技术文件带到机场了。",
+      "为了完成研究，志愿者提前来到会议中心。",
+      "今天同事在研究中心调查情况。",
+      "如果计划没有变化，企业家下午会在机场承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "记者每天都要申请项目。",
+    "meaning": "记者每天都要申请项目。",
+    "options": [
+      "同事告诉我，他最近正在调查情况。",
+      "记者每天都要申请项目。",
+      "记者希望明天可以继续解决问题。",
+      "虽然时间不多，但是同事还是完成了积累经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "如果有时间，企业家会去广州调整计划。",
+    "meaning": "如果有时间，企业家会去广州调整计划。",
+    "options": [
+      "双方就合作方案交换了意见。",
+      "如果有时间，企业家会去广州调整计划。",
+      "经过讨论，志愿者决定在医院交换意见。",
+      "因为工作很忙，志愿者只能晚上交换意见。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "为了完成研究，志愿者提前来到会议中心。",
+    "meaning": "为了完成研究，志愿者提前来到会议中心。",
+    "options": [
+      "周末的时候，记者喜欢去广州申请项目。",
+      "今天记者在北京解决问题。",
+      "虽然时间不多，但是同事还是完成了分析数据。",
+      "为了完成研究，志愿者提前来到会议中心。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "同事正在城市中心积累经验。",
+    "meaning": "同事正在城市中心积累经验。",
+    "options": [
+      "同事正在城市中心积累经验。",
+      "虽然时间不多，但是企业家还是完成了承担责任。",
+      "为了准备明天的工作，同事今晚还要积累经验。",
+      "为了准备明天的工作，记者今晚还要解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "记者希望明天可以继续解决问题。",
+    "meaning": "记者希望明天可以继续解决问题。",
+    "options": [
+      "记者希望明天可以继续解决问题。",
+      "志愿者已经把市场信息带到机场了。",
+      "周末的时候，同事喜欢去实验室调查情况。",
+      "志愿者觉得交换意见很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "昨天企业家在博物馆提高效率，所以回家比较晚。",
+    "meaning": "昨天，企业家在博物馆提高效率，所以回家比较晚。",
+    "options": [
+      "昨天企业家在博物馆提高效率，所以回家比较晚。",
+      "今天同事在图书馆积累经验。",
+      "因为工作很忙，记者只能晚上解决问题。",
+      "记者正在会议中心改进方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "志愿者告诉我，他最近正在讨论方案。",
+    "meaning": "志愿者告诉我，他最近正在讨论方案。",
+    "options": [
+      "同事每天都要调查情况。",
+      "为了交换意见，志愿者提前来到公司。",
+      "志愿者告诉我，他最近正在讨论方案。",
+      "昨天志愿者在大学交换意见，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "因为工作很忙，同事只能晚上分析数据。",
+    "meaning": "因为工作很忙，同事只能晚上分析数据。",
+    "options": [
+      "为了准备明天的工作，同事今晚还要分析数据。",
+      "我听说志愿者最近在大学负责完成研究。",
+      "昨天企业家在博物馆提高效率，所以回家比较晚。",
+      "因为工作很忙，同事只能晚上分析数据。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "周末的时候，记者喜欢去实验室改进方法。",
+    "meaning": "周末的时候，记者喜欢去实验室改进方法。",
+    "options": [
+      "周末的时候，记者喜欢去实验室改进方法。",
+      "企业家希望明天可以继续调整计划。",
+      "面对变化，我们应该保持理性和耐心。",
+      "我听说记者最近在大学负责改进方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "企业家觉得承担责任很重要。",
+    "meaning": "企业家觉得承担责任很重要。",
+    "options": [
+      "企业家觉得承担责任很重要。",
+      "经过讨论，企业家决定在医院调整计划。",
+      "同事已经把技术文件带到机场了。",
+      "我听说记者最近在大学负责改进方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "经过讨论，志愿者决定在医院交换意见。",
+    "meaning": "经过讨论，志愿者决定在医院交换意见。",
+    "options": [
+      "志愿者已经把市场信息带到机场了。",
+      "记者希望明天可以继续解决问题。",
+      "记者正在会议中心改进方法。",
+      "经过讨论，志愿者决定在医院交换意见。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了准备明天的工作，同事今晚还要调查情况。",
+    "meaning": "为了准备明天的工作，同事今晚还要调查情况。",
+    "options": [
+      "如果有时间，志愿者会去图书馆讨论方案。",
+      "记者正在会议中心改进方法。",
+      "为了准备明天的工作，同事今晚还要调查情况。",
+      "同事正在检查技术文件，准备开始积累经验。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "最近记者常常需要申请项目。",
+    "meaning": "最近，记者常常需要申请项目。",
+    "options": [
+      "经过讨论，志愿者决定在医院交换意见。",
+      "最近记者常常需要申请项目。",
+      "记者正在检查调查数据，准备开始申请项目。",
+      "同事告诉我，他最近正在分析数据。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "如果计划没有变化，企业家下午会在图书馆调整计划。",
+    "meaning": "如果计划没有变化，企业家下午会在图书馆调整计划。",
+    "options": [
+      "会议结束以后，记者马上回到医院继续申请项目。",
+      "经过讨论，志愿者决定在大学讨论方案。",
+      "如果有时间，企业家会去会议中心提高效率。",
+      "如果计划没有变化，企业家下午会在图书馆调整计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "志愿者已经把项目计划带到广州了。",
+    "meaning": "志愿者已经把项目计划带到广州了。",
+    "options": [
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "同事告诉我，他最近正在调查情况。",
+      "记者正在检查学习资料，准备开始改进方法。",
+      "志愿者已经把项目计划带到广州了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "同事正在检查技术文件，准备开始积累经验。",
+    "meaning": "同事正在检查技术文件，准备开始积累经验。",
+    "options": [
+      "同事正在检查技术文件，准备开始积累经验。",
+      "最近企业家常常需要承担责任。",
+      "如果有时间，企业家会去实验室承担责任。",
+      "这项研究的结果为我们提供了新的思路。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "会议结束以后，记者马上回到城市中心继续解决问题。",
+    "meaning": "会议结束以后，记者马上回到城市中心继续解决问题。",
+    "options": [
+      "记者每天都要申请项目。",
+      "最近企业家常常需要调整计划。",
+      "会议结束以后，记者马上回到城市中心继续解决问题。",
+      "志愿者告诉我，他最近正在讨论方案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "我听说企业家最近在大学负责提高效率。",
+    "meaning": "我听说，企业家最近在大学负责提高效率。",
+    "options": [
+      "我听说企业家最近在大学负责提高效率。",
+      "记者每天都要改进方法。",
+      "记者正在会议中心改进方法。",
+      "周末的时候，记者喜欢去实验室改进方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间不多，但是志愿者还是完成了讨论方案。",
+    "meaning": "虽然时间不多，但是志愿者还是完成了讨论方案。",
+    "options": [
+      "虽然时间不多，但是志愿者还是完成了讨论方案。",
+      "最近企业家常常需要提高效率。",
+      "如果有时间，企业家会去实验室承担责任。",
+      "如果计划没有变化，记者下午会在图书馆解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "今天同事在上海分析数据。",
+    "meaning": "今天，同事在上海分析数据。",
+    "options": [
+      "记者希望明天可以继续解决问题。",
+      "同事正在检查会议记录，准备开始调查情况。",
+      "如果计划没有变化，企业家下午会在上海提高效率。",
+      "今天同事在上海分析数据。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "记者每天都要改进方法。",
+    "meaning": "记者每天都要改进方法。",
+    "options": [
+      "记者每天都要改进方法。",
+      "如果有时间，志愿者会去广州交换意见。",
+      "昨天企业家在博物馆提高效率，所以回家比较晚。",
+      "虽然时间不多，但是同事还是完成了积累经验。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "如果有时间，企业家会去实验室承担责任。",
+    "meaning": "如果有时间，企业家会去实验室承担责任。",
+    "options": [
+      "如果有时间，企业家会去实验室承担责任。",
+      "同事告诉我，他最近正在调查情况。",
+      "周末的时候，记者喜欢去广州申请项目。",
+      "会议结束以后，记者马上回到公司继续改进方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "为了交换意见，志愿者提前来到公司。",
+    "meaning": "为了交换意见，志愿者提前来到公司。",
+    "options": [
+      "双方就合作方案交换了意见。",
+      "同事已经把技术文件带到机场了。",
+      "为了讨论方案，志愿者提前来到实验室。",
+      "为了交换意见，志愿者提前来到公司。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "同事正在医院调查情况。",
+    "meaning": "同事正在医院调查情况。",
+    "options": [
+      "同事正在公司分析数据。",
+      "企业家每天都要调整计划。",
+      "同事正在医院调查情况。",
+      "企业必须不断提高自身的竞争力。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "记者希望明天可以继续申请项目。",
+    "meaning": "记者希望明天可以继续申请项目。",
+    "options": [
+      "记者希望明天可以继续申请项目。",
+      "因为工作很忙，同事只能晚上调查情况。",
+      "如果计划没有变化，志愿者下午会在上海完成研究。",
+      "为了准备明天的工作，记者今晚还要申请项目。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "昨天企业家在研究中心调整计划，所以回家比较晚。",
+    "meaning": "昨天，企业家在研究中心调整计划，所以回家比较晚。",
+    "options": [
+      "昨天企业家在研究中心调整计划，所以回家比较晚。",
+      "因为工作很忙，志愿者只能晚上交换意见。",
+      "如果有时间，企业家会去实验室承担责任。",
+      "最近企业家常常需要提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "志愿者告诉我，他最近正在完成研究。",
+    "meaning": "志愿者告诉我，他最近正在完成研究。",
+    "options": [
+      "志愿者告诉我，他最近正在完成研究。",
+      "记者正在城市中心申请项目。",
+      "我听说企业家最近在医院负责承担责任。",
+      "记者希望明天可以继续解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "因为工作很忙，同事只能晚上积累经验。",
+    "meaning": "因为工作很忙，同事只能晚上积累经验。",
+    "options": [
+      "如果有时间，志愿者会去图书馆讨论方案。",
+      "因为工作很忙，志愿者只能晚上交换意见。",
+      "因为工作很忙，同事只能晚上积累经验。",
+      "如果计划没有变化，志愿者下午会在图书馆交换意见。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "周末的时候，记者喜欢去会议中心解决问题。",
+    "meaning": "周末的时候，记者喜欢去会议中心解决问题。",
+    "options": [
+      "周末的时候，记者喜欢去会议中心解决问题。",
+      "经过讨论，同事决定在城市中心调查情况。",
+      "同事告诉我，他最近正在调查情况。",
+      "为了准备明天的工作，同事今晚还要积累经验。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "企业家觉得提高效率很重要。",
+    "meaning": "企业家觉得提高效率很重要。",
+    "options": [
+      "企业家觉得提高效率很重要。",
+      "企业家每天都要调整计划。",
+      "如果计划没有变化，志愿者下午会在上海完成研究。",
+      "今天记者在研究中心改进方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "经过讨论，志愿者决定在大学讨论方案。",
+    "meaning": "经过讨论，志愿者决定在大学讨论方案。",
+    "options": [
+      "双方就合作方案交换了意见。",
+      "如果有时间，企业家会去广州调整计划。",
+      "为了积累经验，同事提前来到实验室。",
+      "经过讨论，志愿者决定在大学讨论方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了准备明天的工作，同事今晚还要分析数据。",
+    "meaning": "为了准备明天的工作，同事今晚还要分析数据。",
+    "options": [
+      "为了准备明天的工作，同事今晚还要分析数据。",
+      "同事正在检查会议记录，准备开始调查情况。",
+      "经过讨论，同事决定在城市中心调查情况。",
+      "这项研究的结果为我们提供了新的思路。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "最近记者常常需要改进方法。",
+    "meaning": "最近，记者常常需要改进方法。",
+    "options": [
+      "如果计划没有变化，志愿者下午会在研究中心讨论方案。",
+      "会议结束以后，记者马上回到公司继续改进方法。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。",
+      "最近记者常常需要改进方法。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "如果计划没有变化，企业家下午会在机场承担责任。",
+    "meaning": "如果计划没有变化，企业家下午会在机场承担责任。",
+    "options": [
+      "会议结束以后，记者马上回到公司继续改进方法。",
+      "企业家每天都要调整计划。",
+      "如果计划没有变化，企业家下午会在机场承担责任。",
+      "记者正在检查申请材料，准备开始解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "志愿者已经把统计结果带到实验室了。",
+    "meaning": "志愿者已经把统计结果带到实验室了。",
+    "options": [
+      "志愿者已经把统计结果带到实验室了。",
+      "同事正在检查合同条款，准备开始分析数据。",
+      "我听说企业家最近在医院负责承担责任。",
+      "会议结束以后，记者马上回到医院继续申请项目。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "同事正在检查会议记录，准备开始调查情况。",
+    "meaning": "同事正在检查会议记录，准备开始调查情况。",
+    "options": [
+      "记者正在检查调查数据，准备开始申请项目。",
+      "同事正在检查会议记录，准备开始调查情况。",
+      "经过讨论，同事决定在公司积累经验。",
+      "为了讨论方案，志愿者提前来到城市中心。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "会议结束以后，记者马上回到医院继续申请项目。",
+    "meaning": "会议结束以后，记者马上回到医院继续申请项目。",
+    "options": [
+      "会议结束以后，记者马上回到医院继续申请项目。",
+      "周末的时候，企业家喜欢去广州承担责任。",
+      "企业家告诉我，他最近正在承担责任。",
+      "同事正在检查会议记录，准备开始调查情况。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "我听说企业家最近在北京负责调整计划。",
+    "meaning": "我听说，企业家最近在北京负责调整计划。",
+    "options": [
+      "今天同事在上海分析数据。",
+      "我听说企业家最近在北京负责调整计划。",
+      "志愿者觉得讨论方案很重要。",
+      "为了准备明天的工作，志愿者今晚还要完成研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间不多，但是志愿者还是完成了完成研究。",
+    "meaning": "虽然时间不多，但是志愿者还是完成了完成研究。",
+    "options": [
+      "经过讨论，志愿者决定在大学讨论方案。",
+      "最近企业家常常需要调整计划。",
+      "虽然时间不多，但是志愿者还是完成了完成研究。",
+      "如果有时间，企业家会去会议中心提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "今天同事在图书馆积累经验。",
+    "meaning": "今天，同事在图书馆积累经验。",
+    "options": [
+      "企业家希望明天可以继续提高效率。",
+      "同事正在医院调查情况。",
+      "今天同事在图书馆积累经验。",
+      "虽然时间不多，但是志愿者还是完成了完成研究。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "记者每天都要解决问题。",
+    "meaning": "记者每天都要解决问题。",
+    "options": [
+      "同事已经把会议记录带到广州了。",
+      "记者每天都要解决问题。",
+      "为了准备明天的工作，同事今晚还要调查情况。",
+      "企业家每天都要提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "如果有时间，企业家会去会议中心提高效率。",
+    "meaning": "如果有时间，企业家会去会议中心提高效率。",
+    "options": [
+      "如果有时间，志愿者会去机场完成研究。",
+      "如果有时间，企业家会去广州调整计划。",
+      "如果有时间，企业家会去会议中心提高效率。",
+      "虽然时间不多，但是同事还是完成了积累经验。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "为了讨论方案，志愿者提前来到城市中心。",
+    "meaning": "为了讨论方案，志愿者提前来到城市中心。",
+    "options": [
+      "为了讨论方案，志愿者提前来到城市中心。",
+      "同事正在城市中心积累经验。",
+      "志愿者已经把项目计划带到广州了。",
+      "昨天企业家在研究中心调整计划，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "同事正在大学分析数据。",
+    "meaning": "同事正在大学分析数据。",
+    "options": [
+      "同事正在大学分析数据。",
+      "最近同事常常需要积累经验。",
+      "同事正在城市中心积累经验。",
+      "企业家希望明天可以继续调整计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "昨天记者在博物馆改进方法，所以回家比较晚。",
+    "meaning": "昨天，记者在博物馆改进方法，所以回家比较晚。",
+    "options": [
+      "为了准备明天的工作，同事今晚还要积累经验。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。",
+      "最近企业家常常需要承担责任。",
+      "为了完成研究，志愿者提前来到会议中心。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "企业家告诉我，他最近正在承担责任。",
+    "meaning": "企业家告诉我，他最近正在承担责任。",
+    "options": [
+      "周末的时候，记者喜欢去实验室改进方法。",
+      "最近企业家常常需要调整计划。",
+      "志愿者觉得完成研究很重要。",
+      "企业家告诉我，他最近正在承担责任。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "因为工作很忙，志愿者只能晚上交换意见。",
+    "meaning": "因为工作很忙，志愿者只能晚上交换意见。",
+    "options": [
+      "因为工作很忙，志愿者只能晚上交换意见。",
+      "志愿者告诉我，他最近正在讨论方案。",
+      "为了准备明天的工作，同事今晚还要调查情况。",
+      "我听说记者最近在大学负责改进方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "周末的时候，同事喜欢去实验室调查情况。",
+    "meaning": "周末的时候，同事喜欢去实验室调查情况。",
+    "options": [
+      "记者正在检查学习资料，准备开始改进方法。",
+      "如果有时间，企业家会去广州调整计划。",
+      "周末的时候，同事喜欢去实验室调查情况。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "记者觉得申请项目很重要。",
+    "meaning": "记者觉得申请项目很重要。",
+    "options": [
+      "同事已经把会议记录带到广州了。",
+      "记者觉得申请项目很重要。",
+      "记者正在检查学习资料，准备开始改进方法。",
+      "如果计划没有变化，志愿者下午会在研究中心讨论方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "经过讨论，企业家决定在医院调整计划。",
+    "meaning": "经过讨论，企业家决定在医院调整计划。",
+    "options": [
+      "最近记者常常需要申请项目。",
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "经过讨论，志愿者决定在大学讨论方案。",
+      "经过讨论，企业家决定在医院调整计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了准备明天的工作，志愿者今晚还要完成研究。",
+    "meaning": "为了准备明天的工作，志愿者今晚还要完成研究。",
+    "options": [
+      "同事告诉我，他最近正在积累经验。",
+      "记者正在检查申请材料，准备开始解决问题。",
+      "为了准备明天的工作，志愿者今晚还要完成研究。",
+      "志愿者正在检查市场信息，准备开始讨论方案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "最近同事常常需要积累经验。",
+    "meaning": "最近，同事常常需要积累经验。",
+    "options": [
+      "周末的时候，企业家喜欢去机场调整计划。",
+      "最近同事常常需要积累经验。",
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "同事已经把合同条款带到图书馆了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "如果计划没有变化，记者下午会在图书馆解决问题。",
+    "meaning": "如果计划没有变化，记者下午会在图书馆解决问题。",
+    "options": [
+      "志愿者告诉我，他最近正在交换意见。",
+      "同事正在检查技术文件，准备开始积累经验。",
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "如果计划没有变化，记者下午会在图书馆解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "企业家已经把研究报告带到广州了。",
+    "meaning": "企业家已经把研究报告带到广州了。",
+    "options": [
+      "昨天志愿者在博物馆完成研究，所以回家比较晚。",
+      "我听说记者最近在大学负责改进方法。",
+      "会议结束以后，企业家马上回到会议中心继续承担责任。",
+      "企业家已经把研究报告带到广州了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "志愿者正在检查市场信息，准备开始讨论方案。",
+    "meaning": "志愿者正在检查市场信息，准备开始讨论方案。",
+    "options": [
+      "同事已经把技术文件带到机场了。",
+      "志愿者正在检查市场信息，准备开始讨论方案。",
+      "同事每天都要调查情况。",
+      "志愿者已经把市场信息带到机场了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "会议结束以后，同事马上回到城市中心继续分析数据。",
+    "meaning": "会议结束以后，同事马上回到城市中心继续分析数据。",
+    "options": [
+      "昨天企业家在研究中心调整计划，所以回家比较晚。",
+      "因为工作很忙，记者只能晚上解决问题。",
+      "昨天企业家在北京承担责任，所以回家比较晚。",
+      "会议结束以后，同事马上回到城市中心继续分析数据。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "我听说记者最近在大学负责改进方法。",
+    "meaning": "我听说，记者最近在大学负责改进方法。",
+    "options": [
+      "昨天企业家在博物馆提高效率，所以回家比较晚。",
+      "我听说记者最近在大学负责改进方法。",
+      "同事正在检查技术文件，准备开始积累经验。",
+      "今天同事在图书馆积累经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间不多，但是企业家还是完成了承担责任。",
+    "meaning": "虽然时间不多，但是企业家还是完成了承担责任。",
+    "options": [
+      "如果计划没有变化，志愿者下午会在研究中心讨论方案。",
+      "企业家希望明天可以继续提高效率。",
+      "虽然时间不多，但是企业家还是完成了承担责任。",
+      "周末的时候，企业家喜欢去广州承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "今天志愿者在上海交换意见。",
+    "meaning": "今天，志愿者在上海交换意见。",
+    "options": [
+      "为了讨论方案，志愿者提前来到城市中心。",
+      "企业家告诉我，他最近正在承担责任。",
+      "今天志愿者在上海交换意见。",
+      "为了准备明天的工作，同事今晚还要调查情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "同事每天都要调查情况。",
+    "meaning": "同事每天都要调查情况。",
+    "options": [
+      "同事每天都要调查情况。",
+      "周末的时候，企业家喜欢去广州承担责任。",
+      "如果计划没有变化，企业家下午会在上海提高效率。",
+      "因为工作很忙，志愿者只能晚上交换意见。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "今天律师在广州调整发展战略。",
+    "meaning": "今天，律师在广州调整发展战略。",
+    "options": [
+      "律师每天都要调整发展战略。",
+      "经过讨论，研究人员决定在实验室积累实践经验。",
+      "面对新的挑战，企业需要重新考虑长期发展战略。",
+      "今天律师在广州调整发展战略。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "学者每天都要完成调查研究。",
+    "meaning": "学者每天都要完成调查研究。",
+    "options": [
+      "学者每天都要完成调查研究。",
+      "最近企业家常常需要申请研究项目。",
+      "学者觉得交换专业意见很重要。",
+      "经过讨论，研究人员决定在实验室积累实践经验。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果有时间，研究人员会去国际机场积累实践经验。",
+    "meaning": "如果有时间，研究人员会去国际机场积累实践经验。",
+    "options": [
+      "如果有时间，研究人员会去国际机场积累实践经验。",
+      "律师正在国际机场承担重要责任。",
+      "最近律师常常需要提高工作效率。",
+      "研究人员已经把研究报告带到国际机场了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "为了解决实际困难，企业家提前来到深圳。",
+    "meaning": "为了解决实际困难，企业家提前来到深圳。",
+    "options": [
+      "虽然时间不多，但是企业家还是完成了申请研究项目。",
+      "如果有时间，学者会去深圳比较不同方案。",
+      "学者告诉我，他最近正在比较不同方案。",
+      "为了解决实际困难，企业家提前来到深圳。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "律师正在企业总部提高工作效率。",
+    "meaning": "律师正在企业总部提高工作效率。",
+    "options": [
+      "研究人员告诉我，他最近正在调查社会情况。",
+      "律师正在检查合同条款，准备开始承担重要责任。",
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "律师正在企业总部提高工作效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "学者希望明天可以继续比较不同方案。",
+    "meaning": "学者希望明天可以继续比较不同方案。",
+    "options": [
+      "学者每天都要完成调查研究。",
+      "我听说学者最近在医院负责比较不同方案。",
+      "今天企业家在会议中心解决实际困难。",
+      "学者希望明天可以继续比较不同方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "昨天研究人员在研究中心深入分析问题，所以回家比较晚。",
+    "meaning": "昨天，研究人员在研究中心深入分析问题，所以回家比较晚。",
+    "options": [
+      "昨天研究人员在研究中心深入分析问题，所以回家比较晚。",
+      "学者希望明天可以继续比较不同方案。",
+      "如果有时间，研究人员会去北京调查社会情况。",
+      "这一政策可能对未来的发展产生深远影响。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "企业家告诉我，他最近正在改进管理方法。",
+    "meaning": "企业家告诉我，他最近正在改进管理方法。",
+    "options": [
+      "企业家已经把政策文件带到会议中心了。",
+      "律师每天都要调整发展战略。",
+      "企业家告诉我，他最近正在改进管理方法。",
+      "深入研究这一现象有助于我们理解社会的发展。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "因为工作很忙，律师只能晚上承担重要责任。",
+    "meaning": "因为工作很忙，律师只能晚上承担重要责任。",
+    "options": [
+      "企业家正在医院解决实际困难。",
+      "虽然时间不多，但是企业家还是完成了申请研究项目。",
+      "因为工作很忙，律师只能晚上承担重要责任。",
+      "企业家正在城市中心改进管理方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "周末的时候，学者喜欢去大学交换专业意见。",
+    "meaning": "周末的时候，学者喜欢去大学交换专业意见。",
+    "options": [
+      "周末的时候，学者喜欢去大学交换专业意见。",
+      "周末的时候，律师喜欢去企业总部提高工作效率。",
+      "昨天研究人员在企业总部调查社会情况，所以回家比较晚。",
+      "研究人员觉得深入分析问题很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "研究人员觉得调查社会情况很重要。",
+    "meaning": "研究人员觉得调查社会情况很重要。",
+    "options": [
+      "最近学者常常需要比较不同方案。",
+      "为了准备明天的工作，律师今晚还要提高工作效率。",
+      "研究人员觉得调查社会情况很重要。",
+      "因为工作很忙，企业家只能晚上改进管理方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "经过讨论，企业家决定在上海申请研究项目。",
+    "meaning": "经过讨论，企业家决定在上海申请研究项目。",
+    "options": [
+      "经过讨论，企业家决定在上海申请研究项目。",
+      "如果有时间，学者会去城市中心完成调查研究。",
+      "最近学者常常需要比较不同方案。",
+      "因为工作很忙，律师只能晚上提高工作效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "为了准备明天的工作，律师今晚还要调整发展战略。",
+    "meaning": "为了准备明天的工作，律师今晚还要调整发展战略。",
+    "options": [
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "会议结束以后，学者马上回到会议中心继续交换专业意见。",
+      "周末的时候，企业家喜欢去会议中心改进管理方法。",
+      "为了深入分析问题，研究人员提前来到企业总部。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "最近学者常常需要完成调查研究。",
+    "meaning": "最近，学者常常需要完成调查研究。",
+    "options": [
+      "最近学者常常需要完成调查研究。",
+      "会议结束以后，学者马上回到深圳继续比较不同方案。",
+      "学者每天都要比较不同方案。",
+      "学者希望明天可以继续比较不同方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+    "meaning": "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+    "options": [
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "最近学者常常需要交换专业意见。",
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+      "研究人员已经把研究报告带到国际机场了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "企业家已经把政策文件带到会议中心了。",
+    "meaning": "企业家已经把政策文件带到会议中心了。",
+    "options": [
+      "企业家已经把政策文件带到会议中心了。",
+      "律师每天都要调整发展战略。",
+      "企业家正在检查发展计划，准备开始申请研究项目。",
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "律师正在检查技术资料，准备开始提高工作效率。",
+    "meaning": "律师正在检查技术资料，准备开始提高工作效率。",
+    "options": [
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "律师正在检查技术资料，准备开始提高工作效率。",
+      "律师每天都要调整发展战略。",
+      "经过讨论，研究人员决定在广州调查社会情况。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "会议结束以后，学者马上回到深圳继续比较不同方案。",
+    "meaning": "会议结束以后，学者马上回到深圳继续比较不同方案。",
+    "options": [
+      "会议结束以后，学者马上回到深圳继续比较不同方案。",
+      "为了准备明天的工作，研究人员今晚还要调查社会情况。",
+      "因为工作很忙，企业家只能晚上申请研究项目。",
+      "因为工作很忙，律师只能晚上调整发展战略。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "我听说研究人员最近在企业总部负责深入分析问题。",
+    "meaning": "我听说，研究人员最近在企业总部负责深入分析问题。",
+    "options": [
+      "如果有时间，学者会去深圳比较不同方案。",
+      "学者希望明天可以继续完成调查研究。",
+      "我听说研究人员最近在企业总部负责深入分析问题。",
+      "企业家告诉我，他最近正在申请研究项目。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "虽然时间不多，但是企业家还是完成了改进管理方法。",
+    "meaning": "虽然时间不多，但是企业家还是完成了改进管理方法。",
+    "options": [
+      "企业家已经把发展计划带到医院了。",
+      "虽然时间不多，但是企业家还是完成了改进管理方法。",
+      "因为工作很忙，企业家只能晚上解决实际困难。",
+      "研究人员告诉我，他最近正在深入分析问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "今天律师在研究中心承担重要责任。",
+    "meaning": "今天，律师在研究中心承担重要责任。",
+    "options": [
+      "今天律师在研究中心承担重要责任。",
+      "我听说学者最近在医院负责比较不同方案。",
+      "会议结束以后，企业家马上回到大学继续解决实际困难。",
+      "如果计划没有变化，学者下午会在大学交换专业意见。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "学者每天都要交换专业意见。",
+    "meaning": "学者每天都要交换专业意见。",
+    "options": [
+      "最近律师常常需要提高工作效率。",
+      "学者每天都要交换专业意见。",
+      "虽然时间不多，但是企业家还是完成了改进管理方法。",
+      "今天律师在实验室提高工作效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "如果有时间，研究人员会去北京调查社会情况。",
+    "meaning": "如果有时间，研究人员会去北京调查社会情况。",
+    "options": [
+      "因为工作很忙，律师只能晚上承担重要责任。",
+      "为了改进管理方法，企业家提前来到会议中心。",
+      "如果有时间，研究人员会去北京调查社会情况。",
+      "学者希望明天可以继续比较不同方案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "为了申请研究项目，企业家提前来到大学。",
+    "meaning": "为了申请研究项目，企业家提前来到大学。",
+    "options": [
+      "如果有时间，学者会去城市中心完成调查研究。",
+      "研究人员觉得调查社会情况很重要。",
+      "为了申请研究项目，企业家提前来到大学。",
+      "因为工作很忙，律师只能晚上提高工作效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "律师正在博物馆调整发展战略。",
+    "meaning": "律师正在博物馆调整发展战略。",
+    "options": [
+      "为了准备明天的工作，律师今晚还要承担重要责任。",
+      "如果计划没有变化，学者下午会在大学交换专业意见。",
+      "企业家正在图书馆申请研究项目。",
+      "律师正在博物馆调整发展战略。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "学者希望明天可以继续完成调查研究。",
+    "meaning": "学者希望明天可以继续完成调查研究。",
+    "options": [
+      "学者希望明天可以继续完成调查研究。",
+      "企业家告诉我，他最近正在改进管理方法。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "昨天研究人员在企业总部调查社会情况，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+    "meaning": "昨天，研究人员在实验室积累实践经验，所以回家比较晚。",
+    "options": [
+      "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+      "今天研究人员在实验室深入分析问题。",
+      "虽然时间不多，但是研究人员还是完成了深入分析问题。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "企业家告诉我，他最近正在解决实际困难。",
+    "meaning": "企业家告诉我，他最近正在解决实际困难。",
+    "options": [
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+      "企业家告诉我，他最近正在解决实际困难。",
+      "经过讨论，企业家决定在大学解决实际困难。",
+      "最近律师常常需要提高工作效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "因为工作很忙，律师只能晚上提高工作效率。",
+    "meaning": "因为工作很忙，律师只能晚上提高工作效率。",
+    "options": [
+      "企业家正在图书馆申请研究项目。",
+      "为了深入分析问题，研究人员提前来到企业总部。",
+      "因为工作很忙，律师只能晚上提高工作效率。",
+      "最近律师常常需要提高工作效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "周末的时候，学者喜欢去会议中心比较不同方案。",
+    "meaning": "周末的时候，学者喜欢去会议中心比较不同方案。",
+    "options": [
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "我听说研究人员最近在企业总部负责深入分析问题。",
+      "虽然时间不多，但是研究人员还是完成了深入分析问题。",
+      "周末的时候，学者喜欢去会议中心比较不同方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "研究人员觉得深入分析问题很重要。",
+    "meaning": "研究人员觉得深入分析问题很重要。",
+    "options": [
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "我听说学者最近在城市中心负责交换专业意见。",
+      "为了解决实际困难，企业家提前来到深圳。",
+      "研究人员觉得深入分析问题很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "经过讨论，企业家决定在深圳改进管理方法。",
+    "meaning": "经过讨论，企业家决定在深圳改进管理方法。",
+    "options": [
+      "周末的时候，律师喜欢去实验室承担重要责任。",
+      "律师正在企业总部提高工作效率。",
+      "经过讨论，企业家决定在深圳改进管理方法。",
+      "如果有时间，学者会去深圳比较不同方案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "为了准备明天的工作，律师今晚还要承担重要责任。",
+    "meaning": "为了准备明天的工作，律师今晚还要承担重要责任。",
+    "options": [
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+      "为了准备明天的工作，律师今晚还要承担重要责任。",
+      "为了积累实践经验，研究人员提前来到研究中心。",
+      "企业家正在上海解决实际困难。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "最近学者常常需要交换专业意见。",
+    "meaning": "最近，学者常常需要交换专业意见。",
+    "options": [
+      "最近学者常常需要交换专业意见。",
+      "周末的时候，律师喜欢去博物馆调整发展战略。",
+      "研究人员正在检查会议记录，准备开始积累实践经验。",
+      "研究人员觉得调查社会情况很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+    "meaning": "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+    "options": [
+      "学者觉得完成调查研究很重要。",
+      "律师每天都要承担重要责任。",
+      "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "企业家已经把发展计划带到医院了。",
+    "meaning": "企业家已经把发展计划带到医院了。",
+    "options": [
+      "虽然时间不多，但是企业家还是完成了改进管理方法。",
+      "为了改进管理方法，企业家提前来到会议中心。",
+      "企业家正在检查发展计划，准备开始申请研究项目。",
+      "企业家已经把发展计划带到医院了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "律师正在检查新闻报道，准备开始调整发展战略。",
+    "meaning": "律师正在检查新闻报道，准备开始调整发展战略。",
+    "options": [
+      "企业家正在上海解决实际困难。",
+      "律师正在检查新闻报道，准备开始调整发展战略。",
+      "研究人员告诉我，他最近正在深入分析问题。",
+      "律师正在博物馆调整发展战略。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "会议结束以后，学者马上回到大学继续完成调查研究。",
+    "meaning": "会议结束以后，学者马上回到大学继续完成调查研究。",
+    "options": [
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "最近学者常常需要比较不同方案。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。",
+      "经过讨论，企业家决定在大学解决实际困难。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "我听说研究人员最近在博物馆负责积累实践经验。",
+    "meaning": "我听说，研究人员最近在博物馆负责积累实践经验。",
+    "options": [
+      "企业家告诉我，他最近正在申请研究项目。",
+      "如果有时间，学者会去上海交换专业意见。",
+      "我听说研究人员最近在博物馆负责积累实践经验。",
+      "今天研究人员在实验室深入分析问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "虽然时间不多，但是企业家还是完成了解决实际困难。",
+    "meaning": "虽然时间不多，但是企业家还是完成了解决实际困难。",
+    "options": [
+      "因为工作很忙，律师只能晚上提高工作效率。",
+      "虽然时间不多，但是企业家还是完成了解决实际困难。",
+      "昨天学者在大学比较不同方案，所以回家比较晚。",
+      "今天律师在广州调整发展战略。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "今天律师在实验室提高工作效率。",
+    "meaning": "今天，律师在实验室提高工作效率。",
+    "options": [
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "学者每天都要完成调查研究。",
+      "今天律师在实验室提高工作效率。",
+      "因为工作很忙，研究人员只能晚上深入分析问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "学者每天都要比较不同方案。",
+    "meaning": "学者每天都要比较不同方案。",
+    "options": [
+      "会议结束以后，学者马上回到大学继续完成调查研究。",
+      "因为工作很忙，企业家只能晚上改进管理方法。",
+      "为了解决实际困难，企业家提前来到深圳。",
+      "学者每天都要比较不同方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "如果有时间，研究人员会去广州深入分析问题。",
+    "meaning": "如果有时间，研究人员会去广州深入分析问题。",
+    "options": [
+      "律师希望明天可以继续承担重要责任。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。",
+      "研究人员已经把调查结果带到博物馆了。",
+      "如果有时间，研究人员会去广州深入分析问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "为了改进管理方法，企业家提前来到会议中心。",
+    "meaning": "为了改进管理方法，企业家提前来到会议中心。",
+    "options": [
+      "为了改进管理方法，企业家提前来到会议中心。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "深入研究这一现象有助于我们理解社会的发展。",
+      "企业家已经把发展计划带到医院了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "律师正在国际机场承担重要责任。",
+    "meaning": "律师正在国际机场承担重要责任。",
+    "options": [
+      "律师正在国际机场承担重要责任。",
+      "因为工作很忙，律师只能晚上承担重要责任。",
+      "为了积累实践经验，研究人员提前来到博物馆。",
+      "周末的时候，企业家喜欢去会议中心改进管理方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "学者希望明天可以继续交换专业意见。",
+    "meaning": "学者希望明天可以继续交换专业意见。",
+    "options": [
+      "为了改进管理方法，企业家提前来到会议中心。",
+      "最近律师常常需要提高工作效率。",
+      "周末的时候，律师喜欢去实验室承担重要责任。",
+      "学者希望明天可以继续交换专业意见。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "昨天研究人员在企业总部调查社会情况，所以回家比较晚。",
+    "meaning": "昨天，研究人员在企业总部调查社会情况，所以回家比较晚。",
+    "options": [
+      "昨天研究人员在企业总部调查社会情况，所以回家比较晚。",
+      "企业家正在城市中心改进管理方法。",
+      "学者希望明天可以继续交换专业意见。",
+      "为了准备明天的工作，律师今晚还要承担重要责任。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "企业家告诉我，他最近正在申请研究项目。",
+    "meaning": "企业家告诉我，他最近正在申请研究项目。",
+    "options": [
+      "如果有时间，学者会去大学完成调查研究。",
+      "企业家告诉我，他最近正在申请研究项目。",
+      "经过讨论，研究人员决定在广州调查社会情况。",
+      "我听说学者最近在城市中心负责交换专业意见。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "因为工作很忙，律师只能晚上调整发展战略。",
+    "meaning": "因为工作很忙，律师只能晚上调整发展战略。",
+    "options": [
+      "虽然时间不多，但是研究人员还是完成了积累实践经验。",
+      "因为工作很忙，律师只能晚上调整发展战略。",
+      "研究人员已经把会议记录带到企业总部了。",
+      "如果计划没有变化，学者下午会在会议中心比较不同方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "周末的时候，学者喜欢去医院完成调查研究。",
+    "meaning": "周末的时候，学者喜欢去医院完成调查研究。",
+    "options": [
+      "因为工作很忙，律师只能晚上调整发展战略。",
+      "周末的时候，学者喜欢去医院完成调查研究。",
+      "如果有时间，学者会去大学完成调查研究。",
+      "研究人员已经把会议记录带到企业总部了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "研究人员觉得积累实践经验很重要。",
+    "meaning": "研究人员觉得积累实践经验很重要。",
+    "options": [
+      "昨天学者在会议中心完成调查研究，所以回家比较晚。",
+      "我听说律师最近在博物馆负责提高工作效率。",
+      "律师正在检查技术资料，准备开始提高工作效率。",
+      "研究人员觉得积累实践经验很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "经过讨论，企业家决定在大学解决实际困难。",
+    "meaning": "经过讨论，企业家决定在大学解决实际困难。",
+    "options": [
+      "经过讨论，企业家决定在大学解决实际困难。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。",
+      "如果有时间，学者会去大学完成调查研究。",
+      "今天律师在研究中心承担重要责任。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "为了准备明天的工作，律师今晚还要提高工作效率。",
+    "meaning": "为了准备明天的工作，律师今晚还要提高工作效率。",
+    "options": [
+      "为了积累实践经验，研究人员提前来到博物馆。",
+      "周末的时候，企业家喜欢去会议中心改进管理方法。",
+      "为了准备明天的工作，律师今晚还要提高工作效率。",
+      "虽然时间不多，但是企业家还是完成了改进管理方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "最近学者常常需要比较不同方案。",
+    "meaning": "最近，学者常常需要比较不同方案。",
+    "options": [
+      "最近学者常常需要比较不同方案。",
+      "我听说研究人员最近在国际机场负责调查社会情况。",
+      "企业家已经把申请材料带到图书馆了。",
+      "学者希望明天可以继续完成调查研究。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果计划没有变化，研究人员下午会在实验室深入分析问题。",
+    "meaning": "如果计划没有变化，研究人员下午会在实验室深入分析问题。",
+    "options": [
+      "研究人员觉得调查社会情况很重要。",
+      "为了改进管理方法，企业家提前来到会议中心。",
+      "如果计划没有变化，研究人员下午会在实验室深入分析问题。",
+      "企业家正在检查发展计划，准备开始申请研究项目。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "企业家已经把申请材料带到图书馆了。",
+    "meaning": "企业家已经把申请材料带到图书馆了。",
+    "options": [
+      "因为工作很忙，研究人员只能晚上深入分析问题。",
+      "企业家已经把申请材料带到图书馆了。",
+      "研究人员觉得深入分析问题很重要。",
+      "如果有时间，学者会去深圳比较不同方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "律师正在检查合同条款，准备开始承担重要责任。",
+    "meaning": "律师正在检查合同条款，准备开始承担重要责任。",
+    "options": [
+      "律师正在检查合同条款，准备开始承担重要责任。",
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "为了调查社会情况，研究人员提前来到实验室。",
+      "律师希望明天可以继续承担重要责任。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "会议结束以后，学者马上回到会议中心继续交换专业意见。",
+    "meaning": "会议结束以后，学者马上回到会议中心继续交换专业意见。",
+    "options": [
+      "如果有时间，学者会去深圳比较不同方案。",
+      "会议结束以后，学者马上回到会议中心继续交换专业意见。",
+      "企业家正在检查发展计划，准备开始申请研究项目。",
+      "昨天学者在大学比较不同方案，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "我听说研究人员最近在国际机场负责调查社会情况。",
+    "meaning": "我听说，研究人员最近在国际机场负责调查社会情况。",
+    "options": [
+      "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+      "我听说研究人员最近在国际机场负责调查社会情况。",
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "因为工作很忙，企业家只能晚上改进管理方法。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "虽然时间不多，但是企业家还是完成了申请研究项目。",
+    "meaning": "虽然时间不多，但是企业家还是完成了申请研究项目。",
+    "options": [
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+      "最近企业家常常需要申请研究项目。",
+      "最近律师常常需要承担重要责任。",
+      "虽然时间不多，但是企业家还是完成了申请研究项目。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "今天律师在企业总部调整发展战略。",
+    "meaning": "今天，律师在企业总部调整发展战略。",
+    "options": [
+      "我听说学者最近在图书馆负责完成调查研究。",
+      "今天律师在企业总部调整发展战略。",
+      "企业家正在城市中心改进管理方法。",
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "如果有时间，学者会去城市中心完成调查研究。",
+    "meaning": "如果有时间，学者会去城市中心完成调查研究。",
+    "options": [
+      "周末的时候，律师喜欢去实验室承担重要责任。",
+      "学者希望明天可以继续完成调查研究。",
+      "最近学者常常需要完成调查研究。",
+      "如果有时间，学者会去城市中心完成调查研究。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "为了积累实践经验，研究人员提前来到研究中心。",
+    "meaning": "为了积累实践经验，研究人员提前来到研究中心。",
+    "options": [
+      "为了积累实践经验，研究人员提前来到博物馆。",
+      "为了积累实践经验，研究人员提前来到研究中心。",
+      "昨天学者在医院交换专业意见，所以回家比较晚。",
+      "深入研究这一现象有助于我们理解社会的发展。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "企业家正在医院解决实际困难。",
+    "meaning": "企业家正在医院解决实际困难。",
+    "options": [
+      "律师正在企业总部提高工作效率。",
+      "经过讨论，企业家决定在上海申请研究项目。",
+      "企业家正在医院解决实际困难。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "律师希望明天可以继续提高工作效率。",
+    "meaning": "律师希望明天可以继续提高工作效率。",
+    "options": [
+      "虽然时间不多，但是企业家还是完成了申请研究项目。",
+      "学者希望明天可以继续完成调查研究。",
+      "因为工作很忙，律师只能晚上提高工作效率。",
+      "律师希望明天可以继续提高工作效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "昨天学者在大学比较不同方案，所以回家比较晚。",
+    "meaning": "昨天，学者在大学比较不同方案，所以回家比较晚。",
+    "options": [
+      "昨天研究人员在企业总部调查社会情况，所以回家比较晚。",
+      "昨天学者在大学比较不同方案，所以回家比较晚。",
+      "律师每天都要调整发展战略。",
+      "为了积累实践经验，研究人员提前来到研究中心。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "研究人员告诉我，他最近正在深入分析问题。",
+    "meaning": "研究人员告诉我，他最近正在深入分析问题。",
+    "options": [
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+      "学者觉得比较不同方案很重要。",
+      "研究人员告诉我，他最近正在深入分析问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "因为工作很忙，企业家只能晚上改进管理方法。",
+    "meaning": "因为工作很忙，企业家只能晚上改进管理方法。",
+    "options": [
+      "虽然时间不多，但是企业家还是完成了申请研究项目。",
+      "因为工作很忙，企业家只能晚上改进管理方法。",
+      "昨天学者在大学比较不同方案，所以回家比较晚。",
+      "因为工作很忙，律师只能晚上承担重要责任。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "周末的时候，律师喜欢去实验室承担重要责任。",
+    "meaning": "周末的时候，律师喜欢去实验室承担重要责任。",
+    "options": [
+      "研究人员觉得调查社会情况很重要。",
+      "今天律师在研究中心承担重要责任。",
+      "周末的时候，律师喜欢去实验室承担重要责任。",
+      "今天律师在企业总部调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "学者觉得交换专业意见很重要。",
+    "meaning": "学者觉得交换专业意见很重要。",
+    "options": [
+      "最近律师常常需要承担重要责任。",
+      "企业家正在城市中心改进管理方法。",
+      "学者觉得交换专业意见很重要。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "经过讨论，研究人员决定在广州调查社会情况。",
+    "meaning": "经过讨论，研究人员决定在广州调查社会情况。",
+    "options": [
+      "如果有时间，研究人员会去国际机场积累实践经验。",
+      "经过讨论，研究人员决定在广州调查社会情况。",
+      "我听说学者最近在图书馆负责完成调查研究。",
+      "研究人员告诉我，他最近正在深入分析问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "为了准备明天的工作，企业家今晚还要申请研究项目。",
+    "meaning": "为了准备明天的工作，企业家今晚还要申请研究项目。",
+    "options": [
+      "经过讨论，企业家决定在大学解决实际困难。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "企业家正在图书馆申请研究项目。",
+      "为了准备明天的工作，企业家今晚还要申请研究项目。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "最近律师常常需要调整发展战略。",
+    "meaning": "最近，律师常常需要调整发展战略。",
+    "options": [
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "为了准备明天的工作，企业家今晚还要申请研究项目。",
+      "最近律师常常需要调整发展战略。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "如果计划没有变化，学者下午会在深圳完成调查研究。",
+    "meaning": "如果计划没有变化，学者下午会在深圳完成调查研究。",
+    "options": [
+      "律师希望明天可以继续调整发展战略。",
+      "今天企业家在大学改进管理方法。",
+      "如果计划没有变化，学者下午会在深圳完成调查研究。",
+      "经过多方面的调查，研究人员得出了比较可靠的结论。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "研究人员已经把会议记录带到企业总部了。",
+    "meaning": "研究人员已经把会议记录带到企业总部了。",
+    "options": [
+      "昨天律师在实验室提高工作效率，所以回家比较晚。",
+      "今天律师在研究中心承担重要责任。",
+      "研究人员已经把会议记录带到企业总部了。",
+      "昨天学者在会议中心完成调查研究，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "企业家正在检查政策文件，准备开始解决实际困难。",
+    "meaning": "企业家正在检查政策文件，准备开始解决实际困难。",
+    "options": [
+      "为了准备明天的工作，企业家今晚还要申请研究项目。",
+      "虽然时间不多，但是研究人员还是完成了调查社会情况。",
+      "我听说学者最近在图书馆负责完成调查研究。",
+      "企业家正在检查政策文件，准备开始解决实际困难。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+    "meaning": "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+    "options": [
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "会议结束以后，学者马上回到会议中心继续交换专业意见。",
+      "虽然时间不多，但是研究人员还是完成了调查社会情况。",
+      "为了准备明天的工作，企业家今晚还要改进管理方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "我听说学者最近在医院负责比较不同方案。",
+    "meaning": "我听说，学者最近在医院负责比较不同方案。",
+    "options": [
+      "企业家已经把申请材料带到图书馆了。",
+      "昨天学者在会议中心完成调查研究，所以回家比较晚。",
+      "如果计划没有变化，学者下午会在大学交换专业意见。",
+      "我听说学者最近在医院负责比较不同方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "虽然时间不多，但是研究人员还是完成了深入分析问题。",
+    "meaning": "虽然时间不多，但是研究人员还是完成了深入分析问题。",
+    "options": [
+      "律师每天都要承担重要责任。",
+      "企业家每天都要改进管理方法。",
+      "虽然时间不多，但是研究人员还是完成了深入分析问题。",
+      "我听说学者最近在城市中心负责交换专业意见。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "今天企业家在大学改进管理方法。",
+    "meaning": "今天，企业家在大学改进管理方法。",
+    "options": [
+      "研究人员告诉我，他最近正在调查社会情况。",
+      "今天企业家在大学改进管理方法。",
+      "研究人员已经把会议记录带到企业总部了。",
+      "今天研究人员在实验室深入分析问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "律师每天都要承担重要责任。",
+    "meaning": "律师每天都要承担重要责任。",
+    "options": [
+      "为了准备明天的工作，企业家今晚还要申请研究项目。",
+      "虽然时间不多，但是企业家还是完成了改进管理方法。",
+      "律师每天都要承担重要责任。",
+      "虽然时间不多，但是研究人员还是完成了调查社会情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果有时间，学者会去上海交换专业意见。",
+    "meaning": "如果有时间，学者会去上海交换专业意见。",
+    "options": [
+      "今天研究人员在实验室深入分析问题。",
+      "周末的时候，学者喜欢去医院完成调查研究。",
+      "如果有时间，学者会去上海交换专业意见。",
+      "企业家正在检查申请材料，准备开始改进管理方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "为了调查社会情况，研究人员提前来到实验室。",
+    "meaning": "为了调查社会情况，研究人员提前来到实验室。",
+    "options": [
+      "为了准备明天的工作，企业家今晚还要改进管理方法。",
+      "虽然时间不多，但是研究人员还是完成了深入分析问题。",
+      "经过讨论，学者决定在深圳交换专业意见。",
+      "为了调查社会情况，研究人员提前来到实验室。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "企业家正在图书馆申请研究项目。",
+    "meaning": "企业家正在图书馆申请研究项目。",
+    "options": [
+      "因为工作很忙，律师只能晚上承担重要责任。",
+      "因为工作很忙，律师只能晚上调整发展战略。",
+      "企业家正在图书馆申请研究项目。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "律师希望明天可以继续调整发展战略。",
+    "meaning": "律师希望明天可以继续调整发展战略。",
+    "options": [
+      "昨天学者在大学比较不同方案，所以回家比较晚。",
+      "最近学者常常需要完成调查研究。",
+      "虽然时间不多，但是研究人员还是完成了调查社会情况。",
+      "律师希望明天可以继续调整发展战略。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "昨天学者在会议中心完成调查研究，所以回家比较晚。",
+    "meaning": "昨天，学者在会议中心完成调查研究，所以回家比较晚。",
+    "options": [
+      "如果有时间，研究人员会去北京调查社会情况。",
+      "昨天学者在会议中心完成调查研究，所以回家比较晚。",
+      "企业家告诉我，他最近正在改进管理方法。",
+      "今天律师在实验室提高工作效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "研究人员告诉我，他最近正在积累实践经验。",
+    "meaning": "研究人员告诉我，他最近正在积累实践经验。",
+    "options": [
+      "如果有时间，学者会去城市中心完成调查研究。",
+      "学者希望明天可以继续比较不同方案。",
+      "研究人员告诉我，他最近正在积累实践经验。",
+      "我听说律师最近在博物馆负责提高工作效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "因为工作很忙，企业家只能晚上解决实际困难。",
+    "meaning": "因为工作很忙，企业家只能晚上解决实际困难。",
+    "options": [
+      "研究人员已经把调查结果带到博物馆了。",
+      "为了积累实践经验，研究人员提前来到博物馆。",
+      "因为工作很忙，企业家只能晚上解决实际困难。",
+      "研究人员告诉我，他最近正在调查社会情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "周末的时候，律师喜欢去企业总部提高工作效率。",
+    "meaning": "周末的时候，律师喜欢去企业总部提高工作效率。",
+    "options": [
+      "我听说学者最近在图书馆负责完成调查研究。",
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "周末的时候，律师喜欢去博物馆调整发展战略。",
+      "周末的时候，律师喜欢去企业总部提高工作效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "学者觉得比较不同方案很重要。",
+    "meaning": "学者觉得比较不同方案很重要。",
+    "options": [
+      "律师希望明天可以继续调整发展战略。",
+      "今天企业家在大学改进管理方法。",
+      "学者觉得比较不同方案很重要。",
+      "研究人员正在检查会议记录，准备开始积累实践经验。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "经过讨论，研究人员决定在研究中心深入分析问题。",
+    "meaning": "经过讨论，研究人员决定在研究中心深入分析问题。",
+    "options": [
+      "经过讨论，研究人员决定在研究中心深入分析问题。",
+      "如果有时间，研究人员会去广州深入分析问题。",
+      "今天律师在企业总部调整发展战略。",
+      "虽然时间不多，但是企业家还是完成了改进管理方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "为了准备明天的工作，企业家今晚还要改进管理方法。",
+    "meaning": "为了准备明天的工作，企业家今晚还要改进管理方法。",
+    "options": [
+      "研究人员已经把调查结果带到博物馆了。",
+      "为了准备明天的工作，企业家今晚还要改进管理方法。",
+      "为了解决实际困难，企业家提前来到深圳。",
+      "因为工作很忙，企业家只能晚上解决实际困难。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "最近律师常常需要承担重要责任。",
+    "meaning": "最近，律师常常需要承担重要责任。",
+    "options": [
+      "虽然时间不多，但是学者还是完成了比较不同方案。",
+      "最近律师常常需要承担重要责任。",
+      "企业家正在医院解决实际困难。",
+      "研究人员已经把会议记录带到企业总部了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "如果计划没有变化，学者下午会在大学交换专业意见。",
+    "meaning": "如果计划没有变化，学者下午会在大学交换专业意见。",
+    "options": [
+      "虽然时间不多，但是企业家还是完成了解决实际困难。",
+      "如果计划没有变化，学者下午会在深圳完成调查研究。",
+      "研究人员告诉我，他最近正在调查社会情况。",
+      "如果计划没有变化，学者下午会在大学交换专业意见。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "研究人员已经把调查结果带到博物馆了。",
+    "meaning": "研究人员已经把调查结果带到博物馆了。",
+    "options": [
+      "研究人员已经把调查结果带到博物馆了。",
+      "经过讨论，学者决定在深圳交换专业意见。",
+      "研究人员觉得调查社会情况很重要。",
+      "律师正在企业总部提高工作效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "企业家正在检查发展计划，准备开始申请研究项目。",
+    "meaning": "企业家正在检查发展计划，准备开始申请研究项目。",
+    "options": [
+      "我听说律师最近在博物馆负责提高工作效率。",
+      "为了准备明天的工作，企业家今晚还要改进管理方法。",
+      "周末的时候，律师喜欢去企业总部提高工作效率。",
+      "企业家正在检查发展计划，准备开始申请研究项目。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "会议结束以后，律师马上回到实验室继续调整发展战略。",
+    "meaning": "会议结束以后，律师马上回到实验室继续调整发展战略。",
+    "options": [
+      "企业家告诉我，他最近正在改进管理方法。",
+      "会议结束以后，律师马上回到实验室继续调整发展战略。",
+      "企业家已经把政策文件带到会议中心了。",
+      "学者每天都要完成调查研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "我听说学者最近在图书馆负责完成调查研究。",
+    "meaning": "我听说，学者最近在图书馆负责完成调查研究。",
+    "options": [
+      "因为工作很忙，研究人员只能晚上深入分析问题。",
+      "我听说学者最近在图书馆负责完成调查研究。",
+      "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+      "律师正在检查技术资料，准备开始提高工作效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "虽然时间不多，但是研究人员还是完成了积累实践经验。",
+    "meaning": "虽然时间不多，但是研究人员还是完成了积累实践经验。",
+    "options": [
+      "周末的时候，学者喜欢去会议中心比较不同方案。",
+      "学者每天都要比较不同方案。",
+      "企业家已经把发展计划带到医院了。",
+      "虽然时间不多，但是研究人员还是完成了积累实践经验。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "今天企业家在会议中心解决实际困难。",
+    "meaning": "今天，企业家在会议中心解决实际困难。",
+    "options": [
+      "今天企业家在会议中心解决实际困难。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。",
+      "学者觉得交换专业意见很重要。",
+      "如果计划没有变化，学者下午会在深圳完成调查研究。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "律师每天都要提高工作效率。",
+    "meaning": "律师每天都要提高工作效率。",
+    "options": [
+      "经过讨论，企业家决定在大学解决实际困难。",
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "律师每天都要提高工作效率。",
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果有时间，学者会去深圳比较不同方案。",
+    "meaning": "如果有时间，学者会去深圳比较不同方案。",
+    "options": [
+      "企业家正在检查发展计划，准备开始申请研究项目。",
+      "如果有时间，学者会去深圳比较不同方案。",
+      "学者每天都要完成调查研究。",
+      "为了改进管理方法，企业家提前来到会议中心。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "为了深入分析问题，研究人员提前来到企业总部。",
+    "meaning": "为了深入分析问题，研究人员提前来到企业总部。",
+    "options": [
+      "企业家正在检查政策文件，准备开始解决实际困难。",
+      "如果有时间，研究人员会去广州深入分析问题。",
+      "为了深入分析问题，研究人员提前来到企业总部。",
+      "研究人员告诉我，他最近正在深入分析问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "企业家正在城市中心改进管理方法。",
+    "meaning": "企业家正在城市中心改进管理方法。",
+    "options": [
+      "周末的时候，学者喜欢去会议中心比较不同方案。",
+      "经过讨论，学者决定在深圳交换专业意见。",
+      "今天企业家在会议中心解决实际困难。",
+      "企业家正在城市中心改进管理方法。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "律师希望明天可以继续承担重要责任。",
+    "meaning": "律师希望明天可以继续承担重要责任。",
+    "options": [
+      "最近律师常常需要提高工作效率。",
+      "律师希望明天可以继续承担重要责任。",
+      "经过讨论，研究人员决定在广州调查社会情况。",
+      "周末的时候，企业家喜欢去会议中心改进管理方法。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "昨天学者在医院交换专业意见，所以回家比较晚。",
+    "meaning": "昨天，学者在医院交换专业意见，所以回家比较晚。",
+    "options": [
+      "昨天学者在医院交换专业意见，所以回家比较晚。",
+      "研究人员觉得调查社会情况很重要。",
+      "企业家正在检查政策文件，准备开始解决实际困难。",
+      "最近学者常常需要比较不同方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "研究人员告诉我，他最近正在调查社会情况。",
+    "meaning": "研究人员告诉我，他最近正在调查社会情况。",
+    "options": [
+      "研究人员告诉我，他最近正在调查社会情况。",
+      "会议结束以后，学者马上回到会议中心继续交换专业意见。",
+      "周末的时候，企业家喜欢去会议中心改进管理方法。",
+      "企业家告诉我，他最近正在改进管理方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "因为工作很忙，企业家只能晚上申请研究项目。",
+    "meaning": "因为工作很忙，企业家只能晚上申请研究项目。",
+    "options": [
+      "因为工作很忙，企业家只能晚上申请研究项目。",
+      "为了准备明天的工作，律师今晚还要承担重要责任。",
+      "面对新的挑战，企业需要重新考虑长期发展战略。",
+      "企业家正在医院解决实际困难。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "周末的时候，律师喜欢去博物馆调整发展战略。",
+    "meaning": "周末的时候，律师喜欢去博物馆调整发展战略。",
+    "options": [
+      "最近学者常常需要比较不同方案。",
+      "虽然时间不多，但是研究人员还是完成了深入分析问题。",
+      "周末的时候，律师喜欢去博物馆调整发展战略。",
+      "在复杂的环境下，我们必须保持清醒的判断。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "学者觉得完成调查研究很重要。",
+    "meaning": "学者觉得完成调查研究很重要。",
+    "options": [
+      "如果计划没有变化，研究人员下午会在实验室深入分析问题。",
+      "研究人员已经把调查结果带到博物馆了。",
+      "学者觉得完成调查研究很重要。",
+      "虽然时间不多，但是企业家还是完成了解决实际困难。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "经过讨论，研究人员决定在实验室积累实践经验。",
+    "meaning": "经过讨论，研究人员决定在实验室积累实践经验。",
+    "options": [
+      "我听说研究人员最近在国际机场负责调查社会情况。",
+      "经过讨论，研究人员决定在实验室积累实践经验。",
+      "企业家正在检查发展计划，准备开始申请研究项目。",
+      "经过讨论，研究人员决定在广州调查社会情况。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "为了准备明天的工作，企业家今晚还要解决实际困难。",
+    "meaning": "为了准备明天的工作，企业家今晚还要解决实际困难。",
+    "options": [
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "如果计划没有变化，学者下午会在深圳完成调查研究。",
+      "如果计划没有变化，学者下午会在会议中心比较不同方案。",
+      "为了准备明天的工作，企业家今晚还要解决实际困难。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "最近律师常常需要提高工作效率。",
+    "meaning": "最近，律师常常需要提高工作效率。",
+    "options": [
+      "今天研究人员在实验室深入分析问题。",
+      "最近律师常常需要提高工作效率。",
+      "研究人员已经把会议记录带到企业总部了。",
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "如果计划没有变化，学者下午会在会议中心比较不同方案。",
+    "meaning": "如果计划没有变化，学者下午会在会议中心比较不同方案。",
+    "options": [
+      "昨天律师在实验室提高工作效率，所以回家比较晚。",
+      "如果计划没有变化，学者下午会在会议中心比较不同方案。",
+      "我听说学者最近在医院负责比较不同方案。",
+      "研究人员已经把会议记录带到企业总部了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "研究人员已经把研究报告带到国际机场了。",
+    "meaning": "研究人员已经把研究报告带到国际机场了。",
+    "options": [
+      "企业家正在医院解决实际困难。",
+      "研究人员已经把研究报告带到国际机场了。",
+      "如果计划没有变化，学者下午会在会议中心比较不同方案。",
+      "虽然时间不多，但是企业家还是完成了改进管理方法。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "企业家正在检查申请材料，准备开始改进管理方法。",
+    "meaning": "企业家正在检查申请材料，准备开始改进管理方法。",
+    "options": [
+      "企业家正在检查申请材料，准备开始改进管理方法。",
+      "今天律师在研究中心承担重要责任。",
+      "最近企业家常常需要申请研究项目。",
+      "为了深入分析问题，研究人员提前来到企业总部。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+    "meaning": "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+    "options": [
+      "企业家告诉我，他最近正在改进管理方法。",
+      "律师每天都要承担重要责任。",
+      "学者希望明天可以继续比较不同方案。",
+      "会议结束以后，律师马上回到企业总部继续承担重要责任。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "我听说学者最近在城市中心负责交换专业意见。",
+    "meaning": "我听说，学者最近在城市中心负责交换专业意见。",
+    "options": [
+      "在复杂的环境下，我们必须保持清醒的判断。",
+      "学者希望明天可以继续完成调查研究。",
+      "我听说学者最近在城市中心负责交换专业意见。",
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "虽然时间不多，但是研究人员还是完成了调查社会情况。",
+    "meaning": "虽然时间不多，但是研究人员还是完成了调查社会情况。",
+    "options": [
+      "虽然时间不多，但是研究人员还是完成了调查社会情况。",
+      "周末的时候，学者喜欢去医院完成调查研究。",
+      "因为工作很忙，研究人员只能晚上深入分析问题。",
+      "因为工作很忙，企业家只能晚上改进管理方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "今天企业家在医院申请研究项目。",
+    "meaning": "今天，企业家在医院申请研究项目。",
+    "options": [
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "虽然时间不多，但是研究人员还是完成了调查社会情况。",
+      "今天企业家在医院申请研究项目。",
+      "学者已经把统计数据带到医院了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "律师每天都要调整发展战略。",
+    "meaning": "律师每天都要调整发展战略。",
+    "options": [
+      "律师每天都要调整发展战略。",
+      "因为工作很忙，企业家只能晚上解决实际困难。",
+      "律师正在检查技术资料，准备开始提高工作效率。",
+      "律师希望明天可以继续承担重要责任。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果有时间，学者会去大学完成调查研究。",
+    "meaning": "如果有时间，学者会去大学完成调查研究。",
+    "options": [
+      "为了积累实践经验，研究人员提前来到研究中心。",
+      "最近企业家常常需要申请研究项目。",
+      "如果有时间，学者会去大学完成调查研究。",
+      "周末的时候，学者喜欢去会议中心比较不同方案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "为了积累实践经验，研究人员提前来到博物馆。",
+    "meaning": "为了积累实践经验，研究人员提前来到博物馆。",
+    "options": [
+      "研究人员觉得深入分析问题很重要。",
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "为了积累实践经验，研究人员提前来到博物馆。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "企业家正在上海解决实际困难。",
+    "meaning": "企业家正在上海解决实际困难。",
+    "options": [
+      "今天律师在广州调整发展战略。",
+      "昨天研究人员在研究中心深入分析问题，所以回家比较晚。",
+      "企业家正在上海解决实际困难。",
+      "如果有时间，学者会去上海交换专业意见。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "昨天律师在实验室提高工作效率，所以回家比较晚。",
+    "meaning": "昨天，律师在实验室提高工作效率，所以回家比较晚。",
+    "options": [
+      "会议结束以后，企业家马上回到大学继续解决实际困难。",
+      "研究人员正在检查会议记录，准备开始积累实践经验。",
+      "我听说研究人员最近在企业总部负责深入分析问题。",
+      "昨天律师在实验室提高工作效率，所以回家比较晚。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "学者告诉我，他最近正在比较不同方案。",
+    "meaning": "学者告诉我，他最近正在比较不同方案。",
+    "options": [
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "企业家告诉我，他最近正在解决实际困难。",
+      "最近学者常常需要比较不同方案。",
+      "学者告诉我，他最近正在比较不同方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "因为工作很忙，研究人员只能晚上深入分析问题。",
+    "meaning": "因为工作很忙，研究人员只能晚上深入分析问题。",
+    "options": [
+      "律师觉得承担重要责任很重要。",
+      "为了申请研究项目，企业家提前来到大学。",
+      "律师每天都要调整发展战略。",
+      "因为工作很忙，研究人员只能晚上深入分析问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "周末的时候，企业家喜欢去会议中心改进管理方法。",
+    "meaning": "周末的时候，企业家喜欢去会议中心改进管理方法。",
+    "options": [
+      "会议结束以后，律师马上回到实验室继续调整发展战略。",
+      "面对新的挑战，企业需要重新考虑长期发展战略。",
+      "经过讨论，研究人员决定在研究中心深入分析问题。",
+      "周末的时候，企业家喜欢去会议中心改进管理方法。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "律师觉得承担重要责任很重要。",
+    "meaning": "律师觉得承担重要责任很重要。",
+    "options": [
+      "律师正在企业总部提高工作效率。",
+      "今天律师在实验室提高工作效率。",
+      "周末的时候，律师喜欢去实验室承担重要责任。",
+      "律师觉得承担重要责任很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "经过讨论，学者决定在深圳交换专业意见。",
+    "meaning": "经过讨论，学者决定在深圳交换专业意见。",
+    "options": [
+      "周末的时候，律师喜欢去博物馆调整发展战略。",
+      "研究人员觉得积累实践经验很重要。",
+      "企业家每天都要改进管理方法。",
+      "经过讨论，学者决定在深圳交换专业意见。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "为了准备明天的工作，研究人员今晚还要调查社会情况。",
+    "meaning": "为了准备明天的工作，研究人员今晚还要调查社会情况。",
+    "options": [
+      "企业家正在检查政策文件，准备开始解决实际困难。",
+      "为了准备明天的工作，研究人员今晚还要调查社会情况。",
+      "面对新的挑战，企业需要重新考虑长期发展战略。",
+      "律师正在检查新闻报道，准备开始调整发展战略。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "最近企业家常常需要申请研究项目。",
+    "meaning": "最近，企业家常常需要申请研究项目。",
+    "options": [
+      "我听说研究人员最近在国际机场负责调查社会情况。",
+      "虽然时间不多，但是研究人员还是完成了积累实践经验。",
+      "最近企业家常常需要申请研究项目。",
+      "会议结束以后，学者马上回到会议中心继续交换专业意见。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+    "meaning": "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+    "options": [
+      "经过讨论，企业家决定在大学解决实际困难。",
+      "企业家正在检查申请材料，准备开始改进管理方法。",
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "周末的时候，律师喜欢去博物馆调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "学者已经把统计数据带到医院了。",
+    "meaning": "学者已经把统计数据带到医院了。",
+    "options": [
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "昨天律师在实验室提高工作效率，所以回家比较晚。",
+      "学者已经把统计数据带到医院了。",
+      "为了准备明天的工作，企业家今晚还要申请研究项目。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "研究人员正在检查会议记录，准备开始积累实践经验。",
+    "meaning": "研究人员正在检查会议记录，准备开始积累实践经验。",
+    "options": [
+      "今天研究人员在实验室深入分析问题。",
+      "律师正在检查技术资料，准备开始提高工作效率。",
+      "研究人员正在检查会议记录，准备开始积累实践经验。",
+      "这一政策可能对未来的发展产生深远影响。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "会议结束以后，企业家马上回到大学继续解决实际困难。",
+    "meaning": "会议结束以后，企业家马上回到大学继续解决实际困难。",
+    "options": [
+      "最近学者常常需要比较不同方案。",
+      "我听说学者最近在医院负责比较不同方案。",
+      "会议结束以后，企业家马上回到大学继续解决实际困难。",
+      "企业家正在检查政策文件，准备开始解决实际困难。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "我听说律师最近在博物馆负责提高工作效率。",
+    "meaning": "我听说，律师最近在博物馆负责提高工作效率。",
+    "options": [
+      "今天企业家在大学改进管理方法。",
+      "如果计划没有变化，学者下午会在大学交换专业意见。",
+      "周末的时候，律师喜欢去实验室承担重要责任。",
+      "我听说律师最近在博物馆负责提高工作效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "虽然时间不多，但是学者还是完成了比较不同方案。",
+    "meaning": "虽然时间不多，但是学者还是完成了比较不同方案。",
+    "options": [
+      "学者觉得交换专业意见很重要。",
+      "为了深入分析问题，研究人员提前来到企业总部。",
+      "企业家告诉我，他最近正在解决实际困难。",
+      "虽然时间不多，但是学者还是完成了比较不同方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "今天研究人员在实验室深入分析问题。",
+    "meaning": "今天，研究人员在实验室深入分析问题。",
+    "options": [
+      "最近学者常常需要完成调查研究。",
+      "今天研究人员在实验室深入分析问题。",
+      "我听说研究人员最近在企业总部负责深入分析问题。",
+      "因为工作很忙，企业家只能晚上申请研究项目。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "企业家每天都要改进管理方法。",
+    "meaning": "企业家每天都要改进管理方法。",
+    "options": [
+      "企业家每天都要改进管理方法。",
+      "研究人员已经把研究报告带到国际机场了。",
+      "学者已经把统计数据带到医院了。",
+      "学者每天都要比较不同方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我叫王芳。",
+    "pinyin": "Wǒ jiào Wáng Fāng.",
+    "meaning": "Mình tên là Vương Phương.",
+    "options": [
+      "朋友每天都要看书。",
+      "学生正在商店回家。",
+      "再见。",
+      "我叫王芳。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你今年几岁？",
+    "pinyin": "Nǐ jīnnián jǐ suì?",
+    "meaning": "Năm nay bạn bao nhiêu tuổi?",
+    "options": [
+      "虽然时间不多，但是老师还是完成了吃饭。",
+      "你今年几岁？",
+      "经过讨论，老师决定在中国看书。",
+      "今天星期五。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我今年二十岁。",
+    "pinyin": "Wǒ jīnnián èrshí suì.",
+    "meaning": "Năm nay tôi hai mươi tuổi.",
+    "options": [
+      "你几点起床？",
+      "我今年二十岁。",
+      "明天见。",
+      "为了买东西，我提前来到中国。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "你从哪里来？",
+    "pinyin": "Nǐ cóng nǎlǐ lái?",
+    "meaning": "Bạn đến từ đâu?",
+    "options": [
+      "请进。",
+      "为了买东西，医生提前来到中国。",
+      "你叫什么？",
+      "你从哪里来？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我从越南来。",
+    "pinyin": "Wǒ cóng Yuènán lái.",
+    "meaning": "Tôi đến từ Việt Nam.",
+    "options": [
+      "我想吃面条。",
+      "经过讨论，哥哥决定在中国看书。",
+      "经理觉得喝水很重要。",
+      "我从越南来。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢喝茶。",
+    "pinyin": "Wǒ xǐhuan hē chá.",
+    "meaning": "Tôi thích uống trà.",
+    "options": [
+      "你想吃什么？",
+      "我喜欢喝茶。",
+      "朋友已经把手机带到中国了。",
+      "经过讨论，老师决定在中国看书。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢喝咖啡。",
+    "pinyin": "Wǒ bù xǐhuan hē kāfēi.",
+    "meaning": "Tôi không thích uống cà phê.",
+    "options": [
+      "我不知道。",
+      "左边有一家银行。",
+      "你想吃什么？",
+      "我不喜欢喝咖啡。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我想吃米饭。",
+    "pinyin": "Wǒ xiǎng chī mǐfàn.",
+    "meaning": "Tôi muốn ăn cơm.",
+    "options": [
+      "左边有一家银行。",
+      "我想吃米饭。",
+      "如果有时间，同学会去商店听音乐。",
+      "经过讨论，我决定在中国看书。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "现在三点。",
+    "pinyin": "Xiànzài sān diǎn.",
+    "meaning": "Bây giờ là ba giờ.",
+    "options": [
+      "虽然时间不多，但是他还是完成了吃饭。",
+      "现在三点。",
+      "经理正在商店回家。",
+      "我只是看看。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "今天星期五。",
+    "pinyin": "Jīntiān xīngqīwǔ.",
+    "meaning": "Hôm nay là thứ sáu.",
+    "options": [
+      "今天星期五。",
+      "为了买东西，哥哥提前来到中国。",
+      "虽然时间不多，但是老师还是完成了吃饭。",
+      "这个太小了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "天气很好。",
+    "pinyin": "Tiānqì hěn hǎo.",
+    "meaning": "Thời tiết rất đẹp.",
+    "options": [
+      "我今天不太忙。",
+      "我坐公交车去学校。",
+      "如果有时间，她会去商店听音乐。",
+      "天气很好。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢听音乐。",
+    "pinyin": "Wǒ xǐhuan tīng yīnyuè.",
+    "meaning": "Tôi thích nghe nhạc.",
+    "options": [
+      "我马上回来。",
+      "我喜欢听音乐。",
+      "地铁站在哪里？",
+      "这个字是什么意思？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "她喜欢看书。",
+    "pinyin": "Tā xǐhuan kàn shū.",
+    "meaning": "Cô ấy thích đọc sách.",
+    "options": [
+      "再见。",
+      "他在学校学习。",
+      "他已经把手机带到中国了。",
+      "她喜欢看书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "他在学校学习。",
+    "pinyin": "Tā zài xuéxiào xuéxí.",
+    "meaning": "Anh ấy học ở trường.",
+    "options": [
+      "同学觉得喝水很重要。",
+      "他在学校学习。",
+      "如果计划没有变化，姐姐下午会在商店回家。",
+      "请再说一遍。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我每天坐公交车上班。",
+    "pinyin": "Wǒ měitiān zuò gōngjiāochē shàngbān.",
+    "meaning": "Mỗi ngày tôi đi làm bằng xe buýt.",
+    "options": [
+      "我买两杯咖啡。",
+      "请往前走。",
+      "我每天坐公交车上班。",
+      "朋友希望明天可以继续睡觉。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了超市。",
+    "pinyin": "Wǒ zuótiān qù le chāoshì.",
+    "meaning": "Hôm qua tôi đã đi siêu thị.",
+    "options": [
+      "我的朋友正在机场坐地铁。",
+      "我昨天去了超市。",
+      "路上小心。",
+      "这个问题很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去公园吧。",
+    "pinyin": "Míngtiān wǒmen yìqǐ qù gōngyuán ba.",
+    "meaning": "Ngày mai chúng ta cùng đi công viên nhé.",
+    "options": [
+      "我需要再练习。",
+      "加油，你可以的。",
+      "我准备好了。",
+      "明天我们一起去公园吧。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你昨天几点回家？",
+    "pinyin": "Nǐ zuótiān jǐ diǎn huí jiā?",
+    "meaning": "Hôm qua bạn mấy giờ về nhà?",
+    "options": [
+      "今天早点睡吧。",
+      "你昨天几点回家？",
+      "你家有几个人？",
+      "妈妈告诉我，他最近正在工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我晚上九点回家。",
+    "pinyin": "Wǒ wǎnshang jiǔ diǎn huí jiā.",
+    "meaning": "Tôi về nhà lúc chín giờ tối.",
+    "options": [
+      "我晚上九点回家。",
+      "加油，你可以的。",
+      "我和朋友住在一起。",
+      "小心，地上很滑。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这件衣服多少钱？",
+    "pinyin": "Zhè jiàn yīfu duōshao qián?",
+    "meaning": "Bộ quần áo này bao nhiêu tiền?",
+    "options": [
+      "到了给我发消息。",
+      "这件衣服多少钱？",
+      "今天老师在学校旅行。",
+      "哥哥正在学校买东西。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这本书很有意思。",
+    "pinyin": "Zhè běn shū hěn yǒu yìsi.",
+    "meaning": "Cuốn sách này rất thú vị.",
+    "options": [
+      "这本书很有意思。",
+      "请关一下门。",
+      "我喜欢听中文歌。",
+      "经过讨论，妈妈决定在超市工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我已经吃过午饭了。",
+    "pinyin": "Wǒ yǐjīng chīguo wǔfàn le.",
+    "meaning": "Tôi đã ăn trưa rồi.",
+    "options": [
+      "为了做作业，同事提前来到餐厅。",
+      "我已经吃过午饭了。",
+      "同事希望明天可以继续听音乐。",
+      "她每天都要听音乐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我一下吗？",
+    "pinyin": "Nǐ kěyǐ bāng wǒ yíxià ma?",
+    "meaning": "Bạn có thể giúp tôi một chút không?",
+    "options": [
+      "你吃午饭了吗？",
+      "我明白了。",
+      "经过讨论，同事决定在机场打电话。",
+      "你可以帮我一下吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "请把门关上。",
+    "pinyin": "Qǐng bǎ mén guān shàng.",
+    "meaning": "Hãy đóng cửa lại.",
+    "options": [
+      "哥哥觉得看电影很重要。",
+      "请把门关上。",
+      "我一会儿给你打电话。",
+      "同事每天都要运动。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我正在做作业。",
+    "pinyin": "Wǒ zhèngzài zuò zuòyè.",
+    "meaning": "Tôi đang làm bài tập.",
+    "options": [
+      "我正在做作业。",
+      "她每天都要听音乐。",
+      "我听说我的朋友最近在上海负责看电影。",
+      "因为工作很忙，他只能晚上买东西。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "他比我高一点。",
+    "pinyin": "Tā bǐ wǒ gāo yìdiǎn.",
+    "meaning": "Anh ấy cao hơn tôi một chút.",
+    "options": [
+      "如果计划没有变化，孩子下午会在北京看电影。",
+      "我的同学每天都要听音乐。",
+      "她希望明天可以继续准备考试。",
+      "他比我高一点。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我们坐出租车去车站。",
+    "pinyin": "Wǒmen zuò chūzūchē qù chēzhàn.",
+    "meaning": "Chúng tôi đi taxi đến nhà ga.",
+    "options": [
+      "我周末喜欢看电影。",
+      "为了做作业，同事提前来到餐厅。",
+      "我们坐出租车去车站。",
+      "我需要休息一下。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我想换一个房间。",
+    "pinyin": "Wǒ xiǎng huàn yí ge fángjiān.",
+    "meaning": "Tôi muốn đổi một phòng khác.",
+    "options": [
+      "请把门关上。",
+      "我们下午再联系。",
+      "我想换一个房间。",
+      "这个词是什么意思？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你周末有时间吗？",
+    "pinyin": "Nǐ zhōumò yǒu shíjiān ma?",
+    "meaning": "Cuối tuần bạn có thời gian không?",
+    "options": [
+      "你周末有时间吗？",
+      "我的同学每天都要听音乐。",
+      "我的中文进步了一点。",
+      "你已经把报纸带到商店了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我周末通常在家休息。",
+    "pinyin": "Wǒ zhōumò tōngcháng zài jiā xiūxi.",
+    "meaning": "Cuối tuần tôi thường nghỉ ở nhà.",
+    "options": [
+      "如果有时间，我会去机场学习汉语。",
+      "同事每天都要运动。",
+      "如果计划没有变化，我下午会在图书馆看电影。",
+      "我周末通常在家休息。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这家饭店的菜很好吃。",
+    "pinyin": "Zhè jiā fàndiàn de cài hěn hǎochī.",
+    "meaning": "Món ăn của nhà hàng này rất ngon.",
+    "options": [
+      "你喜欢什么运动？",
+      "这家饭店的菜很好吃。",
+      "妈妈希望明天可以继续运动。",
+      "我们坐出租车去车站。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我每天早上跑步。",
+    "pinyin": "Wǒ měitiān zǎoshang pǎobù.",
+    "meaning": "Mỗi sáng tôi đều chạy bộ.",
+    "options": [
+      "我每天早上跑步。",
+      "请你说慢一点。",
+      "今天很热。",
+      "你准备好了吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经预订好了酒店。",
+    "pinyin": "Wǒ yǐjīng yùdìng hǎo le jiǔdiàn.",
+    "meaning": "Tôi đã đặt khách sạn xong rồi.",
+    "options": [
+      "我听说哥哥最近在家里负责解决问题。",
+      "会议结束以后，哥哥马上回到医院继续解决问题。",
+      "老师希望明天可以继续准备考试。",
+      "我已经预订好了酒店。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我详细的地址。",
+    "pinyin": "Qǐng gàosu wǒ xiángxì de dìzhǐ.",
+    "meaning": "Hãy cho tôi biết địa chỉ cụ thể.",
+    "options": [
+      "你平时跟谁练习中文？",
+      "除了中文，我还学习英语。",
+      "请告诉我详细的地址。",
+      "昨天老师在北京买东西，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前准备材料。",
+    "pinyin": "Wǒmen xūyào tíqián zhǔnbèi cáiliào.",
+    "meaning": "Chúng ta cần chuẩn bị tài liệu trước.",
+    "options": [
+      "昨天老师在北京买东西，所以回家比较晚。",
+      "经理正在检查地图，准备开始联系朋友。",
+      "我们需要提前准备材料。",
+      "哥哥觉得解决问题很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "这个决定对大家都很重要。",
+    "pinyin": "Zhège juédìng duì dàjiā dōu hěn zhòngyào.",
+    "meaning": "Quyết định này rất quan trọng đối với mọi người.",
+    "options": [
+      "如果有时间，哥哥会去超市参加会议。",
+      "准备好就开始吧。",
+      "请问需要多长时间？",
+      "这个决定对大家都很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能理解我的意思。",
+    "pinyin": "Wǒ xīwàng nǐ néng lǐjiě wǒ de yìsi.",
+    "meaning": "Tôi hy vọng bạn có thể hiểu ý của tôi.",
+    "options": [
+      "这个问题需要时间。",
+      "我希望你能理解我的意思。",
+      "别想太多。",
+      "经理觉得计划旅行很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "请按照说明完成这项工作。",
+    "pinyin": "Qǐng ànzhào shuōmíng wánchéng zhè xiàng gōngzuò.",
+    "meaning": "Hãy hoàn thành công việc này theo hướng dẫn.",
+    "options": [
+      "最近我常常需要打扫房间。",
+      "今天经理在图书馆计划旅行。",
+      "请按照说明完成这项工作。",
+      "除了中文，我还学习英语。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就改天再去。",
+    "pinyin": "Rúguǒ míngtiān xiàyǔ, wǒmen jiù gǎitiān zài qù.",
+    "meaning": "Nếu ngày mai mưa thì chúng ta sẽ đi vào hôm khác.",
+    "options": [
+      "哥哥希望明天可以继续参加会议。",
+      "我想买一张火车票。",
+      "我正在车站学习汉语。",
+      "如果明天下雨，我们就改天再去。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "他正在准备考试，所以很忙。",
+    "pinyin": "Tā zhèngzài zhǔnbèi kǎoshì, suǒyǐ hěn máng.",
+    "meaning": "Anh ấy đang chuẩn bị thi nên rất bận.",
+    "options": [
+      "经理正在公司联系朋友。",
+      "他正在准备考试，所以很忙。",
+      "这个音怎么发？",
+      "我每天都要打扫房间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "这件事情没有你想象的那么复杂。",
+    "pinyin": "Zhè jiàn shìqing méiyǒu nǐ xiǎngxiàng de nàme fùzá.",
+    "meaning": "Chuyện này không phức tạp như bạn tưởng.",
+    "options": [
+      "虽然时间不多，但是哥哥还是完成了参加会议。",
+      "我的房间在哪里？",
+      "这件事情没有你想象的那么复杂。",
+      "我已经把机票带到家里了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先解决最重要的问题。",
+    "pinyin": "Wǒmen yīnggāi xiān jiějué zuì zhòngyào de wèntí.",
+    "meaning": "Chúng ta nên giải quyết vấn đề quan trọng nhất trước.",
+    "options": [
+      "哥哥希望明天可以继续完成作业。",
+      "我们应该先解决最重要的问题。",
+      "请提前十分钟到。",
+      "我马上处理。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我已经把资料发给你了。",
+    "pinyin": "Wǒ yǐjīng bǎ zīliào fā gěi nǐ le.",
+    "meaning": "Tôi đã gửi tài liệu cho bạn rồi.",
+    "options": [
+      "我已经预订好了酒店。",
+      "经理告诉我，他最近正在联系朋友。",
+      "我已经把资料发给你了。",
+      "开始的时候有一点难。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "你对这个计划有什么建议？",
+    "pinyin": "Nǐ duì zhège jìhuà yǒu shénme jiànyì?",
+    "meaning": "Bạn có đề xuất gì về kế hoạch này?",
+    "options": [
+      "他正在准备考试，所以很忙。",
+      "你觉得中文难吗？",
+      "今天经理在图书馆计划旅行。",
+      "你对这个计划有什么建议？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开会。",
+    "pinyin": "Wǒmen xiàwǔ sān diǎn kāihuì.",
+    "meaning": "Chiều nay chúng ta họp lúc ba giờ.",
+    "options": [
+      "学习语言需要时间。",
+      "今天我在上海练习发音。",
+      "让我想一想。",
+      "我们下午三点开会。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记带身份证。",
+    "pinyin": "Qǐng bú yào wàngjì dài shēnfènzhèng.",
+    "meaning": "Đừng quên mang theo căn cước.",
+    "options": [
+      "这件事情没有你想象的那么复杂。",
+      "虽然时间不多，但是哥哥还是完成了参加会议。",
+      "请不要忘记带身份证。",
+      "除了中文，我还学习英语。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定改变原来的计划。",
+    "pinyin": "Jīngguò rènzhēn tǎolùn, wǒmen juédìng gǎibiàn yuánlái de jìhuà.",
+    "meaning": "Sau khi thảo luận kỹ, chúng tôi quyết định thay đổi kế hoạch ban đầu.",
+    "options": [
+      "经理正在会议室提高效率。",
+      "经过认真讨论，我们决定改变原来的计划。",
+      "邻居每天都要联系客户。",
+      "因为工作很忙，经理只能晚上讨论计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了提高效率，公司正在调整工作流程。",
+    "pinyin": "Wèile tígāo xiàolǜ, gōngsī zhèngzài tiáozhěng gōngzuò liúchéng.",
+    "meaning": "Để nâng cao hiệu quả, công ty đang điều chỉnh quy trình làm việc.",
+    "options": [
+      "周末的时候，我的同事喜欢去家里完成任务。",
+      "经理每天都要提高效率。",
+      "为了提高效率，公司正在调整工作流程。",
+      "记者正在检查工作计划，准备开始调整时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然遇到了一些困难，但是项目还是按时完成了。",
+    "pinyin": "Suīrán yùdào le yìxiē kùnnan, dànshì xiàngmù háishi ànshí wánchéng le.",
+    "meaning": "Mặc dù gặp một số khó khăn nhưng dự án vẫn hoàn thành đúng hạn.",
+    "options": [
+      "记者告诉我，他最近正在调整时间。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "虽然遇到了一些困难，但是项目还是按时完成了。",
+      "经过讨论，记者决定在餐厅安排工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责联系客户并安排会议时间。",
+    "pinyin": "Tā fùzé liánxì kèhù bìng ānpái huìyì shíjiān.",
+    "meaning": "Anh ấy phụ trách liên hệ khách hàng và sắp xếp thời gian họp.",
+    "options": [
+      "昨天记者在北京申请签证，所以回家比较晚。",
+      "他负责联系客户并安排会议时间。",
+      "记者告诉我，他最近正在安排工作。",
+      "虽然时间不多，但是记者还是完成了安排工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "我们需要根据实际情况作出决定。",
+    "pinyin": "Wǒmen xūyào gēnjù shíjì qíngkuàng zuòchū juédìng.",
+    "meaning": "Chúng ta cần đưa ra quyết định dựa trên tình hình thực tế.",
+    "options": [
+      "今天经理在餐厅参加会议。",
+      "经理觉得提高效率很重要。",
+      "我的同事正在检查合同，准备开始学习新知识。",
+      "我们需要根据实际情况作出决定。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "这项研究的结果为我们提供了新的思路。",
+    "pinyin": "Zhè xiàng yánjiū de jiéguǒ wèi wǒmen tígōng le xīn de sīlù.",
+    "meaning": "Kết quả nghiên cứu này cung cấp cho chúng tôi những hướng suy nghĩ mới.",
+    "options": [
+      "企业家希望明天可以继续调整计划。",
+      "虽然时间不多，但是志愿者还是完成了完成研究。",
+      "这项研究的结果为我们提供了新的思路。",
+      "最近企业家常常需要提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断提高自身的竞争力。",
+    "pinyin": "Qǐyè bìxū búduàn tígāo zìshēn de jìngzhēnglì.",
+    "meaning": "Doanh nghiệp phải không ngừng nâng cao năng lực cạnh tranh của mình.",
+    "options": [
+      "最近企业家常常需要提高效率。",
+      "企业必须不断提高自身的竞争力。",
+      "同事告诉我，他最近正在分析数据。",
+      "今天记者在北京解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们发现问题比想象中更加复杂。",
+    "pinyin": "Jīngguò fēnxī, wǒmen fāxiàn wèntí bǐ xiǎngxiàng zhōng gèngjiā fùzá.",
+    "meaning": "Sau khi phân tích, chúng tôi phát hiện vấn đề phức tạp hơn tưởng tượng.",
+    "options": [
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "同事正在医院调查情况。",
+      "昨天志愿者在博物馆完成研究，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "双方就合作方案交换了意见。",
+    "pinyin": "Shuāngfāng jiù hézuò fāngàn jiāohuàn le yìjiàn.",
+    "meaning": "Hai bên đã trao đổi ý kiến về phương án hợp tác.",
+    "options": [
+      "双方就合作方案交换了意见。",
+      "如果计划没有变化，企业家下午会在上海提高效率。",
+      "志愿者觉得完成研究很重要。",
+      "昨天志愿者在北京讨论方案，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对变化，我们应该保持理性和耐心。",
+    "pinyin": "Miànduì biànhuà, wǒmen yīnggāi bǎochí lǐxìng hé nàixīn.",
+    "meaning": "Trước những thay đổi, chúng ta nên giữ sự lý trí và kiên nhẫn.",
+    "options": [
+      "同事已经把会议记录带到广州了。",
+      "面对变化，我们应该保持理性和耐心。",
+      "如果有时间，企业家会去实验室承担责任。",
+      "会议结束以后，企业家马上回到会议中心继续承担责任。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "深入研究这一现象有助于我们理解社会的发展。",
+    "pinyin": "Shēnrù yánjiū zhè yī xiànxiàng yǒuzhùyú wǒmen lǐjiě shèhuì de fāzhǎn.",
+    "meaning": "Nghiên cứu sâu hiện tượng này giúp chúng ta hiểu sự phát triển của xã hội.",
+    "options": [
+      "为了解决实际困难，企业家提前来到深圳。",
+      "深入研究这一现象有助于我们理解社会的发展。",
+      "最近学者常常需要完成调查研究。",
+      "因为工作很忙，企业家只能晚上改进管理方法。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "在复杂的环境下，我们必须保持清醒的判断。",
+    "pinyin": "Zài fùzá de huánjìng xià, wǒmen bìxū bǎochí qīngxǐng de pànduàn.",
+    "meaning": "Trong môi trường phức tạp, chúng ta phải giữ khả năng phán đoán tỉnh táo.",
+    "options": [
+      "在复杂的环境下，我们必须保持清醒的判断。",
+      "学者觉得完成调查研究很重要。",
+      "会议结束以后，企业家马上回到大学继续解决实际困难。",
+      "如果计划没有变化，学者下午会在深圳完成调查研究。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对未来的发展产生深远影响。",
+    "pinyin": "Zhè yī zhèngcè kěnéng duì wèilái de fāzhǎn chǎnshēng shēnyuǎn yǐngxiǎng.",
+    "meaning": "Chính sách này có thể tạo ra ảnh hưởng sâu rộng đến sự phát triển trong tương lai.",
+    "options": [
+      "经过讨论，企业家决定在上海申请研究项目。",
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+      "这一政策可能对未来的发展产生深远影响。",
+      "我听说律师最近在博物馆负责提高工作效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "经过多方面的调查，研究人员得出了比较可靠的结论。",
+    "pinyin": "Jīngguò duō fāngmiàn de diàochá, yánjiū rényuán déchū le bǐjiào kěkào de jiélùn.",
+    "meaning": "Sau khi điều tra trên nhiều phương diện, các nhà nghiên cứu đưa ra kết luận tương đối đáng tin cậy.",
+    "options": [
+      "如果计划没有变化，研究人员下午会在实验室深入分析问题。",
+      "虽然时间不多，但是企业家还是完成了改进管理方法。",
+      "经过多方面的调查，研究人员得出了比较可靠的结论。",
+      "今天律师在广州调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑长期发展战略。",
+    "pinyin": "Miànduì xīn de tiǎozhàn, qǐyè xūyào chóngxīn kǎolǜ chángqī fāzhǎn zhànlüè.",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại chiến lược phát triển dài hạn.",
+    "options": [
+      "律师希望明天可以继续提高工作效率。",
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "面对新的挑战，企业需要重新考虑长期发展战略。",
+      "律师正在国际机场承担重要责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "他在家。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 家。",
+    "options": [
+      "他在家。",
+      "他在教室。",
+      "如果有时间，你会去商店听音乐。",
+      "我喜欢音乐。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我在医院。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 医院。",
+    "options": [
+      "我十一点睡觉。",
+      "我在医院。",
+      "我不喜欢茶。",
+      "请向右转。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我们明天见。",
+    "pinyin": "",
+    "meaning": "Ngày mai gặp nhé.",
+    "options": [
+      "天气很好。",
+      "最近他常常需要买东西。",
+      "我们明天见。",
+      "今天我很热。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "请给我咖啡。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 咖啡。",
+    "options": [
+      "我们去北京。",
+      "我喜欢水果。",
+      "会议结束以后，老师马上回到中国继续学习。",
+      "请给我咖啡。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "她在北京。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 北京。",
+    "options": [
+      "我不喜欢电影。",
+      "她在北京。",
+      "请说慢一点。",
+      "如果计划没有变化，妈妈下午会在商店回家。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我现在不忙。",
+    "pinyin": "",
+    "meaning": "Bây giờ tôi không bận.",
+    "options": [
+      "你几点睡觉？",
+      "对不起。",
+      "会议结束以后，哥哥马上回到中国继续学习。",
+      "我现在不忙。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "他每天学习。",
+    "pinyin": "",
+    "meaning": "Mỗi ngày anh ấy 学习。",
+    "options": [
+      "我告诉我，他最近正在学习。",
+      "晚上好。",
+      "我是学生。",
+      "他每天学习。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你现在忙吗？",
+    "pinyin": "",
+    "meaning": "Bây giờ bạn có bận không?",
+    "options": [
+      "晚上好。",
+      "我们去公司。",
+      "有大一点的吗？",
+      "你现在忙吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我想吃鱼。",
+    "pinyin": "",
+    "meaning": "Tôi muốn ăn 鱼。",
+    "options": [
+      "我想吃鱼。",
+      "请再说一遍。",
+      "朋友希望明天可以继续睡觉。",
+      "如果有时间，同学会去商店听音乐。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他在海防。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 海防。",
+    "options": [
+      "他在海防。",
+      "不客气。",
+      "明天我要上课。",
+      "她在学校。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "请给我音乐。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 音乐。",
+    "options": [
+      "我只是看看。",
+      "我喜欢电影。",
+      "请给我音乐。",
+      "她在商店。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "她在家。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 家。",
+    "options": [
+      "为了买东西，朋友提前来到中国。",
+      "因为工作很忙，你只能晚上工作。",
+      "她在家。",
+      "如果计划没有变化，学生下午会在商店回家。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "她在饭店。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 饭店。",
+    "options": [
+      "她在饭店。",
+      "请帮我看一下地图。",
+      "如果有时间，你会去商店听音乐。",
+      "我不喜欢电影。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我们去机场。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 机场。",
+    "options": [
+      "我们去机场。",
+      "请往前走。",
+      "我想喝水。",
+      "他在海防。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我想喝水。",
+    "pinyin": "",
+    "meaning": "Tôi muốn uống 水。",
+    "options": [
+      "会议结束以后，他马上回到中国继续学习。",
+      "请进。",
+      "我想喝水。",
+      "我们去饭店。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "今天我很开心。",
+    "pinyin": "",
+    "meaning": "Hôm nay tôi rất 开心。",
+    "options": [
+      "虽然时间不多，但是朋友还是完成了吃饭。",
+      "我想喝水。",
+      "她觉得喝水很重要。",
+      "今天我很开心。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请给我水果。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 水果。",
+    "options": [
+      "他每天都要看书。",
+      "我在医院。",
+      "请给我水果。",
+      "同学觉得喝水很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "她在商店。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 商店。",
+    "options": [
+      "晚上好。",
+      "经过讨论，老师决定在中国看书。",
+      "她在商店。",
+      "今天我有空。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我想喝茶。",
+    "pinyin": "",
+    "meaning": "Tôi muốn uống 茶。",
+    "options": [
+      "我想喝茶。",
+      "他在北京。",
+      "他在教室。",
+      "我不喜欢书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他每天做饭。",
+    "pinyin": "",
+    "meaning": "Mỗi ngày anh ấy 做饭。",
+    "options": [
+      "我不喜欢猫。",
+      "会议结束以后，他马上回到中国继续学习。",
+      "没关系。",
+      "他每天做饭。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请给我茶。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 茶。",
+    "options": [
+      "这个字是什么意思？",
+      "周末的时候，我喜欢去中国吃饭。",
+      "请给我茶。",
+      "她觉得喝水很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢猫。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 猫。",
+    "options": [
+      "虽然时间不多，但是朋友还是完成了吃饭。",
+      "她在北京。",
+      "我告诉我，他最近正在学习。",
+      "我不喜欢猫。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "她在海防。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 海防。",
+    "options": [
+      "可以用手机付款吗？",
+      "虽然时间不多，但是医生还是完成了吃饭。",
+      "她在海防。",
+      "她喜欢看书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我想吃鸡蛋。",
+    "pinyin": "",
+    "meaning": "Tôi muốn ăn 鸡蛋。",
+    "options": [
+      "我想吃鸡蛋。",
+      "我们去商店。",
+      "可以给我菜单吗？",
+      "虽然时间不多，但是老师还是完成了吃饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他在学校。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 学校。",
+    "options": [
+      "他在学校。",
+      "可以给我菜单吗？",
+      "对不起。",
+      "今天我很忙。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "今天我很累。",
+    "pinyin": "",
+    "meaning": "Hôm nay tôi rất 累。",
+    "options": [
+      "今天我很累。",
+      "同学觉得喝水很重要。",
+      "我喜欢音乐。",
+      "虽然时间不多，但是哥哥还是完成了吃饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他在医院。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 医院。",
+    "options": [
+      "你几点睡觉？",
+      "我想吃面条。",
+      "他在医院。",
+      "哥哥每天都要看书。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "今天我很饿。",
+    "pinyin": "",
+    "meaning": "Hôm nay tôi rất 饿。",
+    "options": [
+      "今天我很饿。",
+      "哥哥告诉我，他最近正在学习。",
+      "你会说中文吗？",
+      "我迷路了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我在机场。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 机场。",
+    "options": [
+      "我在机场。",
+      "这个字是什么意思？",
+      "我喜欢吃米饭。",
+      "我住在海防。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "她在车站。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 车站。",
+    "options": [
+      "他每天工作。",
+      "她在车站。",
+      "我还没吃饭。",
+      "你从哪里来？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢电影。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 电影。",
+    "options": [
+      "你喜欢咖啡吗？",
+      "我不喜欢电影。",
+      "你喜欢电影吗？",
+      "你可以带我去吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我想吃面包。",
+    "pinyin": "",
+    "meaning": "Tôi muốn ăn 面包。",
+    "options": [
+      "医生已经把手机带到中国了。",
+      "我想吃面包。",
+      "我在北京。",
+      "你叫什么名字？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我们去医院。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 医院。",
+    "options": [
+      "我们去医院。",
+      "我想喝茶。",
+      "经理正在商店回家。",
+      "对不起。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我们去北京。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 北京。",
+    "options": [
+      "因为工作很忙，你只能晚上工作。",
+      "我们去北京。",
+      "我在车站。",
+      "你今天忙吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "她在医院。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 医院。",
+    "options": [
+      "我每天都要看书。",
+      "她在医院。",
+      "请坐。",
+      "我喜欢茶。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢狗。",
+    "pinyin": "",
+    "meaning": "Tôi thích 狗。",
+    "options": [
+      "我喜欢狗。",
+      "我不喜欢茶。",
+      "我不喜欢猫。",
+      "你喜欢汉语吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他每天工作。",
+    "pinyin": "",
+    "meaning": "Mỗi ngày anh ấy 工作。",
+    "options": [
+      "他每天工作。",
+      "为了买东西，朋友提前来到中国。",
+      "因为工作很忙，她只能晚上工作。",
+      "同学正在商店回家。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我在公园。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 公园。",
+    "options": [
+      "太贵了。",
+      "我在公园。",
+      "今天妈妈在商店喝水。",
+      "你从哪里来？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "今天我很热。",
+    "pinyin": "",
+    "meaning": "Hôm nay tôi rất 热。",
+    "options": [
+      "她在学校。",
+      "今天我很热。",
+      "姐姐正在检查咖啡，准备开始休息。",
+      "我坐公交车去学校。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "他每天跑步。",
+    "pinyin": "",
+    "meaning": "Mỗi ngày anh ấy 跑步。",
+    "options": [
+      "他每天跑步。",
+      "经理觉得喝水很重要。",
+      "如果计划没有变化，学生下午会在商店回家。",
+      "谢谢。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我们去商店。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 商店。",
+    "options": [
+      "这个字是什么意思？",
+      "我们去商店。",
+      "今天同学在商店喝水。",
+      "我不知道。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢汉语。",
+    "pinyin": "",
+    "meaning": "Tôi thích 汉语。",
+    "options": [
+      "我喜欢汉语。",
+      "他每天听音乐。",
+      "为了准备明天的工作，你今晚还要听音乐。",
+      "这个多少钱？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我在北京。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 北京。",
+    "options": [
+      "我在机场。",
+      "我在北京。",
+      "他在上海。",
+      "你喜欢茶吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我们去饭店。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 饭店。",
+    "options": [
+      "为了买东西，他提前来到中国。",
+      "他告诉我，他最近正在学习。",
+      "请坐。",
+      "我们去饭店。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢音乐。",
+    "pinyin": "",
+    "meaning": "Tôi thích 音乐。",
+    "options": [
+      "我听说同学最近在商店负责工作。",
+      "周末的时候，我喜欢去中国吃饭。",
+      "你几点睡觉？",
+      "我喜欢音乐。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请给我电影。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 电影。",
+    "options": [
+      "请给我电影。",
+      "医生告诉我，他最近正在学习。",
+      "他在车站。",
+      "姐姐觉得喝水很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我在上海。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 上海。",
+    "options": [
+      "我想吃米饭。",
+      "我在上海。",
+      "请给我一碗米饭。",
+      "她觉得喝水很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢电影吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 电影 không?",
+    "options": [
+      "我在饭店。",
+      "我喜欢狗。",
+      "你喜欢电影吗？",
+      "为了准备明天的工作，她今晚还要听音乐。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢咖啡。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 咖啡。",
+    "options": [
+      "我不喜欢咖啡。",
+      "一共多少钱？",
+      "他已经把手机带到中国了。",
+      "周末的时候，他喜欢去中国吃饭。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "今天我很高兴。",
+    "pinyin": "",
+    "meaning": "Hôm nay tôi rất 高兴。",
+    "options": [
+      "我们去上海。",
+      "虽然时间不多，但是医生还是完成了吃饭。",
+      "今天我很高兴。",
+      "可以用手机付款吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "他在机场。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 机场。",
+    "options": [
+      "他在海防。",
+      "请在这里停车。",
+      "他在机场。",
+      "虽然时间不多，但是老师还是完成了吃饭。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢汉语。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 汉语。",
+    "options": [
+      "我不喜欢汉语。",
+      "哥哥每天都要看书。",
+      "我们去教室。",
+      "他已经把手机带到中国了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢足球吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 足球 không?",
+    "options": [
+      "这辆车去市中心吗？",
+      "你喜欢足球吗？",
+      "为了买东西，医生提前来到中国。",
+      "我想吃饺子。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "今天我很冷。",
+    "pinyin": "",
+    "meaning": "Hôm nay tôi rất 冷。",
+    "options": [
+      "我不要这个。",
+      "今天我很冷。",
+      "会议结束以后，哥哥马上回到中国继续学习。",
+      "我十一点睡觉。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "他在车站。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 车站。",
+    "options": [
+      "他在车站。",
+      "今天我很冷。",
+      "可以刷卡吗？",
+      "我叫李明。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "请给我书。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 书。",
+    "options": [
+      "请给我书。",
+      "经过讨论，朋友决定在中国看书。",
+      "我想吃牛肉。",
+      "请给我水果。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我在教室。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 教室。",
+    "options": [
+      "我马上回来。",
+      "我在教室。",
+      "我喜欢吃米饭。",
+      "我们去饭店。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我在商店。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 商店。",
+    "options": [
+      "如果有时间，姐姐会去商店听音乐。",
+      "我在商店。",
+      "他在海防。",
+      "她在教室。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我想吃水果。",
+    "pinyin": "",
+    "meaning": "Tôi muốn ăn 水果。",
+    "options": [
+      "你吃饭了吗？",
+      "我要去火车站。",
+      "我想吃水果。",
+      "如果计划没有变化，妈妈下午会在商店回家。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢水果吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 水果 không?",
+    "options": [
+      "你喜欢水果吗？",
+      "哥哥每天都要看书。",
+      "他在商店。",
+      "我不喜欢水果。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我在饭店。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 饭店。",
+    "options": [
+      "我在饭店。",
+      "我们去教室。",
+      "虽然时间不多，但是老师还是完成了吃饭。",
+      "因为工作很忙，你只能晚上工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢汉语吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 汉语 không?",
+    "options": [
+      "因为工作很忙，学生只能晚上工作。",
+      "你喜欢汉语吗？",
+      "虽然时间不多，但是朋友还是完成了吃饭。",
+      "我不喜欢猫。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我在海防。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 海防。",
+    "options": [
+      "我听说妈妈最近在商店负责工作。",
+      "今天星期五。",
+      "我在海防。",
+      "我七点起床。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我想喝果汁。",
+    "pinyin": "",
+    "meaning": "Tôi muốn uống 果汁。",
+    "options": [
+      "我想喝果汁。",
+      "你几点睡觉？",
+      "明天我要上课。",
+      "你好吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他在教室。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 教室。",
+    "options": [
+      "我不喜欢音乐。",
+      "他在教室。",
+      "今天星期几？",
+      "我买两杯咖啡。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "他在上海。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 上海。",
+    "options": [
+      "他在家。",
+      "我想吃水果。",
+      "周末的时候，朋友喜欢去中国吃饭。",
+      "他在上海。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "他每天听音乐。",
+    "pinyin": "",
+    "meaning": "Mỗi ngày anh ấy 听音乐。",
+    "options": [
+      "我不知道。",
+      "他每天听音乐。",
+      "她在北京。",
+      "你怎么写这个字？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢书。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 书。",
+    "options": [
+      "我是越南人。",
+      "我喜欢汉语。",
+      "我听说妈妈最近在商店负责工作。",
+      "我不喜欢书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请给我狗。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 狗。",
+    "options": [
+      "会议结束以后，他马上回到中国继续学习。",
+      "请给我狗。",
+      "经理觉得喝水很重要。",
+      "经过讨论，老师决定在中国看书。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢猫。",
+    "pinyin": "",
+    "meaning": "Tôi thích 猫。",
+    "options": [
+      "姐姐觉得喝水很重要。",
+      "我们去商店。",
+      "今天同学在商店喝水。",
+      "我喜欢猫。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我想喝咖啡。",
+    "pinyin": "",
+    "meaning": "Tôi muốn uống 咖啡。",
+    "options": [
+      "我想喝咖啡。",
+      "经过讨论，老师决定在中国看书。",
+      "请问，洗手间在哪里？",
+      "我想吃面包。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "请给我汉语。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 汉语。",
+    "options": [
+      "你现在有空吗？",
+      "请说慢一点。",
+      "我很好，谢谢。",
+      "请给我汉语。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢书。",
+    "pinyin": "",
+    "meaning": "Tôi thích 书。",
+    "options": [
+      "医生每天都要看书。",
+      "我想吃面包。",
+      "我喜欢书。",
+      "你喜欢猫吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我想吃苹果。",
+    "pinyin": "",
+    "meaning": "Tôi muốn ăn 苹果。",
+    "options": [
+      "周末的时候，爸爸喜欢去中国吃饭。",
+      "我想吃苹果。",
+      "我在海防。",
+      "她在图书馆。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我在公司。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 公司。",
+    "options": [
+      "妈妈正在检查咖啡，准备开始休息。",
+      "我在公司。",
+      "你喜欢水果吗？",
+      "右边就是超市。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢茶。",
+    "pinyin": "",
+    "meaning": "Tôi thích 茶。",
+    "options": [
+      "我会说一点中文。",
+      "我喜欢茶。",
+      "昨天姐姐在商店休息，所以回家比较晚。",
+      "他在商店。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我们去上海。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 上海。",
+    "options": [
+      "我们去上海。",
+      "我想喝咖啡。",
+      "我要买这个。",
+      "请给我狗。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢书吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 书 không?",
+    "options": [
+      "为了准备明天的工作，姐姐今晚还要听音乐。",
+      "妈妈正在商店回家。",
+      "你喜欢书吗？",
+      "今天星期一。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢狗。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 狗。",
+    "options": [
+      "可以便宜一点吗？",
+      "我不喜欢狗。",
+      "对不起。",
+      "今天学生在商店喝水。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我们去学校。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 学校。",
+    "options": [
+      "我很好，谢谢。",
+      "我们去学校。",
+      "你可以带我去吗？",
+      "我喜欢喝咖啡。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢足球。",
+    "pinyin": "",
+    "meaning": "Tôi thích 足球。",
+    "options": [
+      "我喜欢足球。",
+      "你可以带我去吗？",
+      "会议结束以后，爸爸马上回到中国继续学习。",
+      "医生每天都要看书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢电影。",
+    "pinyin": "",
+    "meaning": "Tôi thích 电影。",
+    "options": [
+      "你叫什么？",
+      "我喜欢电影。",
+      "我马上回来。",
+      "为了准备明天的工作，同学今晚还要听音乐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "她在图书馆。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 图书馆。",
+    "options": [
+      "请给我一张发票。",
+      "她在图书馆。",
+      "我会说一点中文。",
+      "你正在商店回家。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我在家。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 家。",
+    "options": [
+      "他在北京。",
+      "你好吗？",
+      "我在家。",
+      "为了买东西，他提前来到中国。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "她在教室。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 教室。",
+    "options": [
+      "请坐。",
+      "我在车站。",
+      "他已经把手机带到中国了。",
+      "她在教室。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "请给我猫。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 猫。",
+    "options": [
+      "如果有时间，姐姐会去商店听音乐。",
+      "他已经把手机带到中国了。",
+      "请给我猫。",
+      "我买两杯咖啡。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "他每天看书。",
+    "pinyin": "",
+    "meaning": "Mỗi ngày anh ấy 看书。",
+    "options": [
+      "我在公园。",
+      "他每天看书。",
+      "不用客气。",
+      "请坐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢音乐吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 音乐 không?",
+    "options": [
+      "你喜欢音乐吗？",
+      "可以刷卡吗？",
+      "地铁站在哪里？",
+      "再来一杯，谢谢。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "她在上海。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 上海。",
+    "options": [
+      "没事。",
+      "姐姐正在商店回家。",
+      "同学正在检查咖啡，准备开始休息。",
+      "她在上海。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢咖啡吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 咖啡 không?",
+    "options": [
+      "可以刷卡吗？",
+      "你喜欢咖啡吗？",
+      "不用客气。",
+      "她在上海。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "她在公园。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 公园。",
+    "options": [
+      "周末的时候，爸爸喜欢去中国吃饭。",
+      "为了准备明天的工作，姐姐今晚还要听音乐。",
+      "她在公园。",
+      "为了准备明天的工作，你今晚还要听音乐。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "她在学校。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 学校。",
+    "options": [
+      "你叫什么？",
+      "她在学校。",
+      "周末的时候，老师喜欢去中国吃饭。",
+      "虽然时间不多，但是老师还是完成了吃饭。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我喜欢水果。",
+    "pinyin": "",
+    "meaning": "Tôi thích 水果。",
+    "options": [
+      "如果计划没有变化，她下午会在商店回家。",
+      "你会说中文吗？",
+      "我吃过了。",
+      "我喜欢水果。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我想吃牛肉。",
+    "pinyin": "",
+    "meaning": "Tôi muốn ăn 牛肉。",
+    "options": [
+      "我想吃牛肉。",
+      "她在机场。",
+      "会议结束以后，我马上回到中国继续学习。",
+      "她在车站。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "她在机场。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 机场。",
+    "options": [
+      "她在机场。",
+      "她正在检查咖啡，准备开始休息。",
+      "我迷路了。",
+      "我不要这个。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我想吃饺子。",
+    "pinyin": "",
+    "meaning": "Tôi muốn ăn 饺子。",
+    "options": [
+      "我喜欢汉语。",
+      "我在教室。",
+      "我想吃饺子。",
+      "你怎么写这个字？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我在学校。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 学校。",
+    "options": [
+      "我要买这个。",
+      "可以刷卡吗？",
+      "我在学校。",
+      "我不知道。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "他在图书馆。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 图书馆。",
+    "options": [
+      "他在图书馆。",
+      "你喜欢汉语吗？",
+      "我喜欢足球。",
+      "你想吃什么？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "请给我足球。",
+    "pinyin": "",
+    "meaning": "Làm ơn đưa cho tôi 足球。",
+    "options": [
+      "今天你在商店喝水。",
+      "你几点起床？",
+      "我每天坐公交车上班。",
+      "请给我足球。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢猫吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 猫 không?",
+    "options": [
+      "没关系。",
+      "右边就是超市。",
+      "你喜欢猫吗？",
+      "明天天气很好。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我们去图书馆。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 图书馆。",
+    "options": [
+      "我在学校。",
+      "请说慢一点。",
+      "我很好，谢谢。",
+      "我们去图书馆。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "今天我很忙。",
+    "pinyin": "",
+    "meaning": "Hôm nay tôi rất 忙。",
+    "options": [
+      "她在饭店。",
+      "今天我很忙。",
+      "周末的时候，爸爸喜欢去中国吃饭。",
+      "请进。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "他在公园。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 公园。",
+    "options": [
+      "他在公园。",
+      "你好吗？",
+      "我不喜欢猫。",
+      "我希望明天可以继续睡觉。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢茶。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 茶。",
+    "options": [
+      "我不喜欢茶。",
+      "我很好，谢谢。",
+      "昨天她在商店休息，所以回家比较晚。",
+      "然后向左转。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我们去公司。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 公司。",
+    "options": [
+      "请进。",
+      "我们去公司。",
+      "我喜欢吃米饭。",
+      "我们去医院。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我想喝牛奶。",
+    "pinyin": "",
+    "meaning": "Tôi muốn uống 牛奶。",
+    "options": [
+      "我坐公交车去学校。",
+      "因为工作很忙，同学只能晚上工作。",
+      "我在家。",
+      "我想喝牛奶。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我在车站。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 车站。",
+    "options": [
+      "因为工作很忙，妈妈只能晚上工作。",
+      "你吃饭了吗？",
+      "明天我要上课。",
+      "我在车站。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢茶吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 茶 không?",
+    "options": [
+      "我听不清楚。",
+      "你喜欢茶吗？",
+      "我们去学校。",
+      "为了买东西，爸爸提前来到中国。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "我们去车站。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 车站。",
+    "options": [
+      "我们去车站。",
+      "我想喝咖啡。",
+      "晚上好。",
+      "谢谢。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢水果。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 水果。",
+    "options": [
+      "今天星期五。",
+      "我不喜欢水果。",
+      "他在北京。",
+      "我是学生。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "他每天看电视。",
+    "pinyin": "",
+    "meaning": "Mỗi ngày anh ấy 看电视。",
+    "options": [
+      "我已经把手机带到中国了。",
+      "他每天看电视。",
+      "今天我很忙。",
+      "经过讨论，医生决定在中国看书。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 1,
+    "audio": "他在饭店。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 饭店。",
+    "options": [
+      "你喜欢喝茶吗？",
+      "他在北京。",
+      "他已经把手机带到中国了。",
+      "他在饭店。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我们去教室。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 教室。",
+    "options": [
+      "她在车站。",
+      "对不起。",
+      "妈妈觉得喝水很重要。",
+      "我们去教室。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "他在北京。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 北京。",
+    "options": [
+      "她在上海。",
+      "他在教室。",
+      "同学正在商店回家。",
+      "他在北京。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "你喜欢狗吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thích 狗 không?",
+    "options": [
+      "你喜欢茶吗？",
+      "你正在检查咖啡，准备开始休息。",
+      "今天星期几？",
+      "你喜欢狗吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 1,
+    "audio": "我在图书馆。",
+    "pinyin": "",
+    "meaning": "Tôi đang ở 图书馆。",
+    "options": [
+      "我在图书馆。",
+      "他每天听音乐。",
+      "我在北京。",
+      "我们去学校。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 1,
+    "audio": "他在商店。",
+    "pinyin": "",
+    "meaning": "Anh ấy đang ở 商店。",
+    "options": [
+      "请给我一碗米饭。",
+      "今天我很冷。",
+      "他在商店。",
+      "然后向左转。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "她在公司。",
+    "pinyin": "",
+    "meaning": "Cô ấy đang ở 公司。",
+    "options": [
+      "姐姐正在检查咖啡，准备开始休息。",
+      "你今天忙吗？",
+      "她在公司。",
+      "因为工作很忙，经理只能晚上工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我们去公园。",
+    "pinyin": "",
+    "meaning": "Chúng tôi đi 公园。",
+    "options": [
+      "学生正在检查咖啡，准备开始休息。",
+      "老师每天都要看书。",
+      "我们去公园。",
+      "我七点起床。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 1,
+    "audio": "我不喜欢音乐。",
+    "pinyin": "",
+    "meaning": "Tôi không thích 音乐。",
+    "options": [
+      "我不喜欢音乐。",
+      "我不喜欢书。",
+      "我在家。",
+      "会议结束以后，朋友马上回到中国继续学习。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了银行。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 银行。",
+    "options": [
+      "我昨天去了银行。",
+      "爸爸正在商店旅行。",
+      "手机没电了。",
+      "我不知道。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这件礼物多少钱？",
+    "pinyin": "",
+    "meaning": "礼物 này bao nhiêu tiền?",
+    "options": [
+      "这件礼物多少钱？",
+      "我每天学习一个小时。",
+      "你收到我的消息了吗？",
+      "请写在黑板上。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些书。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 书。",
+    "options": [
+      "我觉得做饭很重要。",
+      "没问题。",
+      "今天爸爸在图书馆买东西。",
+      "我需要买一些书。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你周末通常做什么？",
+    "pinyin": "",
+    "meaning": "Cuối tuần bạn thường làm gì?",
+    "options": [
+      "这个手机很有意思。",
+      "请等我五分钟。",
+      "你想喝茶还是咖啡？",
+      "你周末通常做什么？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了公园。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 公园。",
+    "options": [
+      "我昨天去了公园。",
+      "手机没电了。",
+      "这件电脑多少钱？",
+      "水太烫了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我们晚上一起吃饭吧。",
+    "pinyin": "",
+    "meaning": "Buổi tối chúng ta cùng ăn cơm nhé.",
+    "options": [
+      "我已经打扫房间了。",
+      "我正在开会。",
+      "我们晚上一起吃饭吧。",
+      "你能给我一个例子吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去学校吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 学校 nhé.",
+    "options": [
+      "这个书很漂亮。",
+      "下午三点见。",
+      "这个问题很简单。",
+      "明天我们一起去学校吧。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这件电脑多少钱？",
+    "pinyin": "",
+    "meaning": "电脑 này bao nhiêu tiền?",
+    "options": [
+      "今天老师在学校旅行。",
+      "我今天感觉很好。",
+      "这件电脑多少钱？",
+      "你什么时候去车站？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这件书多少钱？",
+    "pinyin": "",
+    "meaning": "书 này bao nhiêu tiền?",
+    "options": [
+      "明天我们一起去电影院吧。",
+      "这个咖啡很漂亮。",
+      "你可以给我充电器吗？",
+      "这件书多少钱？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了医院。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 医院。",
+    "options": [
+      "天气越来越好了。",
+      "姐姐每天都要准备考试。",
+      "你准备好了吗？",
+      "我昨天去了医院。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些手机。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 手机。",
+    "options": [
+      "我需要买一些手机。",
+      "我们认识很多年了。",
+      "同事每天都要运动。",
+      "你喜欢听什么音乐？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我正在写邮件。",
+    "pinyin": "",
+    "meaning": "Tôi đang 写邮件。",
+    "options": [
+      "因为工作很忙，老师只能晚上坐地铁。",
+      "我正在写邮件。",
+      "请再说一遍。",
+      "我准备好了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去饭店？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 饭店?",
+    "options": [
+      "如果计划没有变化，老师下午会在医院做饭。",
+      "这个手机很重要。",
+      "你什么时候去饭店？",
+      "我需要买一些电脑。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个咖啡很贵。",
+    "pinyin": "",
+    "meaning": "咖啡 này rất 贵。",
+    "options": [
+      "姐姐告诉我，他最近正在做作业。",
+      "如果计划没有变化，他下午会在公园看电影。",
+      "这个咖啡很贵。",
+      "这件书多少钱？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了图书馆。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 图书馆。",
+    "options": [
+      "为了准备明天的工作，我的朋友今晚还要买东西。",
+      "你需要我做什么？",
+      "我昨天去了图书馆。",
+      "你喜欢什么运动？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些衣服。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 衣服。",
+    "options": [
+      "你喜欢听什么音乐？",
+      "我需要买一些衣服。",
+      "手机没电了。",
+      "请打开书。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我觉得这个办法不错。",
+    "pinyin": "",
+    "meaning": "Tôi thấy cách này khá ổn.",
+    "options": [
+      "我需要休息一下。",
+      "你喜欢什么运动？",
+      "我觉得这个办法不错。",
+      "你会说中文吗？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去学校？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 学校?",
+    "options": [
+      "我昨天去了图书馆。",
+      "我明白了。",
+      "同事告诉我，他最近正在工作。",
+      "你什么时候去学校？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了车站。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 车站。",
+    "options": [
+      "我昨天去了车站。",
+      "为了准备明天的工作，我的朋友今晚还要买东西。",
+      "你在哪里？",
+      "这个水果很贵。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我已经买东西了。",
+    "pinyin": "",
+    "meaning": "Tôi đã 买东西 rồi.",
+    "options": [
+      "这个礼物很贵。",
+      "我已经买东西了。",
+      "我们一起练习吧。",
+      "为了做作业，姐姐提前来到车站。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去图书馆吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 图书馆 nhé.",
+    "options": [
+      "明天我们一起去图书馆吧。",
+      "这个词是什么意思？",
+      "你昨天几点回家？",
+      "我觉得这个方法很好。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我买东西吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thể giúp tôi 买东西 không?",
+    "options": [
+      "不用着急。",
+      "这个书很漂亮。",
+      "你可以帮我买东西吗？",
+      "我喜欢听中文歌。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去商店吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 商店 nhé.",
+    "options": [
+      "医生每天都要准备考试。",
+      "最近姐姐常常需要听音乐。",
+      "明天我们一起去商店吧。",
+      "我正在检查照片，准备开始旅行。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去电影院？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 电影院?",
+    "options": [
+      "孩子正在上海买东西。",
+      "他觉得做饭很重要。",
+      "别担心。",
+      "你什么时候去电影院？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我学习中文吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thể giúp tôi 学习中文 không?",
+    "options": [
+      "我听说老师最近在公园负责做饭。",
+      "最近过得怎么样？",
+      "我喜欢在家看电影。",
+      "你可以帮我学习中文吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去医院吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 医院 nhé.",
+    "options": [
+      "医生已经把衣服带到车站了。",
+      "明天我们一起去医院吧。",
+      "这个衣服很漂亮。",
+      "你可以帮我一下吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我已经做作业了。",
+    "pinyin": "",
+    "meaning": "Tôi đã 做作业 rồi.",
+    "options": [
+      "我已经做作业了。",
+      "我要一杯热茶。",
+      "这个问题很简单。",
+      "在第二个路口右转。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个衣服很贵。",
+    "pinyin": "",
+    "meaning": "衣服 này rất 贵。",
+    "options": [
+      "我有一点累。",
+      "这个衣服很贵。",
+      "明天我们一起去学校吧。",
+      "我需要买一些衣服。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些水果。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 水果。",
+    "options": [
+      "哥哥正在检查自行车，准备开始坐地铁。",
+      "我需要买一些水果。",
+      "这家饭店的菜很好吃。",
+      "别担心。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我已经写邮件了。",
+    "pinyin": "",
+    "meaning": "Tôi đã 写邮件 rồi.",
+    "options": [
+      "孩子觉得看电影很重要。",
+      "我已经写邮件了。",
+      "我周末通常在家休息。",
+      "我正在看电视。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个书很简单。",
+    "pinyin": "",
+    "meaning": "书 này rất 简单。",
+    "options": [
+      "虽然时间不多，但是妈妈还是完成了打电话。",
+      "爸爸觉得学习汉语很重要。",
+      "这个电脑很便宜。",
+      "这个书很简单。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去电影院吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 电影院 nhé.",
+    "options": [
+      "如果计划没有变化，老师下午会在医院做饭。",
+      "我正在开会。",
+      "周末的时候，妈妈喜欢去家里听音乐。",
+      "明天我们一起去电影院吧。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我已经看电视了。",
+    "pinyin": "",
+    "meaning": "Tôi đã 看电视 rồi.",
+    "options": [
+      "为了打电话，医生提前来到商店。",
+      "我需要买一些衣服。",
+      "慢慢来。",
+      "我已经看电视了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些咖啡。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 咖啡。",
+    "options": [
+      "水太烫了。",
+      "我需要买一些咖啡。",
+      "妈妈告诉我，他最近正在工作。",
+      "这个电影很简单。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个水果很重要。",
+    "pinyin": "",
+    "meaning": "水果 này rất 重要。",
+    "options": [
+      "你什么时候去车站？",
+      "这个水果很重要。",
+      "经过讨论，姐姐决定在商店工作。",
+      "妈妈已经把汉语书带到图书馆了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我打扫房间吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thể giúp tôi 打扫房间 không?",
+    "options": [
+      "因为工作很忙，爸爸只能晚上旅行。",
+      "你可以帮我打扫房间吗？",
+      "你什么时候去图书馆？",
+      "我晚上九点回家。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个礼物很有意思。",
+    "pinyin": "",
+    "meaning": "礼物 này rất 有意思。",
+    "options": [
+      "我听说老师最近在公园负责做饭。",
+      "这个礼物很有意思。",
+      "你准备好了吗？",
+      "你什么时候下班？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了饭店。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 饭店。",
+    "options": [
+      "你什么时候去学校？",
+      "我觉得这个方法很好。",
+      "我昨天去了饭店。",
+      "妈妈已经把汉语书带到图书馆了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个水果很简单。",
+    "pinyin": "",
+    "meaning": "水果 này rất 简单。",
+    "options": [
+      "这个水果很简单。",
+      "我每天学习一个小时。",
+      "晚上八点以后我有空。",
+      "最近过得怎么样？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个礼物很重要。",
+    "pinyin": "",
+    "meaning": "礼物 này rất 重要。",
+    "options": [
+      "这个礼物很重要。",
+      "我昨天去了银行。",
+      "请再说一遍。",
+      "你吃午饭了吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我正在准备考试。",
+    "pinyin": "",
+    "meaning": "Tôi đang 准备考试。",
+    "options": [
+      "我正在准备考试。",
+      "这个水果很方便。",
+      "下午三点见。",
+      "妈妈告诉我，他最近正在工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我准备考试吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thể giúp tôi 准备考试 không?",
+    "options": [
+      "我们几点见面？",
+      "这个书很简单。",
+      "下午三点见。",
+      "你可以帮我准备考试吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去车站吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 车站 nhé.",
+    "options": [
+      "慢慢来。",
+      "妈妈告诉我，他最近正在工作。",
+      "明天我们一起去车站吧。",
+      "虽然时间不多，但是同事还是完成了做作业。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我正在看电视。",
+    "pinyin": "",
+    "meaning": "Tôi đang 看电视。",
+    "options": [
+      "这个书很漂亮。",
+      "我正在看电视。",
+      "你什么时候去饭店？",
+      "下午三点见。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个衣服很简单。",
+    "pinyin": "",
+    "meaning": "衣服 này rất 简单。",
+    "options": [
+      "虽然时间不多，但是你还是完成了工作。",
+      "好啊，我很期待。",
+      "这个词是什么意思？",
+      "这个衣服很简单。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个咖啡很便宜。",
+    "pinyin": "",
+    "meaning": "咖啡 này rất 便宜。",
+    "options": [
+      "这个电脑很贵。",
+      "如果有时间，哥哥会去北京做饭。",
+      "同事已经把汉语书带到北京了。",
+      "这个咖啡很便宜。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去饭店吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 饭店 nhé.",
+    "options": [
+      "明天我们一起去饭店吧。",
+      "我昨天睡得很晚。",
+      "会议结束以后，她马上回到超市继续运动。",
+      "这件礼物多少钱？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这件手机多少钱？",
+    "pinyin": "",
+    "meaning": "手机 này bao nhiêu tiền?",
+    "options": [
+      "这个书很漂亮。",
+      "他比我高一点。",
+      "这件手机多少钱？",
+      "哥哥觉得看电影很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个手机很重要。",
+    "pinyin": "",
+    "meaning": "手机 này rất 重要。",
+    "options": [
+      "这个手机很重要。",
+      "我已经吃过午饭了。",
+      "我需要买一些咖啡。",
+      "我的手机没电了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个电脑很简单。",
+    "pinyin": "",
+    "meaning": "电脑 này rất 简单。",
+    "options": [
+      "我的朋友觉得做饭很重要。",
+      "明天我们一起去公园吧。",
+      "我需要买一些手机。",
+      "这个电脑很简单。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我正在打扫房间。",
+    "pinyin": "",
+    "meaning": "Tôi đang 打扫房间。",
+    "options": [
+      "我觉得这个方法很好。",
+      "到了给我发消息。",
+      "我正在打扫房间。",
+      "如果有时间，哥哥会去北京做饭。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去商店？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 商店?",
+    "options": [
+      "这个电影很方便。",
+      "这个书很漂亮。",
+      "哥哥正在检查自行车，准备开始坐地铁。",
+      "你什么时候去商店？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这件咖啡多少钱？",
+    "pinyin": "",
+    "meaning": "咖啡 này bao nhiêu tiền?",
+    "options": [
+      "这个书很重要。",
+      "这件咖啡多少钱？",
+      "昨天爸爸在医院看电影，所以回家比较晚。",
+      "因为工作很忙，我只能晚上买东西。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去图书馆？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 图书馆?",
+    "options": [
+      "这个电影很方便。",
+      "你什么时候去图书馆？",
+      "这个电脑很方便。",
+      "经过讨论，医生决定在学校做作业。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个咖啡很有意思。",
+    "pinyin": "",
+    "meaning": "咖啡 này rất 有意思。",
+    "options": [
+      "医生已经把衣服带到车站了。",
+      "请你说慢一点。",
+      "这个咖啡很有意思。",
+      "会议结束以后，妈妈马上回到上海继续准备考试。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我已经打扫房间了。",
+    "pinyin": "",
+    "meaning": "Tôi đã 打扫房间 rồi.",
+    "options": [
+      "这个电脑很有意思。",
+      "我已经打扫房间了。",
+      "你什么时候下班？",
+      "我昨天去了电影院。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个衣服很漂亮。",
+    "pinyin": "",
+    "meaning": "衣服 này rất 漂亮。",
+    "options": [
+      "姐姐希望明天可以继续运动。",
+      "我听说哥哥最近在医院负责学习汉语。",
+      "周末的时候，妈妈喜欢去家里听音乐。",
+      "这个衣服很漂亮。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个电脑很贵。",
+    "pinyin": "",
+    "meaning": "电脑 này rất 贵。",
+    "options": [
+      "这件电影多少钱？",
+      "这个电脑很贵。",
+      "我需要买一些电脑。",
+      "这个衣服很便宜。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些电脑。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 电脑。",
+    "options": [
+      "这个电影很贵。",
+      "我需要买一些电脑。",
+      "同事告诉我，他最近正在工作。",
+      "你能帮我一下吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去超市？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 超市?",
+    "options": [
+      "你什么时候去超市？",
+      "我已经到了。",
+      "在第二个路口右转。",
+      "我每天早上跑步。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我做作业吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thể giúp tôi 做作业 không?",
+    "options": [
+      "最近她常常需要运动。",
+      "妈妈告诉我，他最近正在工作。",
+      "你可以帮我做作业吗？",
+      "这个衣服很便宜。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去车站？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 车站?",
+    "options": [
+      "这个电影很漂亮。",
+      "明天我们一起去图书馆吧。",
+      "因为工作很忙，他只能晚上买东西。",
+      "你什么时候去车站？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我正在买东西。",
+    "pinyin": "",
+    "meaning": "Tôi đang 买东西。",
+    "options": [
+      "我正在买东西。",
+      "为了准备明天的工作，我今晚还要旅行。",
+      "今天早点睡吧。",
+      "我昨天去了公园。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我已经学习中文了。",
+    "pinyin": "",
+    "meaning": "Tôi đã 学习中文 rồi.",
+    "options": [
+      "明天我们一起去超市吧。",
+      "我已经学习中文了。",
+      "这个书很漂亮。",
+      "这个书很方便。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去医院？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 医院?",
+    "options": [
+      "你什么时候去医院？",
+      "你准备好了吗？",
+      "如果计划没有变化，我下午会在图书馆看电影。",
+      "妈妈希望明天可以继续运动。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了电影院。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 电影院。",
+    "options": [
+      "我的同学已经把报纸带到公司了。",
+      "这个词是什么意思？",
+      "我昨天去了电影院。",
+      "她希望明天可以继续准备考试。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个书很贵。",
+    "pinyin": "",
+    "meaning": "书 này rất 贵。",
+    "options": [
+      "这个书很贵。",
+      "经过讨论，她决定在公园打电话。",
+      "你可以帮我打扫房间吗？",
+      "为了准备明天的工作，我的朋友今晚还要买东西。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个书很重要。",
+    "pinyin": "",
+    "meaning": "书 này rất 重要。",
+    "options": [
+      "这个书很重要。",
+      "你什么时候去公园？",
+      "昨天爸爸在医院看电影，所以回家比较晚。",
+      "虽然时间不多，但是她还是完成了工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些礼物。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 礼物。",
+    "options": [
+      "我喜欢听中文歌。",
+      "我正在检查照片，准备开始旅行。",
+      "我需要买一些礼物。",
+      "这件书多少钱？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我写邮件吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thể giúp tôi 写邮件 không?",
+    "options": [
+      "你可以帮我写邮件吗？",
+      "我去年开始学中文。",
+      "这个问题很简单。",
+      "这个礼物很漂亮。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个电影很重要。",
+    "pinyin": "",
+    "meaning": "电影 này rất 重要。",
+    "options": [
+      "这个电影很便宜。",
+      "这个水果很贵。",
+      "虽然时间不多，但是你还是完成了工作。",
+      "这个电影很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去银行？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 银行?",
+    "options": [
+      "最近过得怎么样？",
+      "你什么时候去银行？",
+      "我们几点见面？",
+      "我忘记这个词了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "你可以帮我看电视吗？",
+    "pinyin": "",
+    "meaning": "Bạn có thể giúp tôi 看电视 không?",
+    "options": [
+      "虽然时间不多，但是你还是完成了工作。",
+      "老师正在上课。",
+      "这个衣服很便宜。",
+      "你可以帮我看电视吗？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了学校。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 学校。",
+    "options": [
+      "我昨天去了学校。",
+      "我已经买东西了。",
+      "最近姐姐常常需要听音乐。",
+      "我没听清楚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个电脑很重要。",
+    "pinyin": "",
+    "meaning": "电脑 này rất 重要。",
+    "options": [
+      "这个电脑很重要。",
+      "我觉得做饭很重要。",
+      "明天我们一起去公园吧。",
+      "我需要买一些电影。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这件水果多少钱？",
+    "pinyin": "",
+    "meaning": "水果 này bao nhiêu tiền?",
+    "options": [
+      "他觉得做饭很重要。",
+      "我的中文进步了一点。",
+      "这件水果多少钱？",
+      "这件电影多少钱？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个礼物很便宜。",
+    "pinyin": "",
+    "meaning": "礼物 này rất 便宜。",
+    "options": [
+      "我的朋友觉得做饭很重要。",
+      "今天工作很忙。",
+      "这个礼物很便宜。",
+      "如果计划没有变化，我的朋友下午会在车站做饭。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我已经准备考试了。",
+    "pinyin": "",
+    "meaning": "Tôi đã 准备考试 rồi.",
+    "options": [
+      "为了准备明天的工作，哥哥今晚还要坐地铁。",
+      "我已经准备考试了。",
+      "因为工作很忙，哥哥只能晚上旅行。",
+      "我需要买一些电影。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个手机很有意思。",
+    "pinyin": "",
+    "meaning": "手机 này rất 有意思。",
+    "options": [
+      "这个衣服很重要。",
+      "周末的时候，姐姐喜欢去上海运动。",
+      "这个手机很有意思。",
+      "在第二个路口右转。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "我昨天去了商店。",
+    "pinyin": "",
+    "meaning": "Hôm qua tôi đã đi 商店。",
+    "options": [
+      "昨天哥哥在超市看电影，所以回家比较晚。",
+      "昨天老师在餐厅学习汉语，所以回家比较晚。",
+      "这个咖啡很便宜。",
+      "我昨天去了商店。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "我需要买一些电影。",
+    "pinyin": "",
+    "meaning": "Tôi cần mua một ít 电影。",
+    "options": [
+      "你吃午饭了吗？",
+      "我需要买一些电影。",
+      "这个电脑很便宜。",
+      "会议结束以后，妈妈马上回到上海继续准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个水果很贵。",
+    "pinyin": "",
+    "meaning": "水果 này rất 贵。",
+    "options": [
+      "这个词怎么用？",
+      "会议结束以后，妈妈马上回到上海继续准备考试。",
+      "这个水果很贵。",
+      "今天孩子在车站坐地铁。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这件电影多少钱？",
+    "pinyin": "",
+    "meaning": "电影 này bao nhiêu tiền?",
+    "options": [
+      "这件电影多少钱？",
+      "我忘记带手机了。",
+      "妈妈希望明天可以继续运动。",
+      "我需要买一些书。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个电脑很便宜。",
+    "pinyin": "",
+    "meaning": "电脑 này rất 便宜。",
+    "options": [
+      "你什么时候去公园？",
+      "这个电脑很便宜。",
+      "你可以帮我打扫房间吗？",
+      "他觉得做饭很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "我正在学习中文。",
+    "pinyin": "",
+    "meaning": "Tôi đang 学习中文。",
+    "options": [
+      "如果计划没有变化，我的朋友下午会在车站做饭。",
+      "会议结束以后，同事马上回到学校继续准备考试。",
+      "你会说中文吗？",
+      "我正在学习中文。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去银行吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 银行 nhé.",
+    "options": [
+      "你能给我一个例子吗？",
+      "我听说老师最近在公园负责做饭。",
+      "明天我们一起去银行吧。",
+      "我有一个姐姐。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个水果很便宜。",
+    "pinyin": "",
+    "meaning": "水果 này rất 便宜。",
+    "options": [
+      "这个词怎么用？",
+      "我昨天去了学校。",
+      "如果计划没有变化，孩子下午会在北京看电影。",
+      "这个水果很便宜。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个电影很贵。",
+    "pinyin": "",
+    "meaning": "电影 này rất 贵。",
+    "options": [
+      "这个电影很贵。",
+      "老师正在检查咖啡，准备开始买东西。",
+      "你可以帮我打扫房间吗？",
+      "小心，地上很滑。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个咖啡很漂亮。",
+    "pinyin": "",
+    "meaning": "咖啡 này rất 漂亮。",
+    "options": [
+      "这个咖啡很漂亮。",
+      "如果计划没有变化，我的朋友下午会在车站做饭。",
+      "我喜欢打篮球。",
+      "我会说一点中文。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "你什么时候去公园？",
+    "pinyin": "",
+    "meaning": "Khi nào bạn đi 公园?",
+    "options": [
+      "明天我们一起去超市吧。",
+      "我听说爸爸最近在餐厅负责做饭。",
+      "你什么时候去公园？",
+      "你周末通常做什么？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个电影很简单。",
+    "pinyin": "",
+    "meaning": "电影 này rất 简单。",
+    "options": [
+      "为了做作业，妈妈提前来到机场。",
+      "今天工作很忙。",
+      "这个电影很简单。",
+      "这个电影很有意思。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个书很漂亮。",
+    "pinyin": "",
+    "meaning": "书 này rất 漂亮。",
+    "options": [
+      "这个书很漂亮。",
+      "你家有几个人？",
+      "姐姐告诉我，他最近正在做作业。",
+      "我有一个妹妹。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个水果很有意思。",
+    "pinyin": "",
+    "meaning": "水果 này rất 有意思。",
+    "options": [
+      "你可以给我充电器吗？",
+      "姐姐告诉我，他最近正在做作业。",
+      "今天他在超市坐地铁。",
+      "这个水果很有意思。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个衣服很重要。",
+    "pinyin": "",
+    "meaning": "衣服 này rất 重要。",
+    "options": [
+      "我的朋友正在检查咖啡，准备开始买东西。",
+      "这个衣服很便宜。",
+      "我觉得做饭很重要。",
+      "这个衣服很重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个电影很便宜。",
+    "pinyin": "",
+    "meaning": "电影 này rất 便宜。",
+    "options": [
+      "这个电影很便宜。",
+      "今天有点冷。",
+      "慢慢来。",
+      "你什么时候去车站？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个衣服很方便。",
+    "pinyin": "",
+    "meaning": "衣服 này rất 方便。",
+    "options": [
+      "我和朋友住在一起。",
+      "这个礼物很方便。",
+      "爸爸正在检查咖啡，准备开始买东西。",
+      "这个衣服很方便。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个礼物很漂亮。",
+    "pinyin": "",
+    "meaning": "礼物 này rất 漂亮。",
+    "options": [
+      "姐姐每天都要准备考试。",
+      "我们下午再联系。",
+      "为了准备明天的工作，我的朋友今晚还要买东西。",
+      "这个礼物很漂亮。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "明天我们一起去超市吧。",
+    "pinyin": "",
+    "meaning": "Ngày mai chúng ta cùng đi 超市 nhé.",
+    "options": [
+      "这个书很简单。",
+      "她每天都要听音乐。",
+      "老师正在检查咖啡，准备开始买东西。",
+      "明天我们一起去超市吧。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个咖啡很方便。",
+    "pinyin": "",
+    "meaning": "咖啡 này rất 方便。",
+    "options": [
+      "我的同学每天都要听音乐。",
+      "你收到我的消息了吗？",
+      "这个咖啡很方便。",
+      "今天我在医院坐地铁。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个电脑很方便。",
+    "pinyin": "",
+    "meaning": "电脑 này rất 方便。",
+    "options": [
+      "外面下雨了。",
+      "你可以帮我打扫房间吗？",
+      "这个电脑很方便。",
+      "最近你常常需要运动。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个水果很漂亮。",
+    "pinyin": "",
+    "meaning": "水果 này rất 漂亮。",
+    "options": [
+      "今天他在超市坐地铁。",
+      "水太烫了。",
+      "请把窗户打开。",
+      "这个水果很漂亮。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个手机很便宜。",
+    "pinyin": "",
+    "meaning": "手机 này rất 便宜。",
+    "options": [
+      "这个手机很便宜。",
+      "我昨天去了车站。",
+      "姐姐已经把衣服带到机场了。",
+      "这件衣服多少钱？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个礼物很贵。",
+    "pinyin": "",
+    "meaning": "礼物 này rất 贵。",
+    "options": [
+      "我六点下班。",
+      "这个礼物很贵。",
+      "我正在写邮件。",
+      "会议结束以后，你马上回到机场继续听音乐。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个电影很有意思。",
+    "pinyin": "",
+    "meaning": "电影 này rất 有意思。",
+    "options": [
+      "这个衣服很有意思。",
+      "这个电影很有意思。",
+      "你什么时候去电影院？",
+      "老师觉得学习汉语很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个书很方便。",
+    "pinyin": "",
+    "meaning": "书 này rất 方便。",
+    "options": [
+      "外面下雨了。",
+      "我已经看电视了。",
+      "这个书很方便。",
+      "我昨天去了商店。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个手机很简单。",
+    "pinyin": "",
+    "meaning": "手机 này rất 简单。",
+    "options": [
+      "今天孩子在车站坐地铁。",
+      "你做得很好。",
+      "外面下雨了。",
+      "这个手机很简单。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个咖啡很重要。",
+    "pinyin": "",
+    "meaning": "咖啡 này rất 重要。",
+    "options": [
+      "这个咖啡很重要。",
+      "最近同事常常需要准备考试。",
+      "会议结束以后，同事马上回到学校继续准备考试。",
+      "最近姐姐常常需要听音乐。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个手机很贵。",
+    "pinyin": "",
+    "meaning": "手机 này rất 贵。",
+    "options": [
+      "我正在开会。",
+      "这个手机很贵。",
+      "别担心。",
+      "老师觉得学习汉语很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个水果很方便。",
+    "pinyin": "",
+    "meaning": "水果 này rất 方便。",
+    "options": [
+      "当然可以。",
+      "你什么时候去学校？",
+      "这个书很方便。",
+      "这个水果很方便。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个电影很方便。",
+    "pinyin": "",
+    "meaning": "电影 này rất 方便。",
+    "options": [
+      "这个电脑很漂亮。",
+      "这个电影很方便。",
+      "你可以帮我打扫房间吗？",
+      "哥哥觉得看电影很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个书很有意思。",
+    "pinyin": "",
+    "meaning": "书 này rất 有意思。",
+    "options": [
+      "这个书很有意思。",
+      "我明白了。",
+      "昨天爸爸在医院看电影，所以回家比较晚。",
+      "请把窗户打开。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个礼物很方便。",
+    "pinyin": "",
+    "meaning": "礼物 này rất 方便。",
+    "options": [
+      "到了给我发消息。",
+      "这个礼物很方便。",
+      "你希望明天可以继续准备考试。",
+      "这件书多少钱？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个咖啡很简单。",
+    "pinyin": "",
+    "meaning": "咖啡 này rất 简单。",
+    "options": [
+      "我需要买一些书。",
+      "这个衣服很重要。",
+      "我的同学告诉我，他最近正在工作。",
+      "这个咖啡很简单。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个电影很漂亮。",
+    "pinyin": "",
+    "meaning": "电影 này rất 漂亮。",
+    "options": [
+      "我今天感觉很好。",
+      "我正在买东西。",
+      "这个电影很漂亮。",
+      "我的同学告诉我，他最近正在工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 2,
+    "audio": "这个电脑很漂亮。",
+    "pinyin": "",
+    "meaning": "电脑 này rất 漂亮。",
+    "options": [
+      "这个电脑很漂亮。",
+      "我需要买一些衣服。",
+      "我昨天去了商店。",
+      "我已经买东西了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个电脑很有意思。",
+    "pinyin": "",
+    "meaning": "电脑 này rất 有意思。",
+    "options": [
+      "周末的时候，她喜欢去机场准备考试。",
+      "这个电脑很有意思。",
+      "我正在做作业。",
+      "昨天孩子在公司做饭，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个礼物很简单。",
+    "pinyin": "",
+    "meaning": "礼物 này rất 简单。",
+    "options": [
+      "这个礼物很简单。",
+      "我要一杯热茶。",
+      "我不知道。",
+      "我已经打扫房间了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个衣服很有意思。",
+    "pinyin": "",
+    "meaning": "衣服 này rất 有意思。",
+    "options": [
+      "我昨天去了商店。",
+      "这个衣服很有意思。",
+      "我正在写邮件。",
+      "她已经把报纸带到家里了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 2,
+    "audio": "这个书很便宜。",
+    "pinyin": "",
+    "meaning": "书 này rất 便宜。",
+    "options": [
+      "没问题。",
+      "你希望明天可以继续准备考试。",
+      "这件手机多少钱？",
+      "这个书很便宜。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个手机很方便。",
+    "pinyin": "",
+    "meaning": "手机 này rất 方便。",
+    "options": [
+      "你在哪里？",
+      "你周末通常做什么？",
+      "我周末喜欢看电影。",
+      "这个手机很方便。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 2,
+    "audio": "这个手机很漂亮。",
+    "pinyin": "",
+    "meaning": "手机 này rất 漂亮。",
+    "options": [
+      "这个手机很漂亮。",
+      "今天他在超市坐地铁。",
+      "为了准备明天的工作，哥哥今晚还要坐地铁。",
+      "昨天孩子在公司做饭，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 2,
+    "audio": "这个衣服很便宜。",
+    "pinyin": "",
+    "meaning": "衣服 này rất 便宜。",
+    "options": [
+      "这个衣服很便宜。",
+      "如果有时间，我会去机场学习汉语。",
+      "明天我们一起去医院吧。",
+      "我正在做作业。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能讨论计划。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 讨论计划。",
+    "options": [
+      "我希望你能讨论计划。",
+      "我听说哥哥最近在家里负责解决问题。",
+      "继续保持。",
+      "早餐几点开始？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开始准备材料。",
+    "pinyin": "",
+    "meaning": "Chiều nay lúc ba giờ chúng ta bắt đầu 准备材料。",
+    "options": [
+      "虽然时间不多，但是经理还是完成了联系朋友。",
+      "这个方法比较简单。",
+      "我们下午三点开始准备材料。",
+      "我已经预订好了酒店。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前完成任务。",
+    "pinyin": "",
+    "meaning": "Chúng ta cần 完成任务 trước.",
+    "options": [
+      "这件事情没有你想象的那么复杂。",
+      "为了安排时间，经理提前来到广州。",
+      "我们需要提前完成任务。",
+      "第三声要注意变化。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记重新安排工作。",
+    "pinyin": "",
+    "meaning": "Đừng quên 重新安排工作。",
+    "options": [
+      "请集中注意力。",
+      "为了准备明天的工作，经理今晚还要计划旅行。",
+      "我希望你能联系客户。",
+      "请不要忘记重新安排工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就讨论计划。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 讨论计划。",
+    "options": [
+      "我希望你能联系客户。",
+      "我已经准备好计划了。",
+      "我们应该先安排时间。",
+      "如果明天下雨，我们就讨论计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我问题的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 问题。",
+    "options": [
+      "不要害怕说错。",
+      "如果明天下雨，我们就准备材料。",
+      "因为最近工作很忙，所以我没有时间检查文件。",
+      "请告诉我问题的详细情况。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开始检查文件。",
+    "pinyin": "",
+    "meaning": "Chiều nay lúc ba giờ chúng ta bắt đầu 检查文件。",
+    "options": [
+      "如果计划没有变化，老师下午会在餐厅买东西。",
+      "如果明天下雨，我们就重新安排工作。",
+      "我们下午三点开始检查文件。",
+      "你已经做得很好了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就解决问题。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 解决问题。",
+    "options": [
+      "虽然时间不多，但是我还是完成了练习发音。",
+      "请告诉我问题的详细情况。",
+      "为了准备明天的工作，我今晚还要学习汉语。",
+      "如果明天下雨，我们就解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就联系客户。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 联系客户。",
+    "options": [
+      "如果明天下雨，我们就联系客户。",
+      "如果有时间，哥哥会去医院解决问题。",
+      "祝你今天开心。",
+      "会议结束以后，哥哥马上回到上海继续参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要提前出发。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 提前出发。",
+    "options": [
+      "这个问题比我想象的更清楚。",
+      "为了提高效率，我们需要提前出发。",
+      "会议结束以后，老师马上回到图书馆继续买东西。",
+      "现在路上堵车吗？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间重新安排工作。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 重新安排工作。",
+    "options": [
+      "周末的时候，老师喜欢去北京准备考试。",
+      "因为最近工作很忙，所以我没有时间重新安排工作。",
+      "我们应该先联系客户。",
+      "我想提高听力。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "这个问题比我想象的更复杂。",
+    "pinyin": "",
+    "meaning": "Vấn đề này 复杂 hơn tôi tưởng.",
+    "options": [
+      "继续保持。",
+      "我告诉我，他最近正在学习汉语。",
+      "这个问题比我想象的更复杂。",
+      "请告诉我计划的详细情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "你对这个问题有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 问题 này?",
+    "options": [
+      "我们下午三点开始联系客户。",
+      "因为工作很忙，经理只能晚上安排时间。",
+      "你对这个问题有什么建议？",
+      "没什么，只是有点累。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先重新安排工作。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 重新安排工作 trước.",
+    "options": [
+      "为了安排时间，经理提前来到广州。",
+      "我要去机场。",
+      "我们明天再讨论。",
+      "我们应该先重新安排工作。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "这个问题比我想象的更清楚。",
+    "pinyin": "",
+    "meaning": "Vấn đề này 清楚 hơn tôi tưởng.",
+    "options": [
+      "请不要忘记检查文件。",
+      "今天的工作完成了吗？",
+      "这个问题比我想象的更清楚。",
+      "我们下午三点开始提前出发。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好问题了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 问题 rồi.",
+    "options": [
+      "今天经理在图书馆计划旅行。",
+      "因为工作很忙，我只能晚上学习汉语。",
+      "让我想一想。",
+      "我已经准备好问题了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先完成任务。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 完成任务 trước.",
+    "options": [
+      "我已经把机票带到家里了。",
+      "这样更容易记住。",
+      "我们应该先完成任务。",
+      "听力对学习语言很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前重新安排工作。",
+    "pinyin": "",
+    "meaning": "Chúng ta cần 重新安排工作 trước.",
+    "options": [
+      "会议结束以后，哥哥马上回到公园继续完成作业。",
+      "我希望你能联系客户。",
+      "我们需要提前重新安排工作。",
+      "我马上处理。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能准备材料。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 准备材料。",
+    "options": [
+      "第三声要注意变化。",
+      "我希望你能准备材料。",
+      "我已经完成了。",
+      "今天老师在图书馆准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先准备材料。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 准备材料 trước.",
+    "options": [
+      "我要去机场。",
+      "老师正在检查中文书，准备开始买东西。",
+      "我们应该先准备材料。",
+      "这个问题比我想象的更复杂。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先检查文件。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 检查文件 trước.",
+    "options": [
+      "我听说经理最近在广州负责安排时间。",
+      "今天就练到这里。",
+      "我们应该先检查文件。",
+      "为了提高效率，我们需要认真考虑。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我计划的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 计划。",
+    "options": [
+      "为了提高效率，我们需要讨论计划。",
+      "我已经准备好资料了。",
+      "老师正在检查礼物，准备开始介绍自己。",
+      "请告诉我计划的详细情况。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间安排时间。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 安排时间。",
+    "options": [
+      "我想住两晚。",
+      "因为最近工作很忙，所以我没有时间安排时间。",
+      "我告诉我，他最近正在打扫房间。",
+      "经过讨论，我们决定认真考虑。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要联系客户。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 联系客户。",
+    "options": [
+      "我已经把地址发给你了。",
+      "因为下雨，所以我们没有出去。",
+      "为了提高效率，我们需要联系客户。",
+      "我已经准备好申请了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开始安排时间。",
+    "pinyin": "",
+    "meaning": "Chiều nay lúc ba giờ chúng ta bắt đầu 安排时间。",
+    "options": [
+      "因为最近工作很忙，所以我没有时间联系客户。",
+      "老师正在检查礼物，准备开始介绍自己。",
+      "我们下午三点开始安排时间。",
+      "坚持下去一定会有进步。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要解决问题。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 解决问题。",
+    "options": [
+      "如果有时间，经理会去机场联系朋友。",
+      "周末的时候，哥哥喜欢去家里完成作业。",
+      "为了提高效率，我们需要解决问题。",
+      "因为最近工作很忙，所以我没有时间安排时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定讨论计划。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 讨论计划。",
+    "options": [
+      "我听说经理最近在公司负责联系朋友。",
+      "经过讨论，我们决定讨论计划。",
+      "听到熟悉的词就先记下来。",
+      "会议结束以后，老师马上回到北京继续介绍自己。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你对这个报告有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 报告 này?",
+    "options": [
+      "如果明天下雨，我们就认真考虑。",
+      "哥哥觉得完成作业很重要。",
+      "你对这个报告有什么建议？",
+      "如果明天下雨，我们就准备材料。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定安排时间。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 安排时间。",
+    "options": [
+      "轮到你了。",
+      "你对这个报告有什么建议？",
+      "请稍等一下。",
+      "经过讨论，我们决定安排时间。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "这个问题比我想象的更方便。",
+    "pinyin": "",
+    "meaning": "Vấn đề này 方便 hơn tôi tưởng.",
+    "options": [
+      "这个问题比我想象的更方便。",
+      "我听说哥哥最近在家里负责解决问题。",
+      "哥哥每天都要参加会议。",
+      "最近老师常常需要准备考试。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经把行程发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 行程 cho bạn rồi.",
+    "options": [
+      "我已经把行程发给你了。",
+      "这个决定对大家都很重要。",
+      "请在这里停车。",
+      "我每天都要打扫房间。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记完成任务。",
+    "pinyin": "",
+    "meaning": "Đừng quên 完成任务。",
+    "options": [
+      "请不要忘记完成任务。",
+      "我正在车站学习汉语。",
+      "会议结束以后，哥哥马上回到公园继续完成作业。",
+      "会议结束以后，哥哥马上回到医院继续解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好文件了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 文件 rồi.",
+    "options": [
+      "我已经准备好文件了。",
+      "现在开始下一题。",
+      "学习语言需要坚持。",
+      "只要努力，就会进步。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开始提前出发。",
+    "pinyin": "",
+    "meaning": "Chiều nay lúc ba giờ chúng ta bắt đầu 提前出发。",
+    "options": [
+      "因为最近工作很忙，所以我没有时间讨论计划。",
+      "我们以后再决定。",
+      "周末的时候，老师喜欢去广州买东西。",
+      "我们下午三点开始提前出发。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先讨论计划。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 讨论计划 trước.",
+    "options": [
+      "我们应该先讨论计划。",
+      "我希望你能理解我的意思。",
+      "没什么，只是有点累。",
+      "如果计划没有变化，经理下午会在餐厅联系朋友。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经把报告发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 报告 cho bạn rồi.",
+    "options": [
+      "我已经把报告发给你了。",
+      "我已经把电脑带到上海了。",
+      "昨天经理在广州计划旅行，所以回家比较晚。",
+      "如果计划没有变化，经理下午会在图书馆计划旅行。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我文件的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 文件。",
+    "options": [
+      "经过讨论，我们决定解决问题。",
+      "先听关键词，再理解整句话。",
+      "请告诉我文件的详细情况。",
+      "你的反应越来越快了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间联系客户。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 联系客户。",
+    "options": [
+      "最近老师常常需要介绍自己。",
+      "我们快迟到了。",
+      "虽然时间不多，但是哥哥还是完成了解决问题。",
+      "因为最近工作很忙，所以我没有时间联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记安排时间。",
+    "pinyin": "",
+    "meaning": "Đừng quên 安排时间。",
+    "options": [
+      "你对这个文件有什么建议？",
+      "你对这个计划有什么建议？",
+      "请不要忘记安排时间。",
+      "电梯在哪里？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就重新安排工作。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 重新安排工作。",
+    "options": [
+      "经理觉得计划旅行很重要。",
+      "如果明天下雨，我们就重新安排工作。",
+      "今天老师在广州介绍自己。",
+      "我希望你能认真考虑。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "这个问题比我想象的更困难。",
+    "pinyin": "",
+    "meaning": "Vấn đề này 困难 hơn tôi tưởng.",
+    "options": [
+      "周末的时候，老师喜欢去公司介绍自己。",
+      "为了联系朋友，经理提前来到图书馆。",
+      "不要只记答案，要听懂句子。",
+      "这个问题比我想象的更困难。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能重新安排工作。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 重新安排工作。",
+    "options": [
+      "下次我们继续。",
+      "我听说经理最近在机场负责计划旅行。",
+      "我希望你能重新安排工作。",
+      "因为下雨，所以我们没有出去。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我已经把地址发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 地址 cho bạn rồi.",
+    "options": [
+      "我已经把地址发给你了。",
+      "我已经把资料发给你了。",
+      "请告诉我消息的详细情况。",
+      "请按照说明完成这项工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定认真考虑。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 认真考虑。",
+    "options": [
+      "早餐几点开始？",
+      "我说得对吗？",
+      "我同意你的看法。",
+      "经过讨论，我们决定认真考虑。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记提前出发。",
+    "pinyin": "",
+    "meaning": "Đừng quên 提前出发。",
+    "options": [
+      "这一题你答对了。",
+      "经过讨论，经理决定在图书馆安排时间。",
+      "我觉得可以试试。",
+      "请不要忘记提前出发。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能联系客户。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 联系客户。",
+    "options": [
+      "我希望你能联系客户。",
+      "我已经准备好申请了。",
+      "这件事情没有你想象的那么复杂。",
+      "你觉得这个办法怎么样？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经把消息发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 消息 cho bạn rồi.",
+    "options": [
+      "我已经完成了。",
+      "如果计划没有变化，经理下午会在北京安排时间。",
+      "我已经把消息发给你了。",
+      "老师正在公司介绍自己。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要认真考虑。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 认真考虑。",
+    "options": [
+      "我们下午三点开始提前出发。",
+      "为了完成作业，哥哥提前来到公园。",
+      "虽然时间不多，但是哥哥还是完成了参加会议。",
+      "为了提高效率，我们需要认真考虑。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "你对这个合同有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 合同 này?",
+    "options": [
+      "如果有时间，哥哥会去超市参加会议。",
+      "我想提高听力。",
+      "你对这个合同有什么建议？",
+      "请按照说明完成这项工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定重新安排工作。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 重新安排工作。",
+    "options": [
+      "经过讨论，我们决定重新安排工作。",
+      "我希望以后可以说得更流利。",
+      "我还需要一点时间。",
+      "我们下午三点开始重新安排工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好合同了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 合同 rồi.",
+    "options": [
+      "无线网络的密码是什么？",
+      "多听几遍就会越来越熟悉。",
+      "轮到你了。",
+      "我已经准备好合同了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前提前出发。",
+    "pinyin": "",
+    "meaning": "Chúng ta cần 提前出发 trước.",
+    "options": [
+      "如果明天下雨，我们就重新安排工作。",
+      "为了联系朋友，经理提前来到图书馆。",
+      "我们需要提前提前出发。",
+      "这个问题需要时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好申请了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 申请 rồi.",
+    "options": [
+      "我希望你能安排时间。",
+      "为了准备明天的工作，老师今晚还要准备考试。",
+      "我已经准备好申请了。",
+      "没什么，只是有点累。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就完成任务。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 完成任务。",
+    "options": [
+      "经理觉得计划旅行很重要。",
+      "如果明天下雨，我们就完成任务。",
+      "这个决定对大家都很重要。",
+      "请提前十分钟到。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我已经把申请发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 申请 cho bạn rồi.",
+    "options": [
+      "请稍等一下。",
+      "如果明天下雨，我们就完成任务。",
+      "今天我们练习十句话。",
+      "我已经把申请发给你了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我消息的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 消息。",
+    "options": [
+      "昨天老师在北京买东西，所以回家比较晚。",
+      "请告诉我消息的详细情况。",
+      "我已经把行程发给你了。",
+      "明天继续练习。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你对这个行程有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 行程 này?",
+    "options": [
+      "他正在准备考试，所以很忙。",
+      "如果明天下雨，我们就完成任务。",
+      "我们需要提前解决问题。",
+      "你对这个行程有什么建议？"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能安排时间。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 安排时间。",
+    "options": [
+      "我已经准备好计划了。",
+      "我希望你能安排时间。",
+      "每天一点点就很好。",
+      "你为什么不开心？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你对这个文件有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 文件 này?",
+    "options": [
+      "你对这个文件有什么建议？",
+      "经理正在检查手机，准备开始安排时间。",
+      "祝你今天开心。",
+      "我同意你的看法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "这个问题比我想象的更重要。",
+    "pinyin": "",
+    "meaning": "Vấn đề này 重要 hơn tôi tưởng.",
+    "options": [
+      "经理告诉我，他最近正在计划旅行。",
+      "我听说老师最近在公司负责买东西。",
+      "今天我在上海练习发音。",
+      "这个问题比我想象的更重要。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我已经把合同发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 合同 cho bạn rồi.",
+    "options": [
+      "我已经准备好地址了。",
+      "会议几点开始？",
+      "我已经把合同发给你了。",
+      "学习语言需要时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定完成任务。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 完成任务。",
+    "options": [
+      "下一班车几点出发？",
+      "经过讨论，我们决定完成任务。",
+      "下一题会稍微难一点。",
+      "我们应该先完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开始完成任务。",
+    "pinyin": "",
+    "meaning": "Chiều nay lúc ba giờ chúng ta bắt đầu 完成任务。",
+    "options": [
+      "请问还有空房吗？",
+      "如果有时间，哥哥会去车站完成作业。",
+      "为了打扫房间，我提前来到公园。",
+      "我们下午三点开始完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "你对这个消息有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 消息 này?",
+    "options": [
+      "因为今天下雨，所以我没出去。",
+      "周末的时候，老师喜欢去北京准备考试。",
+      "你对这个消息有什么建议？",
+      "昨天经理在北京联系朋友，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定提前出发。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 提前出发。",
+    "options": [
+      "让我想一想。",
+      "经过讨论，我们决定提前出发。",
+      "哥哥每天都要完成作业。",
+      "今天老师在餐厅介绍自己。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你对这个地址有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 地址 này?",
+    "options": [
+      "网络有点慢。",
+      "你对这个地址有什么建议？",
+      "我听说经理最近在公司负责联系朋友。",
+      "这个问题需要时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能解决问题。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 解决问题。",
+    "options": [
+      "请告诉我详细的地址。",
+      "我告诉我，他最近正在打扫房间。",
+      "我希望你能解决问题。",
+      "因为下雨，所以我们没有出去。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先认真考虑。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 认真考虑 trước.",
+    "options": [
+      "我们每天晚上聊天。",
+      "哥哥每天都要解决问题。",
+      "我们应该先认真考虑。",
+      "经过讨论，经理决定在北京联系朋友。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "这个问题比我想象的更合理。",
+    "pinyin": "",
+    "meaning": "Vấn đề này 合理 hơn tôi tưởng.",
+    "options": [
+      "这个问题比我想象的更合理。",
+      "经过讨论，我决定在超市打扫房间。",
+      "不要害怕说错。",
+      "昨天经理在北京联系朋友，所以回家比较晚。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开始重新安排工作。",
+    "pinyin": "",
+    "meaning": "Chiều nay lúc ba giờ chúng ta bắt đầu 重新安排工作。",
+    "options": [
+      "这个方法比较简单。",
+      "我们下午三点开始重新安排工作。",
+      "我告诉我，他最近正在学习汉语。",
+      "网络有点慢。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要讨论计划。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 讨论计划。",
+    "options": [
+      "我们下午三点开始重新安排工作。",
+      "为了提高效率，我们需要讨论计划。",
+      "老师正在机场准备考试。",
+      "你的反应越来越快了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间提前出发。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 提前出发。",
+    "options": [
+      "我们应该先安排时间。",
+      "最近哥哥常常需要参加会议。",
+      "今天老师在广州介绍自己。",
+      "因为最近工作很忙，所以我没有时间提前出发。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就安排时间。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 安排时间。",
+    "options": [
+      "轮到你了。",
+      "如果明天下雨，我们就安排时间。",
+      "经理正在检查手机，准备开始安排时间。",
+      "昨天哥哥在公园解决问题，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定解决问题。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 解决问题。",
+    "options": [
+      "经过讨论，我们决定检查文件。",
+      "因为最近工作很忙，所以我没有时间讨论计划。",
+      "我想提高听力。",
+      "经过讨论，我们决定解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就认真考虑。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 认真考虑。",
+    "options": [
+      "今天的内容很简单。",
+      "最近老师常常需要准备考试。",
+      "明天继续练习。",
+      "如果明天下雨，我们就认真考虑。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间检查文件。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 检查文件。",
+    "options": [
+      "如果有时间，经理会去餐厅安排时间。",
+      "周末的时候，老师喜欢去北京准备考试。",
+      "你对这个行程有什么建议？",
+      "因为最近工作很忙，所以我没有时间检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要准备材料。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 准备材料。",
+    "options": [
+      "虽然时间不多，但是经理还是完成了安排时间。",
+      "为了提高效率，我们需要准备材料。",
+      "哥哥觉得解决问题很重要。",
+      "会议结束以后，哥哥马上回到上海继续参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我资料的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 资料。",
+    "options": [
+      "请不要忘记检查文件。",
+      "如果明天下雨，我们就重新安排工作。",
+      "经理告诉我，他最近正在计划旅行。",
+      "请告诉我资料的详细情况。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要检查文件。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 检查文件。",
+    "options": [
+      "我不太同意。",
+      "为了提高效率，我们需要检查文件。",
+      "我听说老师最近在广州负责准备考试。",
+      "虽然时间不多，但是经理还是完成了安排时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我已经把文件发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 文件 cho bạn rồi.",
+    "options": [
+      "因为最近工作很忙，所以我没有时间重新安排工作。",
+      "我已经把文件发给你了。",
+      "为了准备明天的工作，我今晚还要打扫房间。",
+      "请把文件发给我。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我合同的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 合同。",
+    "options": [
+      "请纠正我的发音。",
+      "这个文件在哪里？",
+      "我们需要提前安排时间。",
+      "请告诉我合同的详细情况。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前讨论计划。",
+    "pinyin": "",
+    "meaning": "Chúng ta cần 讨论计划 trước.",
+    "options": [
+      "为了提高效率，我们需要提前出发。",
+      "我们先讨论一下。",
+      "我们需要提前讨论计划。",
+      "我喜欢用中文聊天。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先联系客户。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 联系客户 trước.",
+    "options": [
+      "今天的内容很简单。",
+      "如果明天有时间，我们一起去。",
+      "如果有问题，请告诉我。",
+      "我们应该先联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我申请的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 申请。",
+    "options": [
+      "我们从第一题开始。",
+      "请告诉我申请的详细情况。",
+      "每天一点点就很好。",
+      "老师正在检查雨伞，准备开始准备考试。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好消息了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 消息 rồi.",
+    "options": [
+      "周末的时候，我喜欢去上海学习汉语。",
+      "最近老师常常需要介绍自己。",
+      "我已经准备好消息了。",
+      "周末的时候，老师喜欢去广州买东西。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就检查文件。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 检查文件。",
+    "options": [
+      "如果明天下雨，我们就检查文件。",
+      "如果明天下雨，我们就准备材料。",
+      "为了提高效率，我们需要讨论计划。",
+      "今天老师在餐厅介绍自己。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定检查文件。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 检查文件。",
+    "options": [
+      "经过讨论，我们决定检查文件。",
+      "把新单词放进句子里学习。",
+      "我听说经理最近在机场负责计划旅行。",
+      "请跟我读一遍。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能完成任务。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 完成任务。",
+    "options": [
+      "下一题会稍微难一点。",
+      "我希望你能完成任务。",
+      "经过讨论，经理决定在北京联系朋友。",
+      "为了准备明天的工作，我今晚还要打扫房间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "请告诉我行程的详细情况。",
+    "pinyin": "",
+    "meaning": "Hãy cho tôi biết tình hình chi tiết của 行程。",
+    "options": [
+      "因为最近工作很忙，所以我没有时间提前出发。",
+      "请告诉我行程的详细情况。",
+      "这个问题比我想象的更复杂。",
+      "如果有时间，经理会去银行计划旅行。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "你对这个资料有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 资料 này?",
+    "options": [
+      "你为什么不开心？",
+      "你对这个资料有什么建议？",
+      "我已经准备好合同了。",
+      "我们需要提前准备材料。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就准备材料。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 准备材料。",
+    "options": [
+      "下次我们继续。",
+      "我已经把文件发给你了。",
+      "我们下午三点开始联系客户。",
+      "如果明天下雨，我们就准备材料。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好地址了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 地址 rồi.",
+    "options": [
+      "会议结束以后，老师马上回到北京继续介绍自己。",
+      "我每天都要学习汉语。",
+      "我们应该先安排时间。",
+      "我已经准备好地址了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "这个问题比我想象的更严重。",
+    "pinyin": "",
+    "meaning": "Vấn đề này 严重 hơn tôi tưởng.",
+    "options": [
+      "为了提高效率，我们需要检查文件。",
+      "重复练习可以提高反应速度。",
+      "请稍等一下。",
+      "这个问题比我想象的更严重。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前安排时间。",
+    "pinyin": "",
+    "meaning": "Chúng ta cần 安排时间 trước.",
+    "options": [
+      "我们需要提前安排时间。",
+      "哥哥已经把自行车带到家里了。",
+      "为了准备明天的工作，经理今晚还要计划旅行。",
+      "经过讨论，我们决定提前出发。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间完成任务。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 完成任务。",
+    "options": [
+      "因为工作很忙，我只能晚上打扫房间。",
+      "因为最近工作很忙，所以我没有时间完成任务。",
+      "老师正在公司介绍自己。",
+      "你对这个申请有什么建议？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前检查文件。",
+    "pinyin": "",
+    "meaning": "Chúng ta cần 检查文件 trước.",
+    "options": [
+      "昨天老师在北京买东西，所以回家比较晚。",
+      "我们需要提前检查文件。",
+      "因为下雨，所以我们没有出去。",
+      "为了联系朋友，经理提前来到图书馆。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记联系客户。",
+    "pinyin": "",
+    "meaning": "Đừng quên 联系客户。",
+    "options": [
+      "如果明天有时间，我们一起去。",
+      "我们需要提前准备材料。",
+      "请不要忘记联系客户。",
+      "我正在家里练习发音。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先安排时间。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 安排时间 trước.",
+    "options": [
+      "请纠正我的发音。",
+      "为了准备明天的工作，我今晚还要学习汉语。",
+      "我们应该先安排时间。",
+      "因为最近工作很忙，所以我没有时间解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我已经把问题发给你了。",
+    "pinyin": "",
+    "meaning": "Tôi đã gửi 问题 cho bạn rồi.",
+    "options": [
+      "今天比昨天进步了。",
+      "经过讨论，哥哥决定在医院参加会议。",
+      "我觉得可以试试。",
+      "我已经把问题发给你了。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记检查文件。",
+    "pinyin": "",
+    "meaning": "Đừng quên 检查文件。",
+    "options": [
+      "哥哥觉得解决问题很重要。",
+      "请不要忘记检查文件。",
+      "先听关键词，再理解整句话。",
+      "昨天经理在图书馆安排时间，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "如果明天下雨，我们就提前出发。",
+    "pinyin": "",
+    "meaning": "Nếu ngày mai mưa, chúng ta sẽ 提前出发。",
+    "options": [
+      "如果明天下雨，我们就提前出发。",
+      "最近老师常常需要准备考试。",
+      "我每天都要打扫房间。",
+      "我们需要提前准备材料。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我们下午三点开始联系客户。",
+    "pinyin": "",
+    "meaning": "Chiều nay lúc ba giờ chúng ta bắt đầu 联系客户。",
+    "options": [
+      "今天比昨天进步了。",
+      "因为最近工作很忙，所以我没有时间解决问题。",
+      "我们下午三点开始联系客户。",
+      "会议结束以后，哥哥马上回到上海继续参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "经过讨论，我们决定准备材料。",
+    "pinyin": "",
+    "meaning": "Sau khi thảo luận, chúng tôi quyết định 准备材料。",
+    "options": [
+      "因为最近工作很忙，所以我没有时间提前出发。",
+      "这件事情没有你想象的那么复杂。",
+      "我们需要提前解决问题。",
+      "经过讨论，我们决定准备材料。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我们应该先提前出发。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 提前出发 trước.",
+    "options": [
+      "我已经准备好计划了。",
+      "加油！",
+      "我们应该先提前出发。",
+      "如果明天下雨，我们就准备材料。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间解决问题。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 解决问题。",
+    "options": [
+      "坚持下去一定会有进步。",
+      "因为最近工作很忙，所以我没有时间解决问题。",
+      "请提前十分钟到。",
+      "你的反应越来越快了。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我们需要提前解决问题。",
+    "pinyin": "",
+    "meaning": "Chúng ta cần 解决问题 trước.",
+    "options": [
+      "我们需要提前解决问题。",
+      "经过讨论，我们决定提前出发。",
+      "我们应该先重新安排工作。",
+      "你觉得中文难吗？"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能认真考虑。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 认真考虑。",
+    "options": [
+      "会议结束以后，老师马上回到北京继续介绍自己。",
+      "我希望你能认真考虑。",
+      "为了提高效率，我们需要联系客户。",
+      "把新单词放进句子里学习。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好资料了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 资料 rồi.",
+    "options": [
+      "为了计划旅行，经理提前来到北京。",
+      "老师希望明天可以继续准备考试。",
+      "我已经准备好资料了。",
+      "经理已经把文件带到公司了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "我希望你能提前出发。",
+    "pinyin": "",
+    "meaning": "Tôi hy vọng bạn có thể 提前出发。",
+    "options": [
+      "今天经理在北京安排时间。",
+      "经过讨论，我们决定检查文件。",
+      "我希望你能提前出发。",
+      "你平时跟谁练习中文？"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间准备材料。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 准备材料。",
+    "options": [
+      "经过讨论，我们决定检查文件。",
+      "这样做比较方便。",
+      "别想太多。",
+      "因为最近工作很忙，所以我没有时间准备材料。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好计划了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 计划 rồi.",
+    "options": [
+      "我已经准备好计划了。",
+      "我听说经理最近在公司负责联系朋友。",
+      "这个决定对大家都很重要。",
+      "我已经把问题发给你了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "你对这个申请有什么建议？",
+    "pinyin": "",
+    "meaning": "Bạn có đề xuất gì về 申请 này?",
+    "options": [
+      "你对这个申请有什么建议？",
+      "我们以后再决定。",
+      "我已经把行程发给你了。",
+      "每天一点点就很好。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "我已经准备好行程了。",
+    "pinyin": "",
+    "meaning": "Tôi đã chuẩn bị xong 行程 rồi.",
+    "options": [
+      "你已经做得很好了。",
+      "我已经准备好行程了。",
+      "这个方法比较简单。",
+      "你对这个报告有什么建议？"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 3,
+    "audio": "为了提高效率，我们需要重新安排工作。",
+    "pinyin": "",
+    "meaning": "Để nâng cao hiệu quả, chúng ta cần 重新安排工作。",
+    "options": [
+      "你已经做得很好了。",
+      "你的反应越来越快了。",
+      "为了提高效率，我们需要重新安排工作。",
+      "请不要忘记重新安排工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 3,
+    "audio": "请不要忘记准备材料。",
+    "pinyin": "",
+    "meaning": "Đừng quên 准备材料。",
+    "options": [
+      "请不要忘记准备材料。",
+      "我希望你能提前出发。",
+      "不要只记答案，要听懂句子。",
+      "经过讨论，我们决定提前出发。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间讨论计划。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 讨论计划。",
+    "options": [
+      "我马上处理。",
+      "经过讨论，我们决定讨论计划。",
+      "最近老师常常需要准备考试。",
+      "因为最近工作很忙，所以我没有时间讨论计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 3,
+    "audio": "因为最近工作很忙，所以我没有时间认真考虑。",
+    "pinyin": "",
+    "meaning": "Vì gần đây công việc rất bận nên tôi không có thời gian 认真考虑。",
+    "options": [
+      "这个问题比我想象的更方便。",
+      "因为最近工作很忙，所以我没有时间认真考虑。",
+      "虽然时间不多，但是我还是完成了学习汉语。",
+      "请把文件发给我。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在完成任务。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 完成任务。",
+    "options": [
+      "为了提高工作效率，公司正在完成任务。",
+      "为了完成新的任务，公司正在提交报告。",
+      "虽然资金还不充足，但是项目还是安排会议。",
+      "为了解决当前问题，公司正在修改计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是提交报告。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 提交报告。",
+    "options": [
+      "为了解决当前问题，公司正在提高效率。",
+      "为了改善服务质量，公司正在调整工作安排。",
+      "目前最重要的是提交报告。",
+      "邻居告诉我，他最近正在联系客户。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过调查，记者发现情况比预想的严重。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra, phóng viên phát hiện 情况比预想的严重。",
+    "options": [
+      "会议结束以后，经理马上回到公司继续提高效率。",
+      "为了准备报告，我的同事提前来到上海。",
+      "经过调查，记者发现情况比预想的严重。",
+      "经过调查，记者发现客户有新的要求。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在修改计划。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 修改计划。",
+    "options": [
+      "为了改善服务质量，公司正在修改计划。",
+      "我听说经理最近在机场负责讨论计划。",
+      "今天经理在餐厅参加会议。",
+      "我听说邻居最近在火车站负责检查文件。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是提交报告。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 提交报告。",
+    "options": [
+      "虽然天气发生变化，但是项目还是提交报告。",
+      "虽然资金还不充足，但是项目还是提交报告。",
+      "虽然资金还不充足，但是项目还是安排会议。",
+      "经过多次沟通，我们决定解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过调查，记者发现客户有新的要求。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra, phóng viên phát hiện 客户有新的要求。",
+    "options": [
+      "这个问题不仅重要，而且影响比较大。",
+      "经过调查，记者发现客户有新的要求。",
+      "为了完成新的任务，公司正在提交报告。",
+      "今天记者在广州申请签证。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了保证项目顺利进行，公司正在完成任务。",
+    "pinyin": "",
+    "meaning": "Để 保证项目顺利进行, công ty đang 完成任务。",
+    "options": [
+      "为了避免时间上的浪费，我们必须提交报告。",
+      "我听说邻居最近在火车站负责检查文件。",
+      "邻居希望明天可以继续解决问题。",
+      "为了保证项目顺利进行，公司正在完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅复杂，而且值得认真考虑。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 复杂 mà còn 值得认真考虑。",
+    "options": [
+      "这个问题不仅有效，而且值得认真考虑。",
+      "如果时间比较紧，我们就可以安排会议。",
+      "这个问题不仅复杂，而且值得认真考虑。",
+      "为了避免时间上的浪费，我们必须提交报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责安排会议，并且需要处理突发情况。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 安排会议, đồng thời cần 处理突发情况。",
+    "options": [
+      "他负责安排会议，并且需要处理突发情况。",
+      "为了避免不必要的麻烦，我们必须完成任务。",
+      "为了改善服务质量，公司正在联系客户。",
+      "如果天气发生变化，我们就可以提交报告。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了解决当前问题，公司正在解决问题。",
+    "pinyin": "",
+    "meaning": "Để 解决当前问题, công ty đang 解决问题。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要参加会议。",
+      "这个问题不仅重要，而且需要长期解决。",
+      "为了解决当前问题，公司正在解决问题。",
+      "经过进一步调查，我们决定检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在安排会议。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 安排会议。",
+    "options": [
+      "根据客户意见，我们需要重新检查文件。",
+      "我的同事告诉我，他最近正在准备报告。",
+      "为了解决当前问题，公司正在解决问题。",
+      "为了提高工作效率，公司正在安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了避免不必要的麻烦，我们必须联系客户。",
+    "pinyin": "",
+    "meaning": "Để tránh 不必要的麻烦, chúng ta phải 联系客户。",
+    "options": [
+      "如果时间比较紧，我们就可以解决问题。",
+      "根据市场变化，我们需要重新检查文件。",
+      "经过调查，记者发现原来的计划需要调整。",
+      "为了避免不必要的麻烦，我们必须联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了完成新的任务，公司正在完成任务。",
+    "pinyin": "",
+    "meaning": "Để 完成新的任务, công ty đang 完成任务。",
+    "options": [
+      "经过调查，记者发现这个问题非常复杂。",
+      "为了完成新的任务，公司正在完成任务。",
+      "这个问题不仅复杂，而且影响比较大。",
+      "根据最新资料，我们需要重新解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过调查，记者发现原来的计划需要调整。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra, phóng viên phát hiện 原来的计划需要调整。",
+    "options": [
+      "他负责提高效率，并且需要处理突发情况。",
+      "经过调查，记者发现原来的计划需要调整。",
+      "他负责安排会议，并且需要完成相关报告。",
+      "经过认真讨论，我们决定调整工作安排。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免时间上的浪费，我们必须修改计划。",
+    "pinyin": "",
+    "meaning": "Để tránh 时间上的浪费, chúng ta phải 修改计划。",
+    "options": [
+      "经过充分准备，我们决定检查文件。",
+      "为了避免时间上的浪费，我们必须修改计划。",
+      "为了提高工作效率，公司正在安排会议。",
+      "我听说邻居最近在火车站负责检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是安排会议。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 安排会议。",
+    "options": [
+      "经过调查，记者发现原来的计划需要调整。",
+      "目前最重要的是安排会议。",
+      "为了提高工作效率，公司正在提交报告。",
+      "他负责解决问题，并且需要及时联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责提交报告，并且需要完成相关报告。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提交报告, đồng thời cần 完成相关报告。",
+    "options": [
+      "为了解决当前问题，公司正在解决问题。",
+      "虽然天气发生变化，但是项目还是安排会议。",
+      "记者觉得申请签证很重要。",
+      "他负责提交报告，并且需要完成相关报告。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然资金还不充足，但是项目还是提高效率。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资金还不充足, nhưng dự án vẫn 提高效率。",
+    "options": [
+      "为了避免信息泄露，我们必须解决问题。",
+      "根据市场变化，我们需要重新检查文件。",
+      "虽然资金还不充足，但是项目还是提高效率。",
+      "他负责联系客户，并且需要完成相关报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据最新资料，我们需要重新安排会议。",
+    "pinyin": "",
+    "meaning": "Dựa trên 最新资料, chúng ta cần 安排会议 lại.",
+    "options": [
+      "目前最重要的是完成任务。",
+      "根据客户意见，我们需要重新调整工作安排。",
+      "根据最新资料，我们需要重新安排会议。",
+      "为了避免时间上的浪费，我们必须提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须完成任务。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 完成任务。",
+    "options": [
+      "为了解决当前问题，公司正在提交报告。",
+      "为了改善服务质量，公司正在提交报告。",
+      "根据调查结果，我们需要重新安排会议。",
+      "为了避免信息泄露，我们必须完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新检查文件。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 检查文件 lại.",
+    "options": [
+      "经过讨论，记者决定在餐厅安排工作。",
+      "为了准备明天的工作，我的同事今晚还要学习新知识。",
+      "根据市场变化，我们需要重新检查文件。",
+      "根据市场变化，我们需要重新联系客户。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以完成任务。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 完成任务。",
+    "options": [
+      "为了提高工作效率，公司正在提交报告。",
+      "经过讨论，记者决定在餐厅安排工作。",
+      "如果遇到一些困难，我们就可以完成任务。",
+      "邻居每天都要解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅合理，而且需要长期解决。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 合理 mà còn 需要长期解决。",
+    "options": [
+      "虽然天气发生变化，但是项目还是修改计划。",
+      "这个问题不仅合理，而且需要长期解决。",
+      "他负责安排会议，并且需要完成相关报告。",
+      "会议结束以后，经理马上回到公司继续提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然计划没有改变，但是项目还是解决问题。",
+    "pinyin": "",
+    "meaning": "Mặc dù 计划没有改变, nhưng dự án vẫn 解决问题。",
+    "options": [
+      "这个问题不仅合理，而且有一定的难度。",
+      "虽然计划没有改变，但是项目还是解决问题。",
+      "为了避免严重的错误，我们必须安排会议。",
+      "邻居觉得联系客户很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅重要，而且影响比较大。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 重要 mà còn 影响比较大。",
+    "options": [
+      "因为工作很忙，经理只能晚上参加会议。",
+      "为了完成新的任务，公司正在安排会议。",
+      "这个问题不仅重要，而且影响比较大。",
+      "虽然天气发生变化，但是项目还是提交报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果天气发生变化，我们就可以提交报告。",
+    "pinyin": "",
+    "meaning": "Nếu 天气发生变化, chúng ta có thể 提交报告。",
+    "options": [
+      "如果天气发生变化，我们就可以提交报告。",
+      "记者已经把电脑带到会议室了。",
+      "为了改善服务质量，公司正在联系客户。",
+      "邻居觉得解决问题很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅合理，而且有一定的难度。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 合理 mà còn 有一定的难度。",
+    "options": [
+      "如果遇到一些困难，我们就可以调整工作安排。",
+      "如果资金还不充足，我们就可以提高效率。",
+      "这个问题不仅合理，而且有一定的难度。",
+      "为了保证项目顺利进行，公司正在调整工作安排。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新完成任务。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 完成任务 lại.",
+    "options": [
+      "虽然遇到了一些困难，但是项目还是按时完成了。",
+      "为了提高工作效率，公司正在安排会议。",
+      "根据客户意见，我们需要重新完成任务。",
+      "如果天气发生变化，我们就可以完成任务。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间比较紧，但是项目还是提交报告。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间比较紧, nhưng dự án vẫn 提交报告。",
+    "options": [
+      "经过进一步调查，我们决定解决问题。",
+      "为了避免严重的错误，我们必须调整工作安排。",
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "虽然时间比较紧，但是项目还是提交报告。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果资金还不充足，我们就可以安排会议。",
+    "pinyin": "",
+    "meaning": "Nếu 资金还不充足, chúng ta có thể 安排会议。",
+    "options": [
+      "如果资金还不充足，我们就可以安排会议。",
+      "目前最重要的是调整工作安排。",
+      "经理正在检查调查结果，准备开始参加会议。",
+      "最近邻居常常需要联系客户。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅困难，而且需要长期解决。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 困难 mà còn 需要长期解决。",
+    "options": [
+      "周末的时候，经理喜欢去广州提高效率。",
+      "如果资金还不充足，我们就可以安排会议。",
+      "为了准备明天的工作，经理今晚还要提高效率。",
+      "这个问题不仅困难，而且需要长期解决。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了避免时间上的浪费，我们必须检查文件。",
+    "pinyin": "",
+    "meaning": "Để tránh 时间上的浪费, chúng ta phải 检查文件。",
+    "options": [
+      "虽然遇到一些困难，但是项目还是检查文件。",
+      "为了避免不必要的麻烦，我们必须调整工作安排。",
+      "邻居觉得解决问题很重要。",
+      "为了避免时间上的浪费，我们必须检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定安排会议。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 安排会议。",
+    "options": [
+      "今天经理在北京提高效率。",
+      "经过多次沟通，我们决定安排会议。",
+      "如果有时间，邻居会去上海检查文件。",
+      "周末的时候，邻居喜欢去上海解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有改变，我们就可以安排会议。",
+    "pinyin": "",
+    "meaning": "Nếu 计划没有改变, chúng ta có thể 安排会议。",
+    "options": [
+      "我的同事已经把合同带到家里了。",
+      "如果计划没有改变，我们就可以安排会议。",
+      "虽然时间不多，但是我的同事还是完成了准备报告。",
+      "如果有时间，邻居会去博物馆联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅明显，而且影响比较大。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 明显 mà còn 影响比较大。",
+    "options": [
+      "这个问题不仅明显，而且影响比较大。",
+      "经过多次沟通，我们决定调整工作安排。",
+      "为了准备明天的工作，记者今晚还要安排工作。",
+      "我的同事告诉我，他最近正在完成任务。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据调查结果，我们需要重新安排会议。",
+    "pinyin": "",
+    "meaning": "Dựa trên 调查结果, chúng ta cần 安排会议 lại.",
+    "options": [
+      "为了保证项目顺利进行，公司正在调整工作安排。",
+      "为了改善服务质量，公司正在调整工作安排。",
+      "为了避免严重的错误，我们必须调整工作安排。",
+      "根据调查结果，我们需要重新安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有改变，我们就可以联系客户。",
+    "pinyin": "",
+    "meaning": "Nếu 计划没有改变, chúng ta có thể 联系客户。",
+    "options": [
+      "如果计划没有改变，我们就可以联系客户。",
+      "虽然资金还不充足，但是项目还是联系客户。",
+      "为了提高工作效率，公司正在联系客户。",
+      "他负责完成任务，并且需要协调各部门的工作。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果天气发生变化，我们就可以调整工作安排。",
+    "pinyin": "",
+    "meaning": "Nếu 天气发生变化, chúng ta có thể 调整工作安排。",
+    "options": [
+      "今天我的同事在学校准备报告。",
+      "经理每天都要参加会议。",
+      "经理正在机场参加会议。",
+      "如果天气发生变化，我们就可以调整工作安排。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然遇到一些困难，但是项目还是联系客户。",
+    "pinyin": "",
+    "meaning": "Mặc dù 遇到一些困难, nhưng dự án vẫn 联系客户。",
+    "options": [
+      "根据实际情况，我们需要重新调整工作安排。",
+      "经过充分准备，我们决定调整工作安排。",
+      "虽然遇到一些困难，但是项目还是联系客户。",
+      "如果资金还不充足，我们就可以提交报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是调整工作安排。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 调整工作安排。",
+    "options": [
+      "根据客户意见，我们需要重新安排会议。",
+      "目前最重要的是调整工作安排。",
+      "如果资金还不充足，我们就可以调整工作安排。",
+      "如果计划没有改变，我们就可以提交报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在安排会议。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 安排会议。",
+    "options": [
+      "虽然计划没有改变，但是项目还是解决问题。",
+      "为了改善服务质量，公司正在安排会议。",
+      "为了避免不必要的麻烦，我们必须解决问题。",
+      "经过认真讨论，我们决定安排会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过进一步调查，我们决定联系客户。",
+    "pinyin": "",
+    "meaning": "Sau khi 进一步调查, chúng tôi quyết định 联系客户。",
+    "options": [
+      "目前最重要的是联系客户。",
+      "经过进一步调查，我们决定联系客户。",
+      "他负责调整工作安排，并且需要处理突发情况。",
+      "如果时间比较紧，我们就可以提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定检查文件。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 检查文件。",
+    "options": [
+      "为了完成新的任务，公司正在修改计划。",
+      "如果天气发生变化，我们就可以联系客户。",
+      "经过详细分析，我们决定检查文件。",
+      "经过进一步调查，我们决定提交报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责联系客户，并且需要协调各部门的工作。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 联系客户, đồng thời cần 协调各部门的工作。",
+    "options": [
+      "如果时间比较紧，我们就可以完成任务。",
+      "他负责联系客户，并且需要协调各部门的工作。",
+      "经过认真讨论，我们决定调整工作安排。",
+      "他负责安排会议，并且需要完成相关报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责解决问题，并且需要处理突发情况。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 解决问题, đồng thời cần 处理突发情况。",
+    "options": [
+      "他负责解决问题，并且需要处理突发情况。",
+      "因为工作很忙，经理只能晚上讨论计划。",
+      "经过讨论，记者决定在北京申请签证。",
+      "根据调查结果，我们需要重新提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "他负责检查文件，并且需要及时联系客户。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 检查文件, đồng thời cần 及时联系客户。",
+    "options": [
+      "虽然天气发生变化，但是项目还是安排会议。",
+      "因为工作很忙，我的同事只能晚上完成任务。",
+      "他负责检查文件，并且需要及时联系客户。",
+      "虽然天气发生变化，但是项目还是提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以解决问题。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 解决问题。",
+    "options": [
+      "为了避免时间上的浪费，我们必须提交报告。",
+      "虽然计划没有改变，但是项目还是检查文件。",
+      "如果遇到一些困难，我们就可以解决问题。",
+      "因为工作很忙，记者只能晚上申请签证。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是提高效率。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 提高效率。",
+    "options": [
+      "目前最重要的是提高效率。",
+      "虽然资金还不充足，但是项目还是安排会议。",
+      "如果时间比较紧，我们就可以解决问题。",
+      "经过多次沟通，我们决定解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了避免不必要的麻烦，我们必须检查文件。",
+    "pinyin": "",
+    "meaning": "Để tránh 不必要的麻烦, chúng ta phải 检查文件。",
+    "options": [
+      "这个问题不仅困难，而且需要长期解决。",
+      "我的同事已经把新闻报道带到学校了。",
+      "为了准备明天的工作，经理今晚还要提高效率。",
+      "为了避免不必要的麻烦，我们必须检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以调整工作安排。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 调整工作安排。",
+    "options": [
+      "如果遇到一些困难，我们就可以调整工作安排。",
+      "周末的时候，我的同事喜欢去家里完成任务。",
+      "根据客户意见，我们需要重新联系客户。",
+      "会议结束以后，经理马上回到北京继续讨论计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据实际情况，我们需要重新检查文件。",
+    "pinyin": "",
+    "meaning": "Dựa trên 实际情况, chúng ta cần 检查文件 lại.",
+    "options": [
+      "这个问题不仅有效，而且有一定的难度。",
+      "为了避免信息泄露，我们必须修改计划。",
+      "经过讨论，记者决定在广州调整时间。",
+      "根据实际情况，我们需要重新检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "他负责调整工作安排，并且需要协调各部门的工作。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 调整工作安排, đồng thời cần 协调各部门的工作。",
+    "options": [
+      "他负责调整工作安排，并且需要协调各部门的工作。",
+      "经过调查，记者发现原来的计划需要调整。",
+      "为了解决当前问题，公司正在完成任务。",
+      "根据实际情况，我们需要重新解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "他负责调整工作安排，并且需要完成相关报告。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 调整工作安排, đồng thời cần 完成相关报告。",
+    "options": [
+      "我的同事正在火车站准备报告。",
+      "经过进一步调查，我们决定联系客户。",
+      "虽然计划没有改变，但是项目还是安排会议。",
+      "他负责调整工作安排，并且需要完成相关报告。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定提交报告。",
+    "pinyin": "",
+    "meaning": "Sau khi 认真讨论, chúng tôi quyết định 提交报告。",
+    "options": [
+      "虽然计划没有改变，但是项目还是联系客户。",
+      "这个问题不仅困难，而且影响比较大。",
+      "经过认真讨论，我们决定提交报告。",
+      "经过详细分析，我们决定修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据调查结果，我们需要重新检查文件。",
+    "pinyin": "",
+    "meaning": "Dựa trên 调查结果, chúng ta cần 检查文件 lại.",
+    "options": [
+      "经过详细分析，我们决定检查文件。",
+      "这个问题不仅复杂，而且值得认真考虑。",
+      "根据调查结果，我们需要重新检查文件。",
+      "根据市场变化，我们需要重新修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新调整工作安排。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 调整工作安排 lại.",
+    "options": [
+      "根据市场变化，我们需要重新调整工作安排。",
+      "虽然时间比较紧，但是项目还是解决问题。",
+      "根据客户意见，我们需要重新完成任务。",
+      "今天我的同事在家里学习新知识。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了解决当前问题，公司正在提高效率。",
+    "pinyin": "",
+    "meaning": "Để 解决当前问题, công ty đang 提高效率。",
+    "options": [
+      "为了避免信息泄露，我们必须调整工作安排。",
+      "记者已经把护照带到机场了。",
+      "因为工作很忙，记者只能晚上申请签证。",
+      "为了解决当前问题，公司正在提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是完成任务。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 完成任务。",
+    "options": [
+      "目前最重要的是完成任务。",
+      "这个问题不仅复杂，而且值得认真考虑。",
+      "我的同事告诉我，他最近正在完成任务。",
+      "虽然计划没有改变，但是项目还是联系客户。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据最新资料，我们需要重新解决问题。",
+    "pinyin": "",
+    "meaning": "Dựa trên 最新资料, chúng ta cần 解决问题 lại.",
+    "options": [
+      "虽然天气发生变化，但是项目还是修改计划。",
+      "这个问题不仅困难，而且影响比较大。",
+      "根据最新资料，我们需要重新解决问题。",
+      "昨天邻居在家里检查文件，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是检查文件。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 检查文件。",
+    "options": [
+      "目前最重要的是检查文件。",
+      "昨天邻居在学校解决问题，所以回家比较晚。",
+      "今天记者在广州申请签证。",
+      "为了改善服务质量，公司正在提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅合理，而且值得认真考虑。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 合理 mà còn 值得认真考虑。",
+    "options": [
+      "这个问题不仅合理，而且值得认真考虑。",
+      "如果有时间，邻居会去图书馆检查文件。",
+      "今天我的同事在上海完成任务。",
+      "如果时间比较紧，我们就可以检查文件。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了避免严重的错误，我们必须安排会议。",
+    "pinyin": "",
+    "meaning": "Để tránh 严重的错误, chúng ta phải 安排会议。",
+    "options": [
+      "周末的时候，邻居喜欢去家里联系客户。",
+      "虽然时间不多，但是记者还是完成了申请签证。",
+      "他负责检查文件，并且需要处理突发情况。",
+      "为了避免严重的错误，我们必须安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据实际情况，我们需要重新完成任务。",
+    "pinyin": "",
+    "meaning": "Dựa trên 实际情况, chúng ta cần 完成任务 lại.",
+    "options": [
+      "经过多次沟通，我们决定完成任务。",
+      "根据实际情况，我们需要重新完成任务。",
+      "经过详细分析，我们决定联系客户。",
+      "为了避免不必要的麻烦，我们必须调整工作安排。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然计划没有改变，但是项目还是安排会议。",
+    "pinyin": "",
+    "meaning": "Mặc dù 计划没有改变, nhưng dự án vẫn 安排会议。",
+    "options": [
+      "虽然资金还不充足，但是项目还是完成任务。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "虽然计划没有改变，但是项目还是安排会议。",
+      "虽然时间不多，但是记者还是完成了申请签证。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须安排会议。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 安排会议。",
+    "options": [
+      "为了避免时间上的浪费，我们必须安排会议。",
+      "为了避免信息泄露，我们必须安排会议。",
+      "我的同事正在学校学习新知识。",
+      "如果遇到一些困难，我们就可以提交报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定提高效率。",
+    "pinyin": "",
+    "meaning": "Sau khi 认真讨论, chúng tôi quyết định 提高效率。",
+    "options": [
+      "这个问题不仅有效，而且有一定的难度。",
+      "为了保证项目顺利进行，公司正在修改计划。",
+      "这个问题不仅复杂，而且影响比较大。",
+      "经过认真讨论，我们决定提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了完成新的任务，公司正在解决问题。",
+    "pinyin": "",
+    "meaning": "Để 完成新的任务, công ty đang 解决问题。",
+    "options": [
+      "会议结束以后，我的同事马上回到上海继续学习新知识。",
+      "为了完成新的任务，公司正在解决问题。",
+      "他负责联系客户，并且需要协调各部门的工作。",
+      "周末的时候，经理喜欢去公司讨论计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定联系客户。",
+    "pinyin": "",
+    "meaning": "Sau khi 认真讨论, chúng tôi quyết định 联系客户。",
+    "options": [
+      "经过详细分析，我们决定修改计划。",
+      "根据最新资料，我们需要重新解决问题。",
+      "经过认真讨论，我们决定联系客户。",
+      "我听说记者最近在会议室负责安排工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过充分准备，我们决定完成任务。",
+    "pinyin": "",
+    "meaning": "Sau khi 充分准备, chúng tôi quyết định 完成任务。",
+    "options": [
+      "为了避免信息泄露，我们必须调整工作安排。",
+      "经过充分准备，我们决定完成任务。",
+      "经过进一步调查，我们决定调整工作安排。",
+      "虽然时间不多，但是我的同事还是完成了准备报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定联系客户。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 联系客户。",
+    "options": [
+      "经理每天都要提高效率。",
+      "记者已经把护照带到机场了。",
+      "如果有时间，邻居会去上海检查文件。",
+      "经过详细分析，我们决定联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是修改计划。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 修改计划。",
+    "options": [
+      "根据市场变化，我们需要重新检查文件。",
+      "他负责联系客户，并且需要协调各部门的工作。",
+      "虽然天气发生变化，但是项目还是修改计划。",
+      "为了解决当前问题，公司正在解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是解决问题。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 解决问题。",
+    "options": [
+      "经理正在机场参加会议。",
+      "目前最重要的是解决问题。",
+      "为了解决当前问题，公司正在安排会议。",
+      "如果遇到一些困难，我们就可以检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过进一步调查，我们决定提交报告。",
+    "pinyin": "",
+    "meaning": "Sau khi 进一步调查, chúng tôi quyết định 提交报告。",
+    "options": [
+      "虽然计划没有改变，但是项目还是检查文件。",
+      "这个问题不仅有效，而且值得认真考虑。",
+      "经过进一步调查，我们决定提交报告。",
+      "最近我的同事常常需要准备报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间比较紧，但是项目还是调整工作安排。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间比较紧, nhưng dự án vẫn 调整工作安排。",
+    "options": [
+      "如果计划没有改变，我们就可以解决问题。",
+      "他负责调整工作安排，并且需要协调各部门的工作。",
+      "他负责联系客户并安排会议时间。",
+      "虽然时间比较紧，但是项目还是调整工作安排。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果资金还不充足，我们就可以提高效率。",
+    "pinyin": "",
+    "meaning": "Nếu 资金还不充足, chúng ta có thể 提高效率。",
+    "options": [
+      "记者觉得调整时间很重要。",
+      "他负责检查文件，并且需要及时联系客户。",
+      "我的同事正在检查新闻报道，准备开始准备报告。",
+      "如果资金还不充足，我们就可以提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是修改计划。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 修改计划。",
+    "options": [
+      "目前最重要的是完成任务。",
+      "为了解决当前问题，公司正在解决问题。",
+      "目前最重要的是联系客户。",
+      "目前最重要的是修改计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据调查结果，我们需要重新提交报告。",
+    "pinyin": "",
+    "meaning": "Dựa trên 调查结果, chúng ta cần 提交报告 lại.",
+    "options": [
+      "经过讨论，我的同事决定在银行准备报告。",
+      "根据调查结果，我们需要重新提交报告。",
+      "经过充分准备，我们决定解决问题。",
+      "经过认真讨论，我们决定改变原来的计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过充分准备，我们决定安排会议。",
+    "pinyin": "",
+    "meaning": "Sau khi 充分准备, chúng tôi quyết định 安排会议。",
+    "options": [
+      "虽然遇到一些困难，但是项目还是调整工作安排。",
+      "为了解决当前问题，公司正在修改计划。",
+      "经过充分准备，我们决定安排会议。",
+      "为了准备明天的工作，经理今晚还要参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有改变，我们就可以检查文件。",
+    "pinyin": "",
+    "meaning": "Nếu 计划没有改变, chúng ta có thể 检查文件。",
+    "options": [
+      "经过认真讨论，我们决定提交报告。",
+      "如果计划没有变化，记者下午会在北京安排工作。",
+      "如果计划没有改变，我们就可以检查文件。",
+      "为了保证项目顺利进行，公司正在调整工作安排。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以检查文件。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 检查文件。",
+    "options": [
+      "经过充分准备，我们决定联系客户。",
+      "经过详细分析，我们决定提高效率。",
+      "根据实际情况，我们需要重新解决问题。",
+      "如果遇到一些困难，我们就可以检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅有效，而且影响比较大。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 有效 mà còn 影响比较大。",
+    "options": [
+      "虽然天气发生变化，但是项目还是完成任务。",
+      "这个问题不仅有效，而且影响比较大。",
+      "目前最重要的是调整工作安排。",
+      "虽然天气发生变化，但是项目还是检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责解决问题，并且需要及时联系客户。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 解决问题, đồng thời cần 及时联系客户。",
+    "options": [
+      "他负责解决问题，并且需要及时联系客户。",
+      "周末的时候，我的同事喜欢去家里完成任务。",
+      "邻居希望明天可以继续联系客户。",
+      "因为工作很忙，我的同事只能晚上完成任务。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须联系客户。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 联系客户。",
+    "options": [
+      "为了避免信息泄露，我们必须联系客户。",
+      "根据实际情况，我们需要重新安排会议。",
+      "这个问题不仅重要，而且值得认真考虑。",
+      "他负责调整工作安排，并且需要完成相关报告。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过进一步调查，我们决定检查文件。",
+    "pinyin": "",
+    "meaning": "Sau khi 进一步调查, chúng tôi quyết định 检查文件。",
+    "options": [
+      "他负责安排会议，并且需要完成相关报告。",
+      "为了避免信息泄露，我们必须调整工作安排。",
+      "为了申请签证，记者提前来到公司。",
+      "经过进一步调查，我们决定检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了避免时间上的浪费，我们必须调整工作安排。",
+    "pinyin": "",
+    "meaning": "Để tránh 时间上的浪费, chúng ta phải 调整工作安排。",
+    "options": [
+      "经理正在检查项目报告，准备开始提高效率。",
+      "最近经理常常需要提高效率。",
+      "为了避免时间上的浪费，我们必须调整工作安排。",
+      "根据市场变化，我们需要重新检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有改变，我们就可以修改计划。",
+    "pinyin": "",
+    "meaning": "Nếu 计划没有改变, chúng ta có thể 修改计划。",
+    "options": [
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "如果有时间，邻居会去博物馆联系客户。",
+      "经理正在会议室提高效率。",
+      "如果计划没有改变，我们就可以修改计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然资金还不充足，但是项目还是联系客户。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资金还不充足, nhưng dự án vẫn 联系客户。",
+    "options": [
+      "如果有时间，邻居会去图书馆检查文件。",
+      "虽然资金还不充足，但是项目还是联系客户。",
+      "为了完成新的任务，公司正在提交报告。",
+      "根据实际情况，我们需要重新联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免时间上的浪费，我们必须完成任务。",
+    "pinyin": "",
+    "meaning": "Để tránh 时间上的浪费, chúng ta phải 完成任务。",
+    "options": [
+      "为了避免时间上的浪费，我们必须完成任务。",
+      "会议结束以后，经理马上回到公司继续提高效率。",
+      "如果计划没有变化，邻居下午会在博物馆检查文件。",
+      "根据实际情况，我们需要重新完成任务。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过进一步调查，我们决定修改计划。",
+    "pinyin": "",
+    "meaning": "Sau khi 进一步调查, chúng tôi quyết định 修改计划。",
+    "options": [
+      "经过进一步调查，我们决定修改计划。",
+      "经过充分准备，我们决定完成任务。",
+      "为了避免时间上的浪费，我们必须提交报告。",
+      "经过讨论，记者决定在北京申请签证。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是检查文件。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 检查文件。",
+    "options": [
+      "如果遇到一些困难，我们就可以解决问题。",
+      "如果资金还不充足，我们就可以提高效率。",
+      "虽然天气发生变化，但是项目还是检查文件。",
+      "为了准备明天的工作，记者今晚还要安排工作。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过充分准备，我们决定修改计划。",
+    "pinyin": "",
+    "meaning": "Sau khi 充分准备, chúng tôi quyết định 修改计划。",
+    "options": [
+      "今天记者在广州申请签证。",
+      "为了改善服务质量，公司正在提高效率。",
+      "经过充分准备，我们决定修改计划。",
+      "我的同事告诉我，他最近正在准备报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "目前最重要的是联系客户。",
+    "pinyin": "",
+    "meaning": "Điều quan trọng nhất hiện nay là 联系客户。",
+    "options": [
+      "我的同事已经把合同带到家里了。",
+      "我的同事告诉我，他最近正在完成任务。",
+      "目前最重要的是联系客户。",
+      "如果遇到一些困难，我们就可以安排会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果时间比较紧，我们就可以安排会议。",
+    "pinyin": "",
+    "meaning": "Nếu 时间比较紧, chúng ta có thể 安排会议。",
+    "options": [
+      "根据调查结果，我们需要重新检查文件。",
+      "经过多次沟通，我们决定完成任务。",
+      "如果时间比较紧，我们就可以安排会议。",
+      "最近经理常常需要讨论计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过充分准备，我们决定调整工作安排。",
+    "pinyin": "",
+    "meaning": "Sau khi 充分准备, chúng tôi quyết định 调整工作安排。",
+    "options": [
+      "为了保证项目顺利进行，公司正在修改计划。",
+      "如果遇到一些困难，我们就可以调整工作安排。",
+      "经过充分准备，我们决定调整工作安排。",
+      "经理觉得提高效率很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅明显，而且有一定的难度。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 明显 mà còn 有一定的难度。",
+    "options": [
+      "这个问题不仅明显，而且有一定的难度。",
+      "经过讨论，邻居决定在博物馆解决问题。",
+      "如果遇到一些困难，我们就可以调整工作安排。",
+      "会议结束以后，经理马上回到公司继续提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新完成任务。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 完成任务 lại.",
+    "options": [
+      "经过多次沟通，我们决定联系客户。",
+      "根据市场变化，我们需要重新完成任务。",
+      "如果遇到一些困难，我们就可以提交报告。",
+      "这个问题不仅合理，而且需要长期解决。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然资金还不充足，但是项目还是安排会议。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资金还不充足, nhưng dự án vẫn 安排会议。",
+    "options": [
+      "为了提高工作效率，公司正在调整工作安排。",
+      "虽然资金还不充足，但是项目还是安排会议。",
+      "经过多次沟通，我们决定解决问题。",
+      "为了申请签证，记者提前来到公司。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定检查文件。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 检查文件。",
+    "options": [
+      "经过多次沟通，我们决定检查文件。",
+      "经过充分准备，我们决定检查文件。",
+      "记者正在检查工作计划，准备开始调整时间。",
+      "根据调查结果，我们需要重新提交报告。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "他负责提交报告，并且需要及时联系客户。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提交报告, đồng thời cần 及时联系客户。",
+    "options": [
+      "根据市场变化，我们需要重新完成任务。",
+      "他负责提交报告，并且需要及时联系客户。",
+      "这个问题不仅明显，而且影响比较大。",
+      "他负责提交报告，并且需要完成相关报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然遇到一些困难，但是项目还是提高效率。",
+    "pinyin": "",
+    "meaning": "Mặc dù 遇到一些困难, nhưng dự án vẫn 提高效率。",
+    "options": [
+      "经理正在检查项目报告，准备开始提高效率。",
+      "邻居每天都要联系客户。",
+      "如果计划没有改变，我们就可以联系客户。",
+      "虽然遇到一些困难，但是项目还是提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定解决问题。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 解决问题。",
+    "options": [
+      "如果计划没有改变，我们就可以解决问题。",
+      "最近邻居常常需要解决问题。",
+      "经过多次沟通，我们决定解决问题。",
+      "为了避免严重的错误，我们必须安排会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新修改计划。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 修改计划 lại.",
+    "options": [
+      "为了改善服务质量，公司正在修改计划。",
+      "根据市场变化，我们需要重新修改计划。",
+      "根据客户意见，我们需要重新修改计划。",
+      "虽然时间不多，但是我的同事还是完成了学习新知识。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是解决问题。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 解决问题。",
+    "options": [
+      "根据最新资料，我们需要重新提高效率。",
+      "为了避免严重的错误，我们必须调整工作安排。",
+      "经过进一步调查，我们决定提交报告。",
+      "虽然天气发生变化，但是项目还是解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须检查文件。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 检查文件。",
+    "options": [
+      "虽然时间不多，但是我的同事还是完成了完成任务。",
+      "为了避免信息泄露，我们必须检查文件。",
+      "经理每天都要参加会议。",
+      "为了提高工作效率，公司正在解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅困难，而且值得认真考虑。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 困难 mà còn 值得认真考虑。",
+    "options": [
+      "虽然遇到一些困难，但是项目还是调整工作安排。",
+      "这个问题不仅困难，而且值得认真考虑。",
+      "会议结束以后，经理马上回到北京继续讨论计划。",
+      "邻居每天都要解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责调整工作安排，并且需要处理突发情况。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 调整工作安排, đồng thời cần 处理突发情况。",
+    "options": [
+      "经过进一步调查，我们决定调整工作安排。",
+      "他负责提交报告，并且需要处理突发情况。",
+      "经过充分准备，我们决定解决问题。",
+      "他负责调整工作安排，并且需要处理突发情况。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "他负责检查文件，并且需要完成相关报告。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 检查文件, đồng thời cần 完成相关报告。",
+    "options": [
+      "为了解决当前问题，公司正在联系客户。",
+      "昨天记者在公司安排工作，所以回家比较晚。",
+      "他负责检查文件，并且需要完成相关报告。",
+      "经过详细分析，我们决定检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在调整工作安排。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 调整工作安排。",
+    "options": [
+      "这个问题不仅复杂，而且值得认真考虑。",
+      "为了提高工作效率，公司正在调整工作安排。",
+      "为了避免时间上的浪费，我们必须提高效率。",
+      "邻居希望明天可以继续联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定安排会议。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 安排会议。",
+    "options": [
+      "根据市场变化，我们需要重新提高效率。",
+      "经过详细分析，我们决定安排会议。",
+      "如果计划没有变化，记者下午会在餐厅调整时间。",
+      "为了完成新的任务，公司正在安排会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然遇到一些困难，但是项目还是调整工作安排。",
+    "pinyin": "",
+    "meaning": "Mặc dù 遇到一些困难, nhưng dự án vẫn 调整工作安排。",
+    "options": [
+      "因为工作很忙，经理只能晚上讨论计划。",
+      "虽然遇到一些困难，但是项目还是调整工作安排。",
+      "记者正在检查工作计划，准备开始调整时间。",
+      "经过调查，记者发现这个问题非常复杂。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责联系客户，并且需要完成相关报告。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 联系客户, đồng thời cần 完成相关报告。",
+    "options": [
+      "他负责联系客户，并且需要完成相关报告。",
+      "如果计划没有改变，我们就可以提交报告。",
+      "如果天气发生变化，我们就可以完成任务。",
+      "为了解决当前问题，公司正在完成任务。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "他负责提交报告，并且需要协调各部门的工作。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提交报告, đồng thời cần 协调各部门的工作。",
+    "options": [
+      "他负责提交报告，并且需要协调各部门的工作。",
+      "虽然资金还不充足，但是项目还是安排会议。",
+      "根据客户意见，我们需要重新安排会议。",
+      "邻居已经把手机带到学校了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "虽然计划没有改变，但是项目还是联系客户。",
+    "pinyin": "",
+    "meaning": "Mặc dù 计划没有改变, nhưng dự án vẫn 联系客户。",
+    "options": [
+      "虽然计划没有改变，但是项目还是联系客户。",
+      "如果资金还不充足，我们就可以提高效率。",
+      "为了保证项目顺利进行，公司正在完成任务。",
+      "经过充分准备，我们决定调整工作安排。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了完成新的任务，公司正在修改计划。",
+    "pinyin": "",
+    "meaning": "Để 完成新的任务, công ty đang 修改计划。",
+    "options": [
+      "虽然计划没有改变，但是项目还是联系客户。",
+      "为了完成新的任务，公司正在修改计划。",
+      "经过认真讨论，我们决定提高效率。",
+      "为了提高工作效率，公司正在提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定修改计划。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 修改计划。",
+    "options": [
+      "经过多次沟通，我们决定修改计划。",
+      "我们需要根据实际情况作出决定。",
+      "记者正在检查工作计划，准备开始调整时间。",
+      "为了避免信息泄露，我们必须调整工作安排。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过充分准备，我们决定解决问题。",
+    "pinyin": "",
+    "meaning": "Sau khi 充分准备, chúng tôi quyết định 解决问题。",
+    "options": [
+      "这个问题不仅困难，而且值得认真考虑。",
+      "经过充分准备，我们决定解决问题。",
+      "为了改善服务质量，公司正在提高效率。",
+      "他负责安排会议，并且需要协调各部门的工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定调整工作安排。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 调整工作安排。",
+    "options": [
+      "经过详细分析，我们决定调整工作安排。",
+      "如果天气发生变化，我们就可以联系客户。",
+      "如果有时间，邻居会去图书馆检查文件。",
+      "经过调查，记者发现情况比预想的严重。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅有效，而且需要长期解决。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 有效 mà còn 需要长期解决。",
+    "options": [
+      "这个问题不仅有效，而且需要长期解决。",
+      "经过认真讨论，我们决定完成任务。",
+      "如果有时间，邻居会去上海检查文件。",
+      "我的同事正在学校学习新知识。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据最新资料，我们需要重新提高效率。",
+    "pinyin": "",
+    "meaning": "Dựa trên 最新资料, chúng ta cần 提高效率 lại.",
+    "options": [
+      "根据最新资料，我们需要重新提高效率。",
+      "这个问题不仅重要，而且影响比较大。",
+      "为了避免严重的错误，我们必须完成任务。",
+      "虽然遇到了一些困难，但是项目还是按时完成了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以修改计划。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 修改计划。",
+    "options": [
+      "为了避免不必要的麻烦，我们必须修改计划。",
+      "为了改善服务质量，公司正在解决问题。",
+      "如果遇到一些困难，我们就可以修改计划。",
+      "根据客户意见，我们需要重新修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过调查，记者发现这个问题非常复杂。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra, phóng viên phát hiện 这个问题非常复杂。",
+    "options": [
+      "经过调查，记者发现这个问题非常复杂。",
+      "为了解决当前问题，公司正在解决问题。",
+      "虽然天气发生变化，但是项目还是安排会议。",
+      "为了避免信息泄露，我们必须联系客户。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果时间比较紧，我们就可以检查文件。",
+    "pinyin": "",
+    "meaning": "Nếu 时间比较紧, chúng ta có thể 检查文件。",
+    "options": [
+      "如果时间比较紧，我们就可以检查文件。",
+      "目前最重要的是解决问题。",
+      "会议结束以后，经理马上回到广州继续参加会议。",
+      "为了避免严重的错误，我们必须安排会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据调查结果，我们需要重新解决问题。",
+    "pinyin": "",
+    "meaning": "Dựa trên 调查结果, chúng ta cần 解决问题 lại.",
+    "options": [
+      "如果计划没有改变，我们就可以修改计划。",
+      "虽然遇到一些困难，但是项目还是调整工作安排。",
+      "根据调查结果，我们需要重新解决问题。",
+      "我的同事已经把申请表带到火车站了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新修改计划。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 修改计划 lại.",
+    "options": [
+      "虽然天气发生变化，但是项目还是完成任务。",
+      "虽然计划没有改变，但是项目还是检查文件。",
+      "根据市场变化，我们需要重新修改计划。",
+      "他负责提高效率，并且需要处理突发情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责提交报告，并且需要处理突发情况。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提交报告, đồng thời cần 处理突发情况。",
+    "options": [
+      "根据客户意见，我们需要重新联系客户。",
+      "邻居告诉我，他最近正在联系客户。",
+      "我的同事正在检查新闻报道，准备开始准备报告。",
+      "他负责提交报告，并且需要处理突发情况。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了解决当前问题，公司正在安排会议。",
+    "pinyin": "",
+    "meaning": "Để 解决当前问题, công ty đang 安排会议。",
+    "options": [
+      "经过详细分析，我们决定完成任务。",
+      "如果资金还不充足，我们就可以提高效率。",
+      "经过充分准备，我们决定解决问题。",
+      "为了解决当前问题，公司正在安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了避免时间上的浪费，我们必须提交报告。",
+    "pinyin": "",
+    "meaning": "Để tránh 时间上的浪费, chúng ta phải 提交报告。",
+    "options": [
+      "虽然遇到一些困难，但是项目还是检查文件。",
+      "为了避免不必要的麻烦，我们必须联系客户。",
+      "为了避免时间上的浪费，我们必须提交报告。",
+      "如果计划没有变化，经理下午会在北京参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责解决问题，并且需要完成相关报告。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 解决问题, đồng thời cần 完成相关报告。",
+    "options": [
+      "为了提高工作效率，公司正在调整工作安排。",
+      "为了避免信息泄露，我们必须提交报告。",
+      "他负责解决问题，并且需要完成相关报告。",
+      "最近邻居常常需要联系客户。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定调整工作安排。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 调整工作安排。",
+    "options": [
+      "为了避免严重的错误，我们必须提交报告。",
+      "经过讨论，我的同事决定在银行准备报告。",
+      "虽然遇到了一些困难，但是项目还是按时完成了。",
+      "经过多次沟通，我们决定调整工作安排。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然时间比较紧，但是项目还是解决问题。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间比较紧, nhưng dự án vẫn 解决问题。",
+    "options": [
+      "经过充分准备，我们决定检查文件。",
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "经过调查，记者发现这个问题非常复杂。",
+      "虽然时间比较紧，但是项目还是解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "他负责提高效率，并且需要协调各部门的工作。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提高效率, đồng thời cần 协调各部门的工作。",
+    "options": [
+      "他负责提高效率，并且需要协调各部门的工作。",
+      "为了避免不必要的麻烦，我们必须联系客户。",
+      "为了保证项目顺利进行，公司正在提交报告。",
+      "根据市场变化，我们需要重新调整工作安排。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了避免不必要的麻烦，我们必须提交报告。",
+    "pinyin": "",
+    "meaning": "Để tránh 不必要的麻烦, chúng ta phải 提交报告。",
+    "options": [
+      "根据客户意见，我们需要重新提交报告。",
+      "根据客户意见，我们需要重新完成任务。",
+      "为了避免不必要的麻烦，我们必须提交报告。",
+      "经理希望明天可以继续讨论计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了避免严重的错误，我们必须完成任务。",
+    "pinyin": "",
+    "meaning": "Để tránh 严重的错误, chúng ta phải 完成任务。",
+    "options": [
+      "为了安排工作，记者提前来到广州。",
+      "为了避免严重的错误，我们必须完成任务。",
+      "根据市场变化，我们需要重新提交报告。",
+      "经过认真讨论，我们决定完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "根据调查结果，我们需要重新联系客户。",
+    "pinyin": "",
+    "meaning": "Dựa trên 调查结果, chúng ta cần 联系客户 lại.",
+    "options": [
+      "经过进一步调查，我们决定调整工作安排。",
+      "根据调查结果，我们需要重新联系客户。",
+      "为了保证项目顺利进行，公司正在修改计划。",
+      "经过多次沟通，我们决定完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果资金还不充足，我们就可以提交报告。",
+    "pinyin": "",
+    "meaning": "Nếu 资金还不充足, chúng ta có thể 提交报告。",
+    "options": [
+      "为了避免严重的错误，我们必须完成任务。",
+      "为了准备明天的工作，记者今晚还要安排工作。",
+      "周末的时候，经理喜欢去公司讨论计划。",
+      "如果资金还不充足，我们就可以提交报告。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然资金还不充足，但是项目还是检查文件。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资金还不充足, nhưng dự án vẫn 检查文件。",
+    "options": [
+      "昨天记者在广州调整时间，所以回家比较晚。",
+      "会议结束以后，经理马上回到公司继续提高效率。",
+      "虽然资金还不充足，但是项目还是检查文件。",
+      "为了准备报告，我的同事提前来到上海。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新调整工作安排。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 调整工作安排 lại.",
+    "options": [
+      "根据客户意见，我们需要重新调整工作安排。",
+      "记者正在检查工作计划，准备开始调整时间。",
+      "他负责提高效率，并且需要处理突发情况。",
+      "为了学习新知识，我的同事提前来到博物馆。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "虽然资金还不充足，但是项目还是完成任务。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资金还不充足, nhưng dự án vẫn 完成任务。",
+    "options": [
+      "虽然资金还不充足，但是项目还是完成任务。",
+      "经过充分准备，我们决定安排会议。",
+      "为了提高工作效率，公司正在提交报告。",
+      "经过讨论，记者决定在北京申请签证。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据实际情况，我们需要重新安排会议。",
+    "pinyin": "",
+    "meaning": "Dựa trên 实际情况, chúng ta cần 安排会议 lại.",
+    "options": [
+      "根据客户意见，我们需要重新完成任务。",
+      "他负责提交报告，并且需要完成相关报告。",
+      "根据实际情况，我们需要重新安排会议。",
+      "记者觉得安排工作很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新安排会议。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 安排会议 lại.",
+    "options": [
+      "如果天气发生变化，我们就可以提交报告。",
+      "如果计划没有改变，我们就可以联系客户。",
+      "为了避免不必要的麻烦，我们必须联系客户。",
+      "根据客户意见，我们需要重新安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新联系客户。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 联系客户 lại.",
+    "options": [
+      "会议结束以后，邻居马上回到博物馆继续联系客户。",
+      "这个问题不仅重要，而且值得认真考虑。",
+      "虽然时间比较紧，但是项目还是调整工作安排。",
+      "根据市场变化，我们需要重新联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了完成新的任务，公司正在安排会议。",
+    "pinyin": "",
+    "meaning": "Để 完成新的任务, công ty đang 安排会议。",
+    "options": [
+      "经过认真讨论，我们决定提高效率。",
+      "经过进一步调查，我们决定修改计划。",
+      "为了完成新的任务，公司正在安排会议。",
+      "如果有时间，记者会去餐厅申请签证。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然遇到一些困难，但是项目还是完成任务。",
+    "pinyin": "",
+    "meaning": "Mặc dù 遇到一些困难, nhưng dự án vẫn 完成任务。",
+    "options": [
+      "为了避免信息泄露，我们必须调整工作安排。",
+      "我听说记者最近在公司负责申请签证。",
+      "为了解决当前问题，公司正在修改计划。",
+      "虽然遇到一些困难，但是项目还是完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅复杂，而且影响比较大。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 复杂 mà còn 影响比较大。",
+    "options": [
+      "他负责提高效率，并且需要及时联系客户。",
+      "经过多次沟通，我们决定安排会议。",
+      "这个问题不仅复杂，而且影响比较大。",
+      "根据客户意见，我们需要重新检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在检查文件。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 检查文件。",
+    "options": [
+      "如果天气发生变化，我们就可以修改计划。",
+      "经过认真讨论，我们决定提交报告。",
+      "我听说邻居最近在学校负责联系客户。",
+      "为了提高工作效率，公司正在检查文件。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是提高效率。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 提高效率。",
+    "options": [
+      "根据客户意见，我们需要重新修改计划。",
+      "虽然天气发生变化，但是项目还是提高效率。",
+      "为了提高工作效率，公司正在完成任务。",
+      "目前最重要的是解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新检查文件。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 检查文件 lại.",
+    "options": [
+      "这个问题不仅困难，而且有一定的难度。",
+      "根据客户意见，我们需要重新检查文件。",
+      "根据实际情况，我们需要重新调整工作安排。",
+      "经理正在检查调查结果，准备开始参加会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免不必要的麻烦，我们必须解决问题。",
+    "pinyin": "",
+    "meaning": "Để tránh 不必要的麻烦, chúng ta phải 解决问题。",
+    "options": [
+      "为了避免不必要的麻烦，我们必须解决问题。",
+      "虽然时间不多，但是记者还是完成了申请签证。",
+      "为了准备明天的工作，我的同事今晚还要准备报告。",
+      "为了避免严重的错误，我们必须调整工作安排。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了解决当前问题，公司正在完成任务。",
+    "pinyin": "",
+    "meaning": "Để 解决当前问题, công ty đang 完成任务。",
+    "options": [
+      "为了解决当前问题，公司正在完成任务。",
+      "经过讨论，记者决定在北京申请签证。",
+      "经过认真讨论，我们决定安排会议。",
+      "会议结束以后，我的同事马上回到上海继续学习新知识。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在调整工作安排。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 调整工作安排。",
+    "options": [
+      "虽然计划没有改变，但是项目还是检查文件。",
+      "经过充分准备，我们决定修改计划。",
+      "为了改善服务质量，公司正在调整工作安排。",
+      "如果计划没有改变，我们就可以联系客户。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定提交报告。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 提交报告。",
+    "options": [
+      "记者觉得安排工作很重要。",
+      "这个问题不仅明显，而且需要长期解决。",
+      "经过多次沟通，我们决定提交报告。",
+      "根据市场变化，我们需要重新联系客户。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责调整工作安排，并且需要及时联系客户。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 调整工作安排, đồng thời cần 及时联系客户。",
+    "options": [
+      "周末的时候，邻居喜欢去家里联系客户。",
+      "经过认真讨论，我们决定联系客户。",
+      "经过充分准备，我们决定联系客户。",
+      "他负责调整工作安排，并且需要及时联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据实际情况，我们需要重新提高效率。",
+    "pinyin": "",
+    "meaning": "Dựa trên 实际情况, chúng ta cần 提高效率 lại.",
+    "options": [
+      "他负责提交报告，并且需要处理突发情况。",
+      "如果有时间，邻居会去博物馆联系客户。",
+      "根据实际情况，我们需要重新提高效率。",
+      "周末的时候，经理喜欢去广州提高效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是完成任务。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 完成任务。",
+    "options": [
+      "根据调查结果，我们需要重新调整工作安排。",
+      "他负责完成任务，并且需要协调各部门的工作。",
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "虽然天气发生变化，但是项目还是完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了避免时间上的浪费，我们必须安排会议。",
+    "pinyin": "",
+    "meaning": "Để tránh 时间上的浪费, chúng ta phải 安排会议。",
+    "options": [
+      "这个问题不仅困难，而且需要长期解决。",
+      "为了避免时间上的浪费，我们必须安排会议。",
+      "虽然天气发生变化，但是项目还是联系客户。",
+      "为了提高工作效率，公司正在检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "根据实际情况，我们需要重新联系客户。",
+    "pinyin": "",
+    "meaning": "Dựa trên 实际情况, chúng ta cần 联系客户 lại.",
+    "options": [
+      "根据实际情况，我们需要重新检查文件。",
+      "为了改善服务质量，公司正在修改计划。",
+      "根据实际情况，我们需要重新联系客户。",
+      "邻居已经把手机带到学校了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是联系客户。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 联系客户。",
+    "options": [
+      "虽然天气发生变化，但是项目还是联系客户。",
+      "经过认真讨论，我们决定安排会议。",
+      "经理正在检查调查结果，准备开始参加会议。",
+      "根据市场变化，我们需要重新提交报告。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了避免不必要的麻烦，我们必须完成任务。",
+    "pinyin": "",
+    "meaning": "Để tránh 不必要的麻烦, chúng ta phải 完成任务。",
+    "options": [
+      "今天我的同事在学校准备报告。",
+      "我的同事正在火车站准备报告。",
+      "为了避免不必要的麻烦，我们必须完成任务。",
+      "虽然天气发生变化，但是项目还是联系客户。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅有效，而且有一定的难度。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 有效 mà còn 有一定的难度。",
+    "options": [
+      "他负责联系客户并安排会议时间。",
+      "这个问题不仅有效，而且影响比较大。",
+      "虽然时间不多，但是我的同事还是完成了完成任务。",
+      "这个问题不仅有效，而且有一定的难度。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新安排会议。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 安排会议 lại.",
+    "options": [
+      "根据最新资料，我们需要重新修改计划。",
+      "根据市场变化，我们需要重新安排会议。",
+      "为了改善服务质量，公司正在修改计划。",
+      "虽然天气发生变化，但是项目还是检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在检查文件。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 检查文件。",
+    "options": [
+      "为了改善服务质量，公司正在安排会议。",
+      "他负责联系客户，并且需要完成相关报告。",
+      "为了改善服务质量，公司正在检查文件。",
+      "如果计划没有变化，记者下午会在餐厅调整时间。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责提高效率，并且需要完成相关报告。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提高效率, đồng thời cần 完成相关报告。",
+    "options": [
+      "他负责提高效率，并且需要完成相关报告。",
+      "邻居每天都要联系客户。",
+      "因为工作很忙，我的同事只能晚上学习新知识。",
+      "为了避免不必要的麻烦，我们必须修改计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅明显，而且需要长期解决。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 明显 mà còn 需要长期解决。",
+    "options": [
+      "根据实际情况，我们需要重新解决问题。",
+      "经过详细分析，我们决定检查文件。",
+      "这个问题不仅明显，而且需要长期解决。",
+      "为了准备明天的工作，经理今晚还要讨论计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了避免严重的错误，我们必须修改计划。",
+    "pinyin": "",
+    "meaning": "Để tránh 严重的错误, chúng ta phải 修改计划。",
+    "options": [
+      "虽然遇到了一些困难，但是项目还是按时完成了。",
+      "根据客户意见，我们需要重新联系客户。",
+      "他负责调整工作安排，并且需要完成相关报告。",
+      "为了避免严重的错误，我们必须修改计划。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在提交报告。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 提交报告。",
+    "options": [
+      "为了准备明天的工作，我的同事今晚还要学习新知识。",
+      "为了改善服务质量，公司正在提交报告。",
+      "根据实际情况，我们需要重新解决问题。",
+      "他负责提交报告，并且需要及时联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定解决问题。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 解决问题。",
+    "options": [
+      "如果计划没有变化，记者下午会在广州申请签证。",
+      "虽然资金还不充足，但是项目还是联系客户。",
+      "这个问题不仅困难，而且影响比较大。",
+      "经过详细分析，我们决定解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定完成任务。",
+    "pinyin": "",
+    "meaning": "Sau khi 认真讨论, chúng tôi quyết định 完成任务。",
+    "options": [
+      "周末的时候，邻居喜欢去上海解决问题。",
+      "经过认真讨论，我们决定完成任务。",
+      "这个问题不仅复杂，而且有一定的难度。",
+      "根据客户意见，我们需要重新解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果时间比较紧，我们就可以完成任务。",
+    "pinyin": "",
+    "meaning": "Nếu 时间比较紧, chúng ta có thể 完成任务。",
+    "options": [
+      "经过多次沟通，我们决定修改计划。",
+      "虽然资金还不充足，但是项目还是提高效率。",
+      "如果时间比较紧，我们就可以完成任务。",
+      "如果资金还不充足，我们就可以安排会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果时间比较紧，我们就可以提高效率。",
+    "pinyin": "",
+    "meaning": "Nếu 时间比较紧, chúng ta có thể 提高效率。",
+    "options": [
+      "如果时间比较紧，我们就可以提高效率。",
+      "为了避免时间上的浪费，我们必须提交报告。",
+      "经理每天都要讨论计划。",
+      "经理每天都要参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有改变，我们就可以解决问题。",
+    "pinyin": "",
+    "meaning": "Nếu 计划没有改变, chúng ta có thể 解决问题。",
+    "options": [
+      "如果计划没有改变，我们就可以解决问题。",
+      "经过认真讨论，我们决定检查文件。",
+      "根据市场变化，我们需要重新安排会议。",
+      "为了解决当前问题，公司正在提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定完成任务。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 完成任务。",
+    "options": [
+      "如果计划没有变化，经理下午会在北京参加会议。",
+      "如果计划没有变化，邻居下午会在家里联系客户。",
+      "这个问题不仅有效，而且值得认真考虑。",
+      "经过多次沟通，我们决定完成任务。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了保证项目顺利进行，公司正在提交报告。",
+    "pinyin": "",
+    "meaning": "Để 保证项目顺利进行, công ty đang 提交报告。",
+    "options": [
+      "为了保证项目顺利进行，公司正在提交报告。",
+      "我的同事已经把新闻报道带到学校了。",
+      "因为工作很忙，我的同事只能晚上完成任务。",
+      "为了解决当前问题，公司正在联系客户。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新提高效率。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 提高效率 lại.",
+    "options": [
+      "经过调查，记者发现原来的计划需要调整。",
+      "为了提高工作效率，公司正在检查文件。",
+      "经过详细分析，我们决定解决问题。",
+      "根据市场变化，我们需要重新提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过充分准备，我们决定联系客户。",
+    "pinyin": "",
+    "meaning": "Sau khi 充分准备, chúng tôi quyết định 联系客户。",
+    "options": [
+      "如果时间比较紧，我们就可以解决问题。",
+      "经过充分准备，我们决定联系客户。",
+      "为了保证项目顺利进行，公司正在修改计划。",
+      "经理正在检查电子邮件，准备开始讨论计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责提高效率，并且需要及时联系客户。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提高效率, đồng thời cần 及时联系客户。",
+    "options": [
+      "根据调查结果，我们需要重新解决问题。",
+      "如果时间比较紧，我们就可以检查文件。",
+      "为了改善服务质量，公司正在提高效率。",
+      "他负责提高效率，并且需要及时联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了避免严重的错误，我们必须调整工作安排。",
+    "pinyin": "",
+    "meaning": "Để tránh 严重的错误, chúng ta phải 调整工作安排。",
+    "options": [
+      "根据市场变化，我们需要重新提交报告。",
+      "为了避免严重的错误，我们必须调整工作安排。",
+      "虽然时间不多，但是记者还是完成了调整时间。",
+      "为了避免不必要的麻烦，我们必须完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新解决问题。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 解决问题 lại.",
+    "options": [
+      "他负责提交报告，并且需要协调各部门的工作。",
+      "根据客户意见，我们需要重新解决问题。",
+      "如果资金还不充足，我们就可以提高效率。",
+      "昨天记者在公司安排工作，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以安排会议。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 安排会议。",
+    "options": [
+      "邻居告诉我，他最近正在联系客户。",
+      "如果资金还不充足，我们就可以调整工作安排。",
+      "周末的时候，经理喜欢去公司讨论计划。",
+      "如果遇到一些困难，我们就可以安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在联系客户。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 联系客户。",
+    "options": [
+      "根据客户意见，我们需要重新提交报告。",
+      "根据客户意见，我们需要重新调整工作安排。",
+      "经过认真讨论，我们决定调整工作安排。",
+      "为了提高工作效率，公司正在联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在解决问题。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 解决问题。",
+    "options": [
+      "因为工作很忙，我的同事只能晚上准备报告。",
+      "经过充分准备，我们决定解决问题。",
+      "为了提高工作效率，公司正在解决问题。",
+      "这个问题不仅明显，而且影响比较大。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅重要，而且值得认真考虑。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 重要 mà còn 值得认真考虑。",
+    "options": [
+      "这个问题不仅重要，而且值得认真考虑。",
+      "我的同事正在检查申请表，准备开始完成任务。",
+      "如果时间比较紧，我们就可以安排会议。",
+      "如果计划没有改变，我们就可以安排会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果天气发生变化，我们就可以完成任务。",
+    "pinyin": "",
+    "meaning": "Nếu 天气发生变化, chúng ta có thể 完成任务。",
+    "options": [
+      "虽然遇到一些困难，但是项目还是提高效率。",
+      "如果时间比较紧，我们就可以解决问题。",
+      "如果天气发生变化，我们就可以完成任务。",
+      "为了避免信息泄露，我们必须修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了避免时间上的浪费，我们必须提高效率。",
+    "pinyin": "",
+    "meaning": "Để tránh 时间上的浪费, chúng ta phải 提高效率。",
+    "options": [
+      "如果计划没有改变，我们就可以安排会议。",
+      "为了避免时间上的浪费，我们必须提高效率。",
+      "邻居每天都要联系客户。",
+      "他负责提高效率，并且需要协调各部门的工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责安排会议，并且需要协调各部门的工作。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 安排会议, đồng thời cần 协调各部门的工作。",
+    "options": [
+      "为了避免信息泄露，我们必须解决问题。",
+      "他负责安排会议，并且需要协调各部门的工作。",
+      "这个问题不仅合理，而且影响比较大。",
+      "为了改善服务质量，公司正在提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "根据实际情况，我们需要重新调整工作安排。",
+    "pinyin": "",
+    "meaning": "Dựa trên 实际情况, chúng ta cần 调整工作安排 lại.",
+    "options": [
+      "根据实际情况，我们需要重新检查文件。",
+      "周末的时候，我的同事喜欢去家里完成任务。",
+      "经理每天都要讨论计划。",
+      "根据实际情况，我们需要重新调整工作安排。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新联系客户。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 联系客户 lại.",
+    "options": [
+      "根据市场变化，我们需要重新提交报告。",
+      "为了准备明天的工作，我的同事今晚还要准备报告。",
+      "为了避免不必要的麻烦，我们必须联系客户。",
+      "根据客户意见，我们需要重新联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了保证项目顺利进行，公司正在安排会议。",
+    "pinyin": "",
+    "meaning": "Để 保证项目顺利进行, công ty đang 安排会议。",
+    "options": [
+      "为了避免严重的错误，我们必须提交报告。",
+      "邻居希望明天可以继续联系客户。",
+      "这个问题不仅合理，而且有一定的难度。",
+      "为了保证项目顺利进行，公司正在安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "根据实际情况，我们需要重新解决问题。",
+    "pinyin": "",
+    "meaning": "Dựa trên 实际情况, chúng ta cần 解决问题 lại.",
+    "options": [
+      "根据实际情况，我们需要重新解决问题。",
+      "为了避免严重的错误，我们必须提交报告。",
+      "他负责联系客户，并且需要完成相关报告。",
+      "为了避免信息泄露，我们必须完成任务。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅有效，而且值得认真考虑。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 有效 mà còn 值得认真考虑。",
+    "options": [
+      "记者觉得申请签证很重要。",
+      "这个问题不仅有效，而且值得认真考虑。",
+      "如果遇到一些困难，我们就可以联系客户。",
+      "目前最重要的是解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "根据调查结果，我们需要重新提高效率。",
+    "pinyin": "",
+    "meaning": "Dựa trên 调查结果, chúng ta cần 提高效率 lại.",
+    "options": [
+      "我听说记者最近在公司负责申请签证。",
+      "如果计划没有改变，我们就可以提交报告。",
+      "根据调查结果，我们需要重新提高效率。",
+      "为了保证项目顺利进行，公司正在修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果天气发生变化，我们就可以修改计划。",
+    "pinyin": "",
+    "meaning": "Nếu 天气发生变化, chúng ta có thể 修改计划。",
+    "options": [
+      "我的同事正在银行学习新知识。",
+      "如果天气发生变化，我们就可以修改计划。",
+      "最近经理常常需要参加会议。",
+      "经过认真讨论，我们决定调整工作安排。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定完成任务。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 完成任务。",
+    "options": [
+      "会议结束以后，邻居马上回到家里继续解决问题。",
+      "经过详细分析，我们决定完成任务。",
+      "经过详细分析，我们决定修改计划。",
+      "经过详细分析，我们决定安排会议。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是安排会议。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 安排会议。",
+    "options": [
+      "经过认真讨论，我们决定完成任务。",
+      "虽然天气发生变化，但是项目还是安排会议。",
+      "经过详细分析，我们决定检查文件。",
+      "经过进一步调查，我们决定检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然资金还不充足，但是项目还是调整工作安排。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资金还不充足, nhưng dự án vẫn 调整工作安排。",
+    "options": [
+      "为了避免严重的错误，我们必须修改计划。",
+      "虽然资金还不充足，但是项目还是调整工作安排。",
+      "周末的时候，邻居喜欢去学校检查文件。",
+      "根据实际情况，我们需要重新联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免不必要的麻烦，我们必须修改计划。",
+    "pinyin": "",
+    "meaning": "Để tránh 不必要的麻烦, chúng ta phải 修改计划。",
+    "options": [
+      "为了避免不必要的麻烦，我们必须修改计划。",
+      "虽然天气发生变化，但是项目还是修改计划。",
+      "虽然天气发生变化，但是项目还是联系客户。",
+      "目前最重要的是提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了避免严重的错误，我们必须解决问题。",
+    "pinyin": "",
+    "meaning": "Để tránh 严重的错误, chúng ta phải 解决问题。",
+    "options": [
+      "为了避免严重的错误，我们必须解决问题。",
+      "经过进一步调查，我们决定提交报告。",
+      "为了避免严重的错误，我们必须修改计划。",
+      "经理正在检查电子邮件，准备开始讨论计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过充分准备，我们决定检查文件。",
+    "pinyin": "",
+    "meaning": "Sau khi 充分准备, chúng tôi quyết định 检查文件。",
+    "options": [
+      "为了避免信息泄露，我们必须提交报告。",
+      "邻居希望明天可以继续联系客户。",
+      "经过充分准备，我们决定检查文件。",
+      "根据市场变化，我们需要重新修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果资金还不充足，我们就可以调整工作安排。",
+    "pinyin": "",
+    "meaning": "Nếu 资金还不充足, chúng ta có thể 调整工作安排。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要提高效率。",
+      "我的同事告诉我，他最近正在准备报告。",
+      "如果资金还不充足，我们就可以调整工作安排。",
+      "最近邻居常常需要检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据市场变化，我们需要重新提交报告。",
+    "pinyin": "",
+    "meaning": "Dựa trên 市场变化, chúng ta cần 提交报告 lại.",
+    "options": [
+      "根据调查结果，我们需要重新安排会议。",
+      "如果有时间，邻居会去上海检查文件。",
+      "根据市场变化，我们需要重新提交报告。",
+      "如果有时间，邻居会去银行解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在解决问题。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 解决问题。",
+    "options": [
+      "经过多次沟通，我们决定提高效率。",
+      "经理希望明天可以继续参加会议。",
+      "根据客户意见，我们需要重新安排会议。",
+      "为了改善服务质量，公司正在解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了解决当前问题，公司正在修改计划。",
+    "pinyin": "",
+    "meaning": "Để 解决当前问题, công ty đang 修改计划。",
+    "options": [
+      "为了提高工作效率，公司正在提高效率。",
+      "为了解决当前问题，公司正在修改计划。",
+      "经过认真讨论，我们决定检查文件。",
+      "最近邻居常常需要检查文件。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅合理，而且影响比较大。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 合理 mà còn 影响比较大。",
+    "options": [
+      "他负责解决问题，并且需要处理突发情况。",
+      "我的同事正在图书馆完成任务。",
+      "这个问题不仅合理，而且影响比较大。",
+      "经过详细分析，我们决定调整工作安排。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以提交报告。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 提交报告。",
+    "options": [
+      "如果计划没有改变，我们就可以解决问题。",
+      "如果遇到一些困难，我们就可以提交报告。",
+      "如果有时间，记者会去餐厅申请签证。",
+      "经过讨论，我的同事决定在银行准备报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须提交报告。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 提交报告。",
+    "options": [
+      "为了避免信息泄露，我们必须提交报告。",
+      "虽然时间不多，但是我的同事还是完成了完成任务。",
+      "最近邻居常常需要联系客户。",
+      "这个问题不仅困难，而且影响比较大。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在联系客户。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 联系客户。",
+    "options": [
+      "为了改善服务质量，公司正在联系客户。",
+      "如果计划没有改变，我们就可以安排会议。",
+      "根据最新资料，我们需要重新提高效率。",
+      "经过多次沟通，我们决定解决问题。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "虽然资金还不充足，但是项目还是提交报告。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资金还不充足, nhưng dự án vẫn 提交报告。",
+    "options": [
+      "这个问题不仅复杂，而且有一定的难度。",
+      "虽然资金还不充足，但是项目还是提交报告。",
+      "经过讨论，记者决定在北京申请签证。",
+      "为了准备明天的工作，我的同事今晚还要准备报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责提高效率，并且需要处理突发情况。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 提高效率, đồng thời cần 处理突发情况。",
+    "options": [
+      "为了准备报告，我的同事提前来到上海。",
+      "他负责解决问题，并且需要及时联系客户。",
+      "他负责提高效率，并且需要处理突发情况。",
+      "如果遇到一些困难，我们就可以提交报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了保证项目顺利进行，公司正在调整工作安排。",
+    "pinyin": "",
+    "meaning": "Để 保证项目顺利进行, công ty đang 调整工作安排。",
+    "options": [
+      "为了保证项目顺利进行，公司正在调整工作安排。",
+      "经过多次沟通，我们决定联系客户。",
+      "如果资金还不充足，我们就可以调整工作安排。",
+      "根据最新资料，我们需要重新提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了解决当前问题，公司正在提交报告。",
+    "pinyin": "",
+    "meaning": "Để 解决当前问题, công ty đang 提交报告。",
+    "options": [
+      "如果计划没有变化，邻居下午会在家里联系客户。",
+      "这个问题不仅复杂，而且需要长期解决。",
+      "为了解决当前问题，公司正在提交报告。",
+      "经过充分准备，我们决定修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据调查结果，我们需要重新调整工作安排。",
+    "pinyin": "",
+    "meaning": "Dựa trên 调查结果, chúng ta cần 调整工作安排 lại.",
+    "options": [
+      "根据市场变化，我们需要重新提高效率。",
+      "根据调查结果，我们需要重新调整工作安排。",
+      "虽然天气发生变化，但是项目还是检查文件。",
+      "周末的时候，我的同事喜欢去家里完成任务。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免不必要的麻烦，我们必须调整工作安排。",
+    "pinyin": "",
+    "meaning": "Để tránh 不必要的麻烦, chúng ta phải 调整工作安排。",
+    "options": [
+      "会议结束以后，我的同事马上回到上海继续学习新知识。",
+      "经过充分准备，我们决定联系客户。",
+      "为了避免不必要的麻烦，我们必须调整工作安排。",
+      "根据客户意见，我们需要重新检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据最新资料，我们需要重新联系客户。",
+    "pinyin": "",
+    "meaning": "Dựa trên 最新资料, chúng ta cần 联系客户 lại.",
+    "options": [
+      "经过认真讨论，我们决定联系客户。",
+      "目前最重要的是修改计划。",
+      "根据最新资料，我们需要重新解决问题。",
+      "根据最新资料，我们需要重新联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了完成新的任务，公司正在提交报告。",
+    "pinyin": "",
+    "meaning": "Để 完成新的任务, công ty đang 提交报告。",
+    "options": [
+      "为了完成新的任务，公司正在提交报告。",
+      "如果时间比较紧，我们就可以安排会议。",
+      "周末的时候，经理喜欢去公司讨论计划。",
+      "经理每天都要提高效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在提高效率。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 提高效率。",
+    "options": [
+      "为了学习新知识，我的同事提前来到博物馆。",
+      "经过认真讨论，我们决定提高效率。",
+      "为了改善服务质量，公司正在调整工作安排。",
+      "为了提高工作效率，公司正在提高效率。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定提高效率。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 提高效率。",
+    "options": [
+      "经过多次沟通，我们决定提高效率。",
+      "邻居觉得联系客户很重要。",
+      "他负责提高效率，并且需要处理突发情况。",
+      "根据实际情况，我们需要重新调整工作安排。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "虽然遇到一些困难，但是项目还是检查文件。",
+    "pinyin": "",
+    "meaning": "Mặc dù 遇到一些困难, nhưng dự án vẫn 检查文件。",
+    "options": [
+      "目前最重要的是检查文件。",
+      "虽然遇到一些困难，但是项目还是检查文件。",
+      "记者告诉我，他最近正在调整时间。",
+      "为了申请签证，记者提前来到公司。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "他负责检查文件，并且需要处理突发情况。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 检查文件, đồng thời cần 处理突发情况。",
+    "options": [
+      "虽然时间比较紧，但是项目还是解决问题。",
+      "他负责检查文件，并且需要处理突发情况。",
+      "经过认真讨论，我们决定联系客户。",
+      "虽然资金还不充足，但是项目还是提交报告。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果天气发生变化，我们就可以联系客户。",
+    "pinyin": "",
+    "meaning": "Nếu 天气发生变化, chúng ta có thể 联系客户。",
+    "options": [
+      "如果天气发生变化，我们就可以联系客户。",
+      "我的同事正在检查合同，准备开始学习新知识。",
+      "这个问题不仅复杂，而且需要长期解决。",
+      "经过讨论，记者决定在北京申请签证。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "如果天气发生变化，我们就可以安排会议。",
+    "pinyin": "",
+    "meaning": "Nếu 天气发生变化, chúng ta có thể 安排会议。",
+    "options": [
+      "经过充分准备，我们决定解决问题。",
+      "他负责提交报告，并且需要协调各部门的工作。",
+      "因为工作很忙，记者只能晚上申请签证。",
+      "如果天气发生变化，我们就可以安排会议。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了解决当前问题，公司正在联系客户。",
+    "pinyin": "",
+    "meaning": "Để 解决当前问题, công ty đang 联系客户。",
+    "options": [
+      "目前最重要的是修改计划。",
+      "为了解决当前问题，公司正在联系客户。",
+      "为了避免时间上的浪费，我们必须检查文件。",
+      "经过进一步调查，我们决定修改计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过多次沟通，我们决定联系客户。",
+    "pinyin": "",
+    "meaning": "Sau khi 多次沟通, chúng tôi quyết định 联系客户。",
+    "options": [
+      "最近经理常常需要提高效率。",
+      "为了改善服务质量，公司正在解决问题。",
+      "经过讨论，我的同事决定在上海学习新知识。",
+      "经过多次沟通，我们决定联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅重要，而且有一定的难度。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 重要 mà còn 有一定的难度。",
+    "options": [
+      "记者告诉我，他最近正在申请签证。",
+      "如果时间比较紧，我们就可以安排会议。",
+      "根据调查结果，我们需要重新提高效率。",
+      "这个问题不仅重要，而且有一定的难度。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了保证项目顺利进行，公司正在提高效率。",
+    "pinyin": "",
+    "meaning": "Để 保证项目顺利进行, công ty đang 提高效率。",
+    "options": [
+      "为了保证项目顺利进行，公司正在提高效率。",
+      "这个问题不仅合理，而且影响比较大。",
+      "经过充分准备，我们决定修改计划。",
+      "邻居觉得联系客户很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "虽然计划没有改变，但是项目还是检查文件。",
+    "pinyin": "",
+    "meaning": "Mặc dù 计划没有改变, nhưng dự án vẫn 检查文件。",
+    "options": [
+      "根据实际情况，我们需要重新解决问题。",
+      "虽然计划没有改变，但是项目还是联系客户。",
+      "虽然计划没有改变，但是项目还是检查文件。",
+      "为了准备明天的工作，我的同事今晚还要准备报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责完成任务，并且需要协调各部门的工作。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 完成任务, đồng thời cần 协调各部门的工作。",
+    "options": [
+      "最近经理常常需要提高效率。",
+      "为了改善服务质量，公司正在提高效率。",
+      "他负责完成任务，并且需要协调各部门的工作。",
+      "虽然遇到一些困难，但是项目还是调整工作安排。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责完成任务，并且需要及时联系客户。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 完成任务, đồng thời cần 及时联系客户。",
+    "options": [
+      "经过多次沟通，我们决定检查文件。",
+      "如果计划没有改变，我们就可以联系客户。",
+      "根据客户意见，我们需要重新完成任务。",
+      "他负责完成任务，并且需要及时联系客户。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了改善服务质量，公司正在提高效率。",
+    "pinyin": "",
+    "meaning": "Để 改善服务质量, công ty đang 提高效率。",
+    "options": [
+      "虽然天气发生变化，但是项目还是修改计划。",
+      "为了改善服务质量，公司正在提高效率。",
+      "昨天记者在北京申请签证，所以回家比较晚。",
+      "他负责提交报告，并且需要及时联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免严重的错误，我们必须提交报告。",
+    "pinyin": "",
+    "meaning": "Để tránh 严重的错误, chúng ta phải 提交报告。",
+    "options": [
+      "为了改善服务质量，公司正在修改计划。",
+      "为了改善服务质量，公司正在联系客户。",
+      "为了避免严重的错误，我们必须提交报告。",
+      "我的同事正在银行学习新知识。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "根据最新资料，我们需要重新修改计划。",
+    "pinyin": "",
+    "meaning": "Dựa trên 最新资料, chúng ta cần 修改计划 lại.",
+    "options": [
+      "根据最新资料，我们需要重新修改计划。",
+      "经过进一步调查，我们决定修改计划。",
+      "邻居每天都要检查文件。",
+      "最近经理常常需要参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定提高效率。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 提高效率。",
+    "options": [
+      "经过详细分析，我们决定解决问题。",
+      "经过多次沟通，我们决定安排会议。",
+      "经过详细分析，我们决定提高效率。",
+      "如果计划没有变化，邻居下午会在上海解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果计划没有改变，我们就可以提交报告。",
+    "pinyin": "",
+    "meaning": "Nếu 计划没有改变, chúng ta có thể 提交报告。",
+    "options": [
+      "如果计划没有改变，我们就可以提交报告。",
+      "为了安排工作，记者提前来到广州。",
+      "这个问题不仅重要，而且影响比较大。",
+      "最近经理常常需要参加会议。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅复杂，而且需要长期解决。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 复杂 mà còn 需要长期解决。",
+    "options": [
+      "今天记者在广州申请签证。",
+      "周末的时候，经理喜欢去机场参加会议。",
+      "这个问题不仅复杂，而且需要长期解决。",
+      "最近我的同事常常需要准备报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "为了提高工作效率，公司正在提交报告。",
+    "pinyin": "",
+    "meaning": "Để 提高工作效率, công ty đang 提交报告。",
+    "options": [
+      "记者觉得调整时间很重要。",
+      "为了提高工作效率，公司正在提交报告。",
+      "周末的时候，经理喜欢去机场参加会议。",
+      "为了解决当前问题，公司正在解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅重要，而且需要长期解决。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 重要 mà còn 需要长期解决。",
+    "options": [
+      "经过多次沟通，我们决定完成任务。",
+      "这个问题不仅困难，而且值得认真考虑。",
+      "这个问题不仅重要，而且需要长期解决。",
+      "经过充分准备，我们决定修改计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "如果遇到一些困难，我们就可以联系客户。",
+    "pinyin": "",
+    "meaning": "Nếu 遇到一些困难, chúng ta có thể 联系客户。",
+    "options": [
+      "根据实际情况，我们需要重新安排会议。",
+      "根据市场变化，我们需要重新修改计划。",
+      "如果遇到一些困难，我们就可以联系客户。",
+      "目前最重要的是提交报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "他负责安排会议，并且需要完成相关报告。",
+    "pinyin": "",
+    "meaning": "Anh ấy phụ trách 安排会议, đồng thời cần 完成相关报告。",
+    "options": [
+      "因为工作很忙，记者只能晚上申请签证。",
+      "虽然资金还不充足，但是项目还是调整工作安排。",
+      "他负责安排会议，并且需要完成相关报告。",
+      "这个问题不仅明显，而且有一定的难度。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅复杂，而且有一定的难度。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 复杂 mà còn 有一定的难度。",
+    "options": [
+      "我听说邻居最近在学校负责联系客户。",
+      "这个问题不仅复杂，而且有一定的难度。",
+      "邻居觉得检查文件很重要。",
+      "经过充分准备，我们决定修改计划。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "经过进一步调查，我们决定安排会议。",
+    "pinyin": "",
+    "meaning": "Sau khi 进一步调查, chúng tôi quyết định 安排会议。",
+    "options": [
+      "根据最新资料，我们需要重新修改计划。",
+      "今天经理在北京提高效率。",
+      "经过进一步调查，我们决定安排会议。",
+      "经过详细分析，我们决定检查文件。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅困难，而且影响比较大。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 困难 mà còn 影响比较大。",
+    "options": [
+      "为了改善服务质量，公司正在联系客户。",
+      "虽然时间不多，但是我的同事还是完成了学习新知识。",
+      "这个问题不仅困难，而且影响比较大。",
+      "为了提高工作效率，公司正在提交报告。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过进一步调查，我们决定解决问题。",
+    "pinyin": "",
+    "meaning": "Sau khi 进一步调查, chúng tôi quyết định 解决问题。",
+    "options": [
+      "经过详细分析，我们决定检查文件。",
+      "经过进一步调查，我们决定解决问题。",
+      "根据客户意见，我们需要重新安排会议。",
+      "如果有时间，记者会去会议室调整时间。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "虽然天气发生变化，但是项目还是调整工作安排。",
+    "pinyin": "",
+    "meaning": "Mặc dù 天气发生变化, nhưng dự án vẫn 调整工作安排。",
+    "options": [
+      "我的同事告诉我，他最近正在完成任务。",
+      "虽然天气发生变化，但是项目还是调整工作安排。",
+      "虽然天气发生变化，但是项目还是联系客户。",
+      "为了准备明天的工作，我的同事今晚还要学习新知识。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须修改计划。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 修改计划。",
+    "options": [
+      "因为工作很忙，我的同事只能晚上学习新知识。",
+      "为了避免信息泄露，我们必须修改计划。",
+      "为了改善服务质量，公司正在修改计划。",
+      "记者觉得调整时间很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须调整工作安排。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 调整工作安排。",
+    "options": [
+      "经过认真讨论，我们决定检查文件。",
+      "为了调整时间，记者提前来到机场。",
+      "为了避免信息泄露，我们必须调整工作安排。",
+      "经理正在检查调查结果，准备开始参加会议。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过进一步调查，我们决定调整工作安排。",
+    "pinyin": "",
+    "meaning": "Sau khi 进一步调查, chúng tôi quyết định 调整工作安排。",
+    "options": [
+      "他负责安排会议，并且需要处理突发情况。",
+      "经过进一步调查，我们决定调整工作安排。",
+      "为了避免信息泄露，我们必须完成任务。",
+      "虽然时间不多，但是记者还是完成了安排工作。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果资金还不充足，我们就可以解决问题。",
+    "pinyin": "",
+    "meaning": "Nếu 资金还不充足, chúng ta có thể 解决问题。",
+    "options": [
+      "今天经理在广州讨论计划。",
+      "经过多次沟通，我们决定提高效率。",
+      "虽然天气发生变化，但是项目还是调整工作安排。",
+      "如果资金还不充足，我们就可以解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "为了保证项目顺利进行，公司正在修改计划。",
+    "pinyin": "",
+    "meaning": "Để 保证项目顺利进行, công ty đang 修改计划。",
+    "options": [
+      "记者觉得调整时间很重要。",
+      "为了保证项目顺利进行，公司正在修改计划。",
+      "虽然时间比较紧，但是项目还是提交报告。",
+      "这个问题不仅合理，而且需要长期解决。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "这个问题不仅困难，而且有一定的难度。",
+    "pinyin": "",
+    "meaning": "Vấn đề này không chỉ 困难 mà còn 有一定的难度。",
+    "options": [
+      "经过多次沟通，我们决定提高效率。",
+      "经过调查，记者发现情况比预想的严重。",
+      "根据客户意见，我们需要重新安排会议。",
+      "这个问题不仅困难，而且有一定的难度。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定检查文件。",
+    "pinyin": "",
+    "meaning": "Sau khi 认真讨论, chúng tôi quyết định 检查文件。",
+    "options": [
+      "为了准备明天的工作，经理今晚还要讨论计划。",
+      "经过认真讨论，我们决定检查文件。",
+      "今天我的同事在上海完成任务。",
+      "邻居每天都要联系客户。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "根据客户意见，我们需要重新提交报告。",
+    "pinyin": "",
+    "meaning": "Dựa trên 客户意见, chúng ta cần 提交报告 lại.",
+    "options": [
+      "最近邻居常常需要解决问题。",
+      "我听说记者最近在会议室负责安排工作。",
+      "如果有时间，记者会去医院安排工作。",
+      "根据客户意见，我们需要重新提交报告。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定安排会议。",
+    "pinyin": "",
+    "meaning": "Sau khi 认真讨论, chúng tôi quyết định 安排会议。",
+    "options": [
+      "经过认真讨论，我们决定安排会议。",
+      "经过充分准备，我们决定修改计划。",
+      "经理希望明天可以继续讨论计划。",
+      "他负责联系客户并安排会议时间。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "经过认真讨论，我们决定调整工作安排。",
+    "pinyin": "",
+    "meaning": "Sau khi 认真讨论, chúng tôi quyết định 调整工作安排。",
+    "options": [
+      "为了改善服务质量，公司正在提交报告。",
+      "经过认真讨论，我们决定调整工作安排。",
+      "他负责完成任务，并且需要协调各部门的工作。",
+      "经过详细分析，我们决定提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 4,
+    "audio": "如果时间比较紧，我们就可以解决问题。",
+    "pinyin": "",
+    "meaning": "Nếu 时间比较紧, chúng ta có thể 解决问题。",
+    "options": [
+      "如果时间比较紧，我们就可以解决问题。",
+      "为了保证项目顺利进行，公司正在安排会议。",
+      "虽然资金还不充足，但是项目还是联系客户。",
+      "为了准备明天的工作，我的同事今晚还要准备报告。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 4,
+    "audio": "为了避免信息泄露，我们必须解决问题。",
+    "pinyin": "",
+    "meaning": "Để tránh 信息泄露, chúng ta phải 解决问题。",
+    "options": [
+      "根据实际情况，我们需要重新安排会议。",
+      "虽然天气发生变化，但是项目还是调整工作安排。",
+      "为了完成新的任务，公司正在安排会议。",
+      "为了避免信息泄露，我们必须解决问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 4,
+    "audio": "如果资金还不充足，我们就可以检查文件。",
+    "pinyin": "",
+    "meaning": "Nếu 资金还不充足, chúng ta có thể 检查文件。",
+    "options": [
+      "这个问题不仅合理，而且需要长期解决。",
+      "他负责解决问题，并且需要处理突发情况。",
+      "如果资金还不充足，我们就可以检查文件。",
+      "经过多次沟通，我们决定解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 4,
+    "audio": "经过详细分析，我们决定修改计划。",
+    "pinyin": "",
+    "meaning": "Sau khi 详细分析, chúng tôi quyết định 修改计划。",
+    "options": [
+      "虽然时间不多，但是邻居还是完成了联系客户。",
+      "经过详细分析，我们决定修改计划。",
+      "为了调整时间，记者提前来到机场。",
+      "为了提高工作效率，公司正在提高效率。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况加强沟通，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 加强沟通 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "如果有时间，志愿者会去广州交换意见。",
+      "我们应该根据实际情况加强沟通，而不能简单地照搬过去的方法。",
+      "昨天企业家在研究中心调整计划，所以回家比较晚。",
+      "面对项目进展，我们需要采取更加科学的措施。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "为了进一步改善工作效率，研究人员进行了调查。",
+    "pinyin": "",
+    "meaning": "Để tiếp tục 改善工作效率, các nhà nghiên cứu đã tiến hành điều tra.",
+    "options": [
+      "记者每天都要改进方法。",
+      "同事正在城市中心积累经验。",
+      "为了进一步改善工作效率，研究人员进行了调查。",
+      "周末的时候，记者喜欢去实验室改进方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对发展战略，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 发展战略, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "面对资源配置，我们需要采取更加灵活的措施。",
+      "周末的时候，记者喜欢去实验室改进方法。",
+      "面对发展战略，我们需要采取更加全面的措施。",
+      "志愿者已经把统计结果带到实验室了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况完善相关制度，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 完善相关制度 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "会议结束以后，记者马上回到城市中心继续解决问题。",
+      "我们应该根据实际情况完善相关制度，而不能简单地照搬过去的方法。",
+      "为了交换意见，志愿者提前来到公司。",
+      "面对资源配置，我们需要采取更加科学的措施。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况调整发展战略，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 调整发展战略 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "面对研究结果，我们需要采取更加全面的措施。",
+      "虽然情况发生变化，但是我们仍然需要深入分析问题。",
+      "如果有时间，志愿者会去机场完成研究。",
+      "我们应该根据实际情况调整发展战略，而不能简单地照搬过去的方法。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对研究结果产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 研究结果。",
+    "options": [
+      "我们应该根据实际情况提高服务质量，而不能简单地照搬过去的方法。",
+      "虽然时间非常紧张，但是我们仍然需要完善相关制度。",
+      "这一变化可能会对研究结果产生影响。",
+      "志愿者觉得讨论方案很重要。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "双方就合作方案进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 合作方案。",
+    "options": [
+      "虽然时间非常紧张，但是我们仍然需要加强沟通。",
+      "双方就合作方案进行了深入讨论。",
+      "会议结束以后，企业家马上回到公司继续提高效率。",
+      "同事正在检查技术文件，准备开始积累经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "这项研究表明，市场需求正在发生变化。",
+    "pinyin": "",
+    "meaning": "Nghiên cứu này cho thấy 市场需求正在发生变化。",
+    "options": [
+      "这项研究表明，市场需求正在发生变化。",
+      "这一变化可能会对项目进展产生影响。",
+      "面对社会需求，我们需要采取更加有效的措施。",
+      "我听说企业家最近在北京负责调整计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "双方就研究结果进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 研究结果。",
+    "options": [
+      "同事正在大学分析数据。",
+      "虽然资源比较有限，但是我们仍然需要优化资源配置。",
+      "双方就研究结果进行了深入讨论。",
+      "虽然时间不多，但是企业家还是完成了承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "为了进一步解决实际问题，研究人员进行了调查。",
+    "pinyin": "",
+    "meaning": "Để tiếp tục 解决实际问题, các nhà nghiên cứu đã tiến hành điều tra.",
+    "options": [
+      "虽然时间不多，但是同事还是完成了积累经验。",
+      "最近记者常常需要申请项目。",
+      "面对市场变化，我们需要采取更加灵活的措施。",
+      "为了进一步解决实际问题，研究人员进行了调查。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "双方就资源配置进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 资源配置。",
+    "options": [
+      "面对社会需求，我们需要采取更加全面的措施。",
+      "今天记者在研究中心改进方法。",
+      "经过分析，我们认为应该改进管理方法。",
+      "双方就资源配置进行了深入讨论。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "从长远来看，问题的原因并不简单。",
+    "pinyin": "",
+    "meaning": "Xét về lâu dài, 问题的原因并不简单。",
+    "options": [
+      "从长远来看，问题的原因并不简单。",
+      "今天同事在研究中心调查情况。",
+      "我们应该根据实际情况提高服务质量，而不能简单地照搬过去的方法。",
+      "这一变化可能会对项目进展产生影响。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对合作方案，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 合作方案, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "这一变化可能会对项目进展产生影响。",
+      "面对合作方案，我们需要采取更加合理的措施。",
+      "今天记者在北京解决问题。",
+      "经过讨论，志愿者决定在医院交换意见。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对管理制度产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 管理制度。",
+    "options": [
+      "同事已经把会议记录带到广州了。",
+      "这一变化可能会对管理制度产生影响。",
+      "如果计划没有变化，企业家下午会在机场承担责任。",
+      "为了准备明天的工作，记者今晚还要解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要加强沟通。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 加强沟通。",
+    "options": [
+      "面对社会需求，我们需要采取更加严格的措施。",
+      "志愿者已经把市场信息带到机场了。",
+      "虽然情况发生变化，但是我们仍然需要加强沟通。",
+      "这项研究表明，市场需求正在发生变化。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "这项研究表明，相关政策需要进一步完善。",
+    "pinyin": "",
+    "meaning": "Nghiên cứu này cho thấy 相关政策需要进一步完善。",
+    "options": [
+      "这项研究表明，相关政策需要进一步完善。",
+      "双方就合作方案进行了深入讨论。",
+      "我们应该根据实际情况深入分析问题，而不能简单地照搬过去的方法。",
+      "企业必须不断优化资源配置，才能保持竞争力。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对资源配置，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "因为工作很忙，同事只能晚上积累经验。",
+      "面对资源配置，我们需要采取更加科学的措施。",
+      "志愿者告诉我，他最近正在讨论方案。",
+      "面对项目进展，我们需要采取更加严格的措施。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要积累实践经验。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 积累实践经验。",
+    "options": [
+      "同事正在公司分析数据。",
+      "会议结束以后，记者马上回到公司继续改进方法。",
+      "虽然情况发生变化，但是我们仍然需要积累实践经验。",
+      "如果有时间，企业家会去实验室承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对合作方案，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 合作方案, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "从长远来看，新的方案能够提高效率。",
+      "面对合作方案，我们需要采取更加科学的措施。",
+      "同事正在检查合同条款，准备开始分析数据。",
+      "为了积累经验，同事提前来到实验室。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断积累实践经验，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 积累实践经验 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "面对合作方案，我们需要采取更加科学的措施。",
+      "企业必须不断积累实践经验，才能保持竞争力。",
+      "虽然时间非常紧张，但是我们仍然需要完善相关制度。",
+      "这一变化可能会对社会需求产生影响。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况深入分析问题，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 深入分析问题 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "企业必须不断改进管理方法，才能保持竞争力。",
+      "企业必须不断优化资源配置，才能保持竞争力。",
+      "我们应该根据实际情况深入分析问题，而不能简单地照搬过去的方法。",
+      "为了准备明天的工作，记者今晚还要改进方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "双方就社会需求进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 社会需求。",
+    "options": [
+      "最近企业家常常需要提高效率。",
+      "经过讨论，志愿者决定在城市中心完成研究。",
+      "同事告诉我，他最近正在积累经验。",
+      "双方就社会需求进行了深入讨论。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该深入分析问题。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 深入分析问题。",
+    "options": [
+      "经过分析，我们认为应该深入分析问题。",
+      "面对合作方案，我们需要采取更加全面的措施。",
+      "面对合作方案，我们需要采取更加合理的措施。",
+      "志愿者觉得讨论方案很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断优化资源配置，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 优化资源配置 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "企业必须不断优化资源配置，才能保持竞争力。",
+      "这项研究表明，市场需求正在发生变化。",
+      "如果计划没有变化，企业家下午会在机场承担责任。",
+      "经过讨论，同事决定在医院分析数据。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该积累实践经验。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 积累实践经验。",
+    "options": [
+      "同事已经把合同条款带到图书馆了。",
+      "这一变化可能会对市场变化产生影响。",
+      "经过讨论，志愿者决定在医院交换意见。",
+      "经过分析，我们认为应该积累实践经验。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "为了进一步提高研究质量，研究人员进行了调查。",
+    "pinyin": "",
+    "meaning": "Để tiếp tục 提高研究质量, các nhà nghiên cứu đã tiến hành điều tra.",
+    "options": [
+      "如果有时间，企业家会去机场提高效率。",
+      "为了进一步提高研究质量，研究人员进行了调查。",
+      "面对变化，我们应该保持理性和耐心。",
+      "为了讨论方案，志愿者提前来到实验室。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该加强沟通。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 加强沟通。",
+    "options": [
+      "经过分析，我们认为应该加强沟通。",
+      "面对市场变化，我们需要采取更加严格的措施。",
+      "我们应该根据实际情况加强沟通，而不能简单地照搬过去的方法。",
+      "我们应该根据实际情况调整发展战略，而不能简单地照搬过去的方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对项目进展产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 项目进展。",
+    "options": [
+      "经过分析，我们认为应该优化资源配置。",
+      "我听说企业家最近在医院负责承担责任。",
+      "这一变化可能会对项目进展产生影响。",
+      "面对发展战略，我们需要采取更加科学的措施。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该完善相关制度。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 完善相关制度。",
+    "options": [
+      "经过分析，我们认为应该优化资源配置。",
+      "同事告诉我，他最近正在分析数据。",
+      "经过分析，我们认为应该完善相关制度。",
+      "虽然市场环境复杂，但是我们仍然需要完善相关制度。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要深入分析问题。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 深入分析问题。",
+    "options": [
+      "面对社会需求，我们需要采取更加有效的措施。",
+      "经过分析，我们认为应该提高服务质量。",
+      "虽然情况发生变化，但是我们仍然需要深入分析问题。",
+      "昨天企业家在博物馆提高效率，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对社会需求产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 社会需求。",
+    "options": [
+      "这一变化可能会对社会需求产生影响。",
+      "今天同事在研究中心调查情况。",
+      "经过讨论，同事决定在公司积累经验。",
+      "志愿者已经把项目计划带到广州了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该优化资源配置。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 优化资源配置。",
+    "options": [
+      "经过分析，我们认为应该优化资源配置。",
+      "面对项目进展，我们需要采取更加严格的措施。",
+      "经过分析，我们认为应该深入分析问题。",
+      "面对发展战略，我们需要采取更加有效的措施。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对市场变化产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 市场变化。",
+    "options": [
+      "为了准备明天的工作，记者今晚还要申请项目。",
+      "因为工作很忙，同事只能晚上积累经验。",
+      "这一变化可能会对市场变化产生影响。",
+      "记者正在检查调查数据，准备开始申请项目。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对合作方案产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 合作方案。",
+    "options": [
+      "这一变化可能会对合作方案产生影响。",
+      "因为工作很忙，同事只能晚上积累经验。",
+      "周末的时候，记者喜欢去会议中心解决问题。",
+      "志愿者已经把市场信息带到机场了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断深入分析问题，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 深入分析问题 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "虽然情况发生变化，但是我们仍然需要调整发展战略。",
+      "企业必须不断深入分析问题，才能保持竞争力。",
+      "会议结束以后，记者马上回到城市中心继续解决问题。",
+      "我听说志愿者最近在城市中心负责交换意见。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况提高服务质量，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 提高服务质量 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "我们应该根据实际情况提高服务质量，而不能简单地照搬过去的方法。",
+      "昨天企业家在北京承担责任，所以回家比较晚。",
+      "这一变化可能会对市场变化产生影响。",
+      "面对管理制度，我们需要采取更加有效的措施。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "为了进一步推动项目发展，研究人员进行了调查。",
+    "pinyin": "",
+    "meaning": "Để tiếp tục 推动项目发展, các nhà nghiên cứu đã tiến hành điều tra.",
+    "options": [
+      "会议结束以后，企业家马上回到城市中心继续调整计划。",
+      "如果计划没有变化，企业家下午会在上海提高效率。",
+      "为了进一步推动项目发展，研究人员进行了调查。",
+      "如果有时间，志愿者会去机场完成研究。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该提高服务质量。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 提高服务质量。",
+    "options": [
+      "为了进一步解决实际问题，研究人员进行了调查。",
+      "经过分析，我们认为应该提高服务质量。",
+      "企业家每天都要调整计划。",
+      "双方就市场变化进行了深入讨论。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该调整发展战略。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 调整发展战略。",
+    "options": [
+      "昨天志愿者在博物馆完成研究，所以回家比较晚。",
+      "面对市场变化，我们需要采取更加灵活的措施。",
+      "经过分析，我们认为应该调整发展战略。",
+      "经过讨论，同事决定在公司积累经验。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对资源配置产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 资源配置。",
+    "options": [
+      "记者每天都要解决问题。",
+      "这一变化可能会对资源配置产生影响。",
+      "面对合作方案，我们需要采取更加科学的措施。",
+      "志愿者觉得交换意见很重要。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要优化资源配置。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 优化资源配置。",
+    "options": [
+      "周末的时候，记者喜欢去会议中心解决问题。",
+      "这一变化可能会对项目进展产生影响。",
+      "为了准备明天的工作，记者今晚还要改进方法。",
+      "虽然市场环境复杂，但是我们仍然需要优化资源配置。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "经过分析，我们认为应该改进管理方法。",
+    "pinyin": "",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên 改进管理方法。",
+    "options": [
+      "企业家希望明天可以继续调整计划。",
+      "经过分析，我们认为应该改进管理方法。",
+      "这一变化可能会对管理制度产生影响。",
+      "昨天志愿者在北京讨论方案，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要提高服务质量。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 提高服务质量。",
+    "options": [
+      "虽然情况发生变化，但是我们仍然需要提高服务质量。",
+      "为了讨论方案，志愿者提前来到实验室。",
+      "如果有时间，企业家会去广州调整计划。",
+      "如果计划没有变化，企业家下午会在图书馆调整计划。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对发展战略，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 发展战略, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "记者每天都要改进方法。",
+      "记者正在检查调查数据，准备开始申请项目。",
+      "面对发展战略，我们需要采取更加合理的措施。",
+      "今天记者在博物馆申请项目。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要调整发展战略。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 调整发展战略。",
+    "options": [
+      "虽然时间非常紧张，但是我们仍然需要调整发展战略。",
+      "经过分析，我们认为应该改进管理方法。",
+      "虽然时间非常紧张，但是我们仍然需要改进管理方法。",
+      "虽然时间不多，但是志愿者还是完成了讨论方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "从长远来看，新的方案能够提高效率。",
+    "pinyin": "",
+    "meaning": "Xét về lâu dài, 新的方案能够提高效率。",
+    "options": [
+      "今天记者在研究中心改进方法。",
+      "面对研究结果，我们需要采取更加灵活的措施。",
+      "从长远来看，新的方案能够提高效率。",
+      "这一变化可能会对管理制度产生影响。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要优化资源配置。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 优化资源配置。",
+    "options": [
+      "虽然时间非常紧张，但是我们仍然需要优化资源配置。",
+      "这一变化可能会对研究结果产生影响。",
+      "今天记者在博物馆申请项目。",
+      "虽然市场环境复杂，但是我们仍然需要积累实践经验。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对社会需求，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "面对社会需求，我们需要采取更加灵活的措施。",
+      "虽然资源比较有限，但是我们仍然需要调整发展战略。",
+      "会议结束以后，同事马上回到城市中心继续分析数据。",
+      "面对市场变化，我们需要采取更加灵活的措施。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况优化资源配置，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 优化资源配置 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "志愿者告诉我，他最近正在完成研究。",
+      "从长远来看，新的方案能够提高效率。",
+      "如果有时间，志愿者会去机场完成研究。",
+      "我们应该根据实际情况优化资源配置，而不能简单地照搬过去的方法。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "面对资源配置，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "经过讨论，同事决定在公司积累经验。",
+      "这项研究表明，问题的原因并不简单。",
+      "面对资源配置，我们需要采取更加灵活的措施。",
+      "为了调查情况，同事提前来到会议中心。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "这项研究表明，新的方案能够提高效率。",
+    "pinyin": "",
+    "meaning": "Nghiên cứu này cho thấy 新的方案能够提高效率。",
+    "options": [
+      "企业家每天都要提高效率。",
+      "今天同事在上海分析数据。",
+      "这项研究表明，新的方案能够提高效率。",
+      "面对研究结果，我们需要采取更加灵活的措施。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要改进管理方法。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 改进管理方法。",
+    "options": [
+      "虽然资源比较有限，但是我们仍然需要完善相关制度。",
+      "面对市场变化，我们需要采取更加全面的措施。",
+      "会议结束以后，记者马上回到医院继续申请项目。",
+      "虽然资源比较有限，但是我们仍然需要改进管理方法。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "这项研究表明，问题的原因并不简单。",
+    "pinyin": "",
+    "meaning": "Nghiên cứu này cho thấy 问题的原因并不简单。",
+    "options": [
+      "为了进一步解决实际问题，研究人员进行了调查。",
+      "如果计划没有变化，志愿者下午会在研究中心讨论方案。",
+      "面对合作方案，我们需要采取更加合理的措施。",
+      "这项研究表明，问题的原因并不简单。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要调整发展战略。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 调整发展战略。",
+    "options": [
+      "虽然市场环境复杂，但是我们仍然需要调整发展战略。",
+      "我听说记者最近在大学负责改进方法。",
+      "如果计划没有变化，志愿者下午会在图书馆交换意见。",
+      "同事告诉我，他最近正在调查情况。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对研究结果，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 研究结果, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "我们应该根据实际情况提高服务质量，而不能简单地照搬过去的方法。",
+      "会议结束以后，企业家马上回到会议中心继续承担责任。",
+      "面对研究结果，我们需要采取更加全面的措施。",
+      "虽然市场环境复杂，但是我们仍然需要改进管理方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "从长远来看，这种方法具有一定的可行性。",
+    "pinyin": "",
+    "meaning": "Xét về lâu dài, 这种方法具有一定的可行性。",
+    "options": [
+      "经过讨论，同事决定在城市中心调查情况。",
+      "会议结束以后，记者马上回到医院继续申请项目。",
+      "虽然市场环境复杂，但是我们仍然需要积累实践经验。",
+      "从长远来看，这种方法具有一定的可行性。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "双方就管理制度进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 管理制度。",
+    "options": [
+      "从长远来看，市场需求正在发生变化。",
+      "面对发展战略，我们需要采取更加全面的措施。",
+      "最近企业家常常需要调整计划。",
+      "双方就管理制度进行了深入讨论。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要改进管理方法。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 改进管理方法。",
+    "options": [
+      "经过讨论，志愿者决定在医院交换意见。",
+      "虽然资源比较有限，但是我们仍然需要积累实践经验。",
+      "虽然情况发生变化，但是我们仍然需要改进管理方法。",
+      "面对发展战略，我们需要采取更加灵活的措施。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "双方就市场变化进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 市场变化。",
+    "options": [
+      "记者希望明天可以继续改进方法。",
+      "双方就市场变化进行了深入讨论。",
+      "志愿者已经把项目计划带到广州了。",
+      "同事正在检查技术文件，准备开始积累经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况改进管理方法，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 改进管理方法 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "我们应该根据实际情况改进管理方法，而不能简单地照搬过去的方法。",
+      "企业家每天都要调整计划。",
+      "为了讨论方案，志愿者提前来到城市中心。",
+      "企业必须不断调整发展战略，才能保持竞争力。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对研究结果，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 研究结果, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "虽然时间不多，但是志愿者还是完成了讨论方案。",
+      "面对研究结果，我们需要采取更加灵活的措施。",
+      "面对市场变化，我们需要采取更加严格的措施。",
+      "我听说企业家最近在医院负责承担责任。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "从长远来看，市场需求正在发生变化。",
+    "pinyin": "",
+    "meaning": "Xét về lâu dài, 市场需求正在发生变化。",
+    "options": [
+      "从长远来看，市场需求正在发生变化。",
+      "虽然时间不多，但是企业家还是完成了承担责任。",
+      "同事正在公司分析数据。",
+      "为了进一步提高研究质量，研究人员进行了调查。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断提高服务质量，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 提高服务质量 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "双方就社会需求进行了深入讨论。",
+      "面对合作方案，我们需要采取更加科学的措施。",
+      "从长远来看，这种方法具有一定的可行性。",
+      "企业必须不断提高服务质量，才能保持竞争力。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要完善相关制度。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 完善相关制度。",
+    "options": [
+      "面对发展战略，我们需要采取更加有效的措施。",
+      "周末的时候，记者喜欢去广州申请项目。",
+      "虽然情况发生变化，但是我们仍然需要完善相关制度。",
+      "面对合作方案，我们需要采取更加全面的措施。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要提高服务质量。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 提高服务质量。",
+    "options": [
+      "虽然时间非常紧张，但是我们仍然需要提高服务质量。",
+      "虽然时间不多，但是志愿者还是完成了讨论方案。",
+      "面对研究结果，我们需要采取更加有效的措施。",
+      "志愿者正在检查市场信息，准备开始讨论方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对合作方案，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 合作方案, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "面对合作方案，我们需要采取更加严格的措施。",
+      "面对合作方案，我们需要采取更加合理的措施。",
+      "同事已经把合同条款带到图书馆了。",
+      "企业必须不断加强沟通，才能保持竞争力。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "从长远来看，相关政策需要进一步完善。",
+    "pinyin": "",
+    "meaning": "Xét về lâu dài, 相关政策需要进一步完善。",
+    "options": [
+      "从长远来看，市场需求正在发生变化。",
+      "面对社会需求，我们需要采取更加全面的措施。",
+      "我们应该根据实际情况调整发展战略，而不能简单地照搬过去的方法。",
+      "从长远来看，相关政策需要进一步完善。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "双方就项目进展进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 项目进展。",
+    "options": [
+      "企业必须不断优化资源配置，才能保持竞争力。",
+      "双方就项目进展进行了深入讨论。",
+      "因为工作很忙，志愿者只能晚上交换意见。",
+      "志愿者正在检查市场信息，准备开始讨论方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "这一变化可能会对发展战略产生影响。",
+    "pinyin": "",
+    "meaning": "Thay đổi này có thể ảnh hưởng đến 发展战略。",
+    "options": [
+      "企业必须不断加强沟通，才能保持竞争力。",
+      "这一变化可能会对发展战略产生影响。",
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "面对发展战略，我们需要采取更加有效的措施。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "为了进一步加强双方合作，研究人员进行了调查。",
+    "pinyin": "",
+    "meaning": "Để tiếp tục 加强双方合作, các nhà nghiên cứu đã tiến hành điều tra.",
+    "options": [
+      "周末的时候，记者喜欢去会议中心解决问题。",
+      "会议结束以后，同事马上回到城市中心继续分析数据。",
+      "经过分析，我们发现问题比想象中更加复杂。",
+      "为了进一步加强双方合作，研究人员进行了调查。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "双方就发展战略进行了深入讨论。",
+    "pinyin": "",
+    "meaning": "Hai bên đã thảo luận sâu về 发展战略。",
+    "options": [
+      "昨天企业家在研究中心调整计划，所以回家比较晚。",
+      "企业必须不断积累实践经验，才能保持竞争力。",
+      "为了积累经验，同事提前来到实验室。",
+      "双方就发展战略进行了深入讨论。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要积累实践经验。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 积累实践经验。",
+    "options": [
+      "面对合作方案，我们需要采取更加科学的措施。",
+      "为了准备明天的工作，志愿者今晚还要完成研究。",
+      "虽然时间非常紧张，但是我们仍然需要积累实践经验。",
+      "我们应该根据实际情况调整发展战略，而不能简单地照搬过去的方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "这项研究表明，这种方法具有一定的可行性。",
+    "pinyin": "",
+    "meaning": "Nghiên cứu này cho thấy 这种方法具有一定的可行性。",
+    "options": [
+      "企业必须不断优化资源配置，才能保持竞争力。",
+      "这项研究表明，这种方法具有一定的可行性。",
+      "虽然时间非常紧张，但是我们仍然需要深入分析问题。",
+      "同事正在公司分析数据。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "面对研究结果，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 研究结果, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "面对研究结果，我们需要采取更加合理的措施。",
+      "记者正在会议中心改进方法。",
+      "记者正在检查学习资料，准备开始改进方法。",
+      "我们应该根据实际情况优化资源配置，而不能简单地照搬过去的方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断完善相关制度，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 完善相关制度 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "这一变化可能会对资源配置产生影响。",
+      "面对研究结果，我们需要采取更加灵活的措施。",
+      "企业必须不断完善相关制度，才能保持竞争力。",
+      "如果有时间，企业家会去实验室承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对项目进展，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 项目进展, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "最近企业家常常需要承担责任。",
+      "志愿者告诉我，他最近正在交换意见。",
+      "面对项目进展，我们需要采取更加科学的措施。",
+      "我们应该根据实际情况提高服务质量，而不能简单地照搬过去的方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "我们应该根据实际情况积累实践经验，而不能简单地照搬过去的方法。",
+    "pinyin": "",
+    "meaning": "Chúng ta nên 积累实践经验 dựa trên tình hình thực tế, không thể đơn giản sao chép phương pháp trước đây.",
+    "options": [
+      "面对合作方案，我们需要采取更加全面的措施。",
+      "我们应该根据实际情况积累实践经验，而不能简单地照搬过去的方法。",
+      "我听说志愿者最近在医院负责讨论方案。",
+      "这一变化可能会对研究结果产生影响。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "面对发展战略，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 发展战略, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "面对发展战略，我们需要采取更加科学的措施。",
+      "为了进一步加强双方合作，研究人员进行了调查。",
+      "虽然市场环境复杂，但是我们仍然需要调整发展战略。",
+      "我们应该根据实际情况加强沟通，而不能简单地照搬过去的方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对发展战略，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 发展战略, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "企业家每天都要调整计划。",
+      "面对发展战略，我们需要采取更加有效的措施。",
+      "面对社会需求，我们需要采取更加严格的措施。",
+      "志愿者正在检查市场信息，准备开始讨论方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要完善相关制度。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 完善相关制度。",
+    "options": [
+      "虽然时间非常紧张，但是我们仍然需要改进管理方法。",
+      "虽然资源比较有限，但是我们仍然需要完善相关制度。",
+      "我听说企业家最近在大学负责提高效率。",
+      "从长远来看，问题的原因并不简单。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要加强沟通。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 加强沟通。",
+    "options": [
+      "经过分析，我们认为应该深入分析问题。",
+      "如果有时间，志愿者会去机场完成研究。",
+      "记者每天都要申请项目。",
+      "虽然时间非常紧张，但是我们仍然需要加强沟通。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要加强沟通。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 加强沟通。",
+    "options": [
+      "面对合作方案，我们需要采取更加灵活的措施。",
+      "虽然市场环境复杂，但是我们仍然需要加强沟通。",
+      "为了准备明天的工作，同事今晚还要积累经验。",
+      "今天记者在上海解决问题。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要优化资源配置。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 优化资源配置。",
+    "options": [
+      "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
+      "同事告诉我，他最近正在调查情况。",
+      "虽然情况发生变化，但是我们仍然需要优化资源配置。",
+      "如果有时间，企业家会去实验室承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要加强沟通。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 加强沟通。",
+    "options": [
+      "虽然资源比较有限，但是我们仍然需要加强沟通。",
+      "为了准备明天的工作，同事今晚还要分析数据。",
+      "最近记者常常需要改进方法。",
+      "志愿者觉得讨论方案很重要。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对管理制度，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理制度, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "经过分析，我们认为应该改进管理方法。",
+      "经过分析，我们认为应该加强沟通。",
+      "我听说记者最近在大学负责改进方法。",
+      "面对管理制度，我们需要采取更加全面的措施。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要提高服务质量。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 提高服务质量。",
+    "options": [
+      "最近企业家常常需要承担责任。",
+      "虽然时间不多，但是企业家还是完成了承担责任。",
+      "虽然市场环境复杂，但是我们仍然需要提高服务质量。",
+      "这项研究表明，问题的原因并不简单。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对研究结果，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 研究结果, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "面对社会需求，我们需要采取更加灵活的措施。",
+      "面对社会需求，我们需要采取更加合理的措施。",
+      "面对研究结果，我们需要采取更加全面的措施。",
+      "面对研究结果，我们需要采取更加有效的措施。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "面对市场变化，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 市场变化, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "我听说记者最近在大学负责改进方法。",
+      "如果有时间，企业家会去实验室承担责任。",
+      "周末的时候，企业家喜欢去实验室提高效率。",
+      "面对市场变化，我们需要采取更加合理的措施。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断调整发展战略，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 调整发展战略 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "企业必须不断调整发展战略，才能保持竞争力。",
+      "面对研究结果，我们需要采取更加有效的措施。",
+      "因为工作很忙，记者只能晚上申请项目。",
+      "双方就合作方案交换了意见。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对资源配置，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "虽然时间非常紧张，但是我们仍然需要优化资源配置。",
+      "面对资源配置，我们需要采取更加全面的措施。",
+      "虽然市场环境复杂，但是我们仍然需要优化资源配置。",
+      "周末的时候，企业家喜欢去广州承担责任。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要提高服务质量。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 提高服务质量。",
+    "options": [
+      "这项研究的结果为我们提供了新的思路。",
+      "这一变化可能会对合作方案产生影响。",
+      "虽然资源比较有限，但是我们仍然需要提高服务质量。",
+      "如果有时间，企业家会去实验室承担责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要深入分析问题。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 深入分析问题。",
+    "options": [
+      "面对发展战略，我们需要采取更加严格的措施。",
+      "虽然时间非常紧张，但是我们仍然需要深入分析问题。",
+      "面对项目进展，我们需要采取更加合理的措施。",
+      "最近同事常常需要积累经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断加强沟通，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 加强沟通 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "志愿者已经把市场信息带到机场了。",
+      "如果有时间，企业家会去广州调整计划。",
+      "企业必须不断加强沟通，才能保持竞争力。",
+      "双方就项目进展进行了深入讨论。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对项目进展，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 项目进展, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "会议结束以后，企业家马上回到城市中心继续调整计划。",
+      "企业家每天都要提高效率。",
+      "同事正在城市中心积累经验。",
+      "面对项目进展，我们需要采取更加有效的措施。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "企业必须不断改进管理方法，才能保持竞争力。",
+    "pinyin": "",
+    "meaning": "Doanh nghiệp phải không ngừng 改进管理方法 thì mới duy trì được năng lực cạnh tranh.",
+    "options": [
+      "企业必须不断改进管理方法，才能保持竞争力。",
+      "面对项目进展，我们需要采取更加严格的措施。",
+      "面对资源配置，我们需要采取更加全面的措施。",
+      "面对研究结果，我们需要采取更加全面的措施。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对社会需求，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "面对项目进展，我们需要采取更加全面的措施。",
+      "为了完成研究，志愿者提前来到会议中心。",
+      "面对社会需求，我们需要采取更加全面的措施。",
+      "如果计划没有变化，企业家下午会在图书馆调整计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对资源配置，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "面对资源配置，我们需要采取更加严格的措施。",
+      "面对发展战略，我们需要采取更加有效的措施。",
+      "企业家希望明天可以继续承担责任。",
+      "企业必须不断加强沟通，才能保持竞争力。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要改进管理方法。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 改进管理方法。",
+    "options": [
+      "因为工作很忙，记者只能晚上申请项目。",
+      "从长远来看，市场需求正在发生变化。",
+      "虽然市场环境复杂，但是我们仍然需要改进管理方法。",
+      "经过分析，我们认为应该调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对社会需求，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "面对社会需求，我们需要采取更加合理的措施。",
+      "我听说企业家最近在北京负责调整计划。",
+      "经过分析，我们认为应该完善相关制度。",
+      "志愿者已经把市场信息带到机场了。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 完善相关制度。",
+    "options": [
+      "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
+      "虽然情况发生变化，但是我们仍然需要积累实践经验。",
+      "面对项目进展，我们需要采取更加严格的措施。",
+      "面对市场变化，我们需要采取更加全面的措施。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要积累实践经验。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 积累实践经验。",
+    "options": [
+      "虽然时间不多，但是同事还是完成了积累经验。",
+      "最近同事常常需要积累经验。",
+      "虽然资源比较有限，但是我们仍然需要积累实践经验。",
+      "虽然资源比较有限，但是我们仍然需要改进管理方法。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对管理制度，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理制度, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "昨天企业家在博物馆提高效率，所以回家比较晚。",
+      "面对管理制度，我们需要采取更加严格的措施。",
+      "为了讨论方案，志愿者提前来到城市中心。",
+      "为了准备明天的工作，同事今晚还要分析数据。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "面对资源配置，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "面对资源配置，我们需要采取更加合理的措施。",
+      "这一变化可能会对管理制度产生影响。",
+      "如果计划没有变化，企业家下午会在机场承担责任。",
+      "双方就合作方案交换了意见。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对项目进展，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 项目进展, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "面对社会需求，我们需要采取更加灵活的措施。",
+      "虽然时间不多，但是志愿者还是完成了讨论方案。",
+      "面对项目进展，我们需要采取更加严格的措施。",
+      "我听说企业家最近在北京负责调整计划。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要深入分析问题。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 深入分析问题。",
+    "options": [
+      "如果有时间，企业家会去广州调整计划。",
+      "面对管理制度，我们需要采取更加灵活的措施。",
+      "双方就项目进展进行了深入讨论。",
+      "虽然市场环境复杂，但是我们仍然需要深入分析问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "面对市场变化，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 市场变化, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "为了积累经验，同事提前来到实验室。",
+      "面对市场变化，我们需要采取更加灵活的措施。",
+      "如果计划没有变化，志愿者下午会在研究中心讨论方案。",
+      "今天志愿者在上海交换意见。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要改进管理方法。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 改进管理方法。",
+    "options": [
+      "面对社会需求，我们需要采取更加合理的措施。",
+      "虽然时间不多，但是志愿者还是完成了完成研究。",
+      "虽然时间非常紧张，但是我们仍然需要改进管理方法。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对市场变化，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 市场变化, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "面对合作方案，我们需要采取更加有效的措施。",
+      "企业家希望明天可以继续提高效率。",
+      "面对市场变化，我们需要采取更加严格的措施。",
+      "面对管理制度，我们需要采取更加科学的措施。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对研究结果，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 研究结果, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "如果有时间，企业家会去会议中心提高效率。",
+      "同事告诉我，他最近正在分析数据。",
+      "面对研究结果，我们需要采取更加科学的措施。",
+      "虽然市场环境复杂，但是我们仍然需要调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对项目进展，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 项目进展, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "面对项目进展，我们需要采取更加合理的措施。",
+      "我们应该根据实际情况积累实践经验，而不能简单地照搬过去的方法。",
+      "我们应该根据实际情况加强沟通，而不能简单地照搬过去的方法。",
+      "会议结束以后，记者马上回到医院继续申请项目。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对项目进展，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 项目进展, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "今天记者在博物馆申请项目。",
+      "虽然时间非常紧张，但是我们仍然需要完善相关制度。",
+      "面对项目进展，我们需要采取更加灵活的措施。",
+      "虽然资源比较有限，但是我们仍然需要完善相关制度。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对社会需求，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "企业家觉得调整计划很重要。",
+      "因为工作很忙，同事只能晚上分析数据。",
+      "面对社会需求，我们需要采取更加严格的措施。",
+      "记者正在检查申请材料，准备开始解决问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对市场变化，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 市场变化, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "经过讨论，志愿者决定在城市中心完成研究。",
+      "面对市场变化，我们需要采取更加有效的措施。",
+      "记者正在会议中心改进方法。",
+      "虽然情况发生变化，但是我们仍然需要积累实践经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然时间非常紧张，但是我们仍然需要完善相关制度。",
+    "pinyin": "",
+    "meaning": "Mặc dù 时间非常紧张, chúng ta vẫn cần 完善相关制度。",
+    "options": [
+      "最近企业家常常需要调整计划。",
+      "昨天企业家在博物馆提高效率，所以回家比较晚。",
+      "我听说志愿者最近在城市中心负责交换意见。",
+      "虽然时间非常紧张，但是我们仍然需要完善相关制度。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然市场环境复杂，但是我们仍然需要积累实践经验。",
+    "pinyin": "",
+    "meaning": "Mặc dù 市场环境复杂, chúng ta vẫn cần 积累实践经验。",
+    "options": [
+      "企业必须不断积累实践经验，才能保持竞争力。",
+      "虽然市场环境复杂，但是我们仍然需要积累实践经验。",
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "虽然市场环境复杂，但是我们仍然需要完善相关制度。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要深入分析问题。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 深入分析问题。",
+    "options": [
+      "面对市场变化，我们需要采取更加科学的措施。",
+      "为了进一步提高研究质量，研究人员进行了调查。",
+      "周末的时候，记者喜欢去实验室改进方法。",
+      "虽然资源比较有限，但是我们仍然需要深入分析问题。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "面对合作方案，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 合作方案, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "双方就项目进展进行了深入讨论。",
+      "面对合作方案，我们需要采取更加全面的措施。",
+      "志愿者已经把市场信息带到机场了。",
+      "双方就社会需求进行了深入讨论。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "面对研究结果，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 研究结果, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "企业必须不断优化资源配置，才能保持竞争力。",
+      "面对研究结果，我们需要采取更加严格的措施。",
+      "面对合作方案，我们需要采取更加有效的措施。",
+      "为了准备明天的工作，同事今晚还要调查情况。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然情况发生变化，但是我们仍然需要调整发展战略。",
+    "pinyin": "",
+    "meaning": "Mặc dù 情况发生变化, chúng ta vẫn cần 调整发展战略。",
+    "options": [
+      "面对社会需求，我们需要采取更加灵活的措施。",
+      "面对合作方案，我们需要采取更加全面的措施。",
+      "面对资源配置，我们需要采取更加灵活的措施。",
+      "虽然情况发生变化，但是我们仍然需要调整发展战略。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要调整发展战略。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 调整发展战略。",
+    "options": [
+      "虽然资源比较有限，但是我们仍然需要调整发展战略。",
+      "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
+      "虽然资源比较有限，但是我们仍然需要提高服务质量。",
+      "企业必须不断提高自身的竞争力。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对管理制度，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理制度, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "面对社会需求，我们需要采取更加有效的措施。",
+      "昨天记者在博物馆改进方法，所以回家比较晚。",
+      "面对管理制度，我们需要采取更加灵活的措施。",
+      "虽然时间不多，但是志愿者还是完成了完成研究。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对资源配置，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "今天记者在北京解决问题。",
+      "如果计划没有变化，志愿者下午会在图书馆交换意见。",
+      "为了交换意见，志愿者提前来到公司。",
+      "面对资源配置，我们需要采取更加有效的措施。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "面对市场变化，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 市场变化, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "记者正在会议中心改进方法。",
+      "面对社会需求，我们需要采取更加合理的措施。",
+      "面对资源配置，我们需要采取更加合理的措施。",
+      "面对市场变化，我们需要采取更加全面的措施。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 5,
+    "audio": "面对社会需求，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "面对项目进展，我们需要采取更加严格的措施。",
+      "面对社会需求，我们需要采取更加科学的措施。",
+      "为了进一步改善工作效率，研究人员进行了调查。",
+      "面对合作方案，我们需要采取更加合理的措施。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "面对社会需求，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "同事正在大学分析数据。",
+      "企业必须不断完善相关制度，才能保持竞争力。",
+      "面对社会需求，我们需要采取更加有效的措施。",
+      "虽然情况发生变化，但是我们仍然需要调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对管理制度，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理制度, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "面对管理制度，我们需要采取更加科学的措施。",
+      "为了调查情况，同事提前来到会议中心。",
+      "企业家希望明天可以继续提高效率。",
+      "面对项目进展，我们需要采取更加科学的措施。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 5,
+    "audio": "面对管理制度，我们需要采取更加合理的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理制度, chúng ta cần áp dụng biện pháp 合理 hơn.",
+    "options": [
+      "面对资源配置，我们需要采取更加全面的措施。",
+      "最近记者常常需要改进方法。",
+      "面对管理制度，我们需要采取更加合理的措施。",
+      "企业必须不断提高自身的竞争力。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对项目进展，我们需要采取更加全面的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 项目进展, chúng ta cần áp dụng biện pháp 全面 hơn.",
+    "options": [
+      "经过分析，我们认为应该深入分析问题。",
+      "面对项目进展，我们需要采取更加全面的措施。",
+      "双方就资源配置进行了深入讨论。",
+      "虽然市场环境复杂，但是我们仍然需要积累实践经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "面对合作方案，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 合作方案, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "如果计划没有变化，志愿者下午会在上海完成研究。",
+      "面对研究结果，我们需要采取更加严格的措施。",
+      "面对合作方案，我们需要采取更加灵活的措施。",
+      "企业必须不断积累实践经验，才能保持竞争力。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对发展战略，我们需要采取更加严格的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 发展战略, chúng ta cần áp dụng biện pháp 严格 hơn.",
+    "options": [
+      "同事每天都要调查情况。",
+      "面对发展战略，我们需要采取更加严格的措施。",
+      "志愿者已经把项目计划带到广州了。",
+      "虽然市场环境复杂，但是我们仍然需要调整发展战略。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "虽然资源比较有限，但是我们仍然需要优化资源配置。",
+    "pinyin": "",
+    "meaning": "Mặc dù 资源比较有限, chúng ta vẫn cần 优化资源配置。",
+    "options": [
+      "周末的时候，企业家喜欢去机场调整计划。",
+      "昨天志愿者在大学交换意见，所以回家比较晚。",
+      "虽然资源比较有限，但是我们仍然需要优化资源配置。",
+      "今天同事在研究中心调查情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对管理制度，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理制度, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "这一变化可能会对研究结果产生影响。",
+      "为了进一步推动项目发展，研究人员进行了调查。",
+      "面对管理制度，我们需要采取更加有效的措施。",
+      "这一变化可能会对项目进展产生影响。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对合作方案，我们需要采取更加有效的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 合作方案, chúng ta cần áp dụng biện pháp 有效 hơn.",
+    "options": [
+      "我们应该根据实际情况深入分析问题，而不能简单地照搬过去的方法。",
+      "面对合作方案，我们需要采取更加有效的措施。",
+      "如果有时间，志愿者会去机场完成研究。",
+      "双方就发展战略进行了深入讨论。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 5,
+    "audio": "面对发展战略，我们需要采取更加灵活的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 发展战略, chúng ta cần áp dụng biện pháp 灵活 hơn.",
+    "options": [
+      "志愿者觉得完成研究很重要。",
+      "虽然时间非常紧张，但是我们仍然需要提高服务质量。",
+      "面对发展战略，我们需要采取更加灵活的措施。",
+      "面对管理制度，我们需要采取更加灵活的措施。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 5,
+    "audio": "面对市场变化，我们需要采取更加科学的措施。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 市场变化, chúng ta cần áp dụng biện pháp 科学 hơn.",
+    "options": [
+      "同事已经把技术文件带到机场了。",
+      "会议结束以后，企业家马上回到会议中心继续承担责任。",
+      "企业必须不断积累实践经验，才能保持竞争力。",
+      "面对市场变化，我们需要采取更加科学的措施。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对资源配置问题。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 资源配置问题。",
+    "options": [
+      "为了调查社会情况，研究人员提前来到实验室。",
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "如果缺乏充分准备，就很难有效应对资源配置问题。",
+      "律师每天都要承担重要责任。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对社会的发展。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 社会的发展。",
+    "options": [
+      "只有充分理解国际竞争，才能制定更加合理的方案。",
+      "如果缺乏充分准备，就很难有效应对社会的发展。",
+      "研究人员告诉我，他最近正在积累实践经验。",
+      "如果缺乏充分准备，就很难有效应对管理体制。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个技术进步。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 技术进步。",
+    "options": [
+      "这一政策可能对社会的发展产生深远影响。",
+      "从整体来看，这一问题涉及多个技术进步。",
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解复杂的经济环境。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 复杂的经济环境。",
+    "options": [
+      "虽然时间不多，但是企业家还是完成了解决实际困难。",
+      "面对社会的发展，我们必须保持客观的判断。",
+      "只有充分理解未来的变化，才能制定更加合理的方案。",
+      "深入分析这一现象，有助于我们理解复杂的经济环境。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对社会的发展产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 社会的发展。",
+    "options": [
+      "这一政策可能对社会的发展产生深远影响。",
+      "面对技术进步，我们必须保持清醒的判断。",
+      "企业家每天都要改进管理方法。",
+      "只有充分理解管理体制，才能制定更加合理的方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解长期发展战略，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 长期发展战略 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "从整体来看，这一问题涉及多个长期发展战略。",
+      "只有充分理解长期发展战略，才能制定更加合理的方案。",
+      "在当前背景下，我们有必要进一步完善相关制度。",
+      "这一政策可能对长期发展战略产生深远影响。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "研究结果进一步证明，比较客观。",
+    "pinyin": "",
+    "meaning": "Kết quả nghiên cứu tiếp tục chứng minh rằng 比较客观。",
+    "options": [
+      "面对国际竞争，我们必须保持独立的判断。",
+      "企业家正在城市中心改进管理方法。",
+      "面对社会的发展，我们必须保持独立的判断。",
+      "研究结果进一步证明，比较客观。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "经过多方面调查，研究人员得出了具有重要参考价值的结论。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra trên nhiều phương diện, các nhà nghiên cứu đưa ra kết luận 具有重要参考价值。",
+    "options": [
+      "最近学者常常需要完成调查研究。",
+      "经过多方面调查，研究人员得出了具有重要参考价值的结论。",
+      "深入分析这一现象，有助于我们理解技术进步。",
+      "虽然时间不多，但是研究人员还是完成了积累实践经验。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个资源配置问题。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 资源配置问题。",
+    "options": [
+      "面对国际竞争，我们必须保持独立的判断。",
+      "为了准备明天的工作，企业家今晚还要改进管理方法。",
+      "从整体来看，这一问题涉及多个资源配置问题。",
+      "如果缺乏充分准备，就很难有效应对公共政策。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "研究结果进一步证明，具有重要参考价值。",
+    "pinyin": "",
+    "meaning": "Kết quả nghiên cứu tiếp tục chứng minh rằng 具有重要参考价值。",
+    "options": [
+      "研究结果进一步证明，具有重要参考价值。",
+      "企业家正在上海解决实际困难。",
+      "面对社会的发展，我们必须保持客观的判断。",
+      "因为工作很忙，律师只能晚上提高工作效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对长期发展战略，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 长期发展战略, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "面对长期发展战略，我们必须保持理性的判断。",
+      "如果缺乏充分准备，就很难有效应对社会的发展。",
+      "今天律师在企业总部调整发展战略。",
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "经过多方面调查，研究人员得出了比较可靠的结论。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra trên nhiều phương diện, các nhà nghiên cứu đưa ra kết luận 比较可靠。",
+    "options": [
+      "律师正在国际机场承担重要责任。",
+      "面对复杂的经济环境，我们必须保持准确的判断。",
+      "经过多方面调查，研究人员得出了比较可靠的结论。",
+      "面对国际竞争，我们必须保持清醒的判断。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个国际竞争。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 国际竞争。",
+    "options": [
+      "从整体来看，这一问题涉及多个国际竞争。",
+      "从整体来看，这一问题涉及多个长期发展战略。",
+      "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+      "只有充分理解技术进步，才能制定更加合理的方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对公共政策产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 公共政策。",
+    "options": [
+      "面对社会需求，我们必须保持清醒的判断。",
+      "因为工作很忙，企业家只能晚上改进管理方法。",
+      "这一政策可能对公共政策产生深远影响。",
+      "面对技术进步，我们必须保持理性的判断。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个管理体制。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 管理体制。",
+    "options": [
+      "面对资源配置问题，我们必须保持客观的判断。",
+      "从整体来看，这一问题涉及多个管理体制。",
+      "面对国际竞争，我们必须保持独立的判断。",
+      "研究结果进一步证明，比较可靠。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "经过多方面调查，研究人员得出了符合实际情况的结论。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra trên nhiều phương diện, các nhà nghiên cứu đưa ra kết luận 符合实际情况。",
+    "options": [
+      "从整体来看，这一问题涉及多个长期发展战略。",
+      "经过多方面调查，研究人员得出了符合实际情况的结论。",
+      "为了积累实践经验，研究人员提前来到研究中心。",
+      "在当前背景下，我们有必要进一步加强风险管理。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对公共政策。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 公共政策。",
+    "options": [
+      "面对公共政策，我们必须保持独立的判断。",
+      "面对社会的发展，我们必须保持清醒的判断。",
+      "如果缺乏充分准备，就很难有效应对公共政策。",
+      "周末的时候，学者喜欢去大学交换专业意见。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个长期发展战略。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 长期发展战略。",
+    "options": [
+      "研究结果进一步证明，值得进一步研究。",
+      "为了准备明天的工作，律师今晚还要调整发展战略。",
+      "这一政策可能对社会需求产生深远影响。",
+      "从整体来看，这一问题涉及多个长期发展战略。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对国际竞争，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 国际竞争, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "周末的时候，学者喜欢去会议中心比较不同方案。",
+      "面对公共政策，我们必须保持准确的判断。",
+      "今天律师在广州调整发展战略。",
+      "面对国际竞争，我们必须保持理性的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解资源配置问题。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 资源配置问题。",
+    "options": [
+      "深入分析这一现象，有助于我们理解资源配置问题。",
+      "经过讨论，研究人员决定在广州调查社会情况。",
+      "学者希望明天可以继续比较不同方案。",
+      "最近企业家常常需要申请研究项目。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解复杂的经济环境，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 复杂的经济环境 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "如果有时间，研究人员会去广州深入分析问题。",
+      "只有充分理解复杂的经济环境，才能制定更加合理的方案。",
+      "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+      "因为工作很忙，律师只能晚上调整发展战略。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "经过多方面调查，研究人员得出了比较客观的结论。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra trên nhiều phương diện, các nhà nghiên cứu đưa ra kết luận 比较客观。",
+    "options": [
+      "面对公共政策，我们必须保持客观的判断。",
+      "这一政策可能对技术进步产生深远影响。",
+      "经过多方面调查，研究人员得出了比较客观的结论。",
+      "企业家已经把政策文件带到会议中心了。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解国际竞争。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 国际竞争。",
+    "options": [
+      "周末的时候，学者喜欢去大学交换专业意见。",
+      "研究人员告诉我，他最近正在调查社会情况。",
+      "律师正在企业总部提高工作效率。",
+      "深入分析这一现象，有助于我们理解国际竞争。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对社会需求产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 社会需求。",
+    "options": [
+      "从整体来看，这一问题涉及多个公共政策。",
+      "面对复杂的经济环境，我们必须保持客观的判断。",
+      "这一政策可能对社会需求产生深远影响。",
+      "经过多方面调查，研究人员得出了值得进一步研究的结论。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对未来的变化产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 未来的变化。",
+    "options": [
+      "这一政策可能对技术进步产生深远影响。",
+      "这一政策可能对未来的变化产生深远影响。",
+      "在当前背景下，我们有必要进一步优化资源配置。",
+      "虽然时间不多，但是学者还是完成了比较不同方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个复杂的经济环境。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 复杂的经济环境。",
+    "options": [
+      "因为工作很忙，研究人员只能晚上深入分析问题。",
+      "企业家已经把政策文件带到会议中心了。",
+      "如果缺乏充分准备，就很难有效应对公共政策。",
+      "从整体来看，这一问题涉及多个复杂的经济环境。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解公共政策，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 公共政策 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "面对社会的发展，我们必须保持独立的判断。",
+      "企业家已经把发展计划带到医院了。",
+      "最近学者常常需要完成调查研究。",
+      "只有充分理解公共政策，才能制定更加合理的方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑未来的变化。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 未来的变化。",
+    "options": [
+      "从整体来看，这一问题涉及多个公共政策。",
+      "如果有时间，研究人员会去广州深入分析问题。",
+      "面对新的挑战，企业需要重新考虑未来的变化。",
+      "经过多方面调查，研究人员得出了值得进一步研究的结论。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "研究结果进一步证明，值得进一步研究。",
+    "pinyin": "",
+    "meaning": "Kết quả nghiên cứu tiếp tục chứng minh rằng 值得进一步研究。",
+    "options": [
+      "经过多方面调查，研究人员得出了比较客观的结论。",
+      "研究结果进一步证明，值得进一步研究。",
+      "研究结果进一步证明，比较可靠。",
+      "这一政策可能对公共政策产生深远影响。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解技术进步，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 技术进步 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "只有充分理解技术进步，才能制定更加合理的方案。",
+      "这一政策可能对社会需求产生深远影响。",
+      "经过多方面的调查，研究人员得出了比较可靠的结论。",
+      "虽然时间不多，但是研究人员还是完成了积累实践经验。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对长期发展战略。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 长期发展战略。",
+    "options": [
+      "如果缺乏充分准备，就很难有效应对长期发展战略。",
+      "面对复杂的经济环境，我们必须保持清醒的判断。",
+      "如果计划没有变化，研究人员下午会在实验室深入分析问题。",
+      "面对公共政策，我们必须保持客观的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对国际竞争产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 国际竞争。",
+    "options": [
+      "面对新的挑战，企业需要重新考虑技术进步。",
+      "今天研究人员在实验室深入分析问题。",
+      "这一政策可能对国际竞争产生深远影响。",
+      "如果计划没有变化，学者下午会在会议中心比较不同方案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "面对公共政策，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 公共政策, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "因为工作很忙，企业家只能晚上改进管理方法。",
+      "面对公共政策，我们必须保持客观的判断。",
+      "研究结果进一步证明，值得进一步研究。",
+      "如果计划没有变化，学者下午会在深圳完成调查研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个未来的变化。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 未来的变化。",
+    "options": [
+      "深入分析这一现象，有助于我们理解社会的发展。",
+      "律师希望明天可以继续提高工作效率。",
+      "虽然时间不多，但是企业家还是完成了解决实际困难。",
+      "从整体来看，这一问题涉及多个未来的变化。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "在当前背景下，我们有必要进一步优化资源配置。",
+    "pinyin": "",
+    "meaning": "Trong bối cảnh hiện nay, chúng ta cần tiếp tục 优化资源配置。",
+    "options": [
+      "因为工作很忙，律师只能晚上提高工作效率。",
+      "因为工作很忙，研究人员只能晚上深入分析问题。",
+      "因为工作很忙，企业家只能晚上改进管理方法。",
+      "在当前背景下，我们有必要进一步优化资源配置。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解公共政策。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 公共政策。",
+    "options": [
+      "为了准备明天的工作，企业家今晚还要改进管理方法。",
+      "深入分析这一现象，有助于我们理解技术进步。",
+      "面对长期发展战略，我们必须保持准确的判断。",
+      "深入分析这一现象，有助于我们理解公共政策。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解国际竞争，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 国际竞争 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "昨天学者在大学比较不同方案，所以回家比较晚。",
+      "研究人员正在检查会议记录，准备开始积累实践经验。",
+      "只有充分理解国际竞争，才能制定更加合理的方案。",
+      "最近学者常常需要比较不同方案。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "经过多方面调查，研究人员得出了值得进一步研究的结论。",
+    "pinyin": "",
+    "meaning": "Sau khi điều tra trên nhiều phương diện, các nhà nghiên cứu đưa ra kết luận 值得进一步研究。",
+    "options": [
+      "企业家正在图书馆申请研究项目。",
+      "今天律师在广州调整发展战略。",
+      "经过多方面调查，研究人员得出了值得进一步研究的结论。",
+      "这一政策可能对长期发展战略产生深远影响。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对技术进步。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 技术进步。",
+    "options": [
+      "面对社会需求，我们必须保持准确的判断。",
+      "如果缺乏充分准备，就很难有效应对技术进步。",
+      "会议结束以后，学者马上回到深圳继续比较不同方案。",
+      "学者希望明天可以继续完成调查研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对管理体制，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理体制, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "如果缺乏充分准备，就很难有效应对技术进步。",
+      "面对管理体制，我们必须保持准确的判断。",
+      "面对公共政策，我们必须保持客观的判断。",
+      "面对技术进步，我们必须保持独立的判断。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解长期发展战略。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 长期发展战略。",
+    "options": [
+      "面对国际竞争，我们必须保持理性的判断。",
+      "经过多方面调查，研究人员得出了比较客观的结论。",
+      "深入分析这一现象，有助于我们理解长期发展战略。",
+      "为了解决实际困难，企业家提前来到深圳。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "面对管理体制，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理体制, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "这一政策可能对管理体制产生深远影响。",
+      "研究人员觉得深入分析问题很重要。",
+      "律师希望明天可以继续承担重要责任。",
+      "面对管理体制，我们必须保持独立的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对复杂的经济环境产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 复杂的经济环境。",
+    "options": [
+      "研究人员告诉我，他最近正在调查社会情况。",
+      "为了解决实际困难，企业家提前来到深圳。",
+      "面对未来的变化，我们必须保持客观的判断。",
+      "这一政策可能对复杂的经济环境产生深远影响。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "研究结果进一步证明，比较可靠。",
+    "pinyin": "",
+    "meaning": "Kết quả nghiên cứu tiếp tục chứng minh rằng 比较可靠。",
+    "options": [
+      "面对资源配置问题，我们必须保持客观的判断。",
+      "研究结果进一步证明，比较可靠。",
+      "为了积累实践经验，研究人员提前来到博物馆。",
+      "面对技术进步，我们必须保持清醒的判断。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "在当前背景下，我们有必要进一步提高工作效率。",
+    "pinyin": "",
+    "meaning": "Trong bối cảnh hiện nay, chúng ta cần tiếp tục 提高工作效率。",
+    "options": [
+      "在当前背景下，我们有必要进一步提高工作效率。",
+      "面对未来的变化，我们必须保持理性的判断。",
+      "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+      "如果缺乏充分准备，就很难有效应对技术进步。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑管理体制。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 管理体制。",
+    "options": [
+      "学者已经把统计数据带到医院了。",
+      "虽然时间不多，但是企业家还是完成了申请研究项目。",
+      "面对新的挑战，企业需要重新考虑管理体制。",
+      "研究人员告诉我，他最近正在深入分析问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对社会需求。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 社会需求。",
+    "options": [
+      "如果缺乏充分准备，就很难有效应对社会需求。",
+      "面对国际竞争，我们必须保持客观的判断。",
+      "深入分析这一现象，有助于我们理解未来的变化。",
+      "为了准备明天的工作，律师今晚还要提高工作效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "研究结果进一步证明，符合实际情况。",
+    "pinyin": "",
+    "meaning": "Kết quả nghiên cứu tiếp tục chứng minh rằng 符合实际情况。",
+    "options": [
+      "研究结果进一步证明，符合实际情况。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "研究人员已经把调查结果带到博物馆了。",
+      "学者希望明天可以继续交换专业意见。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "在当前背景下，我们有必要进一步调整发展战略。",
+    "pinyin": "",
+    "meaning": "Trong bối cảnh hiện nay, chúng ta cần tiếp tục 调整发展战略。",
+    "options": [
+      "在当前背景下，我们有必要进一步调整发展战略。",
+      "面对未来的变化，我们必须保持客观的判断。",
+      "面对国际竞争，我们必须保持理性的判断。",
+      "经过讨论，企业家决定在大学解决实际困难。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解资源配置问题，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 资源配置问题 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "从整体来看，这一问题涉及多个社会的发展。",
+      "经过讨论，企业家决定在大学解决实际困难。",
+      "面对技术进步，我们必须保持准确的判断。",
+      "只有充分理解资源配置问题，才能制定更加合理的方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对长期发展战略，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 长期发展战略, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "从整体来看，这一问题涉及多个管理体制。",
+      "我听说学者最近在图书馆负责完成调查研究。",
+      "这一政策可能对复杂的经济环境产生深远影响。",
+      "面对长期发展战略，我们必须保持独立的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对复杂的经济环境，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 复杂的经济环境, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "面对复杂的经济环境，我们必须保持清醒的判断。",
+      "面对国际竞争，我们必须保持准确的判断。",
+      "研究人员觉得深入分析问题很重要。",
+      "如果缺乏充分准备，就很难有效应对社会需求。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解技术进步。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 技术进步。",
+    "options": [
+      "昨天研究人员在研究中心深入分析问题，所以回家比较晚。",
+      "企业家已经把申请材料带到图书馆了。",
+      "面对新的挑战，企业需要重新考虑社会需求。",
+      "深入分析这一现象，有助于我们理解技术进步。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "在当前背景下，我们有必要进一步深入调查研究。",
+    "pinyin": "",
+    "meaning": "Trong bối cảnh hiện nay, chúng ta cần tiếp tục 深入调查研究。",
+    "options": [
+      "面对长期发展战略，我们必须保持清醒的判断。",
+      "在当前背景下，我们有必要进一步深入调查研究。",
+      "面对新的挑战，企业需要重新考虑未来的变化。",
+      "周末的时候，律师喜欢去博物馆调整发展战略。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对社会的发展，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会的发展, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "今天律师在广州调整发展战略。",
+      "面对未来的变化，我们必须保持客观的判断。",
+      "面对未来的变化，我们必须保持准确的判断。",
+      "面对社会的发展，我们必须保持准确的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对公共政策，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 公共政策, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "面对公共政策，我们必须保持理性的判断。",
+      "如果计划没有变化，学者下午会在会议中心比较不同方案。",
+      "面对新的挑战，企业需要重新考虑社会需求。",
+      "从整体来看，这一问题涉及多个技术进步。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解社会需求，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 社会需求 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "研究人员已经把研究报告带到国际机场了。",
+      "律师正在企业总部提高工作效率。",
+      "为了解决实际困难，企业家提前来到深圳。",
+      "只有充分理解社会需求，才能制定更加合理的方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对技术进步，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 技术进步, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "经过多方面调查，研究人员得出了符合实际情况的结论。",
+      "虽然时间不多，但是企业家还是完成了申请研究项目。",
+      "经过讨论，企业家决定在上海申请研究项目。",
+      "面对技术进步，我们必须保持客观的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对未来的变化，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 未来的变化, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "面对社会的发展，我们必须保持理性的判断。",
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "因为工作很忙，律师只能晚上调整发展战略。",
+      "面对未来的变化，我们必须保持准确的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "在当前背景下，我们有必要进一步加强风险管理。",
+    "pinyin": "",
+    "meaning": "Trong bối cảnh hiện nay, chúng ta cần tiếp tục 加强风险管理。",
+    "options": [
+      "在当前背景下，我们有必要进一步加强风险管理。",
+      "经过多方面调查，研究人员得出了具有重要参考价值的结论。",
+      "面对新的挑战，企业需要重新考虑社会需求。",
+      "面对复杂的经济环境，我们必须保持理性的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对管理体制，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理体制, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "面对管理体制，我们必须保持理性的判断。",
+      "会议结束以后，律师马上回到研究中心继续提高工作效率。",
+      "为了准备明天的工作，研究人员今晚还要调查社会情况。",
+      "经过多方面调查，研究人员得出了比较可靠的结论。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对技术进步产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 技术进步。",
+    "options": [
+      "律师每天都要提高工作效率。",
+      "面对资源配置问题，我们必须保持独立的判断。",
+      "虽然时间不多，但是研究人员还是完成了积累实践经验。",
+      "这一政策可能对技术进步产生深远影响。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑社会的发展。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 社会的发展。",
+    "options": [
+      "深入分析这一现象，有助于我们理解国际竞争。",
+      "面对新的挑战，企业需要重新考虑社会的发展。",
+      "只有充分理解长期发展战略，才能制定更加合理的方案。",
+      "如果缺乏充分准备，就很难有效应对技术进步。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解社会的发展。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 社会的发展。",
+    "options": [
+      "学者每天都要交换专业意见。",
+      "这一政策可能对资源配置问题产生深远影响。",
+      "深入分析这一现象，有助于我们理解社会的发展。",
+      "为了准备明天的工作，研究人员今晚还要调查社会情况。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解社会需求。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 社会需求。",
+    "options": [
+      "面对社会需求，我们必须保持准确的判断。",
+      "从整体来看，这一问题涉及多个社会的发展。",
+      "企业家正在检查发展计划，准备开始申请研究项目。",
+      "深入分析这一现象，有助于我们理解社会需求。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑社会需求。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 社会需求。",
+    "options": [
+      "从整体来看，这一问题涉及多个技术进步。",
+      "面对新的挑战，企业需要重新考虑社会需求。",
+      "研究人员已经把调查结果带到博物馆了。",
+      "因为工作很忙，律师只能晚上承担重要责任。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个社会需求。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 社会需求。",
+    "options": [
+      "企业家每天都要改进管理方法。",
+      "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+      "从整体来看，这一问题涉及多个社会需求。",
+      "今天律师在企业总部调整发展战略。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解管理体制，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 管理体制 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "只有充分理解管理体制，才能制定更加合理的方案。",
+      "深入分析这一现象，有助于我们理解复杂的经济环境。",
+      "这一政策可能对未来的变化产生深远影响。",
+      "面对复杂的经济环境，我们必须保持客观的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对社会需求，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "企业家告诉我，他最近正在改进管理方法。",
+      "面对技术进步，我们必须保持理性的判断。",
+      "为了解决实际困难，企业家提前来到深圳。",
+      "面对社会需求，我们必须保持理性的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解管理体制。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 管理体制。",
+    "options": [
+      "面对管理体制，我们必须保持准确的判断。",
+      "深入分析这一现象，有助于我们理解管理体制。",
+      "面对未来的变化，我们必须保持独立的判断。",
+      "今天律师在研究中心承担重要责任。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对长期发展战略，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 长期发展战略, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "为了准备明天的工作，企业家今晚还要解决实际困难。",
+      "从整体来看，这一问题涉及多个公共政策。",
+      "今天企业家在大学改进管理方法。",
+      "面对长期发展战略，我们必须保持清醒的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑资源配置问题。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 资源配置问题。",
+    "options": [
+      "经过多方面调查，研究人员得出了比较可靠的结论。",
+      "面对新的挑战，企业需要重新考虑资源配置问题。",
+      "面对技术进步，我们必须保持客观的判断。",
+      "如果计划没有变化，学者下午会在深圳完成调查研究。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "深入分析这一现象，有助于我们理解未来的变化。",
+    "pinyin": "",
+    "meaning": "Phân tích sâu hiện tượng này giúp chúng ta hiểu 未来的变化。",
+    "options": [
+      "深入分析这一现象，有助于我们理解未来的变化。",
+      "律师觉得承担重要责任很重要。",
+      "我听说学者最近在医院负责比较不同方案。",
+      "面对未来的变化，我们必须保持理性的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑公共政策。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 公共政策。",
+    "options": [
+      "面对新的挑战，企业需要重新考虑公共政策。",
+      "我听说研究人员最近在国际机场负责调查社会情况。",
+      "周末的时候，学者喜欢去医院完成调查研究。",
+      "面对管理体制，我们必须保持理性的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对复杂的经济环境。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 复杂的经济环境。",
+    "options": [
+      "如果缺乏充分准备，就很难有效应对复杂的经济环境。",
+      "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+      "今天研究人员在实验室深入分析问题。",
+      "为了准备明天的工作，研究人员今晚还要调查社会情况。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个公共政策。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 公共政策。",
+    "options": [
+      "从整体来看，这一问题涉及多个公共政策。",
+      "今天律师在研究中心承担重要责任。",
+      "周末的时候，学者喜欢去会议中心比较不同方案。",
+      "面对长期发展战略，我们必须保持理性的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑技术进步。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 技术进步。",
+    "options": [
+      "面对新的挑战，企业需要重新考虑技术进步。",
+      "深入分析这一现象，有助于我们理解长期发展战略。",
+      "今天企业家在大学改进管理方法。",
+      "深入分析这一现象，有助于我们理解技术进步。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "在当前背景下，我们有必要进一步完善相关制度。",
+    "pinyin": "",
+    "meaning": "Trong bối cảnh hiện nay, chúng ta cần tiếp tục 完善相关制度。",
+    "options": [
+      "在当前背景下，我们有必要进一步完善相关制度。",
+      "研究人员觉得深入分析问题很重要。",
+      "这一政策可能对公共政策产生深远影响。",
+      "为了准备明天的工作，研究人员今晚还要调查社会情况。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对国际竞争，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 国际竞争, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "学者已经把统计数据带到医院了。",
+      "深入分析这一现象，有助于我们理解未来的变化。",
+      "我听说律师最近在博物馆负责提高工作效率。",
+      "面对国际竞争，我们必须保持客观的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑国际竞争。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 国际竞争。",
+    "options": [
+      "深入分析这一现象，有助于我们理解长期发展战略。",
+      "面对新的挑战，企业需要重新考虑国际竞争。",
+      "在当前背景下，我们有必要进一步调整发展战略。",
+      "面对管理体制，我们必须保持客观的判断。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解社会的发展，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 社会的发展 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "只有充分理解技术进步，才能制定更加合理的方案。",
+      "面对未来的变化，我们必须保持理性的判断。",
+      "这一政策可能对技术进步产生深远影响。",
+      "只有充分理解社会的发展，才能制定更加合理的方案。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对资源配置问题，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置问题, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "只有充分理解社会的发展，才能制定更加合理的方案。",
+      "面对资源配置问题，我们必须保持独立的判断。",
+      "深入分析这一现象，有助于我们理解社会的发展。",
+      "为了调查社会情况，研究人员提前来到实验室。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对管理体制产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 管理体制。",
+    "options": [
+      "这一政策可能对管理体制产生深远影响。",
+      "从整体来看，这一问题涉及多个未来的变化。",
+      "在复杂的环境下，我们必须保持清醒的判断。",
+      "今天企业家在大学改进管理方法。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对资源配置问题，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置问题, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "面对未来的变化，我们必须保持理性的判断。",
+      "深入分析这一现象，有助于我们理解长期发展战略。",
+      "如果有时间，研究人员会去北京调查社会情况。",
+      "面对资源配置问题，我们必须保持准确的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对社会需求，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "面对社会需求，我们必须保持清醒的判断。",
+      "学者觉得完成调查研究很重要。",
+      "如果缺乏充分准备，就很难有效应对管理体制。",
+      "如果计划没有变化，研究人员下午会在研究中心调查社会情况。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对国际竞争，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 国际竞争, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "面对社会需求，我们必须保持理性的判断。",
+      "律师希望明天可以继续承担重要责任。",
+      "研究结果进一步证明，符合实际情况。",
+      "面对国际竞争，我们必须保持准确的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对未来的变化，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 未来的变化, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "因为工作很忙，企业家只能晚上改进管理方法。",
+      "面对未来的变化，我们必须保持独立的判断。",
+      "面对复杂的经济环境，我们必须保持准确的判断。",
+      "面对未来的变化，我们必须保持理性的判断。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对技术进步，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 技术进步, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "面对社会需求，我们必须保持理性的判断。",
+      "企业家告诉我，他最近正在解决实际困难。",
+      "面对技术进步，我们必须保持理性的判断。",
+      "面对新的挑战，企业需要重新考虑资源配置问题。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对管理体制。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 管理体制。",
+    "options": [
+      "如果缺乏充分准备，就很难有效应对管理体制。",
+      "如果缺乏充分准备，就很难有效应对国际竞争。",
+      "因为工作很忙，企业家只能晚上解决实际困难。",
+      "企业家正在医院解决实际困难。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对资源配置问题产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 资源配置问题。",
+    "options": [
+      "昨天研究人员在研究中心深入分析问题，所以回家比较晚。",
+      "在当前背景下，我们有必要进一步加强风险管理。",
+      "面对管理体制，我们必须保持理性的判断。",
+      "这一政策可能对资源配置问题产生深远影响。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对国际竞争，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 国际竞争, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "面对新的挑战，企业需要重新考虑管理体制。",
+      "面对未来的变化，我们必须保持理性的判断。",
+      "面对国际竞争，我们必须保持清醒的判断。",
+      "这一政策可能对社会需求产生深远影响。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "面对社会的发展，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会的发展, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "面对社会的发展，我们必须保持清醒的判断。",
+      "面对社会需求，我们必须保持清醒的判断。",
+      "如果计划没有变化，研究人员下午会在广州积累实践经验。",
+      "面对长期发展战略，我们必须保持清醒的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对未来的变化，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 未来的变化, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "面对未来的变化，我们必须保持理性的判断。",
+      "深入分析这一现象，有助于我们理解管理体制。",
+      "今天律师在企业总部调整发展战略。",
+      "最近律师常常需要提高工作效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对公共政策，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 公共政策, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "面对公共政策，我们必须保持准确的判断。",
+      "学者每天都要交换专业意见。",
+      "面对资源配置问题，我们必须保持独立的判断。",
+      "深入分析这一现象，有助于我们理解未来的变化。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对资源配置问题，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置问题, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "面对新的挑战，企业需要重新考虑社会的发展。",
+      "因为工作很忙，律师只能晚上调整发展战略。",
+      "面对资源配置问题，我们必须保持理性的判断。",
+      "面对管理体制，我们必须保持客观的判断。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "面对社会的发展，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会的发展, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "研究人员觉得积累实践经验很重要。",
+      "面对社会的发展，我们必须保持独立的判断。",
+      "如果计划没有变化，研究人员下午会在研究中心调查社会情况。",
+      "面对公共政策，我们必须保持理性的判断。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对社会需求，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "研究人员觉得深入分析问题很重要。",
+      "面对新的挑战，企业需要重新考虑社会需求。",
+      "面对社会需求，我们必须保持客观的判断。",
+      "面对管理体制，我们必须保持独立的判断。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对国际竞争。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 国际竞争。",
+    "options": [
+      "面对资源配置问题，我们必须保持清醒的判断。",
+      "如果缺乏充分准备，就很难有效应对国际竞争。",
+      "今天企业家在大学改进管理方法。",
+      "面对长期发展战略，我们必须保持准确的判断。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "只有充分理解未来的变化，才能制定更加合理的方案。",
+    "pinyin": "",
+    "meaning": "Chỉ khi hiểu đầy đủ 未来的变化 mới có thể xây dựng phương án hợp lý hơn.",
+    "options": [
+      "只有充分理解未来的变化，才能制定更加合理的方案。",
+      "面对资源配置问题，我们必须保持准确的判断。",
+      "企业家正在检查政策文件，准备开始解决实际困难。",
+      "研究结果进一步证明，比较客观。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "如果缺乏充分准备，就很难有效应对未来的变化。",
+    "pinyin": "",
+    "meaning": "Nếu thiếu sự chuẩn bị đầy đủ thì rất khó ứng phó hiệu quả với 未来的变化。",
+    "options": [
+      "如果缺乏充分准备，就很难有效应对未来的变化。",
+      "昨天研究人员在企业总部调查社会情况，所以回家比较晚。",
+      "学者已经把统计数据带到医院了。",
+      "周末的时候，律师喜欢去企业总部提高工作效率。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对新的挑战，企业需要重新考虑复杂的经济环境。",
+    "pinyin": "",
+    "meaning": "Đối mặt với thách thức mới, doanh nghiệp cần xem xét lại 复杂的经济环境。",
+    "options": [
+      "律师希望明天可以继续提高工作效率。",
+      "面对新的挑战，企业需要重新考虑复杂的经济环境。",
+      "这一政策可能对公共政策产生深远影响。",
+      "面对公共政策，我们必须保持客观的判断。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对社会需求，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "研究人员告诉我，他最近正在调查社会情况。",
+      "面对长期发展战略，我们必须保持客观的判断。",
+      "面对资源配置问题，我们必须保持理性的判断。",
+      "面对社会需求，我们必须保持独立的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对管理体制，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理体制, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "昨天学者在医院交换专业意见，所以回家比较晚。",
+      "因为工作很忙，企业家只能晚上申请研究项目。",
+      "面对管理体制，我们必须保持清醒的判断。",
+      "因为工作很忙，律师只能晚上提高工作效率。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "面对复杂的经济环境，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 复杂的经济环境, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "面对新的挑战，企业需要重新考虑公共政策。",
+      "面对复杂的经济环境，我们必须保持准确的判断。",
+      "只有充分理解管理体制，才能制定更加合理的方案。",
+      "从整体来看，这一问题涉及多个复杂的经济环境。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对技术进步，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 技术进步, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "面对技术进步，我们必须保持清醒的判断。",
+      "经过多方面调查，研究人员得出了具有重要参考价值的结论。",
+      "学者希望明天可以继续完成调查研究。",
+      "为了申请研究项目，企业家提前来到大学。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对复杂的经济环境，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 复杂的经济环境, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "面对复杂的经济环境，我们必须保持客观的判断。",
+      "从整体来看，这一问题涉及多个国际竞争。",
+      "研究人员告诉我，他最近正在积累实践经验。",
+      "律师每天都要调整发展战略。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对公共政策，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 公共政策, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "律师正在企业总部提高工作效率。",
+      "这一政策可能对复杂的经济环境产生深远影响。",
+      "面对公共政策，我们必须保持清醒的判断。",
+      "如果有时间，研究人员会去国际机场积累实践经验。"
+    ],
+    "correct": 2
+  },
+  {
+    "level": 6,
+    "audio": "从整体来看，这一问题涉及多个社会的发展。",
+    "pinyin": "",
+    "meaning": "Xét tổng thể, vấn đề này liên quan đến nhiều 社会的发展。",
+    "options": [
+      "在当前背景下，我们有必要进一步完善相关制度。",
+      "从整体来看，这一问题涉及多个社会的发展。",
+      "如果有时间，研究人员会去广州深入分析问题。",
+      "在当前背景下，我们有必要进一步优化资源配置。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对国际竞争，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 国际竞争, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "最近企业家常常需要申请研究项目。",
+      "律师正在企业总部提高工作效率。",
+      "面对复杂的经济环境，我们必须保持客观的判断。",
+      "面对国际竞争，我们必须保持独立的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对资源配置问题，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置问题, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。",
+      "面对资源配置问题，我们必须保持客观的判断。",
+      "只有充分理解未来的变化，才能制定更加合理的方案。",
+      "如果缺乏充分准备，就很难有效应对复杂的经济环境。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对社会需求，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会需求, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "周末的时候，学者喜欢去医院完成调查研究。",
+      "面对国际竞争，我们必须保持独立的判断。",
+      "面对复杂的经济环境，我们必须保持准确的判断。",
+      "面对社会需求，我们必须保持准确的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "这一政策可能对长期发展战略产生深远影响。",
+    "pinyin": "",
+    "meaning": "Chính sách này có thể tạo ảnh hưởng sâu rộng đến 长期发展战略。",
+    "options": [
+      "如果有时间，学者会去城市中心完成调查研究。",
+      "为了解决实际困难，企业家提前来到深圳。",
+      "律师正在国际机场承担重要责任。",
+      "这一政策可能对长期发展战略产生深远影响。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对技术进步，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 技术进步, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
+      "面对技术进步，我们必须保持准确的判断。",
+      "面对社会需求，我们必须保持准确的判断。",
+      "如果缺乏充分准备，就很难有效应对国际竞争。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对社会的发展，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会的发展, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "今天研究人员在实验室深入分析问题。",
+      "面对社会的发展，我们必须保持客观的判断。",
+      "律师正在博物馆调整发展战略。",
+      "面对社会的发展，我们必须保持理性的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对技术进步，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 技术进步, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "面对技术进步，我们必须保持独立的判断。",
+      "律师希望明天可以继续提高工作效率。",
+      "会议结束以后，律师马上回到企业总部继续承担重要责任。",
+      "如果缺乏充分准备，就很难有效应对社会需求。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对社会的发展，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 社会的发展, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "面对资源配置问题，我们必须保持理性的判断。",
+      "为了深入分析问题，研究人员提前来到企业总部。",
+      "面对国际竞争，我们必须保持准确的判断。",
+      "面对社会的发展，我们必须保持客观的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对复杂的经济环境，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 复杂的经济环境, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "面对复杂的经济环境，我们必须保持独立的判断。",
+      "为了准备明天的工作，律师今晚还要提高工作效率。",
+      "深入研究这一现象有助于我们理解社会的发展。",
+      "只有充分理解社会的发展，才能制定更加合理的方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对未来的变化，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 未来的变化, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "昨天学者在大学比较不同方案，所以回家比较晚。",
+      "面对未来的变化，我们必须保持客观的判断。",
+      "面对新的挑战，企业需要重新考虑社会需求。",
+      "昨天学者在会议中心完成调查研究，所以回家比较晚。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对长期发展战略，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 长期发展战略, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "面对长期发展战略，我们必须保持客观的判断。",
+      "面对管理体制，我们必须保持客观的判断。",
+      "深入分析这一现象，有助于我们理解资源配置问题。",
+      "只有充分理解公共政策，才能制定更加合理的方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对复杂的经济环境，我们必须保持理性的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 复杂的经济环境, chúng ta phải giữ phán đoán 理性。",
+    "options": [
+      "面对社会需求，我们必须保持独立的判断。",
+      "面对复杂的经济环境，我们必须保持理性的判断。",
+      "面对资源配置问题，我们必须保持清醒的判断。",
+      "虽然时间不多，但是学者还是完成了比较不同方案。"
+    ],
+    "correct": 1
+  },
+  {
+    "level": 6,
+    "audio": "面对长期发展战略，我们必须保持准确的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 长期发展战略, chúng ta phải giữ phán đoán 准确。",
+    "options": [
+      "面对长期发展战略，我们必须保持准确的判断。",
+      "如果缺乏充分准备，就很难有效应对资源配置问题。",
+      "面对国际竞争，我们必须保持客观的判断。",
+      "面对复杂的经济环境，我们必须保持清醒的判断。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对未来的变化，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 未来的变化, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "面对未来的变化，我们必须保持清醒的判断。",
+      "经过多方面调查，研究人员得出了值得进一步研究的结论。",
+      "在当前背景下，我们有必要进一步优化资源配置。",
+      "如果计划没有变化，律师下午会在研究中心调整发展战略。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对公共政策，我们必须保持独立的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 公共政策, chúng ta phải giữ phán đoán 独立。",
+    "options": [
+      "面对公共政策，我们必须保持独立的判断。",
+      "面对复杂的经济环境，我们必须保持独立的判断。",
+      "这一政策可能对技术进步产生深远影响。",
+      "只有充分理解未来的变化，才能制定更加合理的方案。"
+    ],
+    "correct": 0
+  },
+  {
+    "level": 6,
+    "audio": "面对管理体制，我们必须保持客观的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 管理体制, chúng ta phải giữ phán đoán 客观。",
+    "options": [
+      "只有充分理解社会需求，才能制定更加合理的方案。",
+      "企业家告诉我，他最近正在改进管理方法。",
+      "会议结束以后，学者马上回到大学继续完成调查研究。",
+      "面对管理体制，我们必须保持客观的判断。"
+    ],
+    "correct": 3
+  },
+  {
+    "level": 6,
+    "audio": "面对资源配置问题，我们必须保持清醒的判断。",
+    "pinyin": "",
+    "meaning": "Đối mặt với 资源配置问题, chúng ta phải giữ phán đoán 清醒。",
+    "options": [
+      "最近学者常常需要比较不同方案。",
+      "深入分析这一现象，有助于我们理解未来的变化。",
+      "面对资源配置问题，我们必须保持清醒的判断。",
+      "律师每天都要调整发展战略。"
+    ],
+    "correct": 2
+  }
 ];
 let listeningQuestions=[], listeningIndex=0, listeningScore=0, listeningAnswered=false, listeningWrongMode=false;
 const LISTENING_WRONG_KEY='giangha_listening_wrong_v3';
@@ -11942,6 +36948,7 @@ function initListening(){
   if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch(e) {} }
   listeningWrongMode=false;
   const level=Number(document.getElementById('hsk-level')?.value||1);
+  if(!Array.isArray(LISTENING_BANK)||!LISTENING_BANK.length){ const h=document.getElementById('listening-hint'); if(h)h.textContent='Chưa tải được dữ liệu Luyện nghe. Hãy kiểm tra file script.js.'; return; }
   listeningQuestions=LISTENING_BANK.filter(x=>x.level<=Math.max(1,level));
   listeningQuestions=listeningQuestions.map(q=>{ if(q.options&&q.options.length===4)return q; const pool=LISTENING_BANK.filter(x=>x!==q && x.level<=Math.max(1,level)); const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3); const opts=[q.audio,...ds.map(x=>x.audio)].sort(()=>Math.random()-0.5); return {...q,options:opts,correct:opts.indexOf(q.audio)}; });
   if(!listeningQuestions.length) listeningQuestions=[...LISTENING_BANK];
@@ -11980,12 +36987,13 @@ function checkListening(choice){
   if(listeningAnswered) return; listeningAnswered=true;
   const q=listeningQuestions[listeningIndex]; const buttons=[...document.querySelectorAll('.listening-option')]; buttons.forEach(b=>b.disabled=true);
   listeningSessionAnswered++;
-  if(choice===q.correct){ listeningScore++; listeningSessionCorrect++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').textContent='Chính xác!'; document.getElementById('listening-feedback').style.color='#00a67d'; if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); } }
-  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').textContent=`Chưa đúng. Câu nghe là: ${q.audio}`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:q.pinyin||'',meaning:q.meaning||''}); setWrongListening(wrong); }
+  const meaning = q.meaning ? `Nghĩa tiếng Việt: ${q.meaning}` : 'Nghĩa tiếng Việt: chưa có dữ liệu cho câu này.';
+  if(choice===q.correct){ listeningScore++; listeningSessionCorrect++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✓ Chính xác!</strong><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#00a67d'; if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); } }
+  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✗ Chưa đúng.</strong><div class="listening-answer">Đáp án: ${q.audio}</div><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:q.pinyin||'',meaning:q.meaning||''}); setWrongListening(wrong); }
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
   saveListeningProgress();
   updateListeningProgressUI();
-  document.getElementById('listening-hint').textContent=`Pinyin: ${q.pinyin}`;
+  document.getElementById('listening-hint').textContent=q.pinyin?`Pinyin: ${q.pinyin}`:'Nghe lại câu để kiểm tra cách phát âm.';
   document.getElementById('listening-next').disabled=false;
 }
 function nextListeningQuestion(){

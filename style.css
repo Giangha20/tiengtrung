@@ -2024,3 +2024,6 @@ button .ui-icon{pointer-events:none}
 .listening-progress-detail{text-align:center;margin-top:7px;color:#64748b;font-size:12px}
 #listening-continue[hidden]{display:none}
 @media(max-width:650px){.listening-progress-wrap{margin-top:12px}.listening-progress-detail{font-size:11.5px}}
+
+/* Nghĩa tiếng Việt sau khi trả lời Luyện nghe */
+.listening-meaning{margin-top:8px;padding:10px 12px;border-radius:12px;background:rgba(9,132,227,.08);color:inherit;font-weight:600;line-height:1.5}.listening-answer{margin-top:6px;font-weight:600}
