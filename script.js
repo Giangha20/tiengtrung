@@ -9835,8 +9835,40 @@ function speakHandwritingWord() {
         renderCharacter(strokeChars[0],false);
     }
 
-    function startWrongListening(){ const wrong=getWrongListening(); if(!wrong.length){ const f=document.getElementById('listening-feedback'); if(f)f.textContent='Bạn chưa có câu sai để ôn.'; return; } if('speechSynthesis' in window){try{speechSynthesis.cancel();}catch(e){}} listeningQuestions=wrong.map(q=>{const pool=[...LISTENING_BANK.filter(x=>x.audio!==q.audio),...wrong.filter(x=>x.audio!==q.audio)]; const opts=[q.audio,...pool.sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio)]; const unique=[...new Set(opts)].slice(0,4).sort(()=>Math.random()-0.5); return {...q,level:'Ôn sai',options:unique,correct:unique.indexOf(q.audio)}; }).sort(()=>Math.random()-0.5); listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningSessionAnswered=0; listeningSessionCorrect=0; listeningWrongMode=true; const cont=document.getElementById('listening-continue'); if(cont)cont.hidden=true; renderListeningQuestion(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
-function clearWrongListening(){ localStorage.removeItem(LISTENING_WRONG_KEY); updateWrongListeningUI(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
+    function startWrongListening(){
+  const wrong=getWrongListening().filter(q=>q&&q.audio);
+  const feedback=document.getElementById('listening-feedback');
+  const panel=document.getElementById('listening-wrong-panel');
+  if(panel) panel.hidden=false;
+  if(!wrong.length){
+    if(feedback) feedback.textContent='Bạn chưa có câu sai để ôn.';
+    updateWrongListeningUI();
+    return;
+  }
+  if('speechSynthesis' in window){try{speechSynthesis.cancel();}catch(e){}}
+  const bank=Array.isArray(LISTENING_BANK)?LISTENING_BANK:[];
+  listeningQuestions=wrong.map(q=>{
+    const original=bank.find(x=>x.audio===q.audio);
+    const pool=bank.filter(x=>x.audio!==q.audio);
+    const distractors=[...pool].sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio);
+    const unique=[q.audio,...distractors].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).slice(0,4).sort(()=>Math.random()-0.5);
+    return {...(original||{}),...q,level:'Ôn câu sai',options:unique,correct:unique.indexOf(q.audio)};
+  }).filter(q=>q.options.length===4 && q.correct>=0).sort(()=>Math.random()-0.5);
+  listeningIndex=0; listeningScore=0; listeningAnswered=false;
+  listeningSessionAnswered=0; listeningSessionCorrect=0; listeningWrongMode=true;
+  const cont=document.getElementById('listening-continue'); if(cont)cont.hidden=true;
+  const next=document.getElementById('listening-next'); if(next)next.disabled=true;
+  updateWrongListeningUI();
+  renderListeningQuestion();
+}
+function clearWrongListening(){
+  try{localStorage.removeItem(LISTENING_WRONG_KEY);}catch(e){}
+  updateWrongListeningUI();
+  const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false;
+  const f=document.getElementById('listening-feedback'); if(f)f.textContent='Đã xóa toàn bộ câu sai.';
+}
+window.startWrongListening=startWrongListening;
+window.clearWrongListening=clearWrongListening;
 document.addEventListener('DOMContentLoaded',()=>{
         const replayBtn=document.getElementById('stroke-replay');
         const speedBtn=document.getElementById('stroke-speed');
@@ -14359,7 +14391,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果有时间，妈妈会去商店听音乐。",
-    "meaning": "Nếu có thời gian, mẹ sẽ đi cửa hàng để nghe nhạc.",
+    "meaning": "Nếu có thời gian, mẹ sẽ đến cửa hàng để nghe nhạc.",
     "options": [
       "如果有时间，妈妈会去商店听音乐。",
       "我听说妈妈最近在商店负责工作。",
@@ -14383,7 +14415,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "经理正在商店回家。",
-    "meaning": "Quản lý đang về nhà tại cửa hàng.",
+    "meaning": "Quản lý đang từ cửa hàng về nhà.",
     "options": [
       "你觉得喝水很重要。",
       "我叫李明。",
@@ -14419,7 +14451,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "爸爸告诉我，他最近正在学习。",
-    "meaning": "Bố nói với tôi, anh ấy gần đây đang học.",
+    "meaning": "Bố nói với tôi rằng gần đây anh ấy đang học.",
     "options": [
       "找您十块钱。",
       "老师已经把手机带到中国了。",
@@ -14431,7 +14463,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "因为工作很忙，同学只能晚上工作。",
-    "meaning": "Vì công việc rất bận, bạn học chỉ có thể công việc vào buổi tối.",
+    "meaning": "Vì công việc rất bận, bạn học chỉ có thể làm việc vào buổi tối.",
     "options": [
       "会议结束以后，我马上回到中国继续学习。",
       "早上好。",
@@ -14503,7 +14535,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果计划没有变化，你下午会在商店回家。",
-    "meaning": "Nếu kế hoạch không thay đổi, bạn sẽ về nhà tại cửa hàng vào buổi chiều.",
+    "meaning": "Nếu kế hoạch không thay đổi, bạn sẽ từ cửa hàng về nhà vào buổi chiều.",
     "options": [
       "会议结束以后，医生马上回到中国继续学习。",
       "谢谢。",
@@ -14539,7 +14571,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "虽然时间不多，但是他还是完成了吃饭。",
-    "meaning": "Mặc dù không có nhiều thời gian, nhưng anh ấy vẫn hoàn thành ăn cơm.",
+    "meaning": "Mặc dù không có nhiều thời gian, nhưng anh ấy vẫn ăn xong.",
     "options": [
       "虽然时间不多，但是他还是完成了吃饭。",
       "他已经把手机带到中国了。",
@@ -14575,7 +14607,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果有时间，同学会去商店听音乐。",
-    "meaning": "Nếu có thời gian, bạn học sẽ đi cửa hàng để nghe nhạc.",
+    "meaning": "Nếu có thời gian, bạn học sẽ đến cửa hàng để nghe nhạc.",
     "options": [
       "如果有时间，同学会去商店听音乐。",
       "没关系。",
@@ -14599,7 +14631,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "她正在商店回家。",
-    "meaning": "Cô ấy đang về nhà tại cửa hàng.",
+    "meaning": "Cô ấy đang từ cửa hàng về nhà.",
     "options": [
       "爸爸告诉我，他最近正在学习。",
       "今天经理在商店喝水。",
@@ -14635,7 +14667,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "医生告诉我，他最近正在学习。",
-    "meaning": "Bác sĩ nói với tôi, anh ấy gần đây đang học.",
+    "meaning": "Bác sĩ nói với tôi rằng gần đây anh ấy đang học.",
     "options": [
       "医生告诉我，他最近正在学习。",
       "请给我一张发票。",
@@ -14647,7 +14679,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "因为工作很忙，你只能晚上工作。",
-    "meaning": "Vì công việc rất bận, bạn chỉ có thể công việc vào buổi tối.",
+    "meaning": "Vì công việc rất bận, bạn chỉ có thể làm việc vào buổi tối.",
     "options": [
       "因为工作很忙，你只能晚上工作。",
       "会议结束以后，哥哥马上回到中国继续学习。",
@@ -14719,7 +14751,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果计划没有变化，学生下午会在商店回家。",
-    "meaning": "Nếu kế hoạch không thay đổi, học sinh sẽ về nhà tại cửa hàng vào buổi chiều.",
+    "meaning": "Nếu kế hoạch không thay đổi, học sinh sẽ từ cửa hàng về nhà vào buổi chiều.",
     "options": [
       "会议结束以后，他马上回到中国继续学习。",
       "我希望明天可以继续睡觉。",
@@ -14755,7 +14787,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "虽然时间不多，但是朋友还是完成了吃饭。",
-    "meaning": "Mặc dù không có nhiều thời gian, nhưng bạn vẫn hoàn thành ăn cơm.",
+    "meaning": "Mặc dù không có nhiều thời gian, nhưng bạn vẫn ăn xong.",
     "options": [
       "昨天经理在商店休息，所以回家比较晚。",
       "虽然时间不多，但是朋友还是完成了吃饭。",
@@ -14791,7 +14823,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果有时间，你会去商店听音乐。",
-    "meaning": "Nếu có thời gian, bạn sẽ đi cửa hàng để nghe nhạc.",
+    "meaning": "Nếu có thời gian, bạn sẽ đến cửa hàng để nghe nhạc.",
     "options": [
       "如果有时间，你会去商店听音乐。",
       "右边就是超市。",
@@ -14815,7 +14847,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "妈妈正在商店回家。",
-    "meaning": "Mẹ đang về nhà tại cửa hàng.",
+    "meaning": "Mẹ đang từ cửa hàng về nhà.",
     "options": [
       "如果有时间，你会去商店听音乐。",
       "可以给我菜单吗？",
@@ -14851,7 +14883,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "他告诉我，他最近正在学习。",
-    "meaning": "Anh ấy nói với tôi, anh ấy gần đây đang học.",
+    "meaning": "Anh ấy nói với tôi rằng gần đây anh ấy đang học.",
     "options": [
       "他告诉我，他最近正在学习。",
       "她喜欢看书。",
@@ -14863,7 +14895,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "因为工作很忙，学生只能晚上工作。",
-    "meaning": "Vì công việc rất bận, học sinh chỉ có thể công việc vào buổi tối.",
+    "meaning": "Vì công việc rất bận, học sinh chỉ có thể làm việc vào buổi tối.",
     "options": [
       "一共多少钱？",
       "因为工作很忙，学生只能晚上工作。",
@@ -14935,7 +14967,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果计划没有变化，姐姐下午会在商店回家。",
-    "meaning": "Nếu kế hoạch không thay đổi, chị gái sẽ về nhà tại cửa hàng vào buổi chiều.",
+    "meaning": "Nếu kế hoạch không thay đổi, chị gái sẽ từ cửa hàng về nhà vào buổi chiều.",
     "options": [
       "医生已经把手机带到中国了。",
       "你几点睡觉？",
@@ -14971,7 +15003,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "虽然时间不多，但是哥哥还是完成了吃饭。",
-    "meaning": "Mặc dù không có nhiều thời gian, nhưng anh trai vẫn hoàn thành ăn cơm.",
+    "meaning": "Mặc dù không có nhiều thời gian, nhưng anh trai vẫn ăn xong.",
     "options": [
       "朋友告诉我，他最近正在学习。",
       "虽然时间不多，但是哥哥还是完成了吃饭。",
@@ -15007,7 +15039,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果有时间，学生会去商店听音乐。",
-    "meaning": "Nếu có thời gian, học sinh sẽ đi cửa hàng để nghe nhạc.",
+    "meaning": "Nếu có thời gian, học sinh sẽ đến cửa hàng để nghe nhạc.",
     "options": [
       "为了买东西，我提前来到中国。",
       "姐姐正在商店回家。",
@@ -15031,7 +15063,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "同学正在商店回家。",
-    "meaning": "Bạn học đang về nhà tại cửa hàng.",
+    "meaning": "Bạn học đang từ cửa hàng về nhà.",
     "options": [
       "再来一杯，谢谢。",
       "有大一点的吗？",
@@ -15067,7 +15099,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "朋友告诉我，他最近正在学习。",
-    "meaning": "Bạn nói với tôi, anh ấy gần đây đang học.",
+    "meaning": "Bạn nói với tôi rằng gần đây anh ấy đang học.",
     "options": [
       "老师希望明天可以继续睡觉。",
       "你几点睡觉？",
@@ -15079,7 +15111,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "因为工作很忙，姐姐只能晚上工作。",
-    "meaning": "Vì công việc rất bận, chị gái chỉ có thể công việc vào buổi tối.",
+    "meaning": "Vì công việc rất bận, chị gái chỉ có thể làm việc vào buổi tối.",
     "options": [
       "会议结束以后，他马上回到中国继续学习。",
       "因为工作很忙，姐姐只能晚上工作。",
@@ -15151,7 +15183,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果计划没有变化，经理下午会在商店回家。",
-    "meaning": "Nếu kế hoạch không thay đổi, quản lý sẽ về nhà tại cửa hàng vào buổi chiều.",
+    "meaning": "Nếu kế hoạch không thay đổi, quản lý sẽ từ cửa hàng về nhà vào buổi chiều.",
     "options": [
       "如果计划没有变化，经理下午会在商店回家。",
       "经过讨论，朋友决定在中国看书。",
@@ -15187,7 +15219,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "虽然时间不多，但是我还是完成了吃饭。",
-    "meaning": "Mặc dù không có nhiều thời gian, nhưng tôi vẫn hoàn thành ăn cơm.",
+    "meaning": "Mặc dù không có nhiều thời gian, nhưng tôi vẫn ăn xong.",
     "options": [
       "老师每天都要看书。",
       "可以便宜一点吗？",
@@ -15223,7 +15255,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果有时间，姐姐会去商店听音乐。",
-    "meaning": "Nếu có thời gian, chị gái sẽ đi cửa hàng để nghe nhạc.",
+    "meaning": "Nếu có thời gian, chị gái sẽ đến cửa hàng để nghe nhạc.",
     "options": [
       "我喜欢听音乐。",
       "为了买东西，他提前来到中国。",
@@ -15247,7 +15279,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "你正在商店回家。",
-    "meaning": "Bạn đang về nhà tại cửa hàng.",
+    "meaning": "Bạn đang từ cửa hàng về nhà.",
     "options": [
       "我想吃面条。",
       "你正在商店回家。",
@@ -15283,7 +15315,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "哥哥告诉我，他最近正在学习。",
-    "meaning": "Anh trai nói với tôi, anh ấy gần đây đang học.",
+    "meaning": "Anh trai nói với tôi rằng gần đây anh ấy đang học.",
     "options": [
       "哥哥告诉我，他最近正在学习。",
       "周末的时候，老师喜欢去中国吃饭。",
@@ -15295,7 +15327,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "因为工作很忙，经理只能晚上工作。",
-    "meaning": "Vì công việc rất bận, quản lý chỉ có thể công việc vào buổi tối.",
+    "meaning": "Vì công việc rất bận, quản lý chỉ có thể làm việc vào buổi tối.",
     "options": [
       "明天天气很好。",
       "老师每天都要看书。",
@@ -15367,7 +15399,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果计划没有变化，她下午会在商店回家。",
-    "meaning": "Nếu kế hoạch không thay đổi, cô ấy sẽ về nhà tại cửa hàng vào buổi chiều.",
+    "meaning": "Nếu kế hoạch không thay đổi, cô ấy sẽ từ cửa hàng về nhà vào buổi chiều.",
     "options": [
       "昨天她在商店休息，所以回家比较晚。",
       "为了准备明天的工作，你今晚还要听音乐。",
@@ -15403,7 +15435,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "虽然时间不多，但是老师还是完成了吃饭。",
-    "meaning": "Mặc dù không có nhiều thời gian, nhưng giáo viên vẫn hoàn thành ăn cơm.",
+    "meaning": "Mặc dù không có nhiều thời gian, nhưng giáo viên vẫn ăn xong.",
     "options": [
       "请坐。",
       "虽然时间不多，但是老师还是完成了吃饭。",
@@ -15439,7 +15471,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果有时间，经理会去商店听音乐。",
-    "meaning": "Nếu có thời gian, quản lý sẽ đi cửa hàng để nghe nhạc.",
+    "meaning": "Nếu có thời gian, quản lý sẽ đến cửa hàng để nghe nhạc.",
     "options": [
       "学生正在检查咖啡，准备开始休息。",
       "如果有时间，经理会去商店听音乐。",
@@ -15463,7 +15495,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "学生正在商店回家。",
-    "meaning": "Học sinh đang về nhà tại cửa hàng.",
+    "meaning": "Học sinh đang từ cửa hàng về nhà.",
     "options": [
       "你好吗？",
       "学生正在商店回家。",
@@ -15499,7 +15531,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "我告诉我，他最近正在学习。",
-    "meaning": "Tôi nói với tôi, anh ấy gần đây đang học.",
+    "meaning": "Tôi nói với tôi rằng gần đây anh ấy đang học.",
     "options": [
       "公交车站在哪里？",
       "他告诉我，他最近正在学习。",
@@ -15511,7 +15543,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "因为工作很忙，她只能晚上工作。",
-    "meaning": "Vì công việc rất bận, cô ấy chỉ có thể công việc vào buổi tối.",
+    "meaning": "Vì công việc rất bận, cô ấy chỉ có thể làm việc vào buổi tối.",
     "options": [
       "因为工作很忙，她只能晚上工作。",
       "我还不明白。",
@@ -15583,7 +15615,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果计划没有变化，妈妈下午会在商店回家。",
-    "meaning": "Nếu kế hoạch không thay đổi, mẹ sẽ về nhà tại cửa hàng vào buổi chiều.",
+    "meaning": "Nếu kế hoạch không thay đổi, mẹ sẽ từ cửa hàng về nhà vào buổi chiều.",
     "options": [
       "如果有时间，姐姐会去商店听音乐。",
       "经过讨论，哥哥决定在中国看书。",
@@ -15619,7 +15651,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "虽然时间不多，但是爸爸还是完成了吃饭。",
-    "meaning": "Mặc dù không có nhiều thời gian, nhưng bố vẫn hoàn thành ăn cơm.",
+    "meaning": "Mặc dù không có nhiều thời gian, nhưng bố vẫn ăn xong.",
     "options": [
       "会议结束以后，医生马上回到中国继续学习。",
       "你今年几岁？",
@@ -15655,7 +15687,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果有时间，她会去商店听音乐。",
-    "meaning": "Nếu có thời gian, cô ấy sẽ đi cửa hàng để nghe nhạc.",
+    "meaning": "Nếu có thời gian, cô ấy sẽ đến cửa hàng để nghe nhạc.",
     "options": [
       "如果有时间，她会去商店听音乐。",
       "再来一杯，谢谢。",
@@ -15679,7 +15711,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "姐姐正在商店回家。",
-    "meaning": "Chị gái đang về nhà tại cửa hàng.",
+    "meaning": "Chị gái đang từ cửa hàng về nhà.",
     "options": [
       "我坐错车了。",
       "姐姐正在商店回家。",
@@ -15715,7 +15747,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "老师告诉我，他最近正在学习。",
-    "meaning": "Giáo viên nói với tôi, anh ấy gần đây đang học.",
+    "meaning": "Giáo viên nói với tôi rằng gần đây anh ấy đang học.",
     "options": [
       "因为工作很忙，同学只能晚上工作。",
       "学生觉得喝水很重要。",
@@ -15727,7 +15759,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "因为工作很忙，妈妈只能晚上工作。",
-    "meaning": "Vì công việc rất bận, mẹ chỉ có thể công việc vào buổi tối.",
+    "meaning": "Vì công việc rất bận, mẹ chỉ có thể làm việc vào buổi tối.",
     "options": [
       "太贵了。",
       "谢谢你的帮助。",
@@ -15799,7 +15831,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "如果计划没有变化，同学下午会在商店回家。",
-    "meaning": "Nếu kế hoạch không thay đổi, bạn học sẽ về nhà tại cửa hàng vào buổi chiều.",
+    "meaning": "Nếu kế hoạch không thay đổi, bạn học sẽ từ cửa hàng về nhà vào buổi chiều.",
     "options": [
       "今天妈妈在商店喝水。",
       "我今天不太忙。",
@@ -15835,7 +15867,7 @@ const LISTENING_BANK = [
   {
     "level": 1,
     "audio": "虽然时间不多，但是医生还是完成了吃饭。",
-    "meaning": "Mặc dù không có nhiều thời gian, nhưng bác sĩ vẫn hoàn thành ăn cơm.",
+    "meaning": "Mặc dù không có nhiều thời gian, nhưng bác sĩ vẫn ăn xong.",
     "options": [
       "虽然时间不多，但是医生还是完成了吃饭。",
       "我今年二十岁。",
@@ -15931,7 +15963,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "妈妈告诉我，他最近正在工作。",
-    "meaning": "Mẹ nói với tôi, anh ấy gần đây đang làm việc.",
+    "meaning": "Mẹ nói với tôi rằng gần đây anh ấy đang làm việc.",
     "options": [
       "为了做作业，妈妈提前来到机场。",
       "如果计划没有变化，爸爸下午会在家里学习汉语。",
@@ -16027,7 +16059,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "我的同学已经把报纸带到公司了。",
-    "meaning": "Của tôi bạn học đã mang báo đến công ty.",
+    "meaning": "Bạn học của tôi đã mang báo đến công ty.",
     "options": [
       "我觉得做饭很重要。",
       "这个词怎么用？",
@@ -16147,7 +16179,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "医生告诉我，他最近正在做作业。",
-    "meaning": "Bác sĩ nói với tôi, anh ấy gần đây đang làm bài tập.",
+    "meaning": "Bác sĩ nói với tôi rằng gần đây anh ấy đang làm bài tập.",
     "options": [
       "医生告诉我，他最近正在做作业。",
       "晚饭我想吃饺子。",
@@ -16375,7 +16407,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "她告诉我，他最近正在打电话。",
-    "meaning": "Cô ấy nói với tôi, anh ấy gần đây đang gọi điện.",
+    "meaning": "Cô ấy nói với tôi rằng gần đây anh ấy đang gọi điện.",
     "options": [
       "为了打电话，医生提前来到商店。",
       "你昨天几点回家？",
@@ -16603,7 +16635,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "同事告诉我，他最近正在工作。",
-    "meaning": "Đồng nghiệp nói với tôi, anh ấy gần đây đang làm việc.",
+    "meaning": "Đồng nghiệp nói với tôi rằng gần đây anh ấy đang làm việc.",
     "options": [
       "同事告诉我，他最近正在工作。",
       "虽然时间不多，但是医生还是完成了工作。",
@@ -16819,7 +16851,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "姐姐告诉我，他最近正在做作业。",
-    "meaning": "Chị gái nói với tôi, anh ấy gần đây đang làm bài tập.",
+    "meaning": "Chị gái nói với tôi rằng gần đây anh ấy đang làm bài tập.",
     "options": [
       "姐姐告诉我，他最近正在做作业。",
       "你喜欢听什么音乐？",
@@ -17035,7 +17067,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "你告诉我，他最近正在打电话。",
-    "meaning": "Bạn nói với tôi, anh ấy gần đây đang gọi điện.",
+    "meaning": "Bạn nói với tôi rằng gần đây anh ấy đang gọi điện.",
     "options": [
       "如果有时间，他会去车站学习汉语。",
       "你告诉我，他最近正在打电话。",
@@ -17059,7 +17091,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "周末的时候，同事喜欢去商店听音乐。",
-    "meaning": "Cuối tuần, đồng nghiệp thích đi cửa hàng để nghe nhạc.",
+    "meaning": "Cuối tuần, đồng nghiệp thích đến cửa hàng để nghe nhạc.",
     "options": [
       "我听说爸爸最近在餐厅负责做饭。",
       "你喜欢什么运动？",
@@ -17203,7 +17235,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "如果有时间，我的朋友会去商店看电影。",
-    "meaning": "Nếu có thời gian, của tôi bạn sẽ đi cửa hàng để xem phim.",
+    "meaning": "Nếu có thời gian, của tôi bạn sẽ đến cửa hàng để xem phim.",
     "options": [
       "我喜欢打篮球。",
       "昨天我的朋友在公园学习汉语，所以回家比较晚。",
@@ -17263,7 +17295,7 @@ const LISTENING_BANK = [
   {
     "level": 2,
     "audio": "我的同学告诉我，他最近正在工作。",
-    "meaning": "Bạn học của tôi nói với tôi, anh ấy gần đây đang làm việc.",
+    "meaning": "Bạn học của tôi nói với tôi rằng gần đây anh ấy đang làm việc.",
     "options": [
       "周末的时候，医生喜欢去北京运动。",
       "我的同学告诉我，他最近正在工作。",
@@ -17479,7 +17511,7 @@ const LISTENING_BANK = [
   {
     "level": 3,
     "audio": "我告诉我，他最近正在学习汉语。",
-    "meaning": "Tôi nói với tôi, anh ấy gần đây đang học tiếng Trung.",
+    "meaning": "Tôi nói với tôi rằng gần đây anh ấy đang học tiếng Trung.",
     "options": [
       "你对这个计划有什么建议？",
       "我告诉我，他最近正在学习汉语。",
@@ -17695,7 +17727,7 @@ const LISTENING_BANK = [
   {
     "level": 3,
     "audio": "我告诉我，他最近正在练习发音。",
-    "meaning": "Tôi nói với tôi, anh ấy gần đây đang luyện phát âm.",
+    "meaning": "Tôi nói với tôi rằng gần đây anh ấy đang luyện phát âm.",
     "options": [
       "我告诉我，他最近正在练习发音。",
       "这样做比较方便。",
@@ -18139,7 +18171,7 @@ const LISTENING_BANK = [
   {
     "level": 3,
     "audio": "经理告诉我，他最近正在安排时间。",
-    "meaning": "Quản lý nói với tôi, anh ấy gần đây đang sắp xếp thời gian.",
+    "meaning": "Quản lý nói với tôi rằng gần đây anh ấy đang sắp xếp thời gian.",
     "options": [
       "如果计划没有变化，经理下午会在北京安排时间。",
       "经理觉得计划旅行很重要。",
@@ -18367,7 +18399,7 @@ const LISTENING_BANK = [
   {
     "level": 3,
     "audio": "经理告诉我，他最近正在联系朋友。",
-    "meaning": "Quản lý nói với tôi, anh ấy gần đây đang liên hệ với bạn.",
+    "meaning": "Quản lý nói với tôi rằng gần đây anh ấy đang liên hệ với bạn.",
     "options": [
       "经理告诉我，他最近正在联系朋友。",
       "祝你学习进步。",
@@ -18607,7 +18639,7 @@ const LISTENING_BANK = [
   {
     "level": 3,
     "audio": "经理告诉我，他最近正在计划旅行。",
-    "meaning": "Quản lý nói với tôi, anh ấy gần đây đang lên kế hoạch du lịch.",
+    "meaning": "Quản lý nói với tôi rằng gần đây anh ấy đang lên kế hoạch du lịch.",
     "options": [
       "会议结束以后，我马上回到医院继续学习汉语。",
       "经理告诉我，他最近正在计划旅行。",
@@ -18799,7 +18831,7 @@ const LISTENING_BANK = [
   {
     "level": 3,
     "audio": "哥哥告诉我，他最近正在解决问题。",
-    "meaning": "Anh trai nói với tôi, anh ấy gần đây đang giải quyết vấn đề.",
+    "meaning": "Anh trai nói với tôi rằng gần đây anh ấy đang giải quyết vấn đề.",
     "options": [
       "我还需要一点时间。",
       "哥哥告诉我，他最近正在解决问题。",
@@ -26266,7 +26298,7 @@ const LISTENING_BANK = [
     "level": 2,
     "audio": "明天我们一起去商店吧。",
     "pinyin": "",
-    "meaning": "Ngày mai chúng tôi một dậy, bắt đầu đi cửa hàng nhé.",
+    "meaning": "Ngày mai chúng tôi một dậy, bắt đầu đến cửa hàng nhé.",
     "options": [
       "医生每天都要准备考试。",
       "最近姐姐常常需要听音乐。",
@@ -26643,7 +26675,7 @@ const LISTENING_BANK = [
     "level": 2,
     "audio": "你什么时候去商店？",
     "pinyin": "",
-    "meaning": "Bạn gì khi/lúc đi cửa hàng?",
+    "meaning": "Bạn gì khi/lúc đến cửa hàng?",
     "options": [
       "这个电影很方便。",
       "这个书很漂亮。",
@@ -27891,7 +27923,7 @@ const LISTENING_BANK = [
     "level": 3,
     "audio": "请告诉我文件的详细情况。",
     "pinyin": "",
-    "meaning": "Xin nói với tôi tài liệu của chi tiết tình hình.",
+    "meaning": "Xin hãy cho tôi biết chi tiết về tài liệu.",
     "options": [
       "经过讨论，我们决定解决问题。",
       "先听关键词，再理解整句话。",
@@ -28099,7 +28131,7 @@ const LISTENING_BANK = [
     "level": 3,
     "audio": "你对这个文件有什么建议？",
     "pinyin": "",
-    "meaning": "Bạn có đề xuất gì về tài liệu?",
+    "meaning": "Bạn có đề xuất gì về tài liệu này?",
     "options": [
       "你对这个文件有什么建议？",
       "经理正在检查手机，准备开始安排时间。",
@@ -28255,7 +28287,7 @@ const LISTENING_BANK = [
     "level": 3,
     "audio": "请告诉我资料的详细情况。",
     "pinyin": "",
-    "meaning": "Xin nói với tôi tài liệu của chi tiết tình hình.",
+    "meaning": "Xin hãy cho tôi biết chi tiết về tài liệu.",
     "options": [
       "请不要忘记检查文件。",
       "如果明天下雨，我们就重新安排工作。",
@@ -28385,7 +28417,7 @@ const LISTENING_BANK = [
     "level": 3,
     "audio": "你对这个资料有什么建议？",
     "pinyin": "",
-    "meaning": "Bạn có đề xuất gì về tài liệu?",
+    "meaning": "Bạn có đề xuất gì về tài liệu này?",
     "options": [
       "你为什么不开心？",
       "你对这个资料有什么建议？",
@@ -30296,7 +30328,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对发展战略，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "面对资源配置，我们需要采取更加灵活的措施。",
       "周末的时候，记者喜欢去实验室改进方法。",
@@ -30348,7 +30380,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对合作方案，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "这一变化可能会对项目进展产生影响。",
       "面对合作方案，我们需要采取更加合理的措施。",
@@ -30374,7 +30406,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对资源配置，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "因为工作很忙，同事只能晚上积累经验。",
       "面对资源配置，我们需要采取更加科学的措施。",
@@ -30387,7 +30419,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然情况发生变化，但是我们仍然需要积累实践经验。",
     "pinyin": "",
-    "meaning": "Mặc dùtình hìnhxảy rathay đổi, nhưngchúng tôivẫncầntích lũy kinh nghiệm thực tiễn.",
+    "meaning": "Mặc dù tình hình thay đổi, nhưng chúng tôi vẫn cầntích lũy kinh nghiệm thực tiễn.",
     "options": [
       "同事正在公司分析数据。",
       "会议结束以后，记者马上回到公司继续改进方法。",
@@ -30400,7 +30432,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对合作方案，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "从长远来看，新的方案能够提高效率。",
       "面对合作方案，我们需要采取更加科学的措施。",
@@ -30413,7 +30445,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断积累实践经验，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán tích lũy kinh nghiệm thực tiễn, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng tích lũy kinh nghiệm thực tiễn thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "面对合作方案，我们需要采取更加科学的措施。",
       "企业必须不断积累实践经验，才能保持竞争力。",
@@ -30426,7 +30458,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该深入分析问题。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên phân tích vấn đề sâu sắc.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên phân tích vấn đề sâu sắc.",
     "options": [
       "经过分析，我们认为应该深入分析问题。",
       "面对合作方案，我们需要采取更加全面的措施。",
@@ -30439,7 +30471,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断优化资源配置，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán tối ưu hóa phân bổ nguồn lực, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng tối ưu hóa phân bổ nguồn lực thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "企业必须不断优化资源配置，才能保持竞争力。",
       "这项研究表明，市场需求正在发生变化。",
@@ -30452,7 +30484,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该积累实践经验。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên tích lũy kinh nghiệm thực tiễn.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên tích lũy kinh nghiệm thực tiễn.",
     "options": [
       "同事已经把合同条款带到图书馆了。",
       "这一变化可能会对市场变化产生影响。",
@@ -30478,7 +30510,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该加强沟通。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên tăng cường trao đổi.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên tăng cường trao đổi.",
     "options": [
       "经过分析，我们认为应该加强沟通。",
       "面对市场变化，我们需要采取更加严格的措施。",
@@ -30491,7 +30523,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该完善相关制度。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên hoàn thiện liên quan chế độ.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên hoàn thiện các chế độ liên quan.",
     "options": [
       "经过分析，我们认为应该优化资源配置。",
       "同事告诉我，他最近正在分析数据。",
@@ -30504,7 +30536,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然情况发生变化，但是我们仍然需要深入分析问题。",
     "pinyin": "",
-    "meaning": "Mặc dùtình hìnhxảy rathay đổi, nhưngchúng tôivẫncầnphân tích sâuvấn đề.",
+    "meaning": "Mặc dù tình hình thay đổi, nhưng chúng tôi vẫn cầnphân tích sâuvấn đề.",
     "options": [
       "面对社会需求，我们需要采取更加有效的措施。",
       "经过分析，我们认为应该提高服务质量。",
@@ -30517,7 +30549,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该优化资源配置。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên tối ưu hóa phân bổ nguồn lực.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên tối ưu hóa phân bổ nguồn lực.",
     "options": [
       "经过分析，我们认为应该优化资源配置。",
       "面对项目进展，我们需要采取更加严格的措施。",
@@ -30530,7 +30562,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断深入分析问题，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán phân tích vấn đề sâu sắc, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng phân tích vấn đề sâu sắc thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "虽然情况发生变化，但是我们仍然需要调整发展战略。",
       "企业必须不断深入分析问题，才能保持竞争力。",
@@ -30556,7 +30588,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该提高服务质量。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên nâng cao chất lượng dịch vụ.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên nâng cao chất lượng dịch vụ.",
     "options": [
       "为了进一步解决实际问题，研究人员进行了调查。",
       "经过分析，我们认为应该提高服务质量。",
@@ -30569,7 +30601,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该调整发展战略。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên điều chỉnh chiến lược phát triển.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên điều chỉnh chiến lược phát triển.",
     "options": [
       "昨天志愿者在博物馆完成研究，所以回家比较晚。",
       "面对市场变化，我们需要采取更加灵活的措施。",
@@ -30582,7 +30614,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要优化资源配置。",
     "pinyin": "",
-    "meaning": "Mặc dùthị trườngmôi trườngphức tạp, nhưngchúng tôivẫncầntối ưu hóaphân bổ nguồn lực.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cầntối ưu hóaphân bổ nguồn lực.",
     "options": [
       "周末的时候，记者喜欢去会议中心解决问题。",
       "这一变化可能会对项目进展产生影响。",
@@ -30595,7 +30627,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "经过分析，我们认为应该改进管理方法。",
     "pinyin": "",
-    "meaning": "Sau khi phân tích, chúng tôi nhận, công nhận để nên cải thiện phương pháp quản lý.",
+    "meaning": "Sau khi phân tích, chúng tôi cho rằng nên cải thiện phương pháp quản lý.",
     "options": [
       "企业家希望明天可以继续调整计划。",
       "经过分析，我们认为应该改进管理方法。",
@@ -30608,7 +30640,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对发展战略，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "记者每天都要改进方法。",
       "记者正在检查调查数据，准备开始申请项目。",
@@ -30621,7 +30653,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要调整发展战略。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần điều chỉnh chiến lược phát triển.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần điều chỉnh chiến lược phát triển.",
     "options": [
       "虽然时间非常紧张，但是我们仍然需要调整发展战略。",
       "经过分析，我们认为应该改进管理方法。",
@@ -30634,7 +30666,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "从长远来看，新的方案能够提高效率。",
     "pinyin": "",
-    "meaning": "Về lâu dài, mới của phương án có thể đủ nâng cao hiệu suất.",
+    "meaning": "Về lâu dài, mới phương án có thể đủ nâng cao hiệu suất.",
     "options": [
       "今天记者在研究中心改进方法。",
       "面对研究结果，我们需要采取更加灵活的措施。",
@@ -30647,7 +30679,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要优化资源配置。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần tối ưu hóa phân bổ nguồn lực.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần tối ưu hóa phân bổ nguồn lực.",
     "options": [
       "虽然时间非常紧张，但是我们仍然需要优化资源配置。",
       "这一变化可能会对研究结果产生影响。",
@@ -30660,7 +30692,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对社会需求，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "面对社会需求，我们需要采取更加灵活的措施。",
       "虽然资源比较有限，但是我们仍然需要调整发展战略。",
@@ -30673,7 +30705,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对资源配置，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "经过讨论，同事决定在公司积累经验。",
       "这项研究表明，问题的原因并不简单。",
@@ -30686,7 +30718,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "这项研究表明，新的方案能够提高效率。",
     "pinyin": "",
-    "meaning": "Nghiên cứu này cho thấy sáng, mới của phương án có thể đủ nâng cao hiệu suất.",
+    "meaning": "Nghiên cứu này cho thấy sáng, mới phương án có thể đủ nâng cao hiệu suất.",
     "options": [
       "企业家每天都要提高效率。",
       "今天同事在上海分析数据。",
@@ -30699,7 +30731,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然资源比较有限，但是我们仍然需要改进管理方法。",
     "pinyin": "",
-    "meaning": "Mặc dùnguồn lực khá hạn chế, nhưngchúng tôivẫncầncải thiện phương pháp quản lý.",
+    "meaning": "Mặc dù nguồn lực khá hạn chế, nhưng chúng tôi vẫn cầncải thiện phương pháp quản lý.",
     "options": [
       "虽然资源比较有限，但是我们仍然需要完善相关制度。",
       "面对市场变化，我们需要采取更加全面的措施。",
@@ -30725,7 +30757,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要调整发展战略。",
     "pinyin": "",
-    "meaning": "Mặc dùthị trườngmôi trườngphức tạp, nhưngchúng tôivẫncầnđiều chỉnh chiến lược phát triển.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cầnđiều chỉnh chiến lược phát triển.",
     "options": [
       "虽然市场环境复杂，但是我们仍然需要调整发展战略。",
       "我听说记者最近在大学负责改进方法。",
@@ -30738,7 +30770,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对研究结果，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "我们应该根据实际情况提高服务质量，而不能简单地照搬过去的方法。",
       "会议结束以后，企业家马上回到会议中心继续承担责任。",
@@ -30764,7 +30796,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然情况发生变化，但是我们仍然需要改进管理方法。",
     "pinyin": "",
-    "meaning": "Mặc dùtình hìnhxảy rathay đổi, nhưngchúng tôivẫncầncải thiện phương pháp quản lý.",
+    "meaning": "Mặc dù tình hình thay đổi, nhưng chúng tôi vẫn cầncải thiện phương pháp quản lý.",
     "options": [
       "经过讨论，志愿者决定在医院交换意见。",
       "虽然资源比较有限，但是我们仍然需要积累实践经验。",
@@ -30777,7 +30809,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对研究结果，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "虽然时间不多，但是志愿者还是完成了讨论方案。",
       "面对研究结果，我们需要采取更加灵活的措施。",
@@ -30803,7 +30835,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断提高服务质量，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán nâng cao chất lượng dịch vụ, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng nâng cao chất lượng dịch vụ thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "双方就社会需求进行了深入讨论。",
       "面对合作方案，我们需要采取更加科学的措施。",
@@ -30816,7 +30848,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要提高服务质量。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần nâng cao chất lượng dịch vụ.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần nâng cao chất lượng dịch vụ.",
     "options": [
       "虽然时间非常紧张，但是我们仍然需要提高服务质量。",
       "虽然时间不多，但是志愿者还是完成了讨论方案。",
@@ -30829,7 +30861,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对合作方案，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "面对合作方案，我们需要采取更加严格的措施。",
       "面对合作方案，我们需要采取更加合理的措施。",
@@ -30868,7 +30900,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要积累实践经验。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần tích lũy kinh nghiệm thực tiễn.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần tích lũy kinh nghiệm thực tiễn.",
     "options": [
       "面对合作方案，我们需要采取更加科学的措施。",
       "为了准备明天的工作，志愿者今晚还要完成研究。",
@@ -30894,7 +30926,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对研究结果，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "面对研究结果，我们需要采取更加合理的措施。",
       "记者正在会议中心改进方法。",
@@ -30907,7 +30939,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断完善相关制度，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán hoàn thiện liên quan chế độ, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng hoàn thiện các chế độ liên quan thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "这一变化可能会对资源配置产生影响。",
       "面对研究结果，我们需要采取更加灵活的措施。",
@@ -30920,7 +30952,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对项目进展，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "最近企业家常常需要承担责任。",
       "志愿者告诉我，他最近正在交换意见。",
@@ -30933,7 +30965,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对发展战略，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "面对发展战略，我们需要采取更加科学的措施。",
       "为了进一步加强双方合作，研究人员进行了调查。",
@@ -30946,7 +30978,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对发展战略，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "企业家每天都要调整计划。",
       "面对发展战略，我们需要采取更加有效的措施。",
@@ -30959,7 +30991,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然资源比较有限，但是我们仍然需要完善相关制度。",
     "pinyin": "",
-    "meaning": "Mặc dù nguồn lực khá hạn chế, nhưng chúng tôi vẫn cần hoàn thiện liên quan chế độ.",
+    "meaning": "Mặc dù nguồn lực khá hạn chế, nhưng chúng tôi vẫn cần hoàn thiện các chế độ liên quan.",
     "options": [
       "虽然时间非常紧张，但是我们仍然需要改进管理方法。",
       "虽然资源比较有限，但是我们仍然需要完善相关制度。",
@@ -30972,7 +31004,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要加强沟通。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần tăng cường trao đổi.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần tăng cường trao đổi.",
     "options": [
       "经过分析，我们认为应该深入分析问题。",
       "如果有时间，志愿者会去机场完成研究。",
@@ -30985,7 +31017,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要加强沟通。",
     "pinyin": "",
-    "meaning": "Mặc dù thị trường môi trường phức tạp, nhưng chúng tôi vẫn cần tăng cường trao đổi.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cần tăng cường trao đổi.",
     "options": [
       "面对合作方案，我们需要采取更加灵活的措施。",
       "虽然市场环境复杂，但是我们仍然需要加强沟通。",
@@ -30998,7 +31030,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然情况发生变化，但是我们仍然需要优化资源配置。",
     "pinyin": "",
-    "meaning": "Mặc dùtình hìnhxảy rathay đổi, nhưngchúng tôivẫncầntối ưu hóaphân bổ nguồn lực.",
+    "meaning": "Mặc dù tình hình thay đổi, nhưng chúng tôi vẫn cầntối ưu hóaphân bổ nguồn lực.",
     "options": [
       "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
       "同事告诉我，他最近正在调查情况。",
@@ -31024,7 +31056,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对管理制度，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "经过分析，我们认为应该改进管理方法。",
       "经过分析，我们认为应该加强沟通。",
@@ -31037,7 +31069,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要提高服务质量。",
     "pinyin": "",
-    "meaning": "Mặc dù thị trường môi trường phức tạp, nhưng chúng tôi vẫn cần nâng cao chất lượng dịch vụ.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cần nâng cao chất lượng dịch vụ.",
     "options": [
       "最近企业家常常需要承担责任。",
       "虽然时间不多，但是企业家还是完成了承担责任。",
@@ -31050,7 +31082,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对研究结果，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "面对社会需求，我们需要采取更加灵活的措施。",
       "面对社会需求，我们需要采取更加合理的措施。",
@@ -31063,7 +31095,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对市场变化，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "我听说记者最近在大学负责改进方法。",
       "如果有时间，企业家会去实验室承担责任。",
@@ -31076,7 +31108,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断调整发展战略，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán điều chỉnh chiến lược phát triển, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng điều chỉnh chiến lược phát triển thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "企业必须不断调整发展战略，才能保持竞争力。",
       "面对研究结果，我们需要采取更加有效的措施。",
@@ -31089,7 +31121,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对资源配置，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "虽然时间非常紧张，但是我们仍然需要优化资源配置。",
       "面对资源配置，我们需要采取更加全面的措施。",
@@ -31115,7 +31147,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要深入分析问题。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần phân tích vấn đề sâu sắc.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần phân tích vấn đề sâu sắc.",
     "options": [
       "面对发展战略，我们需要采取更加严格的措施。",
       "虽然时间非常紧张，但是我们仍然需要深入分析问题。",
@@ -31128,7 +31160,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断加强沟通，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán tăng cường trao đổi, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng tăng cường trao đổi thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "志愿者已经把市场信息带到机场了。",
       "如果有时间，企业家会去广州调整计划。",
@@ -31141,7 +31173,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对项目进展，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "会议结束以后，企业家马上回到城市中心继续调整计划。",
       "企业家每天都要提高效率。",
@@ -31154,7 +31186,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "企业必须不断改进管理方法，才能保持竞争力。",
     "pinyin": "",
-    "meaning": "Doanh nghiệp phải không đoạn, phán đoán cải thiện phương pháp quản lý, mới có thể duy trì cạnh tranh lực.",
+    "meaning": "Doanh nghiệp phải không ngừng cải thiện phương pháp quản lý thì mới có thể duy trì năng lực cạnh tranh.",
     "options": [
       "企业必须不断改进管理方法，才能保持竞争力。",
       "面对项目进展，我们需要采取更加严格的措施。",
@@ -31167,7 +31199,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对社会需求，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "面对项目进展，我们需要采取更加全面的措施。",
       "为了完成研究，志愿者提前来到会议中心。",
@@ -31180,7 +31212,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对资源配置，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "面对资源配置，我们需要采取更加严格的措施。",
       "面对发展战略，我们需要采取更加有效的措施。",
@@ -31193,7 +31225,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要改进管理方法。",
     "pinyin": "",
-    "meaning": "Mặc dùthị trườngmôi trườngphức tạp, nhưngchúng tôivẫncầncải thiện phương pháp quản lý.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cầncải thiện phương pháp quản lý.",
     "options": [
       "因为工作很忙，记者只能晚上申请项目。",
       "从长远来看，市场需求正在发生变化。",
@@ -31206,7 +31238,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对社会需求，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "面对社会需求，我们需要采取更加合理的措施。",
       "我听说企业家最近在北京负责调整计划。",
@@ -31219,7 +31251,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
     "pinyin": "",
-    "meaning": "Mặc dù thị trường môi trường phức tạp, nhưng chúng tôi vẫn cần hoàn thiện liên quan chế độ.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cần hoàn thiện các chế độ liên quan.",
     "options": [
       "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
       "虽然情况发生变化，但是我们仍然需要积累实践经验。",
@@ -31232,7 +31264,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然资源比较有限，但是我们仍然需要积累实践经验。",
     "pinyin": "",
-    "meaning": "Mặc dùnguồn lực khá hạn chế, nhưngchúng tôivẫncầntích lũy kinh nghiệm thực tiễn.",
+    "meaning": "Mặc dù nguồn lực khá hạn chế, nhưng chúng tôi vẫn cầntích lũy kinh nghiệm thực tiễn.",
     "options": [
       "虽然时间不多，但是同事还是完成了积累经验。",
       "最近同事常常需要积累经验。",
@@ -31245,7 +31277,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对管理制度，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "昨天企业家在博物馆提高效率，所以回家比较晚。",
       "面对管理制度，我们需要采取更加严格的措施。",
@@ -31258,7 +31290,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对资源配置，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "面对资源配置，我们需要采取更加合理的措施。",
       "这一变化可能会对管理制度产生影响。",
@@ -31271,7 +31303,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对项目进展，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "面对社会需求，我们需要采取更加灵活的措施。",
       "虽然时间不多，但是志愿者还是完成了讨论方案。",
@@ -31284,7 +31316,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要深入分析问题。",
     "pinyin": "",
-    "meaning": "Mặc dùthị trườngmôi trườngphức tạp, nhưngchúng tôivẫncầnphân tích sâuvấn đề.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cầnphân tích sâuvấn đề.",
     "options": [
       "如果有时间，企业家会去广州调整计划。",
       "面对管理制度，我们需要采取更加灵活的措施。",
@@ -31297,7 +31329,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对市场变化，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "为了积累经验，同事提前来到实验室。",
       "面对市场变化，我们需要采取更加灵活的措施。",
@@ -31310,7 +31342,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要改进管理方法。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần cải thiện phương pháp quản lý.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần cải thiện phương pháp quản lý.",
     "options": [
       "面对社会需求，我们需要采取更加合理的措施。",
       "虽然时间不多，但是志愿者还是完成了完成研究。",
@@ -31323,7 +31355,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对市场变化，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "面对合作方案，我们需要采取更加有效的措施。",
       "企业家希望明天可以继续提高效率。",
@@ -31336,7 +31368,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对研究结果，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "如果有时间，企业家会去会议中心提高效率。",
       "同事告诉我，他最近正在分析数据。",
@@ -31349,7 +31381,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对项目进展，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "面对项目进展，我们需要采取更加合理的措施。",
       "我们应该根据实际情况积累实践经验，而不能简单地照搬过去的方法。",
@@ -31362,7 +31394,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对项目进展，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "今天记者在博物馆申请项目。",
       "虽然时间非常紧张，但是我们仍然需要完善相关制度。",
@@ -31375,7 +31407,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对社会需求，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "企业家觉得调整计划很重要。",
       "因为工作很忙，同事只能晚上分析数据。",
@@ -31388,7 +31420,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对市场变化，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "经过讨论，志愿者决定在城市中心完成研究。",
       "面对市场变化，我们需要采取更加有效的措施。",
@@ -31401,7 +31433,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然时间非常紧张，但是我们仍然需要完善相关制度。",
     "pinyin": "",
-    "meaning": "Mặc dù thời gian rất căng thẳng, nhưng chúng tôi vẫn cần hoàn thiện liên quan chế độ.",
+    "meaning": "Mặc dù thời gian rất hạn hẹp, nhưng chúng tôi vẫn cần hoàn thiện các chế độ liên quan.",
     "options": [
       "最近企业家常常需要调整计划。",
       "昨天企业家在博物馆提高效率，所以回家比较晚。",
@@ -31414,7 +31446,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然市场环境复杂，但是我们仍然需要积累实践经验。",
     "pinyin": "",
-    "meaning": "Mặc dùthị trườngmôi trườngphức tạp, nhưngchúng tôivẫncầntích lũy kinh nghiệm thực tiễn.",
+    "meaning": "Mặc dù môi trường thị trường phức tạp, nhưng chúng tôi vẫn cầntích lũy kinh nghiệm thực tiễn.",
     "options": [
       "企业必须不断积累实践经验，才能保持竞争力。",
       "虽然市场环境复杂，但是我们仍然需要积累实践经验。",
@@ -31427,7 +31459,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然资源比较有限，但是我们仍然需要深入分析问题。",
     "pinyin": "",
-    "meaning": "Mặc dùnguồn lực khá hạn chế, nhưngchúng tôivẫncầnphân tích sâuvấn đề.",
+    "meaning": "Mặc dù nguồn lực khá hạn chế, nhưng chúng tôi vẫn cầnphân tích sâuvấn đề.",
     "options": [
       "面对市场变化，我们需要采取更加科学的措施。",
       "为了进一步提高研究质量，研究人员进行了调查。",
@@ -31440,7 +31472,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对合作方案，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "双方就项目进展进行了深入讨论。",
       "面对合作方案，我们需要采取更加全面的措施。",
@@ -31453,7 +31485,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对研究结果，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với kết quả nghiên cứu, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "企业必须不断优化资源配置，才能保持竞争力。",
       "面对研究结果，我们需要采取更加严格的措施。",
@@ -31466,7 +31498,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然情况发生变化，但是我们仍然需要调整发展战略。",
     "pinyin": "",
-    "meaning": "Mặc dùtình hìnhxảy rathay đổi, nhưngchúng tôivẫncầnđiều chỉnh chiến lược phát triển.",
+    "meaning": "Mặc dù tình hình thay đổi, nhưng chúng tôi vẫn cầnđiều chỉnh chiến lược phát triển.",
     "options": [
       "面对社会需求，我们需要采取更加灵活的措施。",
       "面对合作方案，我们需要采取更加全面的措施。",
@@ -31479,7 +31511,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然资源比较有限，但是我们仍然需要调整发展战略。",
     "pinyin": "",
-    "meaning": "Mặc dùnguồn lực khá hạn chế, nhưngchúng tôivẫncầnđiều chỉnh chiến lược phát triển.",
+    "meaning": "Mặc dù nguồn lực khá hạn chế, nhưng chúng tôi vẫn cầnđiều chỉnh chiến lược phát triển.",
     "options": [
       "虽然资源比较有限，但是我们仍然需要调整发展战略。",
       "虽然市场环境复杂，但是我们仍然需要完善相关制度。",
@@ -31492,7 +31524,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对管理制度，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "面对社会需求，我们需要采取更加有效的措施。",
       "昨天记者在博物馆改进方法，所以回家比较晚。",
@@ -31505,7 +31537,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对资源配置，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với phân bổ nguồn lực, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "今天记者在北京解决问题。",
       "如果计划没有变化，志愿者下午会在图书馆交换意见。",
@@ -31518,7 +31550,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对市场变化，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "记者正在会议中心改进方法。",
       "面对社会需求，我们需要采取更加合理的措施。",
@@ -31531,7 +31563,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对社会需求，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "面对项目进展，我们需要采取更加严格的措施。",
       "面对社会需求，我们需要采取更加科学的措施。",
@@ -31544,7 +31576,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对社会需求，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "同事正在大学分析数据。",
       "企业必须不断完善相关制度，才能保持竞争力。",
@@ -31557,7 +31589,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对管理制度，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "面对管理制度，我们需要采取更加科学的措施。",
       "为了调查情况，同事提前来到会议中心。",
@@ -31570,7 +31602,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对管理制度，我们需要采取更加合理的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần thực hiện hơn thêm, gia tăng hợp lý của biện pháp.",
+    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần áp dụng các biện pháp hợp lý.",
     "options": [
       "面对资源配置，我们需要采取更加全面的措施。",
       "最近记者常常需要改进方法。",
@@ -31583,7 +31615,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对项目进展，我们需要采取更加全面的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần thực hiện hơn thêm, gia tăng toàn diện của biện pháp.",
+    "meaning": "Đối mặt với tiến độ dự án, chúng tôi cần áp dụng các biện pháp toàn diện.",
     "options": [
       "经过分析，我们认为应该深入分析问题。",
       "面对项目进展，我们需要采取更加全面的措施。",
@@ -31596,7 +31628,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对合作方案，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "如果计划没有变化，志愿者下午会在上海完成研究。",
       "面对研究结果，我们需要采取更加严格的措施。",
@@ -31609,7 +31641,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对发展战略，我们需要采取更加严格的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần thực hiện hơn thêm, gia tăng nghiêm ngặt của biện pháp.",
+    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần áp dụng các biện pháp nghiêm ngặt.",
     "options": [
       "同事每天都要调查情况。",
       "面对发展战略，我们需要采取更加严格的措施。",
@@ -31622,7 +31654,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "虽然资源比较有限，但是我们仍然需要优化资源配置。",
     "pinyin": "",
-    "meaning": "Mặc dùnguồn lực khá hạn chế, nhưngchúng tôivẫncầntối ưu hóaphân bổ nguồn lực.",
+    "meaning": "Mặc dù nguồn lực khá hạn chế, nhưng chúng tôi vẫn cầntối ưu hóaphân bổ nguồn lực.",
     "options": [
       "周末的时候，企业家喜欢去机场调整计划。",
       "昨天志愿者在大学交换意见，所以回家比较晚。",
@@ -31635,7 +31667,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对管理制度，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với chế độ quản lý, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "这一变化可能会对研究结果产生影响。",
       "为了进一步推动项目发展，研究人员进行了调查。",
@@ -31648,7 +31680,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对合作方案，我们需要采取更加有效的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần thực hiện hơn thêm, gia tăng hiệu quả của biện pháp.",
+    "meaning": "Đối mặt với phương án hợp tác, chúng tôi cần áp dụng các biện pháp hiệu quả.",
     "options": [
       "我们应该根据实际情况深入分析问题，而不能简单地照搬过去的方法。",
       "面对合作方案，我们需要采取更加有效的措施。",
@@ -31661,7 +31693,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对发展战略，我们需要采取更加灵活的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần thực hiện hơn thêm, gia tăng linh hoạt của biện pháp.",
+    "meaning": "Đối mặt với chiến lược phát triển, chúng tôi cần áp dụng các biện pháp linh hoạt.",
     "options": [
       "志愿者觉得完成研究很重要。",
       "虽然时间非常紧张，但是我们仍然需要提高服务质量。",
@@ -31674,7 +31706,7 @@ const LISTENING_BANK = [
     "level": 5,
     "audio": "面对市场变化，我们需要采取更加科学的措施。",
     "pinyin": "",
-    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần thực hiện hơn thêm, gia tăng khoa học của biện pháp.",
+    "meaning": "Đối mặt với thị trường thay đổi, chúng tôi cần áp dụng các biện pháp khoa học.",
     "options": [
       "同事已经把技术文件带到机场了。",
       "会议结束以后，企业家马上回到会议中心继续承担责任。",
@@ -31687,7 +31719,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解长期发展战略，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu chiến lược phát triển dài hạn, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ chiến lược phát triển dài hạn, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "从整体来看，这一问题涉及多个长期发展战略。",
       "只有充分理解长期发展战略，才能制定更加合理的方案。",
@@ -31700,7 +31732,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "研究结果进一步证明，比较客观。",
     "pinyin": "",
-    "meaning": "Kết quả nghiên cứu thêm nữa chứng minh, khá khách quan.",
+    "meaning": "Kết quả nghiên cứu cho thấy, khá khách quan.",
     "options": [
       "面对国际竞争，我们必须保持独立的判断。",
       "企业家正在城市中心改进管理方法。",
@@ -31713,7 +31745,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对长期发展战略，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichiến lược phát triển dài hạn, chúng tôiphảiduy trìnhận định lý tính.",
+    "meaning": "Đối mặt với chiến lược phát triển dài hạn, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "面对长期发展战略，我们必须保持理性的判断。",
       "如果缺乏充分准备，就很难有效应对社会的发展。",
@@ -31726,7 +31758,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对国际竞争，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicạnh tranh quốc tế, chúng tôiphảiduy trìnhận định lý tính.",
+    "meaning": "Đối mặt với cạnh tranh quốc tế, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "周末的时候，学者喜欢去会议中心比较不同方案。",
       "面对公共政策，我们必须保持准确的判断。",
@@ -31739,7 +31771,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解复杂的经济环境，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu phức tạp của môi trường kinh tế, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ phức tạp của môi trường kinh tế, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "如果有时间，研究人员会去广州深入分析问题。",
       "只有充分理解复杂的经济环境，才能制定更加合理的方案。",
@@ -31752,7 +31784,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解公共政策，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu chính sách công, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ chính sách công, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "面对社会的发展，我们必须保持独立的判断。",
       "企业家已经把发展计划带到医院了。",
@@ -31765,7 +31797,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解技术进步，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu tiến bộ công nghệ, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ tiến bộ công nghệ, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "只有充分理解技术进步，才能制定更加合理的方案。",
       "这一政策可能对社会需求产生深远影响。",
@@ -31778,7 +31810,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对公共政策，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichính sách công, chúng tôiphảiduy trìnhận định khách quan.",
+    "meaning": "Đối mặt với chính sách công, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "因为工作很忙，企业家只能晚上改进管理方法。",
       "面对公共政策，我们必须保持客观的判断。",
@@ -31791,7 +31823,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "在当前背景下，我们有必要进一步优化资源配置。",
     "pinyin": "",
-    "meaning": "Ở trong bối cảnh hiện nay, chúng tôi có phải yếu thêm nữa tối ưu hóa phân bổ nguồn lực.",
+    "meaning": "Trong bối cảnh hiện nay, chúng tôi cần tiếp tục tối ưu hóa phân bổ nguồn lực.",
     "options": [
       "因为工作很忙，律师只能晚上提高工作效率。",
       "因为工作很忙，研究人员只能晚上深入分析问题。",
@@ -31804,7 +31836,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解国际竞争，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu cạnh tranh quốc tế, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ cạnh tranh quốc tế, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "昨天学者在大学比较不同方案，所以回家比较晚。",
       "研究人员正在检查会议记录，准备开始积累实践经验。",
@@ -31817,7 +31849,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对管理体制，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicơ chế quản lý, chúng tôiphảiduy trìnhận định chính xác.",
+    "meaning": "Đối mặt với cơ chế quản lý, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "如果缺乏充分准备，就很难有效应对技术进步。",
       "面对管理体制，我们必须保持准确的判断。",
@@ -31830,7 +31862,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对管理体制，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicơ chế quản lý, chúng tôiphảiduy trìnhận định độc lập.",
+    "meaning": "Đối mặt với cơ chế quản lý, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "这一政策可能对管理体制产生深远影响。",
       "研究人员觉得深入分析问题很重要。",
@@ -31843,7 +31875,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "研究结果进一步证明，比较可靠。",
     "pinyin": "",
-    "meaning": "Kết quả nghiên cứu thêm nữa chứng minh, khá có thể dựa vào.",
+    "meaning": "Kết quả nghiên cứu cho thấy, khá có thể dựa vào.",
     "options": [
       "面对资源配置问题，我们必须保持客观的判断。",
       "研究结果进一步证明，比较可靠。",
@@ -31856,7 +31888,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "在当前背景下，我们有必要进一步提高工作效率。",
     "pinyin": "",
-    "meaning": "Ở trong bối cảnh hiện nay, chúng tôi có phải yếu thêm nữa nâng cao hiệu suất công việc.",
+    "meaning": "Trong bối cảnh hiện nay, chúng tôi cần tiếp tục nâng cao hiệu suất công việc.",
     "options": [
       "在当前背景下，我们有必要进一步提高工作效率。",
       "面对未来的变化，我们必须保持理性的判断。",
@@ -31869,7 +31901,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "在当前背景下，我们有必要进一步调整发展战略。",
     "pinyin": "",
-    "meaning": "Ở trong bối cảnh hiện nay, chúng tôi có phải yếu thêm nữa điều chỉnh chiến lược phát triển.",
+    "meaning": "Trong bối cảnh hiện nay, chúng tôi cần tiếp tục điều chỉnh chiến lược phát triển.",
     "options": [
       "在当前背景下，我们有必要进一步调整发展战略。",
       "面对未来的变化，我们必须保持客观的判断。",
@@ -31882,7 +31914,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解资源配置问题，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu vấn đề phân bổ nguồn lực, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ vấn đề phân bổ nguồn lực, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "从整体来看，这一问题涉及多个社会的发展。",
       "经过讨论，企业家决定在大学解决实际困难。",
@@ -31895,7 +31927,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对长期发展战略，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichiến lược phát triển dài hạn, chúng tôiphảiduy trìnhận định độc lập.",
+    "meaning": "Đối mặt với chiến lược phát triển dài hạn, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "从整体来看，这一问题涉及多个管理体制。",
       "我听说学者最近在图书馆负责完成调查研究。",
@@ -31921,7 +31953,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "在当前背景下，我们有必要进一步深入调查研究。",
     "pinyin": "",
-    "meaning": "Ở trong bối cảnh hiện nay, chúng tôi có phải yếu thêm nữa sâu sắc nghiên cứu điều tra.",
+    "meaning": "Trong bối cảnh hiện nay, chúng tôi cần tiếp tục sâu sắc nghiên cứu điều tra.",
     "options": [
       "面对长期发展战略，我们必须保持清醒的判断。",
       "在当前背景下，我们有必要进一步深入调查研究。",
@@ -31947,7 +31979,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对公共政策，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichính sách công, chúng tôiphảiduy trìnhận định lý tính.",
+    "meaning": "Đối mặt với chính sách công, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "面对公共政策，我们必须保持理性的判断。",
       "如果计划没有变化，学者下午会在会议中心比较不同方案。",
@@ -31960,7 +31992,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解社会需求，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu nhu cầu xã hội, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ nhu cầu xã hội, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "研究人员已经把研究报告带到国际机场了。",
       "律师正在企业总部提高工作效率。",
@@ -31973,7 +32005,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对技术进步，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớitiến bộ công nghệ, chúng tôiphảiduy trìnhận định khách quan.",
+    "meaning": "Đối mặt với tiến bộ công nghệ, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "经过多方面调查，研究人员得出了符合实际情况的结论。",
       "虽然时间不多，但是企业家还是完成了申请研究项目。",
@@ -31986,7 +32018,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对未来的变化，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt với tương lai của thay đổi, chúng tôi phải duy trì nhận định chính xác.",
+    "meaning": "Đối mặt với những thay đổi trong tương lai, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "面对社会的发展，我们必须保持理性的判断。",
       "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
@@ -31999,7 +32031,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "在当前背景下，我们有必要进一步加强风险管理。",
     "pinyin": "",
-    "meaning": "Ở trong bối cảnh hiện nay, chúng tôi có phải yếu thêm nữa tăng cường quản lý rủi ro quản lý.",
+    "meaning": "Trong bối cảnh hiện nay, chúng tôi cần tiếp tục tăng cường quản lý rủi ro quản lý.",
     "options": [
       "在当前背景下，我们有必要进一步加强风险管理。",
       "经过多方面调查，研究人员得出了具有重要参考价值的结论。",
@@ -32012,7 +32044,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对管理体制，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicơ chế quản lý, chúng tôiphảiduy trìnhận định lý tính.",
+    "meaning": "Đối mặt với cơ chế quản lý, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "面对管理体制，我们必须保持理性的判断。",
       "会议结束以后，律师马上回到研究中心继续提高工作效率。",
@@ -32025,7 +32057,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解管理体制，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu cơ chế quản lý, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ cơ chế quản lý, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "只有充分理解管理体制，才能制定更加合理的方案。",
       "深入分析这一现象，有助于我们理解复杂的经济环境。",
@@ -32038,7 +32070,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对社会需求，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớinhu cầu xã hội, chúng tôiphảiduy trìnhận định lý tính.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "企业家告诉我，他最近正在改进管理方法。",
       "面对技术进步，我们必须保持理性的判断。",
@@ -32051,7 +32083,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对长期发展战略，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichiến lược phát triển dài hạn, chúng tôiphảiduy trìnhận định tỉnh táo.",
+    "meaning": "Đối mặt với chiến lược phát triển dài hạn, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "为了准备明天的工作，企业家今晚还要解决实际困难。",
       "从整体来看，这一问题涉及多个公共政策。",
@@ -32064,7 +32096,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "在当前背景下，我们有必要进一步完善相关制度。",
     "pinyin": "",
-    "meaning": "Ở trong bối cảnh hiện nay, chúng tôi có phải yếu thêm nữa hoàn thiện liên quan chế độ.",
+    "meaning": "Trong bối cảnh hiện nay, chúng tôi cần tiếp tục hoàn thiện các chế độ liên quan.",
     "options": [
       "在当前背景下，我们有必要进一步完善相关制度。",
       "研究人员觉得深入分析问题很重要。",
@@ -32077,7 +32109,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对国际竞争，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicạnh tranh quốc tế, chúng tôiphảiduy trìnhận định khách quan.",
+    "meaning": "Đối mặt với cạnh tranh quốc tế, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "学者已经把统计数据带到医院了。",
       "深入分析这一现象，有助于我们理解未来的变化。",
@@ -32090,7 +32122,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解社会的发展，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu sự phát triển của xã hội, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ sự phát triển của xã hội, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "只有充分理解技术进步，才能制定更加合理的方案。",
       "面对未来的变化，我们必须保持理性的判断。",
@@ -32103,7 +32135,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对资源配置问题，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớiphân bổ nguồn lựcvấn đề, chúng tôiphảiduy trìnhận định độc lập.",
+    "meaning": "Đối mặt với vấn đề phân bổ nguồn lực, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "只有充分理解社会的发展，才能制定更加合理的方案。",
       "面对资源配置问题，我们必须保持独立的判断。",
@@ -32116,7 +32148,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对资源配置问题，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớiphân bổ nguồn lựcvấn đề, chúng tôiphảiduy trìnhận định chính xác.",
+    "meaning": "Đối mặt với vấn đề phân bổ nguồn lực, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "面对未来的变化，我们必须保持理性的判断。",
       "深入分析这一现象，有助于我们理解长期发展战略。",
@@ -32129,7 +32161,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对社会需求，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớinhu cầu xã hội, chúng tôiphảiduy trìnhận định tỉnh táo.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "面对社会需求，我们必须保持清醒的判断。",
       "学者觉得完成调查研究很重要。",
@@ -32142,7 +32174,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对国际竞争，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicạnh tranh quốc tế, chúng tôiphảiduy trìnhận định chính xác.",
+    "meaning": "Đối mặt với cạnh tranh quốc tế, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "面对社会需求，我们必须保持理性的判断。",
       "律师希望明天可以继续承担重要责任。",
@@ -32155,7 +32187,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对未来的变化，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt với tương lai của thay đổi, chúng tôi phải duy trì nhận định độc lập.",
+    "meaning": "Đối mặt với những thay đổi trong tương lai, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "因为工作很忙，企业家只能晚上改进管理方法。",
       "面对未来的变化，我们必须保持独立的判断。",
@@ -32168,7 +32200,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对技术进步，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớitiến bộ công nghệ, chúng tôiphảiduy trìnhận định lý tính.",
+    "meaning": "Đối mặt với tiến bộ công nghệ, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "面对社会需求，我们必须保持理性的判断。",
       "企业家告诉我，他最近正在解决实际困难。",
@@ -32181,7 +32213,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对国际竞争，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicạnh tranh quốc tế, chúng tôiphảiduy trìnhận định tỉnh táo.",
+    "meaning": "Đối mặt với cạnh tranh quốc tế, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "面对新的挑战，企业需要重新考虑管理体制。",
       "面对未来的变化，我们必须保持理性的判断。",
@@ -32207,7 +32239,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对未来的变化，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt với tương lai của thay đổi, chúng tôi phải duy trì nhận định lý tính.",
+    "meaning": "Đối mặt với những thay đổi trong tương lai, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "面对未来的变化，我们必须保持理性的判断。",
       "深入分析这一现象，有助于我们理解管理体制。",
@@ -32220,7 +32252,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对公共政策，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichính sách công, chúng tôiphảiduy trìnhận định chính xác.",
+    "meaning": "Đối mặt với chính sách công, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "面对公共政策，我们必须保持准确的判断。",
       "学者每天都要交换专业意见。",
@@ -32233,7 +32265,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对资源配置问题，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớiphân bổ nguồn lựcvấn đề, chúng tôiphảiduy trìnhận định lý tính.",
+    "meaning": "Đối mặt với vấn đề phân bổ nguồn lực, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "面对新的挑战，企业需要重新考虑社会的发展。",
       "因为工作很忙，律师只能晚上调整发展战略。",
@@ -32259,7 +32291,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对社会需求，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớinhu cầu xã hội, chúng tôiphảiduy trìnhận định khách quan.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "研究人员觉得深入分析问题很重要。",
       "面对新的挑战，企业需要重新考虑社会需求。",
@@ -32272,7 +32304,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "只有充分理解未来的变化，才能制定更加合理的方案。",
     "pinyin": "",
-    "meaning": "Chỉ có đầy đủ hiểu những thay đổi trong tương lai, mới có thể chế độ, kiểm soát định hơn thêm, gia tăng hợp lý của phương án.",
+    "meaning": "Chỉ khi hiểu đầy đủ những thay đổi trong tương lai, mới có thể xây dựng hợp lý phương án.",
     "options": [
       "只有充分理解未来的变化，才能制定更加合理的方案。",
       "面对资源配置问题，我们必须保持准确的判断。",
@@ -32285,7 +32317,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对社会需求，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớinhu cầu xã hội, chúng tôiphảiduy trìnhận định độc lập.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "研究人员告诉我，他最近正在调查社会情况。",
       "面对长期发展战略，我们必须保持客观的判断。",
@@ -32298,7 +32330,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对管理体制，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicơ chế quản lý, chúng tôiphảiduy trìnhận định tỉnh táo.",
+    "meaning": "Đối mặt với cơ chế quản lý, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "昨天学者在医院交换专业意见，所以回家比较晚。",
       "因为工作很忙，企业家只能晚上申请研究项目。",
@@ -32324,7 +32356,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对技术进步，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớitiến bộ công nghệ, chúng tôiphảiduy trìnhận định tỉnh táo.",
+    "meaning": "Đối mặt với tiến bộ công nghệ, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "面对技术进步，我们必须保持清醒的判断。",
       "经过多方面调查，研究人员得出了具有重要参考价值的结论。",
@@ -32350,7 +32382,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对公共政策，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichính sách công, chúng tôiphảiduy trìnhận định tỉnh táo.",
+    "meaning": "Đối mặt với chính sách công, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "律师正在企业总部提高工作效率。",
       "这一政策可能对复杂的经济环境产生深远影响。",
@@ -32363,7 +32395,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对国际竞争，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicạnh tranh quốc tế, chúng tôiphảiduy trìnhận định độc lập.",
+    "meaning": "Đối mặt với cạnh tranh quốc tế, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "最近企业家常常需要申请研究项目。",
       "律师正在企业总部提高工作效率。",
@@ -32376,7 +32408,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对资源配置问题，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớiphân bổ nguồn lựcvấn đề, chúng tôiphảiduy trìnhận định khách quan.",
+    "meaning": "Đối mặt với vấn đề phân bổ nguồn lực, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "如果计划没有变化，律师下午会在研究中心调整发展战略。",
       "面对资源配置问题，我们必须保持客观的判断。",
@@ -32389,7 +32421,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对社会需求，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớinhu cầu xã hội, chúng tôiphảiduy trìnhận định chính xác.",
+    "meaning": "Đối mặt với nhu cầu xã hội, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "周末的时候，学者喜欢去医院完成调查研究。",
       "面对国际竞争，我们必须保持独立的判断。",
@@ -32402,7 +32434,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对技术进步，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớitiến bộ công nghệ, chúng tôiphảiduy trìnhận định chính xác.",
+    "meaning": "Đối mặt với tiến bộ công nghệ, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "昨天研究人员在实验室积累实践经验，所以回家比较晚。",
       "面对技术进步，我们必须保持准确的判断。",
@@ -32415,7 +32447,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对社会的发展，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt với sự phát triển của xã hội, chúng tôi phải duy trì nhận định lý tính.",
+    "meaning": "Đối mặt với sự phát triển của xã hội, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "今天研究人员在实验室深入分析问题。",
       "面对社会的发展，我们必须保持客观的判断。",
@@ -32428,7 +32460,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对技术进步，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớitiến bộ công nghệ, chúng tôiphảiduy trìnhận định độc lập.",
+    "meaning": "Đối mặt với tiến bộ công nghệ, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "面对技术进步，我们必须保持独立的判断。",
       "律师希望明天可以继续提高工作效率。",
@@ -32467,7 +32499,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对未来的变化，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt với tương lai của thay đổi, chúng tôi phải duy trì nhận định khách quan.",
+    "meaning": "Đối mặt với những thay đổi trong tương lai, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "昨天学者在大学比较不同方案，所以回家比较晚。",
       "面对未来的变化，我们必须保持客观的判断。",
@@ -32480,7 +32512,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对长期发展战略，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichiến lược phát triển dài hạn, chúng tôiphảiduy trìnhận định khách quan.",
+    "meaning": "Đối mặt với chiến lược phát triển dài hạn, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "面对长期发展战略，我们必须保持客观的判断。",
       "面对管理体制，我们必须保持客观的判断。",
@@ -32493,7 +32525,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对复杂的经济环境，我们必须保持理性的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt với môi trường kinh tế phức tạp, chúng tôi phải duy trì nhận định lý tính.",
+    "meaning": "Đối mặt với môi trường kinh tế phức tạp, chúng tôi phải duy trì phán đoán hợp lý.",
     "options": [
       "面对社会需求，我们必须保持独立的判断。",
       "面对复杂的经济环境，我们必须保持理性的判断。",
@@ -32506,7 +32538,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对长期发展战略，我们必须保持准确的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichiến lược phát triển dài hạn, chúng tôiphảiduy trìnhận định chính xác.",
+    "meaning": "Đối mặt với chiến lược phát triển dài hạn, chúng tôi phải duy trì nhận định chính xác.",
     "options": [
       "面对长期发展战略，我们必须保持准确的判断。",
       "如果缺乏充分准备，就很难有效应对资源配置问题。",
@@ -32519,7 +32551,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对未来的变化，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt với tương lai của thay đổi, chúng tôi phải duy trì nhận định tỉnh táo.",
+    "meaning": "Đối mặt với những thay đổi trong tương lai, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "面对未来的变化，我们必须保持清醒的判断。",
       "经过多方面调查，研究人员得出了值得进一步研究的结论。",
@@ -32532,7 +32564,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对公共政策，我们必须保持独立的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớichính sách công, chúng tôiphảiduy trìnhận định độc lập.",
+    "meaning": "Đối mặt với chính sách công, chúng tôi phải duy trì nhận định độc lập.",
     "options": [
       "面对公共政策，我们必须保持独立的判断。",
       "面对复杂的经济环境，我们必须保持独立的判断。",
@@ -32545,7 +32577,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对管理体制，我们必须保持客观的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớicơ chế quản lý, chúng tôiphảiduy trìnhận định khách quan.",
+    "meaning": "Đối mặt với cơ chế quản lý, chúng tôi phải duy trì nhận định khách quan.",
     "options": [
       "只有充分理解社会需求，才能制定更加合理的方案。",
       "企业家告诉我，他最近正在改进管理方法。",
@@ -32558,7 +32590,7 @@ const LISTENING_BANK = [
     "level": 6,
     "audio": "面对资源配置问题，我们必须保持清醒的判断。",
     "pinyin": "",
-    "meaning": "Đối mặt vớiphân bổ nguồn lựcvấn đề, chúng tôiphảiduy trìnhận định tỉnh táo.",
+    "meaning": "Đối mặt với vấn đề phân bổ nguồn lực, chúng tôi phải duy trì nhận định tỉnh táo.",
     "options": [
       "最近学者常常需要比较不同方案。",
       "深入分析这一现象，有助于我们理解未来的变化。",
@@ -37698,7 +37730,7 @@ function checkListening(choice){
   const qMeaning = getListeningMeaning(q);
   const meaning = qMeaning ? `Nghĩa tiếng Việt: ${qMeaning}` : 'Nghĩa tiếng Việt: chưa có dữ liệu cho câu này.';
   if(choice===q.correct){ listeningScore++; listeningSessionCorrect++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✓ Chính xác!</strong><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#00a67d'; if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); } }
-  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✗ Chưa đúng.</strong><div class="listening-answer">Đáp án: ${q.audio}</div><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:getListeningPinyin(q),meaning:getListeningMeaning(q)}); setWrongListening(wrong); }
+  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✗ Chưa đúng.</strong><div class="listening-answer">Đáp án: ${q.audio}</div><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:getListeningPinyin(q),meaning:getListeningMeaning(q),level:q.level}); setWrongListening(wrong); }
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
   saveListeningProgress();
   updateListeningProgressUI();
