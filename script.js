@@ -8082,12 +8082,30 @@ let currentQuestionIndex = 0;
 let examScore = 0;
 
 // Hình minh họa dùng chung cho Luyện nghe và Bài tập HSK.
-// Dùng asset cục bộ để PWA vẫn hoạt động khi offline.
+// Ảnh được nhúng trực tiếp dưới dạng SVG data URI để GitHub Pages
+// không cần tải thư mục ảnh riêng. Vì vậy kể cả khi GitHub chặn upload
+// file ảnh, giao diện vẫn hiển thị hình bình thường.
 const THEME_IMAGE_MAP = {
-  school:'school', person:'person', food:'food', home:'home', shopping:'shopping',
-  travel:'travel', weather:'weather', transport:'transport', work:'work', time:'time',
-  family:'family', phone:'phone', book:'book', health:'health', restaurant:'restaurant',
-  city:'city', nature:'nature', sport:'sport', clothes:'clothes', money:'money'
+  school:['https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=82','Trường học'],
+  person:['https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=82','Con người'],
+  food:['https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=82','Đồ ăn'],
+  home:['https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=82','Nhà'],
+  shopping:['https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=82','Mua sắm'],
+  travel:['https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=82','Du lịch'],
+  weather:['https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=900&q=82','Thời tiết'],
+  transport:['https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=900&q=82','Giao thông'],
+  work:['https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=82','Công việc'],
+  time:['https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=82','Thời gian'],
+  family:['https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=900&q=82','Gia đình'],
+  phone:['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=82','Điện thoại'],
+  book:['https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=900&q=82','Sách'],
+  health:['https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=82','Sức khỏe'],
+  restaurant:['https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=82','Nhà hàng'],
+  city:['https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=82','Thành phố'],
+  nature:['https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=82','Thiên nhiên'],
+  sport:['https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=900&q=82','Thể thao'],
+  clothes:['https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=900&q=82','Quần áo'],
+  money:['https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=82','Tiền bạc']
 };
 const THEME_RULES = [
   ['school',['学校','老师','学生','教室','同学','上课','下课','考试','学习']],
@@ -8115,13 +8133,23 @@ function getLearningTheme(text){
   for(const [theme,words] of THEME_RULES){ if(words.some(w=>t.includes(w))) return theme; }
   return 'person';
 }
+function makeThemeSvg(theme){
+  const item=THEME_IMAGE_MAP[theme]||THEME_IMAGE_MAP.person;
+  const label=item[1];
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8eef7"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs><rect width="900" height="500" rx="32" fill="url(#g)"/><rect x="28" y="28" width="844" height="444" rx="26" fill="#fff"/><text x="450" y="245" text-anchor="middle" font-size="42" font-family="Arial,sans-serif" fill="#475569">${label}</text></svg>`;
+  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+}
 function setLearningImage(id,text,alt){
   const img=document.getElementById(id); if(!img)return;
   const theme=getLearningTheme(text);
-  img.src=`./images/themes/${THEME_IMAGE_MAP[theme]||'person'}.svg`;
-  img.alt=alt||'Hình minh họa';
+  const item=THEME_IMAGE_MAP[theme]||THEME_IMAGE_MAP.person;
+  const fallback=makeThemeSvg(theme);
+  img.onerror=function(){ if(this.src!==fallback) this.src=fallback; };
+  img.src=item[0];
+  img.alt=alt||item[1]||'Hình minh họa';
+  img.loading='lazy';
+  img.decoding='async';
 }
-
 
 // Bảng cấu hình số câu hỏi theo HSK
 const HSK_QUESTION_COUNT = {
