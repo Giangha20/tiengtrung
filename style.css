@@ -1711,3 +1711,202 @@ button:active {
   .stroke-animation-tools{grid-template-columns:1fr 1fr;}
   .stroke-animation-tools button:last-child{grid-column:1/-1}
 }
+
+/* ===== Compact modern buttons ===== */
+button,
+.btn,
+.nav-btn,
+.control-btn,
+.mode-btn,
+.action-btn {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .18s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, filter .22s ease;
+}
+
+button:not(:disabled):hover,
+.btn:not(:disabled):hover,
+.nav-btn:not(:disabled):hover,
+.control-btn:not(:disabled):hover,
+.mode-btn:not(:disabled):hover,
+.action-btn:not(:disabled):hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+button:not(:disabled):active,
+.btn:not(:disabled):active,
+.nav-btn:not(:disabled):active,
+.control-btn:not(:disabled):active,
+.mode-btn:not(:disabled):active,
+.action-btn:not(:disabled):active {
+  transform: translateY(0) scale(.97);
+}
+
+button:focus-visible,
+.btn:focus-visible,
+.nav-btn:focus-visible,
+.control-btn:focus-visible,
+.mode-btn:focus-visible,
+.action-btn:focus-visible {
+  outline: 3px solid rgba(9,132,227,.22);
+  outline-offset: 2px;
+}
+
+/* Main navigation */
+.nav-btn {
+  min-height: 42px;
+  padding: 9px 14px;
+  border-radius: 13px;
+  border: 1px solid rgba(255,255,255,.55);
+  box-shadow: 0 5px 14px rgba(0,0,0,.07);
+  font-weight: 700;
+}
+
+/* Compact action buttons */
+.action-btn,
+.control-btn {
+  min-height: 40px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(9,132,227,.14);
+  box-shadow: 0 5px 14px rgba(0,0,0,.07);
+  font-weight: 700;
+}
+
+/* Login/register/logout */
+#login-btn,
+#register-btn,
+#logout-btn,
+.auth-submit,
+.logout-btn {
+  min-height: 42px;
+  padding: 10px 17px;
+  border-radius: 12px;
+  border: 0;
+  font-weight: 800;
+  letter-spacing: .1px;
+  box-shadow: 0 7px 18px rgba(9,132,227,.18);
+}
+
+#login-btn:hover,
+#register-btn:hover,
+.auth-submit:hover,
+.logout-btn:hover {
+  box-shadow: 0 10px 24px rgba(9,132,227,.25);
+}
+
+#logout-btn,
+.logout-btn {
+  background: linear-gradient(135deg,#ff7675,#d63031);
+  color: #fff;
+  box-shadow: 0 7px 18px rgba(214,48,49,.18);
+}
+
+#logout-btn:hover,
+.logout-btn:hover {
+  box-shadow: 0 10px 24px rgba(214,48,49,.25);
+}
+
+/* Quiz / writing controls */
+#check-answer,
+#skip-question,
+#ai-check,
+#rewrite-btn,
+#stroke-replay,
+#stroke-speed,
+#stroke-skip {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 11px;
+  font-size: .92rem;
+  font-weight: 750;
+}
+
+#check-answer,
+#ai-check {
+  box-shadow: 0 6px 16px rgba(0,184,148,.16);
+}
+
+#skip-question,
+#rewrite-btn,
+#stroke-speed {
+  box-shadow: 0 6px 16px rgba(9,132,227,.13);
+}
+
+#stroke-replay {
+  box-shadow: 0 6px 16px rgba(0,184,148,.15);
+}
+
+#stroke-skip {
+  box-shadow: 0 6px 16px rgba(253,203,110,.20);
+}
+
+/* Search / small utility buttons */
+#search-btn,
+.search-btn,
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  box-shadow: 0 5px 13px rgba(0,0,0,.08);
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Mobile: compact, comfortable touch targets */
+@media (max-width: 600px) {
+  button,
+  .btn,
+  .nav-btn,
+  .control-btn,
+  .mode-btn,
+  .action-btn {
+    min-height: 38px;
+    padding: 8px 11px;
+    border-radius: 11px;
+    font-size: .88rem;
+  }
+
+  #login-btn,
+  #register-btn,
+  #logout-btn,
+  .auth-submit,
+  .logout-btn {
+    min-height: 40px;
+    padding: 9px 13px;
+  }
+
+  #check-answer,
+  #skip-question,
+  #ai-check,
+  #rewrite-btn,
+  #stroke-replay,
+  #stroke-speed,
+  #stroke-skip {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 8px 9px;
+    font-size: .82rem;
+  }
+}
+
+/* Dark mode */
+body.dark-mode button,
+body.dark-mode .btn,
+body.dark-mode .nav-btn,
+body.dark-mode .control-btn,
+body.dark-mode .mode-btn,
+body.dark-mode .action-btn {
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 6px 16px rgba(0,0,0,.20);
+}

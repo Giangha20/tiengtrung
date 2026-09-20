@@ -7710,6 +7710,33 @@ let currentCommFilter = "all";
 document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('online-auth-loader');
 
+    // Gắn nút Đăng xuất NGAY khi DOM tải xong, không phụ thuộc Firestore/profile.
+    // Như vậy dù profile hoặc tiến trình online tải chậm, nút vẫn hoạt động.
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async (event) => {
+            event.preventDefault();
+            if (logoutBtn.dataset.loggingOut === '1') return;
+            logoutBtn.dataset.loggingOut = '1';
+            logoutBtn.disabled = true;
+            const oldText = logoutBtn.textContent;
+            logoutBtn.textContent = 'Đang đăng xuất...';
+            try {
+                if (window.ghAuth && typeof window.ghAuth.logout === 'function') {
+                    await window.ghAuth.logout();
+                } else if (window.firebase && firebase.auth) {
+                    await firebase.auth().signOut();
+                }
+            } catch (error) {
+                console.error('Đăng xuất Firebase lỗi:', error);
+            } finally {
+                // Xóa trạng thái giao diện và chuyển trang bất kể Firestore có lỗi hay không.
+                window.ghCurrentUser = null;
+                window.location.replace('./login.html');
+            }
+        }, { once: true });
+    }
+
     try {
         // Chờ Firebase xác nhận trạng thái đăng nhập lần đầu, không redirect sớm khi SDK còn đang khởi tạo.
         const user = window.ghAuthReady ? await window.ghAuthReady : null;
@@ -7754,12 +7781,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         initHandwriting();
         updateProgressUI();
 
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) logoutBtn.addEventListener('click', async () => {
-            logoutBtn.disabled = true;
-            logoutBtn.textContent = 'Đang đăng xuất...';
-            try { await window.ghAuth.logout(); } finally { window.location.replace('./login.html'); }
-        });
     } catch (error) {
         console.error(error);
         if (loader) loader.innerHTML = '<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:380px;text-align:center;"><div style="font-size:36px;">⚠️</div><strong>Không thể tải tài khoản</strong><p style="color:#718096;">Kiểm tra Firebase và kết nối Internet rồi tải lại trang.</p></div>' ;
