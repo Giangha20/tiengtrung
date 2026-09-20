@@ -7753,18 +7753,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const userChip = document.getElementById('online-user-chip');
         if (userChip) userChip.textContent = ' ' + (profile?.username || user.displayName || user.email || 'Tài khoản');
 
-        document.getElementById('hsk-level').addEventListener('change', (e) => {
-            currentLevel = e.target.value;
-            renderList();
-            initTyping();
-            renderCommunication();
-            saveProgressData({ currentLevel });
-            saveHandwritingProgress();
-            if (document.getElementById('handwriting-canvas')) {
-                initHandwriting();
-            }
-        });
-        
         document.getElementById('typing-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkTyping();
@@ -7871,10 +7859,27 @@ function renderList() {
 // Khởi tạo bài tập gõ
 function initTyping() {
     typingWordList = [...(hskData[currentLevel] || [])];
-    typingWordList.sort(() => Math.random() - 0.5); 
-    currentWordIndex = 0;
+    // Giữ thứ tự ổn định để vị trí đã học có thể tiếp tục chính xác sau khi rời mục.
+    currentWordIndex = Math.max(0, Math.min(
+        Number(getProgressData().typingCompleted || 0),
+        Math.max(0, typingWordList.length - 1)
+    ));
     showTypingWord();
 }
+
+function resumeTypingFromProgress() {
+    const p = getProgressData();
+    const savedLevel = String(p.currentLevel || currentLevel || '1');
+    currentLevel = savedLevel;
+    const select = document.getElementById('hsk-level');
+    if (select) select.value = savedLevel;
+    switchMode('typing');
+    const total = (hskData[savedLevel] || []).length;
+    const done = Math.min(Number(p.typingCompleted || 0), total);
+    currentWordIndex = done >= total ? 0 : done;
+    showTypingWord();
+}
+
 
 function showTypingWord() {
     const feedback = document.getElementById('typing-feedback');
@@ -8084,6 +8089,53 @@ function updateExamStartInfo() {
 // Hàm chuyển chế độ (Cập nhật thêm tính năng đổi số câu)
 
 
+function saveExamSession() {
+    if (!examQuestions.length) return;
+    const session = {
+        level: String(currentLevel || document.getElementById('hsk-level')?.value || '1'),
+        index: currentQuestionIndex,
+        score: examScore,
+        questions: examQuestions.map(q => ({
+            targetWord: q.target?.word || '',
+            options: (q.options || []).map(o => o.word || '')
+        })),
+        updatedAt: new Date().toISOString()
+    };
+    saveProgressData({ examSession: session });
+}
+
+function resumeExamFromProgress() {
+    const p = getProgressData();
+    const session = p.examSession;
+    if (!session || !Array.isArray(session.questions) || !session.questions.length) {
+        switchMode('exam');
+        return;
+    }
+    const level = String(session.level || currentLevel || '1');
+    const list = hskData[level] || [];
+    const byWord = new Map(list.map(item => [String(item.word), item]));
+    const rebuilt = session.questions.map(q => {
+        const target = byWord.get(String(q.targetWord));
+        const options = (q.options || []).map(w => byWord.get(String(w))).filter(Boolean);
+        return target && options.length ? { target, options } : null;
+    }).filter(Boolean);
+    if (!rebuilt.length) { switchMode('exam'); return; }
+    currentLevel = level;
+    const select = document.getElementById('hsk-level');
+    if (select) select.value = level;
+    examQuestions = rebuilt;
+    currentQuestionIndex = Math.max(0, Math.min(Number(session.index || 0), examQuestions.length - 1));
+    examScore = Math.max(0, Number(session.score || 0));
+    document.getElementById('exam-start-screen')?.classList.add('hidden');
+    document.getElementById('exam-result-screen')?.classList.add('hidden');
+    document.getElementById('exam-quiz-screen')?.classList.remove('hidden');
+    document.querySelectorAll('main > section, section').forEach(section => section.classList.remove('active'));
+    document.getElementById('exam-mode')?.classList.add('active');
+    updateExamStartInfo();
+    renderQuestion();
+    saveExamSession();
+}
+
 // Bắt đầu bài thi
 function startExam() {
     const levelSelect = document.getElementById('hsk-level');
@@ -8122,6 +8174,7 @@ function startExam() {
     document.getElementById('exam-quiz-screen').classList.remove('hidden');
 
     renderQuestion();
+    saveExamSession();
 }
 
 // Hiển thị câu hỏi
@@ -8174,11 +8227,13 @@ function checkExamAnswer(selected, correct, btn) {
 
     document.getElementById('quiz-score').innerText = examScore;
     document.getElementById('next-quiz-btn').classList.remove('hidden');
+    saveExamSession();
 }
 
 // Câu hỏi tiếp theo
 function nextQuestion() {
     currentQuestionIndex++;
+    saveExamSession();
     if (currentQuestionIndex < examQuestions.length) {
         renderQuestion();
     } else {
@@ -8242,19 +8297,54 @@ function resetExamUI() {
 
 function changeLevel() {
     const levelSelect = document.getElementById('hsk-level');
-    currentLevel = levelSelect ? levelSelect.value : '1';
+    currentLevel = String(levelSelect ? levelSelect.value : '1');
+
+    // Một lựa chọn HSK là cấp độ dùng chung cho TOÀN BỘ hệ thống.
+    // Không chỉ danh sách từ mà bài gõ, giao tiếp, nghe, thi thử,
+    // luyện viết AI và tiến trình cũng phải dùng cùng currentLevel.
     saveProgressData({ currentLevel });
 
+    // 1. Danh sách từ vựng
     renderList();
+
+    // 2. Bài tập gõ
     initTyping();
+
+    // 3. Luyện giao tiếp
+    currentCommFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    const allFilter = document.querySelector('.filter-btn[data-level="all"]');
+    if (allFilter) allFilter.classList.add('active');
+    renderCommunication();
+
+    // 4. Luyện nghe: nạp lại bộ câu theo đúng HSK vừa chọn, không tự phát âm
+    if (typeof initListening === 'function') initListening();
+
+    // 5. Thi thử
     updateExamStartInfo();
     resetExamUI();
 
+    // 6. Luyện viết AI / chữ viết: đổi danh sách sang HSK mới
+    if (typeof initHandwriting === 'function') initHandwriting();
+
+    // 7. Tiến trình: hiển thị đúng HSK hiện tại
+    updateProgressUI();
+
+    // 8. Xóa nội dung tìm kiếm cũ để tránh kết quả của HSK trước
     const searchInput = document.getElementById('vocab-search');
     const resultCount = document.getElementById('search-result-count');
-
+    const searchContainer = document.getElementById('search-results');
     if (searchInput) searchInput.value = '';
     if (resultCount) resultCount.textContent = '';
+    if (searchContainer) searchContainer.innerHTML = '';
+
+    // 9. Cập nhật nhãn HSK ở các khu vực có hiển thị cấp độ
+    document.querySelectorAll('[data-hsk-current]').forEach(el => {
+        el.textContent = `HSK ${currentLevel}`;
+    });
+
+    // Nếu đang ở tab Luyện nghe, hiển thị ngay câu đầu của HSK mới.
+    // initListening() không tự phát âm.
 }
 
 function normalizeSearchText(text = "") {
@@ -9163,12 +9253,15 @@ function updateProgressUI() {
     set('progress-level', `HSK ${level}`);
     set('progress-level-detail', `${total} từ trong cấp độ này`);
     set('progress-typing', `${typingPercent}%`);
-    set('progress-typing-detail', `${typed} / ${total} từ đã hoàn thành`);
+    set('progress-typing-detail', `${typed} / ${total} từ đã hoàn thành${typed < total ? ' • Câu tiếp theo: ' + (typed + 1) : ' • Đã hoàn thành'}`);
     set('progress-handwriting', `${hwPercent}%`);
     set('progress-handwriting-detail', total ? `Đang ở từ ${Math.min(hwIndex + 1, total)} / ${total}` : 'Chưa có dữ liệu');
     set('progress-exam', `${exams.length} bài`);
     const lastExam = exams[exams.length - 1];
-    set('progress-exam-detail', lastExam ? `${lastExam.score}/${lastExam.total} • HSK ${lastExam.level}` : 'Chưa có kết quả');
+    const examSession = p.examSession;
+    set('progress-exam-detail', examSession && Array.isArray(examSession.questions) && examSession.questions.length
+        ? `Câu ${Math.min(Number(examSession.index || 0) + 1, examSession.questions.length)}/${examSession.questions.length} • Nhấn để tiếp tục`
+        : (lastExam ? `${lastExam.score}/${lastExam.total} • HSK ${lastExam.level} • Nhấn để làm lại` : 'Chưa có bài đang làm • Nhấn để bắt đầu'));
     const listen = p.listening || {};
     const listenPct = Math.min(100, Math.max(0, Number(listen.pct || 0)));
     set('progress-listening', `${listenPct}%`);
@@ -11942,8 +12035,8 @@ function initListening(){
   if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch(e) {} }
   listeningWrongMode=false;
   const level=Number(document.getElementById('hsk-level')?.value||1);
-  listeningQuestions=LISTENING_BANK.filter(x=>x.level<=Math.max(1,level));
-  listeningQuestions=listeningQuestions.map(q=>{ if(q.options&&q.options.length===4)return q; const pool=LISTENING_BANK.filter(x=>x!==q && x.level<=Math.max(1,level)); const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3); const opts=[q.audio,...ds.map(x=>x.audio)].sort(()=>Math.random()-0.5); return {...q,options:opts,correct:opts.indexOf(q.audio)}; });
+  listeningQuestions=LISTENING_BANK.filter(x=>Number(x.level)===Math.max(1,level));
+  listeningQuestions=listeningQuestions.map(q=>{ if(q.options&&q.options.length===4)return q; const pool=LISTENING_BANK.filter(x=>x!==q && Number(x.level)===Math.max(1,level)); const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3); const opts=[q.audio,...ds.map(x=>x.audio)].sort(()=>Math.random()-0.5); return {...q,options:opts,correct:opts.indexOf(q.audio)}; });
   if(!listeningQuestions.length) listeningQuestions=[...LISTENING_BANK];
   const recentKey='giangha_listening_recent_v2';
   let recent=[]; try { recent=JSON.parse(sessionStorage.getItem(recentKey)||'[]'); } catch(e){}
@@ -11985,7 +12078,7 @@ function checkListening(choice){
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
   saveListeningProgress();
   updateListeningProgressUI();
-  document.getElementById('listening-hint').textContent=`Pinyin: ${q.pinyin}`;
+  document.getElementById('listening-hint').innerHTML=`<div><strong>Pinyin:</strong> ${escapeHtml(q.pinyin||'')}</div><div class="listening-meaning"><strong>Nghĩa:</strong> ${escapeHtml(q.meaning||'')}</div>`;
   document.getElementById('listening-next').disabled=false;
 }
 function nextListeningQuestion(){

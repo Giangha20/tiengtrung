@@ -68,9 +68,15 @@
                 </div>
                 <div class="progress-grid">
                     <div class="progress-card"><span><svg class="ui-icon" aria-hidden="true"><use href="#icon-book"></use></svg> Cấp độ hiện tại</span><strong id="progress-level">HSK 1</strong><small id="progress-level-detail">Đang học</small></div>
-                    <div class="progress-card"><span><svg class="ui-icon" aria-hidden="true"><use href="#icon-keyboard"></use></svg> Bài tập gõ</span><strong id="progress-typing">0%</strong><small id="progress-typing-detail">0 / 0 từ</small></div>
-<div class="progress-card"><span><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg> Bài tập HSK</span><strong id="progress-exam">0 bài</strong><small id="progress-exam-detail">Chưa có kết quả</small></div>
-                    <div class="progress-card"><span><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg> Luyện nghe</span><strong id="progress-listening">0%</strong><small id="progress-listening-detail">0 câu đã làm</small></div>
+                    <button type="button" class="progress-card progress-card-action" onclick="resumeTypingFromProgress()" title="Tiếp tục bài tập gõ từ câu gần nhất">
+                        <span><svg class="ui-icon" aria-hidden="true"><use href="#icon-keyboard"></use></svg> Bài tập gõ</span><strong id="progress-typing">0%</strong><small id="progress-typing-detail">0 / 0 từ • Nhấn để tiếp tục</small>
+                    </button>
+                    <button type="button" class="progress-card progress-card-action" onclick="resumeExamFromProgress()" title="Tiếp tục bài HSK từ câu gần nhất">
+                        <span><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg> Bài tập HSK</span><strong id="progress-exam">0 bài</strong><small id="progress-exam-detail">Chưa có kết quả • Nhấn để tiếp tục</small>
+                    </button>
+                    <button type="button" class="progress-card progress-card-action" onclick="switchMode('listening')" title="Tiếp tục luyện nghe">
+                        <span><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg> Luyện nghe</span><strong id="progress-listening">0%</strong><small id="progress-listening-detail">0 câu đã làm • Nhấn để tiếp tục</small>
+                    </button>
                 </div>
                 <div class="progress-main-card">
                     <div class="progress-main-title"><b>Tiến độ HSK hiện tại</b><span id="progress-total-label">0 từ</span></div>
