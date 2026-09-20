@@ -9491,176 +9491,154 @@ function speakHandwritingWord() {
 })();
 
 // ============================================================
-// HOẠT ẢNH THỨ TỰ NÉT HÁN TỰ
-// Dùng Hanzi Writer để hiển thị đúng hình dáng và thứ tự từng nét.
+// HOẠT ẢNH THỨ TỰ NÉT HÁN TỰ - ONLINE + OFFLINE
+// Không phụ thuộc Hanzi Writer/CDN để chạy giao diện animation.
+// Dữ liệu nét được tải online lần đầu và lưu IndexedDB để dùng offline.
 // ============================================================
 (function initStrokeOrderAnimation(){
-    let strokeWriter = null;
     let strokeChars = [];
     let strokeCharIndex = 0;
     let strokeSpeed = 1.25;
-    let strokePlaying = false;
+    let currentData = null;
+    let currentChar = '';
+    let playing = false;
+    let runToken = 0;
+
+    const DB_NAME = 'tiengtrung-stroke-cache';
+    const DB_VERSION = 1;
+    const STORE = 'characters';
+    const CDN = 'https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0.1/';
 
     function getCurrentHanzi(){
         const item = handwritingWords[handwritingIndex] || {};
         return String(item.word || item.hanzi || item.chinese || '').trim();
     }
+    function host(){ return document.getElementById('stroke-animation-character'); }
+    function setText(t){ const e=document.getElementById('stroke-step-text'); if(e)e.textContent=t; }
+    function setCount(n){ const e=document.getElementById('stroke-count-badge'); if(e)e.textContent=`${n||0} nét`; }
 
-    function getStrokeHost(){
-        return document.getElementById('stroke-animation-character');
-    }
-
-    function setStrokeText(text){
-        const el = document.getElementById('stroke-step-text');
-        if (el) el.textContent = text;
-    }
-
-    function setStrokeCount(count){
-        const el = document.getElementById('stroke-count-badge');
-        if (el) el.textContent = `${count || 0} nét`;
-    }
-
-    function clearStrokeWriter(){
-        strokePlaying = false;
-        if (strokeWriter && typeof strokeWriter.cancelQuiz === 'function') {
-            try { strokeWriter.cancelQuiz(); } catch(e) {}
-        }
-        strokeWriter = null;
-        const host = getStrokeHost();
-        if (host) host.innerHTML = '';
-    }
-
-    function renderStrokeCharacter(char, autoPlay){
-        const host = getStrokeHost();
-        if (!host) return;
-
-        clearStrokeWriter();
-        host.innerHTML = '';
-
-        if (!char) {
-            setStrokeCount(0);
-            setStrokeText('Chưa có chữ để hướng dẫn.');
-            return;
-        }
-
-        if (typeof window.HanziWriter !== 'function') {
-            setStrokeCount(0);
-            setStrokeText('Không tải được dữ liệu thứ tự nét. Bạn vẫn có thể luyện viết trong ô bên trên.');
-            return;
-        }
-
-        try {
-            strokeWriter = HanziWriter.create(host, char, {
-                width: 200,
-                height: 170,
-                padding: 5,
-                showOutline: true,
-                showCharacter: false,
-                strokeAnimationSpeed: strokeSpeed,
-                strokeFadeDuration: 220,
-                strokeHighlightSpeed: strokeSpeed,
-                drawingFadeDuration: 200,
-                highlightOnComplete: false,
-                drawingColor: '#0984e3',
-                strokeColor: '#d63031',
-                outlineColor: 'rgba(9,132,227,.18)',
-                radicalColor: '#0984e3',
-                showHintAfterMisses: 0
-            });
-
-            // Lấy số nét từ dữ liệu ký tự mà Hanzi Writer tải.
-            const count = strokeWriter._charData && Array.isArray(strokeWriter._charData.strokes)
-                ? strokeWriter._charData.strokes.length
-                : 0;
-            setStrokeCount(count);
-            setStrokeText(`Chữ “${char}” có ${count || '?'} nét. Quan sát từng nét từ từ.`);
-
-            if (autoPlay) playCurrentStrokeAnimation();
-        } catch (err) {
-            console.warn('Không thể khởi tạo hoạt ảnh thứ tự nét:', err);
-            setStrokeText(`Không thể phát hoạt ảnh chữ “${char}”.`);
-        }
-    }
-
-    function playCurrentStrokeAnimation(){
-        if (!strokeWriter) return;
-        strokePlaying = true;
-        setStrokeText(`▶ Đang hướng dẫn chữ “${strokeChars[strokeCharIndex] || getCurrentHanzi()}” từng nét...`);
-
-        try {
-            strokeWriter.animateCharacter({
-                onComplete: function(){
-                    strokePlaying = false;
-                    const char = strokeChars[strokeCharIndex] || getCurrentHanzi();
-                    const count = strokeWriter._charData && strokeWriter._charData.strokes
-                        ? strokeWriter._charData.strokes.length : 0;
-                    setStrokeText(`✅ Đã xem đủ ${count || ''} nét của chữ “${char}”. Hãy thử tự viết lại ở ô phía trên.`);
-                }
-            });
-        } catch (err) {
-            strokePlaying = false;
-            console.warn('Lỗi phát hoạt ảnh:', err);
-        }
-    }
-
-    function replayStrokeAnimation(){
-        const text = getCurrentHanzi();
-        strokeChars = [...text].filter(Boolean);
-        strokeCharIndex = 0;
-        if (!strokeChars.length) return;
-        renderStrokeCharacter(strokeChars[0], true);
-    }
-
-    function skipStrokeAnimation(){
-        if (!strokeWriter) return;
-        try {
-            strokeWriter.showCharacter({
-                showOutline: true,
-                showCharacter: true
-            });
-            strokePlaying = false;
-            const char = strokeChars[strokeCharIndex] || getCurrentHanzi();
-            const count = strokeWriter._charData && strokeWriter._charData.strokes
-                ? strokeWriter._charData.strokes.length : 0;
-            setStrokeText(`👀 Đây là chữ hoàn chỉnh. Nhấn “▶ Bắt đầu” để xem lại từng nét.`);
-            setStrokeCount(count);
-        } catch(e) {}
-    }
-
-    function updateStrokeAnimationForWord(){
-        const text = getCurrentHanzi();
-        strokeChars = [...text].filter(Boolean);
-        strokeCharIndex = 0;
-        if (!strokeChars.length) {
-            clearStrokeWriter();
-            setStrokeText('Chưa có chữ để hướng dẫn.');
-            setStrokeCount(0);
-            return;
-        }
-        renderStrokeCharacter(strokeChars[0], false);
-    }
-
-    document.addEventListener('DOMContentLoaded', function(){
-        const replay = document.getElementById('stroke-replay');
-        const speed = document.getElementById('stroke-speed');
-        const skip = document.getElementById('stroke-skip');
-
-        if (replay) replay.addEventListener('click', replayStrokeAnimation);
-        if (skip) skip.addEventListener('click', skipStrokeAnimation);
-        if (speed) speed.addEventListener('click', function(){
-            if (strokeSpeed === 1.25) {
-                strokeSpeed = 2.1;
-                speed.textContent = '⚡ Tốc độ: Nhanh';
-            } else {
-                strokeSpeed = 1.25;
-                speed.textContent = '⚡ Tốc độ: Chậm';
-            }
-            if (strokeWriter) renderStrokeCharacter(strokeChars[strokeCharIndex] || getCurrentHanzi(), false);
+    function openDB(){
+        return new Promise((resolve,reject)=>{
+            if(!('indexedDB' in window)) return resolve(null);
+            const req=indexedDB.open(DB_NAME,DB_VERSION);
+            req.onupgradeneeded=()=>{ if(!req.result.objectStoreNames.contains(STORE)) req.result.createObjectStore(STORE,{keyPath:'char'}); };
+            req.onsuccess=()=>resolve(req.result);
+            req.onerror=()=>resolve(null);
         });
+    }
+    async function cacheGet(char){
+        const db=await openDB(); if(!db)return null;
+        return new Promise(resolve=>{
+            const tx=db.transaction(STORE,'readonly'); const req=tx.objectStore(STORE).get(char);
+            req.onsuccess=()=>resolve(req.result?.data||null); req.onerror=()=>resolve(null);
+        });
+    }
+    async function cachePut(char,data){
+        const db=await openDB(); if(!db)return;
+        try { const tx=db.transaction(STORE,'readwrite'); tx.objectStore(STORE).put({char,data,savedAt:Date.now()}); } catch(e){}
+    }
+    async function loadStrokeData(char){
+        const local=await cacheGet(char);
+        if(local) return {data:local,source:'offline-cache'};
+        if(!navigator.onLine) throw new Error('offline-no-cache');
+        const url=CDN+encodeURIComponent(char)+'.json';
+        const res=await fetch(url,{cache:'force-cache'});
+        if(!res.ok) throw new Error('stroke-http-'+res.status);
+        const data=await res.json();
+        await cachePut(char,data);
+        return {data,source:'online'};
+    }
 
-        updateStrokeAnimationForWord();
+    function clear(){
+        runToken++;
+        playing=false; currentData=null; currentChar='';
+        const h=host(); if(h)h.innerHTML='';
+    }
+
+    function renderSVG(data, visibleCount){
+        const h=host(); if(!h)return;
+        h.innerHTML='';
+        const strokes=Array.isArray(data?.strokes)?data.strokes:[];
+        const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('viewBox','0 0 1024 1024');
+        svg.setAttribute('width','200'); svg.setAttribute('height','170');
+        svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+        svg.classList.add('stroke-local-svg');
+        const outline=document.createElementNS('http://www.w3.org/2000/svg','rect');
+        outline.setAttribute('x','30'); outline.setAttribute('y','30'); outline.setAttribute('width','964'); outline.setAttribute('height','964');
+        outline.setAttribute('rx','40'); outline.setAttribute('fill','none'); outline.setAttribute('stroke','rgba(9,132,227,.10)'); outline.setAttribute('stroke-width','10');
+        svg.appendChild(outline);
+        strokes.forEach((d,i)=>{
+            const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+            path.setAttribute('d',d); path.setAttribute('class','stroke-local-path');
+            path.style.opacity=i<visibleCount?'1':'0';
+            path.style.transformOrigin='50% 50%';
+            svg.appendChild(path);
+        });
+        h.appendChild(svg);
+    }
+
+    function drawFull(){ renderSVG(currentData,currentData?.strokes?.length||0); }
+
+    async function renderCharacter(char, autoPlay){
+        clear();
+        if(!char){setCount(0);setText('Chưa có chữ để hướng dẫn.');return;}
+        currentChar=char;
+        setText(`⏳ Đang tải dữ liệu nét chữ “${char}”…`);
+        try{
+            const result=await loadStrokeData(char);
+            if(char!==currentChar)return;
+            currentData=result.data;
+            const count=Array.isArray(currentData.strokes)?currentData.strokes.length:0;
+            setCount(count); drawFull();
+            setText(result.source==='online'
+                ? `🌐 Đã tải và lưu chữ “${char}”. Có ${count} nét.`
+                : `📦 Chế độ offline: dùng dữ liệu đã lưu. Chữ “${char}” có ${count} nét.`);
+            if(autoPlay) play();
+        }catch(err){
+            setCount(0);
+            if(err.message==='offline-no-cache') setText(`📴 Chưa có dữ liệu offline cho “${char}”. Hãy mở chữ này một lần khi có mạng để lưu lại.`);
+            else setText(`⚠️ Không tải được dữ liệu nét chữ “${char}”.`);
+        }
+    }
+
+    async function play(){
+        if(!currentData)return;
+        const strokes=currentData.strokes||[]; if(!strokes.length)return;
+        const token=++runToken; playing=true;
+        for(let i=1;i<=strokes.length;i++){
+            if(token!==runToken)return;
+            renderSVG(currentData,i);
+            setText(`▶ Đang hướng dẫn “${currentChar}”: nét ${i}/${strokes.length}`);
+            await new Promise(r=>setTimeout(r,Math.max(120,520/strokeSpeed)));
+        }
+        if(token===runToken){playing=false;setText(`✅ Đã xem đủ ${strokes.length} nét của “${currentChar}”. Hãy thử tự viết lại.`);}
+    }
+
+    function replay(){
+        const text=getCurrentHanzi(); strokeChars=[...text].filter(c=>/\p{Script=Han}/u.test(c)); strokeCharIndex=0;
+        if(!strokeChars.length){setText('Chưa có chữ Hán để hướng dẫn.');return;}
+        renderCharacter(strokeChars[0],true);
+    }
+    function skip(){ runToken++; playing=false; if(currentData){drawFull();setText(`👀 Đây là chữ hoàn chỉnh “${currentChar}”. Nhấn “▶ Bắt đầu” để xem từng nét.`);} }
+    function update(){
+        const text=getCurrentHanzi(); strokeChars=[...text].filter(c=>/\p{Script=Han}/u.test(c)); strokeCharIndex=0;
+        if(!strokeChars.length){clear();setCount(0);setText('Chưa có chữ để hướng dẫn.');return;}
+        renderCharacter(strokeChars[0],false);
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        const replayBtn=document.getElementById('stroke-replay');
+        const speedBtn=document.getElementById('stroke-speed');
+        const skipBtn=document.getElementById('stroke-skip');
+        if(replayBtn)replayBtn.addEventListener('click',replay);
+        if(skipBtn)skipBtn.addEventListener('click',skip);
+        if(speedBtn)speedBtn.addEventListener('click',()=>{
+            strokeSpeed=strokeSpeed===1.25?2.1:1.25;
+            speedBtn.textContent=strokeSpeed===2.1?'⚡ Tốc độ: Nhanh':'⚡ Tốc độ: Chậm';
+        });
+        update();
     });
-
-    // Được gọi sau mỗi lần đổi chữ Hán.
-    window.updateStrokeOrderAnimation = updateStrokeAnimationForWord;
+    window.updateStrokeOrderAnimation=update;
 })();
+

@@ -150,7 +150,14 @@
             try { await credential.user.updateProfile({ displayName: username.trim() }); }
             catch (e) { console.warn('Không cập nhật được displayName:', e); }
         }
-        await createProfile(credential.user, username);
+        // Tạo profile Firestore là bước phụ. Nếu Rules/Firestore chưa sẵn sàng,
+        // tài khoản Firebase Auth vẫn phải được tạo thành công.
+        try {
+            await createProfile(credential.user, username);
+        } catch (profileError) {
+            console.warn('Không tạo được profile Firestore, nhưng tài khoản Auth đã tạo:', profileError);
+        }
+        // Luồng đăng ký của web: đăng ký xong -> quay lại đăng nhập.
         await auth.signOut();
         return credential.user;
     }
@@ -160,14 +167,10 @@
         // Luôn dùng persistence LOCAL để phiên đăng nhập còn sau khi đổi trang/mở lại web.
         try { await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch (e) { console.warn('Không đặt được persistence:', e); }
         const credential = await auth.signInWithEmailAndPassword(email.trim().toLowerCase(), password);
-        // Chờ Firebase hoàn tất trạng thái hiện tại trước khi trang login chuyển đi.
-        await new Promise(resolve => {
-            if (currentUser && currentUser.uid === credential.user.uid) return resolve();
-            const stop = auth.onAuthStateChanged(user => {
-                if (user && user.uid === credential.user.uid) { stop(); resolve(); }
-            });
-            setTimeout(() => { try { stop(); } catch(e) {} resolve(); }, 5000);
-        });
+        // signInWithEmailAndPassword đã xác nhận tài khoản thành công.
+        // Không chờ Firestore/Auth listener thêm để tránh cảm giác nút bị treo.
+        currentUser = credential.user;
+        window.ghCurrentUser = currentUser;
         return credential.user;
     }
 
@@ -178,74 +181,49 @@
 
     async function bootstrap() {
         window.ghFirebaseConfigured = false;
-        window.ghFirebaseError = null;
-
         if (!isConfigured) {
-            const err = configError();
-            window.ghFirebaseError = err;
-            console.error(err);
+            console.error('Firebase config chưa đầy đủ.');
             window.ghAuthReadyResolve(null);
             return;
         }
-
         if (!window.firebase) {
-            const err = new Error('Firebase SDK chưa được tải. Kiểm tra kết nối Internet hoặc các thẻ script Firebase.');
-            window.ghFirebaseError = err;
-            console.error(err);
+            console.error('Firebase SDK chưa được tải.');
             window.ghAuthReadyResolve(null);
             return;
         }
-
         try {
             if (!firebase.apps.length) firebase.initializeApp(config);
-
-            // QUAN TRỌNG: Auth được khởi tạo độc lập với Firestore.
-            // Firestore lỗi/không bật cũng không được làm hỏng đăng nhập.
             auth = firebase.auth();
+            db = firebase.firestore();
             window.ghFirebaseConfigured = true;
 
-            try {
-                await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-            } catch (e) {
-                console.warn('Firebase persistence:', e);
-            }
-
-            // Firestore được khởi tạo riêng. Nếu Firestore chưa bật,
-            // tài khoản vẫn đăng nhập được; chỉ tính năng cloud progress bị giới hạn.
-            try {
-                db = firebase.firestore();
-            } catch (e) {
-                db = null;
-                console.warn('Firestore chưa sẵn sàng:', e);
-            }
+            // Đảm bảo persistence trước khi đăng ký listener.
+            try { await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch (e) { console.warn('Firebase persistence:', e); }
 
             auth.onAuthStateChanged(async (user) => {
                 currentUser = user || null;
                 window.ghCurrentUser = currentUser;
 
+                // Báo sẵn sàng ngay khi Firebase Auth biết trạng thái đăng nhập.
+                // Tuyệt đối không bắt trang login chờ Firestore.
+                window.ghAuthReadyResolve(currentUser);
+
                 if (currentUser) {
-                    // Không chặn trạng thái đăng nhập chỉ vì Firestore lỗi.
-                    if (db) {
-                        try {
-                            await loadProgress(currentUser);
-                            await migrateLegacyProgress(currentUser);
-                        } catch (error) {
-                            console.warn('Khởi tạo tiến trình online thất bại:', error);
-                        }
+                    try {
+                        await loadProgress(currentUser);
+                        await migrateLegacyProgress(currentUser);
+                    } catch (error) {
+                        console.warn('Khởi tạo tiến trình online thất bại:', error);
                     }
                 } else {
                     progressCache = {};
                     progressLoaded = false;
                 }
-
-                window.ghAuthReadyResolve(currentUser);
             }, (error) => {
-                window.ghFirebaseError = error;
                 console.error('Firebase auth state error:', error);
                 window.ghAuthReadyResolve(null);
             });
         } catch (error) {
-            window.ghFirebaseError = error;
             console.error('Firebase khởi tạo thất bại:', error);
             window.ghFirebaseConfigured = false;
             window.ghAuthReadyResolve(null);
