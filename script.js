@@ -8081,6 +8081,48 @@ let examQuestions = [];
 let currentQuestionIndex = 0;
 let examScore = 0;
 
+// Hình minh họa dùng chung cho Luyện nghe và Bài tập HSK.
+// Dùng asset cục bộ để PWA vẫn hoạt động khi offline.
+const THEME_IMAGE_MAP = {
+  school:'school', person:'person', food:'food', home:'home', shopping:'shopping',
+  travel:'travel', weather:'weather', transport:'transport', work:'work', time:'time',
+  family:'family', phone:'phone', book:'book', health:'health', restaurant:'restaurant',
+  city:'city', nature:'nature', sport:'sport', clothes:'clothes', money:'money'
+};
+const THEME_RULES = [
+  ['school',['学校','老师','学生','教室','同学','上课','下课','考试','学习']],
+  ['food',['吃饭','吃','饭','面','米饭','菜','水果','苹果','茶','咖啡','喝','牛奶','蛋糕','包子','饺子']],
+  ['home',['家','房间','房子','门','窗','厨房','桌子','椅子','床','回家']],
+  ['shopping',['买','商店','超市','购物','价格','便宜','贵','衣服','市场']],
+  ['travel',['旅行','旅游','机场','飞机','酒店','宾馆','火车站','车站','广州','北京','上海','城市']],
+  ['weather',['天气','下雨','下雪','晴','阴','冷','热','风','太阳','温度']],
+  ['transport',['公交车','公共汽车','地铁','出租车','汽车','开车','自行车','火车','飞机','坐车']],
+  ['work',['工作','公司','经理','同事','老板','办公室','会议','记者','安排','数据']],
+  ['time',['今天','昨天','明天','现在','早上','晚上','下午','上午','周末','时间','小时','分钟']],
+  ['family',['爸爸','妈妈','父亲','母亲','哥哥','姐姐','弟弟','妹妹','孩子','家人','家庭','丈夫','妻子']],
+  ['phone',['电话','手机','短信','微信','号码','打电话','上网','电脑','网络']],
+  ['book',['书','书店','读书','看书','字典','汉字','词典','作业','写字']],
+  ['health',['医生','医院','身体','生病','药','健康','头疼','感冒','看病']],
+  ['restaurant',['餐厅','饭店','服务员','菜单','点菜','吃饭','座位']],
+  ['city',['城市','街道','公园','大楼','北京','上海','广州','学校']],
+  ['nature',['山','河','海','树','花','动物','森林','公园','空气']],
+  ['sport',['运动','足球','篮球','跑步','游泳','打球','比赛','锻炼']],
+  ['clothes',['衣服','裤子','鞋','帽子','裙子','穿','外套']],
+  ['money',['钱','元','块','银行','价格','支付','便宜','贵']]
+];
+function getLearningTheme(text){
+  const t=String(text||'');
+  for(const [theme,words] of THEME_RULES){ if(words.some(w=>t.includes(w))) return theme; }
+  return 'person';
+}
+function setLearningImage(id,text,alt){
+  const img=document.getElementById(id); if(!img)return;
+  const theme=getLearningTheme(text);
+  img.src=`./images/themes/${THEME_IMAGE_MAP[theme]||'person'}.svg`;
+  img.alt=alt||'Hình minh họa';
+}
+
+
 // Bảng cấu hình số câu hỏi theo HSK
 const HSK_QUESTION_COUNT = {
     "1": 90,
@@ -8156,6 +8198,7 @@ function renderQuestion() {
     
     document.getElementById('quiz-word').innerText = q.target.word;
     document.getElementById('quiz-pinyin').innerText = q.target.pinyin ? `[${q.target.pinyin}]` : '';
+    setLearningImage('exam-question-image', `${q.target.word} ${q.target.meaning || ''}`, `Hình minh họa cho từ ${q.target.word}`);
     
     const optionsDiv = document.getElementById('quiz-options');
     optionsDiv.innerHTML = '';
@@ -37684,6 +37727,7 @@ function renderListeningQuestion(){
   document.getElementById('listening-round').textContent=`Câu ${listeningIndex+1} / ${listeningQuestions.length}`;
   document.getElementById('listening-level-label').textContent=`HSK ${q.level}`;
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex}`;
+  setLearningImage('listening-image', q.audio, 'Hình minh họa cho câu luyện nghe');
   updateListeningProgressUI();
   document.getElementById('listening-feedback').textContent='';
   document.getElementById('listening-hint').textContent='Bấm “Nghe câu”, tập trung vào âm thanh rồi chọn một đáp án.';
