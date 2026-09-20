@@ -1,4 +1,6 @@
 
+function uiIcon(name, cls='ui-icon'){ return `<svg class="${cls}" aria-hidden="true"><use href="#${name}"></use></svg>`; }
+
 // Dữ liệu Từ vựng HSK 1 (Đầy đủ 150/150 từ) và HSK 2 (Đầy đủ 150/150 từ)
 const hskData = {
     "1": [
@@ -7741,7 +7743,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Chờ Firebase xác nhận trạng thái đăng nhập lần đầu, không redirect sớm khi SDK còn đang khởi tạo.
         const user = window.ghAuthReady ? await window.ghAuthReady : null;
         if (!user) {
-            if (loader) loader.innerHTML = '<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:380px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.10);"><div style="font-size:36px;">🔐</div><strong>Phiên đăng nhập không tồn tại</strong><p style="color:#718096;">Đang chuyển đến trang đăng nhập...</p></div>';
+            if (loader) loader.innerHTML = `<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:380px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.10);"><div style="font-size:36px;">${uiIcon("icon-lock","ui-icon-xl")}</div><strong>Phiên đăng nhập không tồn tại</strong><p style="color:#718096;">Đang chuyển đến trang đăng nhập...</p></div>`;
             setTimeout(() => window.location.replace('./login.html'), 700);
             return;
         }
@@ -7749,7 +7751,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const profile = await (window.ghAuth?.getProfile ? window.ghAuth.getProfile(user) : null);
         window.ghUserProfile = profile || {};
         const userChip = document.getElementById('online-user-chip');
-        if (userChip) userChip.textContent = '☁️ ' + (profile?.username || user.displayName || user.email || 'Tài khoản');
+        if (userChip) userChip.textContent = ' ' + (profile?.username || user.displayName || user.email || 'Tài khoản');
 
         document.getElementById('hsk-level').addEventListener('change', (e) => {
             currentLevel = e.target.value;
@@ -7783,7 +7785,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } catch (error) {
         console.error(error);
-        if (loader) loader.innerHTML = '<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:380px;text-align:center;"><div style="font-size:36px;">⚠️</div><strong>Không thể tải tài khoản</strong><p style="color:#718096;">Kiểm tra Firebase và kết nối Internet rồi tải lại trang.</p></div>' ;
+        if (loader) loader.innerHTML = `<div style="background:#fff;border:1px solid #f0d6d6;border-radius:22px;padding:28px;max-width:380px;text-align:center;"><div style="font-size:36px;">${uiIcon("icon-alert","ui-icon-xl")}</div><strong>Không thể tải tài khoản</strong><p style="color:#718096;">Kiểm tra Firebase và kết nối Internet rồi tải lại trang.</p></div>`;
     } finally {
         if (loader && window.ghCurrentUser) {
             loader.style.opacity = '0';
@@ -7856,7 +7858,7 @@ function renderList() {
                 <button class="pronounce-btn" type="button"
                     title="Phát âm tiếng Trung"
                     aria-label="Phát âm ${item.word || ''}"
-                    onclick="speakChinese(${index})">🔊</button>
+                    onclick="speakChinese(${index})">${uiIcon("icon-volume")}</button>
             </div>
             <div class="pinyin">${item.pinyin || ''}</div>
             <div class="meaning">${item.meaning || ''}</div>
@@ -7885,7 +7887,7 @@ function showTypingWord() {
     }
 
     if (currentWordIndex >= typingWordList.length) {
-        document.getElementById('typing-word').textContent = "🎉";
+        document.getElementById('typing-word').innerHTML = uiIcon("icon-spark");
         document.getElementById('typing-meaning').textContent = "Bạn đã hoàn thành cấp độ này!";
         input.disabled = true;
         return;
@@ -7918,13 +7920,13 @@ function checkTyping() {
     const nextBtn = document.getElementById('next-word-btn');
 
     if (isMatch) {
-        feedback.textContent = "✅ Chính xác!";
+        feedback.textContent = " Chính xác!";
         feedback.className = "correct";
         document.getElementById('typing-input').disabled = true;
         nextBtn.classList.remove('hidden');
         nextBtn.focus();
     } else {
-        feedback.textContent = "❌ Sai rồi, thử lại nhé!";
+        feedback.textContent = " Sai rồi, thử lại nhé!";
         feedback.className = "incorrect";
     }
 }
@@ -7970,17 +7972,17 @@ function renderCommunication() {
             <div class="comm-card">
                 <div class="comm-header">
                     <span class="badge ${badgeClass}">${item.difficulty}</span>
-                    <button class="toggle-answer-btn" onclick="toggleAnswer(${index})">💡 Mẫu trả lời</button>
+                    <button class="toggle-answer-btn" onclick="toggleAnswer(${index})">${uiIcon("icon-bulb")} Mẫu trả lời</button>
                 </div>
                 <div class="question-box">
-                    <div class="q-hanzi">❓ ${item.question}</div>
-                    <div class="q-pinyin">📌 Pinyin: ${item.pinyin}</div>
-                    <div class="q-meaning">💬 Dịch: ${item.meaning}</div>
+                    <div class="q-hanzi">${uiIcon("icon-question")} ${item.question}</div>
+                    <div class="q-pinyin">${uiIcon("icon-pin")} Pinyin: ${item.pinyin}</div>
+                    <div class="q-meaning">${uiIcon("icon-chat")} Dịch: ${item.meaning}</div>
                 </div>
                 <div class="answer-box hidden" id="answer-${index}">
-                    <div class="a-hanzi">🗣️ ${item.answer}</div>
-                    <div class="q-pinyin">📌 Pinyin: ${item.answerPinyin}</div>
-                    <div class="q-meaning">💬 Dịch: ${item.answerMeaning}</div>
+                    <div class="a-hanzi">${uiIcon("icon-chat")} ${item.answer}</div>
+                    <div class="q-pinyin">${uiIcon("icon-pin")} Pinyin: ${item.answerPinyin}</div>
+                    <div class="q-meaning">${uiIcon("icon-chat")} Dịch: ${item.answerMeaning}</div>
                 </div>
             </div>
         `;
@@ -8153,7 +8155,7 @@ function checkExamAnswer(selected, correct, btn) {
         examScore++;
         btn.style.backgroundColor = '#28a745';
         btn.style.color = '#fff';
-        document.getElementById('quiz-feedback').innerText = '✅ Chính xác!';
+        document.getElementById('quiz-feedback').innerText = ' Chính xác!';
         document.getElementById('quiz-feedback').style.color = '#28a745';
     } else {
         btn.style.backgroundColor = '#dc3545';
@@ -8164,7 +8166,7 @@ function checkExamAnswer(selected, correct, btn) {
                 b.style.color = '#fff';
             }
         });
-        document.getElementById('quiz-feedback').innerText = `❌ Sai rồi! Đáp án đúng: ${correct.meaning}`;
+        document.getElementById('quiz-feedback').innerText = ` Sai rồi! Đáp án đúng: ${correct.meaning}`;
         document.getElementById('quiz-feedback').style.color = '#dc3545';
     }
 
@@ -8206,10 +8208,10 @@ function finishExam() {
     });
 
     let msg = '';
-    if (percentage === 100) msg = '🎉 Xuất sắc! Bạn đã đạt điểm tuyệt đối!';
-    else if (percentage >= 80) msg = '👏 Rất tốt! Bạn nắm rất vững từ vựng cấp độ này.';
-    else if (percentage >= 50) msg = '👍 Đạt yêu cầu! Hãy tiếp tục luyện tập để đạt điểm cao hơn.';
-    else msg = '💪 Cần cố gắng thêm! Hãy xem lại danh sách từ vựng và thử lại nhé.';
+    if (percentage === 100) msg = uiIcon("icon-spark") + " Xuất sắc! Bạn đã đạt điểm tuyệt đối!";
+    else if (percentage >= 80) msg = ' Rất tốt! Bạn nắm rất vững từ vựng cấp độ này.';
+    else if (percentage >= 50) msg = ' Đạt yêu cầu! Hãy tiếp tục luyện tập để đạt điểm cao hơn.';
+    else msg = ' Cần cố gắng thêm! Hãy xem lại danh sách từ vựng và thử lại nhé.';
     
     document.getElementById('result-message').innerText = msg;
 }
@@ -8327,12 +8329,12 @@ function filterVocabulary() {
         if (filteredWords.length > 0) {
 
             resultCount.innerText =
-                `🔎 Tìm thấy ${filteredWords.length}/${vocabulary.length} từ`;
+                ` Tìm thấy ${filteredWords.length}/${vocabulary.length} từ`;
 
         } else {
 
             resultCount.innerText =
-                "❌ Không tìm thấy từ phù hợp";
+                " Không tìm thấy từ phù hợp";
 
         }
     }
@@ -8844,7 +8846,7 @@ function showWritingResult(data, originalText) {
     } else {
 
         errorsHTML =
-            "<p>✅ Không phát hiện lỗi đáng kể.</p>";
+            "<p> Không phát hiện lỗi đáng kể.</p>";
 
     }
 
@@ -8869,7 +8871,7 @@ function showWritingResult(data, originalText) {
             data.vocabularySuggestion
                 ? `
                     <p>
-                        <b>📚 Gợi ý từ vựng:</b>
+                        <b>${uiIcon("icon-book")} Gợi ý từ vựng:</b>
                         ${escapeAIHTML(
                             data.vocabularySuggestion
                         )}
@@ -8946,8 +8948,7 @@ async function gradeWritingWithAI() {
 
         button.disabled = true;
 
-        button.innerText =
-            "🤖 AI đang chấm...";
+        button.innerHTML = uiIcon("icon-robot") + " AI đang chấm...";
 
     }
 
@@ -9019,8 +9020,7 @@ async function gradeWritingWithAI() {
 
             button.disabled = false;
 
-            button.innerText =
-                "🤖 AI chấm bài";
+            button.innerHTML = uiIcon("icon-robot") + " AI chấm bài";
 
         }
 
@@ -9419,7 +9419,7 @@ function setupHandwritingCanvas() {
         const startPoint=line[0];
         const tolerance=Math.max(42,canvas.width*0.075);
         if (distance(p,startPoint)>tolerance) {
-            if (typeof window.showTraceFeedback==='function') window.showTraceFeedback('⚠️ Hãy bắt đầu đúng tại đầu nét đang sáng.');
+            if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(uiIcon("icon-alert","ui-icon-xl") + " Hãy bắt đầu đúng tại đầu nét đang sáng.");
             return;
         }
 
@@ -9428,7 +9428,7 @@ function setupHandwritingCanvas() {
         traceProgress=0;
         tracePoints=[startPoint];
         drawUserInk();
-        if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(`✍️ Nét ${traceStrokeIndex+1}: đi đúng hướng mũi tên.`);
+        if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(`${uiIcon("icon-pen")} Nét ${traceStrokeIndex+1}: đi đúng hướng mũi tên.`);
     };
 
     const draw = e => {
@@ -9466,11 +9466,11 @@ function setupHandwritingCanvas() {
             const data=getTrace();
             const total=data && Array.isArray(data.medians) ? data.medians.length : 0;
             if (traceStrokeIndex>=total) {
-                if (typeof window.showTraceFeedback==='function') window.showTraceFeedback('✅ Hoàn thành! Bạn đã đi đủ và đúng thứ tự các nét.');
+                if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(' Hoàn thành! Bạn đã đi đủ và đúng thứ tự các nét.');
                 if (typeof window.markHandwritingTraceComplete==='function') window.markHandwritingTraceComplete();
                 traceStrokeIndex=0;
             } else {
-                if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(`✅ Đúng! Sang nét ${traceStrokeIndex+1}/${total}.`);
+                if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(` Đúng! Sang nét ${traceStrokeIndex+1}/${total}.`);
                 if (typeof window.updateTraceGuide==='function') window.updateTraceGuide();
             }
         }
@@ -9718,13 +9718,13 @@ function speakHandwritingWord() {
             const count=Array.isArray(currentData.strokes)?currentData.strokes.length:0;
             setCount(count); drawFull();
             setText(result.source==='online'
-                ? `🌐 Đã tải và lưu chữ “${char}”. Có ${count} nét.`
-                : `📦 Chế độ offline: dùng dữ liệu đã lưu. Chữ “${char}” có ${count} nét.`);
+                ? `${uiIcon("icon-globe")} Đã tải và lưu chữ “${char}”. Có ${count} nét.`
+                : `${uiIcon("icon-package")} Chế độ offline: dùng dữ liệu đã lưu. Chữ “${char}” có ${count} nét.`);
             if(autoPlay) play();
         }catch(err){
             setCount(0);
-            if(err.message==='offline-no-cache') setText(`📴 Chưa có dữ liệu offline cho “${char}”. Hãy mở chữ này một lần khi có mạng để lưu lại.`);
-            else setText(`⚠️ Không tải được dữ liệu nét chữ “${char}”.`);
+            if(err.message==='offline-no-cache') setText(`${uiIcon("icon-x")} Chưa có dữ liệu offline cho “${char}”. Hãy mở chữ này một lần khi có mạng để lưu lại.`);
+            else setText(`${uiIcon("icon-alert","ui-icon-xl")} Không tải được dữ liệu nét chữ “${char}”.`);
         }
     }
 
@@ -9738,7 +9738,7 @@ function speakHandwritingWord() {
             setText(`▶ Đang hướng dẫn “${currentChar}”: nét ${i}/${strokes.length}`);
             await new Promise(r=>setTimeout(r,Math.max(120,520/strokeSpeed)));
         }
-        if(token===runToken){playing=false;setText(`✅ Đã xem đủ ${strokes.length} nét của “${currentChar}”. Hãy thử tự viết lại.`);}
+        if(token===runToken){playing=false;setText(` Đã xem đủ ${strokes.length} nét của “${currentChar}”. Hãy thử tự viết lại.`);}
     }
 
     function replay(){
@@ -9746,7 +9746,7 @@ function speakHandwritingWord() {
         if(!strokeChars.length){setText('Chưa có chữ Hán để hướng dẫn.');return;}
         renderCharacter(strokeChars[0],true);
     }
-    function skip(){ runToken++; playing=false; if(currentData){drawFull();setText(`👀 Đây là chữ hoàn chỉnh “${currentChar}”. Nhấn “▶ Bắt đầu” để xem từng nét.`);} }
+    function skip(){ runToken++; playing=false; if(currentData){drawFull();setText(`${uiIcon("icon-eye")} Đây là chữ hoàn chỉnh “${currentChar}”. Nhấn “▶ Bắt đầu” để xem từng nét.`);} }
     // API dùng chung với bảng luyện viết: cung cấp medians (đường tâm của từng nét)
     // để người học phải đi đúng hướng và đúng thứ tự, không thể vẽ nguệch ngoạc tự do.
     window.getHandwritingTraceData = () => currentData;
@@ -9757,7 +9757,7 @@ function speakHandwritingWord() {
         if (!data || !Array.isArray(data.medians)) return;
         const total = data.medians.length;
         const n = Math.min(state.traceStrokeIndex + 1, total);
-        setText(`✍️ Nét ${n}/${total}: đặt bút vào đầu nét và đi theo hướng mẫu.`);
+        setText(`${uiIcon("icon-pen")} Nét ${n}/${total}: đặt bút vào đầu nét và đi theo hướng mẫu.`);
     };
     window.showTraceFeedback = (message) => {
         const e=document.getElementById('stroke-step-text');
@@ -9765,7 +9765,7 @@ function speakHandwritingWord() {
     };
     window.markHandwritingTraceComplete = () => {
         const e=document.getElementById('stroke-step-text');
-        if(e) e.textContent='🎉 Hoàn thành chữ! Hãy bấm Xóa và tự viết lại để ghi nhớ.';
+        if(e) e.innerHTML=uiIcon("icon-spark") + " Hoàn thành chữ! Hãy bấm Xóa và tự viết lại để ghi nhớ.";
     };
 
     function update(){
@@ -9785,7 +9785,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         if(skipBtn)skipBtn.addEventListener('click',skip);
         if(speedBtn)speedBtn.addEventListener('click',()=>{
             strokeSpeed=strokeSpeed===1.25?2.1:1.25;
-            speedBtn.textContent=strokeSpeed===2.1?'⚡ Tốc độ: Nhanh':'⚡ Tốc độ: Chậm';
+            speedBtn.innerHTML=strokeSpeed===2.1 ? uiIcon("icon-spark")+" Tốc độ: Nhanh" : uiIcon("icon-spark")+" Tốc độ: Chậm";
         });
         update();
     });
@@ -11896,7 +11896,7 @@ let listeningQuestions=[], listeningIndex=0, listeningScore=0, listeningAnswered
 const LISTENING_WRONG_KEY='giangha_listening_wrong_v3';
 function getWrongListening(){ try{return JSON.parse(localStorage.getItem(LISTENING_WRONG_KEY)||'[]');}catch(e){return [];} }
 function setWrongListening(items){ try{localStorage.setItem(LISTENING_WRONG_KEY,JSON.stringify(items.slice(-300)));}catch(e){} updateWrongListeningUI(); }
-function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning||'')}</small></div><button type="button" onclick="speakWrongListening(${i})">🔊 Nghe lại</button></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
+function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning||'')}</small></div><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q||!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); speechSynthesis.speak(u); }
 function initListening(){
@@ -11933,7 +11933,6 @@ function renderListeningQuestion(){
   const next=document.getElementById('listening-next'); if(next) next.disabled=true;
   const box=document.getElementById('listening-options'); box.innerHTML='';
   q.options.forEach((text,i)=>{const b=document.createElement('button');b.type='button';b.className='listening-option';b.textContent=text;b.addEventListener('click',()=>checkListening(i));box.appendChild(b);});
-  setTimeout(speakListeningSentence,180);
 }
 function checkListening(choice){
   if(listeningAnswered) return; listeningAnswered=true;
