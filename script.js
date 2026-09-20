@@ -9568,13 +9568,20 @@ function speakHandwritingWord() {
         outline.setAttribute('x','30'); outline.setAttribute('y','30'); outline.setAttribute('width','964'); outline.setAttribute('height','964');
         outline.setAttribute('rx','40'); outline.setAttribute('fill','none'); outline.setAttribute('stroke','rgba(9,132,227,.10)'); outline.setAttribute('stroke-width','10');
         svg.appendChild(outline);
+
+        // hanzi-writer-data dùng hệ tọa độ trục Y hướng lên.
+        // SVG mặc định có trục Y hướng xuống, nên phải lật dữ liệu theo chiều dọc
+        // để chữ Hán không bị đảo ngược khi render trực tiếp.
+        const glyphGroup=document.createElementNS('http://www.w3.org/2000/svg','g');
+        glyphGroup.setAttribute('transform','translate(0 1024) scale(1 -1)');
         strokes.forEach((d,i)=>{
             const path=document.createElementNS('http://www.w3.org/2000/svg','path');
             path.setAttribute('d',d); path.setAttribute('class','stroke-local-path');
             path.style.opacity=i<visibleCount?'1':'0';
             path.style.transformOrigin='50% 50%';
-            svg.appendChild(path);
+            glyphGroup.appendChild(path);
         });
+        svg.appendChild(glyphGroup);
         h.appendChild(svg);
     }
 
