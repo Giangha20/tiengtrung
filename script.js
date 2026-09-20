@@ -7702,6 +7702,21 @@ const hsk5Data = [
 ]
 hskData[5] = hsk5Data;
 if (Array.isArray(window.HSK6_DATA)) hskData[6] = window.HSK6_DATA;
+window.addEventListener('hsk6ready', (event) => {
+    const data = Array.isArray(window.HSK6_DATA) ? window.HSK6_DATA : [];
+    if (data.length) {
+        hskData[6] = data;
+        const current = String(currentLevel || document.getElementById('hsk-level')?.value || '1');
+        if (current === '6') {
+            const mode = document.querySelector('main > section.active')?.id || '';
+            renderList();
+            initTyping();
+            if (mode === 'listening-mode') initListening();
+            else if (mode === 'progress-mode') updateProgressUI();
+            else updateProgressUI();
+        }
+    }
+});
 
 let currentLevel = "1";
 let currentWordIndex = 0;
@@ -9836,27 +9851,27 @@ function speakHandwritingWord() {
     }
 
     function startWrongListening(){
-  const wrong=getWrongListening().filter(q=>q&&q.audio);
+  const stored=getWrongListening().filter(q=>q&&q.audio);
   const feedback=document.getElementById('listening-feedback');
   const panel=document.getElementById('listening-wrong-panel');
   if(panel) panel.hidden=false;
-  if(!wrong.length){
+  if(!stored.length){
     if(feedback) feedback.textContent='Bạn chưa có câu sai để ôn.';
     updateWrongListeningUI();
     return;
   }
   if('speechSynthesis' in window){try{speechSynthesis.cancel();}catch(e){}}
   const bank=Array.isArray(LISTENING_BANK)?LISTENING_BANK:[];
-  listeningQuestions=wrong.map(q=>{
-    const original=bank.find(x=>x.audio===q.audio);
-    const pool=bank.filter(x=>x.audio!==q.audio);
+  listeningQuestions=stored.map(q=>{
+    const original=bank.find(x=>x && x.audio===q.audio);
+    const pool=bank.filter(x=>x && x.audio && x.audio!==q.audio);
     const distractors=[...pool].sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio);
-    const unique=[q.audio,...distractors].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).slice(0,4).sort(()=>Math.random()-0.5);
-    return {...(original||{}),...q,level:'Ôn câu sai',options:unique,correct:unique.indexOf(q.audio)};
+    const options=[q.audio,...distractors].filter((v,i,a)=>v && a.indexOf(v)===i).slice(0,4).sort(()=>Math.random()-0.5);
+    return {...(original||{}),...q,options,correct:options.indexOf(q.audio),reviewKey:String(q.audio)};
   }).filter(q=>q.options.length===4 && q.correct>=0).sort(()=>Math.random()-0.5);
   listeningIndex=0; listeningScore=0; listeningAnswered=false;
   listeningSessionAnswered=0; listeningSessionCorrect=0; listeningWrongMode=true;
-  const cont=document.getElementById('listening-continue'); if(cont)cont.hidden=true;
+  const cont=document.getElementById('listening-continue'); if(cont){cont.hidden=true;cont.textContent='Tiếp tục ôn câu sai';}
   const next=document.getElementById('listening-next'); if(next)next.disabled=true;
   updateWrongListeningUI();
   renderListeningQuestion();
@@ -35618,7 +35633,18 @@ function updateListeningProgressUI(){
   set('listening-progress-detail',`${answered} / ${total} câu • ${correct} đúng • ${wrongRemaining} câu sai còn lại`);
   const fill=document.getElementById('listening-progress-fill'); if(fill)fill.style.width=pct+'%';
 }
-function setWrongListening(items){ try{localStorage.setItem(LISTENING_WRONG_KEY,JSON.stringify(items.slice(-300)));}catch(e){} updateWrongListeningUI(); }
+function setWrongListening(items){
+  const clean=[]; const seen=new Set();
+  for(const q of (Array.isArray(items)?items:[])){
+    if(!q || !q.audio) continue;
+    const key=String(q.audio).trim();
+    if(!key || seen.has(key)) continue;
+    seen.add(key);
+    clean.push({...q,audio:key});
+  }
+  try{localStorage.setItem(LISTENING_WRONG_KEY,JSON.stringify(clean.slice(-300)));}catch(e){}
+  updateWrongListeningUI();
+}
 function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(getListeningPinyin(q))}<br>${escapeHtml(q.meaning || getListeningMeaning(q) || '')}</small></div><div class="wrong-item-actions"><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q||!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); speechSynthesis.speak(u); }
@@ -37750,7 +37776,7 @@ function nextListeningQuestion(){
         ? `Đã hoàn thành toàn bộ câu sai • ${listeningScore}/${total} đúng.`
         : `Đã ôn xong lượt này • ${listeningScore}/${total} đúng. Còn ${remaining} câu sai cần ôn lại.`;
       if(nextBtn) nextBtn.disabled=true;
-      if(continueBtn){ continueBtn.hidden=false; continueBtn.textContent=remaining===0?'Tiếp tục luyện nghe':'Tiếp tục luyện nghe'; }
+      if(continueBtn){ continueBtn.hidden=false; continueBtn.textContent=remaining===0?'Tiếp tục luyện nghe':'Ôn lại câu sai còn lại'; }
     } else {
       document.getElementById('listening-feedback').textContent=`Hoàn thành ${total} câu • ${listeningScore} đúng (${pct}%).`;
       if(nextBtn) nextBtn.disabled=true;
@@ -37763,6 +37789,10 @@ function nextListeningQuestion(){
   renderListeningQuestion();
 }
 function continueListening(){
+  if(listeningWrongMode){
+    const remaining=getWrongListening().length;
+    if(remaining>0){ startWrongListening(); return; }
+  }
   if('speechSynthesis' in window){try{speechSynthesis.cancel();}catch(e){}}
   const level=Number(document.getElementById('hsk-level')?.value||1);
   listeningWrongMode=false;
@@ -37777,7 +37807,7 @@ function continueListening(){
   if(!listeningQuestions.length)return;
   listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningSessionAnswered=0; listeningSessionCorrect=0;
   const nextBtn=document.getElementById('listening-next'); if(nextBtn)nextBtn.disabled=true;
-  const cont=document.getElementById('listening-continue'); if(cont)cont.hidden=true;
+  const cont=document.getElementById('listening-continue'); if(cont){cont.hidden=true;cont.textContent='Tiếp tục luyện nghe';}
   const panel=document.getElementById('listening-wrong-panel'); if(panel)panel.hidden=false;
   renderListeningQuestion();
 }
@@ -37788,5 +37818,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('listening-continue')?.addEventListener('click',continueListening);
   document.getElementById('listening-wrong-mode')?.addEventListener('click',startWrongListening);
   document.getElementById('listening-clear-wrong')?.addEventListener('click',clearWrongListening);
+  document.addEventListener('click',(event)=>{
+    const btn=event.target.closest?.('#listening-wrong-mode');
+    if(!btn) return;
+    event.preventDefault();
+    startWrongListening();
+  });
   updateWrongListeningUI();
 });
