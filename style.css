@@ -2038,3 +2038,49 @@ button .ui-icon{pointer-events:none}
 .exam-image-wrap .learning-image{height:190px}
 .listening-image-wrap{margin-top:18px}
 @media(max-width:650px){.learning-image{height:170px}.exam-image-wrap .learning-image{height:155px}.learning-image-wrap{border-radius:17px}}
+
+/* ===== Chat tiếng Trung với AI ===== */
+.chinese-chat-mode{max-width:900px;margin:0 auto}
+.chat-page-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+.chat-kicker{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--blue,#0984e3)}
+.chat-page-head h2{margin:5px 0 4px}
+.chat-page-head p{margin:0;color:#687386;font-size:14px;line-height:1.5}
+.chat-level-pill{background:#eef6ff;color:#0876c9;border:1px solid #d7eaff;border-radius:999px;padding:8px 13px;font-weight:800;white-space:nowrap}
+.chat-card{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:20px;box-shadow:0 10px 30px rgba(15,23,42,.06);overflow:hidden}
+.chat-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid #edf1f5;background:#fafcff}
+.chat-toolbar select{margin-left:6px;padding:7px 10px;border:1px solid #dbe3ec;border-radius:9px;background:#fff}
+.chat-tool-btn{padding:7px 10px;border:1px solid #dbe3ec;border-radius:9px;background:#fff;color:#4b5563}
+.chinese-chat-messages{height:430px;overflow:auto;padding:16px;background:linear-gradient(180deg,#f7fbff,#fff)}
+.chat-msg{display:flex;margin:0 0 12px}
+.chat-msg.user{justify-content:flex-end}.chat-msg.ai{justify-content:flex-start}
+.chat-bubble{max-width:min(78%,620px);padding:10px 13px;border-radius:15px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.chat-msg.user .chat-bubble{background:#0984e3;color:#fff;border-bottom-right-radius:5px}
+.chat-msg.ai .chat-bubble{background:#fff;border:1px solid #e3eaf2;color:#1f2937;border-bottom-left-radius:5px;box-shadow:0 3px 12px rgba(15,23,42,.04)}
+.chat-meta{font-size:11px;margin-top:4px;opacity:.65}
+.chat-suggestions{display:flex;gap:7px;flex-wrap:wrap;padding:10px 14px 0}
+.chat-suggestions button{border:1px solid #dbe8f5;background:#f7fbff;color:#1769aa;border-radius:999px;padding:7px 10px;font-size:12px}
+.chat-input-row{display:flex;gap:9px;padding:12px 14px 8px}
+#chinese-chat-input{flex:1;resize:none;border:1px solid #d7e0ea;border-radius:13px;padding:11px 12px;font-size:15px;outline:none}
+#chinese-chat-input:focus{border-color:#74b9ff;box-shadow:0 0 0 3px rgba(116,185,255,.15)}
+#chinese-chat-send{min-width:82px;align-self:stretch}
+.chat-note{padding:0 14px 13px;color:#8a94a3;font-size:12px}
+@media(max-width:650px){.chat-page-head{display:block}.chat-level-pill{display:inline-block;margin-top:9px}.chinese-chat-messages{height:52vh;min-height:330px}.chat-bubble{max-width:88%}.chat-toolbar{align-items:flex-start}.chat-input-row{align-items:stretch}.chat-input-row .btn-primary{min-width:68px}}
+
+/* ===== HSK compact ===== */
+#exam-mode{max-width:900px;margin:0 auto}
+#exam-mode>h2{margin-bottom:10px}
+.exam-container{max-width:760px;margin:0 auto}
+.exam-card{border-radius:16px!important;padding:16px!important;box-shadow:0 7px 22px rgba(15,23,42,.05)!important}
+.exam-start-card{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.exam-start-card p{margin:0;color:#667085}
+.exam-header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 10px;border-radius:11px;background:#f7f9fc;margin-bottom:10px;font-size:13px;font-weight:700}
+.quiz-question{text-align:center;padding:6px 0}
+.exam-image-wrap{width:min(100%,380px)!important;margin:8px auto 10px!important}
+.exam-image-wrap .learning-image{height:145px!important}
+#quiz-word{font-size:2.15rem!important;margin:4px 0!important}
+#quiz-pinyin{font-size:1rem!important;margin-bottom:8px!important}
+.quiz-question>p{margin:6px 0 10px;color:#667085;font-size:13px}
+.quiz-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.quiz-options button{padding:11px 12px!important;border-radius:11px!important;text-align:left}
+#quiz-feedback{margin-top:10px!important;min-height:22px!important;font-size:13px}
+@media(max-width:650px){.exam-start-card{display:block}.exam-start-card .btn-primary{margin-top:10px;width:100%}.quiz-options{grid-template-columns:1fr}.exam-image-wrap .learning-image{height:120px!important}}

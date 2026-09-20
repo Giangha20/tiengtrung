@@ -50,7 +50,7 @@
                 <button onclick="switchMode('typing')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-keyboard"></use></svg>Bài tập gõ</button>
                 <button onclick="switchMode('listening')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg>Luyện nghe</button>
                 <button onclick="switchMode('exam')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg>Bài tập HSK</button>
-                <button onclick="switchMode('writing')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-ai"></use></svg>Luyện viết AI</button>
+                <button onclick="switchMode('writing')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chat"></use></svg>Chat tiếng Trung</button>
                 <button onclick="switchMode('progress')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chart"></use></svg>Tiến trình học</button>
             </div>
         </header>
@@ -220,122 +220,37 @@
                     </div>
                 </div>
             </section>
-            <!-- ====================================== -->
-<!-- BỔ SUNG: LUYỆN VIẾT TIẾNG TRUNG VỚI AI -->
-<!-- ====================================== -->
-
-<section id="writing-mode">
-
-    <h2><svg class="ui-icon" aria-hidden="true"><use href="#icon-robot"></use></svg> Luyện viết tiếng Trung với AI</h2>
-
-    <div class="writing-container">
-
-        <div class="exam-card">
-
-            <p>
-                Viết một câu hoặc đoạn văn tiếng Trung.
-                AI sẽ kiểm tra ngữ pháp, từ vựng và gợi ý cách sửa.
-            </p>
-
-            <div style="margin: 15px 0;">
-                <label for="writing-topic">
-                    <b><svg class="ui-icon" aria-hidden="true"><use href="#icon-pin"></use></svg> Chủ đề:</b>
-                </label>
-
-                <select id="writing-topic"
-                        style="
-                            width:100%;
-                            padding:10px;
-                            margin-top:7px;
-                            border-radius:8px;
-                        ">
-                    <option value="free">Tự do</option>
-                    <option value="introduce">Giới thiệu bản thân</option>
-                    <option value="family">Gia đình</option>
-                    <option value="school">Trường học</option>
-                    <option value="daily">Cuộc sống hằng ngày</option>
-                    <option value="travel">Du lịch</option>
-                    <option value="hobby">Sở thích</option>
-                </select>
-            </div>
-
-            <div style="margin: 15px 0;">
-                <label for="writing-input">
-                    <b><svg class="ui-icon" aria-hidden="true"><use href="#icon-pen"></use></svg> Bài viết của bạn:</b>
-                </label>
-
-                <textarea
-                    id="writing-input"
-                    rows="7"
-                    placeholder="Ví dụ: 我今天去学校学习汉语..."
-                    style="
-                        width:100%;
-                        box-sizing:border-box;
-                        margin-top:7px;
-                        padding:12px;
-                        font-size:1.15rem;
-                        border:1px solid #ccc;
-                        border-radius:10px;
-                        resize:vertical;
-                    "
-                ></textarea>
-
-                <div style="text-align:right; color:#6c757d; margin-top:5px;">
-                    <span id="writing-char-count">0</span> ký tự
-                </div>
-            </div>
-
-            <button
-                onclick="gradeWritingWithAI()"
-                id="grade-writing-btn"
-                class="btn-primary">
-                <svg class="ui-icon" aria-hidden="true"><use href="#icon-robot"></use></svg> AI chấm bài
-            </button>
-
-            <button
-                onclick="clearWriting()"
-                style="margin-left:8px;">
-                <svg class="ui-icon" aria-hidden="true"><use href="#icon-trash"></use></svg> Viết lại
-            </button>
-
+            <!-- Chat tiếng Trung với AI -->
+<section id="writing-mode" class="chinese-chat-mode">
+    <div class="chat-page-head">
+        <div>
+            <span class="chat-kicker"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chat"></use></svg> LUYỆN GIAO TIẾP</span>
+            <h2>Chat tiếng Trung với AI</h2>
+            <p>Trò chuyện bằng tiếng Trung. AI sẽ trả lời bằng tiếng Trung và có thể giải thích ngắn bằng tiếng Việt khi bạn cần.</p>
         </div>
-
-        <!-- KẾT QUẢ AI -->
-        <div id="writing-result"
-             class="exam-card hidden"
-             style="margin-top:20px;">
-
-            <h3><svg class="ui-icon" aria-hidden="true"><use href="#icon-chart"></use></svg> Kết quả chấm bài</h3>
-
-            <div style="font-size:1.4rem; margin:15px 0;">
-                Điểm:
-                <b id="writing-score">--</b>/100
-            </div>
-
-            <div style="margin-top:15px;">
-                <h4><svg class="ui-icon" aria-hidden="true"><use href="#icon-pen"></use></svg> Câu bạn viết</h4>
-                <div id="writing-original"></div>
-            </div>
-
-            <div style="margin-top:15px;">
-                <h4><svg class="ui-icon" aria-hidden="true"><use href="#icon-check"></use></svg> Cách viết đề xuất</h4>
-                <div id="writing-corrected"></div>
-            </div>
-
-            <div style="margin-top:15px;">
-                <h4><svg class="ui-icon" aria-hidden="true"><use href="#icon-search"></use></svg> Lỗi cần sửa</h4>
-                <div id="writing-errors"></div>
-            </div>
-
-            <div style="margin-top:15px;">
-                <h4><svg class="ui-icon" aria-hidden="true"><use href="#icon-lightbulb"></use></svg> Giải thích</h4>
-                <div id="writing-explanation"></div>
-            </div>
-
-        </div>
-
+        <div class="chat-level-pill" id="chat-level-pill">HSK 1</div>
     </div>
 
+    <div class="chat-card">
+        <div class="chat-toolbar">
+            <div><b>Chủ đề</b> <select id="chat-topic"><option value="free">Tự do</option><option value="daily">Cuộc sống hằng ngày</option><option value="school">Trường học</option><option value="family">Gia đình</option><option value="travel">Du lịch</option><option value="shopping">Mua sắm</option></select></div>
+            <button type="button" id="chat-clear" class="chat-tool-btn"><svg class="ui-icon" aria-hidden="true"><use href="#icon-trash"></use></svg>Xóa chat</button>
+        </div>
+
+        <div id="chinese-chat-messages" class="chinese-chat-messages" aria-live="polite"></div>
+
+        <div class="chat-suggestions" id="chat-suggestions">
+            <button type="button" data-chat="你好！我们今天聊什么？">你好！我们今天聊什么？</button>
+            <button type="button" data-chat="请问你能和我练习中文吗？">练习中文</button>
+            <button type="button" data-chat="请用简单的中文跟我聊天。">用简单中文</button>
+        </div>
+
+        <div class="chat-input-row">
+            <textarea id="chinese-chat-input" rows="2" placeholder="用中文输入，例如：今天我很开心，因为我学会了一个新单词。" autocomplete="off"></textarea>
+            <button type="button" id="chinese-chat-send" class="btn-primary"><svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg>Gửi</button>
+        </div>
+        <div class="chat-note">AI ưu tiên trả lời bằng tiếng Trung theo HSK <span id="chat-level-note">1</span>. Nhấn Enter để gửi, Shift + Enter để xuống dòng.</div>
+    </div>
 </section>
         </main>
     </div>

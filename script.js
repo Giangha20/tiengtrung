@@ -7839,6 +7839,10 @@ function switchMode(mode) {
     } else if (mode === 'list') {
         // Danh sách từ luôn lấy đúng currentLevel, không random và không đổi dữ liệu khi bấm lại.
         renderList();
+    } else if (mode === 'writing') {
+        // Chat tiếng Trung: giữ nguyên lịch sử, không reset khi mở lại.
+        document.getElementById('chat-level-pill')?.replaceChildren(document.createTextNode('HSK ' + currentLevel));
+        const note=document.getElementById('chat-level-note'); if(note) note.textContent=currentLevel;
     }
 }
 
@@ -37803,3 +37807,97 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('listening-clear-wrong')?.addEventListener('click',clearWrongListening);
   updateWrongListeningUI();
 });
+
+// ============================================================
+// CHAT TIẾNG TRUNG VỚI AI
+// Ưu tiên gọi backend /api/chat-chinese nếu dự án có AI server.
+// Khi offline/không có backend, dùng phản hồi luyện tập cục bộ để chat không bị chết.
+// ============================================================
+(function initChineseChat(){
+    const boot = () => {
+        const box = document.getElementById('chinese-chat-messages');
+        const input = document.getElementById('chinese-chat-input');
+        const send = document.getElementById('chinese-chat-send');
+        const clear = document.getElementById('chat-clear');
+        const topic = document.getElementById('chat-topic');
+        if (!box || !input || !send) return;
+        if (box.dataset.ready === '1') return;
+        box.dataset.ready = '1';
+
+        const key = 'giangha_chinese_chat_v1';
+        const getLevel = () => String(document.getElementById('hsk-level')?.value || currentLevel || '1');
+        const topicName = () => ({daily:'cuộc sống hằng ngày',school:'trường học',family:'gia đình',travel:'du lịch',shopping:'mua sắm',free:'tự do'}[topic?.value] || 'tự do');
+        const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+
+        function add(role, text, save=true){
+            const row=document.createElement('div'); row.className='chat-msg '+role;
+            const b=document.createElement('div'); b.className='chat-bubble';
+            b.innerHTML=esc(text).replace(/\n/g,'<br>');
+            row.appendChild(b); box.appendChild(row); box.scrollTop=box.scrollHeight;
+            if(save) persist();
+        }
+        function persist(){
+            try{
+                const msgs=[...box.querySelectorAll('.chat-msg')].map(x=>({role:x.classList.contains('user')?'user':'ai',text:x.querySelector('.chat-bubble')?.innerText||''}));
+                localStorage.setItem(key,JSON.stringify(msgs.slice(-40)));
+            }catch(e){}
+        }
+        function load(){
+            let msgs=[]; try{msgs=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){}
+            if(Array.isArray(msgs)&&msgs.length){msgs.forEach(m=>add(m.role==='user'?'user':'ai',m.text,false));}
+            else add('ai',`你好！我是你的中文练习助手。现在是 HSK ${getLevel()}，我们可以用中文聊天。你可以先告诉我你的名字、兴趣，或者今天发生了什么。`,false);
+        }
+        function localReply(text){
+            const t=text.trim();
+            if(/^(你好|您好|嗨|hi|hello)/i.test(t)) return '你好！很高兴和你练习中文。今天想聊什么？';
+            if(/你叫什么|你的名字/.test(t)) return '我可以叫“中文小助手”。很高兴认识你！你叫什么名字？';
+            if(/谢谢/.test(t)) return '不客气！我们继续练习吧。';
+            if(/再见|拜拜/.test(t)) return '再见！下次继续练习中文。';
+            if(/听不懂|不明白|不会/.test(t)) return '没关系。你可以告诉我哪一句不懂，我会用更简单的中文解释。';
+            if(/怎么说|怎么讲|翻译/.test(t)) return '可以。请把你想表达的意思发给我，我会给你一个适合 HSK '+getLevel()+' 的中文表达。';
+            if(/名字/.test(t)) return '你可以这样介绍自己：“我叫……，今年……岁。我来自越南。” 现在你试着说一句吧！';
+            if(/喜欢|兴趣|爱好/.test(t)) return '很好！你喜欢什么？你可以用“我喜欢……，因为……”来回答。';
+            if(/学校|学习|汉语|中文/.test(t)) return '学习中文很有意思。你现在最想练习哪一部分：词汇、听力、口语还是写作？';
+            return `很好，我们继续用中文聊。关于“${t.slice(0,40)}${t.length>40?'…':''}”，你能再说一句吗？尽量用 HSK ${getLevel()} 学过的词。`;
+        }
+        async function askAI(text){
+            const level=getLevel();
+            const payload={message:text,level:Number(level),topic:topicName(),language:'zh-CN',instruction:'只用简单、自然的中文回答；优先符合用户当前HSK等级。必要时用一句很短的越南语解释。主动纠正用户明显的中文错误，但不要打断聊天。'};
+            try{
+                const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),12000);
+                const r=await fetch('./api/chat-chinese',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
+                clearTimeout(timer);
+                if(!r.ok) throw new Error('AI backend '+r.status);
+                const data=await r.json();
+                const reply=data.reply||data.message||data.text;
+                if(reply) return {text:String(reply),offline:false};
+            }catch(e){ console.info('Chat AI backend unavailable; using local practice mode.',e); }
+            return {text:localReply(text),offline:true};
+        }
+        async function sendMessage(prefill){
+            const text=String(prefill ?? input.value).trim(); if(!text) return;
+            input.value=''; add('user',text);
+            send.disabled=true; send.innerHTML=uiIcon('icon-loading')+'Đang trả lời…';
+            const result=await askAI(text);
+            add('ai',result.text);
+            if(result.offline){
+                const note=document.createElement('div'); note.className='chat-meta'; note.textContent='Chế độ luyện tập offline';
+                const last=box.lastElementChild?.querySelector('.chat-bubble'); if(last) last.appendChild(note);
+            }
+            send.disabled=false; send.innerHTML=uiIcon('icon-play')+'Gửi'; input.focus();
+        }
+        send.addEventListener('click',()=>sendMessage());
+        input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
+        clear?.addEventListener('click',()=>{box.innerHTML='';localStorage.removeItem(key);add('ai',`你好！我们开始新的中文对话吧。现在是 HSK ${getLevel()}。`,false);});
+        document.querySelectorAll('[data-chat]').forEach(btn=>btn.addEventListener('click',()=>sendMessage(btn.dataset.chat)));
+        load();
+
+        // Cập nhật nhãn HSK ngay khi người học đổi cấp độ.
+        document.getElementById('hsk-level')?.addEventListener('change',()=>{
+            const l=getLevel();
+            const a=document.getElementById('chat-level-pill'); if(a)a.textContent='HSK '+l;
+            const b=document.getElementById('chat-level-note'); if(b)b.textContent=l;
+        });
+    };
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
