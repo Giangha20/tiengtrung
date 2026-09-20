@@ -2031,10 +2031,3 @@ button .ui-icon{pointer-events:none}
 .meaning{font-family:"Noto Sans","Segoe UI",Arial,sans-serif;unicode-bidi:plaintext;}
 
 /* Hình minh họa cho Luyện nghe + Bài tập HSK */
-.learning-image-wrap{position:relative;width:min(100%,560px);margin:18px auto 8px;border:1px solid #e4edf7;border-radius:22px;overflow:hidden;background:#f8fbff;box-shadow:0 10px 28px rgba(15,23,42,.07)}
-.learning-image{display:block;width:100%;height:220px;object-fit:cover}
-.learning-image-caption{position:absolute;left:12px;bottom:10px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.88);color:#475569;font-size:12px;font-weight:800;backdrop-filter:blur(8px)}
-.exam-image-wrap{width:min(100%,520px);margin:10px auto 12px}
-.exam-image-wrap .learning-image{height:190px}
-.listening-image-wrap{margin-top:18px}
-@media(max-width:650px){.learning-image{height:170px}.exam-image-wrap .learning-image{height:155px}.learning-image-wrap{border-radius:17px}}
