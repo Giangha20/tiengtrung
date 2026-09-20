@@ -9282,32 +9282,31 @@ function setupHandwritingCanvas() {
     if (!canvas || handwritingReady) return;
 
     handwritingReady = true;
+    const ctx = canvas.getContext('2d');
+    let lastPoint = null;
+    let traceStrokeIndex = 0;
+    let traceProgress = 0;
+    let tracePoints = [];
+    let tracingActive = false;
 
-    // Canvas phụ để giữ nét người dùng vẽ.
-    // Nét sẽ được cắt theo hình chữ Hán mẫu để không bị vẽ tràn ra ngoài chữ.
     const inkCanvas = document.createElement('canvas');
     inkCanvas.width = canvas.width;
     inkCanvas.height = canvas.height;
     const inkCtx = inkCanvas.getContext('2d');
+    handwritingInkCanvas = inkCanvas;
+    handwritingInkCtx = inkCtx;
 
-    const ctx = canvas.getContext('2d');
-    let lastPoint = null;
-
-    inkCtx.lineWidth = 18;
+    inkCtx.lineWidth = 22;
     inkCtx.lineCap = 'round';
     inkCtx.lineJoin = 'round';
-    inkCtx.strokeStyle = 'rgba(25, 30, 36, 0.72)';
+    inkCtx.strokeStyle = 'rgba(25, 30, 36, 0.78)';
 
-    // Canvas mask dùng chính chữ đang luyện làm vùng cho phép vẽ.
+    // Canvas mask vẫn được giữ để tương thích với phần giao diện cũ.
     const maskCanvas = document.createElement('canvas');
     maskCanvas.width = canvas.width;
     maskCanvas.height = canvas.height;
-    const maskCtx = maskCanvas.getContext('2d');
-
-    handwritingInkCanvas = inkCanvas;
-    handwritingInkCtx = inkCtx;
     handwritingMaskCanvas = maskCanvas;
-    handwritingMaskCtx = maskCtx;
+    handwritingMaskCtx = maskCanvas.getContext('2d');
 
     const pos = e => {
         const rect = canvas.getBoundingClientRect();
@@ -9318,63 +9317,181 @@ function setupHandwritingCanvas() {
         };
     };
 
-    const renderInk = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.drawImage(inkCanvas, 0, 0);
-
-        // Chỉ giữ lại phần nét nằm trong thân chữ mẫu.
-        ctx.globalCompositeOperation = 'destination-in';
-        ctx.drawImage(maskCanvas, 0, 0);
-        ctx.globalCompositeOperation = 'source-over';
+    const getTrace = () => {
+        if (typeof window.getHandwritingTraceData !== 'function') return null;
+        return window.getHandwritingTraceData();
     };
+
+    const distance = (a,b) => Math.hypot(a.x-b.x, a.y-b.y);
+
+    const nearestOnPolyline = (point, line) => {
+        let best = null;
+        for (let i=0; i<line.length-1; i++) {
+            const a=line[i], b=line[i+1];
+            const vx=b.x-a.x, vy=b.y-a.y;
+            const len2=vx*vx+vy*vy || 1;
+            let t=((point.x-a.x)*vx+(point.y-a.y)*vy)/len2;
+            t=Math.max(0,Math.min(1,t));
+            const q={x:a.x+t*vx,y:a.y+t*vy};
+            const d=distance(point,q);
+            if(!best || d<best.distance) best={point:q,distance:d,index:i,t};
+        }
+        return best;
+    };
+
+    const normalizeMedian = (median) => {
+        if (!Array.isArray(median)) return [];
+        return median.map(p => ({
+            x: Number(p[0]) * canvas.width / 1024,
+            y: (1024 - Number(p[1])) * canvas.height / 1024
+        })).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+    };
+
+    const getCurrentStroke = () => {
+        const data=getTrace();
+        if (!data || !Array.isArray(data.medians)) return null;
+        const line=normalizeMedian(data.medians[traceStrokeIndex]);
+        return line.length>=2 ? line : null;
+    };
+
+    const drawGuideAndInk = () => {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        const guide=getCurrentStroke();
+        if (guide && guide.length>1) {
+            ctx.save();
+            ctx.strokeStyle='rgba(9,132,227,.32)';
+            ctx.lineWidth=10;
+            ctx.lineCap='round';
+            ctx.lineJoin='round';
+            ctx.setLineDash([10,10]);
+            ctx.beginPath();
+            guide.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+            ctx.stroke();
+            ctx.setLineDash([]);
+            // Mũi tên nhỏ ở giữa nét để người mới biết hướng đi.
+            const mid=guide[Math.floor(guide.length/2)];
+            const next=guide[Math.min(guide.length-1,Math.floor(guide.length/2)+1)];
+            if(mid && next){
+                const ang=Math.atan2(next.y-mid.y,next.x-mid.x);
+                const size=16;
+                ctx.fillStyle='rgba(9,132,227,.58)';
+                ctx.beginPath();
+                ctx.moveTo(next.x,next.y);
+                ctx.lineTo(next.x-size*Math.cos(ang-Math.PI/6),next.y-size*Math.sin(ang-Math.PI/6));
+                ctx.lineTo(next.x-size*Math.cos(ang+Math.PI/6),next.y-size*Math.sin(ang+Math.PI/6));
+                ctx.closePath(); ctx.fill();
+            }
+            ctx.restore();
+        }
+        if (!tracePoints.length) return;
+        ctx.save();
+        ctx.strokeStyle='rgba(25,30,36,.78)';
+        ctx.lineWidth=22;
+        ctx.lineCap='round';
+        ctx.lineJoin='round';
+        ctx.beginPath();
+        tracePoints.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+        ctx.stroke();
+        ctx.restore();
+    };
+    const drawUserInk = drawGuideAndInk;
+
+    const resetTrace = () => {
+        traceStrokeIndex=0;
+        traceProgress=0;
+        tracePoints=[];
+        tracingActive=false;
+        lastPoint=null;
+        drawUserInk();
+        if (typeof window.updateTraceGuide==='function') window.updateTraceGuide();
+    };
+
+    window.resetHandwritingTrace=resetTrace;
 
     const start = e => {
         e.preventDefault();
-        handwritingDrawing = true;
-        lastPoint = pos(e);
-        inkCtx.beginPath();
-        inkCtx.moveTo(lastPoint.x, lastPoint.y);
+        const trace=getTrace();
+        const line=getCurrentStroke();
+        if (!trace || !line) return;
+
+        const p=pos(e);
+        const startPoint=line[0];
+        const tolerance=Math.max(42,canvas.width*0.075);
+        if (distance(p,startPoint)>tolerance) {
+            if (typeof window.showTraceFeedback==='function') window.showTraceFeedback('⚠️ Hãy bắt đầu đúng tại đầu nét đang sáng.');
+            return;
+        }
+
+        tracingActive=true;
+        lastPoint=startPoint;
+        traceProgress=0;
+        tracePoints=[startPoint];
+        drawUserInk();
+        if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(`✍️ Nét ${traceStrokeIndex+1}: đi đúng hướng mũi tên.`);
     };
 
     const draw = e => {
-        if (!handwritingDrawing) return;
+        if (!tracingActive) return;
         e.preventDefault();
+        const line=getCurrentStroke();
+        if (!line) return;
+        const p=pos(e);
+        const near=nearestOnPolyline(p,line);
+        const tolerance=Math.max(38,canvas.width*0.065);
 
-        const p = pos(e);
-
-        // Làm mượt nét để khi kéo ngón tay trên điện thoại không bị răng cưa.
-        if (lastPoint) {
-            const midX = (lastPoint.x + p.x) / 2;
-            const midY = (lastPoint.y + p.y) / 2;
-            inkCtx.quadraticCurveTo(lastPoint.x, lastPoint.y, midX, midY);
-            inkCtx.stroke();
-            inkCtx.beginPath();
-            inkCtx.moveTo(midX, midY);
+        // Không cho vẽ ngoằn ngoèo: điểm nhập phải bám sát đúng tâm của nét hiện tại.
+        if (!near || near.distance>tolerance) {
+            if (typeof window.showTraceFeedback==='function') window.showTraceFeedback('↔️ Hãy bám sát nét mẫu và đi theo hướng mũi tên.');
+            return;
         }
 
-        lastPoint = p;
-        renderInk();
+        const targetProgress=near.index+near.t;
+        // Không cho kéo ngược về phía đầu nét.
+        if (targetProgress+0.35 < traceProgress) return;
+        if (targetProgress < traceProgress) return;
+
+        traceProgress=targetProgress;
+        lastPoint=near.point;
+        tracePoints.push(near.point);
+        drawUserInk();
+
+        if (traceProgress >= line.length-1.05) {
+            tracingActive=false;
+            traceStrokeIndex++;
+            traceProgress=0;
+            tracePoints=[];
+            drawUserInk();
+
+            const data=getTrace();
+            const total=data && Array.isArray(data.medians) ? data.medians.length : 0;
+            if (traceStrokeIndex>=total) {
+                if (typeof window.showTraceFeedback==='function') window.showTraceFeedback('✅ Hoàn thành! Bạn đã đi đủ và đúng thứ tự các nét.');
+                if (typeof window.markHandwritingTraceComplete==='function') window.markHandwritingTraceComplete();
+                traceStrokeIndex=0;
+            } else {
+                if (typeof window.showTraceFeedback==='function') window.showTraceFeedback(`✅ Đúng! Sang nét ${traceStrokeIndex+1}/${total}.`);
+                if (typeof window.updateTraceGuide==='function') window.updateTraceGuide();
+            }
+        }
     };
 
     const stop = () => {
-        if (!handwritingDrawing) return;
-        handwritingDrawing = false;
-        lastPoint = null;
-        inkCtx.closePath();
+        if (!tracingActive) return;
+        tracingActive=false;
+        lastPoint=null;
     };
 
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', draw);
     canvas.addEventListener('mouseup', stop);
     canvas.addEventListener('mouseleave', stop);
-    canvas.addEventListener('touchstart', start, { passive: false });
-    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchstart', start, { passive:false });
+    canvas.addEventListener('touchmove', draw, { passive:false });
     canvas.addEventListener('touchend', stop);
     canvas.addEventListener('touchcancel', stop);
 
-    // Lưu hàm render để đổi chữ / xóa nét mà không phải gắn lại event.
-    window.renderHandwritingInk = renderInk;
+    window.renderHandwritingInk = drawUserInk;
+    window.getHandwritingTraceState = () => ({ traceStrokeIndex, traceProgress });
 }
 
 function buildHandwritingMask(hanzi) {
@@ -9402,6 +9519,7 @@ function buildHandwritingMask(hanzi) {
 }
 
 function clearHandwritingCanvas() {
+    if (typeof window.resetHandwritingTrace === 'function') window.resetHandwritingTrace();
     const canvas = document.getElementById('handwriting-canvas');
     if (!canvas) return;
 
@@ -9628,7 +9746,29 @@ function speakHandwritingWord() {
         renderCharacter(strokeChars[0],true);
     }
     function skip(){ runToken++; playing=false; if(currentData){drawFull();setText(`👀 Đây là chữ hoàn chỉnh “${currentChar}”. Nhấn “▶ Bắt đầu” để xem từng nét.`);} }
+    // API dùng chung với bảng luyện viết: cung cấp medians (đường tâm của từng nét)
+    // để người học phải đi đúng hướng và đúng thứ tự, không thể vẽ nguệch ngoạc tự do.
+    window.getHandwritingTraceData = () => currentData;
+    window.updateTraceGuide = () => {
+        const state = typeof window.getHandwritingTraceState === 'function'
+            ? window.getHandwritingTraceState() : { traceStrokeIndex: 0 };
+        const data = currentData;
+        if (!data || !Array.isArray(data.medians)) return;
+        const total = data.medians.length;
+        const n = Math.min(state.traceStrokeIndex + 1, total);
+        setText(`✍️ Nét ${n}/${total}: đặt bút vào đầu nét và đi theo hướng mẫu.`);
+    };
+    window.showTraceFeedback = (message) => {
+        const e=document.getElementById('stroke-step-text');
+        if(e) e.textContent=message;
+    };
+    window.markHandwritingTraceComplete = () => {
+        const e=document.getElementById('stroke-step-text');
+        if(e) e.textContent='🎉 Hoàn thành chữ! Hãy bấm Xóa và tự viết lại để ghi nhớ.';
+    };
+
     function update(){
+        if (typeof window.resetHandwritingTrace === 'function') window.resetHandwritingTrace();
         const text=getCurrentHanzi(); strokeChars=[...text].filter(c=>/\p{Script=Han}/u.test(c)); strokeCharIndex=0;
         if(!strokeChars.length){clear();setCount(0);setText('Chưa có chữ để hướng dẫn.');return;}
         renderCharacter(strokeChars[0],false);

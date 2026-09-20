@@ -3,3 +3,7 @@
 .stroke-local-path[style*="opacity: 1"]{animation:strokePop .22s ease-out}
 @keyframes strokePop{from{opacity:.15;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.stroke-local-path{transition:none}.stroke-local-path[style*="opacity: 1"]{animation:none}}
+
+/* Chế độ luyện viết nghiêm ngặt: đường tâm + mũi tên hướng nét */
+#handwriting-canvas { touch-action: none; }
+#stroke-step-text { min-height: 24px; font-weight: 700; }
