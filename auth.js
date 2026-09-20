@@ -171,12 +171,16 @@
         // Không chờ Firestore/Auth listener thêm để tránh cảm giác nút bị treo.
         currentUser = credential.user;
         window.ghCurrentUser = currentUser;
+        // Đánh dấu phiên đăng nhập để PWA có thể chờ Firebase khôi phục phiên
+        // khi mở từ biểu tượng màn hình chính. Không lưu email/mật khẩu/token.
+        try { localStorage.setItem('gh_pwa_login_marker_v2', String(Date.now())); } catch (e) {}
         return credential.user;
     }
 
     async function logout() {
         if (!auth) return;
         await auth.signOut();
+        try { localStorage.removeItem('gh_pwa_login_marker_v2'); } catch (e) {}
     }
 
     async function bootstrap() {
