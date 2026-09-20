@@ -1,7 +1,6 @@
 .env
-node_modules/
+.env.*
 secrets/
-serviceAccountKey.json
 firebase-service-account*.json
-*-firebase-adminsdk-*.json
-*.log
+*-adminsdk-*.json
+node_modules/
