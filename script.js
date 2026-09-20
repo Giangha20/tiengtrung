@@ -8107,26 +8107,29 @@ const THEME_IMAGE_MAP = {
   clothes:['https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=900&q=82','Quần áo'],
   money:['https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=82','Tiền bạc']
 };
+// Quy tắc ảnh được xếp theo độ cụ thể: các chủ đề như công việc, bệnh viện,
+// nhà hàng... được ưu tiên trước địa danh chung để ảnh bám sát câu hỏi hơn.
 const THEME_RULES = [
-  ['school',['学校','老师','学生','教室','同学','上课','下课','考试','学习']],
-  ['food',['吃饭','吃','饭','面','米饭','菜','水果','苹果','茶','咖啡','喝','牛奶','蛋糕','包子','饺子']],
-  ['home',['家','房间','房子','门','窗','厨房','桌子','椅子','床','回家']],
-  ['shopping',['买','商店','超市','购物','价格','便宜','贵','衣服','市场']],
-  ['travel',['旅行','旅游','机场','飞机','酒店','宾馆','火车站','车站','广州','北京','上海','城市']],
-  ['weather',['天气','下雨','下雪','晴','阴','冷','热','风','太阳','温度']],
-  ['transport',['公交车','公共汽车','地铁','出租车','汽车','开车','自行车','火车','飞机','坐车']],
-  ['work',['工作','公司','经理','同事','老板','办公室','会议','记者','安排','数据']],
-  ['time',['今天','昨天','明天','现在','早上','晚上','下午','上午','周末','时间','小时','分钟']],
+  ['school',['学校','老师','学生','教室','同学','上课','下课','考试','学习','课程','作业']],
   ['family',['爸爸','妈妈','父亲','母亲','哥哥','姐姐','弟弟','妹妹','孩子','家人','家庭','丈夫','妻子']],
-  ['phone',['电话','手机','短信','微信','号码','打电话','上网','电脑','网络']],
-  ['book',['书','书店','读书','看书','字典','汉字','词典','作业','写字']],
-  ['health',['医生','医院','身体','生病','药','健康','头疼','感冒','看病']],
-  ['restaurant',['餐厅','饭店','服务员','菜单','点菜','吃饭','座位']],
-  ['city',['城市','街道','公园','大楼','北京','上海','广州','学校']],
-  ['nature',['山','河','海','树','花','动物','森林','公园','空气']],
+  ['work',['工作','公司','经理','同事','老板','办公室','会议','记者','安排','数据','报告','任务','客户','项目','研究','效率','计划','管理']],
+  ['health',['医生','医院','身体','生病','药','健康','头疼','感冒','看病','治疗','病人']],
+  ['restaurant',['餐厅','饭店','服务员','菜单','点菜','座位','早餐','午餐','晚餐']],
+  ['shopping',['买','商店','超市','购物','价格','便宜','贵','市场','支付','衣服','鞋']],
+  ['phone',['电话','手机','短信','微信','号码','打电话','消息','联系','电脑','网络']],
+  ['book',['书','书店','读书','看书','字典','汉字','词典','写字','阅读']],
+  ['food',['吃饭','吃','饭','面','米饭','菜','水果','苹果','茶','咖啡','喝','牛奶','蛋糕','包子','饺子','水']],
+  ['transport',['公交车','公共汽车','地铁','出租车','汽车','开车','自行车','火车','飞机','坐车','车站']],
   ['sport',['运动','足球','篮球','跑步','游泳','打球','比赛','锻炼']],
-  ['clothes',['衣服','裤子','鞋','帽子','裙子','穿','外套']],
-  ['money',['钱','元','块','银行','价格','支付','便宜','贵']]
+  ['clothes',['裤子','帽子','裙子','外套','穿']],
+  ['money',['钱','元','块','银行','价格','支付','便宜','贵']],
+  ['nature',['山','河','海','树','花','动物','森林','空气']],
+  ['weather',['天气','下雨','下雪','晴','阴','冷','热','风','太阳','温度']],
+  ['travel',['旅行','旅游','机场','飞机','酒店','宾馆','火车站','车站','护照','签证']],
+  ['city',['城市','街道','公园','大楼','北京','上海','广州','深圳','城市']],
+  ['home',['家','房间','房子','门','窗','厨房','桌子','椅子','床','回家']],
+  ['time',['今天','昨天','明天','现在','早上','晚上','下午','上午','周末','时间','小时','分钟']],
+  ['person',['人','朋友','自己','我','你','他','她','大家']]
 ];
 function getLearningTheme(text){
   const t=String(text||'');
@@ -8147,6 +8150,9 @@ function setLearningImage(id,text,alt){
   img.onerror=function(){ if(this.src!==fallback) this.src=fallback; };
   img.src=item[0];
   img.alt=alt||item[1]||'Hình minh họa';
+  const wrap=img.closest('.learning-image-wrap');
+  const caption=wrap?.querySelector('.learning-image-caption');
+  if(caption) caption.textContent=`Hình minh họa: ${item[1]||'theo nội dung câu hỏi'}`;
   img.loading='lazy';
   img.decoding='async';
 }
@@ -25817,7 +25823,7 @@ const LISTENING_BANK = [
     "level": 1,
     "audio": "今天我很忙。",
     "pinyin": "",
-    "meaning": "Hôm naytôirất bận.",
+    "meaning": "Hôm nay tôi rất bận.",
     "options": [
       "她在饭店。",
       "今天我很忙。",
@@ -26389,7 +26395,7 @@ const LISTENING_BANK = [
     "level": 2,
     "audio": "我已经做作业了。",
     "pinyin": "",
-    "meaning": "Tôiđãlàm bài tập.",
+    "meaning": "Tôi đã làm bài tập.",
     "options": [
       "我已经做作业了。",
       "我要一杯热茶。",
@@ -35158,7 +35164,7 @@ const LISTENING_BANK = [
       "从整体而言，这一改革对经济结构产生了深远影响。"
     ],
     "correct": 2,
-    "meaning": "Trong môi trường xã hội phức tạp và luôn thay đổi，việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng."
+    "meaning": "Trong môi trường xã hội phức tạp và luôn thay đổi, việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng."
   },
   {
     "level": 6,
@@ -35171,7 +35177,7 @@ const LISTENING_BANK = [
       "如果有时间，研究人员会去北京调查社会情况。"
     ],
     "correct": 2,
-    "meaning": "Làm thế nào để cân bằng giữa hiệu quả và công bằng，luôn là trọng tâm của các cuộc thảo luận xã hội."
+    "meaning": "Làm thế nào để cân bằng giữa hiệu quả và công bằng luôn là trọng tâm của các cuộc thảo luận xã hội."
   },
   {
     "level": 6,
@@ -35184,7 +35190,7 @@ const LISTENING_BANK = [
       "律师正在检查技术资料，准备开始提高工作效率。"
     ],
     "correct": 0,
-    "meaning": "Trước xu hướng công nghệ không ngừng thay đổi，hệ thống giáo dục cũng cần được điều chỉnh kịp thời."
+    "meaning": "Trước xu hướng công nghệ không ngừng thay đổi, hệ thống giáo dục cũng cần được điều chỉnh kịp thời."
   },
   {
     "level": 6,
@@ -35457,7 +35463,7 @@ const LISTENING_BANK = [
       "在复杂多变的社会环境中，准确判断信息的可靠性至关重要。"
     ],
     "correct": 1,
-    "meaning": "Trong môi trường xã hội phức tạp và luôn thay đổi，việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng Hãy đưa ra quyết định dựa trên tình hình thực tế."
+    "meaning": "Trong môi trường xã hội phức tạp và luôn thay đổi, việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng. Hãy đưa ra quyết định dựa trên tình hình thực tế."
   },
   {
     "level": 6,
@@ -35470,7 +35476,7 @@ const LISTENING_BANK = [
       "如何在效率与公平之间取得平衡，一直是社会讨论的重点，请根据实际情况决定。"
     ],
     "correct": 3,
-    "meaning": "Làm thế nào để cân bằng giữa hiệu quả và công bằng，luôn là trọng tâm của các cuộc thảo luận xã hội Hãy đưa ra quyết định dựa trên tình hình thực tế."
+    "meaning": "Làm thế nào để cân bằng giữa hiệu quả và công bằng luôn là trọng tâm của các cuộc thảo luận xã hội. Hãy đưa ra quyết định dựa trên tình hình thực tế."
   },
   {
     "level": 6,
@@ -35483,7 +35489,7 @@ const LISTENING_BANK = [
       "面对不断变化的技术趋势，教育体系也需要及时调整，请根据实际情况决定。"
     ],
     "correct": 3,
-    "meaning": "Trước xu hướng công nghệ không ngừng thay đổi，hệ thống giáo dục cũng cần được điều chỉnh kịp thời Hãy đưa ra quyết định dựa trên tình hình thực tế."
+    "meaning": "Trước xu hướng công nghệ không ngừng thay đổi, hệ thống giáo dục cũng cần được điều chỉnh kịp thời. Hãy đưa ra quyết định dựa trên tình hình thực tế."
   },
   {
     "level": 6,
@@ -35548,7 +35554,7 @@ const LISTENING_BANK = [
       "在复杂多变的社会环境中，准确判断信息的可靠性至关重要，你怎么看？"
     ],
     "correct": 3,
-    "meaning": "Trong môi trường xã hội phức tạp và luôn thay đổi，việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng Bạn nghĩ sao?"
+    "meaning": "Trong môi trường xã hội phức tạp và luôn thay đổi, việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng. Bạn nghĩ sao?"
   },
   {
     "level": 6,
@@ -35561,7 +35567,7 @@ const LISTENING_BANK = [
       "今天律师在广州调整发展战略。"
     ],
     "correct": 1,
-    "meaning": "Làm thế nào để cân bằng giữa hiệu quả và công bằng，luôn là trọng tâm của các cuộc thảo luận xã hội Bạn nghĩ sao?"
+    "meaning": "Làm thế nào để cân bằng giữa hiệu quả và công bằng luôn là trọng tâm của các cuộc thảo luận xã hội. Bạn nghĩ sao?"
   },
   {
     "level": 6,
@@ -35574,7 +35580,7 @@ const LISTENING_BANK = [
       "面对不断变化的技术趋势，教育体系也需要及时调整，你怎么看？"
     ],
     "correct": 3,
-    "meaning": "Trước xu hướng công nghệ không ngừng thay đổi，hệ thống giáo dục cũng cần được điều chỉnh kịp thời Bạn nghĩ sao?"
+    "meaning": "Trước xu hướng công nghệ không ngừng thay đổi, hệ thống giáo dục cũng cần được điều chỉnh kịp thời. Bạn nghĩ sao?"
   },
   {
     "level": 6,
@@ -36946,7 +36952,7 @@ const LISTENING_VI_MEANINGS = {
   "请给我足球。": "Xin cho tôi bóng đá.",
   "你喜欢猫吗？": "Bạn thích mèo không?",
   "我们去图书馆。": "Chúng tôiđithư viện.",
-  "今天我很忙。": "Hôm naytôirất bận.",
+  "今天我很忙。": "Hôm nay tôi rất bận.",
   "他在公园。": "Anh ấy ở công viên.",
   "我不喜欢茶。": "Tôikhôngthíchtrà.",
   "我们去公司。": "Chúng tôiđicông ty.",
@@ -36990,7 +36996,7 @@ const LISTENING_VI_MEANINGS = {
   "你什么时候去电影院？": "Bạn gì khi/lúc đi phim viện?",
   "你可以帮我学习中文吗？": "Bạn có thể giúp tôi học tiếng Trung không?",
   "明天我们一起去医院吧。": "Ngày mai chúng tôi một dậy, bắt đầu đi bệnh viện nhé.",
-  "我已经做作业了。": "Tôiđãlàm bài tập.",
+  "我已经做作业了。": "Tôi đã làm bài tập.",
   "这个衣服很贵。": "Quần áo này rất đắt.",
   "我需要买一些水果。": "Tôi cần mua một số nước quả.",
   "我已经写邮件了。": "Tôi đã viết email.",
@@ -37664,9 +37670,9 @@ const LISTENING_VI_MEANINGS = {
   "我们应该根据实际情况调整原来的计划，你怎么看？": "Chúng ta nên điều chỉnh kế hoạch ban đầu dựa trên tình hình thực tế. Bạn nghĩ sao?",
   "这份报告详细分析了市场发展的主要趋势，你怎么看？": "Báo cáo này phân tích chi tiết các xu hướng chính của thị trường. Bạn nghĩ sao?",
   "即使遇到失败，也不应该轻易放弃自己的目标，你怎么看？": "Ngay cả khi thất bại cũng không nên dễ dàng từ bỏ mục tiêu của mình. Bạn nghĩ sao?",
-  "在复杂多变的社会环境中，准确判断信息的可靠性至关重要。": "Trong môi trường xã hội phức tạp và luôn thay đổi，việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng.",
-  "如何在效率与公平之间取得平衡，一直是社会讨论的重点。": "Làm thế nào để cân bằng giữa hiệu quả và công bằng，luôn là trọng tâm của các cuộc thảo luận xã hội.",
-  "面对不断变化的技术趋势，教育体系也需要及时调整。": "Trước xu hướng công nghệ không ngừng thay đổi，hệ thống giáo dục cũng cần được điều chỉnh kịp thời.",
+  "在复杂多变的社会环境中，准确判断信息的可靠性至关重要。": "Trong môi trường xã hội phức tạp và luôn thay đổi, việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng.",
+  "如何在效率与公平之间取得平衡，一直是社会讨论的重点。": "Làm thế nào để cân bằng giữa hiệu quả và công bằng luôn là trọng tâm của các cuộc thảo luận xã hội.",
+  "面对不断变化的技术趋势，教育体系也需要及时调整。": "Trước xu hướng công nghệ không ngừng thay đổi, hệ thống giáo dục cũng cần được điều chỉnh kịp thời.",
   "这一现象背后的原因远比表面上看起来复杂。": "Nguyên nhân phía sau hiện tượng này phức tạp hơn nhiều so với vẻ bề ngoài.",
   "研究人员正在进一步验证这一结论是否具有普遍性。": "Nhà nghiên cứu đang tiếp tục kiểm chứng liệu kết luận này có tính phổ quát hay không.",
   "在缺少充分证据的情况下，我们不宜过早得出结论。": "Khi chưa có đủ bằng chứng, chúng ta không nên vội đưa ra kết luận.",
@@ -37687,16 +37693,16 @@ const LISTENING_VI_MEANINGS = {
   "这项决定不仅关系到企业利益，也涉及消费者的长期权益，我们需要进一步讨论。": "Quyết định này không chỉ liên quan đến lợi ích doanh nghiệp mà còn liên quan đến quyền lợi lâu dài của người tiêu dùng. Chúng ta cần thảo luận thêm.",
   "在缺少充分证据的情况下，我们不宜过早得出结论，我们需要进一步讨论。": "Khi chưa có đủ bằng chứng, chúng ta không nên vội đưa ra kết luận. Chúng ta cần thảo luận thêm.",
   "只有不断反思并总结经验，才能逐步完善现有的方法，我们需要进一步讨论。": "Chỉ bằng cách không ngừng suy ngẫm và tổng kết kinh nghiệm mới có thể từng bước hoàn thiện phương pháp hiện tại. Chúng ta cần thảo luận thêm.",
-  "在复杂多变的社会环境中，准确判断信息的可靠性至关重要，请根据实际情况决定。": "Trong môi trường xã hội phức tạp và luôn thay đổi，việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng Hãy đưa ra quyết định dựa trên tình hình thực tế.",
-  "如何在效率与公平之间取得平衡，一直是社会讨论的重点，请根据实际情况决定。": "Làm thế nào để cân bằng giữa hiệu quả và công bằng，luôn là trọng tâm của các cuộc thảo luận xã hội Hãy đưa ra quyết định dựa trên tình hình thực tế.",
-  "面对不断变化的技术趋势，教育体系也需要及时调整，请根据实际情况决定。": "Trước xu hướng công nghệ không ngừng thay đổi，hệ thống giáo dục cũng cần được điều chỉnh kịp thời Hãy đưa ra quyết định dựa trên tình hình thực tế.",
+  "在复杂多变的社会环境中，准确判断信息的可靠性至关重要，请根据实际情况决定。": "Trong môi trường xã hội phức tạp và luôn thay đổi, việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng. Hãy đưa ra quyết định dựa trên tình hình thực tế.",
+  "如何在效率与公平之间取得平衡，一直是社会讨论的重点，请根据实际情况决定。": "Làm thế nào để cân bằng giữa hiệu quả và công bằng luôn là trọng tâm của các cuộc thảo luận xã hội. Hãy đưa ra quyết định dựa trên tình hình thực tế.",
+  "面对不断变化的技术趋势，教育体系也需要及时调整，请根据实际情况决定。": "Trước xu hướng công nghệ không ngừng thay đổi, hệ thống giáo dục cũng cần được điều chỉnh kịp thời. Hãy đưa ra quyết định dựa trên tình hình thực tế.",
   "这一现象背后的原因远比表面上看起来复杂，请根据实际情况决定。": "Nguyên nhân phía sau hiện tượng này phức tạp hơn nhiều so với vẻ bề ngoài Hãy đưa ra quyết định dựa trên tình hình thực tế.",
   "研究人员正在进一步验证这一结论是否具有普遍性，请根据实际情况决定。": "Các nhà nghiên cứu đang tiếp tục kiểm chứng liệu kết luận này có tính phổ quát hay không Hãy đưa ra quyết định dựa trên tình hình thực tế.",
   "在缺少充分证据的情况下，我们不宜过早得出结论，请根据实际情况决定。": "Khi chưa có đủ bằng chứng, chúng ta không nên vội đưa ra kết luận Hãy đưa ra quyết định dựa trên tình hình thực tế.",
   "只有不断反思并总结经验，才能逐步完善现有的方法，请根据实际情况决定。": "Chỉ bằng cách không ngừng nhìn lại và tổng kết kinh nghiệm, chúng ta mới có thể từng bước hoàn thiện phương pháp hiện tại Hãy đưa ra quyết định dựa trên tình hình thực tế.",
-  "在复杂多变的社会环境中，准确判断信息的可靠性至关重要，你怎么看？": "Trong môi trường xã hội phức tạp và luôn thay đổi，việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng Bạn nghĩ sao?",
-  "如何在效率与公平之间取得平衡，一直是社会讨论的重点，你怎么看？": "Làm thế nào để cân bằng giữa hiệu quả và công bằng，luôn là trọng tâm của các cuộc thảo luận xã hội Bạn nghĩ sao?",
-  "面对不断变化的技术趋势，教育体系也需要及时调整，你怎么看？": "Trước xu hướng công nghệ không ngừng thay đổi，hệ thống giáo dục cũng cần được điều chỉnh kịp thời Bạn nghĩ sao?",
+  "在复杂多变的社会环境中，准确判断信息的可靠性至关重要，你怎么看？": "Trong môi trường xã hội phức tạp và luôn thay đổi, việc đánh giá chính xác độ tin cậy của thông tin là vô cùng quan trọng. Bạn nghĩ sao?",
+  "如何在效率与公平之间取得平衡，一直是社会讨论的重点，你怎么看？": "Làm thế nào để cân bằng giữa hiệu quả và công bằng luôn là trọng tâm của các cuộc thảo luận xã hội. Bạn nghĩ sao?",
+  "面对不断变化的技术趋势，教育体系也需要及时调整，你怎么看？": "Trước xu hướng công nghệ không ngừng thay đổi, hệ thống giáo dục cũng cần được điều chỉnh kịp thời. Bạn nghĩ sao?",
   "这一现象背后的原因远比表面上看起来复杂，你怎么看？": "Nguyên nhân phía sau hiện tượng này phức tạp hơn nhiều so với vẻ bề ngoài Bạn nghĩ sao?",
   "研究人员正在进一步验证这一结论是否具有普遍性，你怎么看？": "Các nhà nghiên cứu đang tiếp tục kiểm chứng liệu kết luận này có tính phổ quát hay không Bạn nghĩ sao?",
   "在缺少充分证据的情况下，我们不宜过早得出结论，你怎么看？": "Khi chưa có đủ bằng chứng, chúng ta không nên vội đưa ra kết luận Bạn nghĩ sao?",
@@ -37824,7 +37830,6 @@ function continueListening(){
 
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('listening-play')?.addEventListener('click',speakListeningSentence);
-  document.getElementById('listening-replay')?.addEventListener('click',speakListeningSentence);
   document.getElementById('listening-next')?.addEventListener('click',nextListeningQuestion);
   document.getElementById('listening-continue')?.addEventListener('click',continueListening);
   document.getElementById('listening-wrong-mode')?.addEventListener('click',startWrongListening);

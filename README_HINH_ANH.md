@@ -1,7 +1,7 @@
-# Bổ sung hình ảnh Luyện nghe + Bài tập HSK
+# Hình minh họa – bản GitHub không cần upload ảnh
 
-- Thêm 20 bộ hình minh họa SVG cục bộ trong `images/themes/`.
-- Luyện nghe tự chọn hình theo chủ đề câu tiếng Trung.
-- Bài tập HSK tự chọn hình theo từ/cụm nghĩa đang hỏi.
-- Hình hoạt động offline/PWA, không phụ thuộc URL ảnh bên ngoài.
-- Không thay đổi dữ liệu HSK/Listening hiện có.
+- Hình minh họa Luyện nghe và Bài tập HSK được nhúng trực tiếp vào `script.js` dưới dạng SVG data URI.
+- Không còn phụ thuộc vào thư mục `images/themes/`.
+- Không cần upload 20 file ảnh lên GitHub.
+- Vẫn hoạt động trên GitHub Pages, trình duyệt thường và PWA/offline.
+- Mỗi chủ đề có hình minh họa riêng và tự đổi theo câu hỏi.
