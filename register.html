@@ -589,117 +589,82 @@
 
 
 <script>
-function togglePassword(id, button) {
-    const input = document.getElementById(id);
-    if (!input) return;
-    input.type = input.type === "password" ? "text" : "password";
-    button.textContent = input.type === "password" ? "👁" : "🙈";
-}
+(function () {
+    const firebaseScripts = [
+        "https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js",
+        "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js",
+        "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"
+    ];
 
-function showMessage(text, type) {
-    const message = document.getElementById("message");
-    if (!message) return;
-    message.textContent = text;
-    message.className = "message " + type;
-}
-
-const firebaseScripts = [
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js",
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js",
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"
-];
-
-function loadScript(src) {
-    return new Promise((resolve, reject) => {
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        document.head.appendChild(s);
-    });
-}
-
-(async function () {
-    try {
-        for (const src of firebaseScripts) await loadScript(src);
-
-        const configScript = document.createElement("script");
-        configScript.src = "./firebase-config.js";
-        document.head.appendChild(configScript);
-        await new Promise((resolve, reject) => {
-            configScript.onload = resolve;
-            configScript.onerror = reject;
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const s = document.createElement("script");
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = () => reject(new Error("Không tải được Firebase SDK: " + src));
+            document.head.appendChild(s);
         });
-
-        const initScript = document.createElement("script");
-        initScript.src = "./firebase-init.js";
-        document.head.appendChild(initScript);
-        await new Promise((resolve, reject) => {
-            initScript.onload = resolve;
-            initScript.onerror = reject;
-        });
-
-        await window.firebaseReady;
-
-        firebaseAuth.onAuthStateChanged((user) => {
-            if (user) window.location.href = "./index.html";
-        });
-
-        document.getElementById("registerForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-
-            const username = document.getElementById("username").value.trim();
-            const email = document.getElementById("email").value.trim().toLowerCase();
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-
-            if (username.length < 3) {
-                showMessage("❌ Tên tài khoản phải có ít nhất 3 ký tự.", "error");
-                return;
-            }
-
-            if (password.length < 6) {
-                showMessage("❌ Mật khẩu phải có ít nhất 6 ký tự.", "error");
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                showMessage("❌ Mật khẩu nhập lại không khớp.", "error");
-                return;
-            }
-
-            try {
-                const credential = await firebaseAuth.createUserWithEmailAndPassword(email, password);
-                const user = credential.user;
-
-                await firebaseDb.collection("users").doc(user.uid).set({
-                    uid: user.uid,
-                    username: username,
-                    email: email,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
-                showMessage("✅ Tạo tài khoản thành công! Đang chuyển sang trang học...", "success");
-                setTimeout(() => {
-                    window.location.href = "./index.html";
-                }, 700);
-            } catch (error) {
-                console.error(error);
-
-                const messages = {
-                    "auth/email-already-in-use": "❌ Email này đã được đăng ký.",
-                    "auth/invalid-email": "❌ Email không hợp lệ.",
-                    "auth/weak-password": "❌ Mật khẩu quá yếu.",
-                    "auth/operation-not-allowed": "❌ Firebase Email/Password chưa được bật."
-                };
-
-                showMessage(messages[error.code] || ("❌ Đăng ký thất bại: " + error.message), "error");
-            }
-        });
-    } catch (error) {
-        console.error(error);
-        showMessage("❌ Không thể khởi tạo Firebase. Hãy kiểm tra firebase-config.js.", "error");
     }
+
+    function showMessage(text, type) {
+        const message = document.getElementById("message");
+        if (!message) return;
+        message.textContent = text;
+        message.className = "message " + type;
+    }
+
+    async function boot() {
+        try {
+            for (const src of firebaseScripts) await loadScript(src);
+            await loadScript("./firebase-config.js");
+            await loadScript("./auth.js");
+
+            const readyUser = await window.ghAuthReady;
+            if (readyUser) {
+                // Không để tài khoản cũ tự nhảy vào trang học khi người dùng đang ở trang đăng ký.
+                await window.ghAuth.logout();
+            }
+            if (!window.ghFirebaseConfigured) {
+                throw new Error("Firebase chưa được khởi tạo. Kiểm tra firebase-config.js và Authorized domains.");
+            }
+
+            document.getElementById("registerForm").addEventListener("submit", async function (event) {
+                event.preventDefault();
+                const username = document.getElementById("username").value.trim();
+                const email = document.getElementById("email").value.trim().toLowerCase();
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+                const btn = this.querySelector('button[type="submit"]');
+
+                if (username.length < 3) return showMessage("❌ Tên tài khoản phải có ít nhất 3 ký tự.", "error");
+                if (password.length < 6) return showMessage("❌ Mật khẩu phải có ít nhất 6 ký tự.", "error");
+                if (password !== confirmPassword) return showMessage("❌ Mật khẩu nhập lại không khớp.", "error");
+
+                if (btn) { btn.disabled = true; btn.dataset.oldText = btn.textContent; btn.textContent = "Đang tạo tài khoản..."; }
+                try {
+                    await window.ghAuth.register(email, password, username);
+                    showMessage("✅ Tạo tài khoản thành công! Đang chuyển sang đăng nhập...", "success");
+                    setTimeout(() => window.location.replace("./login.html"), 900);
+                } catch (error) {
+                    console.error("Firebase register error:", error);
+                    const messages = {
+                        "auth/email-already-in-use": "❌ Email này đã được đăng ký.",
+                        "auth/invalid-email": "❌ Email không hợp lệ.",
+                        "auth/weak-password": "❌ Mật khẩu quá yếu.",
+                        "auth/operation-not-allowed": "❌ Firebase Email/Password chưa được bật.",
+                        "auth/network-request-failed": "❌ Không có kết nối mạng hoặc Firebase bị chặn."
+                    };
+                    showMessage(messages[error.code] || ("❌ Đăng ký thất bại: " + (error.message || error)), "error");
+                    if (btn) { btn.disabled = false; btn.textContent = btn.dataset.oldText || "Đăng ký"; }
+                }
+            });
+        } catch (error) {
+            console.error("Firebase bootstrap error:", error);
+            showMessage("❌ Không thể khởi tạo Firebase. Kiểm tra firebase-config.js, Firebase SDK và Authorized domains.", "error");
+        }
+    }
+
+    boot();
 })();
 </script>
 

@@ -1,46 +1,19 @@
-# Cấu hình lưu tiến trình online cho HSK
+# Tiếng Trung Giang Hà — Firebase fix
 
-Bộ web này đã đổi phần tiến trình từ `localStorage` sang Firebase Authentication + Cloud Firestore.
+## Đã sửa lỗi
+- `firebase-init.js` cũ dùng biến `firebaseConfig` nhưng `firebase-config.js` lại khai báo `window.FIREBASE_CONFIG`.
+- Login/register giờ tải Firebase SDK -> `firebase-config.js` -> `auth.js` theo đúng thứ tự.
+- Không còn phụ thuộc `firebase-init.js` cho luồng đăng nhập chính.
+- Đăng ký xong sẽ đăng xuất phiên vừa tạo rồi quay về `login.html`.
+- Lỗi Firestore profile không làm thất bại việc tạo tài khoản Firebase Auth.
+- Tiến trình vẫn lưu theo UID tại `users/{uid}`.
 
-## 1. Tạo Firebase project
+## Firebase Console cần kiểm tra 2 mục
+1. Authentication -> Sign-in method -> Email/Password: **Enabled**.
+2. Authentication -> Settings -> Authorized domains: thêm domain GitHub Pages của bạn, ví dụ `giangha20.github.io`.
 
-- Vào Firebase Console.
-- Tạo một project.
-- Vào **Authentication → Sign-in method** và bật **Email/Password**.
-- Vào **Firestore Database → Create database**.
-- Vào **Project settings → Your apps → Web app** và tạo Web App.
-- Copy đối tượng `firebaseConfig` vào `firebase-config.js`.
+## Firestore Rules
+Dùng nội dung trong `firestore.rules`.
 
-## 2. Điền cấu hình
-
-Mở `firebase-config.js` và thay toàn bộ các giá trị `YOUR_...` bằng cấu hình Web App của Firebase.
-
-Không đưa service-account JSON hoặc private server key lên GitHub.
-
-## 3. Firestore Rules
-
-Trong Firestore → Rules, dùng nội dung trong `firestore.rules`.
-
-Các rule này chỉ cho phép tài khoản đã đăng nhập đọc/ghi document `users/{uid}` của chính mình.
-
-## 4. Chạy trên GitHub Pages
-
-Upload toàn bộ thư mục lên repository, giữ nguyên các file:
-
-- `index.html`
-- `login.html`
-- `register.html`
-- `auth.js`
-- `firebase-config.js`
-- `script.js`
-- `style.css`
-- `hsk6.js`
-- `hsk6.json`
-
-Sau khi cấu hình Firebase, đăng ký tài khoản trên website. Tiến trình sẽ nằm trên Firestore và đăng nhập cùng tài khoản ở máy khác sẽ tải lại tiến trình.
-
-## 5. Chuyển tiến trình cũ
-
-Nếu trình duyệt đang có dữ liệu `gh_hsk_progress_v1` từ bản localStorage cũ và email/tên đăng nhập tương ứng với tài khoản Firebase mới, lần đăng nhập đầu tiên sẽ cố gắng chuyển dữ liệu cũ lên Firestore.
-
-Nếu tài khoản online đã có tiến trình, dữ liệu online được giữ nguyên và không bị dữ liệu cũ ghi đè.
+## Lưu ý bảo mật
+Không đưa `.env`, mật khẩu SMTP, Firebase Admin service-account JSON hoặc API key máy chủ lên GitHub. Nếu một mật khẩu SMTP đã từng được gửi/push công khai, hãy thu hồi và tạo App Password mới.

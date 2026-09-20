@@ -591,95 +591,85 @@
 
 
 <script>
-const showPasswordButton = document.getElementById("showPassword");
-const passwordInput = document.getElementById("password");
+(function () {
+    const firebaseScripts = [
+        "https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js",
+        "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js",
+        "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"
+    ];
 
-if (showPasswordButton && passwordInput) {
-    showPasswordButton.addEventListener("click", function () {
-        const isHidden = passwordInput.type === "password";
-
-        passwordInput.type = isHidden ? "text" : "password";
-        showPasswordButton.textContent = isHidden ? "👁️" : "🙈";
-        showPasswordButton.setAttribute(
-            "aria-label",
-            isHidden ? "Ẩn mật khẩu" : "Hiện mật khẩu"
-        );
-        showPasswordButton.title = isHidden ? "Ẩn mật khẩu" : "Hiện mật khẩu";
-    });
-}
-
-const firebaseScripts = [
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js",
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js",
-    "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"
-];
-
-function loadScript(src) {
-    return new Promise((resolve, reject) => {
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        document.head.appendChild(s);
-    });
-}
-
-(async function () {
-    try {
-        for (const src of firebaseScripts) await loadScript(src);
-
-        const configScript = document.createElement("script");
-        configScript.src = "./firebase-config.js";
-        document.head.appendChild(configScript);
-        await new Promise((resolve, reject) => {
-            configScript.onload = resolve;
-            configScript.onerror = reject;
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const s = document.createElement("script");
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = () => reject(new Error("Không tải được Firebase SDK: " + src));
+            document.head.appendChild(s);
         });
+    }
 
-        const initScript = document.createElement("script");
-        initScript.src = "./firebase-init.js";
-        document.head.appendChild(initScript);
-        await new Promise((resolve, reject) => {
-            initScript.onload = resolve;
-            initScript.onerror = reject;
-        });
+    async function boot() {
+        const showPasswordButton = document.getElementById("showPassword");
+        const passwordInput = document.getElementById("password");
+        if (showPasswordButton && passwordInput) {
+            showPasswordButton.addEventListener("click", function () {
+                const hidden = passwordInput.type === "password";
+                passwordInput.type = hidden ? "text" : "password";
+                showPasswordButton.textContent = hidden ? "👁️" : "🙈";
+                showPasswordButton.setAttribute("aria-label", hidden ? "Ẩn mật khẩu" : "Hiện mật khẩu");
+            });
+        }
 
-        await window.firebaseReady;
+        try {
+            for (const src of firebaseScripts) await loadScript(src);
+            await loadScript("./firebase-config.js");
+            await loadScript("./auth.js");
 
-        firebaseAuth.onAuthStateChanged((user) => {
-            if (user) window.location.href = "./index.html";
-        });
-
-        document.getElementById("loginForm").addEventListener("submit", async function(e) {
-            e.preventDefault();
-
-            const email = document.getElementById("username").value.trim().toLowerCase();
-            const password = document.getElementById("password").value;
-
-            if (!email.includes("@")) {
-                alert("Vui lòng đăng nhập bằng Email đã đăng ký.");
+            const readyUser = await window.ghAuthReady;
+            if (readyUser) {
+                window.location.replace("./index.html");
                 return;
             }
-
-            try {
-                await firebaseAuth.signInWithEmailAndPassword(email, password);
-                alert("✅ Đăng nhập thành công!");
-                window.location.href = "./index.html";
-            } catch (error) {
-                console.error(error);
-                const messages = {
-                    "auth/invalid-credential": "❌ Email hoặc mật khẩu không đúng.",
-                    "auth/user-not-found": "❌ Không tìm thấy tài khoản.",
-                    "auth/wrong-password": "❌ Mật khẩu không đúng.",
-                    "auth/too-many-requests": "❌ Có quá nhiều lần thử. Vui lòng thử lại sau."
-                };
-                alert(messages[error.code] || ("❌ Đăng nhập thất bại: " + error.message));
+            if (!window.ghFirebaseConfigured) {
+                throw new Error("Firebase chưa được khởi tạo. Kiểm tra firebase-config.js và Authorized domains.");
             }
-        });
-    } catch (error) {
-        console.error(error);
-        alert("❌ Không thể khởi tạo Firebase. Hãy kiểm tra firebase-config.js.");
+
+            document.getElementById("loginForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const email = document.getElementById("username").value.trim().toLowerCase();
+                const password = document.getElementById("password").value;
+                const btn = this.querySelector('button[type="submit"]');
+
+                if (!email || !email.includes("@")) {
+                    alert("Vui lòng nhập Email đã đăng ký.");
+                    return;
+                }
+
+                if (btn) { btn.disabled = true; btn.dataset.oldText = btn.textContent; btn.textContent = "Đang đăng nhập..."; }
+                try {
+                    await window.ghAuth.login(email, password);
+                    window.location.replace("./index.html");
+                } catch (error) {
+                    console.error("Firebase login error:", error);
+                    const messages = {
+                        "auth/invalid-credential": "❌ Email hoặc mật khẩu không đúng.",
+                        "auth/user-not-found": "❌ Không tìm thấy tài khoản.",
+                        "auth/wrong-password": "❌ Mật khẩu không đúng.",
+                        "auth/too-many-requests": "❌ Có quá nhiều lần thử. Vui lòng thử lại sau.",
+                        "auth/network-request-failed": "❌ Không có kết nối mạng hoặc Firebase bị chặn.",
+                        "auth/operation-not-allowed": "❌ Firebase chưa bật đăng nhập Email/Password."
+                    };
+                    alert(messages[error.code] || ("❌ Đăng nhập thất bại: " + (error.message || error)));
+                    if (btn) { btn.disabled = false; btn.textContent = btn.dataset.oldText || "Đăng nhập"; }
+                }
+            });
+        } catch (error) {
+            console.error("Firebase bootstrap error:", error);
+            alert("❌ Không thể khởi tạo Firebase. Kiểm tra firebase-config.js, Firebase SDK và Authorized domains.");
+        }
     }
+
+    boot();
 })();
 </script>
 </body>
