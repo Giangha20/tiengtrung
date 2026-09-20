@@ -8086,56 +8086,94 @@ let examScore = 0;
 // không cần tải thư mục ảnh riêng. Vì vậy kể cả khi GitHub chặn upload
 // file ảnh, giao diện vẫn hiển thị hình bình thường.
 const THEME_IMAGE_MAP = {
-  school:['https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=82','Trường học'],
-  person:['https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=82','Con người'],
-  food:['https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=82','Đồ ăn'],
-  home:['https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=82','Nhà'],
-  shopping:['https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=82','Mua sắm'],
-  travel:['https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=82','Du lịch'],
-  weather:['https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=900&q=82','Thời tiết'],
-  transport:['https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=900&q=82','Giao thông'],
-  work:['https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=82','Công việc'],
-  time:['https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=82','Thời gian'],
-  family:['https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=900&q=82','Gia đình'],
-  phone:['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=82','Điện thoại'],
-  book:['https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=900&q=82','Sách'],
-  health:['https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=82','Sức khỏe'],
-  restaurant:['https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=82','Nhà hàng'],
-  city:['https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=82','Thành phố'],
-  nature:['https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=82','Thiên nhiên'],
-  sport:['https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=900&q=82','Thể thao'],
-  clothes:['https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=900&q=82','Quần áo'],
-  money:['https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=82','Tiền bạc']
+  school:['school classroom students','Trường học'],
+  person:['person portrait real photo','Con người'],
+  food:['food Chinese meal real photo','Đồ ăn'],
+  home:['home room family real photo','Nhà'],
+  shopping:['shopping store customer real photo','Mua sắm'],
+  travel:['travel airport tourist real photo','Du lịch'],
+  weather:['weather sky rain sunny real photo','Thời tiết'],
+  transport:['public transport train bus real photo','Giao thông'],
+  work:['office coworkers meeting real photo','Công việc'],
+  time:['clock time calendar real photo','Thời gian'],
+  family:['family together real photo','Gia đình'],
+  phone:['smartphone calling messaging real photo','Điện thoại'],
+  book:['book reading study real photo','Sách'],
+  health:['doctor hospital patient real photo','Sức khỏe'],
+  restaurant:['restaurant dining real photo','Nhà hàng'],
+  city:['city street buildings real photo','Thành phố'],
+  nature:['nature mountain forest real photo','Thiên nhiên'],
+  sport:['sports running football real photo','Thể thao'],
+  clothes:['clothes shopping fashion real photo','Quần áo'],
+  money:['money payment bank real photo','Tiền bạc']
 };
-// Quy tắc ảnh được xếp theo độ cụ thể: các chủ đề như công việc, bệnh viện,
-// nhà hàng... được ưu tiên trước địa danh chung để ảnh bám sát câu hỏi hơn.
-const THEME_RULES = [
-  ['school',['学校','老师','学生','教室','同学','上课','下课','考试','学习','课程','作业']],
-  ['family',['爸爸','妈妈','父亲','母亲','哥哥','姐姐','弟弟','妹妹','孩子','家人','家庭','丈夫','妻子']],
-  ['work',['工作','公司','经理','同事','老板','办公室','会议','记者','安排','数据','报告','任务','客户','项目','研究','效率','计划','管理']],
-  ['health',['医生','医院','身体','生病','药','健康','头疼','感冒','看病','治疗','病人']],
-  ['restaurant',['餐厅','饭店','服务员','菜单','点菜','座位','早餐','午餐','晚餐']],
-  ['shopping',['买','商店','超市','购物','价格','便宜','贵','市场','支付','衣服','鞋']],
-  ['phone',['电话','手机','短信','微信','号码','打电话','消息','联系','电脑','网络']],
-  ['book',['书','书店','读书','看书','字典','汉字','词典','写字','阅读']],
-  ['food',['吃饭','吃','饭','面','米饭','菜','水果','苹果','茶','咖啡','喝','牛奶','蛋糕','包子','饺子','水']],
-  ['transport',['公交车','公共汽车','地铁','出租车','汽车','开车','自行车','火车','飞机','坐车','车站']],
-  ['sport',['运动','足球','篮球','跑步','游泳','打球','比赛','锻炼']],
-  ['clothes',['裤子','帽子','裙子','外套','穿']],
-  ['money',['钱','元','块','银行','价格','支付','便宜','贵']],
-  ['nature',['山','河','海','树','花','动物','森林','空气']],
-  ['weather',['天气','下雨','下雪','晴','阴','冷','热','风','太阳','温度']],
-  ['travel',['旅行','旅游','机场','飞机','酒店','宾馆','火车站','车站','护照','签证']],
-  ['city',['城市','街道','公园','大楼','北京','上海','广州','深圳','城市']],
-  ['home',['家','房间','房子','门','窗','厨房','桌子','椅子','床','回家']],
-  ['time',['今天','昨天','明天','现在','早上','晚上','下午','上午','周末','时间','小时','分钟']],
-  ['person',['人','朋友','自己','我','你','他','她','大家']]
+
+// Ảnh theo HÀNH ĐỘNG / TÌNH HUỐNG cụ thể. Các quy tắc này được ưu tiên
+// trước chủ đề chung để câu "对不起" thật sự ra ảnh xin lỗi, "谢谢" ra ảnh
+// cảm ơn, "打电话" ra ảnh gọi điện... thay vì dùng một ảnh chung cho cả nhóm.
+const IMAGE_QUERY_RULES = [
+  ['对不起|抱歉|不好意思|道歉|原谅','apology sorry apologizing person'],
+  ['谢谢|感谢|感激|谢谢你','thank you gratitude appreciation person'],
+  ['你好|您好|欢迎','greeting hello welcome people'],
+  ['再见|拜拜|告别','goodbye farewell waving person'],
+  ['请问|询问|问路','asking directions conversation people'],
+  ['帮助|帮忙|帮我|救','help assistance helping person'],
+  ['喜欢|爱|爱情|男朋友|女朋友','love affection couple real photo'],
+  ['高兴|开心|快乐|幸福|笑','happy smiling person real photo'],
+  ['难过|伤心|悲伤|哭|眼泪','sad crying person real photo'],
+  ['生气|发火|愤怒','angry person real photo'],
+  ['害怕|担心|紧张|害羞','worried nervous shy person real photo'],
+  ['生日|生日会|蛋糕','birthday cake celebration real photo'],
+  ['结婚|婚礼|新娘|新郎','wedding couple real photo'],
+  ['看病|医生|医院|病人|治疗|药','doctor patient hospital medicine real photo'],
+  ['头疼|肚子疼|感冒|发烧|咳嗽','sick person medicine real photo'],
+  ['吃饭|午餐|晚餐|早餐|吃','eating meal restaurant real photo'],
+  ['喝水|喝茶|喝咖啡|喝牛奶','drinking water tea coffee real photo'],
+  ['买东西|购物|商店|超市|市场','shopping store customer real photo'],
+  ['付款|支付|刷卡|现金|银行','payment cashier bank money real photo'],
+  ['穿衣服|穿|裤子|裙子|鞋|帽子','clothes fashion dressing real photo'],
+  ['打电话|电话|手机|短信|微信|号码','phone call messaging smartphone real photo'],
+  ['电脑|上网|网络|网站|邮件','computer internet email real photo'],
+  ['读书|看书|阅读|书店|字典|汉字|词典','reading book library real photo'],
+  ['写字|写作业|作业|考试|上课|学习','student studying writing classroom real photo'],
+  ['开会|会议|经理|老板|同事|公司|办公室','business meeting office coworkers real photo'],
+  ['工作|任务|项目|报告|数据|研究','working office computer real photo'],
+  ['买票|车票|飞机票|护照|签证','travel ticket passport airport real photo'],
+  ['坐飞机|飞机|机场','airplane airport passenger real photo'],
+  ['坐火车|火车|火车站','train station passenger real photo'],
+  ['地铁|公交车|公共汽车|出租车','public transport passenger real photo'],
+  ['开车|汽车|自行车|骑车','driving car bicycle real photo'],
+  ['旅行|旅游|酒店|宾馆|景点','travel hotel tourist real photo'],
+  ['天气|下雨|下雪|晴天|阴天|刮风','weather rain snow sunshine real photo'],
+  ['热|冷|温度','hot cold temperature weather real photo'],
+  ['跑步|足球|篮球|游泳|运动|比赛|锻炼','sport running football basketball real photo'],
+  ['山|森林|河|海|湖|花|树|动物','nature mountain forest river real photo'],
+  ['回家|家里|房间|厨房|卧室|门|窗','home room house real photo'],
+  ['城市|街道|公园|大楼|北京|上海|广州|深圳','city street buildings real photo'],
+  ['时间|今天|昨天|明天|早上|晚上|下午|上午|周末|小时|分钟','time clock calendar real photo']
 ];
-function getLearningTheme(text){
+const IMAGE_QUERY_RULES_COMPILED = IMAGE_QUERY_RULES.map(([pattern,query])=>[new RegExp(pattern),query]);
+
+function getImageQuery(text){
   const t=String(text||'');
-  for(const [theme,words] of THEME_RULES){ if(words.some(w=>t.includes(w))) return theme; }
-  return 'person';
+  for(const [re,query] of IMAGE_QUERY_RULES_COMPILED){
+    if(re.test(t)) return query;
+  }
+  const theme=getLearningTheme(t);
+  return (THEME_IMAGE_MAP[theme]||THEME_IMAGE_MAP.person)[0];
 }
+
+function imageLock(text){
+  // Khóa ảnh theo chính câu hỏi: hai câu khác nhau sẽ có lock khác nhau,
+  // giúp giảm mạnh tình trạng nhiều câu dùng cùng một ảnh.
+  let h=2166136261;
+  for(let i=0;i<String(text||'').length;i++){
+    h^=String(text||'').charCodeAt(i);
+    h=Math.imul(h,16777619);
+  }
+  return Math.abs(h>>>0)%1000000;
+}
+
 function makeThemeSvg(theme){
   const item=THEME_IMAGE_MAP[theme]||THEME_IMAGE_MAP.person;
   const label=item[1];
@@ -8145,14 +8183,25 @@ function makeThemeSvg(theme){
 function setLearningImage(id,text,alt){
   const img=document.getElementById(id); if(!img)return;
   const theme=getLearningTheme(text);
-  const item=THEME_IMAGE_MAP[theme]||THEME_IMAGE_MAP.person;
+  const themeItem=THEME_IMAGE_MAP[theme]||THEME_IMAGE_MAP.person;
+  const query=getImageQuery(text);
+  const lock=imageLock(text);
+  // LoremFlickr trả về ảnh chụp thật theo từ khóa; lock dựa trên câu hỏi
+  // để các câu khác nhau không bị gom vào cùng một ảnh.
+  const photoUrl=`https://loremflickr.com/900/500/${encodeURIComponent(query)}?lock=${lock}`;
   const fallback=makeThemeSvg(theme);
-  img.onerror=function(){ if(this.src!==fallback) this.src=fallback; };
-  img.src=item[0];
-  img.alt=alt||item[1]||'Hình minh họa';
+  img.onerror=function(){
+    if(this.dataset.fallbackUsed!=='1'){
+      this.dataset.fallbackUsed='1';
+      this.src=fallback;
+    }
+  };
+  img.dataset.fallbackUsed='0';
+  img.src=photoUrl;
+  img.alt=alt||`Ảnh minh họa thực tế: ${query}`;
   const wrap=img.closest('.learning-image-wrap');
   const caption=wrap?.querySelector('.learning-image-caption');
-  if(caption) caption.textContent=`Hình minh họa: ${item[1]||'theo nội dung câu hỏi'}`;
+  if(caption) caption.textContent=`Ảnh minh họa: ${query.replace(/ real photo/g,'')}`;
   img.loading='lazy';
   img.decoding='async';
 }
