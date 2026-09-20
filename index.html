@@ -20,9 +20,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
 <link rel="stylesheet" href="./stroke-offline.css">
-    <link rel="stylesheet" href="./assets/icons.css">
-</head>
+    </head>
 <body>
+<svg id="inline-icon-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs><symbol id="icon-ai" viewBox="0 0 24 24"><path d="M5 19h14M7 16l9-9 3 3-9 9-4 1z"/><path d="M16 3v3M14.5 4.5h3M5 6v3M3.5 7.5h3"/></symbol><symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 5.5v16M8 7h8M8 11h8M8 15h6"/></symbol><symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 3-4 3 2 5-7"/></symbol><symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol><symbol id="icon-exam" viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h3"/><path d="m9 19 1.5 1.5L13 18"/></symbol><symbol id="icon-keyboard" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M6 10h.01M9 10h.01M12 10h.01M15 10h.01M18 10h.01M7 14h10"/></symbol><symbol id="icon-listening" viewBox="0 0 24 24"><path d="M4 14V10a8 8 0 0 1 16 0v4"/><path d="M4 14h2v5H4zM18 14h2v5h-2z"/><path d="M8 19c1 2 5 2 6 0"/></symbol><symbol id="icon-logout" viewBox="0 0 24 24"><path d="M10 5H5v14h5"/><path d="M13 8l4 4-4 4M9 12h8"/></symbol><symbol id="icon-pen" viewBox="0 0 24 24"><path d="M5 20l4.5-1L20 8.5 15.5 4 5 14.5z"/><path d="M13.5 6l4.5 4.5"/></symbol><symbol id="icon-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol><symbol id="icon-replay" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 1 4"/><path d="M20 5v6h-6"/></symbol><symbol id="icon-volume" viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M17 9a4 4 0 0 1 0 6M19.5 6.5a7.5 7.5 0 0 1 0 11"/></symbol></defs></svg>
     <div id="online-auth-loader" style="position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#f5f7fb;">
         <div style="background:#fff;border:1px solid #e5ebf3;border-radius:22px;padding:28px;max-width:340px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.10);">
             <div style="font-size:38px;margin-bottom:8px;">☁️</div>
@@ -34,8 +34,8 @@
         <header>
             <h1>Hệ thống Ôn tập HSK</h1>
             <div style="display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
-                <span id="online-user-chip" class="online-user-chip"><img class="ui-icon" src="./assets/icons/volume.svg" alt=""> Đang tải tài khoản...</span>
-                <button id="logout-btn" type="button" class="icon-btn logout-btn"><img class="ui-icon" src="./assets/icons/logout.svg" alt=""> <span>Đăng xuất</span></button>
+                <span id="online-user-chip" class="online-user-chip"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Đang tải tài khoản...</span>
+                <button id="logout-btn" type="button" class="icon-btn logout-btn"><svg class="ui-icon" aria-hidden="true"><use href="#icon-logout"></use></svg> <span>Đăng xuất</span></button>
             </div>
             <div class="controls">
                 <select id="hsk-level" onchange="changeLevel()">
@@ -46,13 +46,13 @@
                     <option value="5">HSK 5</option>
                     <option value="6">HSK 6</option>
                 </select>
-                <button onclick="switchMode('list')"><img class="ui-icon" src="./assets/icons/book.svg" alt="">Danh sách từ</button>
-                <button onclick="switchMode('typing')"><img class="ui-icon" src="./assets/icons/keyboard.svg" alt="">Bài tập gõ</button>
-                <button onclick="switchMode('listening')"><img class="ui-icon" src="./assets/icons/listening.svg" alt="">Luyện nghe</button>
-                <button onclick="switchMode('exam')"><img class="ui-icon" src="./assets/icons/exam.svg" alt="">Thi thử HSK</button>
-                <button onclick="switchMode('writing')"><img class="ui-icon" src="./assets/icons/ai.svg" alt="">Luyện viết AI</button>
-                <button onclick="switchMode('handwriting')"><img class="ui-icon" src="./assets/icons/pen.svg" alt="">Luyện viết chữ</button>
-                <button onclick="switchMode('progress')"><img class="ui-icon" src="./assets/icons/chart.svg" alt="">Tiến trình học</button>
+                <button onclick="switchMode('list')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-book"></use></svg>Danh sách từ</button>
+                <button onclick="switchMode('typing')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-keyboard"></use></svg>Bài tập gõ</button>
+                <button onclick="switchMode('listening')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg>Luyện nghe</button>
+                <button onclick="switchMode('exam')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg>Thi thử HSK</button>
+                <button onclick="switchMode('writing')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-ai"></use></svg>Luyện viết AI</button>
+                <button onclick="switchMode('handwriting')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-pen"></use></svg>Luyện viết chữ</button>
+                <button onclick="switchMode('progress')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chart"></use></svg>Tiến trình học</button>
             </div>
         </header>
 
@@ -120,7 +120,7 @@
             <!-- Đã thêm container chứa chữ Hán và Nút phát âm -->
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                 <div class="word-display" id="typing-word">我</div>
-                <button type="button" onclick="speakCurrentTypingWord()" title="Phát âm" class="icon-only-btn" aria-label="Phát âm"><img class="ui-icon ui-icon-lg" src="./assets/icons/volume.svg" alt=""></button>
+                <button type="button" onclick="speakCurrentTypingWord()" title="Phát âm" class="icon-only-btn" aria-label="Phát âm"><svg class="ui-icon ui-icon-lg" aria-hidden="true"><use href="#icon-volume"></use></svg></button>
             </div>
             <div class="meaning-display" id="typing-meaning">tôi, tớ, mình</div>
         </div>
@@ -149,15 +149,15 @@
     <div class="listening-card">
         <div class="listening-status"><span id="listening-round">Câu 1</span><span id="listening-level-label">HSK 1</span></div>
         <div class="listening-player">
-            <button type="button" id="listening-play" class="listening-play-btn"><img class="ui-icon ui-icon-xl" src="./assets/icons/play.svg" alt=""><span>Nghe câu</span></button>
-            <button type="button" id="listening-replay" class="listening-secondary-btn"><img class="ui-icon" src="./assets/icons/replay.svg" alt="">Nghe lại</button>
+            <button type="button" id="listening-play" class="listening-play-btn"><svg class="ui-icon ui-icon-xl" aria-hidden="true"><use href="#icon-play"></use></svg><span>Nghe câu</span></button>
+            <button type="button" id="listening-replay" class="listening-secondary-btn"><svg class="ui-icon" aria-hidden="true"><use href="#icon-replay"></use></svg>Nghe lại</button>
             <label class="listening-speed">Tốc độ <select id="listening-speed"><option value="0.65">Chậm</option><option value="0.82" selected>Bình thường</option><option value="1">Nhanh</option></select></label>
         </div>
         <div id="listening-hint" class="listening-hint">Bấm “Nghe câu”, tập trung vào âm thanh rồi chọn một đáp án.</div>
         <div id="listening-options" class="listening-options"></div>
         <div id="listening-feedback" class="listening-feedback" aria-live="polite"></div>
         <div class="listening-actions">
-            <button type="button" id="listening-next" class="btn-primary" disabled><img class="ui-icon" src="./assets/icons/play.svg" alt="">Câu tiếp theo</button>
+            <button type="button" id="listening-next" class="btn-primary" disabled><svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg>Câu tiếp theo</button>
         </div>
     </div>
 </section>
