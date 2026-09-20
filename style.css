@@ -2024,27 +2024,3 @@ button .ui-icon{pointer-events:none}
 .listening-progress-detail{text-align:center;margin-top:7px;color:#64748b;font-size:12px}
 #listening-continue[hidden]{display:none}
 @media(max-width:650px){.listening-progress-wrap{margin-top:12px}.listening-progress-detail{font-size:11.5px}}
-
-/* Luyện nghe: hiện nghĩa tiếng Việt ngay bên dưới Pinyin sau khi trả lời */
-.listening-hint .listening-meaning{margin-top:6px;color:#222;font-weight:500}
-.dark-mode .listening-hint .listening-meaning{color:#f1f3f5}
-
-
-/* Thẻ tiến trình có thể bấm để tiếp tục đúng chỗ đang học */
-.progress-card-action {
-  width: 100%;
-  text-align: left;
-  font: inherit;
-  cursor: pointer;
-  border: 1px solid rgba(9,132,227,.10);
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.progress-card-action:hover {
-  transform: translateY(-2px);
-  border-color: rgba(9,132,227,.28);
-  box-shadow: 0 10px 24px rgba(9,132,227,.10);
-}
-.progress-card-action:focus-visible {
-  outline: 3px solid rgba(9,132,227,.22);
-  outline-offset: 2px;
-}

@@ -7753,17 +7753,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         const userChip = document.getElementById('online-user-chip');
         if (userChip) userChip.textContent = ' ' + (profile?.username || user.displayName || user.email || 'Tài khoản');
 
+        document.getElementById('hsk-level').addEventListener('change', (e) => {
+            currentLevel = e.target.value;
+            renderList();
+            initTyping();
+            renderCommunication();
+            saveProgressData({ currentLevel });
+            saveHandwritingProgress();
+            if (document.getElementById('handwriting-canvas')) {
+                initHandwriting();
+            }
+        });
+        
         document.getElementById('typing-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkTyping();
             }
         });
 
-        // Chờ tải tiến trình từ Firestore xong rồi mới dựng giao diện.
-        // Tránh trường hợp giao diện đọc cache rỗng trước khi Firebase trả dữ liệu.
-        if (window.ghAuth?.loadProgress) {
-            try { await window.ghAuth.loadProgress(); } catch (e) { console.warn('Không tải được tiến trình online:', e); }
-        }
         const saved = getProgressData();
         if (saved.currentLevel) {
             currentLevel = String(saved.currentLevel);
@@ -7864,27 +7871,10 @@ function renderList() {
 // Khởi tạo bài tập gõ
 function initTyping() {
     typingWordList = [...(hskData[currentLevel] || [])];
-    // Giữ thứ tự ổn định để vị trí đã học có thể tiếp tục chính xác sau khi rời mục.
-    currentWordIndex = Math.max(0, Math.min(
-        Number(getLevelProgress(currentLevel).typingCompleted || 0),
-        Math.max(0, typingWordList.length - 1)
-    ));
+    typingWordList.sort(() => Math.random() - 0.5); 
+    currentWordIndex = 0;
     showTypingWord();
 }
-
-function resumeTypingFromProgress() {
-    const p = getProgressData();
-    const savedLevel = String(p.currentLevel || currentLevel || '1');
-    currentLevel = savedLevel;
-    const select = document.getElementById('hsk-level');
-    if (select) select.value = savedLevel;
-    switchMode('typing');
-    const total = (hskData[savedLevel] || []).length;
-    const done = Math.min(Number(getLevelProgress(savedLevel).typingCompleted || 0), total);
-    currentWordIndex = done >= total ? 0 : done;
-    showTypingWord();
-}
-
 
 function showTypingWord() {
     const feedback = document.getElementById('typing-feedback');
@@ -7945,7 +7935,7 @@ function checkTyping() {
 
 function nextTypingWord() {
     currentWordIndex++;
-    saveProgressData({ currentLevel, typingCompleted: Math.max(Number(getLevelProgress(currentLevel).typingCompleted || 0), currentWordIndex) });
+    saveProgressData({ currentLevel, typingCompleted: Math.max(Number(getProgressData().typingCompleted || 0), currentWordIndex) });
     showTypingWord();
     updateProgressUI();
 }
@@ -8094,53 +8084,6 @@ function updateExamStartInfo() {
 // Hàm chuyển chế độ (Cập nhật thêm tính năng đổi số câu)
 
 
-function saveExamSession() {
-    if (!examQuestions.length) return;
-    const session = {
-        level: String(currentLevel || document.getElementById('hsk-level')?.value || '1'),
-        index: currentQuestionIndex,
-        score: examScore,
-        questions: examQuestions.map(q => ({
-            targetWord: q.target?.word || '',
-            options: (q.options || []).map(o => o.word || '')
-        })),
-        updatedAt: new Date().toISOString()
-    };
-    saveProgressData({ currentLevel: String(session.level), examSession: session });
-}
-
-function resumeExamFromProgress() {
-    const p = getProgressData();
-    const session = getLevelProgress(String(p.currentLevel || currentLevel || '1')).examSession;
-    if (!session || !Array.isArray(session.questions) || !session.questions.length) {
-        switchMode('exam');
-        return;
-    }
-    const level = String(session.level || currentLevel || '1');
-    const list = hskData[level] || [];
-    const byWord = new Map(list.map(item => [String(item.word), item]));
-    const rebuilt = session.questions.map(q => {
-        const target = byWord.get(String(q.targetWord));
-        const options = (q.options || []).map(w => byWord.get(String(w))).filter(Boolean);
-        return target && options.length ? { target, options } : null;
-    }).filter(Boolean);
-    if (!rebuilt.length) { switchMode('exam'); return; }
-    currentLevel = level;
-    const select = document.getElementById('hsk-level');
-    if (select) select.value = level;
-    examQuestions = rebuilt;
-    currentQuestionIndex = Math.max(0, Math.min(Number(session.index || 0), examQuestions.length - 1));
-    examScore = Math.max(0, Number(session.score || 0));
-    document.getElementById('exam-start-screen')?.classList.add('hidden');
-    document.getElementById('exam-result-screen')?.classList.add('hidden');
-    document.getElementById('exam-quiz-screen')?.classList.remove('hidden');
-    document.querySelectorAll('main > section, section').forEach(section => section.classList.remove('active'));
-    document.getElementById('exam-mode')?.classList.add('active');
-    updateExamStartInfo();
-    renderQuestion();
-    saveExamSession();
-}
-
 // Bắt đầu bài thi
 function startExam() {
     const levelSelect = document.getElementById('hsk-level');
@@ -8179,7 +8122,6 @@ function startExam() {
     document.getElementById('exam-quiz-screen').classList.remove('hidden');
 
     renderQuestion();
-    saveExamSession();
 }
 
 // Hiển thị câu hỏi
@@ -8232,13 +8174,11 @@ function checkExamAnswer(selected, correct, btn) {
 
     document.getElementById('quiz-score').innerText = examScore;
     document.getElementById('next-quiz-btn').classList.remove('hidden');
-    saveExamSession();
 }
 
 // Câu hỏi tiếp theo
 function nextQuestion() {
     currentQuestionIndex++;
-    saveExamSession();
     if (currentQuestionIndex < examQuestions.length) {
         renderQuestion();
     } else {
@@ -8262,8 +8202,8 @@ function finishExam() {
         percentage: Math.round(percentage),
         completedAt: new Date().toISOString()
     };
-    const oldLevelProgress = getLevelProgress(String(currentLevel));
-    const oldExams = Array.isArray(oldLevelProgress.exams) ? oldLevelProgress.exams : [];
+    const oldProgress = getProgressData();
+    const oldExams = Array.isArray(oldProgress.exams) ? oldProgress.exams : [];
     saveProgressData({
         currentLevel: String(currentLevel),
         exams: [...oldExams.slice(-49), examResult]
@@ -8302,54 +8242,19 @@ function resetExamUI() {
 
 function changeLevel() {
     const levelSelect = document.getElementById('hsk-level');
-    currentLevel = String(levelSelect ? levelSelect.value : '1');
-
-    // Một lựa chọn HSK là cấp độ dùng chung cho TOÀN BỘ hệ thống.
-    // Không chỉ danh sách từ mà bài gõ, giao tiếp, nghe, thi thử,
-    // luyện viết AI và tiến trình cũng phải dùng cùng currentLevel.
+    currentLevel = levelSelect ? levelSelect.value : '1';
     saveProgressData({ currentLevel });
 
-    // 1. Danh sách từ vựng
     renderList();
-
-    // 2. Bài tập gõ
     initTyping();
-
-    // 3. Luyện giao tiếp
-    currentCommFilter = 'all';
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    const allFilter = document.querySelector('.filter-btn[data-level="all"]');
-    if (allFilter) allFilter.classList.add('active');
-    renderCommunication();
-
-    // 4. Luyện nghe: nạp lại bộ câu theo đúng HSK vừa chọn, không tự phát âm
-    if (typeof initListening === 'function') initListening();
-
-    // 5. Thi thử
     updateExamStartInfo();
     resetExamUI();
 
-    // 6. Luyện viết AI / chữ viết: đổi danh sách sang HSK mới
-    if (typeof initHandwriting === 'function') initHandwriting();
-
-    // 7. Tiến trình: hiển thị đúng HSK hiện tại
-    updateProgressUI();
-
-    // 8. Xóa nội dung tìm kiếm cũ để tránh kết quả của HSK trước
     const searchInput = document.getElementById('vocab-search');
     const resultCount = document.getElementById('search-result-count');
-    const searchContainer = document.getElementById('search-results');
+
     if (searchInput) searchInput.value = '';
     if (resultCount) resultCount.textContent = '';
-    if (searchContainer) searchContainer.innerHTML = '';
-
-    // 9. Cập nhật nhãn HSK ở các khu vực có hiển thị cấp độ
-    document.querySelectorAll('[data-hsk-current]').forEach(el => {
-        el.textContent = `HSK ${currentLevel}`;
-    });
-
-    // Nếu đang ở tab Luyện nghe, hiển thị ngay câu đầu của HSK mới.
-    // initListening() không tự phát âm.
 }
 
 function normalizeSearchText(text = "") {
@@ -9228,96 +9133,50 @@ function getLoggedUserForProgress() {
 }
 
 function getProgressData() {
-    let cloud = {};
-    if (window.ghAuth?.getProgress) cloud = window.ghAuth.getProgress() || {};
-    let local = {};
-    try { local = JSON.parse(localStorage.getItem('giangha_progress_v2') || '{}') || {}; } catch(e) {}
-    // Cloud là nguồn chính khi có dữ liệu; local chỉ làm bản dự phòng khi mất mạng.
-    onlineProgressCache = Object.keys(cloud).length ? cloud : local;
+    if (window.ghAuth?.getProgress) {
+        onlineProgressCache = window.ghAuth.getProgress() || {};
+    }
     return { ...onlineProgressCache };
 }
 
-function getLevelProgress(level = currentLevel) {
-    const p = getProgressData();
-    const key = String(level || '1');
-    const levels = (p.levels && typeof p.levels === 'object') ? p.levels : null;
-    if (levels) return (levels[key] && typeof levels[key] === 'object') ? { ...levels[key] } : {};
-    // Dữ liệu cũ trước khi có lưu theo từng HSK.
-    return String(p.currentLevel || '') === key ? { ...p } : {};
-}
-
 function saveProgressData(patch) {
-    patch = patch || {};
-    const level = String(patch.currentLevel || currentLevel || document.getElementById('hsk-level')?.value || '1');
-    const old = onlineProgressCache || {};
-    const oldLevels = (old.levels && typeof old.levels === 'object') ? old.levels : {};
-    const oldLevel = (oldLevels[level] && typeof oldLevels[level] === 'object') ? oldLevels[level] : {};
-    const levelPatch = {};
-    ['typingCompleted','handwriting','examSession','exams','listening','overallPercent'].forEach(k => {
-        if (Object.prototype.hasOwnProperty.call(patch, k)) levelPatch[k] = patch[k];
-    });
-    const nextLevels = {
-        ...oldLevels,
-        [level]: { ...oldLevel, ...levelPatch, updatedAt: new Date().toISOString() }
-    };
-    onlineProgressCache = {
-        ...old,
-        ...patch,
-        currentLevel: level,
-        levels: nextLevels,
-        updatedAt: new Date().toISOString()
-    };
-    try { localStorage.setItem('giangha_progress_v2', JSON.stringify(onlineProgressCache)); } catch(e) {}
-    // Gửi cả levels lên Firestore để mỗi HSK có tiến trình riêng.
-    const cloudPatch = { ...patch, currentLevel: level, levels: nextLevels };
     if (!window.ghAuth?.saveProgress) return;
-    window.ghAuth.saveProgress(cloudPatch).then(ok => {
-        if (!ok) console.warn('Không thể lưu tiến trình online.');
-    }).catch(error => console.warn('Không thể lưu tiến trình online:', error));
+    onlineProgressCache = { ...onlineProgressCache, ...(patch || {}), updatedAt: new Date().toISOString() };
+    window.ghAuth.saveProgress(patch || {}).catch(error => {
+        console.warn('Không thể lưu tiến trình online:', error);
+    });
 }
 
 function updateProgressUI() {
     const p = getProgressData();
     const user = getLoggedUserForProgress();
     const level = String(p.currentLevel || currentLevel || '1');
-    const lp = getLevelProgress(level);
     const total = (hskData[level] || []).length;
-    const typed = Math.min(Number(lp.typingCompleted || 0), total);
-    const hwIndex = lp.handwriting && String(lp.handwriting.level) === level ? Number(lp.handwriting.index || 0) : 0;
+    const typed = Math.min(Number(p.typingCompleted || 0), total);
+    const hwIndex = p.handwriting && String(p.handwriting.level) === level ? Number(p.handwriting.index || 0) : 0;
     const hwPercent = total ? Math.min(100, Math.round(((hwIndex + 1) / total) * 100)) : 0;
     const typingPercent = total ? Math.min(100, Math.round((typed / total) * 100)) : 0;
-    const exams = Array.isArray(lp.exams) ? lp.exams : (String((lp.exams || {}).level || '') === level ? [lp.exams] : []);
+    const exams = Array.isArray(p.exams) ? p.exams : [];
 
     const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
     set('progress-account', user ? (user.username || user.email || 'Tài khoản') : 'Chưa đăng nhập');
     set('progress-level', `HSK ${level}`);
     set('progress-level-detail', `${total} từ trong cấp độ này`);
     set('progress-typing', `${typingPercent}%`);
-    set('progress-typing-detail', `${typed} / ${total} từ đã hoàn thành${typed < total ? ' • Câu tiếp theo: ' + (typed + 1) : ' • Đã hoàn thành'}`);
+    set('progress-typing-detail', `${typed} / ${total} từ đã hoàn thành`);
     set('progress-handwriting', `${hwPercent}%`);
     set('progress-handwriting-detail', total ? `Đang ở từ ${Math.min(hwIndex + 1, total)} / ${total}` : 'Chưa có dữ liệu');
     set('progress-exam', `${exams.length} bài`);
-    const examSession = lp.examSession;
-    set('progress-exam-detail', examSession && Array.isArray(examSession.questions) && examSession.questions.length
-        ? `Câu ${Math.min(Number(examSession.index || 0) + 1, examSession.questions.length)}/${examSession.questions.length} • Nhấn để tiếp tục`
-        : (exams.length ? `${exams[exams.length - 1].score}/${exams[exams.length - 1].total} • HSK ${exams[exams.length - 1].level} • Nhấn để làm lại` : 'Chưa có bài đang làm • Nhấn để bắt đầu'));
-    const listen = lp.listening || {};
+    const lastExam = exams[exams.length - 1];
+    set('progress-exam-detail', lastExam ? `${lastExam.score}/${lastExam.total} • HSK ${lastExam.level}` : 'Chưa có kết quả');
+    const listen = p.listening || {};
     const listenPct = Math.min(100, Math.max(0, Number(listen.pct || 0)));
     set('progress-listening', `${listenPct}%`);
     set('progress-listening-detail', `${Number(listen.answered || 0)} câu đã làm • ${Number(listen.correct || 0)} đúng`);
-    // Thanh tiến độ tổng: lấy % đã lưu/gần nhất của cấp HSK hiện tại.
-    // Nếu chưa có giá trị tổng, tính từ các hoạt động đã làm.
-    const savedOverall = Number(lp.overallPercent);
-    const calculatedOverall = Math.max(typingPercent, hwPercent > 0 ? Math.max(0, hwPercent - (total ? Math.round(100 / total) : 0)) : 0, listenPct);
-    const overallPercent = Number.isFinite(savedOverall) && savedOverall >= 0 ? Math.min(100, savedOverall) : Math.min(100, calculatedOverall);
-    set('progress-total-label', `${overallPercent}% • ${total} từ HSK ${level}`);
+    set('progress-total-label', `${total} từ HSK ${level}`);
     const fill = document.getElementById('progress-bar-fill');
-    if (fill) fill.style.width = `${overallPercent}%`;
-    set('progress-summary', total ? `Bạn đang học HSK ${level}. Tiến độ gần nhất: ${overallPercent}%. Bài gõ ${typed}/${total}; luyện viết ${Math.min(hwIndex + 1, total)}/${total}; luyện nghe ${Number(listen.answered || 0)} câu.` : `HSK ${level} hiện chưa có dữ liệu học tập.`);
-    // Ghi lại % tổng để lần mở sau hiển thị ngay đúng % gần nhất.
-    if (total && Number(lp.overallPercent) !== overallPercent) {
-        saveProgressData({ currentLevel: level, overallPercent });
-    }
+    if (fill) fill.style.width = `${Math.max(typingPercent, hwPercent)}%`;
+    set('progress-summary', total ? `Bạn đang học HSK ${level}. Bài gõ đã hoàn thành ${typed}/${total}; luyện viết đang ở ${Math.min(hwIndex + 1, total)}/${total}; luyện nghe đã làm ${Number(listen.answered || 0)} câu.` : 'Chưa có dữ liệu học tập.');
 }
 
 async function resetMyProgress() {
@@ -9928,13 +9787,7 @@ function speakHandwritingWord() {
         renderCharacter(strokeChars[0],false);
     }
 
-    function startWrongListening(){ const wrong=getWrongListening(); if(!wrong.length){ const f=document.getElementById('listening-feedback'); if(f)f.textContent='Bạn chưa có câu sai để ôn.'; return; } listeningQuestions=wrong.map(q=>{q={...q,meaning:getListeningMeaning(q)};const pool=[...LISTENING_BANK.filter(x=>x.audio!==q.audio),...wrong.filter(x=>x.audio!==q.audio)]; const opts=[q.audio,...pool.sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio)]; const unique=[...new Set(opts)].slice(0,4).sort(()=>Math.random()-0.5); return {...q,level:'Ôn sai',options:unique,correct:unique.indexOf(q.audio)}; }).sort(()=>Math.random()-0.5); listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningSessionAnswered=0; listeningSessionCorrect=0; listeningWrongMode=true; renderListeningQuestion(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
-function resumeListeningFromProgress(){
-  const level=String(getProgressData().currentLevel || currentLevel || '1');
-  currentLevel=level;
-  const select=document.getElementById('hsk-level'); if(select) select.value=level;
-  switchMode('listening');
-}
+    function startWrongListening(){ const wrong=getWrongListening(); if(!wrong.length){ const f=document.getElementById('listening-feedback'); if(f)f.textContent='Bạn chưa có câu sai để ôn.'; return; } if('speechSynthesis' in window){try{speechSynthesis.cancel();}catch(e){}} listeningQuestions=wrong.map(q=>{const pool=[...LISTENING_BANK.filter(x=>x.audio!==q.audio),...wrong.filter(x=>x.audio!==q.audio)]; const opts=[q.audio,...pool.sort(()=>Math.random()-0.5).slice(0,3).map(x=>x.audio)]; const unique=[...new Set(opts)].slice(0,4).sort(()=>Math.random()-0.5); return {...q,level:'Ôn sai',options:unique,correct:unique.indexOf(q.audio)}; }).sort(()=>Math.random()-0.5); listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningSessionAnswered=0; listeningSessionCorrect=0; listeningWrongMode=true; const cont=document.getElementById('listening-continue'); if(cont)cont.hidden=true; renderListeningQuestion(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
 function clearWrongListening(){ localStorage.removeItem(LISTENING_WRONG_KEY); updateWrongListeningUI(); const p=document.getElementById('listening-wrong-panel'); if(p)p.hidden=false; }
 document.addEventListener('DOMContentLoaded',()=>{
         const replayBtn=document.getElementById('stroke-replay');
@@ -12064,10 +11917,9 @@ function saveListeningProgress(){
   const correct=Number(listeningSessionCorrect||0);
   const wrong=Math.max(0,answered-correct);
   const pct=total?Math.round(Math.min(answered,total)/total*100):0;
-  const level=String(document.getElementById('hsk-level')?.value||currentLevel||1);
-  const data={level,total,answered,correct,wrong,pct,index:Number(listeningIndex||0),score:Number(listeningScore||0),questions:listeningQuestions.map(q=>q.audio),updatedAt:new Date().toISOString()};
+  const data={level:String(document.getElementById('hsk-level')?.value||currentLevel||1),total,answered,correct,wrong,pct,updatedAt:new Date().toISOString()};
   try{localStorage.setItem(LISTENING_PROGRESS_KEY,JSON.stringify(data));}catch(e){}
-  saveProgressData({currentLevel:level,listening:data});
+  if(window.ghAuth?.saveProgress) window.ghAuth.saveProgress({listening:data}).catch(()=>{});
 }
 function updateListeningProgressUI(){
   const total=Number(listeningQuestions.length||0);
@@ -12081,89 +11933,18 @@ function updateListeningProgressUI(){
   const fill=document.getElementById('listening-progress-fill'); if(fill)fill.style.width=pct+'%';
 }
 function setWrongListening(items){ try{localStorage.setItem(LISTENING_WRONG_KEY,JSON.stringify(items.slice(-300)));}catch(e){} updateWrongListeningUI(); }
-function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning || getListeningMeaning(q))}</small></div><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
+function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(q.pinyin||'')}<br>${escapeHtml(q.meaning||'')}</small></div><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q||!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); speechSynthesis.speak(u); }
-// Nghĩa tiếng Việt cho câu nghe. Ưu tiên nghĩa đã có trong dữ liệu; nếu dữ liệu cũ chưa có,
-// ghép từ điển HSK hiện có để luôn hiển thị một nghĩa tiếng Việt thay vì để trống.
-const LISTENING_MEANING_MAP = {
-  '你好。':'Xin chào.', '早上好。':'Chào buổi sáng.', '晚上好。':'Chào buổi tối.', '再见。':'Tạm biệt.', '明天见。':'Hẹn gặp ngày mai.',
-  '谢谢。':'Cảm ơn.', '不客气。':'Không có gì.', '对不起。':'Xin lỗi.', '没关系。':'Không sao.', '请坐。':'Mời ngồi.', '请进。':'Mời vào.',
-  '请问，洗手间在哪里？':'Xin hỏi, nhà vệ sinh ở đâu?', '你好吗？':'Bạn khỏe không?', '我很好，谢谢。':'Tôi khỏe, cảm ơn.', '你叫什么名字？':'Bạn tên là gì?',
-  '我叫李明。':'Tôi tên là Lý Minh.', '你是哪国人？':'Bạn là người nước nào?', '我是越南人。':'Tôi là người Việt Nam.', '你是学生吗？':'Bạn là học sinh/sinh viên phải không?',
-  '我是学生。':'Tôi là học sinh/sinh viên.', '你今天忙吗？':'Hôm nay bạn có bận không?', '我今天不太忙。':'Hôm nay tôi không bận lắm.', '你现在有空吗？':'Bây giờ bạn có rảnh không?',
-  '我现在有空。':'Bây giờ tôi rảnh.', '你几点起床？':'Bạn thức dậy lúc mấy giờ?', '我七点起床。':'Tôi thức dậy lúc bảy giờ.', '你几点睡觉？':'Bạn đi ngủ lúc mấy giờ?',
-  '我十一点睡觉。':'Tôi đi ngủ lúc mười một giờ.', '你吃饭了吗？':'Bạn ăn cơm chưa?', '我还没吃饭。':'Tôi vẫn chưa ăn cơm.', '我吃过了。':'Tôi ăn rồi.',
-  '你想吃什么？':'Bạn muốn ăn gì?', '我想吃面条。':'Tôi muốn ăn mì.', '我喜欢吃米饭。':'Tôi thích ăn cơm.', '你喜欢喝茶吗？':'Bạn thích uống trà không?',
-  '我喜欢喝咖啡。':'Tôi thích uống cà phê.', '请给我一杯水。':'Cho tôi một cốc nước.', '再来一杯，谢谢。':'Cho thêm một cốc nữa, cảm ơn.', '这个多少钱？':'Cái này bao nhiêu tiền?',
-  '太贵了。':'Đắt quá.', '可以便宜一点吗？':'Có thể rẻ hơn một chút không?', '我要买这个。':'Tôi muốn mua cái này.', '我不要这个。':'Tôi không lấy cái này.',
-  '可以刷卡吗？':'Có thể thanh toán bằng thẻ không?', '请给我一个袋子。':'Cho tôi một cái túi.', '地铁站在哪里？':'Ga tàu điện ngầm ở đâu?', '车站离这里很近。':'Nhà ga rất gần đây.',
-  '请往前走。':'Hãy đi thẳng về phía trước.', '然后向左转。':'Sau đó rẽ trái.', '请向右转。':'Hãy rẽ phải.', '我找不到路了。':'Tôi không tìm được đường.',
-  '你可以带我去吗？':'Bạn có thể dẫn tôi đi không?', '我坐公交车去学校。':'Tôi đi xe buýt đến trường.', '今天下雨了。':'Hôm nay trời mưa.', '明天天气很好。':'Ngày mai thời tiết rất đẹp.',
-  '你叫什么？':'Bạn tên gì?', '我住在海防。':'Tôi sống ở Hải Phòng.', '你会说中文吗？':'Bạn biết nói tiếng Trung không?', '我会说一点中文。':'Tôi biết nói một chút tiếng Trung.',
-  '请说慢一点。':'Hãy nói chậm một chút.', '请再说一遍。':'Hãy nói lại một lần nữa.', '我听不清楚。':'Tôi nghe không rõ.', '这个怎么读？':'Cái này đọc thế nào?',
-  '这个字是什么意思？':'Chữ này có nghĩa là gì?', '你怎么写这个字？':'Bạn viết chữ này thế nào?', '我不知道。':'Tôi không biết.', '我明白了。':'Tôi hiểu rồi.',
-  '我还不明白。':'Tôi vẫn chưa hiểu.', '谢谢你的帮助。':'Cảm ơn sự giúp đỡ của bạn.', '不用客气。':'Không cần khách sáo.', '没事。':'Không sao.',
-  '请等一下。':'Vui lòng đợi một chút.', '我马上回来。':'Tôi sẽ quay lại ngay.', '现在几点？':'Bây giờ là mấy giờ?', '现在八点半。':'Bây giờ là tám giờ rưỡi.',
-  '今天星期几？':'Hôm nay là thứ mấy?', '今天星期一。':'Hôm nay là thứ Hai.', '昨天我很忙。':'Hôm qua tôi rất bận.', '今天我有空。':'Hôm nay tôi rảnh.',
-  '明天我要上课。':'Ngày mai tôi phải đi học.', '你吃早饭了吗？':'Bạn ăn sáng chưa?', '我已经吃过了。':'Tôi đã ăn rồi.', '我不吃辣。':'Tôi không ăn cay.',
-  '这个很好吃。':'Cái này rất ngon.', '可以给我菜单吗？':'Có thể cho tôi thực đơn không?', '请给我一碗米饭。':'Cho tôi một bát cơm.', '我买两杯咖啡。':'Tôi mua hai cốc cà phê.',
-  '可以用手机付款吗？':'Có thể thanh toán bằng điện thoại không?', '请给我一张发票。':'Cho tôi một hóa đơn.', '我只是看看。':'Tôi chỉ xem thôi.', '有别的颜色吗？':'Có màu khác không?',
-  '有大一点的吗？':'Có cái lớn hơn một chút không?', '这个太小了。':'Cái này nhỏ quá.', '我可以试穿吗？':'Tôi có thể thử không?', '一共多少钱？':'Tổng cộng bao nhiêu tiền?',
-  '给你五十块。':'Đưa bạn 50 tệ.', '找您十块钱。':'Thối lại bạn 10 tệ.', '公交车站在哪里？':'Trạm xe buýt ở đâu?', '我要去火车站。':'Tôi muốn đi ga tàu.',
-  '这辆车去市中心吗？':'Xe này có đi trung tâm thành phố không?', '我坐错车了。':'Tôi đi nhầm xe rồi.', '请在这里停车。':'Hãy dừng xe ở đây.', '还有多远？':'Còn bao xa nữa?',
-  '大概需要多久？':'Khoảng bao lâu?', '我们快到了。':'Chúng ta sắp đến rồi.', '我迷路了。':'Tôi bị lạc đường.', '请帮我看一下地图。':'Hãy giúp tôi xem bản đồ.',
-  '左边有一家银行。':'Bên trái có một ngân hàng.', '右边就是超市。':'Bên phải chính là siêu thị.', '一直往前走。':'Cứ đi thẳng về phía trước.'
-};
-function getListeningMeaning(q){
-  if(!q) return '';
-  if(q.meaning) return q.meaning;
-  if(LISTENING_MEANING_MAP[q.audio]) return LISTENING_MEANING_MAP[q.audio];
-  // Fallback: tìm các từ dài nhất trong dữ liệu HSK và ghép nghĩa.
-  const text=String(q.audio||'').replace(/[，。！？、,.!?]/g,'');
-  const dict={};
-  Object.values(hskData).flat().forEach(x=>{ if(x?.word && x.meaning) dict[x.word]=x.meaning; });
-  const keys=Object.keys(dict).sort((a,b)=>b.length-a.length);
-  const parts=[]; let rest=text;
-  for(const k of keys){ if(rest.includes(k)){ parts.push(dict[k]); rest=rest.split(k).join(' '); } }
-  return parts.length ? parts.join(' · ') : 'Nghĩa tiếng Việt đang được cập nhật.';
-}
-
 function initListening(){
   // TUYỆT ĐỐI KHÔNG tự phát khi mở tab Luyện nghe.
   // Hủy mọi giọng đọc còn sót lại từ tab trước.
   if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch(e) {} }
   listeningWrongMode=false;
   const level=Number(document.getElementById('hsk-level')?.value||1);
-  const savedListen=getLevelProgress(String(level)).listening;
-  const bank=LISTENING_BANK.filter(x=>Number(x.level)===Math.max(1,level));
-  // Nếu đã có phiên nghe đang dở, dựng lại đúng bộ câu và vị trí gần nhất.
-  if(savedListen && Array.isArray(savedListen.questions) && savedListen.questions.length){
-    const byAudio=new Map(bank.map(q=>[q.audio,q]));
-    const restored=savedListen.questions.map(a=>byAudio.get(a)).filter(Boolean).map(q=>({...q,meaning:getListeningMeaning(q)}));
-    if(restored.length){
-      listeningQuestions=restored;
-      listeningIndex=Math.max(0,Math.min(Number(savedListen.index||0),Math.max(0,restored.length-1)));
-      listeningScore=Math.max(0,Number(savedListen.score||0));
-      listeningSessionAnswered=Math.max(0,Math.min(Number(savedListen.answered||0),restored.length));
-      listeningSessionCorrect=Math.max(0,Math.min(Number(savedListen.correct||0),listeningSessionAnswered));
-      listeningAnswered=false;
-      const cont=document.getElementById('listening-continue'); if(cont) cont.hidden=true;
-      renderListeningQuestion();
-      return;
-    }
-  }
-  listeningQuestions=bank;
-  listeningQuestions=listeningQuestions.map(q=>{ q={...q,meaning:getListeningMeaning(q)}; if(q.options&&q.options.length===4)return q; const pool=LISTENING_BANK.filter(x=>x!==q && Number(x.level)===Math.max(1,level)); const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3); const opts=[q.audio,...ds.map(x=>x.audio)].sort(()=>Math.random()-0.5); return {...q,options:opts,correct:opts.indexOf(q.audio)}; });
-  if(!listeningQuestions.length){
-    listeningQuestions=[];
-    listeningIndex=0; listeningScore=0; listeningAnswered=false; listeningSessionAnswered=0; listeningSessionCorrect=0;
-    const fb=document.getElementById('listening-feedback'); if(fb) fb.textContent=`HSK ${level} hiện chưa có dữ liệu Luyện nghe.`;
-    const hint=document.getElementById('listening-hint'); if(hint) hint.textContent='Hãy chọn HSK 1–3 hoặc bổ sung dữ liệu nghe cho cấp độ này.';
-    const opts=document.getElementById('listening-options'); if(opts) opts.innerHTML='';
-    updateListeningProgressUI();
-    return;
-  }
+  listeningQuestions=LISTENING_BANK.filter(x=>x.level<=Math.max(1,level));
+  listeningQuestions=listeningQuestions.map(q=>{ if(q.options&&q.options.length===4)return q; const pool=LISTENING_BANK.filter(x=>x!==q && x.level<=Math.max(1,level)); const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3); const opts=[q.audio,...ds.map(x=>x.audio)].sort(()=>Math.random()-0.5); return {...q,options:opts,correct:opts.indexOf(q.audio)}; });
+  if(!listeningQuestions.length) listeningQuestions=[...LISTENING_BANK];
   const recentKey='giangha_listening_recent_v2';
   let recent=[]; try { recent=JSON.parse(sessionStorage.getItem(recentKey)||'[]'); } catch(e){}
   const fresh=listeningQuestions.filter(q=>!recent.includes(q.audio));
@@ -12200,11 +11981,11 @@ function checkListening(choice){
   const q=listeningQuestions[listeningIndex]; const buttons=[...document.querySelectorAll('.listening-option')]; buttons.forEach(b=>b.disabled=true);
   listeningSessionAnswered++;
   if(choice===q.correct){ listeningScore++; listeningSessionCorrect++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').textContent='Chính xác!'; document.getElementById('listening-feedback').style.color='#00a67d'; if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); } }
-  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').textContent=`Chưa đúng. Câu nghe là: ${q.audio}`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:q.pinyin||'',meaning:getListeningMeaning(q),level:q.level}); setWrongListening(wrong); }
+  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').textContent=`Chưa đúng. Câu nghe là: ${q.audio}`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:q.pinyin||'',meaning:q.meaning||''}); setWrongListening(wrong); }
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
   saveListeningProgress();
   updateListeningProgressUI();
-  document.getElementById('listening-hint').innerHTML=`<div><strong>Pinyin:</strong> ${escapeHtml(q.pinyin||'')}</div><div class="listening-meaning"><strong>Nghĩa:</strong> ${escapeHtml(getListeningMeaning(q))}</div>`;
+  document.getElementById('listening-hint').textContent=`Pinyin: ${q.pinyin}`;
   document.getElementById('listening-next').disabled=false;
 }
 function nextListeningQuestion(){
@@ -12236,9 +12017,8 @@ function continueListening(){
   if('speechSynthesis' in window){try{speechSynthesis.cancel();}catch(e){}}
   const level=Number(document.getElementById('hsk-level')?.value||1);
   listeningWrongMode=false;
-  const base=LISTENING_BANK.filter(x=>Number(x.level)===Math.max(1,level));
+  const base=LISTENING_BANK.filter(x=>x.level<=Math.max(1,level));
   listeningQuestions=base.map(q=>{
-    q={...q,meaning:getListeningMeaning(q)};
     if(q.options&&q.options.length===4)return q;
     const pool=base.filter(x=>x!==q);
     const ds=[...pool].sort(()=>Math.random()-0.5).slice(0,3);
