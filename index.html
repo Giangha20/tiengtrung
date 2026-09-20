@@ -50,7 +50,6 @@
                 <button onclick="switchMode('typing')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-keyboard"></use></svg>Bài tập gõ</button>
                 <button onclick="switchMode('listening')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg>Luyện nghe</button>
                 <button onclick="switchMode('exam')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg>Bài tập HSK</button>
-                <button onclick="switchMode('writing')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chat"></use></svg>Chat tiếng Trung</button>
                 <button onclick="switchMode('progress')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chart"></use></svg>Tiến trình học</button>
             </div>
         </header>
@@ -220,38 +219,7 @@
                     </div>
                 </div>
             </section>
-            <!-- Chat tiếng Trung với AI -->
-<section id="writing-mode" class="chinese-chat-mode">
-    <div class="chat-page-head">
-        <div>
-            <span class="chat-kicker"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chat"></use></svg> LUYỆN GIAO TIẾP</span>
-            <h2>Chat tiếng Trung với AI</h2>
-            <p>Trò chuyện bằng tiếng Trung. AI sẽ trả lời bằng tiếng Trung và có thể giải thích ngắn bằng tiếng Việt khi bạn cần.</p>
-        </div>
-        <div class="chat-level-pill" id="chat-level-pill">HSK 1</div>
-    </div>
-
-    <div class="chat-card">
-        <div class="chat-toolbar">
-            <div><b>Chủ đề</b> <select id="chat-topic"><option value="free">Tự do</option><option value="daily">Cuộc sống hằng ngày</option><option value="school">Trường học</option><option value="family">Gia đình</option><option value="travel">Du lịch</option><option value="shopping">Mua sắm</option></select></div>
-            <button type="button" id="chat-clear" class="chat-tool-btn"><svg class="ui-icon" aria-hidden="true"><use href="#icon-trash"></use></svg>Xóa chat</button>
-        </div>
-
-        <div id="chinese-chat-messages" class="chinese-chat-messages" aria-live="polite"></div>
-
-        <div class="chat-suggestions" id="chat-suggestions">
-            <button type="button" data-chat="你好！我们今天聊什么？">你好！我们今天聊什么？</button>
-            <button type="button" data-chat="请问你能和我练习中文吗？">练习中文</button>
-            <button type="button" data-chat="请用简单的中文跟我聊天。">用简单中文</button>
-        </div>
-
-        <div class="chat-input-row">
-            <textarea id="chinese-chat-input" rows="2" placeholder="用中文输入，例如：今天我很开心，因为我学会了一个新单词。" autocomplete="off"></textarea>
-            <button type="button" id="chinese-chat-send" class="btn-primary"><svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg>Gửi</button>
-        </div>
-        <div class="chat-note">AI ưu tiên trả lời bằng tiếng Trung theo HSK <span id="chat-level-note">1</span>. Nhấn Enter để gửi, Shift + Enter để xuống dòng.</div>
-    </div>
-</section>
+            
         </main>
     </div>
 
