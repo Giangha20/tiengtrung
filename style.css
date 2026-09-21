@@ -3202,7 +3202,7 @@ body.dark-mode{--release-card:#151e29;--release-text:#eaf2fb;--release-muted:#9a
 .brand-h{color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 3px 10px rgba(0,0,0,.18)!important}
 .streak-widget{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:62px;height:38px;padding:6px 9px;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(7,18,33,.72);box-shadow:0 7px 18px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.08);color:#fff;flex:0 0 auto}
 .streak-flame{font-size:18px;line-height:1;filter:drop-shadow(0 0 6px rgba(255,116,32,.65));animation:streakFlame 1.15s ease-in-out infinite}
-.streak-count{font-size:16px;font-weight:900;line-height:1;min-width:10px;text-align:center}.streak-days{font-size:9px;color:#b9c9da;font-weight:700}
+.streak-count{font-size:16px;font-weight:900;line-height:1;min-width:10px;text-align:center}.streak-days{display:none}
 .streak-celebration{position:fixed;top:18px;left:50%;z-index:10000;display:flex;align-items:center;gap:10px;min-width:260px;max-width:calc(100vw - 30px);padding:12px 16px;border-radius:15px;background:rgba(12,25,43,.96);border:1px solid rgba(255,177,73,.42);color:#fff;box-shadow:0 14px 40px rgba(0,0,0,.25);opacity:0;pointer-events:none;transform:translate(-50%,-18px);transition:opacity .25s ease,transform .25s ease}
 .streak-celebration.show{opacity:1;transform:translate(-50%,0)}
 .streak-celebration strong,.streak-celebration span{display:block}.streak-celebration strong{font-size:14px}.streak-celebration div span{font-size:12px;color:#d9e5f2;margin-top:2px}.streak-celebration-fire{font-size:25px!important;filter:drop-shadow(0 0 8px rgba(255,116,32,.65))}
@@ -3219,3 +3219,12 @@ body.dark-mode{--release-card:#151e29;--release-text:#eaf2fb;--release-muted:#9a
 body.dark-mode .exam-skill-card{background:#151e29;border-color:#2c3a49;box-shadow:0 15px 36px rgba(0,0,0,.22)}body.dark-mode .exam-skill-icon{background:#1d3145}
 @media(max-width:760px){.container>header{top:6px}.brand-row{align-items:center}.streak-widget{min-width:58px;width:auto;height:36px;padding:6px 8px}.streak-days{display:none}.exam-skill-grid{grid-template-columns:1fr}.exam-skill-card{min-height:145px}.exam-page-head{align-items:flex-start}.exam-level-badge{min-width:62px;min-height:62px;border-radius:18px}}
 @media(max-width:520px){.brand-row{display:block}.brand-row h1{padding-right:0!important;font-size:27px!important}.controls .streak-widget{order:2}.controls #theme-toggle{order:3}.container>header{top:4px}}
+/* Streak compact: always sits immediately beside the theme switch */
+.container>header .controls{display:flex;align-items:center;gap:8px}
+.container>header .controls .streak-widget{min-width:52px;width:auto;height:34px;padding:4px 7px;gap:3px;border-radius:10px}
+.container>header .controls .streak-flame{font-size:16px}
+.container>header .controls .streak-count{font-size:14px;min-width:9px}
+@media(max-width:520px){
+  .container>header .controls #theme-toggle{order:2}
+  .container>header .controls .streak-widget{order:3;min-width:48px;height:32px;padding:4px 6px}
+}
