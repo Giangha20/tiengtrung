@@ -2591,8 +2591,6 @@ header h1{
   letter-spacing:-.7px;
 }
 
-header h1::first-letter{color:#fff}
-
 header > div:first-of-type{
   justify-content:stretch !important;
   margin-bottom:15px !important;
