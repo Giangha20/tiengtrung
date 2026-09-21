@@ -9713,14 +9713,6 @@ function nextHandwritingWord(step) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const scrollBar = document.getElementById('scroll-section-icons');
-    if (scrollBar) {
-        scrollBar.querySelectorAll('[data-scroll-mode]').forEach(btn => {
-            btn.addEventListener('click', () => switchMode(btn.dataset.scrollMode));
-        });
-        window.addEventListener('scroll', updateScrollSectionIcons, { passive: true });
-        updateScrollSectionIcons();
-    }
     const prev = document.getElementById('hw-prev');
     const next = document.getElementById('hw-next');
     const clear = document.getElementById('hw-clear');

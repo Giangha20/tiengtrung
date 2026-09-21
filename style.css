@@ -3228,15 +3228,3 @@ body.dark-mode .exam-skill-card{background:#151e29;border-color:#2c3a49;box-shad
   .container>header .controls #theme-toggle{order:2}
   .container>header .controls .streak-widget{order:3;min-width:48px;height:32px;padding:4px 6px}
 }
-
-
-/* Menu tìm kiếm: chỉ hiển thị icon */
-.container>header .controls .menu-icon-btn{
-  width:38px;min-width:38px;height:38px;padding:0;
-  display:inline-flex;align-items:center;justify-content:center;
-  border-radius:11px;
-}
-.container>header .controls .menu-icon-btn .ui-icon{width:19px;height:19px}
-@media(max-width:520px){
-  .container>header .controls .menu-icon-btn{width:34px;min-width:34px;height:34px}
-}
