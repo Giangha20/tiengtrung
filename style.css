@@ -2276,3 +2276,249 @@ body.dark-mode .word-card,body.dark-mode .progress-card,body.dark-mode .progress
   .container{width:min(100% - 18px,1150px);margin-top:10px}
   .word-card:hover,.progress-card:hover,.progress-main-card:hover,.typing-container:hover,.exam-card:hover,.listening-card:hover,.writing-card:hover,.communication-card:hover,.card:hover{transform:translateY(-2px)}
 }
+
+
+/* =====================================================
+   ULTRA PREMIUM BUTTON SYSTEM v2.0
+   High-end controls: depth, shine, focus, active states.
+===================================================== */
+:root{
+  --btn-primary-1:#ff3d57;
+  --btn-primary-2:#ff7a59;
+  --btn-blue-1:#2777ff;
+  --btn-blue-2:#5b9cff;
+  --btn-green-1:#00a884;
+  --btn-green-2:#24c99e;
+  --btn-dark-1:#202936;
+  --btn-dark-2:#3a4656;
+  --btn-shadow:0 10px 24px rgba(31,41,55,.13),0 2px 5px rgba(31,41,55,.08);
+}
+
+/* Base: every real button gets a polished tactile surface */
+button,
+.btn,
+.nav-btn,
+.control-btn,
+.mode-btn,
+.action-btn{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:14px;
+  font-weight:750;
+  letter-spacing:.01em;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),
+             box-shadow .22s ease,
+             filter .22s ease,
+             border-color .22s ease,
+             background .22s ease;
+}
+
+button::before,
+.btn::before,
+.nav-btn::before,
+.control-btn::before,
+.mode-btn::before,
+.action-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.28) 48%,transparent 72%);
+  transform:translateX(-125%);
+  transition:transform .65s cubic-bezier(.2,.7,.2,1);
+}
+
+button:hover:not(:disabled),
+.btn:hover:not(:disabled),
+.nav-btn:hover:not(:disabled),
+.control-btn:hover:not(:disabled),
+.mode-btn:hover:not(:disabled),
+.action-btn:hover:not(:disabled){
+  transform:translateY(-3px);
+  filter:saturate(1.08);
+  box-shadow:var(--btn-shadow);
+}
+
+button:hover::before,
+.btn:hover::before,
+.nav-btn:hover::before,
+.control-btn:hover::before,
+.mode-btn:hover::before,
+.action-btn:hover::before{transform:translateX(125%)}
+
+button:active:not(:disabled),
+.btn:active:not(:disabled),
+.nav-btn:active:not(:disabled),
+.control-btn:active:not(:disabled),
+.mode-btn:active:not(:disabled),
+.action-btn:active:not(:disabled){
+  transform:translateY(0) scale(.965);
+  box-shadow:0 5px 12px rgba(31,41,55,.14);
+}
+
+button:focus-visible,
+.btn:focus-visible,
+.nav-btn:focus-visible,
+.control-btn:focus-visible,
+.mode-btn:focus-visible,
+.action-btn:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 4px rgba(79,156,255,.20),0 10px 25px rgba(31,41,55,.14);
+}
+
+/* Primary actions */
+.btn-primary,
+#check-answer,
+#ai-check,
+#login-btn,
+#register-btn,
+.auth-submit,
+#next-word-btn{
+  color:#fff !important;
+  border-color:rgba(255,255,255,.28) !important;
+  background:linear-gradient(135deg,var(--btn-primary-1),var(--btn-primary-2)) !important;
+  box-shadow:0 9px 22px rgba(255,73,87,.25),inset 0 1px rgba(255,255,255,.24);
+}
+
+.btn-secondary,
+#skip-question,
+#rewrite-btn,
+#stroke-speed{
+  color:#fff !important;
+  border-color:rgba(255,255,255,.25) !important;
+  background:linear-gradient(135deg,var(--btn-blue-1),var(--btn-blue-2)) !important;
+  box-shadow:0 9px 22px rgba(39,119,255,.22),inset 0 1px rgba(255,255,255,.25);
+}
+
+#stroke-replay,
+#listening-play,
+#listening-next{
+  color:#fff !important;
+  border-color:rgba(255,255,255,.24) !important;
+  background:linear-gradient(135deg,var(--btn-green-1),var(--btn-green-2)) !important;
+  box-shadow:0 9px 22px rgba(0,168,132,.21),inset 0 1px rgba(255,255,255,.25);
+}
+
+.btn-skip,
+#stroke-skip{
+  color:#fff !important;
+  border-color:rgba(255,255,255,.2) !important;
+  background:linear-gradient(135deg,#4b5563,#778396) !important;
+  box-shadow:0 8px 19px rgba(71,85,105,.18);
+}
+
+/* Main navigation becomes premium segmented controls */
+.controls{
+  position:relative;
+  padding:7px;
+  gap:7px;
+  border:1px solid rgba(255,255,255,.65);
+  border-radius:19px;
+  background:rgba(255,255,255,.62);
+  box-shadow:0 12px 30px rgba(15,23,42,.08),inset 0 1px rgba(255,255,255,.8);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+
+.controls button{
+  min-height:48px;
+  border:1px solid transparent !important;
+  border-radius:13px !important;
+  background:transparent !important;
+  color:#475569 !important;
+  box-shadow:none !important;
+}
+
+.controls button:hover:not(:disabled){
+  background:rgba(255,255,255,.78) !important;
+  color:#1f2937 !important;
+  box-shadow:0 7px 18px rgba(15,23,42,.08) !important;
+}
+
+.controls button.active{
+  color:#fff !important;
+  background:linear-gradient(135deg,#ff3d57,#ff7a59) !important;
+  border-color:rgba(255,255,255,.3) !important;
+  box-shadow:0 8px 20px rgba(255,73,87,.24),inset 0 1px rgba(255,255,255,.24) !important;
+}
+
+.controls .ui-icon{filter:drop-shadow(0 1px 1px rgba(0,0,0,.08))}
+
+/* Theme / utility buttons */
+.theme-toggle,
+.logout-btn,
+.icon-btn,
+.icon-only-btn{
+  border:1px solid rgba(148,163,184,.24) !important;
+  box-shadow:0 7px 18px rgba(15,23,42,.08) !important;
+  background:rgba(255,255,255,.78) !important;
+}
+
+.theme-toggle:hover:not(:disabled),
+.logout-btn:hover:not(:disabled),
+.icon-btn:hover:not(:disabled),
+.icon-only-btn:hover:not(:disabled){
+  background:#fff !important;
+  border-color:rgba(79,156,255,.28) !important;
+  box-shadow:0 11px 24px rgba(15,23,42,.12) !important;
+}
+
+.icon-only-btn{width:46px;height:46px;border-radius:14px !important}
+
+/* Quiz answer buttons: premium cards */
+.quiz-options button{
+  position:relative;
+  min-height:64px;
+  border:1px solid #e5eaf1 !important;
+  border-radius:16px !important;
+  background:linear-gradient(180deg,#fff,#f8fafc) !important;
+  box-shadow:0 6px 16px rgba(15,23,42,.055) !important;
+}
+.quiz-options button:hover:not(:disabled){
+  color:#1769e0 !important;
+  border-color:#8dbaff !important;
+  background:linear-gradient(180deg,#fff,#eef6ff) !important;
+  box-shadow:0 12px 24px rgba(39,119,255,.13) !important;
+}
+
+/* Buttons inside cards don't jump too much on small screens */
+@media(max-width:700px){
+  .controls{padding:6px;gap:5px;border-radius:16px}
+  .controls button{min-height:44px;padding:8px 10px;font-size:.84rem}
+  button,.btn,.nav-btn,.control-btn,.mode-btn,.action-btn{border-radius:13px}
+}
+
+/* Dark mode */
+body.dark-mode .controls{
+  background:rgba(22,29,38,.72);
+  border-color:rgba(255,255,255,.08);
+  box-shadow:0 14px 35px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.04);
+}
+body.dark-mode .controls button{color:#b8c4d1 !important}
+body.dark-mode .controls button:hover:not(:disabled){background:rgba(255,255,255,.07) !important;color:#fff !important}
+body.dark-mode .quiz-options button{
+  background:linear-gradient(180deg,#202934,#18212b) !important;
+  border-color:#344150 !important;
+  color:#edf2f7 !important;
+}
+body.dark-mode .quiz-options button:hover:not(:disabled){
+  background:linear-gradient(180deg,#25384b,#1d2c3a) !important;
+  border-color:#5b9cff !important;
+}
+body.dark-mode .theme-toggle,
+body.dark-mode .logout-btn,
+body.dark-mode .icon-btn,
+body.dark-mode .icon-only-btn{
+  background:#1d2732 !important;
+  border-color:rgba(255,255,255,.08) !important;
+  color:#dce7f2 !important;
+}
+
+@media(prefers-reduced-motion:reduce){
+  button,.btn,.nav-btn,.control-btn,.mode-btn,.action-btn{transition:none !important}
+  button::before,.btn::before,.nav-btn::before,.control-btn::before,.mode-btn::before,.action-btn::before{display:none}
+}
