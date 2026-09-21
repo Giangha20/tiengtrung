@@ -7895,8 +7895,21 @@ function showStreakCelebration(days) {
 
 function initStudyStreak() { markStudyStreakActivity(); }
 
+function updateScrollSectionIcons() {
+    const bar = document.getElementById('scroll-section-icons');
+    if (!bar) return;
+    const active = document.querySelector('main > section.active');
+    const mode = active ? active.id.replace('-mode', '') : '';
+    const hiddenForMode = mode === 'typing' || mode === 'listening';
+    bar.classList.toggle('visible', window.scrollY > 140 && !hiddenForMode);
+    bar.querySelectorAll('[data-scroll-mode]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.scrollMode === mode);
+    });
+}
+
 function switchMode(mode) {
     markStudyStreakActivity();
+    setTimeout(updateScrollSectionIcons, 0);
     const section = document.getElementById(`${mode}-mode`);
     if (!section) return;
 
@@ -9699,6 +9712,14 @@ function nextHandwritingWord(step) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const scrollBar = document.getElementById('scroll-section-icons');
+    if (scrollBar) {
+        scrollBar.querySelectorAll('[data-scroll-mode]').forEach(btn => {
+            btn.addEventListener('click', () => switchMode(btn.dataset.scrollMode));
+        });
+        window.addEventListener('scroll', updateScrollSectionIcons, { passive: true });
+        updateScrollSectionIcons();
+    }
     const prev = document.getElementById('hw-prev');
     const next = document.getElementById('hw-next');
     const clear = document.getElementById('hw-clear');
