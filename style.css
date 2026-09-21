@@ -3166,3 +3166,24 @@ html body.dark-mode .listening-wrong-tools .listening-secondary-btn{
   border-color:#33506f !important;
 }
 html body.dark-mode #listening-wrong-list .listening-hint{background:#172d46 !important;color:#c4d1df !important}
+
+/* =====================================================
+   DARK MODE FIX - Màn hình "Đang kết nối tài khoản..." bị chữ trắng trên nền sáng
+   ===================================================== */
+html body.dark-mode #online-auth-loader{
+  background:linear-gradient(180deg,#06111f 0%,#081827 52%,#06111f 100%) !important;
+}
+html body.dark-mode #online-auth-loader > div{
+  background:linear-gradient(180deg,#0f2137,#0b1a2b) !important;
+  border:1px solid rgba(100,158,219,.28) !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.45) !important;
+}
+html body.dark-mode #online-auth-loader strong{color:#f1f6fc !important}
+html body.dark-mode #online-auth-loader span{color:#a9bbd0 !important}
+html body.dark-mode #online-auth-loader p{color:#a9bbd0 !important}
+html body.dark-mode #online-auth-loader svg{
+  color:#74b9ff !important;
+  fill:none !important;
+  stroke:currentColor !important;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+}
