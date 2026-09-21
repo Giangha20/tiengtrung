@@ -3135,3 +3135,34 @@ html body.dark-mode header{
 @media (prefers-reduced-motion:reduce){
   html body.dark-mode header::before{animation:none}
 }
+
+/* =====================================================
+   DARK MODE FIX - Phần "Ôn câu sai" (luyện nghe) bị chữ trắng trên nền sáng
+   ===================================================== */
+html body.dark-mode .listening-wrong-panel{
+  background:linear-gradient(180deg,rgba(16,33,53,.96),rgba(11,25,41,.96)) !important;
+  border:1px solid rgba(100,158,219,.24) !important;
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+html body.dark-mode .wrong-panel-head strong{color:#f1f6fc !important}
+html body.dark-mode .wrong-panel-head span{color:#9fb2c7 !important}
+html body.dark-mode .wrong-item{
+  background:#122338 !important;
+  border-color:#2b4463 !important;
+  box-shadow:none !important;
+}
+html body.dark-mode .wrong-item-text strong{color:#f4f8ff !important}
+html body.dark-mode .wrong-item-text small{color:#a9bbd0 !important}
+html body.dark-mode .wrong-item button{
+  background:linear-gradient(135deg,#1d3a5c,#25507e) !important;
+  color:#eaf4ff !important;
+  border:1px solid rgba(110,175,245,.35) !important;
+}
+html body.dark-mode .wrong-item button:hover:not(:disabled){background:linear-gradient(135deg,#25507e,#2f66a0) !important}
+html body.dark-mode .wrong-count-badge{background:#4a2329 !important;color:#ffb3b8 !important}
+html body.dark-mode .listening-wrong-tools .listening-secondary-btn{
+  background:#14283f !important;
+  color:#eaf4ff !important;
+  border-color:#33506f !important;
+}
+html body.dark-mode #listening-wrong-list .listening-hint{background:#172d46 !important;color:#c4d1df !important}
