@@ -3030,59 +3030,52 @@ body.dark-mode .theme-icon{filter:drop-shadow(0 2px 8px rgba(255,255,255,.18))}
   body.dark-mode .mobile-nav-item.active{color:#5eb7ff !important;background:rgba(50,143,235,.13) !important}
 }
 
-/* =====================================================
-   DARK MODE FIX - text invisible on light panels
-   (đặt cuối file để thắng các rule !important phía trên)
-===================================================== */
-body.dark-mode main > section {
-  background: linear-gradient(180deg, rgba(13,27,44,.96), rgba(9,20,34,.96)) !important;
-  border: 1px solid rgba(98,157,218,.18) !important;
-  color: #f2f7ff !important;
-  box-shadow: 0 18px 45px rgba(0,0,0,.35) !important;
+
+/* ===== FINAL DARK MODE TEXT VISIBILITY FIX ===== */
+/* Keep every textual element readable in dark mode, including elements
+   that previously had light-theme inline colors or late CSS overrides. */
+body.dark-mode :where(p,span,small,strong,b,label,li,dt,dd,th,td,a,em,legend,figcaption,h1,h2,h3,h4,h5,h6){
+  color:#eef6ff !important;
 }
-body.dark-mode main > section h2,
-body.dark-mode main > section h3,
-body.dark-mode main > section h4,
-body.dark-mode main > section h2 span { color: #f2f7ff !important; }
-body.dark-mode main > section p,
-body.dark-mode .progress-account,
-body.dark-mode .progress-page-head p { color: #aebbc8 !important; }
-body.dark-mode .word-card .meaning,
-body.dark-mode .meaning-display,
-body.dark-mode #typing-meaning { color: #cfdbea !important; }
-body.dark-mode .listening-kicker { color: #5eb7ff !important; }
-body.dark-mode .listening-progress-top,
-body.dark-mode .listening-progress-top strong { color: #cfdbea !important; }
-body.dark-mode .listening-card,
-body.dark-mode .progress-card,
-body.dark-mode .progress-main-card { color: #f2f7ff; }
-body.dark-mode .listening-progress-wrap {
-  background: rgba(20,38,60,.85) !important;
-  border-color: rgba(98,157,218,.18) !important;
+body.dark-mode :where(.sub,.note,.hint,.description,.subtitle,.muted,.secondary,.help-text,.caption,.listening-head p,.listening-status,.listening-speed,.progress-summary,.progress-account,.progress-card small,.listening-hint){
+  color:#c7d5e5 !important;
 }
-body.dark-mode .progress-account {
-  background: rgba(23,47,69,.9) !important;
-  color: #9fd0ff !important;
-  border-color: rgba(98,157,218,.25) !important;
+body.dark-mode :where(.kicker,.listening-kicker,.progress-kicker){
+  color:#63b7ff !important;
 }
-body.dark-mode .exam-header {
-  background: rgba(20,38,60,.85) !important;
-  border-color: rgba(98,157,218,.18) !important;
-  color: #f2f7ff !important;
+/* Override old inline light-theme color declarations safely. */
+body.dark-mode [style*="color:"]{
+  color:#eef6ff !important;
 }
-body.dark-mode .exam-header span,
-body.dark-mode .exam-header b { color: #f2f7ff !important; }
-body.dark-mode .vocab-search-box input,
-body.dark-mode #vocab-search,
-body.dark-mode main input[type="text"],
-body.dark-mode main input[type="search"] {
-  background: #14263b !important;
-  color: #edf5ff !important;
-  border-color: #2b4057 !important;
+body.dark-mode [style*="color: #6c757d"],
+body.dark-mode [style*="color:#6c757d"],
+body.dark-mode [style*="color: #718096"],
+body.dark-mode [style*="color:#718096"],
+body.dark-mode [style*="color: #888"],
+body.dark-mode [style*="color:#888"]{
+  color:#c7d5e5 !important;
 }
-body.dark-mode #list-mode #vocab-search {
-  background: #14263b !important;
-  color: #edf5ff !important;
-  border-color: #2b4057 !important;
+/* Form controls and selectable text. */
+body.dark-mode :where(input,textarea,select,option){
+  color:#eef6ff !important;
+  -webkit-text-fill-color:#eef6ff !important;
 }
-body.dark-mode #list-mode #vocab-search::placeholder { color: #8fa3b8 !important; }
+body.dark-mode :where(input,textarea)::placeholder{
+  color:#9eb2c8 !important;
+  -webkit-text-fill-color:#9eb2c8 !important;
+}
+/* Buttons keep their intended accent backgrounds but never lose their labels. */
+body.dark-mode :where(button,.btn,.action-btn,.control-btn,.nav-btn,.mode-btn){
+  color:#f4f8ff !important;
+}
+body.dark-mode :where(.online-user-chip,.logout-btn,.theme-toggle){
+  color:#f4f8ff !important;
+}
+/* Main reading/listening content. */
+body.dark-mode :where(.word-display,.pinyin-display,.meaning-display,.word-card,.flashcard,.typing-container,.exam-card,.writing-card,.communication-card,.result-box,.info-box,.listening-card,.listening-option,.progress-card,.progress-main-card){
+  color:#eef6ff !important;
+}
+body.dark-mode .pinyin-display{color:#83c7ff !important}
+body.dark-mode .meaning-display{color:#cbd8e7 !important}
+/* SVG icons inherit readable text color. */
+body.dark-mode .ui-icon{color:currentColor}
