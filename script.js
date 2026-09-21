@@ -8120,31 +8120,20 @@ function openVocabularySearch() {
     setTimeout(() => {
         const input = document.getElementById('vocab-search');
         if (input) {
-            input.focus();
+            input.hidden = false;
+            input.removeAttribute('disabled');
+            input.focus({ preventScroll: true });
             input.select();
-            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-    }, 60);
+    }, 30);
 }
 
 window.openVocabularySearch = openVocabularySearch;
 
 function searchWords() {
-    const keyword = document.getElementById('search-input').value.toLowerCase().trim();
-    const currentLevel = document.getElementById('hsk-level').value;
-    
-    // Lấy danh sách từ của cấp độ hiện tại (thay hskData bằng tên biến chứa dữ liệu của bạn)
-    const currentVocabList = hskData[currentLevel] || [];
-
-    const filteredList = currentVocabList.filter(item => 
-        item.word.includes(keyword) || 
-        (item.pinyin && item.pinyin.toLowerCase().includes(keyword)) || 
-        (item.meaning && item.meaning.toLowerCase().includes(keyword))
-    );
-
-    // Gọi lại hàm hiển thị danh sách từ của bạn với danh sách đã lọc
-    renderWordList(filteredList); 
+    filterVocabulary();
 }
+
 
 // 2. Hàm bỏ qua từ trong bài tập gõ
 function skipTypingWord() {
@@ -8438,7 +8427,7 @@ function filterVocabulary() {
 
     const keyword = normalizeSearchText(searchInput.value);
 
-    const level = levelSelect.value;
+    const level = String(levelSelect.value || currentLevel || '1');
 
     const vocabulary = hskData[level] || [];
 
@@ -8507,6 +8496,17 @@ function filterVocabulary() {
 
 // Khi đổi HSK thì tự động xóa tìm kiếm cũ
 document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("vocab-search");
+    if (searchInput) {
+        searchInput.addEventListener("input", filterVocabulary);
+        searchInput.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                searchInput.value = "";
+                filterVocabulary();
+                searchInput.blur();
+            }
+        });
+    }
 
     const levelSelect = document.getElementById("hsk-level");
 
