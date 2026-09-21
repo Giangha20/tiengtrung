@@ -7990,8 +7990,10 @@ function filterDifficulty(level) {
 }
 
 function renderCommunication() {
-    const rawList = communicationData[currentLevel] || [];
     const container = document.getElementById('comm-list');
+    // Mục Giao tiếp đã bị gỡ khỏi giao diện và dữ liệu: thoát sớm để không làm hỏng khởi động app.
+    if (!container || typeof communicationData === 'undefined') return;
+    const rawList = communicationData[currentLevel] || [];
 
     let filteredList = rawList;
     if (currentCommFilter !== 'all') {
