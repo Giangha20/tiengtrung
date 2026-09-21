@@ -37843,7 +37843,12 @@ function updateThemeButton(dark) {
     const text = document.getElementById('theme-toggle-text');
     if (!btn) return;
     btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
-    btn.setAttribute('aria-label', dark ? 'Tắt chế độ tối' : 'Bật chế độ tối');
+    btn.setAttribute('aria-label', dark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối');
+    btn.setAttribute('title', dark ? 'Chế độ sáng' : 'Chế độ tối');
+    const sun = document.getElementById('theme-sun');
+    const moon = document.getElementById('theme-moon');
+    if (sun) sun.setAttribute('aria-hidden', dark ? 'true' : 'false');
+    if (moon) moon.setAttribute('aria-hidden', dark ? 'false' : 'true');
     if (icon) icon.textContent = dark ? '☀️' : '🌙';
     if (text) text.textContent = dark ? 'Chế độ sáng' : 'Chế độ tối';
 }
