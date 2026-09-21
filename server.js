@@ -16,7 +16,35 @@ const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
 app.use(express.json({ limit: "100kb" }));
-app.use(express.static(__dirname));
+
+/* =========================
+   PROTECT PRIVATE FILES BEFORE STATIC SERVING
+   ========================= */
+app.use((req, res, next) => {
+    const requestPath = String(req.path || "").toLowerCase();
+    const forbiddenExact = new Set([
+        "/.env",
+        "/serviceaccountkey.json",
+        "/firebase-service-account.json"
+    ]);
+
+    if (
+        forbiddenExact.has(requestPath) ||
+        requestPath.startsWith("/secrets/") ||
+        requestPath.includes("firebase-adminsdk") ||
+        requestPath.split("/").some(part => part.startsWith("."))
+    ) {
+        return res.status(404).send("Not found");
+    }
+
+    next();
+});
+
+app.use(express.static(__dirname, {
+    dotfiles: "deny",
+    index: "index.html",
+    fallthrough: true
+}));
 
 /* =========================
    FIREBASE ADMIN
@@ -466,27 +494,6 @@ Trả về JSON duy nhất:
     }
 });
 
-/* =========================
-   PROTECT SECRETS
-   ========================= */
-
-app.use((req, res, next) => {
-    const forbidden = [
-        "/.env",
-        "/serviceAccountKey.json",
-        "/firebase-service-account.json"
-    ];
-
-    if (
-        forbidden.includes(req.path) ||
-        req.path.startsWith("/secrets/") ||
-        req.path.toLowerCase().includes("firebase-adminsdk")
-    ) {
-        return res.status(404).send("Not found");
-    }
-
-    next();
-});
 
 app.listen(PORT, () => {
     console.log("");

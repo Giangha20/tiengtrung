@@ -9,5 +9,19 @@
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#f5f7fb",
-  "theme_color": "#d63031"
+  "theme_color": "#d63031",
+  "icons": [
+    {
+      "src": "./avatar192.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./avatar.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
 }
