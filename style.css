@@ -3317,3 +3317,11 @@ html body.dark-mode .container > header .controls .streak-widget{
   color:#ffe08a !important;
   box-shadow:0 9px 24px rgba(0,0,0,.20) !important;
 }
+
+/* FINAL: keep the H in the title identical to the rest of the title in BOTH themes */
+html body .container > header .brand-row h1 .brand-h,
+html body.dark-mode .container > header .brand-row h1 .brand-h {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: inherit !important;
+}
