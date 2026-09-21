@@ -3264,3 +3264,48 @@ body.dark-mode .container>header .controls .streak-widget{
   .container>header .controls .streak-widget{height:38px;padding:8px 10px;gap:6px}
   .container>header .controls .streak-count{font-size:14px}
 }
+
+/* FINAL FIX: H + STREAK — only these two UI details */
+html body .brand-h{
+  color:#d63031 !important;
+  -webkit-text-fill-color:#d63031 !important;
+  text-shadow:none !important;
+}
+html body.dark-mode .brand-h{
+  color:#8fc8ff !important;
+  -webkit-text-fill-color:#8fc8ff !important;
+}
+html body .container>header .controls .streak-widget{
+  order:3 !important;
+  width:48px !important;
+  min-width:48px !important;
+  max-width:48px !important;
+  height:48px !important;
+  min-height:48px !important;
+  max-height:48px !important;
+  padding:0 !important;
+  margin:0 !important;
+  gap:3px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-sizing:border-box !important;
+  border-radius:16px !important;
+  background:rgba(255,255,255,.80) !important;
+  border:1px solid rgba(82,139,202,.20) !important;
+  color:#244466 !important;
+  box-shadow:0 9px 24px rgba(63,123,180,.14),inset 0 1px rgba(255,255,255,.9) !important;
+  flex:0 0 48px !important;
+}
+html body .container>header .controls .streak-flame{font-size:18px !important;line-height:1 !important;filter:none !important;animation:none !important}
+html body .container>header .controls .streak-count{font-size:15px !important;font-weight:800 !important;line-height:1 !important;min-width:8px !important;color:inherit !important}
+html body.dark-mode .container>header .controls .streak-widget{
+  background:#26384a !important;
+  border-color:#40566c !important;
+  color:#ffe08a !important;
+  box-shadow:0 9px 24px rgba(0,0,0,.20) !important;
+}
+@media(max-width:650px){
+  html body .container>header .controls .theme-toggle{order:2 !important}
+  html body .container>header .controls .streak-widget{order:3 !important;width:48px !important;min-width:48px !important;height:48px !important;min-height:48px !important}
+}
