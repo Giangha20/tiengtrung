@@ -3229,52 +3229,14 @@ body.dark-mode .exam-skill-card{background:#151e29;border-color:#2c3a49;box-shad
   .container>header .controls .streak-widget{order:3;min-width:48px;height:32px;padding:4px 6px}
 }
 
-/* Cuộn trang: thanh icon gọn chỉ hiện khi đã cuộn, không hiện ở Gõ chữ/Luyện nghe */
-.scroll-section-icons {
-    position: fixed;
-    top: 92px;
-    left: 50%;
-    transform: translate(-50%, -12px);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.92);
-    border: 1px solid rgba(20,32,50,.10);
-    box-shadow: 0 10px 28px rgba(15,23,42,.14);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
-    z-index: 110;
+
+/* Menu tìm kiếm: chỉ hiển thị icon */
+.container>header .controls .menu-icon-btn{
+  width:38px;min-width:38px;height:38px;padding:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  border-radius:11px;
 }
-.scroll-section-icons.visible {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translate(-50%, 0);
-}
-.scroll-section-icons button {
-    width: 34px; height: 34px; padding: 0;
-    border: 0; border-radius: 10px;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: transparent; color: #526070; cursor: pointer;
-}
-.scroll-section-icons button:hover, .scroll-section-icons button.active {
-    background: rgba(220,38,38,.10); color: #c81e1e;
-}
-.scroll-section-icons .ui-icon { width: 19px; height: 19px; }
-body.dark-mode .scroll-section-icons {
-    background: rgba(15,27,43,.94);
-    border-color: rgba(255,255,255,.10);
-    box-shadow: 0 12px 30px rgba(0,0,0,.30);
-}
-body.dark-mode .scroll-section-icons button { color: #c5d0dc; }
-body.dark-mode .scroll-section-icons button:hover,
-body.dark-mode .scroll-section-icons button.active { background: rgba(255,255,255,.09); color: #fff; }
-@media (max-width: 640px) {
-    .scroll-section-icons { top: 76px; }
+.container>header .controls .menu-icon-btn .ui-icon{width:19px;height:19px}
+@media(max-width:520px){
+  .container>header .controls .menu-icon-btn{width:34px;min-width:34px;height:34px}
 }

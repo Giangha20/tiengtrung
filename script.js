@@ -7895,21 +7895,8 @@ function showStreakCelebration(days) {
 
 function initStudyStreak() { markStudyStreakActivity(); }
 
-function updateScrollSectionIcons() {
-    const bar = document.getElementById('scroll-section-icons');
-    if (!bar) return;
-    const active = document.querySelector('main > section.active');
-    const mode = active ? active.id.replace('-mode', '') : '';
-    const hiddenForMode = mode === 'typing' || mode === 'listening';
-    bar.classList.toggle('visible', window.scrollY > 140 && !hiddenForMode);
-    bar.querySelectorAll('[data-scroll-mode]').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.scrollMode === mode);
-    });
-}
-
 function switchMode(mode) {
     markStudyStreakActivity();
-    setTimeout(updateScrollSectionIcons, 0);
     const section = document.getElementById(`${mode}-mode`);
     if (!section) return;
 
@@ -8128,6 +8115,20 @@ function toggleAnswer(index) {
 // ==========================================
 
 // 1. Hàm tìm kiếm từ vựng
+function openVocabularySearch() {
+    switchMode('list');
+    setTimeout(() => {
+        const input = document.getElementById('vocab-search');
+        if (input) {
+            input.focus();
+            input.select();
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 60);
+}
+
+window.openVocabularySearch = openVocabularySearch;
+
 function searchWords() {
     const keyword = document.getElementById('search-input').value.toLowerCase().trim();
     const currentLevel = document.getElementById('hsk-level').value;
