@@ -18,7 +18,7 @@
     <meta name="apple-mobile-web-app-title" content="Tiếng Trung">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./style.css?v=3">
+    <link rel="stylesheet" href="./style.css?v=4">
 
     </head>
 <body>
@@ -51,6 +51,7 @@
                 <button onclick="switchMode('listening')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg>Luyện nghe</button>
                 <button onclick="switchMode('exam')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg>Bài tập HSK</button>
                 <button onclick="switchMode('progress')"><svg class="ui-icon" aria-hidden="true"><use href="#icon-chart"></use></svg>Tiến trình học</button>
+                <button id="theme-toggle" type="button" class="theme-toggle" onclick="toggleDarkMode()" aria-label="Bật chế độ tối" aria-pressed="false"><span id="theme-toggle-icon" aria-hidden="true">🌙</span><span id="theme-toggle-text">Chế độ tối</span></button>
             </div>
         </header>
 
@@ -214,13 +215,13 @@
         </main>
     </div>
 
-    <script src="hsk6.js?v=3"></script>
+    <script src="hsk6.js?v=4"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
     <script src="./firebase-config.js"></script>
     <script src="./auth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.18.2/dist/index.js"></script>
-<script src="script.js?v=3"></script>
+<script src="script.js?v=4"></script>
 </body>
 </html>

@@ -2040,3 +2040,239 @@ button .ui-icon{pointer-events:none}
 .meaning{font-family:"Noto Sans","Segoe UI",Arial,sans-serif;unicode-bidi:plaintext;}
 
 /* Hình minh họa cho Luyện nghe + Bài tập HSK */
+
+
+/* ===== Premium Chines Dark Mode ===== */
+html { color-scheme: light; }
+body.dark-mode {
+  color-scheme: dark;
+  background: #0f141a;
+  color: #e7edf4;
+}
+body.dark-mode .container,
+body.dark-mode header,
+body.dark-mode main { color: #e7edf4; }
+body.dark-mode header {
+  background: #151b22;
+  border-color: #26313d;
+}
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode strong,
+body.dark-mode b,
+body.dark-mode label { color: #f3f6fa; }
+body.dark-mode p,
+body.dark-mode small,
+body.dark-mode .sub,
+body.dark-mode .note,
+body.dark-mode .progress-main-title,
+body.dark-mode .progress-summary,
+body.dark-mode .progress-account,
+body.dark-mode .listening-head p,
+body.dark-mode .listening-status,
+body.dark-mode .listening-speed { color: #aebbc8; }
+body.dark-mode button,
+body.dark-mode select,
+body.dark-mode input,
+body.dark-mode textarea {
+  background-color: #1b232c;
+  color: #edf2f7;
+  border-color: #344150;
+}
+body.dark-mode button:hover:not(:disabled) { background-color: #24303c; }
+body.dark-mode select option { background: #1b232c; color: #edf2f7; }
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder { color: #8392a1; }
+body.dark-mode .word-card,
+body.dark-mode .flashcard,
+body.dark-mode .typing-container,
+body.dark-mode .progress-card,
+body.dark-mode .progress-main-card,
+body.dark-mode .listening-card,
+body.dark-mode .exam-card,
+body.dark-mode .writing-card,
+body.dark-mode .communication-card,
+body.dark-mode .card,
+body.dark-mode .modal-content,
+body.dark-mode .result-box,
+body.dark-mode .info-box {
+  background: #171e26;
+  color: #e7edf4;
+  border-color: #2d3946;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+body.dark-mode .word-card:hover,
+body.dark-mode .listening-option:hover:not(:disabled) {
+  background: #202a35;
+}
+body.dark-mode .listening-card { background: #171e26; }
+body.dark-mode .listening-option,
+body.dark-mode .listening-secondary-btn,
+body.dark-mode .listening-speed select {
+  background: #1b232c;
+  color: #edf2f7;
+  border-color: #344150;
+}
+body.dark-mode .listening-hint { background: #202a35; color: #aebbc8; }
+body.dark-mode .listening-option.correct { background: #12362d; color: #8de0c2; border-color: #198f70; }
+body.dark-mode .listening-option.wrong { background: #3b2024; color: #ffb3b8; border-color: #a64a53; }
+body.dark-mode .progress-bar { background: #27323e; }
+body.dark-mode .online-user-chip { background: #172f45; color: #74b9ff; }
+body.dark-mode .logout-btn { background: #252c34 !important; color: #dce5ee !important; }
+body.dark-mode .icon-only-btn { background: #172f45; color: #74b9ff; }
+body.dark-mode .vocab-search-box input { background: #1b232c !important; color: #edf2f7 !important; border-color: #344150 !important; }
+body.dark-mode #search-result-count { color: #9aa9b8 !important; }
+body.dark-mode .theme-toggle {
+  background: #26384a;
+  color: #ffe08a;
+  border-color: #40566c;
+}
+body.dark-mode .theme-toggle:hover:not(:disabled) { background: #31485e; }
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 9px 13px;
+  border: 1px solid #dbe5ef;
+  border-radius: 12px;
+  background: #f7f9fc;
+  color: #334155;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background .2s ease, transform .2s ease, border-color .2s ease;
+}
+.theme-toggle:hover { transform: translateY(-1px); }
+#theme-toggle-icon { font-size: 16px; line-height: 1; }
+@media (max-width: 650px) {
+  .theme-toggle { min-height: 38px; padding: 8px 10px; font-size: .84rem; }
+}
+
+/* =====================================================
+   PREMIUM UI POLISH v1.1
+   Visual layer only: no learning logic changed.
+===================================================== */
+:root{
+  --premium-accent:#ff5b5f;
+  --premium-accent-2:#ff9a62;
+  --premium-blue:#4f9cff;
+  --premium-glass:rgba(255,255,255,.72);
+  --premium-border:rgba(255,255,255,.65);
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:-20%;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 15% 18%,rgba(255,118,117,.13),transparent 24%),
+    radial-gradient(circle at 85% 12%,rgba(116,185,255,.14),transparent 25%),
+    radial-gradient(circle at 50% 90%,rgba(0,184,148,.08),transparent 25%);
+  animation:premiumAmbient 18s ease-in-out infinite alternate;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.24;
+  background-image:radial-gradient(rgba(15,23,42,.14) .7px,transparent .7px);
+  background-size:22px 22px;
+  mask-image:linear-gradient(to bottom,black,transparent 88%);
+}
+
+@keyframes premiumAmbient{0%{transform:translate3d(-1%,0,0) scale(1)}100%{transform:translate3d(1%,1.5%,0) scale(1.04)}}
+
+.container{animation:premiumPageIn .7s cubic-bezier(.2,.75,.25,1) both}
+@keyframes premiumPageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+header{
+  background:
+    radial-gradient(circle at 15% 0%,rgba(255,255,255,.2),transparent 30%),
+    linear-gradient(135deg,#c9273a 0%,#e85d4a 46%,#ff9f68 100%);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 24px 65px rgba(198,43,58,.24),inset 0 1px rgba(255,255,255,.25);
+  transform:translateZ(0);
+}
+header::after{box-shadow:40px -25px 0 15px rgba(255,255,255,.045),-20px -5px 0 30px rgba(255,255,255,.035)}
+header h1{animation:premiumTitle .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes premiumTitle{from{opacity:0;transform:translateY(8px) scale(.98);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+
+.controls button,#hsk-level,.theme-toggle{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(15,23,42,.06)!important;
+  box-shadow:0 8px 18px rgba(15,23,42,.08),inset 0 1px rgba(255,255,255,.75);
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,background .22s ease!important;
+}
+.controls button:hover:not(:disabled),#hsk-level:hover,.theme-toggle:hover:not(:disabled){
+  transform:translateY(-3px);
+  box-shadow:0 14px 26px rgba(15,23,42,.13),inset 0 1px rgba(255,255,255,.8);
+}
+.controls button:active:not(:disabled),.theme-toggle:active:not(:disabled){transform:translateY(-1px) scale(.98)}
+
+/* Shimmer khi hover */
+.controls button::after,.theme-toggle::after,.btn-primary::after,.listening-play-btn::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.38) 48%,transparent 61%);
+  transform:translateX(-130%);
+}
+.controls button:hover::after,.theme-toggle:hover::after,.btn-primary:hover::after,.listening-play-btn:hover::after{animation:premiumShine .8s ease}
+@keyframes premiumShine{to{transform:translateX(130%)}}
+
+main>section{animation:premiumSectionIn .45s ease both}
+main>section:not(.active){animation:none}
+@keyframes premiumSectionIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.word-card,.progress-card,.progress-main-card,.typing-container,.exam-card,.listening-card,.writing-card,.communication-card,.card,.flashcard,.info-box,.result-box{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(148,163,184,.18);
+  box-shadow:0 14px 35px rgba(15,23,42,.07),0 2px 6px rgba(15,23,42,.03);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s ease,border-color .28s ease;
+}
+.word-card::after,.progress-card::after,.progress-main-card::after,.typing-container::after,.exam-card::after,.listening-card::after,.writing-card::after,.communication-card::after,.card::after{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;opacity:.65;
+  background:linear-gradient(90deg,transparent,var(--premium-accent),var(--premium-blue),transparent);
+  transform:scaleX(.2);transition:transform .35s ease;
+}
+.word-card:hover,.progress-card:hover,.progress-main-card:hover,.typing-container:hover,.exam-card:hover,.listening-card:hover,.writing-card:hover,.communication-card:hover,.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 22px 45px rgba(15,23,42,.11),0 5px 12px rgba(15,23,42,.04);
+  border-color:rgba(79,156,255,.24);
+}
+.word-card:hover::after,.progress-card:hover::after,.progress-main-card:hover::after,.typing-container:hover::after,.exam-card:hover::after,.listening-card:hover::after,.writing-card:hover::after,.communication-card:hover::after,.card:hover::after{transform:scaleX(1)}
+
+.btn-primary,.listening-play-btn{
+  position:relative;overflow:hidden;
+  box-shadow:0 12px 24px rgba(9,132,227,.22),inset 0 1px rgba(255,255,255,.22);
+  transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;
+}
+.btn-primary:hover:not(:disabled),.listening-play-btn:hover:not(:disabled){transform:translateY(-3px);filter:saturate(1.08);box-shadow:0 18px 30px rgba(9,132,227,.27),inset 0 1px rgba(255,255,255,.25)}
+
+.progress-bar>div{position:relative;overflow:hidden}
+.progress-bar>div::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:premiumProgress 2s linear infinite}
+@keyframes premiumProgress{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+.ripple-wave{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.5);pointer-events:none;animation:premiumRipple .6s ease-out}
+@keyframes premiumRipple{to{transform:scale(4);opacity:0}}
+
+.premium-float{animation:premiumFloat 4s ease-in-out infinite}
+@keyframes premiumFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+body.dark-mode::after{opacity:.14;background-image:radial-gradient(rgba(255,255,255,.13) .7px,transparent .7px)}
+body.dark-mode .word-card,body.dark-mode .progress-card,body.dark-mode .progress-main-card,body.dark-mode .typing-container,body.dark-mode .exam-card,body.dark-mode .listening-card,body.dark-mode .writing-card,body.dark-mode .communication-card,body.dark-mode .card,body.dark-mode .flashcard,body.dark-mode .info-box,body.dark-mode .result-box{box-shadow:0 18px 42px rgba(0,0,0,.24),0 2px 8px rgba(0,0,0,.18)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media (max-width:650px){
+  header{padding:30px 15px 24px;border-radius:22px}
+  header h1{font-size:30px;margin-bottom:22px}
+  .container{width:min(100% - 18px,1150px);margin-top:10px}
+  .word-card:hover,.progress-card:hover,.progress-main-card:hover,.typing-container:hover,.exam-card:hover,.listening-card:hover,.writing-card:hover,.communication-card:hover,.card:hover{transform:translateY(-2px)}
+}

@@ -37826,3 +37826,71 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   updateWrongListeningUI();
 });
+
+
+/* ===== Premium Chines Dark Mode ===== */
+(function initThemeMode() {
+    const saved = localStorage.getItem('premiumChinesTheme');
+    const dark = saved === 'dark';
+    document.documentElement.classList.toggle('dark-mode', dark);
+    document.body.classList.toggle('dark-mode', dark);
+    updateThemeButton(dark);
+})();
+
+function updateThemeButton(dark) {
+    const btn = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-toggle-icon');
+    const text = document.getElementById('theme-toggle-text');
+    if (!btn) return;
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.setAttribute('aria-label', dark ? 'Tắt chế độ tối' : 'Bật chế độ tối');
+    if (icon) icon.textContent = dark ? '☀️' : '🌙';
+    if (text) text.textContent = dark ? 'Chế độ sáng' : 'Chế độ tối';
+}
+
+function toggleDarkMode() {
+    const dark = !document.body.classList.contains('dark-mode');
+    document.documentElement.classList.toggle('dark-mode', dark);
+    document.body.classList.toggle('dark-mode', dark);
+    localStorage.setItem('premiumChinesTheme', dark ? 'dark' : 'light');
+    updateThemeButton(dark);
+}
+
+window.toggleDarkMode = toggleDarkMode;
+
+/* ===== Premium Chines UI Effects ===== */
+(function premiumUIEffects(){
+  const init=()=>{
+    document.querySelectorAll('button').forEach(btn=>{
+      if(btn.dataset.premiumRipple==='1') return;
+      btn.dataset.premiumRipple='1';
+      btn.addEventListener('click',function(e){
+        if(this.disabled) return;
+        const rect=this.getBoundingClientRect();
+        const size=Math.max(rect.width,rect.height)*.55;
+        const wave=document.createElement('span');
+        wave.className='ripple-wave';
+        wave.style.width=wave.style.height=size+'px';
+        wave.style.left=(e.clientX-rect.left-size/2)+'px';
+        wave.style.top=(e.clientY-rect.top-size/2)+'px';
+        this.appendChild(wave);
+        wave.addEventListener('animationend',()=>wave.remove(),{once:true});
+      });
+    });
+
+    const reveal=()=>{
+      document.querySelectorAll('.word-card,.progress-card,.progress-main-card,.typing-container,.exam-card,.listening-card,.writing-card,.communication-card,.card').forEach((el,i)=>{
+        if(el.dataset.premiumReveal==='1') return;
+        el.dataset.premiumReveal='1';
+        el.style.animationDelay=Math.min(i*35,280)+'ms';
+      });
+    };
+    reveal();
+
+    const observer=new MutationObserver(reveal);
+    observer.observe(document.body,{childList:true,subtree:true});
+    setTimeout(()=>observer.disconnect(),12000);
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
