@@ -7840,15 +7840,34 @@ function markStudyStreakActivity() {
         const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
         const todayKey = iso(today);
         const raw = JSON.parse(localStorage.getItem(key) || '{}');
-        if (raw.lastDate === todayKey) { renderStudyStreak(raw); return raw; }
-        const yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
+
+        // Trong cùng một ngày: chỉ hiển thị lại số hiện tại, tuyệt đối không cộng thêm.
+        if (raw.lastDate === todayKey) {
+            renderStudyStreak(raw);
+            return raw;
+        }
+
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
         const next = raw.lastDate === iso(yesterday) ? Math.max(1, Number(raw.streak || 0) + 1) : 1;
         const data = { streak: next, lastDate: todayKey };
+
         localStorage.setItem(key, JSON.stringify(data));
         renderStudyStreak(data);
+
+        // Chỉ chúc mừng đúng một lần khi vừa đạt mốc 7 / 15 / 30.
+        if ([7, 15, 30].includes(next)) {
+            const celebrated = Array.isArray(raw.celebrated) ? raw.celebrated : [];
+            if (!celebrated.includes(next)) {
+                data.celebrated = [...celebrated, next];
+                localStorage.setItem(key, JSON.stringify(data));
+                showStreakCelebration(next);
+            }
+        }
         return data;
     } catch (e) { return null; }
 }
+
 function renderStudyStreak(data) {
     const count = document.getElementById('streak-count');
     const widget = document.getElementById('streak-widget');
@@ -7856,11 +7875,24 @@ function renderStudyStreak(data) {
     const streak = Math.max(0, Number(data?.streak || 0));
     count.textContent = String(streak);
     widget.classList.toggle('streak-hot', streak > 0);
-    widget.querySelectorAll('[data-milestone]').forEach(el => {
-        const milestone = Number(el.dataset.milestone);
-        el.classList.toggle('reached', streak >= milestone);
-    });
 }
+
+function showStreakCelebration(days) {
+    let toast = document.getElementById('streak-celebration');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'streak-celebration';
+        toast.className = 'streak-celebration';
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = `<span class="streak-celebration-fire">🔥</span><div><strong>Chúc mừng!</strong><span>Bạn đã duy trì chuỗi <b>${days} ngày</b> 🎉</span></div>`;
+    toast.classList.remove('show');
+    void toast.offsetWidth;
+    toast.classList.add('show');
+    clearTimeout(window.__streakToastTimer);
+    window.__streakToastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
+}
+
 function initStudyStreak() { markStudyStreakActivity(); }
 
 function switchMode(mode) {
