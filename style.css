@@ -3029,3 +3029,60 @@ body.dark-mode .theme-icon{filter:drop-shadow(0 2px 8px rgba(255,255,255,.18))}
   body.dark-mode .mobile-nav-item{color:#9bb0c7 !important}
   body.dark-mode .mobile-nav-item.active{color:#5eb7ff !important;background:rgba(50,143,235,.13) !important}
 }
+
+/* =====================================================
+   DARK MODE FIX - text invisible on light panels
+   (đặt cuối file để thắng các rule !important phía trên)
+===================================================== */
+body.dark-mode main > section {
+  background: linear-gradient(180deg, rgba(13,27,44,.96), rgba(9,20,34,.96)) !important;
+  border: 1px solid rgba(98,157,218,.18) !important;
+  color: #f2f7ff !important;
+  box-shadow: 0 18px 45px rgba(0,0,0,.35) !important;
+}
+body.dark-mode main > section h2,
+body.dark-mode main > section h3,
+body.dark-mode main > section h4,
+body.dark-mode main > section h2 span { color: #f2f7ff !important; }
+body.dark-mode main > section p,
+body.dark-mode .progress-account,
+body.dark-mode .progress-page-head p { color: #aebbc8 !important; }
+body.dark-mode .word-card .meaning,
+body.dark-mode .meaning-display,
+body.dark-mode #typing-meaning { color: #cfdbea !important; }
+body.dark-mode .listening-kicker { color: #5eb7ff !important; }
+body.dark-mode .listening-progress-top,
+body.dark-mode .listening-progress-top strong { color: #cfdbea !important; }
+body.dark-mode .listening-card,
+body.dark-mode .progress-card,
+body.dark-mode .progress-main-card { color: #f2f7ff; }
+body.dark-mode .listening-progress-wrap {
+  background: rgba(20,38,60,.85) !important;
+  border-color: rgba(98,157,218,.18) !important;
+}
+body.dark-mode .progress-account {
+  background: rgba(23,47,69,.9) !important;
+  color: #9fd0ff !important;
+  border-color: rgba(98,157,218,.25) !important;
+}
+body.dark-mode .exam-header {
+  background: rgba(20,38,60,.85) !important;
+  border-color: rgba(98,157,218,.18) !important;
+  color: #f2f7ff !important;
+}
+body.dark-mode .exam-header span,
+body.dark-mode .exam-header b { color: #f2f7ff !important; }
+body.dark-mode .vocab-search-box input,
+body.dark-mode #vocab-search,
+body.dark-mode main input[type="text"],
+body.dark-mode main input[type="search"] {
+  background: #14263b !important;
+  color: #edf5ff !important;
+  border-color: #2b4057 !important;
+}
+body.dark-mode #list-mode #vocab-search {
+  background: #14263b !important;
+  color: #edf5ff !important;
+  border-color: #2b4057 !important;
+}
+body.dark-mode #list-mode #vocab-search::placeholder { color: #8fa3b8 !important; }
