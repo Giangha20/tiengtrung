@@ -3228,3 +3228,11 @@ body.dark-mode .exam-skill-card{background:#151e29;border-color:#2c3a49;box-shad
   .container>header .controls #theme-toggle{order:2}
   .container>header .controls .streak-widget{order:3;min-width:48px;height:32px;padding:4px 6px}
 }
+
+
+/* FIX: top section menu should scroll normally, not stay sticky.
+   Keep the existing menu/search design unchanged. */
+.container > header {
+  position: relative !important;
+  top: auto !important;
+}
