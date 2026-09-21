@@ -3236,3 +3236,31 @@ body.dark-mode .exam-skill-card{background:#151e29;border-color:#2c3a49;box-shad
   position: relative !important;
   top: auto !important;
 }
+
+
+/* STREAK COMPACT LIKE THEME TOGGLE - ONLY STREAK UI */
+.container>header .controls .streak-widget{
+  min-width:0;
+  width:auto;
+  height:40px;
+  padding:9px 13px;
+  gap:7px;
+  border:1px solid #dbe5ef;
+  border-radius:12px;
+  background:#f7f9fc;
+  color:#334155;
+  box-shadow:none;
+  cursor:default;
+  box-sizing:border-box;
+}
+.container>header .controls .streak-flame{font-size:16px;line-height:1;filter:none;animation:none}
+.container>header .controls .streak-count{font-size:16px;font-weight:700;line-height:1;min-width:10px;color:inherit}
+body.dark-mode .container>header .controls .streak-widget{
+  background:#26384a;
+  color:#ffe08a;
+  border-color:#40566c;
+}
+@media(max-width:650px){
+  .container>header .controls .streak-widget{height:38px;padding:8px 10px;gap:6px}
+  .container>header .controls .streak-count{font-size:14px}
+}
