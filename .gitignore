@@ -1,6 +1,0 @@
-.env
-.env.*
-secrets/
-firebase-service-account*.json
-*-adminsdk-*.json
-node_modules/
