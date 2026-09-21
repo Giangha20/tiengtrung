@@ -2981,53 +2981,6 @@ body.dark-mode .theme-icon{filter:drop-shadow(0 2px 8px rgba(255,255,255,.18))}
 }
 
 
-/* ===== Mobile bottom navigation from reference ===== */
-.mobile-bottom-nav{display:none}
-@media(max-width:700px){
-  body{padding-bottom:86px !important}
-  .mobile-bottom-nav{
-    position:fixed;
-    left:8px;right:8px;bottom:8px;
-    z-index:5000;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:4px;
-    padding:8px 7px calc(8px + env(safe-area-inset-bottom));
-    border-radius:24px;
-    background:rgba(255,255,255,.90);
-    border:1px solid rgba(91,143,198,.20);
-    box-shadow:0 18px 45px rgba(28,76,123,.20),0 2px 8px rgba(28,76,123,.08);
-    backdrop-filter:blur(20px) saturate(1.25);
-  }
-  .mobile-nav-item{
-    min-height:58px !important;
-    padding:7px 4px !important;
-    border:0 !important;
-    background:transparent !important;
-    box-shadow:none !important;
-    color:#6f8197 !important;
-    display:flex !important;
-    flex-direction:column !important;
-    align-items:center !important;
-    justify-content:center !important;
-    gap:4px !important;
-    font-size:11px !important;
-    font-weight:700 !important;
-    border-radius:16px !important;
-    transform:none !important;
-  }
-  .mobile-nav-item .ui-icon{width:24px;height:24px}
-  .mobile-nav-item.active{color:#1682e7 !important;background:rgba(44,145,237,.08) !important}
-  .mobile-nav-item:active{transform:scale(.96) !important}
-  body.dark-mode .mobile-bottom-nav{
-    background:rgba(7,20,35,.90);
-    border-color:rgba(103,164,228,.23);
-    box-shadow:0 20px 48px rgba(0,0,0,.42),0 2px 8px rgba(0,0,0,.20);
-  }
-  body.dark-mode .mobile-nav-item{color:#9bb0c7 !important}
-  body.dark-mode .mobile-nav-item.active{color:#5eb7ff !important;background:rgba(50,143,235,.13) !important}
-}
-
 /* =====================================================
    DARK MODE FIX - text invisible on light panels
    (đặt cuối file để thắng các rule !important phía trên)
