@@ -7725,6 +7725,7 @@ let currentCommFilter = "all";
 
 // Khởi tạo ứng dụng
 document.addEventListener('DOMContentLoaded', async () => {
+    initStudyStreak();
     const loader = document.getElementById('online-auth-loader');
 
     // Gắn nút Đăng xuất NGAY khi DOM tải xong, không phụ thuộc Firestore/profile.
@@ -7821,7 +7822,49 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Chuyển Tab
+function startExamSkill(skill) {
+    markStudyStreakActivity();
+    if (skill === 'listening') return switchMode('listening');
+    if (skill === 'typing') return switchMode('typing');
+    if (skill === 'choice') {
+        switchMode('exam');
+        setTimeout(() => startExam(), 30);
+    }
+}
+window.startExamSkill = startExamSkill;
+
+function markStudyStreakActivity() {
+    try {
+        const key = 'premiumChinesStreakV1';
+        const today = new Date();
+        const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        const todayKey = iso(today);
+        const raw = JSON.parse(localStorage.getItem(key) || '{}');
+        if (raw.lastDate === todayKey) { renderStudyStreak(raw); return raw; }
+        const yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
+        const next = raw.lastDate === iso(yesterday) ? Math.max(1, Number(raw.streak || 0) + 1) : 1;
+        const data = { streak: next, lastDate: todayKey };
+        localStorage.setItem(key, JSON.stringify(data));
+        renderStudyStreak(data);
+        return data;
+    } catch (e) { return null; }
+}
+function renderStudyStreak(data) {
+    const count = document.getElementById('streak-count');
+    const widget = document.getElementById('streak-widget');
+    if (!count || !widget) return;
+    const streak = Math.max(0, Number(data?.streak || 0));
+    count.textContent = String(streak);
+    widget.classList.toggle('streak-hot', streak > 0);
+    widget.querySelectorAll('[data-milestone]').forEach(el => {
+        const milestone = Number(el.dataset.milestone);
+        el.classList.toggle('reached', streak >= milestone);
+    });
+}
+function initStudyStreak() { markStudyStreakActivity(); }
+
 function switchMode(mode) {
+    markStudyStreakActivity();
     const section = document.getElementById(`${mode}-mode`);
     if (!section) return;
 
@@ -8118,6 +8161,8 @@ function updateExamStartInfo() {
     const infoText = document.getElementById('exam-info-text');
 
     if (levelTitle) levelTitle.innerText = selectedLevel;
+    const levelBadge = document.getElementById('exam-level-badge');
+    if (levelBadge) levelBadge.textContent = selectedLevel;
     if (infoText) infoText.innerText = `Bài thi gồm ${count} câu hỏi trắc nghiệm từ vựng cấp độ HSK ${selectedLevel}.`;
 }
 
