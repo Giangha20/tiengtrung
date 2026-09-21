@@ -37849,8 +37849,8 @@ function updateThemeButton(dark) {
     const moon = document.getElementById('theme-moon');
     if (sun) sun.setAttribute('aria-hidden', dark ? 'true' : 'false');
     if (moon) moon.setAttribute('aria-hidden', dark ? 'false' : 'true');
-    if (icon) icon.textContent = dark ? '☀️' : '🌙';
-    if (text) text.textContent = dark ? 'Chế độ sáng' : 'Chế độ tối';
+    if (icon) icon.textContent = dark ? '🌙' : '☀️';
+    if (text) text.textContent = dark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối';
 }
 
 function toggleDarkMode() {
