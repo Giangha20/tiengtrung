@@ -7,10 +7,6 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const admin = require("firebase-admin");
 
-let OpenAI = null;
-try {
-    OpenAI = require("openai");
-} catch (_) {}
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
@@ -129,20 +125,6 @@ if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
     console.log("⚠️ SMTP: CHƯA CẤU HÌNH");
 }
 
-/* =========================
-   OPENAI - OPTIONAL
-   ========================= */
-
-let openai = null;
-
-if (process.env.OPENAI_API_KEY && OpenAI) {
-    openai = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY
-    });
-    console.log("✅ OpenAI: ĐÃ CẤU HÌNH");
-} else {
-    console.log("⚠️ OpenAI: CHƯA CẤU HÌNH - OTP vẫn hoạt động");
-}
 
 /* =========================
    OTP STORAGE
@@ -186,7 +168,6 @@ app.get("/api/health", (req, res) => {
         success: true,
         firebaseAdmin: firebaseReady,
         smtp: smtpReady,
-        openai: !!openai,
         port: PORT
     });
 });
@@ -381,124 +362,10 @@ app.post("/api/reset-password-with-otp", async (req, res) => {
     }
 });
 
-/* =========================
-   AI WRITING GRADING
-   ========================= */
-
-function cleanText(value, maxLength = 3000) {
-    if (typeof value !== "string") return "";
-    return value.trim().replace(/\0/g, "").slice(0, maxLength);
-}
-
-app.post("/api/grade-writing", async (req, res) => {
-    if (!openai) {
-        return res.status(503).json({
-            error: "OpenAI API chưa được cấu hình trên server."
-        });
-    }
-
-    try {
-        const text = cleanText(req.body.text);
-        const hskLevel = cleanText(req.body.hskLevel, 10) || "1";
-        const topic = cleanText(req.body.topic, 100) || "free";
-
-        if (!text) {
-            return res.status(400).json({
-                error: "Bạn chưa nhập bài viết."
-            });
-        }
-
-        const prompt = `
-Bạn là giáo viên tiếng Trung chuyên chấm bài HSK.
-
-Trình độ học sinh: HSK ${hskLevel}
-Chủ đề: ${topic}
-
-Bài viết:
-${text}
-
-Hãy đánh giá:
-1. Ngữ pháp
-2. Từ vựng
-3. Trật tự từ
-4. Cách diễn đạt
-5. Mức độ phù hợp HSK
-6. Lỗi cần sửa
-7. Câu viết lại tự nhiên hơn
-8. Từ vựng nên học thêm
-9. Ngữ pháp nên ôn thêm
-
-Nguyên tắc:
-- Không được cố tạo lỗi nếu câu đúng.
-- Phân biệt câu sai, câu đúng nhưng chưa tự nhiên, và câu đúng tự nhiên.
-- Không thay đổi câu chỉ vì có cách diễn đạt khác.
-- Giải thích bằng tiếng Việt.
-- Ưu tiên lỗi quan trọng đối với trình độ HSK của học sinh.
-
-Trả về JSON duy nhất:
-{
-  "score": 0,
-  "corrected": "",
-  "errors": [
-    {
-      "original": "",
-      "correction": "",
-      "reason": ""
-    }
-  ],
-  "explanation": "",
-  "vocabularySuggestion": "",
-  "grammarSuggestion": ""
-}
-`;
-
-        const response = await openai.responses.create({
-            model: process.env.OPENAI_MODEL || "gpt-5.6-sol",
-            reasoning: { effort: "medium" },
-            input: prompt
-        });
-
-        let resultText = response.output_text || "";
-
-        resultText = resultText
-            .replace(/^```json\s*/i, "")
-            .replace(/^```\s*/i, "")
-            .replace(/\s*```$/i, "")
-            .trim();
-
-        const result = JSON.parse(resultText);
-
-        let score = Number(result.score);
-        if (!Number.isFinite(score)) score = 0;
-        score = Math.round(Math.max(0, Math.min(100, score)));
-
-        return res.json({
-            score,
-            corrected: typeof result.corrected === "string" ? result.corrected : text,
-            errors: Array.isArray(result.errors) ? result.errors : [],
-            explanation: typeof result.explanation === "string" ? result.explanation : "",
-            vocabularySuggestion:
-                typeof result.vocabularySuggestion === "string"
-                    ? result.vocabularySuggestion
-                    : "",
-            grammarSuggestion:
-                typeof result.grammarSuggestion === "string"
-                    ? result.grammarSuggestion
-                    : ""
-        });
-    } catch (error) {
-        console.error("❌ AI grading:", error.message);
-        return res.status(500).json({
-            error: "AI chấm bài thất bại. Kiểm tra OPENAI_API_KEY và cấu hình model."
-        });
-    }
-});
-
-
 app.listen(PORT, () => {
     console.log("");
     console.log("==============================================");
-    console.log("      HSK AI + FIREBASE + OTP SERVER");
+    console.log("      HSK + FIREBASE + OTP SERVER");
     console.log("==============================================");
     console.log(`✅ Server: http://localhost:${PORT}`);
     console.log(`✅ Health: http://localhost:${PORT}/api/health`);
