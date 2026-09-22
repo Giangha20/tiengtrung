@@ -2309,6 +2309,24 @@ body.dark-mode .quiz-options button.quiz-wrong{
   border-color:#dc3545 !important;
   color:#ffb8bf !important;
 }
+
+/* Dark mode quiz text: keep readable even when Safari/iOS disables buttons */
+body.dark-mode #quiz-options .quiz-option-btn,
+body.dark-mode #quiz-options .quiz-option-btn:disabled {
+  color:#edf2f7 !important;
+  -webkit-text-fill-color:#edf2f7 !important;
+  opacity:1 !important;
+}
+body.dark-mode #quiz-options .quiz-option-btn.quiz-correct,
+body.dark-mode #quiz-options .quiz-option-btn.quiz-correct:disabled {
+  color:#b9f6c9 !important;
+  -webkit-text-fill-color:#b9f6c9 !important;
+}
+body.dark-mode #quiz-options .quiz-option-btn.quiz-wrong,
+body.dark-mode #quiz-options .quiz-option-btn.quiz-wrong:disabled {
+  color:#ffb8bf !important;
+  -webkit-text-fill-color:#ffb8bf !important;
+}
 body.dark-mode .theme-toggle,
 body.dark-mode .logout-btn,
 body.dark-mode .icon-btn,

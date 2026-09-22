@@ -8261,10 +8261,6 @@ function renderQuestion() {
         btn.type = 'button';
         btn.className = 'quiz-option-btn';
         btn.innerText = opt.meaning;
-        // Giữ màu chữ rõ ràng ở chế độ sáng, kể cả Safari/iOS khi nút bị disabled.
-        btn.style.setProperty('color', '#334155', 'important');
-        btn.style.setProperty('-webkit-text-fill-color', '#334155', 'important');
-        btn.style.setProperty('opacity', '1', 'important');
         btn.onclick = () => checkExamAnswer(opt, q.target, btn);
         optionsDiv.appendChild(btn);
     });
@@ -8275,29 +8271,16 @@ function checkExamAnswer(selected, correct, btn) {
     const buttons = document.querySelectorAll('.quiz-option-btn');
     buttons.forEach(b => b.disabled = true);
 
-    const setQuizTextColor = (el, color) => {
-        if (!el) return;
-        el.style.setProperty('color', color, 'important');
-        el.style.setProperty('-webkit-text-fill-color', color, 'important');
-        el.style.setProperty('opacity', '1', 'important');
-    };
-
-    // Mặc định tất cả đáp án vẫn có chữ màu tối khi bị disabled.
-    buttons.forEach(b => setQuizTextColor(b, '#334155'));
-
     if (selected.word === correct.word) {
         examScore++;
         btn.classList.add('quiz-correct');
-        setQuizTextColor(btn, '#176b32');
         document.getElementById('quiz-feedback').innerText = ' Chính xác!';
         document.getElementById('quiz-feedback').style.color = '#28a745';
     } else {
         btn.classList.add('quiz-wrong');
-        setQuizTextColor(btn, '#a51f2b');
         buttons.forEach(b => {
             if (b.innerText === correct.meaning) {
                 b.classList.add('quiz-correct');
-                setQuizTextColor(b, '#176b32');
             }
         });
         document.getElementById('quiz-feedback').innerText = ` Sai rồi! Đáp án đúng: ${correct.meaning}`;
