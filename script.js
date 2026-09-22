@@ -7904,6 +7904,13 @@ function switchMode(mode) {
     const alreadyActive = section.classList.contains('active');
     if (alreadyActive) {
         if (mode === 'progress') updateProgressUI();
+        // Nếu Bài tập HSK đã là mục đang mở nhưng chưa có câu hỏi,
+        // khởi động ngay dạng duy nhất: Chọn câu đúng.
+        if (mode === 'exam' && (!Array.isArray(examQuestions) || examQuestions.length === 0)) {
+            updateExamStartInfo();
+            resetExamUI();
+            startExam();
+        }
         return;
     }
 
@@ -7919,8 +7926,8 @@ function switchMode(mode) {
     } else if (mode === 'exam') {
         updateExamStartInfo();
         resetExamUI();
-        // Bài tập HSK chỉ còn một dạng: Chọn câu đúng. Mở mục là làm ngay.
-        setTimeout(() => startExam(), 0);
+        // Bài tập HSK chỉ có một dạng: Chọn câu đúng. Mở mục là làm ngay.
+        startExam();
     } else if (mode === 'communication') {
         renderCommunication();
     } else if (mode === 'progress') {
