@@ -8287,11 +8287,27 @@ function applyQuizOptionColors() {
     const dark = document.body.classList.contains('dark-mode');
     document.querySelectorAll('#quiz-options .quiz-option-btn').forEach(b => {
         let color = dark ? '#edf2f7' : '#334155';
-        if (b.classList.contains('quiz-correct')) color = dark ? '#b9f6c9' : '#176b32';
-        if (b.classList.contains('quiz-wrong')) color = dark ? '#ffb8bf' : '#a51f2b';
+        let background = dark ? '#202934' : '#ffffff';
+        let border = dark ? '#344150' : '#e5eaf1';
+
+        if (b.classList.contains('quiz-correct')) {
+            color = dark ? '#22c55e' : '#176b32';
+            background = dark ? '#16452f' : '#dff7e8';
+            border = dark ? '#28a745' : '#28a745';
+        } else if (b.classList.contains('quiz-wrong')) {
+            color = dark ? '#ff6b75' : '#a51f2b';
+            background = dark ? '#4a2026' : '#ffe5e8';
+            border = dark ? '#dc3545' : '#dc3545';
+        }
+
+        // Set the full visual state inline so iOS/Safari cannot replace it
+        // with the disabled-button appearance or an earlier CSS rule.
         b.style.setProperty('color', color, 'important');
         b.style.setProperty('-webkit-text-fill-color', color, 'important');
+        b.style.setProperty('background', background, 'important');
+        b.style.setProperty('border-color', border, 'important');
         b.style.setProperty('opacity', '1', 'important');
+        b.style.setProperty('text-shadow', 'none', 'important');
     });
 }
 
@@ -8602,6 +8618,11 @@ function updateExamTimerDisplay() {
         String(minutes).padStart(2, "0") +
         ":" +
         String(seconds).padStart(2, "0");
+
+    // Luôn hiện đồng hồ khi đang làm bài, kể cả trên iPhone/Safari.
+    timer.style.setProperty("display", "inline-flex", "important");
+    timer.style.setProperty("visibility", "visible", "important");
+    timer.style.setProperty("opacity", "1", "important");
 
 
     // Còn dưới 1 phút

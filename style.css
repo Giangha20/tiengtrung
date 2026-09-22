@@ -3141,7 +3141,32 @@ html body.dark-mode .container > header .brand-row h1 .brand-h {
   text-shadow: inherit !important;
 }
 
-/* HSK practice: keep the exercise timer visible. */
+/* HSK practice: keep the exercise timer ALWAYS visible during the quiz. */
 #exam-mode .exam-skill-grid { display:none !important; }
+#exam-mode .exam-quiz-screen .exam-header > span:last-child,
+#exam-mode .exam-quiz-screen .exam-header > span:last-child b#exam-timer,
 #exam-mode .exam-timer,
-#exam-mode #exam-timer { display:inline !important; }
+#exam-mode #exam-timer {
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#exam-mode .exam-quiz-screen .exam-header > span:last-child {
+  align-items:center !important;
+  white-space:nowrap !important;
+}
+#exam-mode .exam-quiz-screen .exam-header b#exam-timer {
+  min-width:4.2em !important;
+  justify-content:center !important;
+  font-variant-numeric:tabular-nums !important;
+}
+@media (max-width: 600px) {
+  #exam-mode .exam-quiz-screen .exam-header {
+    gap:8px !important;
+    padding:10px 8px !important;
+  }
+  #exam-mode .exam-quiz-screen .exam-header > span {
+    display:inline-flex !important;
+    align-items:center !important;
+  }
+}
