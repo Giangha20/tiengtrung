@@ -2319,7 +2319,7 @@ body.dark-mode #quiz-options .quiz-option-btn:disabled {
 }
 body.dark-mode #quiz-options .quiz-option-btn.quiz-correct,
 body.dark-mode #quiz-options .quiz-option-btn.quiz-correct:disabled {
-  color:#b9f6c9 !important;
+  color:#4ade80 !important;
   -webkit-text-fill-color:#b9f6c9 !important;
 }
 body.dark-mode #quiz-options .quiz-option-btn.quiz-wrong,
