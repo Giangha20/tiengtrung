@@ -3141,7 +3141,7 @@ html body.dark-mode .container > header .brand-row h1 .brand-h {
   text-shadow: inherit !important;
 }
 
-/* HSK practice: no mock-exam UI */
-#exam-mode .exam-skill-grid,
+/* HSK practice: keep the exercise timer visible. */
+#exam-mode .exam-skill-grid { display:none !important; }
 #exam-mode .exam-timer,
-#exam-mode #exam-timer { display:none !important; }
+#exam-mode #exam-timer { display:inline !important; }

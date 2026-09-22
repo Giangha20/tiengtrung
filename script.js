@@ -8248,6 +8248,12 @@ function startExam() {
     document.getElementById('exam-quiz-screen').classList.remove('hidden');
 
     renderQuestion();
+
+    // Bắt đầu đồng hồ đúng lúc bài tập HSK được mở.
+    // startExam() được gọi trực tiếp từ giao diện nên timer phải được khởi động tại đây.
+    if (typeof startExamTimer === 'function') {
+        startExamTimer();
+    }
 }
 
 // Hiển thị câu hỏi
@@ -8327,6 +8333,9 @@ function nextQuestion() {
 
 // Kết thúc bài thi
 function finishExam() {
+    if (typeof stopExamTimer === 'function') {
+        stopExamTimer();
+    }
     document.getElementById('exam-quiz-screen').classList.add('hidden');
     document.getElementById('exam-result-screen').classList.remove('hidden');
     
@@ -8359,6 +8368,9 @@ function finishExam() {
 
 // Reset bài thi
 function resetExamUI() {
+    if (typeof stopExamTimer === 'function') {
+        stopExamTimer();
+    }
     document.getElementById('exam-start-screen').classList.remove('hidden');
     document.getElementById('exam-quiz-screen').classList.add('hidden');
     document.getElementById('exam-result-screen').classList.add('hidden');
@@ -8558,10 +8570,11 @@ document.addEventListener("DOMContentLoaded", function () {
 // Bạn có thể đổi số phút ở đây
 const HSK_EXAM_TIME = {
     "1": 30,
-    "2": 30,
+    "2": 45,
     "3": 60,
     "4": 90,
-    "5": 120
+    "5": 120,
+    "6": 180
 };
 
 
