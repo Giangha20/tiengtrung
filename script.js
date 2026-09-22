@@ -8258,8 +8258,13 @@ function renderQuestion() {
 
     q.options.forEach(opt => {
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'quiz-option-btn';
         btn.innerText = opt.meaning;
+        // Giữ màu chữ rõ ràng ở chế độ sáng, kể cả Safari/iOS khi nút bị disabled.
+        btn.style.setProperty('color', '#334155', 'important');
+        btn.style.setProperty('-webkit-text-fill-color', '#334155', 'important');
+        btn.style.setProperty('opacity', '1', 'important');
         btn.onclick = () => checkExamAnswer(opt, q.target, btn);
         optionsDiv.appendChild(btn);
     });
@@ -8270,16 +8275,29 @@ function checkExamAnswer(selected, correct, btn) {
     const buttons = document.querySelectorAll('.quiz-option-btn');
     buttons.forEach(b => b.disabled = true);
 
+    const setQuizTextColor = (el, color) => {
+        if (!el) return;
+        el.style.setProperty('color', color, 'important');
+        el.style.setProperty('-webkit-text-fill-color', color, 'important');
+        el.style.setProperty('opacity', '1', 'important');
+    };
+
+    // Mặc định tất cả đáp án vẫn có chữ màu tối khi bị disabled.
+    buttons.forEach(b => setQuizTextColor(b, '#334155'));
+
     if (selected.word === correct.word) {
         examScore++;
         btn.classList.add('quiz-correct');
+        setQuizTextColor(btn, '#176b32');
         document.getElementById('quiz-feedback').innerText = ' Chính xác!';
         document.getElementById('quiz-feedback').style.color = '#28a745';
     } else {
         btn.classList.add('quiz-wrong');
+        setQuizTextColor(btn, '#a51f2b');
         buttons.forEach(b => {
             if (b.innerText === correct.meaning) {
                 b.classList.add('quiz-correct');
+                setQuizTextColor(b, '#176b32');
             }
         });
         document.getElementById('quiz-feedback').innerText = ` Sai rồi! Đáp án đúng: ${correct.meaning}`;
@@ -36719,6 +36737,100 @@ function checkListening(choice){
   const py=getListeningPinyin(q); document.getElementById('listening-hint').textContent=py?`Pinyin: ${py}`:'Nghe lại câu để kiểm tra cách phát âm.';
   document.getElementById('listening-next').disabled=false;
 }
+function startWrongListening(){
+  if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch(e) {} }
+  const saved = getWrongListening();
+  const level = Number(document.getElementById('hsk-level')?.value || currentLevel || 1);
+  if (!saved.length) {
+    const feedback = document.getElementById('listening-feedback');
+    if (feedback) feedback.textContent = 'Hiện chưa có câu sai để ôn lại.';
+    const panel = document.getElementById('listening-wrong-panel');
+    if (panel) panel.hidden = false;
+    updateWrongListeningUI();
+    return;
+  }
+
+  const bank = Array.isArray(LISTENING_BANK) ? LISTENING_BANK : [];
+  const questions = [];
+  const used = new Set();
+
+  for (const savedQ of saved) {
+    if (!savedQ?.audio || used.has(String(savedQ.audio))) continue;
+    used.add(String(savedQ.audio));
+
+    const original = bank.find(q => q && q.audio === savedQ.audio);
+    const baseLevel = Number(original?.level || savedQ.level || level);
+    const source = original || {
+      audio: String(savedQ.audio),
+      pinyin: savedQ.pinyin || '',
+      meaning: savedQ.meaning || getListeningMeaning(savedQ) || '',
+      level: baseLevel
+    };
+
+    let options = Array.isArray(source.options) ? [...source.options] : [];
+    if (options.length !== 4 || !options.includes(source.audio)) {
+      const pool = bank.filter(q => q && q.audio !== source.audio && Number(q.level) === baseLevel);
+      const fallbackPool = pool.length >= 3 ? pool : bank.filter(q => q && q.audio !== source.audio);
+      const distractors = [...fallbackPool].sort(() => Math.random() - 0.5).slice(0, 3).map(q => q.audio);
+      options = [source.audio, ...distractors];
+    }
+
+    options = [...new Set(options)].slice(0, 4);
+    if (!options.includes(source.audio)) options.unshift(source.audio);
+    options = options.slice(0, 4).sort(() => Math.random() - 0.5);
+
+    questions.push({
+      ...source,
+      audio: source.audio,
+      pinyin: source.pinyin || savedQ.pinyin || '',
+      meaning: source.meaning || savedQ.meaning || getListeningMeaning(source),
+      level: baseLevel,
+      options,
+      correct: options.indexOf(source.audio)
+    });
+  }
+
+  if (!questions.length) {
+    const feedback = document.getElementById('listening-feedback');
+    if (feedback) feedback.textContent = 'Không thể tạo danh sách câu sai để ôn.';
+    return;
+  }
+
+  listeningWrongMode = true;
+  listeningQuestions = questions.sort(() => Math.random() - 0.5);
+  listeningIndex = 0;
+  listeningScore = 0;
+  listeningAnswered = false;
+  listeningSessionAnswered = 0;
+  listeningSessionCorrect = 0;
+
+  const nextBtn = document.getElementById('listening-next');
+  if (nextBtn) nextBtn.disabled = true;
+  const continueBtn = document.getElementById('listening-continue');
+  if (continueBtn) { continueBtn.hidden = true; continueBtn.textContent = 'Ôn lại câu sai còn lại'; }
+  const panel = document.getElementById('listening-wrong-panel');
+  if (panel) panel.hidden = false;
+  const feedback = document.getElementById('listening-feedback');
+  if (feedback) feedback.textContent = `Bắt đầu ôn ${questions.length} câu sai.`;
+  renderListeningQuestion();
+}
+
+function clearWrongListening(){
+  const items = getWrongListening();
+  if (!items.length) {
+    updateWrongListeningUI();
+    return;
+  }
+  if (!confirm('Bạn có chắc muốn xóa toàn bộ câu sai đã lưu không?')) return;
+  try { localStorage.removeItem(LISTENING_WRONG_KEY); } catch(e) {}
+  listeningWrongMode = false;
+  updateWrongListeningUI();
+  const panel = document.getElementById('listening-wrong-panel');
+  if (panel) panel.hidden = false;
+  const feedback = document.getElementById('listening-feedback');
+  if (feedback) feedback.textContent = 'Đã xóa toàn bộ câu sai.';
+}
+
 function nextListeningQuestion(){
   if(!listeningAnswered) return;
   listeningIndex++;
@@ -36774,12 +36886,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('listening-continue')?.addEventListener('click',continueListening);
   document.getElementById('listening-wrong-mode')?.addEventListener('click',startWrongListening);
   document.getElementById('listening-clear-wrong')?.addEventListener('click',clearWrongListening);
-  document.addEventListener('click',(event)=>{
-    const btn=event.target.closest?.('#listening-wrong-mode');
-    if(!btn) return;
-    event.preventDefault();
-    startWrongListening();
-  });
   updateWrongListeningUI();
 });
 

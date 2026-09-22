@@ -2215,6 +2215,25 @@ button:focus-visible,
   box-shadow:0 12px 24px rgba(39,119,255,.13) !important;
 }
 
+/* FINAL FIX v4: absolute light-mode quiz text colors, including iOS/Safari disabled buttons */
+html body #quiz-options .quiz-option-btn,
+html body #quiz-options .quiz-option-btn:disabled {
+  color: #334155 !important;
+  -webkit-text-fill-color: #334155 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+html body #quiz-options .quiz-option-btn.quiz-correct,
+html body #quiz-options .quiz-option-btn.quiz-correct:disabled {
+  color: #176b32 !important;
+  -webkit-text-fill-color: #176b32 !important;
+}
+html body #quiz-options .quiz-option-btn.quiz-wrong,
+html body #quiz-options .quiz-option-btn.quiz-wrong:disabled {
+  color: #a51f2b !important;
+  -webkit-text-fill-color: #a51f2b !important;
+}
+
 /* FINAL FIX: quiz answer text must remain readable in light mode, including disabled buttons on iOS/Safari */
 #quiz-options .quiz-option-btn,
 #quiz-options .quiz-option-btn:disabled {
