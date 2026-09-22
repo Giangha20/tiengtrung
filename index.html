@@ -172,7 +172,53 @@
         </div>
     </div>
 </section>
+<section id="exam-mode">
+                <div class="exam-page-head">
+                    <div><span class="exam-kicker">THI THỬ HSK</span><h2>Phòng thi thử HSK <span id="exam-level-title">1</span></h2><p>Chọn kỹ năng muốn luyện rồi bắt đầu ngay. Kết quả vẫn được ghi vào tiến trình học.</p></div>
+                    <div class="exam-level-badge">HSK <span id="exam-level-badge">1</span></div>
+                </div>
+                <div class="exam-skill-grid">
+                    <button type="button" class="exam-skill-card" onclick="startExamSkill('listening')"><span class="exam-skill-icon">🎧</span><strong>Nghe luyện</strong><small>Nghe tiếng Trung và chọn câu đúng.</small><span class="exam-skill-action">Bắt đầu →</span></button>
+                    <button type="button" class="exam-skill-card" onclick="startExamSkill('typing')"><span class="exam-skill-icon">⌨️</span><strong>Gõ chữ</strong><small>Nhìn từ, nhập Pinyin hoặc chữ Hán.</small><span class="exam-skill-action">Bắt đầu →</span></button>
+                    <button type="button" class="exam-skill-card" onclick="startExamSkill('choice')"><span class="exam-skill-icon">📝</span><strong>Chọn câu đúng</strong><small>Chọn nghĩa chính xác trong bài trắc nghiệm.</small><span class="exam-skill-action">Bắt đầu →</span></button>
+                </div>
+                <div class="exam-container">
+                    <!-- Màn hình bắt đầu -->
+                    <div id="exam-start-screen" class="exam-card">
+                        <p>Bài thi gồm câu hỏi trắc nghiệm từ vựng theo cấp độ đã chọn.</p>
+                        <button onclick="startExam()" class="btn-primary">Bắt đầu làm bài <svg class="ui-icon" aria-hidden="true"><use href="#icon-rocket"></use></svg></button>
+                    </div>
 
+                    <!-- Màn hình làm bài -->
+                    <div id="exam-quiz-screen" class="exam-card hidden">
+                        <div class="exam-header">
+                            <span>Câu hỏi: <span id="quiz-current">1</span>/<span id="quiz-total">10</span></span>
+                            <span>Điểm: <span id="quiz-score">0</span></span>
+                            <!-- BỔ SUNG THỜI GIAN -->
+    <span>
+        <svg class="ui-icon" aria-hidden="true"><use href="#icon-clock"></use></svg> Thời gian:
+        <b id="exam-timer">--:--</b>
+    </span>
+                        </div>
+                        <div class="quiz-question">
+                            <div class="word-display" id="quiz-word" style="font-size: 2.5rem; font-weight: bold;">--</div>
+                            <div class="pinyin-display" id="quiz-pinyin" style="color: #6c757d; font-size: 1.2rem; margin-bottom: 15px;">--</div>
+                            <p>Chọn nghĩa chính xác của từ trên:</p>
+                        </div>
+                        <div class="quiz-options" id="quiz-options"></div>
+                        <div id="quiz-feedback" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></div>
+                        <button id="next-quiz-btn" class="hidden" onclick="nextQuestion()" style="margin-top: 15px;">Câu tiếp theo <svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg></button>
+                    </div>
+
+                    <!-- Màn hình kết quả -->
+                    <div id="exam-result-screen" class="exam-card hidden">
+                        <h3>Kết quả bài thi</h3>
+                        <p style="font-size: 1.5rem; margin: 15px 0;">Số câu đúng: <b id="final-score">0</b> / <b id="final-total">10</b></p>
+                        <p id="result-message" style="font-weight: bold; margin-bottom: 20px;"></p>
+                        <button onclick="startExam()" class="btn-primary">Thi lại <svg class="ui-icon" aria-hidden="true"><use href="#icon-refresh"></use></svg></button>
+                    </div>
+                </div>
+            </section>
             
         </main>
     </div>
