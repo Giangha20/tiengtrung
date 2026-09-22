@@ -8264,6 +8264,20 @@ function renderQuestion() {
         btn.onclick = () => checkExamAnswer(opt, q.target, btn);
         optionsDiv.appendChild(btn);
     });
+    applyQuizOptionColors();
+}
+
+// Force quiz answer text colors so disabled buttons are readable on iOS/Safari too.
+function applyQuizOptionColors() {
+    const dark = document.body.classList.contains('dark-mode');
+    document.querySelectorAll('#quiz-options .quiz-option-btn').forEach(b => {
+        let color = dark ? '#edf2f7' : '#334155';
+        if (b.classList.contains('quiz-correct')) color = dark ? '#b9f6c9' : '#176b32';
+        if (b.classList.contains('quiz-wrong')) color = dark ? '#ffb8bf' : '#a51f2b';
+        b.style.setProperty('color', color, 'important');
+        b.style.setProperty('-webkit-text-fill-color', color, 'important');
+        b.style.setProperty('opacity', '1', 'important');
+    });
 }
 
 // Kiểm tra đáp án
@@ -8287,6 +8301,7 @@ function checkExamAnswer(selected, correct, btn) {
         document.getElementById('quiz-feedback').style.color = '#dc3545';
     }
 
+    applyQuizOptionColors();
     document.getElementById('quiz-score').innerText = examScore;
     document.getElementById('next-quiz-btn').classList.remove('hidden');
 }
@@ -36904,6 +36919,7 @@ function toggleDarkMode() {
     document.body.classList.toggle('dark-mode', dark);
     localStorage.setItem('premiumChinesTheme', dark ? 'dark' : 'light');
     updateThemeButton(dark);
+    if (typeof applyQuizOptionColors === 'function') applyQuizOptionColors();
 }
 
 window.toggleDarkMode = toggleDarkMode;
