@@ -2213,6 +2213,22 @@ button:focus-visible,
   box-shadow:0 12px 24px rgba(39,119,255,.13) !important;
 }
 
+/* Exam answer states: keep readable text in light mode */
+.quiz-options button.quiz-correct{
+  background:#dff7e8 !important;
+  border-color:#28a745 !important;
+  color:#176b32 !important;
+}
+.quiz-options button.quiz-wrong{
+  background:#ffe5e8 !important;
+  border-color:#dc3545 !important;
+  color:#a51f2b !important;
+}
+.quiz-options button.quiz-correct:hover:not(:disabled),
+.quiz-options button.quiz-wrong:hover:not(:disabled){
+  color:inherit !important;
+}
+
 /* Buttons inside cards don't jump too much on small screens */
 @media(max-width:700px){
   .controls{padding:6px;gap:5px;border-radius:16px}
@@ -2236,6 +2252,16 @@ body.dark-mode .quiz-options button{
 body.dark-mode .quiz-options button:hover:not(:disabled){
   background:linear-gradient(180deg,#25384b,#1d2c3a) !important;
   border-color:#5b9cff !important;
+}
+body.dark-mode .quiz-options button.quiz-correct{
+  background:#16452f !important;
+  border-color:#28a745 !important;
+  color:#b9f6c9 !important;
+}
+body.dark-mode .quiz-options button.quiz-wrong{
+  background:#4a2026 !important;
+  border-color:#dc3545 !important;
+  color:#ffb8bf !important;
 }
 body.dark-mode .theme-toggle,
 body.dark-mode .logout-btn,

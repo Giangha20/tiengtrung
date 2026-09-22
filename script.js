@@ -8272,17 +8272,14 @@ function checkExamAnswer(selected, correct, btn) {
 
     if (selected.word === correct.word) {
         examScore++;
-        btn.style.backgroundColor = '#28a745';
-        btn.style.color = '#fff';
+        btn.classList.add('quiz-correct');
         document.getElementById('quiz-feedback').innerText = ' Chính xác!';
         document.getElementById('quiz-feedback').style.color = '#28a745';
     } else {
-        btn.style.backgroundColor = '#dc3545';
-        btn.style.color = '#fff';
+        btn.classList.add('quiz-wrong');
         buttons.forEach(b => {
             if (b.innerText === correct.meaning) {
-                b.style.backgroundColor = '#28a745';
-                b.style.color = '#fff';
+                b.classList.add('quiz-correct');
             }
         });
         document.getElementById('quiz-feedback').innerText = ` Sai rồi! Đáp án đúng: ${correct.meaning}`;
