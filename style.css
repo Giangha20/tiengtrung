@@ -3140,3 +3140,8 @@ html body.dark-mode .container > header .brand-row h1 .brand-h {
   -webkit-text-fill-color: currentColor !important;
   text-shadow: inherit !important;
 }
+
+/* HSK practice: no mock-exam UI */
+#exam-mode .exam-skill-grid,
+#exam-mode .exam-timer,
+#exam-mode #exam-timer { display:none !important; }

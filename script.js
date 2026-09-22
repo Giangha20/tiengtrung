@@ -7919,6 +7919,8 @@ function switchMode(mode) {
     } else if (mode === 'exam') {
         updateExamStartInfo();
         resetExamUI();
+        // Bài tập HSK chỉ còn một dạng: Chọn câu đúng. Mở mục là làm ngay.
+        setTimeout(() => startExam(), 0);
     } else if (mode === 'communication') {
         renderCommunication();
     } else if (mode === 'progress') {
