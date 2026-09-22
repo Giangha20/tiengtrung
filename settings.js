@@ -1,0 +1,1 @@
+(() => {const GH=window.GH=window.GH||{};GH.settings={theme(){return localStorage.getItem('gh-theme')||'system'},setTheme(v){localStorage.setItem('gh-theme',v)}}})();

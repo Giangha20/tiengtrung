@@ -1,7 +1,7 @@
 {
-  "name": "Tiếng Trung - Giang Hà",
-  "short_name": "Tiếng Trung",
-  "description": "Hệ thống học và ôn tập HSK1-HSK6",
+  "name": "Tiếng Trung Giang Hà — HSK",
+  "short_name": "Giang Hà HSK",
+  "description": "Ứng dụng học tiếng Trung HSK 1–6 với từ vựng, flashcard, luyện nghe, Pinyin và tiến trình cá nhân.",
   "lang": "vi",
   "start_url": "./index.html",
   "scope": "./",
@@ -23,5 +23,6 @@
       "type": "image/jpeg",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "prefer_related_applications": false
 }

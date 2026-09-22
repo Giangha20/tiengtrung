@@ -7938,6 +7938,8 @@ function switchMode(mode) {
     }
 }
 
+window.hskData = hskData;
+
 // Phát âm Mandarin bằng Speech Synthesis của trình duyệt
 function speakChinese(index) {
     const list = hskData[currentLevel] || [];

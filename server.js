@@ -13,6 +13,20 @@ const PORT = Number(process.env.PORT || 3000);
 
 app.use(express.json({ limit: "100kb" }));
 
+// Lightweight abuse protection for public OTP endpoints. For multi-instance production,
+// replace this map with a shared rate limiter (Redis/Upstash/etc.).
+const requestBuckets = new Map();
+function otpRateLimit(req,res,next){
+    const key = String(req.ip || req.headers["x-forwarded-for"] || "unknown").split(",")[0].trim();
+    const now = Date.now(); const windowMs = 10 * 60 * 1000; const max = 8;
+    const item = requestBuckets.get(key);
+    if (!item || now - item.start >= windowMs) { requestBuckets.set(key,{start:now,count:1}); return next(); }
+    item.count += 1;
+    if (item.count > max) return res.status(429).json({error:"Bạn gửi quá nhiều yêu cầu. Vui lòng thử lại sau."});
+    next();
+}
+setInterval(()=>{const now=Date.now();for(const [k,v] of requestBuckets)if(now-v.start>10*60*1000)requestBuckets.delete(k)},10*60*1000).unref();
+
 /* =========================
    PROTECT PRIVATE FILES BEFORE STATIC SERVING
    ========================= */
@@ -35,6 +49,9 @@ app.use((req, res, next) => {
 
     next();
 });
+
+app.disable("x-powered-by");
+app.use((req,res,next)=>{res.setHeader("X-Content-Type-Options","nosniff");res.setHeader("Referrer-Policy","strict-origin-when-cross-origin");next();});
 
 app.use(express.static(__dirname, {
     dotfiles: "deny",
@@ -176,7 +193,7 @@ app.get("/api/health", (req, res) => {
    REQUEST OTP
    ========================= */
 
-app.post("/api/request-password-otp", async (req, res) => {
+app.post("/api/request-password-otp", otpRateLimit, async (req, res) => {
     const email = normalizeEmail(req.body.email);
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -280,7 +297,7 @@ Nếu bạn không yêu cầu đổi mật khẩu, hãy bỏ qua email này.`,
    RESET PASSWORD WITH OTP
    ========================= */
 
-app.post("/api/reset-password-with-otp", async (req, res) => {
+app.post("/api/reset-password-with-otp", otpRateLimit, async (req, res) => {
     const email = normalizeEmail(req.body.email);
     const otp = String(req.body.otp || "").trim();
     const newPassword = String(req.body.newPassword || "");

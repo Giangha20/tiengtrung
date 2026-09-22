@@ -1,0 +1,1 @@
+(() => {const GH=window.GH=window.GH||{};GH.statistics={snapshot(){const s=GH.progress.get();return {learned:s.learned.length,mastered:s.mastered.length,due:GH.progress.dueWords().length,accuracy:s.stats.answers?Math.round(s.stats.correct/s.stats.answers*100):0,xp:s.xp,level:s.level,streak:GH.streak.get().current}}}})();

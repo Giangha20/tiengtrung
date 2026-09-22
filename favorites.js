@@ -1,0 +1,1 @@
+(() => {const GH=window.GH=window.GH||{};GH.favorites={toggle(id){return GH.progress.toggleFavorite(id)},has(id){return GH.progress.get().favorites.includes(String(id))}}})();

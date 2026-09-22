@@ -693,5 +693,13 @@
 })();
 </script>
 
+<script>
+window.togglePassword=function(id,button){var input=document.getElementById(id);if(!input)return;var show=input.type==='password';input.type=show?'text':'password';if(button){var use=button.querySelector('use');if(use)use.setAttribute('href',show?'#icon-eye':'#icon-eye-off');button.setAttribute('aria-label',show?'Ẩn mật khẩu':'Hiện mật khẩu');}};
+(function(){
+  function icon(on){return on?'👁':'👁';}
+  function add(){document.querySelectorAll('input[type="password"]').forEach(function(input){if(input.dataset.eyeReady)return;if(input.parentElement?.querySelector('.show-password'))return;input.dataset.eyeReady='1';var wrap=input.parentElement;if(!wrap)return;wrap.style.position='relative';var b=document.createElement('button');b.type='button';b.className='gh-password-toggle';b.textContent=icon(false);b.setAttribute('aria-label','Hiện mật khẩu');b.style.cssText='position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;cursor:pointer;font-size:18px;padding:6px;line-height:1;z-index:3';b.onclick=function(){var show=input.type==='password';input.type=show?'text':'password';b.setAttribute('aria-label',show?'Ẩn mật khẩu':'Hiện mật khẩu');};wrap.appendChild(b);});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',add);else add();
+})();
+</script>
 </body>
 </html>

@@ -125,6 +125,34 @@
         }
     }
 
+    async function saveFavorite(wordId, data = {}) {
+        if (!currentUser || !db) return false;
+        const id = String(wordId || '').trim();
+        if (!id) return false;
+        await db.collection('users').doc(currentUser.uid).collection('favorites').doc(id).set({
+            wordId: id, ...data, updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+        return true;
+    }
+
+    async function removeFavorite(wordId) {
+        if (!currentUser || !db) return false;
+        const id = String(wordId || '').trim();
+        if (!id) return false;
+        await db.collection('users').doc(currentUser.uid).collection('favorites').doc(id).delete();
+        return true;
+    }
+
+    async function saveNote(wordId, note) {
+        if (!currentUser || !db) return false;
+        const id = String(wordId || '').trim();
+        if (!id) return false;
+        await db.collection('users').doc(currentUser.uid).collection('notes').doc(id).set({
+            wordId: id, note: String(note || ''), updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+        return true;
+    }
+
     async function createProfile(user, username) {
         if (!db || !user) return;
         await db.collection('users').doc(user.uid).set({
@@ -207,6 +235,7 @@
             auth.onAuthStateChanged(async (user) => {
                 currentUser = user || null;
                 window.ghCurrentUser = currentUser;
+                window.dispatchEvent(new CustomEvent('gh-auth-ready',{detail:{user:currentUser}}));
 
                 // Báo sẵn sàng ngay khi Firebase Auth biết trạng thái đăng nhập.
                 // Tuyệt đối không bắt trang login chờ Firestore.
@@ -241,6 +270,9 @@
         loadProgress: () => loadProgress(currentUser),
         saveProgress,
         deleteProgress,
+        saveFavorite,
+        removeFavorite,
+        saveNote,
         migrateLegacyProgress: () => migrateLegacyProgress(currentUser),
         getProfile,
         register,
