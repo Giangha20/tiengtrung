@@ -2001,7 +2001,16 @@ main>section:not(.active){animation:none}
 body.dark-mode::after{opacity:.14;background-image:radial-gradient(rgba(255,255,255,.13) .7px,transparent .7px)}
 body.dark-mode .word-card,body.dark-mode .progress-card,body.dark-mode .progress-main-card,body.dark-mode .typing-container,body.dark-mode .exam-card,body.dark-mode .listening-card,body.dark-mode .communication-card,body.dark-mode .card,body.dark-mode .flashcard,body.dark-mode .info-box,body.dark-mode .result-box{box-shadow:0 18px 42px rgba(0,0,0,.24),0 2px 8px rgba(0,0,0,.18)}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+  button,.btn,.nav-btn,.control-btn,.mode-btn,.action-btn{transition:none !important}
+  button::before,.btn::before,.nav-btn::before,.control-btn::before,.mode-btn::before,.action-btn::before{display:none}
+  html body .theme-toggle #theme-sun .sun-rays,
+  html body.dark-mode .theme-toggle #theme-moon,
+  html body.dark-mode .theme-toggle #theme-moon .star{animation:none !important}
+  html body .theme-toggle .theme-icon{transition:none}
+  html body.dark-mode header::before{animation:none}
+}
 @media (max-width:650px){
   header{padding:30px 15px 24px;border-radius:22px}
   header h1{font-size:30px;margin-bottom:22px}
@@ -2244,11 +2253,6 @@ body.dark-mode .icon-only-btn{
   background:#1d2732 !important;
   border-color:rgba(255,255,255,.08) !important;
   color:#dce7f2 !important;
-}
-
-@media(prefers-reduced-motion:reduce){
-  button,.btn,.nav-btn,.control-btn,.mode-btn,.action-btn{transition:none !important}
-  button::before,.btn::before,.nav-btn::before,.control-btn::before,.mode-btn::before,.action-btn::before{display:none}
 }
 
 /* =====================================================
@@ -2814,13 +2818,6 @@ html body.dark-mode .theme-toggle{
 }
 @keyframes themeStarTwinkle{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
 
-@media (prefers-reduced-motion:reduce){
-  html body .theme-toggle #theme-sun .sun-rays,
-  html body.dark-mode .theme-toggle #theme-moon,
-  html body.dark-mode .theme-toggle #theme-moon .star{animation:none !important}
-  html body .theme-toggle .theme-icon{transition:none}
-}
-
 /* =====================================================
    MẶT TRỜI Ở GÓC PHẢI HEADER -> MẶT TRĂNG PHÁT SÁNG (chế độ tối)
    ===================================================== */
@@ -2857,10 +2854,6 @@ html body.dark-mode header{
   from{opacity:0;transform:rotate(-70deg) scale(.4)}
   to{opacity:1;transform:rotate(-14deg) scale(1)}
 }
-@media (prefers-reduced-motion:reduce){
-  html body.dark-mode header::before{animation:none}
-}
-
 /* =====================================================
    DARK MODE FIX - Phần "Ôn câu sai" (luyện nghe) bị chữ trắng trên nền sáng
    ===================================================== */
