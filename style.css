@@ -2302,7 +2302,7 @@ body.dark-mode .quiz-options button:hover:not(:disabled){
 body.dark-mode .quiz-options button.quiz-correct{
   background:#16452f !important;
   border-color:#28a745 !important;
-  color:#b9f6c9 !important;
+  color:#4ade80 !important;
 }
 body.dark-mode .quiz-options button.quiz-wrong{
   background:#4a2026 !important;
@@ -2320,7 +2320,7 @@ body.dark-mode #quiz-options .quiz-option-btn:disabled {
 body.dark-mode #quiz-options .quiz-option-btn.quiz-correct,
 body.dark-mode #quiz-options .quiz-option-btn.quiz-correct:disabled {
   color:#4ade80 !important;
-  -webkit-text-fill-color:#b9f6c9 !important;
+  -webkit-text-fill-color:#4ade80 !important;
 }
 body.dark-mode #quiz-options .quiz-option-btn.quiz-wrong,
 body.dark-mode #quiz-options .quiz-option-btn.quiz-wrong:disabled {
