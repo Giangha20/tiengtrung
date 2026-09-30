@@ -7974,19 +7974,23 @@ function renderList(filteredList = null) {
     if (!container) return;
     if (total) total.textContent = list.length;
 
-    container.innerHTML = list.map((item, index) => `
-        <div class="word-card">
-            <div class="word-card-top">
-                <div class="hanzi">${item.word || ''}</div>
-                <button class="pronounce-btn" type="button"
-                    title="Phát âm tiếng Trung"
-                    aria-label="Phát âm ${item.word || ''}"
-                    onclick="speakChinese(${index})">${uiIcon("icon-volume")}</button>
+    const levelLabel = `HSK ${currentLevel}`;
+    container.innerHTML = list.map((item, index) => {
+        return `
+        <div class="card word-card" data-word-index="${index}">
+            <div class="card2">
+                <div class="word-card-header">
+                    <span>HSK ${currentLevel}</span>
+                    <button class="word-card-audio" type="button" title="Nghe ${item.word || ''}" aria-label="Nghe ${item.word || ''}" onclick="event.stopPropagation(); speakChinese(${index})">🔊</button>
+                </div>
+                <div class="word-card-content">
+                    <div class="hanzi">${item.word || ''}</div>
+                    <div class="pinyin">${item.pinyin || ''}</div>
+                    <div class="meaning">${item.meaning || ''}</div>
+                </div>
             </div>
-            <div class="pinyin">${item.pinyin || ''}</div>
-            <div class="meaning">${item.meaning || ''}</div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 }
 
 // Khởi tạo bài tập gõ
@@ -8508,19 +8512,22 @@ function filterVocabulary() {
 
 
     // Render kết quả tìm kiếm
-    container.innerHTML = filteredWords.map(item => `
-        <div class="word-card">
-            <div class="word-card-top">
-                <div class="hanzi">${item.word || ""}</div>
-                <button class="pronounce-btn" type="button"
-                    title="Phát âm tiếng Trung"
-                    aria-label="Phát âm ${item.word || ""}"
-                    onclick='speakWord(${JSON.stringify(item.word || "")})'>${uiIcon("icon-volume")}</button>
+    container.innerHTML = filteredWords.map((item, index) => {
+        return `
+        <div class="card word-card" data-word-index="${index}">
+            <div class="card2">
+                <div class="word-card-header">
+                    <span>HSK ${currentLevel}</span>
+                    <button class="word-card-audio" type="button" title="Nghe ${item.word || ''}" aria-label="Nghe ${item.word || ''}" onclick='event.stopPropagation(); speakWord(${JSON.stringify(item.word || "")})'>🔊</button>
+                </div>
+                <div class="word-card-content">
+                    <div class="hanzi">${item.word || ''}</div>
+                    <div class="pinyin">${item.pinyin || ''}</div>
+                    <div class="meaning">${item.meaning || ''}</div>
+                </div>
             </div>
-            <div class="pinyin">${item.pinyin || ""}</div>
-            <div class="meaning">${item.meaning || ""}</div>
-        </div>
-    `).join("");
+        </div>`;
+    }).join("");
 
 
     if (resultCount) {
@@ -36943,13 +36950,15 @@ document.addEventListener('DOMContentLoaded',()=>{
 })();
 
 function updateThemeButton(dark) {
-    const btn = document.getElementById('theme-toggle');
+    const btn = document.querySelector('.switch');
     const icon = document.getElementById('theme-toggle-icon');
     const text = document.getElementById('theme-toggle-text');
     if (!btn) return;
     btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
     btn.setAttribute('aria-label', dark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối');
     btn.setAttribute('title', dark ? 'Chế độ sáng' : 'Chế độ tối');
+    const checkbox = document.getElementById('input');
+    if (checkbox) checkbox.checked = dark;
     const sun = document.getElementById('theme-sun');
     const moon = document.getElementById('theme-moon');
     if (sun) sun.setAttribute('aria-hidden', dark ? 'true' : 'false');
@@ -36959,15 +36968,31 @@ function updateThemeButton(dark) {
 }
 
 function toggleDarkMode() {
-    const dark = !document.body.classList.contains('dark-mode');
+    const dark = !document.documentElement.classList.contains('dark-mode');
     document.documentElement.classList.toggle('dark-mode', dark);
     document.body.classList.toggle('dark-mode', dark);
     localStorage.setItem('premiumChinesTheme', dark ? 'dark' : 'light');
+    const checkbox = document.getElementById('input');
+    if (checkbox) checkbox.checked = dark;
     updateThemeButton(dark);
     if (typeof applyQuizOptionColors === 'function') applyQuizOptionColors();
+    return false;
 }
 
 window.toggleDarkMode = toggleDarkMode;
+
+(function bindUiverseThemeSwitch(){
+    const checkbox = document.getElementById('input');
+    if (!checkbox) return;
+    checkbox.addEventListener('change', function(){
+        const dark = this.checked;
+        document.documentElement.classList.toggle('dark-mode', dark);
+        document.body.classList.toggle('dark-mode', dark);
+        localStorage.setItem('premiumChinesTheme', dark ? 'dark' : 'light');
+        updateThemeButton(dark);
+        if (typeof applyQuizOptionColors === 'function') applyQuizOptionColors();
+    });
+})();
 
 /* ===== Premium Chines UI Effects ===== */
 (function premiumUIEffects(){
