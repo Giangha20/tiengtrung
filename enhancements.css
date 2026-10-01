@@ -1,0 +1,568 @@
+/* Additive Premium Chines enhancements: lightweight, no large blur/filter loops. */
+.btn-cont.gh-settings-btn-wrap{display:flex;align-items:center;justify-content:center;height:auto;background:#1e1e1e;margin:0;border:1px solid rgba(255,255,255,.35);border-radius:10px;position:relative;z-index:12}
+.gh-settings-btn-wrap .button{background:none;border:0;cursor:pointer;padding:9px;border-radius:7px;position:relative;color:#e8eaed;transition:background-color .2s ease}
+.gh-settings-btn-wrap .button:hover{background:rgba(255,255,255,.09)}
+.gh-settings-btn-wrap .settings-btn{display:block;transition:transform .35s ease-in}
+.gh-settings-btn-wrap .button:hover .settings-btn{transform:rotate(60deg)}
+.gh-settings-btn-wrap .tooltip{visibility:hidden;width:90px;background:#05070a;color:#fff;text-align:center;border-radius:6px;padding:5px;position:absolute;z-index:50;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);margin:0;opacity:0;transition:opacity .2s;pointer-events:none;font-size:12px}
+.gh-settings-btn-wrap .button:hover .tooltip{visibility:visible;opacity:1}
+
+/* Cyber / diagonal navigation */
+.controls .cyber-nav-btn{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(61,220,255,.38)!important;border-radius:8px!important;background:linear-gradient(135deg,rgba(8,20,36,.96),rgba(15,37,58,.94))!important;color:#dff9ff!important;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.035),0 5px 14px rgba(0,0,0,.12)!important;transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important}
+.controls .cyber-nav-btn::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 42%,rgba(0,234,255,.14) 43% 47%,transparent 48%);transform:translateX(-110%);transition:transform .35s ease;z-index:-1}
+.controls .cyber-nav-btn:hover::before{transform:translateX(110%)}
+.controls .cyber-nav-btn:hover{transform:translateY(-1px)!important;filter:brightness(1.08);box-shadow:0 7px 18px rgba(0,160,255,.14)!important}
+.controls .cyber-nav-btn.active{border-color:#00e5ff!important;background:linear-gradient(135deg,#102b42,#173d55)!important;box-shadow:inset 0 0 14px rgba(0,229,255,.12),0 0 0 1px rgba(0,229,255,.12)!important}
+body:not(.dark-mode) .controls .cyber-nav-btn{background:linear-gradient(135deg,#172c40,#214b64)!important}
+
+.gh-modal[hidden]{display:none}.gh-modal{position:fixed;inset:0;z-index:10050;display:grid;place-items:center;padding:18px}.gh-modal-backdrop{position:absolute;inset:0;background:rgba(3,10,18,.68)}
+.gh-modal-card{position:relative;width:min(760px,96vw);max-height:min(760px,92vh);overflow:auto;border:1px solid rgba(0,229,255,.2);border-radius:22px;background:#0b1624;color:#e8f7ff;box-shadow:0 20px 70px rgba(0,0,0,.36)}
+.gh-modal-head{display:flex;justify-content:space-between;gap:20px;padding:24px 24px 16px}.gh-modal-head h2{margin:3px 0 5px}.gh-modal-head p{margin:0;color:#9eb5c8;font-size:13px}.gh-mini-kicker{font-size:10px;letter-spacing:1.5px;color:#32d9ff;font-weight:900}.gh-close{border:1px solid #29465a;background:#102334;color:#fff;width:38px;height:38px;border-radius:12px;font-size:25px;cursor:pointer}
+.gh-tabs{display:flex;gap:7px;padding:0 20px;border-bottom:1px solid #20384c;overflow:auto}.gh-tab{white-space:nowrap;border:0;background:transparent;color:#8fa8bb;padding:12px 14px;font-weight:800;cursor:pointer;border-bottom:2px solid transparent}.gh-tab.active{color:#6feaff;border-bottom-color:#00dcff}.gh-panel{display:none;padding:20px}.gh-panel.active{display:block}
+.gh-setting-list{display:grid;gap:10px}.gh-setting-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px;border:1px solid #20384c;border-radius:15px;background:#0e1d2c}.gh-setting-row b,.gh-setting-row small{display:block}.gh-setting-row small{margin-top:4px;color:#8da5b7;font-size:12px}.gh-setting-row input{appearance:none;width:48px;height:26px;border-radius:99px;background:#314657;position:relative;cursor:pointer;flex:0 0 auto}.gh-setting-row input::after{content:"";position:absolute;width:20px;height:20px;top:3px;left:4px;border-radius:50%;background:#fff;transition:transform .2s}.gh-setting-row input:checked{background:#00a9c8}.gh-setting-row input:checked::after{transform:translateX(20px)}.gh-reset-settings{margin-top:15px;border:1px solid #2d4b60;background:#102334;color:#d8f6ff;padding:10px 14px;border-radius:10px;cursor:pointer}
+.gh-profile-card{display:flex;gap:22px;align-items:center}.gh-avatar-wrap{text-align:center;min-width:130px}.gh-avatar-wrap img{width:112px;height:112px;border-radius:50%;object-fit:cover;border:2px solid #21d5f5;background:#102334}.gh-avatar-upload{display:block;margin-top:9px;font-size:12px;color:#65e5ff;cursor:pointer}.gh-avatar-upload input{display:none}.gh-profile-form{flex:1;display:grid;gap:11px}.gh-profile-form label{font-size:12px;color:#9eb5c8;font-weight:700}.gh-profile-form input{display:block;width:100%;box-sizing:border-box;margin-top:6px;border:1px solid #29465a;border-radius:11px;background:#0a1724;color:#fff;padding:12px}.gh-primary{border:0;border-radius:11px;padding:11px 15px;background:linear-gradient(135deg,#00b9d8,#006a9a);color:#fff;font-weight:900;cursor:pointer}.gh-primary:disabled{opacity:.6}.gh-status{font-size:12px;color:#7fe8a9}
+.gh-honor{display:flex;align-items:center;gap:14px;padding:17px;border-radius:17px;background:linear-gradient(135deg,#132f3d,#102031);border:1px solid rgba(255,214,88,.25);margin-bottom:17px}.gh-honor>span{font-size:36px}.gh-honor small{display:block;color:#ffd75a;font-weight:900;letter-spacing:1px;font-size:10px}.gh-honor strong{display:block;font-size:18px;margin-top:3px}.gh-honor p{margin:2px 0 0;color:#9fc0d1;font-size:12px}.gh-ranking-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.gh-rank-filter{border:1px solid #29465a;background:#0e1d2c;color:#91a9ba;padding:7px 10px;border-radius:9px;cursor:pointer}.gh-rank-filter.active{background:#073e51;color:#70eaff;border-color:#00b8da}.gh-ranking-list{display:grid;gap:7px}.gh-rank-row{display:grid;grid-template-columns:38px 36px 1fr auto;align-items:center;gap:10px;padding:9px 11px;border:1px solid #20384c;border-radius:12px;background:#0d1b29}.gh-rank-row.top{border-color:rgba(255,215,90,.35)}.gh-rank-row img{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#182c3c}.gh-rank-no{font-weight:900;text-align:center}.gh-rank-name b,.gh-rank-name small{display:block}.gh-rank-name small{color:#7892a4;font-size:11px;margin-top:2px}.gh-rank-row>strong{font-size:13px;color:#72e8ff}.gh-empty{padding:28px;text-align:center;color:#829aac;border:1px dashed #29465a;border-radius:14px}.gh-ranking-note{display:block;color:#718b9d;font-size:11px;line-height:1.5;margin-top:12px}
+body.gh-modal-open{overflow:hidden}
+.gh-compact .container{max-width:1120px}.gh-compact .controls{gap:5px!important}.gh-compact .controls button{padding:7px 9px!important}.gh-compact main>section{padding-top:12px}.gh-no-motion *, .gh-no-motion *::before, .gh-no-motion *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.gh-no-shadow .gh-modal-card,.gh-no-shadow .gh-rank-row,.gh-no-shadow .gh-setting-row{box-shadow:none!important}
+@media(max-width:680px){.gh-modal{padding:8px}.gh-modal-card{max-height:96vh;border-radius:18px}.gh-modal-head{padding:18px 16px 12px}.gh-tabs{padding:0 10px}.gh-panel{padding:14px}.gh-profile-card{align-items:stretch;flex-direction:column}.gh-avatar-wrap{min-width:0}.gh-ranking-head{align-items:flex-start;flex-direction:column}.gh-rank-row{grid-template-columns:30px 32px 1fr auto}.controls .cyber-nav-btn{clip-path:none;border-radius:10px!important}}
+
+
+/* V4: compact settings icon beside the dark-mode toggle.
+   Intentionally not a fixed square/container and does not stay fixed on screen. */
+.gh-settings-btn-wrap{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  margin:0 0 0 4px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  position:relative!important;
+}
+.gh-settings-btn-wrap .button{
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  padding:5px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  color:inherit!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.gh-settings-btn-wrap .settings-btn{
+  width:20px!important;
+  height:20px!important;
+}
+.gh-settings-btn-wrap .button:hover{
+  background:rgba(128,128,128,.12)!important;
+}
+@media (max-width:600px){
+  .gh-settings-btn-wrap{margin-left:2px!important}
+  .gh-settings-btn-wrap .button{padding:4px!important}
+  .gh-settings-btn-wrap .settings-btn{width:19px!important;height:19px!important}
+}
+
+
+/* V5: align the Settings close (X) button */
+.gh-settings-modal .gh-settings-close,
+#gh-settings-modal .gh-settings-close,
+.gh-settings-panel .gh-settings-close{
+  position:absolute!important;
+  top:12px!important;
+  right:12px!important;
+  left:auto!important;
+  width:32px!important;
+  height:32px!important;
+  min-width:32px!important;
+  min-height:32px!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  line-height:1!important;
+  box-sizing:border-box!important;
+  transform:none!important;
+  z-index:20!important;
+}
+.gh-settings-modal .gh-settings-close svg,
+#gh-settings-modal .gh-settings-close svg,
+.gh-settings-panel .gh-settings-close svg{
+  display:block!important;
+  margin:auto!important;
+  width:18px!important;
+  height:18px!important;
+}
+
+
+/* V6: compact hamburger menu beside HSK selector */
+.gh-nav-menu-wrap{position:relative;display:inline-flex;align-items:center;margin-left:4px;z-index:120}
+.gh-hamburger-btn{width:38px;height:38px;padding:7px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;border:1px solid rgba(128,128,128,.35);border-radius:10px;background:transparent;color:inherit;cursor:pointer;transition:.2s}
+.gh-hamburger-btn:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(0,0,0,.12)}
+.gh-hamburger-btn span{display:block;width:20px;height:2px;border-radius:2px;background:currentColor;transition:.2s}
+.gh-hamburger-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.gh-hamburger-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.gh-hamburger-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.gh-nav-menu{position:absolute;top:calc(100% + 8px);left:0;width:205px;padding:7px;border:1px solid rgba(128,128,128,.25);border-radius:14px;background:var(--card-bg,#fff);box-shadow:0 12px 30px rgba(0,0,0,.16);display:grid;gap:4px}
+.gh-nav-menu[hidden]{display:none}
+.gh-nav-item{width:100%;padding:10px 12px;border:0;border-radius:9px;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer;display:flex;align-items:center;gap:9px}
+.gh-nav-item:hover{background:rgba(128,128,128,.12)}
+.dark-mode .gh-nav-menu,.dark-theme .gh-nav-menu{background:#171a20;color:#fff}
+@media(max-width:600px){.gh-nav-menu{left:auto;right:0;width:190px}.gh-hamburger-btn{width:36px;height:36px}}
+
+/* V7: one compact hamburger menu next to HSK selector */
+.controls{overflow:visible!important;z-index:100!important}
+.gh-hsk-picker{display:inline-flex;align-items:center;gap:6px}
+.gh-hsk-label{font-size:12px;font-weight:800;opacity:.75;white-space:nowrap}
+.gh-nav-menu-wrap{position:relative!important;display:inline-flex!important;align-items:center!important;z-index:9999!important}
+.gh-hamburger-btn{width:40px!important;height:40px!important;padding:8px!important;border:1px solid rgba(128,128,128,.28)!important;border-radius:10px!important;background:var(--card-bg,#fff)!important;color:inherit!important}
+.gh-nav-menu{position:absolute!important;top:calc(100% + 7px)!important;left:0!important;width:230px!important;max-height:70vh;overflow:auto;padding:8px!important;display:grid!important;gap:3px!important;background:var(--card-bg,#fff)!important;color:inherit!important;border:1px solid rgba(128,128,128,.22)!important;border-radius:14px!important;box-shadow:0 18px 45px rgba(0,0,0,.2)!important}
+.gh-nav-menu[hidden]{display:none!important}
+.gh-nav-title{font-size:10px;font-weight:900;letter-spacing:1px;opacity:.55;padding:6px 10px 5px}
+.gh-nav-item{min-height:40px!important;width:100%!important;padding:9px 11px!important;border:0!important;border-radius:9px!important;background:transparent!important;color:inherit!important;text-align:left!important;font:inherit!important;cursor:pointer!important;display:flex!important;align-items:center!important;gap:9px!important}
+.gh-nav-item:hover{background:rgba(128,128,128,.12)!important;transform:none!important}
+.gh-nav-divider{height:1px;background:rgba(128,128,128,.18);margin:4px 3px}
+.dark-mode .gh-nav-menu,.dark-theme .gh-nav-menu,body.dark-mode .gh-nav-menu{background:#171a20!important;color:#fff!important}
+@media(max-width:600px){.gh-hsk-label{display:none}.gh-nav-menu{left:auto!important;right:0!important;width:210px!important}.gh-hamburger-btn{width:36px!important;height:36px!important}}
+
+
+/* V8: make the requested menu visibly sit beside HSK and stay above old controls. */
+.controls{position:relative!important;overflow:visible!important;display:flex!important;align-items:center!important;flex-wrap:wrap!important;gap:8px!important;z-index:500!important}
+.gh-hsk-picker{position:relative!important;z-index:501!important}
+.gh-nav-menu-wrap{position:relative!important;display:inline-flex!important;flex:0 0 auto!important;z-index:10000!important}
+#gh-nav-menu-toggle{display:inline-flex!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:10001!important}
+#gh-nav-menu{z-index:10002!important}
+
+
+/* V9: FINAL UI FIXES — menu must never be clipped; flashcard must never hide text/buttons. */
+.container>header{
+  overflow:visible!important;
+  isolation:isolate;
+}
+.container>header .controls{
+  overflow:visible!important;
+  position:relative!important;
+  z-index:500!important;
+}
+.gh-nav-menu-wrap{
+  position:relative!important;
+  z-index:100000!important;
+  overflow:visible!important;
+}
+#gh-nav-menu-toggle{
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  padding:0!important;
+  border-radius:8px!important;
+  box-sizing:border-box!important;
+  overflow:visible!important;
+  flex:0 0 42px!important;
+  color:#244466!important;
+  background:rgba(255,255,255,.94)!important;
+  border:1px solid rgba(82,139,202,.24)!important;
+}
+#gh-nav-menu-toggle span{
+  width:22px!important;
+  height:2px!important;
+  background:currentColor!important;
+}
+body.dark-mode #gh-nav-menu-toggle,
+body.dark-theme #gh-nav-menu-toggle{
+  color:#f4f8ff!important;
+  background:#17283c!important;
+  border-color:rgba(160,200,240,.25)!important;
+}
+#gh-nav-menu{
+  top:calc(100% + 9px)!important;
+  left:0!important;
+  right:auto!important;
+  width:250px!important;
+  max-width:min(250px,calc(100vw - 24px))!important;
+  max-height:min(70vh,520px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  z-index:100001!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  color:#173a63!important;
+}
+.gh-nav-title{color:#6f8197!important}
+.gh-nav-item{
+  color:#173a63!important;
+  background:transparent!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+}
+.gh-nav-item span{color:inherit!important}
+.gh-nav-item:hover{background:rgba(44,137,231,.10)!important;color:#0d72d8!important}
+body.dark-mode #gh-nav-menu,
+body.dark-theme #gh-nav-menu{
+  background:#101c2b!important;
+  color:#f4f8ff!important;
+  border-color:#2c4661!important;
+  box-shadow:0 18px 45px rgba(0,0,0,.48)!important;
+}
+body.dark-mode .gh-nav-title,
+body.dark-theme .gh-nav-title{color:#9fb2c7!important}
+body.dark-mode .gh-nav-item,
+body.dark-theme .gh-nav-item{color:#f4f8ff!important}
+body.dark-mode .gh-nav-item:hover,
+body.dark-theme .gh-nav-item:hover{background:rgba(92,171,255,.14)!important;color:#fff!important}
+
+/* V10: precise top-control sizing/alignment.  Only the header controls are enlarged. */
+.container > header .controls{
+  align-items:center!important;
+  gap:9px!important;
+}
+.container > header .controls #hsk-level{
+  width:126px!important;
+  min-width:126px!important;
+  height:46px!important;
+  min-height:46px!important;
+  box-sizing:border-box!important;
+  padding:0 13px!important;
+  border-radius:14px!important;
+  line-height:46px!important;
+}
+.container > header .controls #gh-nav-menu-toggle{
+  width:46px!important;
+  min-width:46px!important;
+  height:46px!important;
+  min-height:46px!important;
+  flex:0 0 46px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:5px!important;
+  padding:0!important;
+  border-radius:12px!important;
+}
+.container > header .controls #gh-nav-menu-toggle span{
+  display:block!important;
+  width:24px!important;
+  height:2.5px!important;
+  flex:0 0 auto!important;
+  margin:0!important;
+  border-radius:999px!important;
+}
+.container > header .controls .gh-settings-btn-wrap{
+  width:46px!important;
+  min-width:46px!important;
+  height:46px!important;
+  min-height:46px!important;
+  flex:0 0 46px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:1!important;
+  mask-image:none!important;
+  background-image:none!important;
+}
+.container > header .controls .gh-settings-btn-wrap .button{
+  width:46px!important;
+  min-width:46px!important;
+  height:46px!important;
+  min-height:46px!important;
+  padding:0!important;
+  margin:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+}
+.container > header .controls .gh-settings-btn-wrap .settings-btn{
+  width:24px!important;
+  height:24px!important;
+}
+.container > header .controls .streak-widget{
+  min-width:46px!important;
+  width:46px!important;
+  height:46px!important;
+  min-height:46px!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  border-radius:12px!important;
+  gap:3px!important;
+}
+.container > header .controls .streak-flame{font-size:18px!important}
+.container > header .controls .streak-count{font-size:15px!important}
+
+/* V10: the settings close button is a true square; no inherited button padding can move the X. */
+#gh-settings-modal .gh-modal-head{
+  align-items:flex-start!important;
+}
+#gh-settings-modal .gh-close{
+  width:44px!important;
+  min-width:44px!important;
+  height:44px!important;
+  min-height:44px!important;
+  flex:0 0 44px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  align-self:flex-start!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  line-height:1!important;
+  text-align:center!important;
+  font-family:Arial,sans-serif!important;
+  font-size:28px!important;
+  font-weight:400!important;
+  transform:none!important;
+}
+#gh-settings-modal .gh-close:hover,
+#gh-settings-modal .gh-close:focus-visible{
+  transform:none!important;
+}
+@media(max-width:600px){
+  .container > header .controls #hsk-level{width:116px!important;min-width:116px!important;height:44px!important;min-height:44px!important}
+  .container > header .controls #gh-nav-menu-toggle,
+  .container > header .controls .gh-settings-btn-wrap,
+  .container > header .controls .gh-settings-btn-wrap .button,
+  .container > header .controls .streak-widget{width:44px!important;min-width:44px!important;height:44px!important;min-height:44px!important}
+  .container > header .controls #gh-nav-menu-toggle{flex-basis:44px!important}
+  .container > header .controls .gh-settings-btn-wrap{flex-basis:44px!important}
+  .container > header .controls .gh-settings-btn-wrap .button{flex-basis:44px!important}
+}
+
+/* V11: Flashcard close control matches the other learning modal X buttons. */
+.gh-fc-head-actions{display:flex!important;align-items:center!important;gap:8px!important;flex:0 0 auto!important}
+.gh-fc-head-actions .gh-primary{margin:0!important}
+.gh-fc-close{width:44px!important;min-width:44px!important;height:44px!important;min-height:44px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;padding:0!important;margin:0!important;border:1px solid rgba(128,128,128,.28)!important;border-radius:12px!important;background:rgba(128,128,128,.10)!important;color:inherit!important;font:400 28px/1 Arial,sans-serif!important;cursor:pointer!important}
+.gh-fc-close:hover,.gh-fc-close:focus-visible{transform:none!important}
+@media(max-width:600px){.gh-fc-head-actions{gap:6px!important}.gh-fc-close{width:44px!important;min-width:44px!important;height:44px!important;min-height:44px!important}}
+
+/* V13: larger learning menu; profile and leaderboard live outside Settings. */
+#gh-nav-menu{
+  width:310px!important;
+  max-width:min(310px,calc(100vw - 20px))!important;
+  padding:10px!important;
+  gap:5px!important;
+}
+#gh-nav-menu .gh-nav-title{font-size:11px!important;padding:9px 12px 7px!important}
+#gh-nav-menu .gh-nav-item{
+  min-height:52px!important;
+  padding:12px 14px!important;
+  border-radius:12px!important;
+  gap:11px!important;
+  font-size:15px!important;
+  font-weight:800!important;
+}
+#gh-nav-menu .gh-nav-item:first-letter{font-size:20px}
+#gh-nav-menu .gh-nav-divider{margin:6px 4px!important}
+
+/* V25: single canonical Uiverse-style 3D flashcard; old overlapping flashcard CSS removed. */
+#gh-flashcard-panel{
+  perspective:1200px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  overflow:visible!important;
+  padding:8px 0 22px!important;
+}
+.gh-uiverse-card{
+  position:relative!important;
+  width:380px!important;
+  height:500px!important;
+  max-width:calc(100vw - 28px)!important;
+  margin:0 auto!important;
+  overflow:visible!important;
+  cursor:pointer!important;
+  outline:none!important;
+  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:transparent!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+}
+/* V29: stable 3D flip. Rotate the two faces themselves instead of rotating the
+   whole content wrapper. This prevents the front text from appearing mirrored
+   while the pointer is held over the card. */
+.gh-uiverse-content{
+  position:relative!important;
+  width:100%!important;
+  height:100%!important;
+  transform-style:preserve-3d!important;
+  border-radius:16px!important;
+  box-shadow:0 14px 38px rgba(0,0,0,.22)!important;
+  pointer-events:auto!important;
+}
+.gh-uiverse-face{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  box-sizing:border-box!important;
+  background:#151515!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  backface-visibility:hidden!important;
+  -webkit-backface-visibility:hidden!important;
+  transform-style:preserve-3d!important;
+  transition:transform .55s cubic-bezier(.2,.75,.2,1)!important;
+}
+.gh-uiverse-front{
+  transform:rotateY(0deg)!important;
+  z-index:2!important;
+  color:#fff!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+.gh-uiverse-back{
+  transform:rotateY(180deg)!important;
+  z-index:1!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.gh-uiverse-card.is-flipped .gh-uiverse-front{
+  transform:rotateY(180deg)!important;
+  z-index:1!important;
+}
+.gh-uiverse-card.is-flipped .gh-uiverse-back{
+  transform:rotateY(0deg)!important;
+  z-index:2!important;
+}
+.gh-uiverse-front .gh-uiverse-back-content{
+  z-index:3!important;
+  visibility:visible!important;
+  opacity:1!important;
+  color:#fff!important;
+}
+.gh-fc-card-label{display:block!important;color:#70eaff!important;font-size:13px!important;font-weight:900!important;letter-spacing:1.2px!important;text-align:center!important;line-height:1.3!important}
+.gh-fc-hanzi-front{display:block!important;color:#fff!important;font-size:clamp(72px,10vw,112px)!important;font-weight:950!important;line-height:1.05!important;text-align:center!important;text-shadow:0 0 22px rgba(0,224,255,.22)!important;visibility:visible!important;opacity:1!important}
+.gh-uiverse-back::before{
+  position:absolute;content:'';display:block;width:220px;height:170%;
+  background:linear-gradient(90deg,transparent,#00e0ff,#147cff,#00e0ff,transparent);
+  animation:ghRotation481 5s linear infinite;
+}
+@keyframes ghRotation481{0%{transform:rotateZ(0deg)}100%{transform:rotateZ(360deg)}}
+.gh-uiverse-back-content{
+  position:absolute;width:98%;height:98%;background:#151515!important;border-radius:14px!important;
+  color:#fff!important;display:flex!important;flex-direction:column!important;
+  justify-content:center!important;align-items:center!important;gap:22px!important;padding:22px!important;box-sizing:border-box!important;
+}
+.gh-uiverse-img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:hidden!important}
+.gh-uiverse-img i{display:block;width:120px;height:120px;border-radius:50%;background:#00cfff;position:absolute;filter:blur(22px);animation:ghFloating 2600ms infinite linear}
+.gh-uiverse-img i.bottom{background:#315cff;left:80px;top:240px;width:220px;height:220px;animation-delay:-800ms}
+.gh-uiverse-img i.right{background:#00e0ff;right:15px;top:70px;width:45px;height:45px;animation-delay:-1800ms}
+@keyframes ghFloating{0%{transform:translateY(0)}50%{transform:translateY(10px)}100%{transform:translateY(0)}}
+.gh-uiverse-front-content{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;padding:22px!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;align-items:center!important;color:#fff!important}
+.gh-fc-flip-hint{font-size:12px!important;color:#a9c4d7!important;text-align:center}
+.gh-fc-speak{
+  border:1px solid rgba(0,224,255,.55)!important;
+  background:linear-gradient(135deg,#062438,#0a5d75)!important;
+  color:#fff!important;padding:11px 20px!important;border-radius:0!important;font-weight:900!important;cursor:pointer!important;
+  clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+  box-shadow:0 0 18px rgba(0,200,255,.18)!important;
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important;
+}
+.gh-fc-speak:hover{transform:translateY(-2px)!important;filter:brightness(1.12)!important}
+.gh-answer-content{padding:30px!important;gap:15px!important;box-sizing:border-box!important;text-align:center;overflow:auto!important;z-index:4!important;color:#fff!important;visibility:visible!important;opacity:1!important}
+.gh-fc-meaning{font-size:clamp(28px,4vw,44px)!important;font-weight:950!important;color:#fff!important;text-align:center;line-height:1.25!important;overflow-wrap:anywhere}
+.gh-fc-pinyin{font-size:clamp(24px,3vw,34px)!important;font-weight:900!important;color:#70eaff!important;text-align:center!important;overflow-wrap:anywhere}
+.gh-fc-back-hanzi{font-size:20px!important;color:#d5e7f5!important}
+.gh-fc-empty{padding:40px;text-align:center;border:1px dashed rgba(128,128,128,.3);border-radius:16px}
+.gh-fc-review-actions{display:flex!important;justify-content:center!important;align-items:center!important;gap:14px!important;flex-wrap:wrap!important;margin:16px auto 0!important;width:min(520px,100%)!important}
+.gh-fc-review-actions button{min-width:190px!important;min-height:56px!important}
+.gh-cyber-known{background:linear-gradient(135deg,#006c72,#00b98d)!important}
+.gh-cyber-again{background:linear-gradient(135deg,#153a67,#315cc5)!important}
+@media(max-width:760px){
+  .gh-uiverse-card{width:min(360px,calc(100vw - 28px))!important;height:min(470px,calc(100vh - 260px))!important;min-height:390px!important}
+  .gh-fc-hanzi-front{font-size:clamp(60px,18vw,100px)!important}
+  .gh-fc-review-actions{gap:10px!important}
+  .gh-fc-review-actions button{min-width:145px!important;min-height:52px!important;font-size:14px!important}
+  .gh-answer-content{padding:22px!important}
+}
+/* V28: hover/press must NEVER override the card's flip state. */
+@media (hover:hover) and (pointer:fine){
+  .gh-uiverse-card:hover .gh-uiverse-content{
+    filter:brightness(1.04)!important;
+  }
+  .gh-uiverse-card.is-flipped:hover .gh-uiverse-content{
+    filter:brightness(1.04)!important;
+  }
+}
+/* V29: no hover transform on either face. */
+/* Theme switch remains in the outer header only. */
+#gh-learning-plus .sun-moon,#gh-learning-plus .theme-toggle,#gh-learning-plus #theme-toggle,#gh-learning-plus .theme-switch,
+#gh-flashcard-mode .sun-moon,#gh-flashcard-mode .theme-toggle,#gh-flashcard-mode #theme-toggle,#gh-flashcard-mode .theme-switch{display:none!important}
+
+/* V13: external profile/ranking cards and precise close buttons. */
+.gh-external-card{width:min(820px,calc(100vw - 28px))!important}
+#gh-profile-modal .gh-modal-card,#gh-ranking-modal .gh-modal-card{max-height:88vh!important;overflow:auto!important}
+#gh-profile-modal .gh-modal-head,#gh-ranking-modal .gh-modal-head{align-items:flex-start!important}
+#gh-profile-modal .gh-close,#gh-ranking-modal .gh-close{width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;flex:0 0 46px!important;padding:0!important;margin:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important;font:400 28px/1 Arial,sans-serif!important;transform:none!important}
+.gh-ranking-modal-card{width:min(900px,calc(100vw - 28px))!important}
+.gh-ranking-live{margin-top:14px;padding:11px 13px;border-radius:11px;background:rgba(0,180,255,.07);border:1px solid rgba(0,180,255,.18);font-size:12px;color:#7892a5}
+.gh-live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#32d583;box-shadow:0 0 0 4px rgba(50,213,131,.12);margin-right:6px}
+.gh-rank-row.me{border-color:#27c9ef!important;box-shadow:0 0 0 1px rgba(39,201,239,.12)!important}
+.gh-rank-name em{font-style:normal;font-size:10px;color:#21c7ee;margin-left:5px}
+@media(max-width:600px){
+  #gh-nav-menu{width:280px!important}
+  #gh-nav-menu .gh-nav-item{min-height:50px!important;font-size:14px!important}
+}
+
+/* V15 - requested focused UI only */
+.gh-cyber-top-btn,.gh-cyber-action,.gh-nav-item,.gh-primary,.gh-rank-filter,.gh-settings-btn-wrap .button{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(0,224,255,.48)!important;box-shadow:0 0 0 1px rgba(0,224,255,.08),0 0 16px rgba(0,190,255,.12)!important;clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important}
+.gh-cyber-top-btn{min-width:74px!important;min-height:44px!important;padding:8px 12px!important;background:linear-gradient(135deg,#071a2a,#0b3148)!important;color:#dffaff!important;font-weight:900!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;cursor:pointer!important;font-size:13px!important}
+.gh-cyber-top-btn:hover,.gh-cyber-action:hover,.gh-nav-item:hover,.gh-primary:hover{transform:translateY(-2px)!important;filter:brightness(1.14)!important;box-shadow:0 0 0 1px rgba(0,224,255,.16),0 0 24px rgba(0,190,255,.24)!important}
+.gh-cyber-top-btn:active,.gh-cyber-action:active,.gh-nav-item:active,.gh-primary:active{transform:translateY(0) scale(.98)!important}
+.gh-nav-menu{width:260px!important;padding:10px!important}
+.gh-nav-item{min-height:50px!important;padding:12px 15px!important;font-size:15px!important;font-weight:850!important;background:linear-gradient(135deg,rgba(7,26,42,.96),rgba(8,49,72,.96))!important;color:#e8fbff!important}
+.gh-nav-item span{font-size:15px!important}
+.gh-nav-title{font-size:12px!important;font-weight:950!important}
+.gh-cyber-action{min-width:190px!important;min-height:56px!important;padding:14px 24px!important;background:linear-gradient(135deg,#082033,#0b4764)!important;color:#eafcff!important;font-size:16px!important;font-weight:950!important}
+/* Theme switch is an outer-header control only. Never render it inside sub-sections/modals/cards. */
+.gh-extra-mode .switch,.gh-extra-mode .sun-moon,.gh-extra-mode .theme-toggle,.gh-extra-mode #theme-toggle,.gh-extra-mode .theme-switch,.gh-modal .switch,.gh-modal .sun-moon{display:none!important}
+@media(max-width:760px){.gh-cyber-top-btn{min-width:62px!important;min-height:42px!important;padding:7px 9px!important}.gh-cyber-top-btn span{font-size:12px!important}.gh-nav-menu{width:min(300px,calc(100vw - 24px))!important}.gh-nav-item{min-height:54px!important}.gh-cyber-action{min-width:145px!important;min-height:52px!important;font-size:14px!important}}
+@media(prefers-reduced-motion:no-preference){.gh-cyber-top-btn::after,.gh-cyber-action::after,.gh-nav-item::after{content:'';position:absolute;inset:-2px auto -2px -45%;width:28%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.24),transparent);transform:skewX(-22deg);animation:ghCyberSweep 3.2s linear infinite;pointer-events:none;z-index:-1}@keyframes ghCyberSweep{0%{left:-45%}55%,100%{left:125%}}}
+/* V15 cyber treatment for every action button inside the learning sub-panels */
+#gh-learning-plus .ghlp-primary,#gh-learning-plus .ghlp-small,#gh-learning-plus .ghlp-answer,#gh-learning-plus .ghlp-route-step,
+.gh-extra-mode button:not(.gh-fc-speak){clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)!important;transition:transform .18s ease,filter .18s ease,box-shadow .18s ease!important}
+#gh-learning-plus .ghlp-primary:hover,#gh-learning-plus .ghlp-small:hover,#gh-learning-plus .ghlp-answer:hover,#gh-learning-plus .ghlp-route-step:hover,
+.gh-extra-mode button:not(.gh-fc-speak):hover{transform:translateY(-2px)!important;filter:brightness(1.1)!important;box-shadow:0 0 18px rgba(0,200,255,.2)!important}
+
+
+/* Hamburger-to-X state. */
+#gh-nav-menu-toggle{position:relative!important;overflow:hidden!important;}
+#gh-nav-menu-toggle span{position:absolute!important;left:50%!important;top:50%!important;width:24px!important;height:3px!important;margin:0!important;transform-origin:center!important;transition:transform .22s ease,opacity .18s ease!important;}
+#gh-nav-menu-toggle span:nth-child(1){transform:translate(-50%,-50%) translateY(-7px)!important}
+#gh-nav-menu-toggle span:nth-child(2){transform:translate(-50%,-50%)!important}
+#gh-nav-menu-toggle span:nth-child(3){transform:translate(-50%,-50%) translateY(7px)!important}
+#gh-nav-menu-toggle.is-open span:nth-child(1){transform:translate(-50%,-50%) rotate(45deg)!important}
+#gh-nav-menu-toggle.is-open span:nth-child(2){opacity:0!important;transform:translate(-50%,-50%) scaleX(.2)!important}
+#gh-nav-menu-toggle.is-open span:nth-child(3){transform:translate(-50%,-50%) rotate(-45deg)!important}
+@media(max-width:760px){
+  #gh-nav-menu-toggle{width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important}
+  #gh-nav-menu-toggle span{width:22px!important;height:3px!important}
+}
+
+
+
+/* V30 - profile XP / level / achievements */
+#gh-profile-modal .gh-profile-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:2px}
+#gh-profile-modal .gh-profile-stats>div{padding:12px 13px;border:1px solid rgba(0,224,255,.18);border-radius:13px;background:linear-gradient(135deg,rgba(8,29,44,.95),rgba(8,19,31,.95));box-shadow:inset 0 0 18px rgba(0,180,255,.035)}
+#gh-profile-modal .gh-profile-stats small{display:block;color:#72b7ca;font-size:9px;font-weight:900;letter-spacing:1px;margin-bottom:5px}
+#gh-profile-modal .gh-profile-stats strong{display:block;color:#eaffff;font-size:15px;line-height:1.25}
+#gh-profile-modal .gh-profile-stats span{display:block;color:#7597a9;font-size:10px;margin-top:3px}
+#gh-profile-modal .gh-profile-xpbar{padding:11px 12px 12px;border:1px solid rgba(0,224,255,.18);border-radius:13px;background:#071521}
+#gh-profile-modal .gh-profile-xpbar>div{display:flex;justify-content:space-between;gap:10px;color:#8cb1c1;font-size:10px;margin-bottom:7px}
+#gh-profile-modal .gh-profile-xpbar i{display:block;height:8px;border-radius:999px;background:#132c3b;overflow:hidden;border:1px solid rgba(0,224,255,.12)}
+#gh-profile-modal .gh-profile-xpbar b{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#00b9d8,#6cecff);box-shadow:0 0 12px rgba(0,220,255,.4);transition:width .3s ease}
+@media(max-width:680px){#gh-profile-modal .gh-profile-stats{grid-template-columns:1fr}}

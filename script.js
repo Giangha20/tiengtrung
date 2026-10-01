@@ -8217,11 +8217,16 @@ function updateExamStartInfo() {
 
 
 // Bắt đầu bài thi
-function startExam() {
+function startExam(options) {
+    options = options || {};
     const levelSelect = document.getElementById('hsk-level');
     const currentLevel = levelSelect ? levelSelect.value : "1";
     const list = hskData[currentLevel];
     const targetCount = HSK_QUESTION_COUNT[currentLevel] || 30;
+    let sourceList = list;
+    if (options.__wrongMode && Array.isArray(window.__GH_WRONG_EXAM_WORDS) && window.__GH_WRONG_EXAM_WORDS.length) {
+        sourceList = window.__GH_WRONG_EXAM_WORDS;
+    }
 
     if (!list || list.length < 4) {
         alert("Chưa đủ dữ liệu từ vựng để thi thử level này!");
@@ -8229,8 +8234,8 @@ function startExam() {
     }
 
     // Trộn ngẫu nhiên danh sách từ vựng và lấy số câu tương ứng (30 hoặc 40)
-    const shuffledList = [...list].sort(() => 0.5 - Math.random());
-    const selectedWords = shuffledList.slice(0, Math.min(targetCount, list.length));
+    const shuffledList = [...sourceList].sort(() => 0.5 - Math.random());
+    const selectedWords = shuffledList.slice(0, Math.min(options.__wrongMode ? sourceList.length : targetCount, sourceList.length));
 
     // Tạo bộ câu hỏi kèm 4 lựa chọn
     examQuestions = selectedWords.map(targetWord => {
@@ -8324,6 +8329,7 @@ function checkExamAnswer(selected, correct, btn) {
 
     if (selected.word === correct.word) {
         examScore++;
+        try { window.GHLearningPlus?.removeWrong?.(String(document.getElementById('hsk-level')?.value || currentLevel || '1'), correct.word); } catch (e) {}
         btn.classList.add('quiz-correct');
         document.getElementById('quiz-feedback').innerText = ' Chính xác!';
         document.getElementById('quiz-feedback').style.color = '#28a745';
@@ -8334,6 +8340,7 @@ function checkExamAnswer(selected, correct, btn) {
                 b.classList.add('quiz-correct');
             }
         });
+        try { window.GHLearningPlus?.saveWrong({ level: String(document.getElementById('hsk-level')?.value || currentLevel || '1'), word: correct.word, pinyin: correct.pinyin || '', meaning: correct.meaning || '' }); } catch (e) {}
         document.getElementById('quiz-feedback').innerText = ` Sai rồi! Đáp án đúng: ${correct.meaning}`;
         document.getElementById('quiz-feedback').style.color = '#dc3545';
     }
@@ -8386,6 +8393,16 @@ function finishExam() {
     else msg = ' Cần cố gắng thêm! Hãy xem lại danh sách từ vựng và thử lại nhé.';
     
     document.getElementById('result-message').innerText = msg;
+    const resultScreen = document.getElementById('exam-result-screen');
+    if (resultScreen && !document.getElementById('retry-wrong-exam-btn')) {
+        const retry = document.createElement('button');
+        retry.id = 'retry-wrong-exam-btn';
+        retry.className = 'btn-primary';
+        retry.type = 'button';
+        retry.textContent = '🔁 Làm lại câu sai';
+        retry.onclick = () => window.GHLearningPlus?.openWrong?.();
+        resultScreen.appendChild(retry);
+    }
 }
 
 // Reset bài thi
@@ -8420,23 +8437,40 @@ function changeLevel() {
     if (String(currentLevel) === nextLevel) return;
     currentLevel = nextLevel;
     saveProgressData({ currentLevel });
+    window.dispatchEvent(new CustomEvent('gh-hsk-changed', { detail: { level: nextLevel } }));
+    document.documentElement.setAttribute('data-hsk-level', nextLevel);
 
     // Danh sách từ: đổi ngay sang đúng HSK đã chọn.
-    renderList();
+    try { renderList(); } catch (e) { console.warn('Premium Chines: renderList after HSK change failed', e); }
+
+    // Flashcard phải đổi ngay theo HSK mới, không cần thoát vào lại mục.
+    const flashcardSection = document.getElementById('gh-flashcard-mode');
+    if (flashcardSection?.classList.contains('active')) {
+        try {
+            const refresh = window.GH?.flashcard?.refreshForLevel;
+            if (typeof refresh === 'function') refresh(nextLevel);
+            else window.GH?.flashcard?.start?.();
+        } catch (e) { console.warn('Premium Chines: Flashcard refresh failed', e); }
+    }
 
     // Chỉ khởi tạo lại mục ĐANG MỞ. Các mục khác sẽ dùng currentLevel mới
     // khi người dùng mở chúng, tránh reset/random dữ liệu ngoài ý muốn.
     const activeSection = document.querySelector('main > section.active, section.active');
     const activeId = activeSection ? activeSection.id : '';
 
-    if (activeId === 'typing-mode') {
+    if (activeId === 'gh-flashcard-mode') {
+        // Already refreshed above with the exact selected HSK.
+    } else if (activeId === 'typing-mode') {
         initTyping();
     } else if (activeId === 'listening-mode') {
         if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch(e) {} }
         initListening();
     } else if (activeId === 'exam-mode') {
+        // Đang ở Bài tập/Thi HSK: đổi HSK phải dựng lại câu hỏi ngay,
+        // không để màn hình bị trống sau khi reset giao diện.
         updateExamStartInfo();
         resetExamUI();
+        try { startExam(); } catch (e) { console.warn('Premium Chines: restart exam after HSK change failed', e); }
     } else if (activeId === 'progress-mode') {
         updateProgressUI();
     } else if (activeId === 'communication-mode') {
