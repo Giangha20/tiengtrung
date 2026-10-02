@@ -3607,3 +3607,148 @@ body.dark-mode .word-grid .word-card.card .card2 { background-color:#1a1a1a !imp
 @media (max-width: 600px) {
   .word-grid .word-card.card,.word-grid .word-card.card .card2 { width:190px !important; height:254px !important; }
 }
+
+
+/* ============================================================
+   MOBILE MOTION PATCH — Premium Chines
+   Điện thoại không có hover như desktop, nên chuyển các hiệu ứng
+   tương tác quan trọng sang touch/active + animation nhẹ.
+   Không ép animation nếu người dùng bật Reduce Motion.
+   ============================================================ */
+@media (hover: none) and (pointer: coarse) {
+  /* Nút: phản hồi ngay khi chạm */
+  .controls button:not(:disabled):active,
+  .theme-toggle:not(:disabled):active,
+  button:not(:disabled):active,
+  .btn:not(:disabled):active,
+  .nav-btn:not(:disabled):active,
+  .control-btn:not(:disabled):active,
+  .mode-btn:not(:disabled):active,
+  .action-btn:not(:disabled):active,
+  .btn-primary:not(:disabled):active,
+  .listening-play-btn:not(:disabled):active {
+    transform: translateY(-2px) scale(.975);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+
+  /* Shimmer khi chạm thay cho hover */
+  .controls button:active::after,
+  .theme-toggle:active::after,
+  .btn-primary:active::after,
+  .listening-play-btn:active::after {
+    animation: premiumShineMobile .65s ease forwards;
+  }
+
+  /* Card có phản hồi khi chạm */
+  .word-card:active,
+  .progress-card:active,
+  .progress-main-card:active,
+  .typing-container:active,
+  .exam-card:active,
+  .listening-card:active,
+  .communication-card:active,
+  .card:active,
+  .flashcard:active,
+  .info-box:active,
+  .result-box:active {
+    transform: translateY(-3px) scale(.995);
+    box-shadow: 0 12px 28px rgba(15,23,42,.11);
+    transition: transform .16s ease, box-shadow .16s ease;
+  }
+
+  /* Thanh sáng trên card cũng chạy khi chạm */
+  .word-card:active::after,
+  .progress-card:active::after,
+  .progress-main-card:active::after,
+  .typing-container:active::after,
+  .exam-card:active::after,
+  .listening-card:active::after,
+  .communication-card:active::after,
+  .card:active::after {
+    transform: scaleX(1);
+  }
+
+  /* Hiệu ứng cyber vẫn có chuyển động trên màn hình cảm ứng */
+  .controls .cyber-choice:active {
+    --primary:#95ff00;
+    color:#050505 !important;
+    transform: translateY(-2px) scale(.98);
+  }
+
+  .controls .radio-wrapper .input:active + .btn,
+  .controls .radio-wrapper .input:checked + .btn {
+    animation: mobileRadioPulse .42s ease;
+  }
+
+  /* Các thẻ từ vựng: phản hồi touch rõ hơn */
+  .word-grid .ticket-card:active,
+  .word-grid .word-card:active {
+    transform: translateY(-4px) scale(.985);
+  }
+
+  /* Không dùng hover làm điều kiện duy nhất cho audio/icon */
+  .ticket-card .ticket-audio:active {
+    transform: scale(1.15);
+  }
+
+  /* Hiệu ứng xuất hiện khi chuyển section vẫn chạy trên mobile */
+  main > section.active {
+    animation: premiumSectionInMobile .32s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  /* Giữ nhẹ để tránh giật trên máy yếu */
+  .gh-modal-card,
+  .ghlp-modal,
+  .exam-skill-card {
+    will-change: transform, opacity;
+  }
+}
+
+@keyframes premiumShineMobile {
+  from { transform: translateX(-130%); }
+  to   { transform: translateX(130%); }
+}
+
+@keyframes premiumSectionInMobile {
+  from { opacity: 0; transform: translate3d(0,8px,0); }
+  to   { opacity: 1; transform: translate3d(0,0,0); }
+}
+
+@keyframes mobileRadioPulse {
+  0% { transform: translate3d(0,0,0); }
+  45% { transform: translate3d(1px,0,0) scale(1.015); }
+  100% { transform: translate3d(0,0,0); }
+}
+
+/* Tôn trọng cài đặt Reduce Motion của hệ điều hành/người dùng */
+@media (prefers-reduced-motion: reduce) {
+  main > section.active {
+    animation: none !important;
+  }
+  .controls button:active::after,
+  .theme-toggle:active::after,
+  .btn-primary:active::after,
+  .listening-play-btn:active::after {
+    animation: none !important;
+  }
+  .controls .radio-wrapper .input:active + .btn,
+  .controls .radio-wrapper .input:checked + .btn {
+    animation: none !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  html body .container > header .controls .streak-widget:active .streak-flame {
+    animation: mobileFlamePop .38s ease !important;
+  }
+}
+@keyframes mobileFlamePop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.22) rotate(-4deg); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .container > header .controls .streak-widget:active .streak-flame {
+    animation: none !important;
+  }
+}
