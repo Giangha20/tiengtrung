@@ -1,0 +1,16 @@
+const fs=require('fs');
+const path=require('path');
+const assert=require('assert');
+const root=__dirname;
+const required=['index.html','auth.js','progress.js','premium_plus.js','premium_plus.css','firebase-config.js','firestore.rules','sw.js'];
+for(const f of required) assert(fs.existsSync(path.join(root,f)),`Missing ${f}`);
+const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+for(const needle of ['premium_plus.css','premium_plus.js','firebase-config.js','auth.js','progress.js']) assert(html.includes(needle),`index missing ${needle}`);
+const plus=fs.readFileSync(path.join(root,'premium_plus.js'),'utf8');
+for(const needle of ['SMART STUDY','Daily Challenge','Placement Test','Xuất dữ liệu','FOCUS MODE']) assert(plus.includes(needle),`premium_plus missing ${needle}`);
+const rules=fs.readFileSync(path.join(root,'firestore.rules'),'utf8');
+assert(rules.includes('request.resource.data.uid == userId'),'Firestore uid validation missing');
+assert(rules.includes('request.auth.token.email'),'Firestore email binding missing');
+const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
+assert(sw.includes('caches.open'),'service worker cache missing');
+console.log('Smoke tests passed:',required.length,'required files and critical hooks.');

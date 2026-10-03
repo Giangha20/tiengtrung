@@ -51,7 +51,15 @@ app.use((req, res, next) => {
 });
 
 app.disable("x-powered-by");
-app.use((req,res,next)=>{res.setHeader("X-Content-Type-Options","nosniff");res.setHeader("Referrer-Policy","strict-origin-when-cross-origin");next();});
+app.use((req,res,next)=>{
+    res.setHeader("X-Content-Type-Options","nosniff");
+    res.setHeader("Referrer-Policy","strict-origin-when-cross-origin");
+    res.setHeader("X-Frame-Options","SAMEORIGIN");
+    res.setHeader("Permissions-Policy","camera=(), microphone=(), geolocation=(), payment=()");
+    res.setHeader("Cross-Origin-Opener-Policy","same-origin-allow-popups");
+    if (req.secure || req.headers["x-forwarded-proto"] === "https") res.setHeader("Strict-Transport-Security","max-age=31536000; includeSubDomains");
+    next();
+});
 
 app.use(express.static(__dirname, {
     dotfiles: "deny",
