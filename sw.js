@@ -1,4 +1,4 @@
-const CACHE='gh-hsk-shell-v35';
+const CACHE='gh-hsk-shell-v36';
 const ASSETS=['./','./index.html','./style.css','./base.css','./app.css','./enhancements.css','./enhancements.js','./learning_plus.js','./learning_plus.css','./script.js','./utils.js','./progress.js','./streak.js','./favorites.js','./flashcard.js','./statistics.js','./settings.js','./nav_menu.js','./hsk6.js','./manifest.json','./avatar192.jpg','./avatar.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

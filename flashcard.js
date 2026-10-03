@@ -3,7 +3,33 @@
   let list=[],i=0,flipped=false;
   const esc=v=>GH.utils?.escapeHtml?GH.utils.escapeHtml(v):String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const words=()=>{const level=document.getElementById('hsk-level')?.value||'1';const d=window.hskData?.[level]||[];return Array.isArray(d)?d:[]};
-  function start(items=words()){list=Array.isArray(items)?items.slice():[];i=0;flipped=false;render()}
+  // Flashcard pool: random order + de-duplicate by the actual Chinese word.
+  // This keeps every card unique inside a session, even when the source JSON
+  // accidentally contains the same word more than once.
+  function uniqueWords(items){
+    const seen=new Set();
+    return (Array.isArray(items)?items:[]).filter(w=>{
+      if(!w || typeof w!=='object') return false;
+      const key=String(w.word||w.hanzi||w.chinese||'').trim();
+      if(!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+  function shuffle(items){
+    const a=items.slice();
+    for(let n=a.length-1;n>0;n--){
+      const j=Math.floor(Math.random()*(n+1));
+      [a[n],a[j]]=[a[j],a[n]];
+    }
+    return a;
+  }
+  function start(items=words()){
+    // Each new HSK flashcard session is freshly shuffled. No duplicate word
+    // can appear until the whole unique pool has been shown.
+    list=shuffle(uniqueWords(items));
+    i=0;flipped=false;render();
+  }
   function refreshForLevel(level){
     const wanted=String(level||document.getElementById('hsk-level')?.value||'1');
     const pool=Array.isArray(window.hskData?.[wanted])?window.hskData[wanted]:[];

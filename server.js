@@ -11,8 +11,6 @@ const admin = require("firebase-admin");
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
-app.use(express.json({ limit: "100kb" }));
-
 // Lightweight abuse protection for public OTP endpoints. For multi-instance production,
 // replace this map with a shared rate limiter (Redis/Upstash/etc.).
 const requestBuckets = new Map();
@@ -51,6 +49,21 @@ app.use((req, res, next) => {
 });
 
 app.disable("x-powered-by");
+app.use((req,res,next)=>{
+    const frontendOrigin = String(process.env.FRONTEND_ORIGIN || "").trim();
+    if (frontendOrigin && req.path.startsWith("/api/")) {
+        const requestOrigin = String(req.headers.origin || "");
+        if (requestOrigin === frontendOrigin) {
+            res.setHeader("Access-Control-Allow-Origin", frontendOrigin);
+            res.setHeader("Vary", "Origin");
+            res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+            res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+        }
+        if (req.method === "OPTIONS") return res.sendStatus(requestOrigin === frontendOrigin ? 204 : 403);
+    }
+    next();
+});
+
 app.use((req,res,next)=>{
     res.setHeader("X-Content-Type-Options","nosniff");
     res.setHeader("Referrer-Policy","strict-origin-when-cross-origin");
@@ -116,6 +129,8 @@ try {
 } catch (error) {
     console.error("❌ Firebase Admin lỗi:", error.message);
 }
+
+app.use(express.json({ limit: "100kb" }));
 
 /* =========================
    SMTP

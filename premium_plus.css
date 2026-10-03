@@ -61,3 +61,13 @@ html body.dark-mode .ghpp-dialog {
   color: #f2f7ff !important;
   border: 1px solid rgba(110, 170, 225, .24) !important;
 }
+
+
+/* Dark color-scheme support. */
+html { color-scheme: light dark !important; }
+html body.dark-mode,
+html body.dark-mode #ghpp-tools,
+html body.dark-mode #ghpp-tools * {
+  color-scheme: dark !important;
+}
+

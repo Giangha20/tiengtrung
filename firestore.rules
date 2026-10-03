@@ -9,12 +9,24 @@ service cloud.firestore {
       allow create: if request.auth != null
         && request.auth.uid == userId
         && request.resource.data.uid == userId
+        && !('premium' in request.resource.data)
+        && !('isPremium' in request.resource.data)
+        && !('owner' in request.resource.data)
+        && !('premiumOwner' in request.resource.data)
         && (!('email' in request.resource.data) || request.resource.data.email == request.auth.token.email);
       allow update: if request.auth != null
         && request.auth.uid == userId
         && resource.data.uid == userId
         && request.resource.data.uid == userId
-        && (!('email' in request.resource.data) || request.resource.data.email == request.auth.token.email);
+        && (!('email' in request.resource.data) || request.resource.data.email == request.auth.token.email)
+        && (!('premium' in resource.data) || (('premium' in request.resource.data) && request.resource.data.premium == resource.data.premium))
+        && (!('isPremium' in resource.data) || (('isPremium' in request.resource.data) && request.resource.data.isPremium == resource.data.isPremium))
+        && (!('owner' in resource.data) || (('owner' in request.resource.data) && request.resource.data.owner == resource.data.owner))
+        && (!('premiumOwner' in resource.data) || (('premiumOwner' in request.resource.data) && request.resource.data.premiumOwner == resource.data.premiumOwner))
+        && !((!('premium' in resource.data)) && ('premium' in request.resource.data))
+        && !((!('isPremium' in resource.data)) && ('isPremium' in request.resource.data))
+        && !((!('owner' in resource.data)) && ('owner' in request.resource.data))
+        && !((!('premiumOwner' in resource.data)) && ('premiumOwner' in request.resource.data));
       allow delete: if request.auth != null && request.auth.uid == userId;
 
       match /favorites/{wordId} {
