@@ -50,17 +50,39 @@ app.use((req, res, next) => {
 
 app.disable("x-powered-by");
 app.use((req,res,next)=>{
-    const frontendOrigin = String(process.env.FRONTEND_ORIGIN || "").trim();
-    if (frontendOrigin && req.path.startsWith("/api/")) {
-        const requestOrigin = String(req.headers.origin || "");
-        if (requestOrigin === frontendOrigin) {
-            res.setHeader("Access-Control-Allow-Origin", frontendOrigin);
-            res.setHeader("Vary", "Origin");
-            res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
-            res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-        }
-        if (req.method === "OPTIONS") return res.sendStatus(requestOrigin === frontendOrigin ? 204 : 403);
+    if (!req.path.startsWith("/api/")) return next();
+
+    const requestOrigin = String(req.headers.origin || "").trim();
+    const allowedOrigins = String(process.env.FRONTEND_ORIGIN || "")
+        .split(",")
+        .map(v => v.trim().replace(/\/$/, ""))
+        .filter(Boolean);
+
+    // Cho phép Live Server/VsCode chạy local frontend (:5500) gọi backend (:3000).
+    // Production vẫn nên cấu hình FRONTEND_ORIGIN rõ ràng trên Vercel.
+    if (process.env.NODE_ENV !== "production") {
+        allowedOrigins.push(
+            "http://localhost:5500",
+            "http://127.0.0.1:5500",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000"
+        );
     }
+
+    // Same-origin requests do not need CORS.
+    // For GitHub Pages -> Vercel, set FRONTEND_ORIGIN to the exact GitHub Pages origin.
+    if (requestOrigin && allowedOrigins.includes(requestOrigin)) {
+        res.setHeader("Access-Control-Allow-Origin", requestOrigin);
+        res.setHeader("Vary", "Origin");
+        res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+        res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+    }
+
+    if (req.method === "OPTIONS") {
+        if (!requestOrigin || allowedOrigins.includes(requestOrigin)) return res.sendStatus(204);
+        return res.status(403).json({ error: "Origin không được phép." });
+    }
+
     next();
 });
 
@@ -102,17 +124,49 @@ function findServiceAccount() {
     return null;
 }
 
+function loadFirebaseAdminCredential() {
+    // Production/Vercel: use an environment variable instead of uploading
+    // a Firebase service-account JSON file to GitHub.
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+        try {
+            return JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+        } catch (error) {
+            throw new Error("FIREBASE_SERVICE_ACCOUNT_JSON không phải JSON hợp lệ.");
+        }
+    }
+
+    // Alternative: three Vercel environment variables.
+    if (
+        process.env.FIREBASE_PROJECT_ID &&
+        process.env.FIREBASE_CLIENT_EMAIL &&
+        process.env.FIREBASE_PRIVATE_KEY
+    ) {
+        return {
+            project_id: process.env.FIREBASE_PROJECT_ID,
+            client_email: process.env.FIREBASE_CLIENT_EMAIL,
+            private_key: String(process.env.FIREBASE_PRIVATE_KEY).replace(/\\n/g, "\n")
+        };
+    }
+
+    const serviceAccountFile = findServiceAccount();
+    if (serviceAccountFile) {
+        return JSON.parse(fs.readFileSync(serviceAccountFile, "utf8"));
+    }
+
+    return null;
+}
+
 let firebaseReady = false;
 let firebaseAuth = null;
+let firebaseConfigSource = null;
+let firebaseConfigError = null;
 
 try {
-    const serviceAccountFile = findServiceAccount();
+    const serviceAccount = loadFirebaseAdminCredential();
 
-    if (serviceAccountFile) {
-        const serviceAccount = JSON.parse(
-            fs.readFileSync(serviceAccountFile, "utf8")
-        );
-
+    if (serviceAccount) {
+        firebaseConfigSource = process.env.FIREBASE_SERVICE_ACCOUNT_JSON ? "FIREBASE_SERVICE_ACCOUNT_JSON" :
+            (process.env.FIREBASE_PROJECT_ID && process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY ? "3 biến Firebase" : "secrets/firebase-service-account.json");
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount)
         });
@@ -121,12 +175,13 @@ try {
         firebaseReady = true;
 
         console.log("✅ Firebase Admin: OK");
-        console.log(`   Key: ${path.relative(__dirname, serviceAccountFile)}`);
     } else {
         console.log("⚠️ Firebase Admin: CHƯA CẤU HÌNH");
-        console.log("   Đặt file Firebase Admin JSON vào thư mục secrets/");
+        console.log("   Vercel: đặt FIREBASE_SERVICE_ACCOUNT_JSON hoặc");
+        console.log("   FIREBASE_PROJECT_ID/FIREBASE_CLIENT_EMAIL/FIREBASE_PRIVATE_KEY.");
     }
 } catch (error) {
+    firebaseConfigError = error.message;
     console.error("❌ Firebase Admin lỗi:", error.message);
 }
 
@@ -138,6 +193,8 @@ app.use(express.json({ limit: "100kb" }));
 
 let transporter = null;
 let smtpReady = false;
+let smtpVerifyError = null;
+const smtpMissing = ["SMTP_HOST", "SMTP_USER", "SMTP_PASS"].filter(k => !process.env[k]);
 
 if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
     transporter = nodemailer.createTransport({
@@ -159,6 +216,7 @@ if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
             console.log("✅ SMTP: OK");
         })
         .catch(error => {
+            smtpVerifyError = error.message;
             console.error("❌ SMTP verify thất bại:", error.message);
         });
 } else {
@@ -204,10 +262,34 @@ setInterval(cleanupOtpStore, 60 * 1000).unref();
    ========================= */
 
 app.get("/api/health", (req, res) => {
-    res.json({
-        success: true,
-        firebaseAdmin: firebaseReady,
-        smtp: smtpReady,
+    const firebaseMissing = [];
+    if (!process.env.FIREBASE_SERVICE_ACCOUNT_JSON && !(process.env.FIREBASE_PROJECT_ID && process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) && !findServiceAccount()) {
+        firebaseMissing.push("Firebase Admin credentials");
+    }
+
+    const checks = {
+        firebaseAdmin: {
+            ok: firebaseReady,
+            source: firebaseConfigSource,
+            missing: firebaseMissing,
+            error: firebaseConfigError
+        },
+        gmailSmtp: {
+            configured: Boolean(transporter),
+            verified: smtpReady,
+            missing: smtpMissing,
+            error: smtpVerifyError
+        }
+    };
+
+    const ready = firebaseReady && smtpReady;
+    res.status(ready ? 200 : 503).json({
+        success: ready,
+        ready,
+        message: ready
+            ? "Firebase Admin và Gmail SMTP đã sẵn sàng để gửi OTP."
+            : "OTP chưa sẵn sàng. Xem checks.firebaseAdmin và checks.gmailSmtp để biết chính xác phần còn thiếu.",
+        checks,
         port: PORT
     });
 });
@@ -227,13 +309,23 @@ app.post("/api/request-password-otp", otpRateLimit, async (req, res) => {
 
     if (!firebaseReady) {
         return res.status(503).json({
-            error: "Server chưa cấu hình Firebase Admin. Hãy đặt file Firebase Admin JSON vào thư mục secrets."
+            error: firebaseConfigError
+                ? `Firebase Admin lỗi: ${firebaseConfigError}`
+                : "Server chưa cấu hình Firebase Admin. Đặt file secrets/firebase-service-account.json hoặc cấu hình biến môi trường Firebase."
         });
     }
 
     if (!transporter) {
         return res.status(503).json({
-            error: "Server chưa cấu hình Gmail SMTP."
+            error: `Gmail SMTP chưa cấu hình. Còn thiếu: ${smtpMissing.join(", ") || "không xác định"}.`
+        });
+    }
+
+    if (!smtpReady) {
+        return res.status(503).json({
+            error: smtpVerifyError
+                ? `Gmail SMTP chưa xác thực được: ${smtpVerifyError}`
+                : "Gmail SMTP đang kiểm tra kết nối. Hãy thử lại sau vài giây."
         });
     }
 
@@ -402,12 +494,18 @@ app.post("/api/reset-password-with-otp", otpRateLimit, async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log("");
-    console.log("==============================================");
-    console.log("      HSK + FIREBASE + OTP SERVER");
-    console.log("==============================================");
-    console.log(`✅ Server: http://localhost:${PORT}`);
-    console.log(`✅ Health: http://localhost:${PORT}/api/health`);
-    console.log("==============================================");
-});
+// Vercel uses the exported Express app as a serverless function.
+// Local development still uses: npm start
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log("");
+        console.log("==============================================");
+        console.log("      HSK + FIREBASE + OTP SERVER");
+        console.log("==============================================");
+        console.log(`✅ Server: http://localhost:${PORT}`);
+        console.log(`✅ Health: http://localhost:${PORT}/api/health`);
+        console.log("==============================================");
+    });
+}
+
+module.exports = app;

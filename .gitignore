@@ -1,0 +1,7 @@
+.env
+secrets/*
+!secrets/README.txt
+!secrets/firebase-service-account.example.json
+firebase-service-account.json
+firebase-adminsdk*.json
+node_modules/
