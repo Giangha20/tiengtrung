@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Đăng ký - Tiếng Trung</title>
+    <title>Đăng ký tài khoản - Học Tiếng Trung Giang Hà</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -13,605 +15,526 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #ef4444;
+            --primary-hover: #dc2626;
+            --primary-deep: #b91c1c;
+            --bg-gradient: radial-gradient(circle at 15% 15%, rgba(239, 68, 68, .18) 0, transparent 40%),
+                           radial-gradient(circle at 85% 85%, rgba(59, 130, 246, .18) 0, transparent 40%),
+                           radial-gradient(circle at 50% 50%, rgba(16, 185, 129, .1) 0, transparent 60%),
+                           #f8fafc;
+            --card-bg: rgba(255, 255, 255, .94);
+            --card-border: rgba(255, 255, 255, .8);
+            --card-shadow: 0 25px 60px -15px rgba(15, 23, 42, .15), 0 0 0 1px rgba(226, 232, 240, .8);
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --input-bg: #ffffff;
+            --input-border: #e2e8f0;
+            --input-focus-ring: rgba(239, 68, 68, .18);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-gradient: radial-gradient(circle at 15% 15%, rgba(239, 68, 68, .25) 0, transparent 45%),
+                               radial-gradient(circle at 85% 85%, rgba(59, 130, 246, .22) 0, transparent 45%),
+                               radial-gradient(circle at 50% 50%, rgba(16, 185, 129, .12) 0, transparent 60%),
+                               #0b0f17;
+                --card-bg: rgba(18, 24, 38, .86);
+                --card-border: rgba(255, 255, 255, .08);
+                --card-shadow: 0 30px 70px -15px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
+                --text-main: #f8fafc;
+                --text-sub: #94a3b8;
+                --input-bg: rgba(15, 23, 42, .65);
+                --input-border: #334155;
+                --input-focus-ring: rgba(239, 68, 68, .28);
+            }
+        }
+
         body {
             min-height: 100vh;
-            font-family: "Segoe UI", Arial, sans-serif;
-
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-
-            padding: 20px;
-
-            background:
-                radial-gradient(
-                    circle at top left,
-                    #ff7675 0,
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    #74b9ff 0,
-                    transparent 35%
-                ),
-                #f5f7fb;
+            padding: 24px 18px;
+            background: var(--bg-gradient);
+            position: relative;
+            overflow-x: hidden;
         }
 
+        /* Ambient Glow Spheres */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: .65;
+            animation: floatOrb 14s ease-in-out infinite alternate;
+        }
+        .bg-orb-1 {
+            width: 340px; height: 340px;
+            background: radial-gradient(circle, #ef4444, #f43f5e);
+            top: -80px; left: -80px;
+        }
+        .bg-orb-2 {
+            width: 320px; height: 320px;
+            background: radial-gradient(circle, #3b82f6, #6366f1);
+            bottom: -80px; right: -80px;
+            animation-delay: -7s;
+        }
+        .bg-orb-3 {
+            width: 260px; height: 260px;
+            background: radial-gradient(circle, #10b981, #14b8a6);
+            bottom: 30%; left: 50%;
+            transform: translateX(-50%);
+            animation-delay: -3.5s;
+            opacity: .35;
+        }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 40px) scale(1.1); }
+        }
+
+        /* Card */
         .register-box {
             width: 100%;
-            max-width: 430px;
-
-            background: rgba(255, 255, 255, 0.96);
-
-            padding: 35px 30px;
-
-            border-radius: 25px;
-
-            box-shadow:
-                0 20px 60px rgba(0, 0, 0, 0.15);
-
-            animation: showBox 0.6s ease;
+            max-width: 450px;
+            background: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: 34px 30px;
+            border-radius: 28px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--card-border);
+            position: relative;
+            z-index: 1;
+            animation: cardEntrance .5s cubic-bezier(.16, 1, .3, 1);
+        }
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(24px) scale(.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        @keyframes showBox {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
+        /* Brand Header */
+        .brand-header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
-
-        .logo img {
-            width: 85px;
-            height: 85px;
-
-            border-radius: 50%;
-
-            object-fit: cover;
-
-            border: 4px solid white;
-
-            box-shadow:
-                0 8px 25px rgba(214, 48, 49, 0.25);
-        }
-
-        .logo-default {
-            width: 85px;
-            height: 85px;
-
-            margin: auto;
-
-            border-radius: 50%;
-
-            display: flex;
-            justify-content: center;
+        .brand-pill {
+            display: inline-flex;
             align-items: center;
-
-            color: white;
-
-            font-size: 38px;
-            font-weight: bold;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #d63031,
-                    #ff7675
-                );
-        }
-
-        h1 {
-            margin-top: 15px;
-
-            color: #2d3436;
-
-            font-size: 25px;
-
+            gap: 7px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 11.5px;
             font-weight: 800;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, rgba(239, 68, 68, .12), rgba(244, 63, 94, .12));
+            color: var(--primary);
+            border: 1px solid rgba(239, 68, 68, .25);
+            margin-bottom: 12px;
+        }
+        .brand-pill .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 8px var(--primary);
+            animation: pulseDot 2s infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .4; transform: scale(.75); }
         }
 
+        .avatar-wrapper {
+            position: relative;
+            width: 88px; height: 88px;
+            margin: 0 auto 14px;
+        }
+        .avatar-ring {
+            position: absolute; inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ef4444, #f59e0b, #10b981, #3b82f6);
+            background-size: 200% 200%;
+            animation: rotateRing 8s linear infinite;
+            box-shadow: 0 8px 24px rgba(239, 68, 68, .3);
+        }
+        @keyframes rotateRing {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .avatar-img {
+            position: relative;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+            background: #fff;
+            z-index: 1;
+        }
+        .avatar-default {
+            position: relative;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            background: linear-gradient(135deg, #ef4444, #f43f5e);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 38px; font-weight: 800;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -.4px;
+            margin-bottom: 5px;
+        }
         .subtitle {
-            margin-top: 6px;
-
-            color: #636e72;
-
-            font-size: 14px;
+            color: var(--text-sub);
+            font-size: 13.5px;
+            line-height: 1.5;
+            font-weight: 500;
         }
 
+        /* Form */
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
-
         label {
             display: block;
-
-            margin-bottom: 8px;
-
-            color: #2d3436;
-
-            font-size: 14px;
-
+            font-size: 13px;
             font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
         }
-
-        .input-box {
+        .input-wrap {
             position: relative;
+            display: flex;
+            align-items: center;
         }
-
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            color: #94a3b8;
+            width: 19px; height: 19px;
+            pointer-events: none;
+            transition: color .2s;
+            display: flex; align-items: center; justify-content: center;
+        }
         .input {
             width: 100%;
-
-            height: 50px;
-
-            padding: 0 48px 0 15px;
-
-            border: 2px solid #e5e7eb;
-
-            border-radius: 14px;
-
+            height: 48px;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
+            border-radius: 15px;
+            padding: 0 15px 0 44px;
+            font-size: 14.5px;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--text-main);
             outline: none;
-
-            background: white;
-
-            font-size: 15px;
-
-            transition: 0.25s;
+            transition: all .2s ease;
         }
-
+        .input-box .input {
+            padding-right: 46px;
+        }
         .input:focus {
-            border-color: #d63031;
-
-            box-shadow:
-                0 0 0 4px rgba(214, 48, 49, 0.08);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--input-focus-ring);
+        }
+        .input:focus ~ .input-icon {
+            color: var(--primary);
         }
 
         .show-password {
             position: absolute;
-            right: 8px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
-
-            width: 38px;
-            height: 38px;
-            padding: 0;
-
+            width: 34px; height: 34px;
             border: none;
-            outline: none;
             background: transparent;
-
             cursor: pointer;
             z-index: 5;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 19px;
-            line-height: 1;
-            color: #2d3436;
-            opacity: 1;
+            display: flex; align-items: center; justify-content: center;
+            color: #94a3b8;
+            transition: color .2s;
         }
-
         .show-password:hover {
-            transform: translateY(-50%) scale(1.08);
+            color: var(--primary);
         }
 
-        .show-password:focus-visible {
-            border-radius: 8px;
-            box-shadow: 0 0 0 3px rgba(214, 48, 49, 0.15);
-        }
-
+        /* 3D Button */
         .register-btn {
             width: 100%;
-
             height: 52px;
-
-            margin-top: 5px;
-
-            border: none;
-
-            border-radius: 15px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #d63031,
-                    #ff7675
-                );
-
-            color: white;
-
-            font-size: 16px;
-
+            border: 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #ef4444 0%, #f43f5e 100%);
+            color: #ffffff;
+            font-size: 15.5px;
             font-weight: 800;
-
+            font-family: inherit;
             cursor: pointer;
-
-            box-shadow:
-                0 8px 20px rgba(214, 48, 49, 0.25);
-
-            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            position: relative;
+            margin-top: 6px;
+            box-shadow: 0 4px 0 var(--primary-deep), 0 12px 24px rgba(239, 68, 68, .35);
+            transition: all .15s ease;
+            user-select: none;
         }
-
         .register-btn:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 12px 25px rgba(214, 48, 49, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 0 var(--primary-deep), 0 16px 28px rgba(239, 68, 68, .4);
         }
-
-        .message {
-            display: none;
-
-            margin-top: 15px;
-
-            padding: 12px;
-
-            border-radius: 12px;
-
-            text-align: center;
-
-            font-size: 13px;
-
-            line-height: 1.5;
+        .register-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 var(--primary-deep), 0 4px 10px rgba(239, 68, 68, .3);
         }
-
-        .message.error {
-            display: block;
-
-            color: #c0392b;
-
-            background: #fff0f0;
-
-            border: 1px solid #ffd6d6;
-        }
-
-        .message.success {
-            display: block;
-
-            color: #008f6f;
-
-            background: #edfff8;
-
-            border: 1px solid #c9f5e6;
+        .register-btn:disabled {
+            opacity: .65;
+            cursor: wait;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         .login-text {
             text-align: center;
-
-            margin-top: 22px;
-
-            color: #636e72;
-
-            font-size: 14px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--input-border);
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-sub);
         }
-
         .login-text a {
-            color: #d63031;
-
-            font-weight: 700;
-
+            color: var(--primary);
+            font-weight: 800;
             text-decoration: none;
+            margin-left: 5px;
         }
-
         .login-text a:hover {
             text-decoration: underline;
         }
 
         .footer {
-            margin-top: 25px;
-
             text-align: center;
-
-            color: #95a5a6;
-
+            margin-top: 14px;
             font-size: 12px;
+            color: var(--text-sub);
+            line-height: 1.6;
         }
 
-        @media (max-width: 480px) {
-
-            body {
-                padding: 15px;
-            }
-
-            .register-box {
-                padding: 28px 20px;
-
-                border-radius: 22px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
-
-            .logo img,
-            .logo-default {
-                width: 78px;
-                height: 78px;
-            }
-
-            .input {
-                height: 48px;
-            }
-
-            .register-btn {
-                height: 50px;
-            }
+        .message {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
         }
-
+        .message.error {
+            display: block;
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+        .message.success {
+            display: block;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
         @media (prefers-color-scheme: dark) {
-
-            body {
-                background: #151719;
+            .message.error {
+                background: rgba(185, 28, 28, .2);
+                color: #fca5a5;
+                border-color: rgba(185, 28, 28, .4);
             }
-
-            .register-box {
-                background: #1e2023;
+            .message.success {
+                background: rgba(6, 78, 59, .4);
+                color: #6ee7b7;
+                border-color: #047857;
             }
-
-            h1 {
-                color: #f5f6fa;
-            }
-
-            .subtitle {
-                color: #b2bec3;
-            }
-
-            label {
-                color: #f5f6fa;
-            }
-
-            .input {
-                background: #25282c;
-
-                border-color: #3d4147;
-
-                color: white;
-            }
-
-            .input::placeholder {
-                color: #747d85;
-            }
-
-            .show-password {
-                color: #f5f6fa;
-            }
-
-            .login-text {
-                color: #b2bec3;
-            }
-
-            .footer {
-                color: #747d85;
-            }
+        }
+        .ui-icon {
+            width: 19px; height: 19px;
+            stroke-width: 2.2;
+            vertical-align: -.2em;
+            flex-shrink: 0;
         }
     </style>
 
 <svg id="inline-icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
 <defs>
-<symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
-<symbol id="icon-eye-off" viewBox="0 0 24 24"><path d="m3 3 18 18M10.6 6.2C11.05 6.07 11.52 6 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3.2 3.6M6.2 6.9C3.8 8.6 2.5 12 2.5 12S6 18 12 18c1.2 0 2.3-.2 3.3-.6"/></symbol>
-<symbol id="icon-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
-<symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
-<symbol id="icon-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9m-3 3 2 2m-5-1 2 2"/></symbol>
-<symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
-<symbol id="icon-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
-<symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 4 21 20H3L12 4Z"/><path d="M12 9v5m0 3h.01"/></symbol>
-<symbol id="icon-loading" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/></symbol>
-<symbol id="icon-volume" viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M16 9.5a4 4 0 0 1 0 5m2.5-7.5a8 8 0 0 1 0 10"/></symbol>
-<symbol id="icon-spark" viewBox="0 0 24 24"><path d="m12 3 1.5 6.5L20 12l-6.5 1.5L12 20l-1.5-6.5L4 12l6.5-2.5L12 3Z"/></symbol>
-<symbol id="icon-bulb" viewBox="0 0 24 24"><path d="M9 18h6m-5 3h4M8 15c-1.2-.9-2-2.4-2-4a6 6 0 0 1 12 0c0 1.6-.8 3.1-2 4-.7.5-1 1.2-1 2h-6c0-.8-.3-1.5-1-2Z"/></symbol>
-<symbol id="icon-question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.3 2.3 0 1 1 3.9 1.6c-1 .9-1.7 1.3-1.7 2.8m0 3h.01"/></symbol>
-<symbol id="icon-chat" viewBox="0 0 24 24"><path d="M5 18.5 3.5 21l4-1.5A9 9 0 1 0 5 18.5Z"/><path d="M8 10h8M8 14h5"/></symbol>
-<symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
-<symbol id="icon-cloud" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6 11.5 3.5 3.5 0 0 0 7 18Z"/></symbol>
-<symbol id="icon-package" viewBox="0 0 24 24"><path d="m12 3 8 4-8 4-8-4 8-4Z"/><path d="M4 7v10l8 4 8-4V7M12 11v10"/></symbol>
-<symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
-<symbol id="icon-hand" viewBox="0 0 24 24"><path d="M8 13V7a1.5 1.5 0 0 1 3 0v5m0-4a1.5 1.5 0 0 1 3 0v4m0-3a1.5 1.5 0 0 1 3 0v5m0-2a1.5 1.5 0 0 1 3 0v3c0 4-2.5 6-6.5 6H10c-2 0-3-1-4-2l-2-3a1.5 1.5 0 0 1 2.5-1.7L8 16"/></symbol>
+<symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6Z" fill="none" stroke="currentColor"/><circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor"/></symbol>
+<symbol id="icon-eye-off" viewBox="0 0 24 24"><path d="m3 3 18 18M10.6 6.2C11.05 6.07 11.52 6 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3.2 3.6M6.2 6.9C3.8 8.6 2.5 12 2.5 12S6 18 12 18c1.2 0 2.3-.2 3.3-.6" fill="none" stroke="currentColor"/></symbol>
+<symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor"/><path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor"/></symbol>
+<symbol id="icon-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2" fill="none" stroke="currentColor"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor"/></symbol>
+<symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor"/></symbol>
+<symbol id="icon-spark" viewBox="0 0 24 24"><path d="m12 3 1.5 6.5L20 12l-6.5 1.5L12 20l-1.5-6.5L4 12l6.5-2.5L12 3Z" fill="currentColor"/></symbol>
 </defs></svg>
-
-<style>.ui-icon{width:20px;height:20px;display:inline-block;vertical-align:-.22em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.ui-icon-lg{width:24px;height:24px}.ui-icon-xl{width:32px;height:32px}.icon-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px}</style>
 </head>
 
 <body>
 
-<div class="register-box">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
 
-    <!-- LOGO -->
+    <div class="register-box">
 
-    <div class="logo">
-
-        <img
-            src="avatar192.jpg"
-            alt="Tiếng Trung Giang Hà"
-            id="logoImage"
-            onerror="
-                this.style.display='none';
-                document.getElementById('logoDefault').style.display='flex';
-            "
-        >
-
-        <div
-            class="logo-default"
-            id="logoDefault"
-            style="display:none;"
-        >
-            中
-        </div>
-
-        <h1>
-            Tạo tài khoản
-        </h1>
-
-        <p class="subtitle">
-            Tiếng Trung
-        </p>
-
-    </div>
-
-
-    <!-- FORM ĐĂNG KÝ -->
-
-    <form id="registerForm">
-
-        <!-- TÀI KHOẢN -->
-
-        <div class="form-group">
-
-            <label for="username">
-                Tên tài khoản
-            </label>
-
-            <input
-                type="text"
-                id="username"
-                class="input"
-                placeholder="Ví dụ: abc"
-                minlength="3"
-                maxlength="30"
-                autocomplete="username"
-                required
-            >
-
-        </div>
-
-
-        <!-- EMAIL -->
-
-        <div class="form-group">
-
-            <label for="email">
-                Email
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                class="input"
-                placeholder="example@gmail.com"
-                autocomplete="email"
-                required
-            >
-
-        </div>
-
-
-        <!-- MẬT KHẨU -->
-
-        <div class="form-group">
-
-            <label for="password">
-                Mật khẩu
-            </label>
-
-            <div class="input-box">
-
-                <input
-                    type="password"
-                    id="password"
-                    class="input"
-                    placeholder="Ít nhất 6 ký tự"
-                    minlength="6"
-                    autocomplete="new-password"
-                    required
-                >
-
-                <button
-                    type="button"
-                    class="show-password"
-                    onclick="togglePassword('password', this)"
-                    aria-label="Hiện hoặc ẩn mật khẩu"
-                    title="Hiện/ẩn mật khẩu"
-                >
-                    <svg class="ui-icon" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
-                </button>
-
+        <!-- LOGO BRAND HEADER -->
+        <div class="brand-header">
+            <div class="brand-pill">
+                <span class="dot"></span>
+                <span>Học Tiếng Trung Giang Hà</span>
             </div>
 
-        </div>
-
-
-        <!-- NHẬP LẠI MẬT KHẨU -->
-
-        <div class="form-group">
-
-            <label for="confirmPassword">
-                Nhập lại mật khẩu
-            </label>
-
-            <div class="input-box">
-
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    class="input"
-                    placeholder="Nhập lại mật khẩu"
-                    minlength="6"
-                    autocomplete="new-password"
-                    required
+            <div class="avatar-wrapper">
+                <div class="avatar-ring"></div>
+                <img
+                    src="avatar192.jpg"
+                    alt="Tiếng Trung"
+                    id="logoImage"
+                    class="avatar-img"
+                    onerror="this.style.display='none'; document.getElementById('logoDefault').style.display='flex';"
                 >
-
-                <button
-                    type="button"
-                    class="show-password"
-                    onclick="togglePassword('confirmPassword', this)"
-                    aria-label="Hiện hoặc ẩn mật khẩu nhập lại"
-                    title="Hiện/ẩn mật khẩu nhập lại"
+                <div
+                    class="avatar-default"
+                    id="logoDefault"
+                    style="display:none;"
                 >
-                    <svg class="ui-icon" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
-                </button>
-
+                    中
+                </div>
             </div>
 
+            <h1 class="title">Đăng ký tài khoản</h1>
+            <p class="subtitle">Tạo tài khoản để theo dõi tiến trình và thi thử HSK</p>
         </div>
 
+        <!-- FORM ĐĂNG KÝ -->
+        <form id="registerForm">
 
-        <button
-            type="submit"
-            class="register-btn"
-        >
-            Đăng ký tài khoản
-        </button>
+            <div class="form-group">
+                <label for="username">Tên hiển thị</label>
+                <div class="input-wrap">
+                    <input
+                        type="text"
+                        id="username"
+                        class="input"
+                        placeholder="Họ và tên hoặc biệt danh"
+                        autocomplete="nickname"
+                        required
+                    >
+                    <span class="input-icon">
+                        <svg class="ui-icon" aria-hidden="true"><use href="#icon-user"></use></svg>
+                    </span>
+                </div>
+            </div>
 
-    </form>
+            <div class="form-group">
+                <label for="email">Địa chỉ Email</label>
+                <div class="input-wrap">
+                    <input
+                        type="email"
+                        id="email"
+                        class="input"
+                        placeholder="example@gmail.com"
+                        autocomplete="email"
+                        required
+                    >
+                    <span class="input-icon">
+                        <svg class="ui-icon" aria-hidden="true"><use href="#icon-mail"></use></svg>
+                    </span>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <div class="input-wrap input-box">
+                    <input
+                        type="password"
+                        id="password"
+                        class="input"
+                        placeholder="Ít nhất 6 ký tự"
+                        minlength="6"
+                        autocomplete="new-password"
+                        required
+                    >
+                    <span class="input-icon">
+                        <svg class="ui-icon" aria-hidden="true"><use href="#icon-lock"></use></svg>
+                    </span>
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword('password', this)"
+                        aria-label="Hiện hoặc ẩn mật khẩu"
+                    >
+                        <svg class="ui-icon" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+                    </button>
+                </div>
+            </div>
 
-    <!-- THÔNG BÁO -->
+            <div class="form-group">
+                <label for="confirmPassword">Nhập lại mật khẩu</label>
+                <div class="input-wrap input-box">
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        class="input"
+                        placeholder="Nhập lại mật khẩu ở trên"
+                        minlength="6"
+                        autocomplete="new-password"
+                        required
+                    >
+                    <span class="input-icon">
+                        <svg class="ui-icon" aria-hidden="true"><use href="#icon-lock"></use></svg>
+                    </span>
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword('confirmPassword', this)"
+                        aria-label="Hiện hoặc ẩn mật khẩu nhập lại"
+                    >
+                        <svg class="ui-icon" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+                    </button>
+                </div>
+            </div>
 
-    <div
-        id="message"
-        class="message"
-    ></div>
+            <button
+                type="submit"
+                class="register-btn"
+            >
+                <svg class="ui-icon" aria-hidden="true"><use href="#icon-spark"></use></svg>
+                <span>Tạo tài khoản ngay</span>
+            </button>
 
+        </form>
 
-    <!-- QUAY LẠI ĐĂNG NHẬP -->
+        <!-- THÔNG BÁO -->
+        <div id="message" class="message"></div>
 
-    <div class="login-text">
+        <!-- QUAY LẠI ĐĂNG NHẬP -->
+        <div class="login-text">
+            Đã có tài khoản?
+            <a href="login.html">Đăng nhập</a>
+        </div>
 
-        Đã có tài khoản?
-
-        <a href="login.html">
-            Đăng nhập
-        </a>
+        <div class="footer">
+            Bảo vệ bởi Google Firebase Authentication • Giang Hà © 2026
+        </div>
 
     </div>
-
-
-    <div class="footer">
-        © 2026 Tiếng Trung - Giang Hà
-    </div>
-
-</div>
-
 
 <script>
 (function () {
@@ -646,7 +569,6 @@
 
             const readyUser = await window.ghAuthReady;
             if (readyUser) {
-                // Không để tài khoản cũ tự nhảy vào trang học khi người dùng đang ở trang đăng ký.
                 await window.ghAuth.logout();
             }
             if (!window.ghFirebaseConfigured) {
@@ -665,7 +587,7 @@
                 if (password.length < 6) return showMessage("Mật khẩu phải có ít nhất 6 ký tự.", "error");
                 if (password !== confirmPassword) return showMessage("Mật khẩu nhập lại không khớp.", "error");
 
-                if (btn) { btn.disabled = true; btn.dataset.oldText = btn.textContent; btn.textContent = "Đang tạo tài khoản..."; }
+                if (btn) { btn.disabled = true; btn.dataset.oldText = btn.innerHTML; btn.innerHTML = "<span>Đang tạo tài khoản...</span>"; }
                 try {
                     await window.ghAuth.register(email, password, username);
                     showMessage("Tạo tài khoản thành công! Đang chuyển sang đăng nhập...", "success");
@@ -673,14 +595,14 @@
                 } catch (error) {
                     console.error("Firebase register error:", error);
                     const messages = {
-                        "auth/email-already-in-use": "Email này đã được đăng ký.",
+                        "auth/email-already-in-use": "Email này đã được đăng ký trước đó.",
                         "auth/invalid-email": "Email không hợp lệ.",
-                        "auth/weak-password": "Mật khẩu quá yếu.",
+                        "auth/weak-password": "Mật khẩu quá yếu (cần tối thiểu 6 ký tự).",
                         "auth/operation-not-allowed": "Firebase Email/Password chưa được bật.",
                         "auth/network-request-failed": "Không có kết nối mạng hoặc Firebase bị chặn."
                     };
                     showMessage(messages[error.code] || ("Đăng ký thất bại: " + (error.message || error)), "error");
-                    if (btn) { btn.disabled = false; btn.textContent = btn.dataset.oldText || "Đăng ký"; }
+                    if (btn) { btn.disabled = false; btn.innerHTML = btn.dataset.oldText || "<span>Tạo tài khoản ngay</span>"; }
                 }
             });
         } catch (error) {
@@ -694,12 +616,17 @@
 </script>
 
 <script>
-window.togglePassword=function(id,button){var input=document.getElementById(id);if(!input)return;var show=input.type==='password';input.type=show?'text':'password';if(button){var use=button.querySelector('use');if(use)use.setAttribute('href',show?'#icon-eye':'#icon-eye-off');button.setAttribute('aria-label',show?'Ẩn mật khẩu':'Hiện mật khẩu');}};
-(function(){
-  function icon(on){return on?'👁':'👁';}
-  function add(){document.querySelectorAll('input[type="password"]').forEach(function(input){if(input.dataset.eyeReady)return;if(input.parentElement?.querySelector('.show-password'))return;input.dataset.eyeReady='1';var wrap=input.parentElement;if(!wrap)return;wrap.style.position='relative';var b=document.createElement('button');b.type='button';b.className='gh-password-toggle';b.textContent=icon(false);b.setAttribute('aria-label','Hiện mật khẩu');b.style.cssText='position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;cursor:pointer;font-size:18px;padding:6px;line-height:1;z-index:3';b.onclick=function(){var show=input.type==='password';input.type=show?'text':'password';b.setAttribute('aria-label',show?'Ẩn mật khẩu':'Hiện mật khẩu');};wrap.appendChild(b);});}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',add);else add();
-})();
+window.togglePassword = function (id, button) {
+    var input = document.getElementById(id);
+    if (!input) return;
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    if (button) {
+        var use = button.querySelector('use');
+        if (use) use.setAttribute('href', show ? '#icon-eye' : '#icon-eye-off');
+        button.setAttribute('aria-label', show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu');
+    }
+};
 </script>
 </body>
 </html>
