@@ -58,20 +58,26 @@ app.use((req,res,next)=>{
         .map(v => v.trim().replace(/\/$/, ""))
         .filter(Boolean);
 
-    // Cho phép Live Server/VsCode chạy local frontend (:5500) gọi backend (:3000).
-    // Production vẫn nên cấu hình FRONTEND_ORIGIN rõ ràng trên Vercel.
-    if (process.env.NODE_ENV !== "production") {
-        allowedOrigins.push(
-            "http://localhost:5500",
-            "http://127.0.0.1:5500",
-            "http://localhost:3000",
-            "http://127.0.0.1:3000"
-        );
+    // Mặc định cho phép GitHub Pages của dự án và localhost/Live Server
+    const defaultOrigins = [
+        "https://giangha20.github.io",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+    ];
+    for (const d of defaultOrigins) {
+        if (!allowedOrigins.includes(d)) allowedOrigins.push(d);
     }
 
-    // Same-origin requests do not need CORS.
-    // For GitHub Pages -> Vercel, set FRONTEND_ORIGIN to the exact GitHub Pages origin.
-    if (requestOrigin && allowedOrigins.includes(requestOrigin)) {
+    const isAllowed = !requestOrigin ||
+        allowedOrigins.includes(requestOrigin) ||
+        requestOrigin.endsWith(".github.io") ||
+        requestOrigin.endsWith(".vercel.app") ||
+        requestOrigin.includes("localhost") ||
+        requestOrigin.includes("127.0.0.1");
+
+    if (requestOrigin && isAllowed) {
         res.setHeader("Access-Control-Allow-Origin", requestOrigin);
         res.setHeader("Vary", "Origin");
         res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
@@ -79,7 +85,7 @@ app.use((req,res,next)=>{
     }
 
     if (req.method === "OPTIONS") {
-        if (!requestOrigin || allowedOrigins.includes(requestOrigin)) return res.sendStatus(204);
+        if (isAllowed) return res.sendStatus(204);
         return res.status(403).json({ error: "Origin không được phép." });
     }
 
@@ -248,6 +254,34 @@ function makeOtp() {
     return String(crypto.randomInt(0, 1000000)).padStart(6, "0");
 }
 
+const OTP_SECRET = process.env.OTP_SECRET || process.env.FIREBASE_PROJECT_ID || "gh-tiengtrung-otp-secret-2026";
+
+function signResetToken(email, otp, expiresAt) {
+    const data = `${email}:${otp}:${expiresAt}`;
+    const hmac = crypto.createHmac("sha256", OTP_SECRET).update(data).digest("hex");
+    return `${expiresAt}.${hmac}`;
+}
+
+function verifyResetToken(email, otp, token) {
+    if (!token || typeof token !== "string" || !token.includes(".")) return false;
+    const parts = token.split(".");
+    if (parts.length !== 2) return false;
+    const expiresAt = Number(parts[0]);
+    const sig = parts[1];
+    if (!expiresAt || Date.now() > expiresAt) return false;
+    if (!sig || sig.length !== 64 || !/^[0-9a-f]{64}$/i.test(sig)) return false;
+    const data = `${email}:${otp}:${expiresAt}`;
+    const expectedSig = crypto.createHmac("sha256", OTP_SECRET).update(data).digest("hex");
+    try {
+        const a = Buffer.from(sig, "hex");
+        const b = Buffer.from(expectedSig, "hex");
+        if (a.length !== b.length) return false;
+        return crypto.timingSafeEqual(a, b);
+    } catch {
+        return false;
+    }
+}
+
 function cleanupOtpStore() {
     const now = Date.now();
     for (const [email, item] of otpStore.entries()) {
@@ -357,11 +391,13 @@ app.post("/api/request-password-otp", otpRateLimit, async (req, res) => {
     }
 
     const otp = makeOtp();
+    const expiresAt = Date.now() + OTP_TTL_MS;
+    const resetToken = signResetToken(email, otp, expiresAt);
 
     otpStore.set(email, {
         otpHash: hashOtp(otp),
         createdAt: Date.now(),
-        expiresAt: Date.now() + OTP_TTL_MS,
+        expiresAt,
         attempts: 0
     });
 
@@ -396,7 +432,8 @@ Nếu bạn không yêu cầu đổi mật khẩu, hãy bỏ qua email này.`,
 
         return res.json({
             success: true,
-            message: "Mã OTP đã được gửi. Hãy kiểm tra email."
+            message: "Mã OTP đã được gửi. Hãy kiểm tra email.",
+            resetToken
         });
     } catch (error) {
         otpStore.delete(email);
@@ -441,32 +478,53 @@ app.post("/api/reset-password-with-otp", otpRateLimit, async (req, res) => {
         });
     }
 
-    const item = otpStore.get(email);
+    const resetToken = req.body.resetToken;
+    let otpValid = false;
 
-    if (!item) {
-        return res.status(400).json({
-            error: "OTP không tồn tại hoặc đã hết hạn. Hãy yêu cầu mã mới."
-        });
+    if (resetToken) {
+        if (verifyResetToken(email, otp, resetToken)) {
+            otpValid = true;
+        } else {
+            return res.status(400).json({
+                error: "Mã OTP không đúng hoặc đã hết hạn (10 phút). Hãy yêu cầu mã mới."
+            });
+        }
+    } else {
+        const item = otpStore.get(email);
+
+        if (!item) {
+            return res.status(400).json({
+                error: "OTP không tồn tại hoặc đã hết hạn. Hãy yêu cầu mã mới."
+            });
+        }
+
+        if (Date.now() > item.expiresAt) {
+            otpStore.delete(email);
+            return res.status(400).json({
+                error: "OTP đã hết hạn. Hãy yêu cầu mã mới."
+            });
+        }
+
+        if (item.attempts >= MAX_ATTEMPTS) {
+            otpStore.delete(email);
+            return res.status(429).json({
+                error: "Bạn đã nhập sai OTP quá nhiều lần. Hãy yêu cầu mã mới."
+            });
+        }
+
+        if (hashOtp(otp) !== item.otpHash) {
+            item.attempts += 1;
+            return res.status(400).json({
+                error: `OTP không đúng. Còn ${Math.max(0, MAX_ATTEMPTS - item.attempts)} lần thử.`
+            });
+        }
+
+        otpValid = true;
     }
 
-    if (Date.now() > item.expiresAt) {
-        otpStore.delete(email);
+    if (!otpValid) {
         return res.status(400).json({
-            error: "OTP đã hết hạn. Hãy yêu cầu mã mới."
-        });
-    }
-
-    if (item.attempts >= MAX_ATTEMPTS) {
-        otpStore.delete(email);
-        return res.status(429).json({
-            error: "Bạn đã nhập sai OTP quá nhiều lần. Hãy yêu cầu mã mới."
-        });
-    }
-
-    if (hashOtp(otp) !== item.otpHash) {
-        item.attempts += 1;
-        return res.status(400).json({
-            error: `OTP không đúng. Còn ${Math.max(0, MAX_ATTEMPTS - item.attempts)} lần thử.`
+            error: "Mã OTP không hợp lệ hoặc đã hết hạn."
         });
     }
 
@@ -477,7 +535,7 @@ app.post("/api/reset-password-with-otp", otpRateLimit, async (req, res) => {
             password: newPassword
         });
 
-        otpStore.delete(email);
+        if (otpStore.has(email)) otpStore.delete(email);
 
         console.log(`🔐 Đổi mật khẩu thành công: ${email}`);
 

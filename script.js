@@ -7822,7 +7822,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Chuyển Tab
 function startExamSkill(skill) {
-    markStudyStreakActivity();
     if (skill === 'listening') return switchMode('listening');
     if (skill === 'typing') return switchMode('typing');
     if (skill === 'choice') {
@@ -7833,69 +7832,31 @@ function startExamSkill(skill) {
 window.startExamSkill = startExamSkill;
 
 function markStudyStreakActivity() {
-    try {
-        const key = 'premiumChinesStreakV1';
-        const today = new Date();
-        const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-        const todayKey = iso(today);
-        const raw = JSON.parse(localStorage.getItem(key) || '{}');
-
-        // Trong cùng một ngày: chỉ hiển thị lại số hiện tại, tuyệt đối không cộng thêm.
-        if (raw.lastDate === todayKey) {
-            renderStudyStreak(raw);
-            return raw;
-        }
-
-        const yesterday = new Date(today);
-        yesterday.setDate(today.getDate() - 1);
-        const next = raw.lastDate === iso(yesterday) ? Math.max(1, Number(raw.streak || 0) + 1) : 1;
-        const data = { streak: next, lastDate: todayKey };
-
-        localStorage.setItem(key, JSON.stringify(data));
-        renderStudyStreak(data);
-
-        // Chỉ chúc mừng đúng một lần khi vừa đạt mốc 7 / 15 / 30.
-        if ([7, 15, 30].includes(next)) {
-            const celebrated = Array.isArray(raw.celebrated) ? raw.celebrated : [];
-            if (!celebrated.includes(next)) {
-                data.celebrated = [...celebrated, next];
-                localStorage.setItem(key, JSON.stringify(data));
-                showStreakCelebration(next);
-            }
-        }
-        return data;
-    } catch (e) { return null; }
+    if (window.GH?.streak?.activity) {
+        return window.GH.streak.activity();
+    }
+    return null;
 }
 
 function renderStudyStreak(data) {
-    const count = document.getElementById('streak-count');
-    const widget = document.getElementById('streak-widget');
-    if (!count || !widget) return;
-    const streak = Math.max(0, Number(data?.streak || 0));
-    count.textContent = String(streak);
-    widget.classList.toggle('streak-hot', streak > 0);
+    if (window.GH?.streak?.render) {
+        window.GH.streak.render(data);
+    }
 }
 
 function showStreakCelebration(days) {
-    let toast = document.getElementById('streak-celebration');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'streak-celebration';
-        toast.className = 'streak-celebration';
-        document.body.appendChild(toast);
+    if (window.GH?.streak?.showCelebration) {
+        window.GH.streak.showCelebration(days);
     }
-    toast.innerHTML = `<span class="streak-celebration-fire">🔥</span><div><strong>Chúc mừng!</strong><span>Bạn đã duy trì chuỗi <b>${days} ngày</b> 🎉</span></div>`;
-    toast.classList.remove('show');
-    void toast.offsetWidth;
-    toast.classList.add('show');
-    clearTimeout(window.__streakToastTimer);
-    window.__streakToastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
 }
 
-function initStudyStreak() { markStudyStreakActivity(); }
+function initStudyStreak() {
+    if (window.GH?.streak?.render) {
+        window.GH.streak.render();
+    }
+}
 
 function switchMode(mode) {
-    markStudyStreakActivity();
     const section = document.getElementById(`${mode}-mode`);
     if (!section) return;
 
@@ -8023,6 +7984,10 @@ function showTypingWord() {
     const currentItem = typingWordList[currentWordIndex];
     document.getElementById('typing-word').textContent = currentItem.word;
     document.getElementById('typing-meaning').textContent = currentItem.meaning;
+
+    if (window.GH?.vocabImages?.renderInto) {
+        window.GH.vocabImages.renderInto('#typing-visual-container', currentItem.word, currentItem.meaning, currentItem.pinyin);
+    }
     
     input.value = "";
     input.disabled = false;
@@ -8047,6 +8012,7 @@ function checkTyping() {
     const nextBtn = document.getElementById('next-word-btn');
 
     if (isMatch) {
+        try { window.GH?.streak?.activity?.(); } catch (e) {}
         feedback.textContent = " Chính xác!";
         feedback.className = "correct";
         document.getElementById('typing-input').disabled = true;
@@ -8276,6 +8242,10 @@ function renderQuestion() {
     
     document.getElementById('quiz-word').innerText = q.target.word;
     document.getElementById('quiz-pinyin').innerText = q.target.pinyin ? `[${q.target.pinyin}]` : '';
+
+    if (window.GH?.vocabImages?.renderInto) {
+        window.GH.vocabImages.renderInto('#exam-visual-container', q.target.word, q.target.meaning, q.target.pinyin);
+    }
     
     const optionsDiv = document.getElementById('quiz-options');
     optionsDiv.innerHTML = '';
@@ -8324,6 +8294,7 @@ function applyQuizOptionColors() {
 
 // Kiểm tra đáp án
 function checkExamAnswer(selected, correct, btn) {
+    try { window.GH?.streak?.activity?.(); } catch (e) {}
     const buttons = document.querySelectorAll('.quiz-option-btn');
     buttons.forEach(b => b.disabled = true);
 
@@ -36809,6 +36780,7 @@ function renderListeningQuestion(){
 }
 function checkListening(choice){
   if(listeningAnswered) return; listeningAnswered=true;
+  try { window.GH?.streak?.activity?.(); } catch (e) {}
   const q=listeningQuestions[listeningIndex]; const buttons=[...document.querySelectorAll('.listening-option')]; buttons.forEach(b=>b.disabled=true);
   listeningSessionAnswered++;
   const qMeaning = getListeningMeaning(q);

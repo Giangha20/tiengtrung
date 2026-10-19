@@ -263,6 +263,16 @@
         }
     }
 
+    async function sendPasswordReset(email) {
+        if (!auth || !isConfigured) throw configError();
+        const cleanEmail = String(email || '').trim().toLowerCase();
+        if (!cleanEmail || !cleanEmail.includes('@')) {
+            throw new Error('Email không hợp lệ.');
+        }
+        await auth.sendPasswordResetEmail(cleanEmail);
+        return true;
+    }
+
     window.ghAuth = {
         isConfigured: () => isConfigured && !!auth,
         getUser: () => currentUser,
@@ -277,7 +287,8 @@
         getProfile,
         register,
         login,
-        logout
+        logout,
+        sendPasswordReset
     };
 
     bootstrap();
