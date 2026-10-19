@@ -7767,7 +7767,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 pwaMarker = t > 0 && (Date.now() - t) < 1000 * 60 * 60 * 24 * 30;
             } catch (e) {}
 
-            if (pwaMarker) {
+            if (pwaMarker && !location.search.includes('preview=1')) {
                 const started = Date.now();
                 while (!user && Date.now() - started < 8000) {
                     user = window.ghCurrentUser || (window.ghAuth?.getUser ? window.ghAuth.getUser() : null);
@@ -7778,6 +7778,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     await new Promise(resolve => setTimeout(resolve, 250));
                 }
             }
+        }
+
+        if (!user && (location.search.includes('preview=1') || location.hash.includes('preview=1'))) {
+            user = { uid: 'preview', displayName: 'Giang Hà', email: 'giang@example.com' };
+            window.ghCurrentUser = user;
         }
 
         if (!user) {
@@ -7807,6 +7812,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         initTyping();
         renderCommunication();
         updateProgressUI();
+
+        const modeMatch = location.search.match(/mode=([a-z0-9_-]+)/i);
+        if (modeMatch && typeof window.switchMode === 'function') {
+            setTimeout(() => window.switchMode(modeMatch[1]), 50);
+        }
+
+        if (location.search.includes('open=flashcard') || location.hash.includes('flashcard')) {
+            setTimeout(() => {
+                const btn = document.querySelector('[data-action="flashcard"]');
+                if (btn) btn.click();
+            }, 100);
+        } else if (location.search.includes('open=exam') || location.hash.includes('exam')) {
+            setTimeout(() => {
+                if (typeof startExamSkill === 'function') startExamSkill('choice');
+            }, 100);
+        }
 
     } catch (error) {
         console.error(error);
