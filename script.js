@@ -7820,13 +7820,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (location.search.includes('open=flashcard') || location.hash.includes('flashcard')) {
             setTimeout(() => {
-                const btn = document.querySelector('[data-action="flashcard"]');
-                if (btn) btn.click();
-            }, 100);
+                document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+                const fcMode = document.getElementById('gh-flashcard-mode');
+                if (fcMode) fcMode.classList.add('active');
+                if (window.GH && window.GH.flashcard && window.GH.flashcard.start) window.GH.flashcard.start();
+            }, 700);
         } else if (location.search.includes('open=exam') || location.hash.includes('exam')) {
             setTimeout(() => {
-                if (typeof startExamSkill === 'function') startExamSkill('choice');
-            }, 100);
+                document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+                const exMode = document.getElementById('exam-mode');
+                if (exMode) exMode.classList.add('active');
+                if (typeof startExam === 'function') startExam();
+            }, 700);
+        } else if (location.search.includes('open=typing') || location.hash.includes('typing')) {
+            setTimeout(() => {
+                document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+                const tyMode = document.getElementById('typing-mode');
+                if (tyMode) tyMode.classList.add('active');
+                if (typeof initTyping === 'function') initTyping();
+            }, 700);
         }
 
     } catch (error) {

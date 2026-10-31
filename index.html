@@ -341,6 +341,13 @@
     <link rel="stylesheet" href="./premium_plus.css?v=3"></script>
     <script src="./premium_plus.js?v=3"></script>
     <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.warn));}</script>
+    <script>
+      if (location.search.includes('preview=flashcard')) {
+        window.addEventListener('load', () => setTimeout(() => document.querySelector('[data-mode="flashcard"]')?.click(), 100));
+      } else if (location.search.includes('preview=exam')) {
+        window.addEventListener('load', () => setTimeout(() => document.querySelector('[data-mode="exam"]')?.click(), 100));
+      }
+    </script>
 
 </body>
 </html>
