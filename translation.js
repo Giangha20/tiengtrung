@@ -1,24 +1,25 @@
 // ==============================================================
-// TRANSLATION PRACTICE ENGINE (LUYỆN TẬP DỊCH TIẾNG TRUNG)
-// High-performance, silky-smooth 60fps, responsive on mobile & PC
+// TRANSLATION PRACTICE ENGINE (LUYỆN TẬP DỊCH TIẾNG)
+// Siêu mượt, không giật lag, tối ưu 100% cho điện thoại & máy tính
+// Chế độ 1: Dịch Việt ➔ Trung (Trả lời bằng chữ Hán)
+// Chế độ 2: Dịch Trung ➔ Việt (Trả lời bằng tiếng Việt)
 // ==============================================================
 
 (() => {
   const TR = window.GH_Translation = {
     currentLevel: 1,
-    currentMode: 'vi_zh', // 'vi_zh', 'zh_vi', 'flashcard'
+    currentMode: 'vi_zh', // 'vi_zh' (Việt -> Trung) | 'zh_vi' (Trung -> Việt)
     currentTopic: 'all',
     questions: [],
     currentIndex: 0,
-    sessionResults: [],
+    correctCount: 0,
     streak: 0,
-    selectedTokens: [],
     initialized: false
   };
 
-  // Sound pronunciation helper
+  // Sound pronunciation helper (Web Speech API)
   function speakChinese(text) {
-    if (!('speechSynthesis' in window)) return;
+    if (!('speechSynthesis' in window) || !text) return;
     try {
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
@@ -26,19 +27,73 @@
       u.rate = 0.85;
       window.speechSynthesis.speak(u);
     } catch (e) {
-      console.warn('Speech synthesis error:', e);
+      // Ignore audio synthesis errors on unsupported browsers
     }
   }
 
-  // String normalization for checking
-  function normalizeStr(str) {
+  // Vietnamese normalization for smart comparison
+  function normalizeVi(str) {
     if (!str) return '';
-    return str
-      .replace(/[\s\.,!\?，。！？、]/g, '')
-      .toLowerCase();
+    let s = str
+      .toLowerCase()
+      .replace(/[.,!?:;\"'“”‘’\(\)\-–\/\\~`]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    // Normalize common Vietnamese variations
+    s = s.replace(/\bbởi vì\b/g, 'vì');
+    s = s.replace(/\bcho nên\b/g, 'nên');
+    s = s.replace(/\bcủa tôi\b/g, 'tôi');
+    s = s.replace(/\bcủa bạn\b/g, 'bạn');
+    s = s.replace(/\bcủa anh ấy\b/g, 'anh ấy');
+    s = s.replace(/\bcủa cô ấy\b/g, 'cô ấy');
+    return s.replace(/\s+/g, '');
   }
 
-  // Initialize UI
+  // Chinese normalization for comparison
+  function normalizeZh(str) {
+    if (!str) return '';
+    return str
+      .replace(/[\s\.,!\?，。！？、~`\"'“”‘’\(\)\-–]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  // Tokenize Chinese into 1-2 character chunks for word bank
+  function tokenizeChinese(text) {
+    const clean = text.replace(/[\s\.,!\?，。！？、]/g, '');
+    const tokens = [];
+    let i = 0;
+    while (i < clean.length) {
+      if (i + 1 < clean.length && Math.random() > 0.45) {
+        tokens.push(clean.slice(i, i + 2));
+        i += 2;
+      } else {
+        tokens.push(clean[i]);
+        i += 1;
+      }
+    }
+    return tokens;
+  }
+
+  // Tokenize Vietnamese into 1-2 word chunks for word bank
+  function tokenizeVietnamese(text) {
+    const clean = text.replace(/[.,!?:;\"'“”‘’\(\)\-–]/g, '').trim();
+    const words = clean.split(/\s+/).filter(Boolean);
+    const tokens = [];
+    let i = 0;
+    while (i < words.length) {
+      if (i + 1 < words.length && Math.random() > 0.5) {
+        tokens.push(words[i] + ' ' + words[i + 1]);
+        i += 2;
+      } else {
+        tokens.push(words[i]);
+        i += 1;
+      }
+    }
+    return tokens;
+  }
+
+  // Initialize UI once
   function init() {
     if (TR.initialized) return;
     TR.initialized = true;
@@ -50,13 +105,13 @@
     loadLevel(TR.currentLevel);
   }
 
-  // Render main container structure
+  // Render static app structure
   function renderAppStructure(container) {
     container.innerHTML = `
       <div class="tr-header">
         <div class="tr-title-wrap">
-          <h2><span>🌐</span> Luyện Tập Dịch Tiếng Trung</h2>
-          <span class="tr-stats-badge" id="tr-level-count">75 câu dịch chuẩn</span>
+          <h2><span>🌐</span> Luyện Tập Dịch Tiếng</h2>
+          <span class="tr-stats-badge" id="tr-level-count">75 câu dịch</span>
         </div>
 
         <!-- HSK Level Selector -->
@@ -69,12 +124,11 @@
           <button class="tr-level-btn" data-lvl="6">HSK 6</button>
         </div>
 
-        <!-- Mode & Topic Filter Bar -->
+        <!-- Directional Mode Buttons -->
         <div class="tr-mode-bar">
           <div class="tr-mode-buttons" id="tr-mode-buttons">
-            <button class="tr-mode-btn active" data-mode="vi_zh">Việt ➔ Trung</button>
-            <button class="tr-mode-btn" data-mode="zh_vi">Trung ➔ Việt</button>
-            <button class="tr-mode-btn" data-mode="flashcard">Thẻ Lật</button>
+            <button class="tr-mode-btn active" data-mode="vi_zh">🇻🇳 Việt ➔ 🇨🇳 Trung (Gõ Hán tự)</button>
+            <button class="tr-mode-btn" data-mode="zh_vi">🇨🇳 Trung ➔ 🇻🇳 Việt (Gõ Tiếng Việt)</button>
           </div>
 
           <select class="tr-topic-filter" id="tr-topic-select" aria-label="Lọc theo chủ đề">
@@ -90,14 +144,15 @@
           <div class="tr-progress-meter">
             <div class="tr-progress-fill" id="tr-progress-bar"></div>
           </div>
-          <span class="tr-streak-badge" id="tr-streak-text">🔥 0 streak</span>
+          <span class="tr-streak-badge" id="tr-streak-text">🔥 0 chuỗi</span>
         </div>
 
         <div class="tr-structure-pill" id="tr-structure-pill">Cấu trúc ngữ pháp</div>
 
+        <!-- Prompt Display Area -->
         <div class="tr-prompt-box">
           <div class="tr-prompt-label" id="tr-prompt-label">Dịch câu sau sang tiếng Trung:</div>
-          <p class="tr-prompt-text" id="tr-prompt-text">Đang tải câu hỏi...</p>
+          <p class="tr-prompt-text" id="tr-prompt-text">Đang tải...</p>
           <div class="tr-zh-display" id="tr-zh-display" style="display: none;"></div>
           <div class="tr-pinyin-display" id="tr-pinyin-display" style="display: none;"></div>
           <button type="button" class="tr-audio-btn" id="tr-audio-btn" style="display: none;" title="Nghe phát âm">
@@ -105,37 +160,42 @@
           </button>
         </div>
 
-        <!-- Input Area for vi_zh & zh_vi -->
+        <!-- Input Area -->
         <div class="tr-input-area" id="tr-input-area">
-          <input type="text" class="tr-text-input" id="tr-input" placeholder="Nhập câu dịch hoặc chọn từ phía dưới..." autocomplete="off">
+          <div class="tr-input-wrap">
+            <input type="text" class="tr-text-input" id="tr-input" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <button type="button" class="tr-clear-btn" id="tr-clear-btn" title="Xóa trắng">✕</button>
+          </div>
+          <!-- Word Bank Chips -->
+          <div class="tr-word-bank-header">
+            <span>Gợi ý chọn từ ghép câu:</span>
+          </div>
           <div class="tr-word-bank" id="tr-word-bank"></div>
         </div>
 
-        <!-- Feedback Box -->
+        <!-- Inline Immediate Feedback Box -->
         <div class="tr-feedback-box" id="tr-feedback-box">
           <b id="tr-feedback-title">Chính xác!</b>
           <div class="tr-answer-reveal" id="tr-answer-reveal">
-            <div>Đáp án chuẩn: <span class="tr-reveal-zh" id="tr-reveal-zh"></span></div>
+            <div id="tr-reveal-target-label">Đáp án đúng:</div>
+            <div class="tr-reveal-zh" id="tr-reveal-zh"></div>
             <div class="tr-reveal-pinyin" id="tr-reveal-pinyin"></div>
           </div>
         </div>
 
-        <!-- Actions -->
+        <!-- Primary Action -->
         <div class="tr-actions">
-          <button type="button" class="tr-btn-secondary" id="tr-view-all-answers-btn">
-            📋 Xem đáp án bài này
-          </button>
           <button type="button" class="tr-btn-primary" id="tr-check-btn">
             Kiểm tra ➔
           </button>
         </div>
       </div>
 
-      <!-- Session Summary View -->
+      <!-- Session Completion View (Clean & No review modal) -->
       <div class="tr-practice-card tr-summary-view" id="tr-summary-view">
         <div class="tr-summary-trophy">🎉</div>
         <h3 class="tr-summary-title">Hoàn Thành Hiệp Luyện Dịch!</h3>
-        <p style="color: #94a3b8; margin: 0 0 16px;">Bạn đã làm rất xuất sắc, hãy tiếp tục phát huy nhé.</p>
+        <p style="color: #94a3b8; margin: 0 0 16px;">Bạn đã hoàn thành 10 câu luyện tập rất xuất sắc.</p>
 
         <div class="tr-summary-stats">
           <div class="tr-stat-box">
@@ -153,25 +213,9 @@
         </div>
 
         <div class="tr-summary-actions">
-          <button type="button" class="tr-btn-primary" id="tr-review-answers-btn" style="background: linear-gradient(135deg, #10b981, #059669);">
-            📋 Xem Lại Đáp Án & Chi Tiết
-          </button>
           <button type="button" class="tr-btn-primary" id="tr-restart-btn">
             🔄 Làm Hiệp Tiếp Theo
           </button>
-        </div>
-      </div>
-
-      <!-- Answer Review Modal -->
-      <div class="tr-review-modal" id="tr-review-modal" aria-hidden="true">
-        <div class="tr-review-panel">
-          <div class="tr-review-header">
-            <h3><span>📋</span> Bảng Đáp Án & Giải Thích Chi Tiết</h3>
-            <button type="button" class="tr-review-close" id="tr-modal-close" aria-label="Đóng">✕</button>
-          </div>
-          <div class="tr-review-body" id="tr-review-list">
-            <!-- Dynamically populated review cards -->
-          </div>
         </div>
       </div>
     `;
@@ -179,7 +223,7 @@
     bindEvents();
   }
 
-  // Bind interactive events
+  // Bind UI interactions
   function bindEvents() {
     // Level tabs
     document.querySelectorAll('#tr-level-tabs .tr-level-btn').forEach(btn => {
@@ -191,7 +235,7 @@
       });
     });
 
-    // Mode buttons
+    // Directional mode buttons
     document.querySelectorAll('#tr-mode-buttons .tr-mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#tr-mode-buttons .tr-mode-btn').forEach(b => b.classList.remove('active'));
@@ -210,12 +254,24 @@
       });
     }
 
-    // Audio button
+    // Audio pronunciation button
     const audioBtn = document.getElementById('tr-audio-btn');
     if (audioBtn) {
       audioBtn.addEventListener('click', () => {
         const q = TR.questions[TR.currentIndex];
         if (q && q.zh) speakChinese(q.zh);
+      });
+    }
+
+    // Clear input button
+    const clearBtn = document.getElementById('tr-clear-btn');
+    const input = document.getElementById('tr-input');
+    if (clearBtn && input) {
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        input.focus();
+        // Restore chips
+        document.querySelectorAll('#tr-word-bank .tr-word-chip').forEach(c => c.classList.remove('used'));
       });
     }
 
@@ -225,8 +281,7 @@
       checkBtn.addEventListener('click', handleCheckOrNext);
     }
 
-    // Input Enter key
-    const input = document.getElementById('tr-input');
+    // Enter key to check
     if (input) {
       input.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
@@ -235,44 +290,14 @@
       });
     }
 
-    // View all answers button
-    const viewAllBtn = document.getElementById('tr-view-all-answers-btn');
-    if (viewAllBtn) {
-      viewAllBtn.addEventListener('click', () => {
-        openReviewModal(TR.questions, 'Danh Sách Đáp Án Cấp Độ');
-      });
-    }
-
-    // Summary buttons
-    const reviewBtn = document.getElementById('tr-review-answers-btn');
-    if (reviewBtn) {
-      reviewBtn.addEventListener('click', () => {
-        openReviewModal(TR.sessionResults, 'Xem Lại Đáp Án Đã Làm');
-      });
-    }
-
+    // Restart button
     const restartBtn = document.getElementById('tr-restart-btn');
     if (restartBtn) {
       restartBtn.addEventListener('click', () => {
         document.getElementById('tr-summary-view')?.classList.remove('active');
-        document.getElementById('tr-card-view').style.display = 'block';
+        const card = document.getElementById('tr-card-view');
+        if (card) card.style.display = 'block';
         filterAndStartSession();
-      });
-    }
-
-    // Modal close
-    const modal = document.getElementById('tr-review-modal');
-    const closeBtn = document.getElementById('tr-modal-close');
-    if (closeBtn && modal) {
-      closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-      });
-      modal.addEventListener('click', e => {
-        if (e.target === modal) {
-          modal.classList.remove('active');
-          modal.setAttribute('aria-hidden', 'true');
-        }
       });
     }
   }
@@ -298,7 +323,7 @@
     filterAndStartSession();
   }
 
-  // Filter questions and start a 10-question session
+  // Filter questions and start 10-question session
   function filterAndStartSession() {
     const rawData = window.TRANSLATION_DATA?.[`hsk${TR.currentLevel}`] || [];
     let filtered = rawData;
@@ -306,11 +331,10 @@
       filtered = rawData.filter(d => d.topic === TR.currentTopic);
     }
 
-    // Shuffle and pick 10 questions for the session
     const shuffled = [...filtered].sort(() => 0.5 - Math.random());
     TR.questions = shuffled.slice(0, Math.min(10, shuffled.length));
     TR.currentIndex = 0;
-    TR.sessionResults = [];
+    TR.correctCount = 0;
     TR.streak = 0;
 
     document.getElementById('tr-summary-view')?.classList.remove('active');
@@ -320,7 +344,7 @@
     renderQuestion();
   }
 
-  // Render current question
+  // Render question without creating new DOM structures (zero-lag)
   function renderQuestion() {
     const q = TR.questions[TR.currentIndex];
     if (!q) {
@@ -331,7 +355,7 @@
     const total = TR.questions.length;
     const current = TR.currentIndex + 1;
 
-    // Progress
+    // Fast text updates
     const progText = document.getElementById('tr-progress-text');
     if (progText) progText.textContent = `Câu ${current} / ${total}`;
 
@@ -339,19 +363,19 @@
     if (progBar) progBar.style.width = `${Math.round(((current - 1) / total) * 100)}%`;
 
     const streakText = document.getElementById('tr-streak-text');
-    if (streakText) streakText.textContent = `🔥 ${TR.streak} streak`;
+    if (streakText) streakText.textContent = `🔥 ${TR.streak} chuỗi`;
 
-    // Structure
     const structPill = document.getElementById('tr-structure-pill');
     if (structPill) structPill.textContent = `💡 ${q.structure || q.topic}`;
 
-    // Reset feedback and input
+    // Reset feedback
     const fb = document.getElementById('tr-feedback-box');
     if (fb) {
       fb.className = 'tr-feedback-box';
       fb.style.display = 'none';
     }
 
+    // Reset input
     const input = document.getElementById('tr-input');
     if (input) {
       input.value = '';
@@ -359,6 +383,7 @@
       input.focus();
     }
 
+    // Reset button
     const checkBtn = document.getElementById('tr-check-btn');
     if (checkBtn) {
       checkBtn.textContent = 'Kiểm tra ➔';
@@ -370,14 +395,11 @@
     const zhDisplay = document.getElementById('tr-zh-display');
     const pyDisplay = document.getElementById('tr-pinyin-display');
     const audioBtn = document.getElementById('tr-audio-btn');
-    const inputArea = document.getElementById('tr-input-area');
     const wordBank = document.getElementById('tr-word-bank');
 
-    TR.selectedTokens = [];
-
     if (TR.currentMode === 'vi_zh') {
-      // Vietnamese -> Chinese
-      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Trung:';
+      // 🇻🇳 VIỆT -> 🇨🇳 TRUNG: Question is Vietnamese, user answers Chinese!
+      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Trung (Gõ hoặc bấm chọn chữ Hán):';
       if (promptText) {
         promptText.style.display = 'block';
         promptText.textContent = q.vi;
@@ -385,17 +407,17 @@
       if (zhDisplay) zhDisplay.style.display = 'none';
       if (pyDisplay) pyDisplay.style.display = 'none';
       if (audioBtn) audioBtn.style.display = 'none';
-      if (inputArea) inputArea.style.display = 'block';
+      if (input) input.placeholder = 'Gõ chữ Hán hoặc chọn từ dưới đây...';
 
-      // Build word bank chips
+      // Build Chinese word bank
       if (wordBank) {
         wordBank.innerHTML = '';
-        // Tokenize target Chinese sentence into chunks/characters + distractors
-        const targetTokens = chunkChinese(q.zh);
+        const targetTokens = tokenizeChinese(q.zh);
         const distractors = ['的', '了', '很', '在', '不', '是', '有', '去', '他', '我'].slice(0, 3);
         const allTokens = [...targetTokens, ...distractors].sort(() => 0.5 - Math.random());
 
-        allTokens.forEach((token, idx) => {
+        const frag = document.createDocumentFragment();
+        allTokens.forEach(token => {
           const chip = document.createElement('button');
           chip.type = 'button';
           chip.className = 'tr-word-chip';
@@ -408,12 +430,13 @@
               input.focus();
             }
           });
-          wordBank.appendChild(chip);
+          frag.appendChild(chip);
         });
+        wordBank.appendChild(frag);
       }
-    } else if (TR.currentMode === 'zh_vi') {
-      // Chinese -> Vietnamese
-      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Việt:';
+    } else {
+      // 🇨🇳 TRUNG -> 🇻🇳 VIỆT: Question is Chinese, user answers Vietnamese!
+      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Việt (Gõ hoặc bấm chọn từ):';
       if (promptText) promptText.style.display = 'none';
       if (zhDisplay) {
         zhDisplay.style.display = 'block';
@@ -424,43 +447,38 @@
         pyDisplay.textContent = q.pinyin;
       }
       if (audioBtn) audioBtn.style.display = 'inline-flex';
-      if (inputArea) inputArea.style.display = 'block';
-      if (wordBank) wordBank.innerHTML = '';
+      if (input) input.placeholder = 'Gõ câu tiếng Việt hoặc chọn từ dưới đây...';
 
-      // Auto play speech gently
+      // Build Vietnamese word bank
+      if (wordBank) {
+        wordBank.innerHTML = '';
+        const targetTokens = tokenizeVietnamese(q.vi);
+        const distractors = ['rất', 'đã', 'của', 'không', 'đang', 'được'].slice(0, 2);
+        const allTokens = [...targetTokens, ...distractors].sort(() => 0.5 - Math.random());
+
+        const frag = document.createDocumentFragment();
+        allTokens.forEach(token => {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'tr-word-chip';
+          chip.textContent = token;
+          chip.addEventListener('click', () => {
+            if (chip.classList.contains('used')) return;
+            chip.classList.add('used');
+            if (input) {
+              const cur = input.value.trim();
+              input.value = cur ? cur + ' ' + token : token;
+              input.focus();
+            }
+          });
+          frag.appendChild(chip);
+        });
+        wordBank.appendChild(frag);
+      }
+
+      // Read Chinese prompt once softly
       speakChinese(q.zh);
-    } else if (TR.currentMode === 'flashcard') {
-      // Dual-sided interactive flashcard
-      if (promptLabel) promptLabel.textContent = 'Thẻ lật đối chiếu song ngữ:';
-      if (promptText) {
-        promptText.style.display = 'block';
-        promptText.textContent = q.vi;
-      }
-      if (zhDisplay) {
-        zhDisplay.style.display = 'block';
-        zhDisplay.textContent = '👉 Chạm "Kiểm tra" để lật xem đáp án';
-      }
-      if (pyDisplay) pyDisplay.style.display = 'none';
-      if (audioBtn) audioBtn.style.display = 'none';
-      if (inputArea) inputArea.style.display = 'none';
     }
-  }
-
-  // Chunk Chinese sentence into natural 1-2 character tokens
-  function chunkChinese(text) {
-    const clean = text.replace(/[\s\.,!\?，。！？、]/g, '');
-    const tokens = [];
-    let i = 0;
-    while (i < clean.length) {
-      if (i + 1 < clean.length && Math.random() > 0.4) {
-        tokens.push(clean.slice(i, i + 2));
-        i += 2;
-      } else {
-        tokens.push(clean[i]);
-        i += 1;
-      }
-    }
-    return tokens;
   }
 
   // Handle check button click
@@ -483,70 +501,63 @@
     let isCorrect = false;
 
     if (TR.currentMode === 'vi_zh') {
-      const normUser = normalizeStr(userVal);
-      const normTarget = normalizeStr(q.zh);
+      // Việt -> Trung: Compare Chinese
+      const normUser = normalizeZh(userVal);
+      const normTarget = normalizeZh(q.zh);
       isCorrect = normUser === normTarget;
-    } else if (TR.currentMode === 'zh_vi') {
-      const normUser = normalizeStr(userVal);
-      const normTarget = normalizeStr(q.vi);
-      // Allow partial match if user answered core phrase
-      isCorrect = normUser === normTarget || (normUser.length >= 3 && normTarget.includes(normUser));
     } else {
-      isCorrect = true; // Flashcard mode auto flips
+      // Trung -> Việt: Compare Vietnamese
+      const normUser = normalizeVi(userVal);
+      const normTarget = normalizeVi(q.vi);
+      isCorrect = (normUser === normTarget) || (normUser.length >= 4 && normTarget.includes(normUser));
     }
 
-    // Record session result
-    TR.sessionResults.push({
-      ...q,
-      userAnswer: userVal,
-      isCorrect: isCorrect
-    });
-
     if (isCorrect) {
+      TR.correctCount++;
       TR.streak++;
-      triggerXpGain(10);
+      if (window.GH?.progress?.addXP) window.GH.progress.addXP(10);
+      if (window.GH?.streak?.tick) window.GH.streak.tick();
     } else {
       TR.streak = 0;
     }
 
-    // Play Chinese audio upon check
+    // Always play native Chinese pronunciation upon check
     speakChinese(q.zh);
 
     // Show feedback
     const fb = document.getElementById('tr-feedback-box');
     const fbTitle = document.getElementById('tr-feedback-title');
+    const targetLabel = document.getElementById('tr-reveal-target-label');
     const revealZh = document.getElementById('tr-reveal-zh');
     const revealPy = document.getElementById('tr-reveal-pinyin');
 
-    if (fb && fbTitle && revealZh && revealPy) {
+    if (fb && fbTitle && revealZh) {
       fb.style.display = 'block';
       if (isCorrect) {
         fb.className = 'tr-feedback-box correct';
-        fbTitle.textContent = '🎉 Chính xác! Bạn làm rất tốt!';
+        fbTitle.textContent = '🎉 Chính xác! Bạn làm rất giỏi!';
       } else {
         fb.className = 'tr-feedback-box incorrect';
-        fbTitle.textContent = '❌ Chưa hoàn toàn chính xác';
+        fbTitle.textContent = '❌ Chưa chính xác, hãy xem đáp án chuẩn:';
       }
-      revealZh.textContent = q.zh;
-      revealPy.textContent = q.pinyin;
+
+      if (TR.currentMode === 'vi_zh') {
+        if (targetLabel) targetLabel.textContent = 'Câu chữ Hán chuẩn:';
+        revealZh.textContent = q.zh;
+        if (revealPy) revealPy.textContent = q.pinyin;
+      } else {
+        if (targetLabel) targetLabel.textContent = 'Bản dịch tiếng Việt chuẩn:';
+        revealZh.textContent = q.vi;
+        if (revealPy) revealPy.textContent = `(Chữ Hán: ${q.zh} • ${q.pinyin})`;
+      }
     }
 
     if (input) input.disabled = true;
 
-    // Turn button into 'Next'
-    checkBtn.textContent = 'Tiếp theo ➔';
+    // Switch button to 'Next'
+    checkBtn.textContent = 'Câu tiếp theo ➔';
     checkBtn.dataset.state = 'next';
     checkBtn.focus();
-  }
-
-  // Give user XP via window.GH.progress if present
-  function triggerXpGain(amount) {
-    if (window.GH?.progress?.addXP) {
-      window.GH.progress.addXP(amount);
-    }
-    if (window.GH?.streak?.tick) {
-      window.GH.streak.tick();
-    }
   }
 
   // Show Session Summary
@@ -558,83 +569,24 @@
 
     summary.classList.add('active');
 
-    const total = TR.sessionResults.length;
-    const correctCount = TR.sessionResults.filter(r => r.isCorrect).length;
-    const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
-    const xpGained = correctCount * 10;
+    const total = TR.questions.length;
+    const correct = TR.correctCount;
+    const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const xpGained = correct * 10;
 
     const sumCorrect = document.getElementById('tr-sum-correct');
     const sumAccuracy = document.getElementById('tr-sum-accuracy');
     const sumXp = document.getElementById('tr-sum-xp');
 
-    if (sumCorrect) sumCorrect.textContent = `${correctCount} / ${total}`;
+    if (sumCorrect) sumCorrect.textContent = `${correct} / ${total}`;
     if (sumAccuracy) sumAccuracy.textContent = `${accuracy}%`;
     if (sumXp) sumXp.textContent = `+${xpGained} XP`;
   }
 
-  // Open the full review modal with all details
-  function openReviewModal(items, title = 'Xem Lại Đáp Án') {
-    const modal = document.getElementById('tr-review-modal');
-    const list = document.getElementById('tr-review-list');
-    const headerTitle = modal?.querySelector('.tr-review-header h3');
-
-    if (!modal || !list) return;
-
-    if (headerTitle) {
-      headerTitle.innerHTML = `<span>📋</span> ${title} (${items.length} câu)`;
-    }
-
-    list.innerHTML = items.map((item, idx) => {
-      const hasStatus = item.userAnswer !== undefined;
-      const statusHtml = hasStatus
-        ? `<span class="tr-item-status ${item.isCorrect ? 'correct' : 'wrong'}">${item.isCorrect ? '✓ Đúng' : '✗ Sai'}</span>`
-        : '';
-
-      const userAnsHtml = hasStatus && item.userAnswer
-        ? `<div class="tr-user-answer-box ${item.isCorrect ? 'correct' : 'wrong'}">
-             <b>Câu bạn trả lời:</b> ${escapeHtml(item.userAnswer)}
-           </div>`
-        : '';
-
-      return `
-        <div class="tr-review-item">
-          <div class="tr-item-top">
-            <span class="tr-item-idx">Câu ${idx + 1} • HSK ${item.hsk}</span>
-            ${statusHtml}
-          </div>
-          <div class="tr-item-vi">${escapeHtml(item.vi)}</div>
-          <div class="tr-item-zh">
-            ${escapeHtml(item.zh)}
-            <button type="button" class="tr-audio-btn" style="width:30px;height:30px;margin:0;" onclick="window.GH_Translation.speak('${escapeJs(item.zh)}')">
-              🔊
-            </button>
-          </div>
-          <div class="tr-item-pinyin">${escapeHtml(item.pinyin)}</div>
-          <span class="tr-item-struct">📌 ${escapeHtml(item.structure || item.topic)}</span>
-          ${userAnsHtml}
-        </div>
-      `;
-    }).join('');
-
-    modal.classList.add('active');
-    modal.setAttribute('aria-hidden', 'false');
-  }
-
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
-  function escapeJs(str) {
-    if (!str) return '';
-    return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
-  }
-
   TR.init = init;
   TR.speak = speakChinese;
-  TR.openReviewModal = openReviewModal;
 
-  // Auto mount when DOM is ready or when switched to mode
+  // Mount on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
@@ -645,17 +597,18 @@
   window.addEventListener('load', () => {
     const origSwitch = window.switchMode;
     window.switchMode = function(mode) {
+      if (typeof origSwitch === 'function') {
+        origSwitch.apply(this, arguments);
+      }
       if (mode === 'translation') {
-        document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('main > section').forEach(s => {
+          if (s.id !== 'translation-mode') s.classList.remove('active');
+        });
         const el = document.getElementById('translation-mode');
         if (el) {
           el.classList.add('active');
           init();
         }
-        return;
-      }
-      if (typeof origSwitch === 'function') {
-        origSwitch.apply(this, arguments);
       }
     };
   });

@@ -1,16 +1,16 @@
 /* ==============================================================
    TRANSLATION PRACTICE (LUYỆN TẬP DỊCH TIẾNG)
-   Modern, Ultra-Smooth, GPU-Accelerated Styles for Mobile & Desktop
+   Siêu mượt, không giật lag, tối ưu GPU 60fps trên điện thoại & PC
    ============================================================== */
 
 #translation-mode {
   display: none;
   width: 100%;
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 16px;
   box-sizing: border-box;
-  animation: trFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: trFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   contain: content;
   transform: translateZ(0);
 }
@@ -20,20 +20,20 @@
 }
 
 @keyframes trFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* Header & Level Selector */
 .tr-header {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.85));
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .tr-title-wrap {
@@ -42,12 +42,12 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .tr-title-wrap h2 {
   margin: 0;
-  font-size: 1.45rem;
+  font-size: 1.4rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -60,8 +60,7 @@
 .tr-stats-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  padding: 5px 12px;
   background: rgba(56, 189, 248, 0.12);
   border: 1px solid rgba(56, 189, 248, 0.3);
   border-radius: 999px;
@@ -75,7 +74,7 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 @media (max-width: 640px) {
@@ -88,15 +87,16 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 10px 6px;
+  padding: 10px 4px;
   color: #cbd5e1;
   font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.15s ease, background 0.15s ease;
   text-align: center;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .tr-level-btn:hover {
@@ -109,7 +109,7 @@
   background: linear-gradient(135deg, #3b82f6, #6366f1);
   border-color: #60a5fa;
   color: #fff;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
   transform: translateY(-1px);
 }
 
@@ -125,35 +125,37 @@
 .tr-mode-buttons {
   display: flex;
   gap: 6px;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.3);
   padding: 4px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
 }
 
 .tr-mode-btn {
   background: transparent;
   border: none;
   color: #94a3b8;
-  padding: 6px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: 0.84rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
+  touch-action: manipulation;
 }
 
 .tr-mode-btn.active {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
   color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .tr-topic-filter {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
-  padding: 6px 12px;
+  padding: 7px 12px;
   color: #e2e8f0;
   font-size: 0.82rem;
   outline: none;
@@ -161,25 +163,26 @@
   cursor: pointer;
 }
 
-/* Practice Card Container */
+/* Practice Card */
 .tr-practice-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.85));
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 24px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  padding: 22px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
+  transform: translateZ(0);
 }
 
 .tr-card-progress {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .tr-progress-info {
@@ -203,20 +206,19 @@
   width: 0%;
   background: linear-gradient(90deg, #38bdf8, #818cf8);
   border-radius: 999px;
-  transition: width 0.3s ease;
+  transition: width 0.25s ease;
 }
 
 .tr-streak-badge {
   color: #f59e0b;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
 }
 
 /* Grammar structure pill */
 .tr-structure-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   background: rgba(99, 102, 241, 0.12);
   border: 1px solid rgba(99, 102, 241, 0.25);
   color: #a5b4fc;
@@ -229,16 +231,14 @@
 
 /* Prompt Box */
 .tr-prompt-box {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .tr-prompt-label {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #64748b;
-  margin-bottom: 6px;
+  color: #94a3b8;
+  margin-bottom: 8px;
 }
 
 .tr-prompt-text {
@@ -255,14 +255,14 @@
   font-weight: 700;
   color: #f8fafc;
   margin-bottom: 6px;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .tr-pinyin-display {
   font-size: 1.05rem;
   color: #38bdf8;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 /* Audio button */
@@ -277,18 +277,25 @@
   border: 1px solid rgba(56, 189, 248, 0.3);
   color: #38bdf8;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin-bottom: 12px;
+  transition: transform 0.15s ease, background 0.15s ease;
+  touch-action: manipulation;
 }
 
 .tr-audio-btn:hover {
-  background: rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.25);
   transform: scale(1.05);
 }
 
 /* Input Area */
 .tr-input-area {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+}
+
+.tr-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .tr-text-input {
@@ -297,41 +304,72 @@
   background: rgba(15, 23, 42, 0.7);
   border: 2px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 13px 44px 13px 16px;
   color: #fff;
   font-size: 1.15rem;
   outline: none;
-  transition: all 0.2s ease;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .tr-text-input:focus {
   border-color: #60a5fa;
-  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
   background: rgba(15, 23, 42, 0.9);
 }
 
-/* Word Arrangement Chips */
+.tr-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #94a3b8;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.tr-clear-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Word bank chips */
+.tr-word-bank-header {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
 .tr-word-bank {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
   padding: 10px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 12px;
+  min-height: 48px;
 }
 
 .tr-word-chip {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
-  padding: 6px 12px;
+  padding: 7px 13px;
   color: #f1f5f9;
-  font-size: 1rem;
+  font-size: 0.96rem;
   font-weight: 600;
   cursor: pointer;
   user-select: none;
-  transition: all 0.15s ease;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+  touch-action: manipulation;
 }
 
 .tr-word-chip:hover {
@@ -340,36 +378,36 @@
 }
 
 .tr-word-chip.used {
-  opacity: 0.35;
+  opacity: 0.3;
   pointer-events: none;
 }
 
 /* Feedback Box */
 .tr-feedback-box {
   display: none;
-  padding: 16px;
+  padding: 15px;
   border-radius: 14px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   animation: trFadeIn 0.2s ease;
 }
 
 .tr-feedback-box.correct {
   display: block;
-  background: rgba(34, 197, 94, 0.15);
+  background: rgba(34, 197, 94, 0.14);
   border: 1px solid rgba(34, 197, 94, 0.35);
   color: #4ade80;
 }
 
 .tr-feedback-box.incorrect {
   display: block;
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.14);
   border: 1px solid rgba(239, 68, 68, 0.35);
   color: #f87171;
 }
 
 .tr-answer-reveal {
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
   border-top: 1px dashed rgba(255, 255, 255, 0.15);
   color: #e2e8f0;
 }
@@ -378,24 +416,23 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: #f8fafc;
+  margin-top: 4px;
 }
 
 .tr-reveal-pinyin {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: #38bdf8;
   font-weight: 600;
+  margin-top: 2px;
 }
 
-/* Action Buttons */
+/* Primary Action */
 .tr-actions {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
 }
 
 .tr-btn-primary {
-  flex: 1;
+  width: 100%;
   background: linear-gradient(135deg, #3b82f6, #4f46e5);
   color: #fff;
   border: none;
@@ -404,49 +441,29 @@
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+  transition: transform 0.15s ease, background 0.15s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  touch-action: manipulation;
 }
 
 .tr-btn-primary:hover {
   background: linear-gradient(135deg, #2563eb, #4338ca);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
 }
 
 .tr-btn-primary:active {
   transform: translateY(1px);
 }
 
-.tr-btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
-  border-radius: 14px;
-  padding: 14px 18px;
-  font-size: 0.92rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tr-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-}
-
-/* Session Summary View */
+/* Summary View */
 .tr-summary-view {
   display: none;
   text-align: center;
-  padding: 30px 20px;
+  padding: 28px 20px;
 }
 
 .tr-summary-view.active {
@@ -454,21 +471,14 @@
 }
 
 .tr-summary-trophy {
-  font-size: 3.5rem;
-  margin-bottom: 12px;
-  animation: trBounce 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes trBounce {
-  0% { transform: scale(0.5); opacity: 0; }
-  60% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); }
+  font-size: 3.2rem;
+  margin-bottom: 10px;
 }
 
 .tr-summary-title {
-  font-size: 1.6rem;
+  font-size: 1.55rem;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: #f8fafc;
 }
 
@@ -476,223 +486,37 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  max-width: 480px;
-  margin: 20px auto;
+  max-width: 440px;
+  margin: 18px auto;
 }
 
 .tr-stat-box {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
-  padding: 14px;
+  padding: 12px;
 }
 
 .tr-stat-box b {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   color: #38bdf8;
   margin-bottom: 4px;
 }
 
 .tr-stat-box span {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #94a3b8;
   font-weight: 600;
 }
 
 .tr-summary-actions {
   display: flex;
-  gap: 12px;
   justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
-/* ==============================================================
-   XEM LẠI ĐÁP ÁN (ANSWER REVIEW MODAL / DRAWER)
-   ============================================================== */
-.tr-review-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 99999;
-  padding: 16px;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-}
-
-.tr-review-modal.active {
-  display: flex;
-}
-
-.tr-review-panel {
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 24px;
-  width: 100%;
-  max-width: 850px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-  animation: trSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes trSlideUp {
-  from { opacity: 0; transform: translateY(20px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.tr-review-header {
-  padding: 20px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.tr-review-header h3 {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #f8fafc;
-}
-
-.tr-review-close {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: #94a3b8;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  transition: all 0.2s ease;
-}
-
-.tr-review-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.tr-review-body {
-  padding: 20px 24px;
-  overflow-y: auto;
-  flex: 1;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Individual Review Item Card */
-.tr-review-item {
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 14px;
-  transition: all 0.2s ease;
-}
-
-.tr-review-item:hover {
-  border-color: rgba(96, 165, 250, 0.3);
-  background: rgba(30, 41, 59, 0.85);
-}
-
-.tr-item-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.tr-item-idx {
-  font-weight: 800;
-  font-size: 0.82rem;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.1);
-  padding: 3px 10px;
-  border-radius: 6px;
-}
-
-.tr-item-status {
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.tr-item-status.correct {
-  color: #4ade80;
-}
-
-.tr-item-status.wrong {
-  color: #f87171;
-}
-
-.tr-item-vi {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #f8fafc;
-  margin-bottom: 8px;
-}
-
-.tr-item-zh {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #e2e8f0;
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 4px;
-}
-
-.tr-item-pinyin {
-  font-size: 0.92rem;
-  color: #38bdf8;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.tr-item-struct {
-  display: inline-block;
-  font-size: 0.78rem;
-  color: #a5b4fc;
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  padding: 3px 8px;
-  border-radius: 6px;
-}
-
-.tr-user-answer-box {
-  margin-top: 8px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
-  font-size: 0.86rem;
-  color: #cbd5e1;
-}
-
-.tr-user-answer-box.wrong {
-  border-left: 3px solid #ef4444;
-}
-
-.tr-user-answer-box.correct {
-  border-left: 3px solid #22c55e;
-}
-
-/* Mobile Responsiveness */
+/* Mobile Friendly Optimization */
 @media (max-width: 600px) {
   #translation-mode {
     padding: 10px;
@@ -709,14 +533,17 @@
   .tr-zh-display {
     font-size: 1.5rem;
   }
-  .tr-actions {
-    flex-direction: column;
-  }
-  .tr-btn-primary, .tr-btn-secondary {
+  .tr-mode-buttons {
     width: 100%;
-    justify-content: center;
   }
-  .tr-review-panel {
-    max-height: 94vh;
+  .tr-mode-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 8px 6px;
+  }
+  .tr-topic-filter {
+    width: 100%;
+    max-width: 100%;
   }
 }
