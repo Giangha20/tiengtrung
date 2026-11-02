@@ -16,7 +16,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đây là mẹ của Vượng.",
+      "vi": "Đây là mẹ của Tiểu Vương.",
       "zh": "这是小王的妈妈。",
       "pinyin": "Zhè shì Xiǎo Wáng de māma."
     },
@@ -25,7 +25,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đó là bó của Ly.",
+      "vi": "Đó là bố của Tiểu Lý.",
       "zh": "那是小李的爸爸。",
       "pinyin": "Nà shì Xiǎo Lǐ de bàba."
     },
@@ -34,7 +34,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đây là anh trai của Hóà.",
+      "vi": "Đây là anh trai của Tiểu Hoa.",
       "zh": "这是小花的哥哥。",
       "pinyin": "Zhè shì Xiǎo Huā de gēge."
     },
@@ -43,7 +43,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đó là chị gái của Làn.",
+      "vi": "Đó là chị gái của Tiểu Lan.",
       "zh": "那是小兰的姐姐。",
       "pinyin": "Nà shì Xiǎo Lán de jiějie."
     },
@@ -52,7 +52,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đây là em trai của Minh.",
+      "vi": "Đây là em trai của A Minh.",
       "zh": "这是阿明的弟弟。",
       "pinyin": "Zhè shì Ā Míng de dìdi."
     },
@@ -61,7 +61,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đó là em gái của Hó ng.",
+      "vi": "Đó là em gái của Tiểu Hồng.",
       "zh": "那是小红的妹妹。",
       "pinyin": "Nà shì Xiǎo Hóng de mèimei."
     },
@@ -70,7 +70,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đây là ông nội của Đà i Vẹ.",
+      "vi": "Đây là ông nội của David.",
       "zh": "这是大卫的爷爷。",
       "pinyin": "Zhè shì Dàwèi de yéye."
     },
@@ -79,7 +79,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đó là bà nội của Màry.",
+      "vi": "Đó là bà nội của Mary.",
       "zh": "那是玛丽的奶奶。",
       "pinyin": "Nà shì Mǎlì de nǎinai."
     },
@@ -88,7 +88,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đây là con trai của Làn Anh.",
+      "vi": "Đây là con trai của Lan Anh.",
       "zh": "这是兰英的儿子。",
       "pinyin": "Zhè shì Lányīng de érzi."
     },
@@ -133,7 +133,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Thành viên gia đình",
       "structure": "Cấu trúc 1:",
-      "vi": "Đó là bó chồng của Làn.",
+      "vi": "Đó là bố chồng của Tiểu Lan.",
       "zh": "那是小兰的公公。",
       "pinyin": "Nà shì Xiǎo Lán de gōnggong."
     },
@@ -214,7 +214,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Quốc tịch",
       "structure": "Cấu trúc:",
-      "vi": "Chị dâu của Hoa là người Malaysia.",
+      "vi": "Chị dâu của Tiểu Hoa là người Malaysia.",
       "zh": "小花的嫂子是马来西亚人。",
       "pinyin": "Xiǎohuā de sǎozi shì Mǎláixīyà rén."
     },
@@ -250,7 +250,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Quê quán",
       "structure": "Cấu trúc 1:",
-      "vi": "An đến từ Bắc Kinh.",
+      "vi": "Tiểu An đến từ Bắc Kinh.",
       "zh": "小安来自北京。",
       "pinyin": "Xiǎo Ān láizì Běijīng."
     },
@@ -259,7 +259,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Quê quán",
       "structure": "Cấu trúc 1:",
-      "vi": "Vượng đến từ Nhật Bản.",
+      "vi": "Tiểu Vương đến từ Nhật Bản.",
       "zh": "小王来自日本。",
       "pinyin": "Xiǎo Wáng láizì Rìběn."
     },
