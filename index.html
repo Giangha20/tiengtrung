@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="./style.css?v=8">
     <link rel="stylesheet" href="./base.css?v=2">
     <link rel="stylesheet" href="./app.css?v=2">
+    <link rel="stylesheet" href="./enhancements.css?v=19">
+    <link rel="stylesheet" href="./premium_plus.css?v=3">
+    <link rel="stylesheet" href="./translation.css?v=1">
 
     </head>
 <body>
@@ -75,6 +78,7 @@
                     <button class="gh-nav-item" data-mode="list">📖 <span>Danh sách từ</span></button>
                     <button class="gh-nav-item" data-mode="typing">⌨️ <span>Luyện gõ</span></button>
                     <button class="gh-nav-item" data-mode="listening">🎧 <span>Luyện nghe</span></button>
+                    <button class="gh-nav-item" data-mode="translation">🌐 <span>Luyện tập dịch tiếng</span></button>
                     <button class="gh-nav-item" data-mode="exam">📝 <span>Luyện tập HSK</span></button>
                     <button class="gh-nav-item" data-mode="progress">📊 <span>Tiến trình</span></button>
                   </div>
@@ -273,6 +277,9 @@
         </div>
     </div>
 </section>
+<!-- Chế độ: Luyện tập dịch tiếng -->
+<section id="translation-mode"></section>
+
 <section id="exam-mode">
     <div class="exam-page-head">
         <div>
@@ -334,12 +341,12 @@
     <script src="./statistics.js?v=3"></script>
     <script src="./settings.js?v=19"></script>
     <script src="./app.js?v=3"></script>
-    <link rel="stylesheet" href="./enhancements.css?v=19">
     <script src="./enhancements.js?v=19"></script>
     <script src="./learning_plus.js?v=19"></script>
     <script src="./nav_menu.js?v=19"></script>
-    <link rel="stylesheet" href="./premium_plus.css?v=3"></script>
     <script src="./premium_plus.js?v=3"></script>
+    <script src="./translation_data.js?v=1"></script>
+    <script src="./translation.js?v=1"></script>
     <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.warn));}</script>
     <script>
       if (location.search.includes('preview=flashcard')) {

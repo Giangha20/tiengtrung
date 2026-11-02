@@ -1,1 +1,47 @@
-html{scroll-behavior:smooth}button,input,select{font:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(214,48,49,.25);outline-offset:2px}.ui-icon{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.15em}
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  overscroll-behavior-y: none;
+}
+
+/* Touch responsiveness optimization (removes 300ms tap delay on mobile) */
+button, a, input, select, textarea {
+  touch-action: manipulation;
+  font: inherit;
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+.ui-icon {
+  width: 1.1em;
+  height: 1.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.15em;
+  pointer-events: none;
+}
+
+/* Smooth GPU composite layer for active modes */
+main > section.active {
+  contain: content;
+  transform: translateZ(0);
+}
+
+/* Optimize smooth scrolling list rendering */
+.word-grid, .tr-review-body {
+  -webkit-overflow-scrolling: touch;
+  content-visibility: auto;
+}
