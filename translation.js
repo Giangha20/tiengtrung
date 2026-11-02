@@ -1,6 +1,7 @@
 // ==============================================================
 // TRANSLATION PRACTICE ENGINE (LUYỆN TẬP DỊCH TIẾNG)
 // Siêu mượt, không giật lag, tối ưu 100% cho điện thoại & máy tính
+// Bỏ hoàn toàn phần xem đáp án theo yêu cầu người dùng
 // Chế độ 1: Dịch Việt ➔ Trung (Trả lời bằng chữ Hán)
 // Chế độ 2: Dịch Trung ➔ Việt (Trả lời bằng tiếng Việt)
 // ==============================================================
@@ -27,7 +28,7 @@
       u.rate = 0.85;
       window.speechSynthesis.speak(u);
     } catch (e) {
-      // Ignore audio synthesis errors on unsupported browsers
+      // Ignore audio synthesis errors on unsupported environments
     }
   }
 
@@ -105,7 +106,7 @@
     loadLevel(TR.currentLevel);
   }
 
-  // Render static app structure
+  // Render static app structure (NO answer reveal box anywhere)
   function renderAppStructure(container) {
     container.innerHTML = `
       <div class="tr-header">
@@ -173,17 +174,12 @@
           <div class="tr-word-bank" id="tr-word-bank"></div>
         </div>
 
-        <!-- Inline Immediate Feedback Box -->
+        <!-- Simple Status Feedback (NO answer reveal) -->
         <div class="tr-feedback-box" id="tr-feedback-box">
           <b id="tr-feedback-title">Chính xác!</b>
-          <div class="tr-answer-reveal" id="tr-answer-reveal">
-            <div id="tr-reveal-target-label">Đáp án đúng:</div>
-            <div class="tr-reveal-zh" id="tr-reveal-zh"></div>
-            <div class="tr-reveal-pinyin" id="tr-reveal-pinyin"></div>
-          </div>
         </div>
 
-        <!-- Primary Action -->
+        <!-- Primary Actions -->
         <div class="tr-actions">
           <button type="button" class="tr-btn-primary" id="tr-check-btn">
             Kiểm tra ➔
@@ -191,7 +187,7 @@
         </div>
       </div>
 
-      <!-- Session Completion View (Clean & No review modal) -->
+      <!-- Session Completion View -->
       <div class="tr-practice-card tr-summary-view" id="tr-summary-view">
         <div class="tr-summary-trophy">🎉</div>
         <h3 class="tr-summary-title">Hoàn Thành Hiệp Luyện Dịch!</h3>
@@ -270,7 +266,6 @@
       clearBtn.addEventListener('click', () => {
         input.value = '';
         input.focus();
-        // Restore chips
         document.querySelectorAll('#tr-word-bank .tr-word-chip').forEach(c => c.classList.remove('used'));
       });
     }
@@ -399,7 +394,7 @@
 
     if (TR.currentMode === 'vi_zh') {
       // 🇻🇳 VIỆT -> 🇨🇳 TRUNG: Question is Vietnamese, user answers Chinese!
-      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Trung (Gõ hoặc bấm chọn chữ Hán):';
+      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Trung (Gõ hoặc chọn chữ Hán):';
       if (promptText) {
         promptText.style.display = 'block';
         promptText.textContent = q.vi;
@@ -436,7 +431,7 @@
       }
     } else {
       // 🇨🇳 TRUNG -> 🇻🇳 VIỆT: Question is Chinese, user answers Vietnamese!
-      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Việt (Gõ hoặc bấm chọn từ):';
+      if (promptLabel) promptLabel.textContent = 'Dịch câu sau sang tiếng Việt (Gõ hoặc chọn từ):';
       if (promptText) promptText.style.display = 'none';
       if (zhDisplay) {
         zhDisplay.style.display = 'block';
@@ -481,7 +476,7 @@
     }
   }
 
-  // Handle check button click
+  // Handle check button click (NO answer reveal!)
   function handleCheckOrNext() {
     const checkBtn = document.getElementById('tr-check-btn');
     if (!checkBtn) return;
@@ -498,6 +493,11 @@
     const input = document.getElementById('tr-input');
     const userVal = (input?.value || '').trim();
 
+    if (!userVal) {
+      if (input) input.focus();
+      return;
+    }
+
     let isCorrect = false;
 
     if (TR.currentMode === 'vi_zh') {
@@ -512,52 +512,45 @@
       isCorrect = (normUser === normTarget) || (normUser.length >= 4 && normTarget.includes(normUser));
     }
 
+    const fb = document.getElementById('tr-feedback-box');
+    const fbTitle = document.getElementById('tr-feedback-title');
+
     if (isCorrect) {
       TR.correctCount++;
       TR.streak++;
       if (window.GH?.progress?.addXP) window.GH.progress.addXP(10);
       if (window.GH?.streak?.tick) window.GH.streak.tick();
+
+      speakChinese(q.zh);
+
+      if (fb && fbTitle) {
+        fb.style.display = 'block';
+        fb.className = 'tr-feedback-box correct';
+        fbTitle.textContent = '🎉 Chính xác! (+10 XP)';
+      }
+      if (input) input.disabled = true;
+
+      checkBtn.textContent = 'Câu tiếp theo ➔';
+      checkBtn.dataset.state = 'next';
+      checkBtn.focus();
     } else {
       TR.streak = 0;
-    }
 
-    // Always play native Chinese pronunciation upon check
-    speakChinese(q.zh);
-
-    // Show feedback
-    const fb = document.getElementById('tr-feedback-box');
-    const fbTitle = document.getElementById('tr-feedback-title');
-    const targetLabel = document.getElementById('tr-reveal-target-label');
-    const revealZh = document.getElementById('tr-reveal-zh');
-    const revealPy = document.getElementById('tr-reveal-pinyin');
-
-    if (fb && fbTitle && revealZh) {
-      fb.style.display = 'block';
-      if (isCorrect) {
-        fb.className = 'tr-feedback-box correct';
-        fbTitle.textContent = '🎉 Chính xác! Bạn làm rất giỏi!';
-      } else {
+      // Incorrect: DO NOT reveal answer! Just tell user it is incorrect.
+      if (fb && fbTitle) {
+        fb.style.display = 'block';
         fb.className = 'tr-feedback-box incorrect';
-        fbTitle.textContent = '❌ Chưa chính xác, hãy xem đáp án chuẩn:';
+        fbTitle.textContent = '❌ Chưa chính xác! Hãy kiểm tra lại hoặc bấm "Bỏ qua".';
       }
 
-      if (TR.currentMode === 'vi_zh') {
-        if (targetLabel) targetLabel.textContent = 'Câu chữ Hán chuẩn:';
-        revealZh.textContent = q.zh;
-        if (revealPy) revealPy.textContent = q.pinyin;
-      } else {
-        if (targetLabel) targetLabel.textContent = 'Bản dịch tiếng Việt chuẩn:';
-        revealZh.textContent = q.vi;
-        if (revealPy) revealPy.textContent = `(Chữ Hán: ${q.zh} • ${q.pinyin})`;
+      // Give user choice to try again or skip
+      checkBtn.textContent = 'Bỏ qua ➔';
+      checkBtn.dataset.state = 'next';
+      if (input) {
+        input.disabled = false;
+        input.focus();
       }
     }
-
-    if (input) input.disabled = true;
-
-    // Switch button to 'Next'
-    checkBtn.textContent = 'Câu tiếp theo ➔';
-    checkBtn.dataset.state = 'next';
-    checkBtn.focus();
   }
 
   // Show Session Summary

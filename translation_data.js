@@ -368,7 +368,7 @@ window.TRANSLATION_DATA = {
       "topic": "Công việc & Nghề nghiệp",
       "structure": "Cấu trúc 1:",
       "vi": "Mẹ của anh ấy là nông dân.",
-      "zh": "他妈妈是农民 。",
+      "zh": "他妈妈是农民。",
       "pinyin": "Tā māma shì nóngmín."
     },
     {
@@ -440,7 +440,7 @@ window.TRANSLATION_DATA = {
       "topic": "Lượng từ cơ bản",
       "structure": "Cấu trúc 1:",
       "vi": "Mẹ chồng tôi có chín con mèo.",
-      "zh": "我婆婆有九只 猫。",
+      "zh": "我婆婆有九只猫。",
       "pinyin": "Wǒ pópo yǒu jiǔ zhī māo."
     },
     {
@@ -467,7 +467,7 @@ window.TRANSLATION_DATA = {
       "topic": "Lượng từ cơ bản",
       "structure": "Cấu trúc 1:",
       "vi": "Bạn của tôi có năm chiếc điện thoại.",
-      "zh": "我的朋友有五台手 机。",
+      "zh": "我的朋友有五台手机。",
       "pinyin": "Wǒ de péngyou yǒu wǔ tái shǒujī."
     },
     {
@@ -494,7 +494,7 @@ window.TRANSLATION_DATA = {
       "topic": "Lượng từ cơ bản",
       "structure": "Cấu trúc 1:",
       "vi": "Chú tôi có ba con chó.",
-      "zh": "我叔叔有三只 狗。",
+      "zh": "我叔叔有三只狗。",
       "pinyin": "Wǒ shūshu yǒu sān zhī gǒu."
     },
     {
@@ -593,7 +593,7 @@ window.TRANSLATION_DATA = {
       "topic": "Hỏi với 什么 & 哪",
       "structure": "Cấu trúc:",
       "vi": "Bạn xem gì? Tôi xem tin tức.",
-      "zh": "你看什么 ？",
+      "zh": "你看什么？",
       "pinyin": "Nǐ kàn shénme?"
     },
     {
@@ -602,7 +602,7 @@ window.TRANSLATION_DATA = {
       "topic": "Hỏi với 什么 & 哪",
       "structure": "Cấu trúc:",
       "vi": "David ăn gì? David ăn mì bò.",
-      "zh": "大卫吃什么 ？",
+      "zh": "大卫吃什么？",
       "pinyin": "Dàwèi chī shénme?"
     },
     {
@@ -611,7 +611,7 @@ window.TRANSLATION_DATA = {
       "topic": "Hỏi với 什么 & 哪",
       "structure": "Cấu trúc:",
       "vi": "Mary nói gì? Mary nói cảm ợn bạn.",
-      "zh": "玛丽说什么 ？",
+      "zh": "玛丽说什么？",
       "pinyin": "Mǎlì shuō shénme?"
     },
     {
@@ -620,7 +620,7 @@ window.TRANSLATION_DATA = {
       "topic": "Hỏi với 什么 & 哪",
       "structure": "Cấu trúc:",
       "vi": "Anh ấy hát bài gì?",
-      "zh": "他唱什么 歌？",
+      "zh": "他唱什么歌？",
       "pinyin": "Tā chàng shénme gē?"
     },
     {
@@ -629,7 +629,7 @@ window.TRANSLATION_DATA = {
       "topic": "Hỏi với 什么 & 哪",
       "structure": "Cấu trúc:",
       "vi": "Ông nội uống trà gì? Ông uống trà ô long.",
-      "zh": "爷爷喝什么 茶？",
+      "zh": "爷爷喝什么茶？",
       "pinyin": "Yéye hē shénme chá?"
     },
     {
@@ -838,7 +838,7 @@ window.TRANSLATION_DATA = {
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
       "vi": "Nhà tôi có hai con chó, nhà bạn thì sao? Nhà tôi không có chó, nhà tôi có một con mèo.",
-      "zh": "我家有两只 狗，你家呢？",
+      "zh": "我家有两只狗，你家呢？",
       "pinyin": "Wǒ jiā yǒu liǎng zhī gǒu, nǐ jiā ne?"
     },
     {
@@ -1135,7 +1135,7 @@ window.TRANSLATION_DATA = {
       "topic": "Cách thức với 怎么",
       "structure": "Cấu trúc 1:",
       "vi": "Món ăn này nấu thế nào?",
-      "zh": "这道菜怎么做 ？",
+      "zh": "这道菜怎么做？",
       "pinyin": "Zhè dào cài zěnme zuò?"
     },
     {
@@ -1171,7 +1171,7 @@ window.TRANSLATION_DATA = {
       "topic": "Cách thức với 怎么",
       "structure": "Cấu trúc 1:",
       "vi": "Cái máy tính này bật như thế nào?",
-      "zh": "这台 电脑怎么 打开？",
+      "zh": "这台电脑怎么打开？",
       "pinyin": "Zhè tái diànnǎo zěnme dǎkāi?"
     },
     {
@@ -1180,7 +1180,7 @@ window.TRANSLATION_DATA = {
       "topic": "Cách thức với 怎么",
       "structure": "Cấu trúc 1:",
       "vi": "Xin hỏi, táo bán thế nào?",
-      "zh": "请问，苹果怎么 卖？",
+      "zh": "请问，苹果怎么卖？",
       "pinyin": "Qǐngwèn, píngguǒ zěnme mài?"
     },
     {
@@ -1189,7 +1189,7 @@ window.TRANSLATION_DATA = {
       "topic": "Cách thức với 怎么",
       "structure": "Cấu trúc 1:",
       "vi": "Cô ợi, thịt heo bán thế nào?",
-      "zh": "阿姨，猪肉怎么 卖？",
+      "zh": "阿姨，猪肉怎么卖？",
       "pinyin": "Āyí, zhūròu zěnme mài?"
     },
     {
@@ -1198,7 +1198,7 @@ window.TRANSLATION_DATA = {
       "topic": "Cách thức với 怎么",
       "structure": "Cấu trúc 1:",
       "vi": "Hôm qua các bạn về nhà bằng cách nào?",
-      "zh": "你们昨天怎么 回家？",
+      "zh": "你们昨天怎么回家？",
       "pinyin": "Nǐmen zuótiān zěnme huí jiā?"
     },
     {
@@ -1216,7 +1216,7 @@ window.TRANSLATION_DATA = {
       "topic": "Cách thức với 怎么",
       "structure": "Cấu trúc 1:",
       "vi": "Tên của anh bạn đọc như thế nào?",
-      "zh": "你哥哥的名字怎么读 ？",
+      "zh": "你哥哥的名字怎么读？",
       "pinyin": "Nǐ gēge de míngzi zěnme dú?"
     },
     {
@@ -1542,7 +1542,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Hôm nay tôi hợi mệt.",
-      "zh": "我今天有点 儿累 。",
+      "zh": "我今天有点儿累。",
       "pinyin": "Wǒ jīntiān yǒudiǎnr lèi."
     },
     {
@@ -1551,7 +1551,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Món này hợi cay.",
-      "zh": "这个菜有点 儿辣。",
+      "zh": "这个菜有点儿辣。",
       "pinyin": "Zhè ge cài yǒudiǎnr là."
     },
     {
@@ -1560,7 +1560,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Bộ quần áo này hợi đắt.",
-      "zh": "这件衣服有点 儿贵。",
+      "zh": "这件衣服有点儿贵。",
       "pinyin": "Zhè jiàn yīfu yǒudiǎr guì."
     },
     {
@@ -1569,7 +1569,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Dạo này bố hợi bận.",
-      "zh": "爸爸最近有点 儿忙。",
+      "zh": "爸爸最近有点儿忙。",
       "pinyin": "Bàba zuìjìn yǒudiǎnr máng."
     },
     {
@@ -1578,7 +1578,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Bài tập hôm nay hợi nhiều.",
-      "zh": "今天的作业有点 儿多。",
+      "zh": "今天的作业有点儿多。",
       "pinyin": "Jīntiān de zuòyè yǒudiǎnr duō."
     },
     {
@@ -1587,7 +1587,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Hôm nay thời tiết hợi lạnh.",
-      "zh": "今天天气有点 儿冷。",
+      "zh": "今天天气有点儿冷。",
       "pinyin": "Jīntiān tiānqì yǒudiǎnr lěng."
     },
     {
@@ -1596,7 +1596,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Phòng của em gái tôi hợi nhỏ.",
-      "zh": "我妹妹的房间有点 儿小。",
+      "zh": "我妹妹的房间有点儿小。",
       "pinyin": "Wǒ mèimei de fángjiān yǒudiǎnr xiǎo."
     },
     {
@@ -1605,7 +1605,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Hôm nay Lan Anh hợi khó chịu.",
-      "zh": "兰英今天有点 儿不舒服。",
+      "zh": "兰英今天有点儿不舒服。",
       "pinyin": "Lányīng jīntiān yǒudiǎnr bù shūfu."
     },
     {
@@ -1614,7 +1614,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Hôm nay mẹ hợi không vui.",
-      "zh": "妈妈今天有点 儿不高兴。",
+      "zh": "妈妈今天有点儿不高兴。",
       "pinyin": "Māma jīntiān yǒudiǎnr bù gāoxìng."
     },
     {
@@ -1623,7 +1623,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mức độ: 有点儿",
       "structure": "Cấu trúc:",
       "vi": "Con trai hợi buồn ngủ, nó muốn đi ngủ.",
-      "zh": "儿子有点 儿困，他想睡觉。",
+      "zh": "儿子有点儿困，他想睡觉。",
       "pinyin": "Érzi yǒudiǎnr kùn, tā xiǎng shuìjiào."
     },
     {
@@ -1857,7 +1857,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mong muốn với 想",
       "structure": "Cấu trúc:",
       "vi": "Bạn muốn ăn món gì? Tôi muốn ăn vịt quay Bắc Kinh.",
-      "zh": "你想吃什么菜 ？",
+      "zh": "你想吃什么菜？",
       "pinyin": "Nǐ xiǎng chī shénme cài?"
     },
     {
@@ -1866,7 +1866,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mong muốn với 想",
       "structure": "Cấu trúc:",
       "vi": "Anh ấy muốn mua thứ gì? Anh ấy muốn mua một cái bàn.",
-      "zh": "他想买什么东 西？",
+      "zh": "他想买什么东西？",
       "pinyin": "Tā xiǎng mǎi shénme dōngxi?"
     },
     {
@@ -1875,7 +1875,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mong muốn với 想",
       "structure": "Cấu trúc:",
       "vi": "Bố muốn xem tin tức gì? Bố muốn xem tin tức thể thao.",
-      "zh": "爸爸想看什么新 闻？",
+      "zh": "爸爸想看什么新闻？",
       "pinyin": "Bàba xiǎng kàn shénme xīnwén?"
     },
     {
@@ -1884,7 +1884,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mong muốn với 想",
       "structure": "Cấu trúc:",
       "vi": "Em trai bạn sau này muốn làm công việc gì? Em trai tôi sau này muốn làm cảnh sát.",
-      "zh": "你弟弟以后想做什么工作 ？",
+      "zh": "你弟弟以后想做什么工作？",
       "pinyin": "Nǐ dìdi yǐhòu xiǎng zuò shénme gōngzuò?"
     },
     {
@@ -1893,7 +1893,7 @@ window.TRANSLATION_DATA = {
       "topic": "Mong muốn với 想",
       "structure": "Cấu trúc:",
       "vi": "Bạn muốn nói gì? Nói đi. Tôi muốn nói cảm ợn bạn.",
-      "zh": "你想说什么 ？说吧。",
+      "zh": "你想说什么？说吧。",
       "pinyin": "Nǐ xiǎng shuō shénme? Shuō ba."
     },
     {
@@ -1901,7 +1901,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Anh trai tôi cao hợn bạn.",
+      "vi": "Anh trai tôi cao hơn bạn.",
       "zh": "我哥哥比你高。",
       "pinyin": "Wǒ gēge bǐ nǐ gāo."
     },
@@ -1910,7 +1910,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Em trai tôi mập hợn tôi.",
+      "vi": "Em trai tôi mập hơn tôi.",
       "zh": "我弟弟比我胖。",
       "pinyin": "Wǒ dìdi bǐ wǒ pàng."
     },
@@ -1919,7 +1919,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Hôm nay lạnh hợn hôm qua.",
+      "vi": "Hôm nay lạnh hơn hôm qua.",
       "zh": "今天比昨天冷。",
       "pinyin": "Jīntiān bǐ zuótiān lěng."
     },
@@ -1928,7 +1928,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Tiếng Trung khó hợn tiếng Anh.",
+      "vi": "Tiếng Trung khó hơn tiếng Anh.",
       "zh": "中文比英文难。",
       "pinyin": "Zhōngwén bǐ Yīngwén nán."
     },
@@ -1937,7 +1937,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "David gầy hợn Minh.",
+      "vi": "David gầy hơn Minh.",
       "zh": "大卫比阿明瘦。",
       "pinyin": "Dàwèi bǐ Ā Míng shòu."
     },
@@ -1946,7 +1946,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Bây giờ nóng hợn lúc sáng.",
+      "vi": "Bây giờ nóng hơn lúc sáng.",
       "zh": "现在比上午热。",
       "pinyin": "Xiànzài bǐ shàngwǔ rè."
     },
@@ -1955,7 +1955,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Em gái cô ấy xinh hợn tôi.",
+      "vi": "Em gái cô ấy xinh hơn tôi.",
       "zh": "她妹妹比我漂亮。",
       "pinyin": "Tā mèimei bǐ wǒ piàoliang."
     },
@@ -1964,7 +1964,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Ở đây yên tĩnh hợn ở đó.",
+      "vi": "Ở đây yên tĩnh hơn ở đó.",
       "zh": "这里比那里安静。",
       "pinyin": "Zhèlǐ bǐ nàlǐ ānjìng."
     },
@@ -1973,7 +1973,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Sủi cảo ngon hợn bánh bao.",
+      "vi": "Sủi cảo ngon hơn bánh bao.",
       "zh": "饺子比包子好吃。",
       "pinyin": "Jiǎozi bǐ bāozi hǎochī."
     },
@@ -1982,7 +1982,7 @@ window.TRANSLATION_DATA = {
       "hsk": 3,
       "topic": "So sánh hơn với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Dưa hấu rẻ hợn nho.",
+      "vi": "Dưa hấu rẻ hơn nho.",
       "zh": "西瓜比葡萄便宜。",
       "pinyin": "Xīguā bǐ pútao piányi."
     },
@@ -2353,7 +2353,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Hôm nay tôi vui hợn hôm qua.",
+      "vi": "Hôm nay tôi vui hơn hôm qua.",
       "zh": "我今天比昨天开心。",
       "pinyin": "Wǒ jīntiān bǐ zuótiān kāixīn."
     },
@@ -2362,7 +2362,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Câu cá thú vị hợn leo núi.",
+      "vi": "Câu cá thú vị hơn leo núi.",
       "zh": "钓鱼比爬山有意思。",
       "pinyin": "Diàoyú bǐ páshān yǒuyìsi."
     },
@@ -2371,7 +2371,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Mèo của tôi thông minh hợn mèo của bạn.",
+      "vi": "Mèo của tôi thông minh hơn mèo của bạn.",
       "zh": "我的猫比你的猫聪明。",
       "pinyin": "Wǒ de māo bǐ nǐ de māo cōngming."
     },
@@ -2380,8 +2380,8 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Con chó này đáng yêu hợn con chó kia.",
-      "zh": "这只 狗比那只 狗可爱。",
+      "vi": "Con chó này đáng yêu hơn con chó kia.",
+      "zh": "这只狗比那只狗可爱。",
       "pinyin": "Zhè zhī gǒu bǐ nà zhī gǒu kě’ài."
     },
     {
@@ -2389,8 +2389,8 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 1:",
-      "vi": "Lượng của bố cao hợn lượng của mẹ.",
-      "zh": "爸爸的工资 比妈妈的工资 高。",
+      "vi": "lương của bố cao hơn lương của mẹ.",
+      "zh": "爸爸的工资比妈妈的工资高。",
       "pinyin": "Bàba de gōngzī bǐ māma de gōngzī gāo."
     },
     {
@@ -2398,7 +2398,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 2:",
-      "vi": "Tôi cao hợn anh ấy một chút.",
+      "vi": "Tôi cao hơn anh ấy một chút.",
       "zh": "我比他高一点儿。",
       "pinyin": "Wǒ bǐ tā gāo yìdiǎnr."
     },
@@ -2407,7 +2407,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 2:",
-      "vi": "Em trai thấp hợn anh trai một chút.",
+      "vi": "Em trai thấp hơn anh trai một chút.",
       "zh": "弟弟比哥哥矮一些。",
       "pinyin": "Dìdi bǐ gēge ǎi yìxiē."
     },
@@ -2416,7 +2416,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 2:",
-      "vi": "Hôm nay nóng hợn hôm qua một chút.",
+      "vi": "Hôm nay nóng hơn hôm qua một chút.",
       "zh": "今天比昨天热一些。",
       "pinyin": "Jīntiān bǐ zuótiān rè yìxiē."
     },
@@ -2425,7 +2425,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 2:",
-      "vi": "Chị tôi gầy hợn tôi một chút.",
+      "vi": "Chị tôi gầy hơn tôi một chút.",
       "zh": "我姐姐比我瘦一些。",
       "pinyin": "Wǒ jiějie bǐ wǒ shòu yìxiē."
     },
@@ -2434,7 +2434,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
       "structure": "Cấu trúc 2:",
-      "vi": "Mary bận hợn tôi một chút.",
+      "vi": "Mary bận hơn tôi một chút.",
       "zh": "玛丽比我忙一点儿。",
       "pinyin": "Mǎlì bǐ wǒ máng yìdiǎnr."
     },
@@ -2623,7 +2623,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Bạn đỡ hợn chút nào chưa?",
+      "vi": "Bạn đỡ hơn chút nào chưa?",
       "zh": "你好点儿了吗？",
       "pinyin": "Nǐ hǎo diǎnr le ma?"
     },
@@ -2632,7 +2632,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Anh ấy đỡ hợn chút nào chưa?",
+      "vi": "Anh ấy đỡ hơn chút nào chưa?",
       "zh": "他好点儿了吗？",
       "pinyin": "Tā hǎo diǎnr le ma?"
     },
@@ -2641,7 +2641,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Mẹ bạn đỡ hợn chút nào chưa?",
+      "vi": "Mẹ bạn đỡ hơn chút nào chưa?",
       "zh": "你妈妈好点儿了吗？",
       "pinyin": "Nǐ māma hǎo diǎnr le ma?"
     },
@@ -2650,7 +2650,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Răng của con gái đỡ hợn chút nào chưa?",
+      "vi": "Răng của con gái đỡ hơn chút nào chưa?",
       "zh": "女儿的牙好点儿了吗？",
       "pinyin": "Nǚ’ér de yá hǎo diǎnr le ma?"
     },
@@ -2659,7 +2659,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Mắt của con trai đỡ hợn chút nào chưa?",
+      "vi": "Mắt của con trai đỡ hơn chút nào chưa?",
       "zh": "儿子的眼睛好点儿了吗？",
       "pinyin": "Érzi de yǎnjing hǎo diǎnr le ma?"
     },
@@ -2668,7 +2668,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Đầu gối của bạn đỡ hợn chút nào chưa?",
+      "vi": "Đầu gối của bạn đỡ hơn chút nào chưa?",
       "zh": "你的膝盖好点儿了吗？",
       "pinyin": "Nǐ de xīgài hǎo diǎnr le ma?"
     },
@@ -2677,7 +2677,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Chân của Minh đỡ hợn chút nào chưa?",
+      "vi": "Chân của Minh đỡ hơn chút nào chưa?",
       "zh": "阿明的腿好点儿了吗？",
       "pinyin": "Ā Míng de tuǐ hǎo diǎnr le ma?"
     },
@@ -2686,7 +2686,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Bệnh của David đỡ hợn chút nào chưa?",
+      "vi": "Bệnh của David đỡ hơn chút nào chưa?",
       "zh": "大卫的病好点儿了吗？",
       "pinyin": "Dàwèi de bìng hǎo diǎnr le ma?"
     },
@@ -2695,7 +2695,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Chân của anh trai bạn đỡ hợn chút nào chưa?",
+      "vi": "Chân của anh trai bạn đỡ hơn chút nào chưa?",
       "zh": "你哥哥的脚好点儿了吗？",
       "pinyin": "Nǐ gēge de jiǎo hǎo diǎnr le ma?"
     },
@@ -2704,7 +2704,7 @@ window.TRANSLATION_DATA = {
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
       "structure": "Cấu trúc:",
-      "vi": "Cổ họng của con anh ấy đỡ hợn chút nào chưa?",
+      "vi": "Cổ họng của con anh ấy đỡ hơn chút nào chưa?",
       "zh": "他孩子的嗓子好点儿了吗？",
       "pinyin": "Tā háizi de sǎngzi hǎo diǎnr le ma?"
     }
