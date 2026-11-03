@@ -1,9 +1,10 @@
 // ==============================================================
 // TRANSLATION PRACTICE ENGINE (LUYỆN TẬP DỊCH TIẾNG)
 // Siêu mượt, không giật lag, tối ưu 100% cho điện thoại & máy tính
-// Bỏ hoàn toàn phần xem đáp án theo yêu cầu người dùng
-// Chế độ 1: Dịch Việt ➔ Trung (Trả lời bằng chữ Hán)
-// Chế độ 2: Dịch Trung ➔ Việt (Trả lời bằng tiếng Việt)
+// Bỏ hoàn toàn 0 streak góc phải trên
+// Chỉ phát âm khi bấm vào loa, không tự động nói khi ấn Trung -> Việt
+// Thêm mục chúc mừng "Chính xác!" khi làm đúng, khi sai thì thử lại
+// Tuyệt đối không lật thẻ, không làm lộ đáp án
 // ==============================================================
 
 (() => {
@@ -18,7 +19,7 @@
     initialized: false
   };
 
-  // Sound pronunciation helper (Web Speech API)
+  // Sound pronunciation helper (Web Speech API) - ONLY called on manual speaker click
   function speakChinese(text) {
     if (!('speechSynthesis' in window) || !text) return;
     try {
@@ -106,7 +107,7 @@
     loadLevel(TR.currentLevel);
   }
 
-  // Render static app structure (NO answer reveal box anywhere)
+  // Render static app structure (Clean stationary quiz layout - NO flip card, NO 0-streak badge)
   function renderAppStructure(container) {
     container.innerHTML = `
       <div class="tr-header">
@@ -138,14 +139,13 @@
         </div>
       </div>
 
-      <!-- Practice Card -->
+      <!-- Practice Form Card (Stationary Quiz, No flip card) -->
       <div class="tr-practice-card" id="tr-card-view">
         <div class="tr-card-progress">
           <span class="tr-progress-info" id="tr-progress-text">Câu 1 / 10</span>
           <div class="tr-progress-meter">
             <div class="tr-progress-fill" id="tr-progress-bar"></div>
           </div>
-          <span class="tr-streak-badge" id="tr-streak-text">🔥 0 chuỗi</span>
         </div>
 
         <div class="tr-structure-pill" id="tr-structure-pill">Cấu trúc ngữ pháp</div>
@@ -156,7 +156,7 @@
           <p class="tr-prompt-text" id="tr-prompt-text">Đang tải...</p>
           <div class="tr-zh-display" id="tr-zh-display" style="display: none;"></div>
           <div class="tr-pinyin-display" id="tr-pinyin-display" style="display: none;"></div>
-          <button type="button" class="tr-audio-btn" id="tr-audio-btn" style="display: none;" title="Nghe phát âm">
+          <button type="button" class="tr-audio-btn" id="tr-audio-btn" style="display: none;" title="Bấm vào loa để nghe phát âm">
             🔊
           </button>
         </div>
@@ -174,15 +174,30 @@
           <div class="tr-word-bank" id="tr-word-bank"></div>
         </div>
 
-        <!-- Simple Status Feedback (NO answer reveal) -->
-        <div class="tr-feedback-box" id="tr-feedback-box">
-          <b id="tr-feedback-title">Chính xác!</b>
+        <!-- Celebratory & Retry Feedback Box -->
+        <div class="tr-feedback-box" id="tr-feedback-box" style="display: none;">
+          <div class="tr-feedback-content">
+            <span class="tr-feedback-icon" id="tr-feedback-icon">🎉</span>
+            <div class="tr-feedback-texts">
+              <b class="tr-feedback-title" id="tr-feedback-title">Chính xác!</b>
+              <p class="tr-feedback-sub" id="tr-feedback-sub">Chúc mừng bạn đã dịch rất chuẩn! (+10 XP)</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Primary Actions -->
-        <div class="tr-actions">
+        <!-- Action Buttons -->
+        <div class="tr-actions" id="tr-actions">
           <button type="button" class="tr-btn-primary" id="tr-check-btn">
             Kiểm tra ➔
+          </button>
+          <button type="button" class="tr-btn-secondary" id="tr-retry-btn" style="display: none;">
+            🔄 Thử lại
+          </button>
+          <button type="button" class="tr-btn-ghost" id="tr-skip-btn" style="display: none;">
+            Bỏ qua ➔
+          </button>
+          <button type="button" class="tr-btn-success" id="tr-next-btn" style="display: none;">
+            Câu tiếp theo ➔
           </button>
         </div>
       </div>
@@ -231,7 +246,7 @@
       });
     });
 
-    // Directional mode buttons
+    // Directional mode buttons (No auto speech when switching!)
     document.querySelectorAll('#tr-mode-buttons .tr-mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#tr-mode-buttons .tr-mode-btn').forEach(b => b.classList.remove('active'));
@@ -250,7 +265,7 @@
       });
     }
 
-    // Audio pronunciation button
+    // Audio pronunciation button: ONLY speaks when user manually clicks it!
     const audioBtn = document.getElementById('tr-audio-btn');
     if (audioBtn) {
       audioBtn.addEventListener('click', () => {
@@ -273,14 +288,42 @@
     // Check button
     const checkBtn = document.getElementById('tr-check-btn');
     if (checkBtn) {
-      checkBtn.addEventListener('click', handleCheckOrNext);
+      checkBtn.addEventListener('click', checkAnswer);
     }
 
-    // Enter key to check
+    // Retry button (when answer is wrong)
+    const retryBtn = document.getElementById('tr-retry-btn');
+    if (retryBtn) {
+      retryBtn.addEventListener('click', handleRetry);
+    }
+
+    // Skip button (when answer is wrong but user wants to skip)
+    const skipBtn = document.getElementById('tr-skip-btn');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', handleNext);
+    }
+
+    // Next button (after correct answer)
+    const nextBtn = document.getElementById('tr-next-btn');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', handleNext);
+    }
+
+    // Enter key smart navigation
     if (input) {
       input.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
-          handleCheckOrNext();
+          const next = document.getElementById('tr-next-btn');
+          const retry = document.getElementById('tr-retry-btn');
+          const check = document.getElementById('tr-check-btn');
+
+          if (next && next.style.display !== 'none') {
+            handleNext();
+          } else if (retry && retry.style.display !== 'none') {
+            handleRetry();
+          } else if (check && check.style.display !== 'none') {
+            checkAnswer();
+          }
         }
       });
     }
@@ -339,7 +382,7 @@
     renderQuestion();
   }
 
-  // Render question without creating new DOM structures (zero-lag)
+  // Render question without creating new DOM structures (zero-lag 60fps)
   function renderQuestion() {
     const q = TR.questions[TR.currentIndex];
     if (!q) {
@@ -356,9 +399,6 @@
 
     const progBar = document.getElementById('tr-progress-bar');
     if (progBar) progBar.style.width = `${Math.round(((current - 1) / total) * 100)}%`;
-
-    const streakText = document.getElementById('tr-streak-text');
-    if (streakText) streakText.textContent = `🔥 ${TR.streak} chuỗi`;
 
     const structPill = document.getElementById('tr-structure-pill');
     if (structPill) structPill.textContent = `💡 ${q.structure || q.topic}`;
@@ -378,12 +418,16 @@
       input.focus();
     }
 
-    // Reset button
+    // Reset button states
     const checkBtn = document.getElementById('tr-check-btn');
-    if (checkBtn) {
-      checkBtn.textContent = 'Kiểm tra ➔';
-      checkBtn.dataset.state = 'check';
-    }
+    const retryBtn = document.getElementById('tr-retry-btn');
+    const skipBtn = document.getElementById('tr-skip-btn');
+    const nextBtn = document.getElementById('tr-next-btn');
+
+    if (checkBtn) checkBtn.style.display = 'inline-flex';
+    if (retryBtn) retryBtn.style.display = 'none';
+    if (skipBtn) skipBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
 
     const promptLabel = document.getElementById('tr-prompt-label');
     const promptText = document.getElementById('tr-prompt-text');
@@ -471,22 +515,12 @@
         wordBank.appendChild(frag);
       }
 
-      // Read Chinese prompt once softly
-      speakChinese(q.zh);
+      // NOTE: Strictly NO automatic speech here. Only speak when clicking the audio button!
     }
   }
 
-  // Handle check button click (NO answer reveal!)
-  function handleCheckOrNext() {
-    const checkBtn = document.getElementById('tr-check-btn');
-    if (!checkBtn) return;
-
-    if (checkBtn.dataset.state === 'next') {
-      TR.currentIndex++;
-      renderQuestion();
-      return;
-    }
-
+  // Handle checking the user's translation
+  function checkAnswer() {
     const q = TR.questions[TR.currentIndex];
     if (!q) return;
 
@@ -513,7 +547,14 @@
     }
 
     const fb = document.getElementById('tr-feedback-box');
+    const fbIcon = document.getElementById('tr-feedback-icon');
     const fbTitle = document.getElementById('tr-feedback-title');
+    const fbSub = document.getElementById('tr-feedback-sub');
+
+    const checkBtn = document.getElementById('tr-check-btn');
+    const retryBtn = document.getElementById('tr-retry-btn');
+    const skipBtn = document.getElementById('tr-skip-btn');
+    const nextBtn = document.getElementById('tr-next-btn');
 
     if (isCorrect) {
       TR.correctCount++;
@@ -521,36 +562,73 @@
       if (window.GH?.progress?.addXP) window.GH.progress.addXP(10);
       if (window.GH?.streak?.tick) window.GH.streak.tick();
 
-      speakChinese(q.zh);
-
-      if (fb && fbTitle) {
+      if (fb && fbTitle && fbSub) {
         fb.style.display = 'block';
         fb.className = 'tr-feedback-box correct';
-        fbTitle.textContent = '🎉 Chính xác! (+10 XP)';
+        if (fbIcon) fbIcon.textContent = '🎉';
+        fbTitle.textContent = 'Chính xác!';
+        fbSub.textContent = 'Chúc mừng bạn đã dịch rất chuẩn! (+10 XP)';
       }
       if (input) input.disabled = true;
 
-      checkBtn.textContent = 'Câu tiếp theo ➔';
-      checkBtn.dataset.state = 'next';
-      checkBtn.focus();
+      // Show Next button
+      if (checkBtn) checkBtn.style.display = 'none';
+      if (retryBtn) retryBtn.style.display = 'none';
+      if (skipBtn) skipBtn.style.display = 'none';
+      if (nextBtn) {
+        nextBtn.style.display = 'inline-flex';
+        nextBtn.focus();
+      }
     } else {
       TR.streak = 0;
 
-      // Incorrect: DO NOT reveal answer! Just tell user it is incorrect.
-      if (fb && fbTitle) {
+      // Incorrect: DO NOT reveal answer! Encourage user to retry.
+      if (fb && fbTitle && fbSub) {
         fb.style.display = 'block';
         fb.className = 'tr-feedback-box incorrect';
-        fbTitle.textContent = '❌ Chưa chính xác! Hãy kiểm tra lại hoặc bấm "Bỏ qua".';
+        if (fbIcon) fbIcon.textContent = '❌';
+        fbTitle.textContent = 'Chưa chính xác!';
+        fbSub.textContent = 'Hãy bấm "Thử lại" để chỉnh sửa câu trả lời nhé.';
       }
 
-      // Give user choice to try again or skip
-      checkBtn.textContent = 'Bỏ qua ➔';
-      checkBtn.dataset.state = 'next';
-      if (input) {
-        input.disabled = false;
-        input.focus();
+      // Show Retry & Skip buttons
+      if (checkBtn) checkBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+      if (retryBtn) {
+        retryBtn.style.display = 'inline-flex';
+        retryBtn.focus();
       }
+      if (skipBtn) skipBtn.style.display = 'inline-flex';
     }
+  }
+
+  // Handle Retry click (user wants to try again)
+  function handleRetry() {
+    const fb = document.getElementById('tr-feedback-box');
+    if (fb) fb.style.display = 'none';
+
+    const checkBtn = document.getElementById('tr-check-btn');
+    const retryBtn = document.getElementById('tr-retry-btn');
+    const skipBtn = document.getElementById('tr-skip-btn');
+    const nextBtn = document.getElementById('tr-next-btn');
+    const input = document.getElementById('tr-input');
+
+    if (retryBtn) retryBtn.style.display = 'none';
+    if (skipBtn) skipBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (checkBtn) checkBtn.style.display = 'inline-flex';
+
+    if (input) {
+      input.disabled = false;
+      input.focus();
+      input.select();
+    }
+  }
+
+  // Handle Next question click
+  function handleNext() {
+    TR.currentIndex++;
+    renderQuestion();
   }
 
   // Show Session Summary

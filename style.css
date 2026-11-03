@@ -3752,3 +3752,8 @@ body.dark-mode .word-grid .word-card.card .card2 { background-color:#1a1a1a !imp
     animation: none !important;
   }
 }
+
+/* An hoan toan 0 streak goc phai tren */
+.streak-widget, #streak-widget, .tr-streak-badge {
+  display: none !important;
+}
