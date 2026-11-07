@@ -1,4 +1,4 @@
-const CACHE='gh-hsk-shell-v37';
+const CACHE='gh-hsk-shell-v38';
 const ASSETS=[
   './',
   './index.html',
@@ -24,6 +24,10 @@ const ASSETS=[
   './translation.css',
   './translation.js',
   './translation_data.js',
+  './writing.css',
+  './writing.js',
+  './radicals_data.js',
+  './hanzi-writer.min.js',
   './manifest.json',
   './avatar192.jpg',
   './avatar.jpg'

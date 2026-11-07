@@ -60,40 +60,27 @@
       .trim();
   }
 
-  // Tokenize Chinese into 1-2 character chunks for word bank
+    // Tokenize Chinese into single character tokens (Tách hết từng chữ Hán, không dính chữ)
   function tokenizeChinese(text) {
+    if (!text) return [];
     const clean = text.replace(/[\s\.,!\?，。！？、]/g, '');
     const tokens = [];
-    let i = 0;
-    while (i < clean.length) {
-      if (i + 1 < clean.length && Math.random() > 0.45) {
-        tokens.push(clean.slice(i, i + 2));
-        i += 2;
-      } else {
-        tokens.push(clean[i]);
-        i += 1;
-      }
+    for (let i = 0; i < clean.length; i++) {
+      const ch = clean[i].trim();
+      if (ch) tokens.push(ch);
     }
     return tokens;
   }
 
-  // Tokenize Vietnamese into 1-2 word chunks for word bank
+  // Tokenize Vietnamese into single word tokens (Tách hết từng chữ tiếng Việt, không dính chữ)
   function tokenizeVietnamese(text) {
-    const clean = text.replace(/[.,!?:;\"'“”‘’\(\)\-–]/g, '').trim();
+    if (!text) return [];
+    const clean = text.replace(/[.,!?:;\"'“”‘’\(\)\-–]/g, ' ').trim();
     const words = clean.split(/\s+/).filter(Boolean);
-    const tokens = [];
-    let i = 0;
-    while (i < words.length) {
-      if (i + 1 < words.length && Math.random() > 0.5) {
-        tokens.push(words[i] + ' ' + words[i + 1]);
-        i += 2;
-      } else {
-        tokens.push(words[i]);
-        i += 1;
-      }
-    }
-    return tokens;
+    return words;
   }
+
+  
 
   // Initialize UI once
   function init() {
@@ -462,7 +449,18 @@
           chip.className = 'tr-word-chip';
           chip.textContent = token;
           chip.addEventListener('click', () => {
-            if (chip.classList.contains('used')) return;
+            if (chip.classList.contains('used')) {
+              chip.classList.remove('used');
+              if (input) {
+                const val = input.value;
+                const pos = val.lastIndexOf(token);
+                if (pos !== -1) {
+                  input.value = val.slice(0, pos) + val.slice(pos + token.length);
+                }
+                input.focus();
+              }
+              return;
+            }
             chip.classList.add('used');
             if (input) {
               input.value += token;
@@ -502,7 +500,19 @@
           chip.className = 'tr-word-chip';
           chip.textContent = token;
           chip.addEventListener('click', () => {
-            if (chip.classList.contains('used')) return;
+            if (chip.classList.contains('used')) {
+              chip.classList.remove('used');
+              if (input) {
+                const words = input.value.trim().split(/\s+/).filter(Boolean);
+                const pos = words.lastIndexOf(token);
+                if (pos !== -1) {
+                  words.splice(pos, 1);
+                  input.value = words.join(' ');
+                }
+                input.focus();
+              }
+              return;
+            }
             chip.classList.add('used');
             if (input) {
               const cur = input.value.trim();
