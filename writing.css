@@ -1,15 +1,17 @@
 /* ==============================================================
    WRITING PRACTICE ENGINE CSS (LUYỆN VIẾT CHỮ HÁN & THỨ TỰ NÉT)
-   Ô Mễ Tự chuẩn, ôm nét mượt mà, đầy đủ hướng dẫn bộ thủ & từng nét
+   Hỗ trợ từ đơn & từ nhiều chữ (vd: 北京, 出租车), ô Mễ Tự chuẩn,
+   cân đối hoàn hảo trên cả máy tính lẫn điện thoại, phát âm chuẩn.
    ============================================================== */
 
 .writing-container {
-  max-width: 960px;
+  max-width: 1060px;
   margin: 0 auto;
-  padding: 10px 15px 40px;
+  padding: 12px 16px 50px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
+  box-sizing: border-box;
 }
 
 /* Header & Top Bar */
@@ -18,8 +20,8 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  padding-bottom: 12px;
+  gap: 14px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--border-color, #e2e8f0);
 }
 
@@ -38,20 +40,55 @@
   color: var(--subtext-color, #64748b);
 }
 
+.writing-top-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* HSK Level Selector in Writing Bar */
+.writing-hsk-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #cbd5e1);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.writing-hsk-label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--subtext-color, #64748b);
+}
+
+.writing-hsk-select {
+  border: none;
+  background: transparent;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #2563eb;
+  cursor: pointer;
+  outline: none;
+  padding: 4px 2px;
+}
+
 .writing-search-bar {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .writing-search-input {
-  padding: 8px 14px;
+  padding: 8px 12px;
   border: 1px solid var(--border-color, #cbd5e1);
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   background: var(--card-bg, #ffffff);
   color: var(--text-color, #0f172a);
-  width: 170px;
+  width: 150px;
   transition: all 0.2s ease;
 }
 
@@ -59,12 +96,12 @@
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-  width: 200px;
+  width: 180px;
 }
 
 .writing-btn-sm {
   padding: 8px 14px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 600;
   border-radius: 8px;
   border: none;
@@ -73,8 +110,9 @@
   color: #fff;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .writing-btn-sm:hover {
@@ -82,43 +120,18 @@
   transform: translateY(-1px);
 }
 
-/* Word selector and multi-char tabs */
+/* Word Bar (Word Info & Navigation) */
 .writing-word-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   background: var(--card-bg, #ffffff);
   border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 12px;
-  padding: 12px 18px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
-
-.writing-nav-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.writing-nav-btn {
-  padding: 6px 12px;
-  border: 1px solid var(--border-color, #cbd5e1);
-  border-radius: 6px;
-  background: var(--bg-color, #f8fafc);
-  color: var(--text-color, #334155);
-  font-size: 0.88rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.15s ease;
-}
-
-.writing-nav-btn:hover {
-  background: #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
 .writing-word-info {
@@ -129,47 +142,90 @@
 }
 
 .writing-cur-word {
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--text-color, #0f172a);
+  letter-spacing: 2px;
 }
 
 .writing-cur-pinyin {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   color: #2563eb;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .writing-cur-meaning {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   color: var(--subtext-color, #64748b);
+  max-width: 320px;
 }
 
-/* Tabs for multi-character words */
-.writing-char-tabs {
+/* Main Speaker Button with Visual Pulse */
+.writing-speak-btn {
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  color: #2563eb;
+  font-size: 1.25rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.writing-speak-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.writing-speak-btn.speaking {
+  animation: pulseAudio 0.9s infinite alternate;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+@keyframes pulseAudio {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.6); }
+  100% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+}
+
+.writing-nav-controls {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
+  flex-wrap: wrap;
 }
 
-.writing-char-tab {
-  padding: 4px 14px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 6px;
+.writing-nav-btn {
+  padding: 7px 13px;
   border: 1px solid var(--border-color, #cbd5e1);
+  border-radius: 8px;
   background: var(--bg-color, #f8fafc);
-  color: var(--text-color, #475569);
+  color: var(--text-color, #334155);
+  font-size: 0.88rem;
+  font-weight: 600;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   transition: all 0.15s ease;
 }
 
-.writing-char-tab.active {
-  background: #2563eb;
-  color: #ffffff;
-  border-color: #2563eb;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+.writing-nav-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+#wp-word-counter {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #64748b;
+  min-width: 65px;
+  text-align: center;
 }
 
 /* Mode Switcher Tabs */
@@ -178,11 +234,12 @@
   gap: 8px;
   border-bottom: 2px solid var(--border-color, #e2e8f0);
   padding-bottom: 8px;
+  overflow-x: auto;
 }
 
 .writing-mode-tab {
-  padding: 8px 16px;
-  font-size: 0.95rem;
+  padding: 9px 16px;
+  font-size: 0.92rem;
   font-weight: 600;
   border-radius: 8px;
   border: none;
@@ -193,11 +250,12 @@
   align-items: center;
   gap: 6px;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .writing-mode-tab:hover {
   color: #2563eb;
-  background: rgba(37, 99, 235, 0.06);
+  background: rgba(37, 99, 235, 0.08);
 }
 
 .writing-mode-tab.active {
@@ -205,22 +263,22 @@
   color: #ffffff;
 }
 
-/* Main Workspace Grid (Canvas + Radical/Stroke details) */
+/* Main Workspace Grid (Left: Multi-Canvas Card | Right: Radicals & Stroke Order) */
 .writing-workspace {
   display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(360px, 1.25fr) minmax(320px, 1fr);
+  gap: 20px;
   align-items: start;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 860px) {
   .writing-workspace {
     grid-template-columns: 1fr;
     justify-items: center;
   }
 }
 
-/* Canvas Box & Mǐzìgé (Ô Mễ Tự) */
+/* Canvas Card (Contains multiple character boxes for multi-character words) */
 .writing-canvas-card {
   display: flex;
   flex-direction: column;
@@ -229,62 +287,161 @@
   border: 1px solid var(--border-color, #e2e8f0);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
   width: 100%;
-  max-width: 340px;
   box-sizing: border-box;
 }
 
-.writing-canvas-wrap {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  border: 3px solid #dc2626; /* Khung đỏ truyền thống của ô luyện chữ */
-  border-radius: 8px;
-  background: #fffdfa; /* Nền giấy tập viết ngà ngà ấm áp */
-  overflow: hidden;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
+/* Multi-character Grid: displays all characters of the word together! */
+.mizige-multi-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
-/* Đường kẻ mễ tự 米字格 */
-.writing-canvas-wrap::before {
+/* Individual Character Card in Multi-character word */
+.mizige-char-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--bg-color, #f8fafc);
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.mizige-char-block:hover {
+  background: #f1f5f9;
+}
+
+.mizige-char-block.active {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.25);
+}
+
+.mizige-char-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+.mizige-char-order {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.mizige-char-hanzi {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.mizige-char-audio-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: transform 0.15s ease;
+}
+
+.mizige-char-audio-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Ô Mễ Tự (Mǐzìgé) Canvas Wrap */
+.mizige-box-wrap {
+  position: relative;
+  border: 3px solid #dc2626; /* Khung đỏ truyền thống của thư pháp */
+  border-radius: 8px;
+  background: #fffdfa; /* Nền giấy tập ấm áp */
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Đường kẻ mễ tự 米字格 cân đối */
+.mizige-box-wrap::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(to right, transparent 49.5%, #fca5a5 49.5%, #fca5a5 50.5%, transparent 50.5%),
-    linear-gradient(to bottom, transparent 49.5%, #fca5a5 49.5%, #fca5a5 50.5%, transparent 50.5%),
-    linear-gradient(45deg, transparent 49.6%, #fecaca 49.6%, #fecaca 50.4%, transparent 50.4%),
-    linear-gradient(-45deg, transparent 49.6%, #fecaca 49.6%, #fecaca 50.4%, transparent 50.4%);
+    linear-gradient(to right, transparent 49.3%, #fca5a5 49.3%, #fca5a5 50.7%, transparent 50.7%),
+    linear-gradient(to bottom, transparent 49.3%, #fca5a5 49.3%, #fca5a5 50.7%, transparent 50.7%),
+    linear-gradient(45deg, transparent 49.4%, #fecaca 49.4%, #fecaca 50.6%, transparent 50.6%),
+    linear-gradient(-45deg, transparent 49.4%, #fecaca 49.4%, #fecaca 50.6%, transparent 50.6%);
   background-size: 100% 100%;
-  opacity: 0.85;
 }
 
-#hanzi-writer-target {
-  position: relative;
-  z-index: 2;
-  width: 300px;
-  height: 300px;
-  cursor: crosshair;
+.mizige-char-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  background: #e2e8f0;
+  padding: 2px 8px;
+  border-radius: 99px;
+  transition: all 0.2s ease;
 }
 
-#hanzi-writer-target svg {
-  display: block;
+.mizige-char-block.completed .mizige-char-badge {
+  background: #d1fae5;
+  color: #065f46;
 }
 
-/* Canvas action buttons */
+/* Quiz Status Badge */
+.writing-quiz-status {
+  margin: 6px 0 14px;
+  padding: 8px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.writing-quiz-status.correct {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.writing-quiz-status.mistake {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+/* Canvas Action Buttons */
 .writing-canvas-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 8px;
-  margin-top: 16px;
+  justify-content: center;
   width: 100%;
 }
 
 .writing-action-btn {
-  padding: 8px 12px;
+  padding: 9px 14px;
   font-size: 0.88rem;
   font-weight: 600;
   border-radius: 8px;
@@ -294,18 +451,17 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   transition: all 0.15s ease;
 }
 
 .writing-action-btn:hover {
   background: #e2e8f0;
-  transform: translateY(-1px);
 }
 
 .writing-action-btn.primary {
   background: #2563eb;
-  color: #fff;
+  color: #ffffff;
   border-color: #2563eb;
 }
 
@@ -314,143 +470,135 @@
 }
 
 .writing-action-btn.success {
-  background: #10b981;
-  color: #fff;
-  border-color: #10b981;
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
 }
 
 .writing-action-btn.success:hover {
-  background: #059669;
+  background: #047857;
 }
 
-/* Status indicator / quiz feedback badge */
-.writing-quiz-status {
-  margin-top: 12px;
-  font-size: 0.92rem;
-  font-weight: 600;
-  text-align: center;
-  min-height: 24px;
+/* Right Details Card (Radical + Stroke Order) */
+.writing-details-card {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Character Switcher in Details Card for multi-character words */
+.writing-char-switcher {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 6px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 10px;
+}
+
+.writing-char-switch-tab {
+  flex: 1;
+  min-width: 90px;
+  padding: 7px 12px;
+  border: 1px solid var(--border-color, #cbd5e1);
+  background: var(--bg-color, #f8fafc);
+  color: var(--text-color, #475569);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
 }
 
-.writing-quiz-status.correct {
-  color: #10b981;
+.writing-char-switch-tab:hover {
+  background: #e2e8f0;
 }
 
-.writing-quiz-status.mistake {
-  color: #ef4444;
+.writing-char-switch-tab.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 2px 6px rgba(37,99,235,0.3);
 }
 
-/* Details Panel (Right side) */
-.writing-details-card {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
-}
-
-/* Radical Info Block */
-.writing-radical-box {
+.writing-radical-box,
+.writing-strokes-box {
   background: var(--card-bg, #ffffff);
   border: 1px solid var(--border-color, #e2e8f0);
-  border-left: 5px solid #10b981;
-  border-radius: 12px;
-  padding: 16px 20px;
+  border-radius: 14px;
+  padding: 18px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }
 
 .writing-box-title {
-  font-size: 0.92rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  color: var(--text-color, #0f172a);
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
-  gap: 6px;
-}
-
-.writing-radical-box .writing-box-title {
-  color: #059669;
+  gap: 8px;
 }
 
 .writing-radical-content {
   display: flex;
   align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
 }
 
 .writing-radical-badge {
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: #059669;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
   background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  border-radius: 10px;
-  width: 58px;
-  height: 58px;
+  border: 2px solid #059669;
+  color: #059669;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  flex-shrink: 0;
 }
 
 .writing-radical-desc {
-  flex: 1;
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .writing-radical-name {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text-color, #0f172a);
-  margin-bottom: 2px;
 }
 
 .writing-radical-meaning {
-  font-size: 0.92rem;
-  color: var(--subtext-color, #475569);
-  line-height: 1.4;
+  font-size: 0.9rem;
+  color: var(--subtext-color, #64748b);
+  line-height: 1.45;
 }
 
-/* Stroke Order Panel */
-.writing-strokes-box {
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
-  border-left: 5px solid #2563eb;
-  border-radius: 12px;
-  padding: 16px 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-}
-
-.writing-strokes-box .writing-box-title {
-  color: #2563eb;
-}
-
+/* Stroke Order Stepper & Chips */
 .writing-stroke-stepper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed var(--border-color, #e2e8f0);
 }
 
 .writing-stroke-count {
+  font-weight: 700;
+  color: #2563eb;
   font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-color, #1e293b);
 }
 
-.writing-stroke-nav {
-  display: flex;
-  gap: 6px;
-}
-
-/* Stroke List Table / Badges */
 .writing-stroke-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -466,34 +614,35 @@
   gap: 8px;
   padding: 8px 10px;
   border-radius: 8px;
+  border: 1px solid var(--border-color, #cbd5e1);
   background: var(--bg-color, #f8fafc);
-  border: 1px solid var(--border-color, #e2e8f0);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-.writing-stroke-chip:hover,
-.writing-stroke-chip.active {
-  background: #eff6ff;
-  border-color: #3b82f6;
-  transform: translateX(2px);
+.writing-stroke-chip:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
 }
 
 .writing-stroke-chip.active {
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+  background: #eff6ff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
 }
 
 .stroke-idx {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   background: #2563eb;
   color: #fff;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
   font-size: 0.78rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .stroke-info {
@@ -502,8 +651,8 @@
 }
 
 .stroke-info b {
-  font-size: 0.88rem;
-  color: var(--text-color, #0f172a);
+  font-size: 0.84rem;
+  color: var(--text-color, #1e293b);
 }
 
 .stroke-info span {
@@ -511,121 +660,159 @@
   color: var(--subtext-color, #64748b);
 }
 
-/* 214 Radicals Reference Grid */
+/* 214 Kangxi Radicals View */
 .writing-radicals-view {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
   background: var(--card-bg, #ffffff);
   border: 1px solid var(--border-color, #e2e8f0);
   border-radius: 14px;
-  padding: 20px;
-  display: none;
+  padding: 18px;
 }
 
 .writing-radicals-view.active {
-  display: block;
+  display: flex;
 }
 
 .writing-radicals-filter {
   display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .writing-radicals-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
   gap: 10px;
   max-height: 480px;
   overflow-y: auto;
-  padding-right: 6px;
+  padding: 4px;
 }
 
 .writing-rad-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #cbd5e1);
   background: var(--bg-color, #f8fafc);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .writing-rad-item:hover {
-  background: #ecfdf5;
-  border-color: #10b981;
+  background: #eff6ff;
+  border-color: #2563eb;
   transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(37,99,235,0.15);
 }
 
 .writing-rad-char {
   font-size: 1.6rem;
   font-weight: bold;
   color: #059669;
-  min-width: 36px;
+  width: 38px;
   text-align: center;
+  flex-shrink: 0;
+}
+
+.writing-rad-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .writing-rad-text b {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-color, #0f172a);
-  display: block;
 }
 
 .writing-rad-text span {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--subtext-color, #64748b);
-  display: block;
-  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Celebration Overlay Modal */
 .writing-celebrate-modal {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: 10090;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(4px);
-  animation: fadeIn 0.2s ease-out;
+  padding: 16px;
 }
 
 .writing-celebrate-content {
   background: var(--card-bg, #ffffff);
-  border-radius: 20px;
-  padding: 30px;
-  max-width: 360px;
-  width: 90%;
+  border-radius: 18px;
+  padding: 28px;
+  max-width: 400px;
+  width: 100%;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .writing-celebrate-icon {
   font-size: 3.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .writing-celebrate-content h3 {
-  font-size: 1.4rem;
-  margin: 0 0 6px;
-  color: #10b981;
+  margin: 0 0 8px;
+  font-size: 1.45rem;
+  color: var(--text-color, #0f172a);
 }
 
 .writing-celebrate-content p {
-  font-size: 0.95rem;
+  margin: 0 0 16px;
   color: var(--subtext-color, #64748b);
-  margin: 0 0 20px;
+  font-size: 0.95rem;
 }
 
-@keyframes popUp {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+/* ==============================================================
+   RESPONSIVE DESIGN FOR BOTH MOBILE AND DESKTOP
+   ============================================================== */
+@media (max-width: 600px) {
+  .writing-container {
+    padding: 10px 10px 40px;
+    gap: 14px;
+  }
+  .writing-head-titles h2 {
+    font-size: 1.35rem;
+  }
+  .writing-cur-word {
+    font-size: 1.65rem;
+  }
+  .writing-cur-pinyin {
+    font-size: 1.1rem;
+  }
+  .writing-search-input {
+    width: 120px;
+  }
+  .writing-search-input:focus {
+    width: 140px;
+  }
+  .writing-canvas-card {
+    padding: 12px;
+  }
+  .mizige-multi-grid {
+    gap: 8px;
+  }
+  .mizige-char-block {
+    padding: 5px;
+  }
 }

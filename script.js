@@ -7982,24 +7982,7 @@ function speakChinese(index) {
     const list = hskData[currentLevel] || [];
     const item = list[index];
     if (!item || !item.word) return;
-
-    if (!('speechSynthesis' in window)) {
-        alert('Trình duyệt này không hỗ trợ phát âm.');
-        return;
-    }
-
-    speechSynthesis.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(item.word);
-    utterance.lang = 'zh-CN';
-    utterance.rate = 0.78;
-    utterance.pitch = 1;
-
-    const voices = speechSynthesis.getVoices();
-    const voice = voices.find(v => /^zh-CN/i.test(v.lang));
-    if (voice) utterance.voice = voice;
-
-    speechSynthesis.speak(utterance);
+    speakWord(item.word);
 }
 
 // Render Danh sách từ
@@ -8208,14 +8191,17 @@ function skipTypingWord() {
 }
 // Hàm đọc từ tiếng Trung bằng giọng đọc chuẩn (zh-CN)
 function speakWord(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Dừng câu đọc trước đó nếu đang đọc
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'zh-CN'; // Ngôn ngữ Tiếng Trung
-        utterance.rate = 0.65;    // Tốc độ đọc vừa phải
-        window.speechSynthesis.speak(utterance);
-    } else {
-        alert("Trình duyệt của bạn không hỗ trợ phát âm!");
+    if (!text) return;
+    if (window.GH_Audio && typeof window.GH_Audio.play === 'function') {
+        window.GH_Audio.play(text);
+    } else if ('speechSynthesis' in window) {
+        try {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.85;
+            window.speechSynthesis.speak(utterance);
+        } catch (e) {}
     }
 }
 

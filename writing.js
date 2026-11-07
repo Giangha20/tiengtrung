@@ -1,7 +1,10 @@
 /* ==============================================================
    WRITING PRACTICE ENGINE (LUYỆN VIẾT CHỮ HÁN & THỨ TỰ NÉT)
-   Sử dụng HanziWriter, ô Mễ Tự chuẩn thư pháp, ôm nét hoàn hảo,
-   hướng dẫn đầy đủ bộ thủ và từng nét một 100% không lỗi.
+   - Đầy đủ từ vựng HSK 1 - 6 (150 -> 5000 từ)
+   - Hiển thị trọn vẹn tất cả chữ trong từ (vd: 北京, 出租车, ...)
+   - Cân đối hoàn hảo cả máy tính lẫn điện thoại
+   - Phát âm chuẩn native Mandarin kèm điều chỉnh tốc độ
+   - Hướng dẫn chi tiết 214 bộ thủ và từng nét một
    ============================================================== */
 
 (() => {
@@ -11,17 +14,17 @@
     wordList: [],
     currentWordIndex: 0,
     currentWordItem: null,
-    currentCharIndex: 0,
-    currentChar: "",
-    writer: null,
-    charData: null,
+    currentChars: [],
+    activeCharIndex: 0,
+    writers: [],
+    charDataList: [],
     mode: "guide", // 'guide' | 'practice' | 'radicals'
     activeStrokeIdx: 0,
     isAnimating: false,
-    writerSize: 300
+    quizCompletedChars: new Set()
   };
 
-  // Cache character data in memory and localStorage for ultra-fast load
+  // Memory & LocalStorage Cache for HanziWriter character data
   const charDataCache = {};
 
   function customCharDataLoader(char, onComplete, onError) {
@@ -40,10 +43,10 @@
       }
     } catch (e) {}
 
-    // Fetch from reliable CDN
+    // Reliable fast jsDelivr CDN
     fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${encodeURIComponent(char)}.json`)
       .then(res => {
-        if (!res.ok) throw new Error('Character data not found');
+        if (!res.ok) throw new Error('Character data not found: ' + char);
         return res.json();
       })
       .then(data => {
@@ -57,16 +60,19 @@
       });
   }
 
-  // Audio pronunciation helper
-  function speakCurrentChar() {
-    if (!('speechSynthesis' in window) || !WP.currentChar) return;
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(WP.currentChar);
-      u.lang = 'zh-CN';
-      u.rate = 0.85;
-      window.speechSynthesis.speak(u);
-    } catch (e) {}
+  // Unified Audio Playback using GH_Audio
+  function playAudio(text, buttonEl) {
+    if (!text) return;
+    if (buttonEl) buttonEl.classList.add('speaking');
+    const onEnd = () => {
+      if (buttonEl) buttonEl.classList.remove('speaking');
+    };
+    if (window.GH_Audio && typeof window.GH_Audio.play === 'function') {
+      window.GH_Audio.play(text, { onEnd, onError: onEnd });
+    } else if (typeof window.speakWord === 'function') {
+      window.speakWord(text);
+      setTimeout(onEnd, 1200);
+    }
   }
 
   // Initialize Writing Mode
@@ -82,12 +88,43 @@
 
     // Listen to global HSK change
     window.addEventListener('gh-hsk-changed', (e) => {
-      WP.currentLevel = String(e.detail?.level || '1');
-      loadLevelWords(WP.currentLevel);
+      const lvl = String(e.detail?.level || '1');
+      if (WP.currentLevel !== lvl) {
+        WP.currentLevel = lvl;
+        const sel = document.getElementById('wp-hsk-select');
+        if (sel) sel.value = lvl;
+        loadLevelWords(lvl);
+      }
+    });
+
+    // Listen to HSK6 ready
+    window.addEventListener('hsk6ready', () => {
+      if (WP.currentLevel === '6') {
+        loadLevelWords('6');
+      }
+    });
+
+    // Listen to speech speed changes
+    window.addEventListener('gh-speech-speed-changed', () => {
+      // Speed updated, next playAudio will use new speed
+    });
+
+    // Window resize handler: re-render boxes if width category changed
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      const w = window.innerWidth;
+      const wasMobile = lastWidth <= 480;
+      const isMobile = w <= 480;
+      if (wasMobile !== isMobile && WP.currentWordItem) {
+        lastWidth = w;
+        renderCurrentWord();
+      }
     });
 
     // Initial load
     WP.currentLevel = String(window.currentLevel || document.getElementById('hsk-level')?.value || '1');
+    const sel = document.getElementById('wp-hsk-select');
+    if (sel) sel.value = WP.currentLevel;
     loadLevelWords(WP.currentLevel);
   }
 
@@ -99,32 +136,44 @@
         <div class="writing-head">
           <div class="writing-head-titles">
             <h2><span>✍️</span> Luyện Viết Chữ Hán & Thứ Tự Nét</h2>
-            <p>Tập viết theo ô Mễ Tự chuẩn, phân tích chi tiết bộ thủ và thứ tự từng nét một.</p>
+            <p>Viết trọn vẹn từng chữ trong từ theo ô Mễ Tự chuẩn, phân tích chi tiết bộ thủ và thứ tự từng nét một.</p>
           </div>
-          <div class="writing-search-bar">
-            <input type="text" id="writing-search-input" class="writing-search-input" placeholder="Nhập chữ cần viết..." maxlength="8" autocomplete="off">
-            <button type="button" id="writing-search-btn" class="writing-btn-sm">🔍 Xem nét</button>
+          <div class="writing-top-controls">
+            <!-- Dedicated HSK 1 - 6 Level Selector in Writing Bar -->
+            <div class="writing-hsk-picker">
+              <span class="writing-hsk-label">Cấp độ:</span>
+              <select id="wp-hsk-select" class="writing-hsk-select" title="Chọn cấp độ HSK">
+                <option value="1">HSK 1 (150 từ)</option>
+                <option value="2">HSK 2 (300 từ)</option>
+                <option value="3">HSK 3 (600 từ)</option>
+                <option value="4">HSK 4 (1200 từ)</option>
+                <option value="5">HSK 5 (2500 từ)</option>
+                <option value="6">HSK 6 (5000 từ)</option>
+              </select>
+            </div>
+            <!-- Word Search Bar -->
+            <div class="writing-search-bar">
+              <input type="text" id="writing-search-input" class="writing-search-input" placeholder="Nhập từ cần viết..." maxlength="12" autocomplete="off">
+              <button type="button" id="writing-search-btn" class="writing-btn-sm">🔍 Xem nét</button>
+            </div>
           </div>
         </div>
 
-        <!-- Word Info & Multi-Character Navigation -->
+        <!-- Word Info & Navigation -->
         <div class="writing-word-bar">
           <div class="writing-word-info">
             <span class="writing-cur-word" id="wp-cur-word">--</span>
             <span class="writing-cur-pinyin" id="wp-cur-pinyin">--</span>
             <span class="writing-cur-meaning" id="wp-cur-meaning">--</span>
-            <button type="button" id="wp-speak-btn" class="writing-action-btn" title="Phát âm">🔊</button>
+            <button type="button" id="wp-speak-btn" class="writing-speak-btn" title="Phát âm từ này">🔊</button>
           </div>
 
           <div class="writing-nav-controls">
             <button type="button" id="wp-prev-word" class="writing-nav-btn" title="Từ trước">◀ Trước</button>
-            <span id="wp-word-counter" style="font-weight:600;font-size:0.9rem;color:#64748b;">1 / 150</span>
+            <span id="wp-word-counter">1 / 150</span>
             <button type="button" id="wp-next-word" class="writing-nav-btn" title="Từ tiếp">Sau ▶</button>
             <button type="button" id="wp-random-word" class="writing-nav-btn" title="Chọn ngẫu nhiên">🎲 Ngẫu nhiên</button>
           </div>
-
-          <!-- Multi-character word selector tabs (vd: 漂亮 -> [漂] [亮]) -->
-          <div class="writing-char-tabs" id="wp-char-tabs"></div>
         </div>
 
         <!-- Mode Switcher Tabs -->
@@ -140,20 +189,19 @@
           </button>
         </div>
 
-        <!-- Main Workspace (Canvas + Details) -->
+        <!-- Main Workspace (Left: Multi-Canvas Card | Right: Radicals & Stroke Order) -->
         <div class="writing-workspace" id="wp-workspace">
-          <!-- Canvas Card -->
+          <!-- Multi-Canvas Card -->
           <div class="writing-canvas-card">
-            <div class="writing-canvas-wrap">
-              <div id="hanzi-writer-target"></div>
-            </div>
+            <!-- Multi-character grid where ALL characters in the word are displayed together -->
+            <div class="mizige-multi-grid" id="wp-multi-grid"></div>
 
             <!-- Quiz Status Badge -->
             <div class="writing-quiz-status" id="wp-quiz-status">
               Sẵn sàng luyện viết
             </div>
 
-            <!-- Canvas Controls -->
+            <!-- Canvas Action Controls -->
             <div class="writing-canvas-actions" id="wp-canvas-actions">
               <button type="button" id="wp-btn-animate" class="writing-action-btn primary">
                 ▶ Xem viết chữ
@@ -175,6 +223,9 @@
 
           <!-- Details Card (Right Side) -->
           <div class="writing-details-card">
+            <!-- Character Switcher Pills (for multi-character words) -->
+            <div class="writing-char-switcher" id="wp-char-switcher" style="display:none;"></div>
+
             <!-- Radical Card -->
             <div class="writing-radical-box">
               <div class="writing-box-title">
@@ -198,7 +249,7 @@
               </div>
               <div class="writing-stroke-stepper">
                 <span class="writing-stroke-count" id="wp-stroke-total">Tổng số: 0 nét</span>
-                <span style="font-size:0.85rem;color:#64748b;" id="wp-stroke-instruction">Bấm vào từng nét dưới đây để xem chi tiết:</span>
+                <span style="font-size:0.85rem;color:#64748b;">Bấm vào từng nét dưới đây để xem chi tiết:</span>
               </div>
               <div class="writing-stroke-list" id="wp-stroke-list">
                 <!-- Dynamically populated stroke chips -->
@@ -222,20 +273,46 @@
     `;
   }
 
-  // Load words for current HSK Level
+  // Load words for current HSK Level (1 -> 6)
   function loadLevelWords(lvl) {
     WP.currentLevel = String(lvl || '1');
     const data = window.hskData?.[WP.currentLevel] || [];
     WP.wordList = Array.isArray(data) && data.length ? data : [
       { word: "我", pinyin: "wǒ", meaning: "tôi, tớ, mình" },
       { word: "你", pinyin: "nǐ", meaning: "bạn, anh, chị" },
-      { word: "好", pinyin: "hǎo", meaning: "tốt, khỏe, hay" }
+      { word: "好", pinyin: "hǎo", meaning: "tốt, khỏe, hay" },
+      { word: "北京", pinyin: "běi jīng", meaning: "Bắc Kinh" },
+      { word: "出租车", pinyin: "chū zū chē", meaning: "xe taxi" }
     ];
     WP.currentWordIndex = 0;
     renderCurrentWord();
   }
 
-  // Render the current word and characters
+  // Calculate balanced size for each Mǐzìgé box based on character count & screen width
+  function calculateBoxSize(charCount) {
+    const isMobile = window.innerWidth <= 480;
+    const isTablet = window.innerWidth <= 768 && window.innerWidth > 480;
+
+    if (charCount <= 1) {
+      return isMobile ? 250 : 270;
+    }
+    if (charCount === 2) {
+      // For 2 characters (e.g. 北京):
+      // On mobile (360-414px): 140px * 2 + 10px gap = 290px (fits side-by-side in one row!)
+      // On desktop: 195px * 2 + 14px gap = 404px (sits comfortably side-by-side)
+      return isMobile ? 140 : (isTablet ? 165 : 195);
+    }
+    if (charCount === 3) {
+      // For 3 characters (e.g. 出租车):
+      // On mobile: 100px * 3 + 12px gap = 312px (fits in 1 row!)
+      // On desktop: 150px * 3 + 24px gap = 474px (fits in 1 row!)
+      return isMobile ? 100 : (isTablet ? 125 : 150);
+    }
+    // For 4+ characters (e.g. 公共汽车):
+    return isMobile ? 130 : 140;
+  }
+
+  // Render the current word and ALL of its characters simultaneously
   function renderCurrentWord() {
     if (!WP.wordList.length) return;
     if (WP.currentWordIndex < 0) WP.currentWordIndex = 0;
@@ -251,88 +328,162 @@
 
     // Extract Chinese characters only
     const chars = (item.word || '').replace(/[^\u4e00-\u9fa5]/g, '').split('').filter(Boolean);
-    const validChars = chars.length ? chars : [item.word?.[0] || '我'];
+    WP.currentChars = chars.length ? chars : [item.word?.[0] || '我'];
+    WP.activeCharIndex = 0;
+    WP.quizCompletedChars.clear();
+    WP.isAnimating = false;
 
-    // Multi-character tabs
-    const tabsContainer = document.getElementById('wp-char-tabs');
-    tabsContainer.innerHTML = '';
-    validChars.forEach((ch, idx) => {
-      const tab = document.createElement('button');
-      tab.type = 'button';
-      tab.className = `writing-char-tab ${idx === 0 ? 'active' : ''}`;
-      tab.textContent = ch;
-      tab.title = `Luyện viết chữ ${ch}`;
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('#wp-char-tabs .writing-char-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        WP.currentCharIndex = idx;
-        loadCharacter(ch);
-      });
-      tabsContainer.appendChild(tab);
-    });
+    // Reset writers and charData
+    WP.writers = [];
+    WP.charDataList = [];
 
-    WP.currentCharIndex = 0;
-    loadCharacter(validChars[0]);
+    // Render multi-character grid
+    renderMultiCharacterBoxes();
+
+    // Render character switcher tabs in details card
+    renderCharSwitcher();
+
+    // Load active character details
+    selectActiveChar(0);
   }
 
-  // Load and render a specific character into HanziWriter
-  function loadCharacter(ch) {
-    if (!ch) return;
-    WP.currentChar = ch;
+  // Render the simultaneous Mǐzìgé boxes for each character
+  function renderMultiCharacterBoxes() {
+    const grid = document.getElementById('wp-multi-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
 
-    const target = document.getElementById('hanzi-writer-target');
-    if (!target) return;
-    target.innerHTML = '';
+    const count = WP.currentChars.length;
+    const boxSize = calculateBoxSize(count);
 
-    // Responsive width (300px desktop, 270px mobile)
-    const isMobile = window.innerWidth < 480;
-    const size = isMobile ? 270 : 300;
-    WP.writerSize = size;
-    target.style.width = `${size}px`;
-    target.style.height = `${size}px`;
+    // Build DOM for each character
+    WP.currentChars.forEach((ch, idx) => {
+      const block = document.createElement('div');
+      block.className = `mizige-char-block ${idx === 0 ? 'active' : ''}`;
+      block.id = `wp-block-${idx}`;
+      block.dataset.index = idx;
+      block.dataset.char = ch;
 
-    // Check HanziWriter availability
-    if (typeof HanziWriter === 'undefined') {
-      target.innerHTML = `<div style="padding:40px;text-align:center;color:#ef4444;">Đang tải thư viện luyện viết...</div>`;
+      block.innerHTML = `
+        <div class="mizige-char-header">
+          <span class="mizige-char-order">${count > 1 ? `Chữ ${idx + 1}/${count}` : ''}</span>
+          <span class="mizige-char-hanzi">${ch}</span>
+          <button type="button" class="mizige-char-audio-btn" title="Phát âm chữ ${ch}">🔊</button>
+        </div>
+        <div class="mizige-box-wrap" id="wp-box-wrap-${idx}" style="width:${boxSize}px; height:${boxSize}px;"></div>
+        <div class="mizige-char-badge" id="wp-badge-${idx}">Đang tải...</div>
+      `;
+
+      // Audio click on single char
+      block.querySelector('.mizige-char-audio-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        playAudio(ch, e.currentTarget);
+      });
+
+      // Block click selects active character
+      block.addEventListener('click', () => {
+        selectActiveChar(idx);
+      });
+
+      grid.appendChild(block);
+
+      // Create HanziWriter instance
+      if (typeof HanziWriter !== 'undefined') {
+        try {
+          const writer = HanziWriter.create(`wp-box-wrap-${idx}`, ch, {
+            width: boxSize,
+            height: boxSize,
+            padding: Math.round(boxSize * 0.08), // Chữ ôm nét cân đối hoàn hảo, không quá bé cũng không quá to
+            strokeAnimationSpeed: 1.15,
+            delayBetweenStrokes: 240,
+            strokeColor: '#1e293b',
+            radicalColor: '#059669', // Tô màu xanh ngọc nổi bật cho bộ thủ
+            outlineColor: '#cbd5e1', // Nét mờ chuẩn nét thư pháp
+            highlightColor: '#0284c7',
+            drawingWidth: Math.max(4, Math.round(boxSize * 0.075)), // Nét vẽ ôm sát tự nhiên
+            drawingColor: '#2563eb',
+            showOutline: true,
+            showCharacter: true,
+            charDataLoader: customCharDataLoader
+          });
+          WP.writers[idx] = writer;
+
+          // Preload character data for stroke list and badge
+          HanziWriter.loadCharacterData(ch, { charDataLoader: customCharDataLoader }).then(data => {
+            WP.charDataList[idx] = data;
+            const strokes = data?.strokes?.length || data?.medians?.length || 0;
+            const badge = document.getElementById(`wp-badge-${idx}`);
+            if (badge) badge.textContent = `${strokes} nét`;
+            if (idx === WP.activeCharIndex) {
+              updateRadicalAndStrokes(ch, data);
+            }
+          }).catch(() => {
+            const badge = document.getElementById(`wp-badge-${idx}`);
+            if (badge) badge.textContent = `Chữ Hán`;
+          });
+
+        } catch (err) {
+          console.warn('HanziWriter error for ' + ch, err);
+        }
+      }
+    });
+
+    // Update mode state
+    if (WP.mode === 'practice') {
+      startQuizMode();
+    } else {
+      startGuideMode();
+    }
+  }
+
+  // Render character switcher tabs in details card
+  function renderCharSwitcher() {
+    const switcher = document.getElementById('wp-char-switcher');
+    if (!switcher) return;
+
+    if (WP.currentChars.length <= 1) {
+      switcher.style.display = 'none';
       return;
     }
 
-    try {
-      WP.writer = HanziWriter.create('hanzi-writer-target', ch, {
-        width: size,
-        height: size,
-        padding: Math.round(size * 0.08), // Chữ ôm nét cân đối hoàn hảo, không quá to cũng không quá bé
-        strokeAnimationSpeed: 1.1,
-        delayBetweenStrokes: 260,
-        strokeColor: '#1e293b',
-        radicalColor: '#059669', // Tô màu xanh ngọc nổi bật cho bộ thủ
-        outlineColor: '#cbd5e1', // Nét mờ chuẩn nét thư pháp
-        highlightColor: '#0284c7',
-        drawingWidth: Math.round(size * 0.075), // Độ dày nét vẽ mượt mà, ôm theo nét chữ
-        drawingColor: '#2563eb',
-        showOutline: true,
-        showCharacter: true,
-        charDataLoader: customCharDataLoader
+    switcher.style.display = 'flex';
+    switcher.innerHTML = WP.currentChars.map((ch, idx) => `
+      <button type="button" class="writing-char-switch-tab ${idx === WP.activeCharIndex ? 'active' : ''}" data-index="${idx}">
+        Chữ ${idx + 1}: ${ch}
+      </button>
+    `).join('');
+
+    switcher.querySelectorAll('.writing-char-switch-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const idx = Number(tab.dataset.index || 0);
+        selectActiveChar(idx);
       });
+    });
+  }
 
-      // Fetch character data to update radical & stroke order list
-      HanziWriter.loadCharacterData(ch, { charDataLoader: customCharDataLoader }).then(data => {
-        WP.charData = data;
-        updateRadicalAndStrokes(ch, data);
-      }).catch(err => {
-        // Fallback radical display even if stroke data isn't loaded
-        updateRadicalAndStrokes(ch, null);
-      });
+  // Select active character
+  function selectActiveChar(idx) {
+    if (idx < 0 || idx >= WP.currentChars.length) return;
+    WP.activeCharIndex = idx;
+    const ch = WP.currentChars[idx];
 
-      // Apply mode
-      if (WP.mode === 'practice') {
-        startQuizMode();
-      } else {
-        startGuideMode();
-      }
+    // Update block active styling
+    document.querySelectorAll('.mizige-char-block').forEach((b, i) => {
+      b.classList.toggle('active', i === idx);
+    });
 
-    } catch (e) {
-      console.warn('HanziWriter creation failed for ' + ch, e);
+    // Update switcher tab active styling
+    document.querySelectorAll('.writing-char-switch-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+    });
+
+    // Update radical & strokes
+    const data = WP.charDataList[idx] || null;
+    updateRadicalAndStrokes(ch, data);
+
+    // If in practice mode and not completed, focus quiz on this writer
+    if (WP.mode === 'practice' && !WP.quizCompletedChars.has(idx)) {
+      startQuizForChar(idx);
     }
   }
 
@@ -353,7 +504,7 @@
     } else {
       radBadge.textContent = char;
       radName.textContent = `Chữ Hán: ${char}`;
-      radMeaning.textContent = `Chữ Hán thuộc từ ${WP.currentWordItem?.word || ''} (${WP.currentWordItem?.pinyin || ''}).`;
+      radMeaning.textContent = `Chữ Hán thuộc từ "${WP.currentWordItem?.word || ''}" (${WP.currentWordItem?.pinyin || ''}).`;
     }
 
     // 2. Stroke Details
@@ -363,7 +514,6 @@
 
     if (numStrokes > 0) {
       const radStrokes = new Set(data.radStrokes || []);
-      const basicStrokesMap = window.GH_RADICALS?.basicStrokes || {};
 
       for (let i = 0; i < numStrokes; i++) {
         const chip = document.createElement('div');
@@ -383,10 +533,11 @@
           document.querySelectorAll('.writing-stroke-chip').forEach(c => c.classList.remove('active'));
           chip.classList.add('active');
           WP.activeStrokeIdx = i;
-          if (WP.writer) {
-            WP.writer.pauseAnimation();
-            WP.writer.hideCharacter();
-            WP.writer.animateStroke(i);
+          const writer = WP.writers[WP.activeCharIndex];
+          if (writer) {
+            writer.pauseAnimation();
+            writer.hideCharacter();
+            writer.animateStroke(i);
           }
         });
 
@@ -397,12 +548,18 @@
     }
   }
 
-  // Mode 1: Guide Mode (Animation and step viewer)
+  // Update Status banner
+  function setStatus(text, type = '') {
+    const el = document.getElementById('wp-quiz-status');
+    if (!el) return;
+    el.className = `writing-quiz-status ${type}`;
+    el.textContent = text;
+  }
+
+  // Mode 1: Guide Mode
   function startGuideMode() {
     WP.mode = 'guide';
-    const status = document.getElementById('wp-quiz-status');
-    status.className = 'writing-quiz-status';
-    status.textContent = '🎬 Chế độ xem hoạt họa & thứ tự từng nét';
+    setStatus('🎬 Chế độ xem hoạt họa & thứ tự từng nét một', '');
 
     document.getElementById('wp-btn-animate').style.display = 'inline-flex';
     document.getElementById('wp-btn-replay').style.display = 'inline-flex';
@@ -410,19 +567,52 @@
     document.getElementById('wp-btn-next-stroke').style.display = 'inline-flex';
     document.getElementById('wp-btn-hint').style.display = 'none';
 
-    if (WP.writer) {
-      WP.writer.cancelQuiz();
-      WP.writer.showOutline();
-      WP.writer.showCharacter();
+    WP.writers.forEach(w => {
+      if (w) {
+        w.cancelQuiz();
+        w.showOutline();
+        w.showCharacter();
+      }
+    });
+  }
+
+  // Sequential Animation: Animates all characters of the word in order
+  function animateFullWordSequence(startIdx = 0) {
+    if (startIdx >= WP.writers.length) {
+      WP.isAnimating = false;
+      setStatus(`✅ Đã xem xong toàn bộ các nét của từ "${WP.currentWordItem?.word || ''}"!`, 'correct');
+      return;
     }
+
+    WP.isAnimating = true;
+    selectActiveChar(startIdx);
+    const ch = WP.currentChars[startIdx];
+    setStatus(`🎬 Đang hướng dẫn viết chữ ${startIdx + 1}/${WP.currentChars.length}: ${ch}...`);
+
+    const writer = WP.writers[startIdx];
+    if (!writer) {
+      animateFullWordSequence(startIdx + 1);
+      return;
+    }
+
+    writer.showOutline();
+    writer.animateCharacter({
+      onComplete: () => {
+        if (!WP.isAnimating) return;
+        setTimeout(() => {
+          if (WP.isAnimating) {
+            animateFullWordSequence(startIdx + 1);
+          }
+        }, 320);
+      }
+    });
   }
 
   // Mode 2: Practice / Quiz Mode (Handwriting practice with stroke checking)
   function startQuizMode() {
     WP.mode = 'practice';
-    const status = document.getElementById('wp-quiz-status');
-    status.className = 'writing-quiz-status';
-    status.textContent = '✍️ Dùng tay hoặc chuột để viết từng nét theo thứ tự!';
+    WP.quizCompletedChars.clear();
+    setStatus('✍️ Dùng tay hoặc chuột để viết từng nét theo thứ tự!', '');
 
     document.getElementById('wp-btn-animate').style.display = 'none';
     document.getElementById('wp-btn-replay').style.display = 'none';
@@ -430,30 +620,63 @@
     document.getElementById('wp-btn-next-stroke').style.display = 'none';
     document.getElementById('wp-btn-hint').style.display = 'inline-flex';
 
-    if (!WP.writer) return;
+    // Reset status badges on all blocks
+    WP.currentChars.forEach((ch, i) => {
+      const badge = document.getElementById(`wp-badge-${i}`);
+      const block = document.getElementById(`wp-block-${i}`);
+      if (block) block.classList.remove('completed');
+      if (badge) badge.textContent = i === 0 ? '✍️ Đang viết' : '⏳ Chờ viết';
+    });
 
-    WP.writer.cancelQuiz();
-    WP.writer.quiz({
+    startQuizForChar(0);
+  }
+
+  // Start quiz on a specific character
+  function startQuizForChar(idx) {
+    selectActiveChar(idx);
+    const ch = WP.currentChars[idx];
+    const writer = WP.writers[idx];
+    if (!writer) return;
+
+    setStatus(`✍️ Hãy viết chữ ${idx + 1}/${WP.currentChars.length}: ${ch}`);
+    const badge = document.getElementById(`wp-badge-${idx}`);
+    if (badge) badge.textContent = '✍️ Đang viết';
+
+    writer.cancelQuiz();
+    writer.quiz({
       onCorrectStroke: function(strokeData) {
-        status.className = 'writing-quiz-status correct';
-        status.textContent = `✅ Nét ${strokeData.strokeNum + 1} chính xác! Tiếp tục nào.`;
-        // Highlight active stroke chip
+        setStatus(`✅ Nét ${strokeData.strokeNum + 1} của chữ ${ch} chính xác!`, 'correct');
         const chip = document.querySelector(`.writing-stroke-chip[data-stroke-idx="${strokeData.strokeNum}"]`);
         if (chip) chip.classList.add('active');
       },
       onMistake: function(strokeData) {
-        status.className = 'writing-quiz-status mistake';
-        status.textContent = `❌ Sai nét hoặc sai thứ tự! Bạn còn ${strokeData.mistakesOnStroke} lần thử.`;
+        setStatus(`❌ Sai nét chữ ${ch}! Bạn còn ${strokeData.mistakesOnStroke} lần thử.`, 'mistake');
       },
       onComplete: function(summary) {
-        status.className = 'writing-quiz-status correct';
-        status.textContent = `🎉 Xuất sắc! Bạn đã viết hoàn thành chữ ${WP.currentChar}!`;
-        showCelebrationModal(summary);
+        WP.quizCompletedChars.add(idx);
+        const block = document.getElementById(`wp-block-${idx}`);
+        if (block) block.classList.add('completed');
+        if (badge) badge.textContent = '✅ Hoàn thành';
+
+        // Check if all characters completed
+        if (WP.quizCompletedChars.size >= WP.currentChars.length) {
+          setStatus(`🎉 Xuất sắc! Bạn đã viết hoàn thành cả từ "${WP.currentWordItem?.word || ''}"!`, 'correct');
+          showCelebrationModal(summary);
+        } else {
+          // Advance to next character
+          const nextIdx = idx + 1;
+          if (nextIdx < WP.currentChars.length) {
+            setStatus(`🎉 Giỏi quá! Đã xong chữ ${ch}. Tiếp tục viết chữ ${WP.currentChars[nextIdx]} nào!`, 'correct');
+            setTimeout(() => {
+              startQuizForChar(nextIdx);
+            }, 600);
+          }
+        }
       }
     });
   }
 
-  // Show celebratory overlay modal on quiz completion
+  // Show celebratory overlay modal on complete word finish
   function showCelebrationModal(summary) {
     const modal = document.createElement('div');
     modal.className = 'writing-celebrate-modal';
@@ -463,12 +686,13 @@
     modal.innerHTML = `
       <div class="writing-celebrate-content">
         <div class="writing-celebrate-icon">🎉</div>
-        <h3>Hoàn Thành Chữ ${WP.currentChar}!</h3>
+        <h3>Hoàn Thành Từ ${WP.currentWordItem?.word || ''}!</h3>
         <p style="font-size:1.4rem;margin:4px 0 12px;">${stars}</p>
-        <p>Số lần sai sót: <b>${mistakes}</b> nét. Bạn đã nắm rất vững thứ tự nét của chữ này!</p>
-        <div style="display:flex;gap:10px;justify-content:center;">
+        <p>Phiên âm: <b>${WP.currentWordItem?.pinyin || ''}</b> • Nghĩa: <i>${WP.currentWordItem?.meaning || ''}</i></p>
+        <p>Số lần sai sót: <b>${mistakes}</b> nét. Bạn đã nắm rất vững thứ tự các nét của từ này!</p>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;">
           <button type="button" class="writing-action-btn" id="wp-celeb-replay">Viết lại</button>
-          <button type="button" class="writing-action-btn primary" id="wp-celeb-next">Chữ tiếp theo ➔</button>
+          <button type="button" class="writing-action-btn primary" id="wp-celeb-next">Từ tiếp theo ▶</button>
         </div>
       </div>
     `;
@@ -516,13 +740,22 @@
       el.addEventListener('click', () => {
         const ch = el.dataset.char;
         if (ch) {
-          // Switch to workspace view and load character
+          // Switch to workspace view and load radical character
           document.querySelectorAll('.writing-mode-tab').forEach(t => t.classList.remove('active'));
           document.querySelector('.writing-mode-tab[data-mode="guide"]')?.classList.add('active');
           document.getElementById('wp-workspace').style.display = 'grid';
           document.getElementById('wp-radicals-view').classList.remove('active');
           WP.mode = 'guide';
-          loadCharacter(ch);
+
+          WP.currentWordItem = { word: ch, pinyin: '', meaning: `Bộ thủ ${ch}` };
+          WP.currentChars = [ch];
+          WP.activeCharIndex = 0;
+          document.getElementById('wp-cur-word').textContent = ch;
+          document.getElementById('wp-cur-pinyin').textContent = '';
+          document.getElementById('wp-cur-meaning').textContent = `Bộ thủ ${ch}`;
+          renderMultiCharacterBoxes();
+          renderCharSwitcher();
+          selectActiveChar(0);
         }
       });
     });
@@ -549,13 +782,78 @@
     renderCurrentWord();
   }
 
+  // Search input handler (custom word or Hanzi)
+  function executeSearch() {
+    const input = document.getElementById('writing-search-input');
+    const val = (input?.value || '').trim();
+    if (!val) return;
+
+    // First check if word exists in current vocabulary
+    const foundIdx = WP.wordList.findIndex(item => item.word === val || (item.word && item.word.includes(val)));
+    if (foundIdx >= 0) {
+      WP.currentWordIndex = foundIdx;
+      renderCurrentWord();
+      return;
+    }
+
+    // Otherwise render custom word
+    const chars = val.replace(/[^\u4e00-\u9fa5]/g, '').split('').filter(Boolean);
+    if (!chars.length) return;
+
+    WP.currentWordItem = { word: val, pinyin: '', meaning: 'Từ tự nhập' };
+    WP.currentChars = chars;
+    WP.activeCharIndex = 0;
+    document.getElementById('wp-cur-word').textContent = val;
+    document.getElementById('wp-cur-pinyin').textContent = '';
+    document.getElementById('wp-cur-meaning').textContent = 'Từ tự nhập';
+
+    renderMultiCharacterBoxes();
+    renderCharSwitcher();
+    selectActiveChar(0);
+  }
+
   // Bind Event Listeners
   function bindEvents() {
     // Word navigation
     document.getElementById('wp-prev-word')?.addEventListener('click', handlePrevWord);
     document.getElementById('wp-next-word')?.addEventListener('click', handleNextWord);
     document.getElementById('wp-random-word')?.addEventListener('click', handleRandomWord);
-    document.getElementById('wp-speak-btn')?.addEventListener('click', speakCurrentChar);
+
+    // Full word speaker button
+    const speakBtn = document.getElementById('wp-speak-btn');
+    if (speakBtn) {
+      speakBtn.addEventListener('click', () => {
+        const text = WP.currentWordItem?.word || WP.currentChars.join('');
+        playAudio(text, speakBtn);
+      });
+    }
+
+    // HSK Level Selector in Writing Bar
+    const hskSelect = document.getElementById('wp-hsk-select');
+    if (hskSelect) {
+      hskSelect.addEventListener('change', (e) => {
+        const lvl = e.target.value;
+        WP.currentLevel = lvl;
+
+        // Synchronize with top header selector
+        const topSelect = document.getElementById('hsk-level');
+        if (topSelect && topSelect.value !== lvl) {
+          topSelect.value = lvl;
+          if (typeof window.changeLevel === 'function') {
+            window.changeLevel();
+          }
+        }
+
+        loadLevelWords(lvl);
+        window.dispatchEvent(new CustomEvent('gh-hsk-changed', { detail: { level: lvl } }));
+      });
+    }
+
+    // Search input
+    document.getElementById('writing-search-btn')?.addEventListener('click', executeSearch);
+    document.getElementById('writing-search-input')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') executeSearch();
+    });
 
     // Mode tabs
     document.querySelectorAll('.writing-mode-tab').forEach(tab => {
@@ -589,66 +887,49 @@
 
     // Canvas actions
     document.getElementById('wp-btn-animate')?.addEventListener('click', () => {
-      if (WP.writer) {
-        WP.writer.showOutline();
-        WP.writer.animateCharacter();
-      }
+      animateFullWordSequence(0);
     });
 
     document.getElementById('wp-btn-replay')?.addEventListener('click', () => {
-      if (WP.writer) {
-        WP.writer.hideCharacter();
-        WP.writer.showOutline();
-        WP.writer.animateCharacter();
-      }
+      WP.writers.forEach(w => {
+        if (w) {
+          w.hideCharacter();
+          w.showOutline();
+        }
+      });
+      animateFullWordSequence(0);
     });
 
     document.getElementById('wp-btn-prev-stroke')?.addEventListener('click', () => {
-      if (!WP.writer || !WP.charData) return;
-      const total = WP.charData.strokes ? WP.charData.strokes.length : 0;
+      const writer = WP.writers[WP.activeCharIndex];
+      const data = WP.charDataList[WP.activeCharIndex];
+      if (!writer || !data) return;
+      const total = data.strokes ? data.strokes.length : 0;
       if (total <= 0) return;
       WP.activeStrokeIdx = (WP.activeStrokeIdx - 1 + total) % total;
-      WP.writer.pauseAnimation();
-      WP.writer.hideCharacter();
-      WP.writer.animateStroke(WP.activeStrokeIdx);
+      writer.pauseAnimation();
+      writer.hideCharacter();
+      writer.animateStroke(WP.activeStrokeIdx);
     });
 
     document.getElementById('wp-btn-next-stroke')?.addEventListener('click', () => {
-      if (!WP.writer || !WP.charData) return;
-      const total = WP.charData.strokes ? WP.charData.strokes.length : 0;
+      const writer = WP.writers[WP.activeCharIndex];
+      const data = WP.charDataList[WP.activeCharIndex];
+      if (!writer || !data) return;
+      const total = data.strokes ? data.strokes.length : 0;
       if (total <= 0) return;
       WP.activeStrokeIdx = (WP.activeStrokeIdx + 1) % total;
-      WP.writer.pauseAnimation();
-      WP.writer.hideCharacter();
-      WP.writer.animateStroke(WP.activeStrokeIdx);
+      writer.pauseAnimation();
+      writer.hideCharacter();
+      writer.animateStroke(WP.activeStrokeIdx);
     });
 
     document.getElementById('wp-btn-hint')?.addEventListener('click', () => {
-      if (WP.writer && WP.mode === 'practice') {
-        WP.writer.quiz(); // Retains quiz and flashes hint
+      const writer = WP.writers[WP.activeCharIndex];
+      if (writer && WP.mode === 'practice') {
+        writer.quiz(); // Flashes hint on current active stroke
       }
     });
-
-    // Custom Search / Character Input
-    const searchInput = document.getElementById('writing-search-input');
-    const searchBtn = document.getElementById('writing-search-btn');
-
-    function executeSearch() {
-      const val = (searchInput?.value || '').trim();
-      if (!val) return;
-      const char = val[0];
-      loadCharacter(char);
-      document.getElementById('wp-cur-word').textContent = val;
-      document.getElementById('wp-cur-pinyin').textContent = '';
-      document.getElementById('wp-cur-meaning').textContent = 'Chữ Hán tự nhập';
-    }
-
-    if (searchBtn) searchBtn.addEventListener('click', executeSearch);
-    if (searchInput) {
-      searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') executeSearch();
-      });
-    }
 
     // Radical Search Filter
     const radSearch = document.getElementById('wp-rad-search');
@@ -666,9 +947,10 @@
       window.switchMode('writing');
     }
     setTimeout(() => {
-      loadCharacter(word[0]);
-      document.getElementById('wp-cur-word').textContent = word;
-    }, 150);
+      const input = document.getElementById('writing-search-input');
+      if (input) input.value = word;
+      executeSearch();
+    }, 120);
   };
 
   // Expose init

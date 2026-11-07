@@ -1381,3 +1381,54 @@ body.dark-mode .gh-nav-item {
 #gh-profile-modal .gh-profile-xpbar i{display:block;height:8px;border-radius:999px;background:#132c3b;overflow:hidden;border:1px solid rgba(0,224,255,.12)}
 #gh-profile-modal .gh-profile-xpbar b{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#00b9d8,#6cecff);box-shadow:0 0 12px rgba(0,220,255,.4);transition:width .3s ease}
 @media(max-width:680px){#gh-profile-modal .gh-profile-stats{grid-template-columns:1fr}}
+
+
+/* Speech Speed Setting */
+.gh-setting-speed-row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+}
+.gh-setting-speed-info b,
+.gh-setting-speed-info small {
+  display: block;
+}
+.gh-setting-speed-info small {
+  margin-top: 3px;
+  color: #8da5b7;
+  font-size: 12px;
+}
+.gh-speed-btn-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+.gh-speed-btn {
+  padding: 9px 12px;
+  border: 1px solid #20384c;
+  background: #102334;
+  color: #9eb5c8;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.gh-speed-btn:hover {
+  background: #163248;
+  color: #e8f7ff;
+  border-color: #2e5572;
+}
+.gh-speed-btn.active {
+  background: #00a9c8 !important;
+  color: #04131f !important;
+  border-color: #00e5ff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.4) !important;
+}
