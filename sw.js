@@ -1,4 +1,4 @@
-const CACHE = 'gh-hsk-shell-v42';
+const CACHE = 'gh-hsk-shell-v45';
 const ASSETS = [
   './',
   './index.html',
@@ -53,7 +53,7 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin || new URL(e.request.url).pathname.startsWith('/api/')) return;
 
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request, { cache: 'no-cache' })
       .then(response => {
         if (response && response.status === 200 && response.type === 'basic') {
           const clone = response.clone();

@@ -24,36 +24,16 @@
   // RESILIENT MULTI-ENGINE CHINESE AUDIO PLAYER (Mobile & Desktop)
   // 100% reliable on iOS Safari, Android Chrome, and Desktop browsers.
   // ==============================================================
-  let globalAudio = null;
   let audioUnlocked = false;
 
-  function getGlobalAudio() {
-    if (!globalAudio) {
-      globalAudio = new Audio();
-      globalAudio.id = 'gh-global-audio';
-      globalAudio.preload = 'auto';
-      globalAudio.setAttribute('playsinline', '');
-      globalAudio.setAttribute('webkit-playsinline', '');
-    }
-    return globalAudio;
-  }
-
-  // Pre-unlock audio on first touch/click (critical for iOS Safari & Android Chrome)
+  // Pre-unlock speech synthesis on first user interaction
   function unlockAudio() {
     if (audioUnlocked) return;
     audioUnlocked = true;
-    const a = getGlobalAudio();
-    // Silent tiny wav to unlock audio hardware on mobile
-    a.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-    const p = a.play();
-    if (p && typeof p.then === 'function') {
-      p.then(() => {
-        a.pause();
-        a.currentTime = 0;
-      }).catch(() => {});
-    }
     if ('speechSynthesis' in window) {
-      try { window.speechSynthesis.resume(); } catch (e) {}
+      try {
+        window.speechSynthesis.resume();
+      } catch (e) {}
     }
   }
 
@@ -128,15 +108,15 @@
         onDone();
       };
 
-      // NetEase Youdao native Beijing Mandarin MP3 voice (100% reliable on mobile and PC)
+      // Primary: NetEase Youdao Mandarin MP3 (Beijing standard)
       const youdaoUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&le=zh`;
+      // Secondary: Google Translate TTS
+      const googleUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
 
-      const audio = getGlobalAudio();
-      try {
-        audio.pause();
-        audio.currentTime = 0;
-      } catch (e) {}
-
+      let audio = new Audio();
+      audio.preload = 'auto';
+      audio.setAttribute('playsinline', '');
+      audio.setAttribute('webkit-playsinline', '');
       audio.playbackRate = playbackRate;
 
       let fallbackTimeout = setTimeout(() => {
@@ -150,16 +130,30 @@
 
       audio.onerror = () => {
         clearTimeout(fallbackTimeout);
-        trySpeechSynth();
+        // Try Google TTS as secondary audio stream
+        try {
+          const audio2 = new Audio();
+          audio2.playbackRate = playbackRate;
+          audio2.setAttribute('playsinline', '');
+          audio2.setAttribute('webkit-playsinline', '');
+          audio2.onended = () => onDone();
+          audio2.onerror = () => trySpeechSynth();
+          audio2.src = googleUrl;
+          const p2 = audio2.play();
+          if (p2 && typeof p2.catch === 'function') {
+            p2.catch(() => trySpeechSynth());
+          }
+        } catch (e) {
+          trySpeechSynth();
+        }
       };
 
       audio.src = youdaoUrl;
       const playPromise = audio.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch((err) => {
-          console.warn('Audio play error, falling back to speech synthesis:', err);
-          clearTimeout(fallbackTimeout);
-          trySpeechSynth();
+          console.warn('Youdao play interrupted, switching to secondary/synth:', err);
+          audio.onerror();
         });
       }
     }
