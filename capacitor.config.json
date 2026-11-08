@@ -1,5 +1,17 @@
 {
   "appId": "com.tiengtrung.hsk",
   "appName": "Hoc Tieng Trung HSK",
-  "webDir": "www"
+  "webDir": "www",
+  "ios": {
+    "contentInset": "always",
+    "allowsLinkPreview": false,
+    "scrollEnabled": true
+  },
+  "plugins": {
+    "StatusBar": {
+      "style": "default",
+      "backgroundColor": "#ffffff",
+      "overlaysWebView": false
+    }
+  }
 }

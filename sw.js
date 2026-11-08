@@ -22,6 +22,8 @@ const ASSETS = [
   './nav_menu.js',
   './hsk6.js',
   './translation.css',
+  './ios-layout.css',
+  './ios_nav.js',
   './translation.js',
   './translation_data.js',
   './writing.css',

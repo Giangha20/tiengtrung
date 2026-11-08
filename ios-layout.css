@@ -1,0 +1,168 @@
+/* ============================================================
+   ios-layout.css  –  Native iOS layout fixes for Capacitor IPA
+   - Safe area insets (notch, Dynamic Island, home indicator)
+   - Proper header padding so content is never hidden
+   - Bottom tab bar native-style layout
+   ============================================================ */
+
+/* ---- Safe area CSS variables ---- */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+/* ---- Full height app shell ---- */
+html, body {
+  height: 100%;
+  min-height: 100%;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---- Main container: respect safe areas ---- */
+body {
+  padding-top: var(--sat);
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+  /* Bottom padding will be handled by tab bar */
+}
+
+/* ---- Top container: add extra padding so header is not hidden by notch ---- */
+.container {
+  padding-top: 0 !important;
+  margin-top: 12px !important;
+  width: calc(100% - 24px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 1150px !important;
+}
+
+/* ---- Header safe area ---- */
+header {
+  /* Extra top padding ensures content below the notch/Dynamic Island */
+  padding-top: max(28px, calc(var(--sat) + 12px)) !important;
+}
+
+/* ---- iOS Native-style bottom tab bar ---- */
+#ios-tab-bar {
+  display: none; /* Hidden on web; shown only via .ios-app class */
+}
+
+/* When running inside Capacitor iOS */
+html.ios-app #ios-tab-bar {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  align-items: flex-end;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: var(--sab);
+  height: calc(49px + var(--sab));
+}
+
+html.ios-app.dark-mode #ios-tab-bar {
+  background: rgba(18, 18, 18, 0.92);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.ios-tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 4px 2px;
+  min-height: 49px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #8e8e93;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  font-family: -apple-system, "Helvetica Neue", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.15s ease;
+}
+
+.ios-tab-item.active {
+  color: #ef4444;
+}
+
+html.ios-app.dark-mode .ios-tab-item {
+  color: #636366;
+}
+
+html.ios-app.dark-mode .ios-tab-item.active {
+  color: #ff453a;
+}
+
+.ios-tab-icon {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.15s ease;
+}
+
+.ios-tab-item.active .ios-tab-icon {
+  stroke-width: 2.2;
+  transform: scale(1.08);
+}
+
+.ios-tab-label {
+  font-size: 10px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 56px;
+  text-align: center;
+}
+
+/* ---- Content padding to not be hidden behind tab bar ---- */
+html.ios-app .container {
+  padding-bottom: calc(60px + var(--sab)) !important;
+  margin-bottom: 0 !important;
+}
+
+html.ios-app main > section {
+  padding-bottom: calc(60px + var(--sab)) !important;
+}
+
+/* ---- Suppress the old hamburger nav menu on iOS app (replaced by tab bar) ---- */
+html.ios-app .gh-nav-menu-wrap {
+  display: none !important;
+}
+
+/* ---- Adjust auth-loader to respect top safe area ---- */
+#online-auth-loader {
+  padding-top: var(--sat) !important;
+}
+
+/* ---- Suppress mobile nav if still present ---- */
+#gh-mobile-nav {
+  display: none !important;
+}
+
+/* ---- Smooth scroll inner content ---- */
+html.ios-app main {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ============================================================
+   App icon badge: 中 character – this is purely decorative CSS
+   The actual icon is set in Xcode Assets.xcassets
+   ============================================================ */
