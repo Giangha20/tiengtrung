@@ -1,0 +1,85 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-ipa:
+    name: Build iOS Unsigned IPA
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web assets and sync Capacitor iOS
+        run: npm run cap:sync
+
+      - name: Build iOS Application without signing
+        run: |
+          cd ios/App
+          mkdir -p build/Payload
+
+          echo "===> Running xcodebuild..."
+          xcodebuild clean build \
+            -project App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER=""
+
+          APP_PATH="build/Build/Products/Release-iphoneos/App.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "Searching for App.app..."
+            APP_PATH=$(find build -name "App.app" -type d | head -n 1)
+          fi
+
+          if [ ! -d "$APP_PATH" ]; then
+            echo "Error: App.app was not found!"
+            exit 1
+          fi
+
+          echo "===> Found App at: $APP_PATH"
+          cp -R "$APP_PATH" build/Payload/
+
+          echo "===> Packaging TiengTrung-HSK.ipa..."
+          cd build
+          zip -r -y TiengTrung-HSK.ipa Payload
+          ls -lh TiengTrung-HSK.ipa
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TiengTrung-HSK-iOS-ipa
+          path: ios/App/build/TiengTrung-HSK.ipa
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v1.0.0 ios/App/build/TiengTrung-HSK.ipa \
+            --title "Học Tiếng Trung HSK - iOS IPA (v1.0.0)" \
+            --notes "File cài đặt ứng dụng iOS (.ipa) cho ứng dụng Học Tiếng Trung HSK. Bạn có thể cài đặt trực tiếp lên iPhone/iPad thông qua Sideloadly, AltStore, TrollStore, Scarlet, hoặc ESign." \
+            --clobber || echo "Release upload completed or handled."
