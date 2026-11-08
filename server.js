@@ -552,6 +552,25 @@ app.post("/api/reset-password-with-otp", otpRateLimit, async (req, res) => {
     }
 });
 
+
+// Fallback static and index.html serving for Vercel serverless environment (Express 5 compatible)
+app.use((req, res, next) => {
+    if (req.method !== "GET") return next();
+    if (req.path.startsWith("/api/")) return next();
+    const cleanPath = (req.path || "").replace(/^\//, "");
+    if (cleanPath) {
+        const filePath = path.join(__dirname, cleanPath);
+        if (fs.existsSync(filePath)) {
+            try {
+                if (fs.statSync(filePath).isFile()) {
+                    return res.sendFile(filePath);
+                }
+            } catch (e) {}
+        }
+    }
+    return res.sendFile(path.join(__dirname, "index.html"));
+});
+
 // Vercel uses the exported Express app as a serverless function.
 // Local development still uses: npm start
 if (require.main === module) {

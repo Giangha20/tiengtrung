@@ -3,17 +3,28 @@
   "builds": [
     {
       "src": "server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "index.html",
+          "login.html",
+          "register.html",
+          "forgot-password.html",
+          "forgot_password.html",
+          "manifest.json",
+          "*.css",
+          "*.js",
+          "*.json",
+          "*.jpg",
+          "*.png"
+        ]
+      }
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "server.js"
     }
   ]
 }
