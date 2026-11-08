@@ -276,7 +276,7 @@
       role: 'Từ vựng tiếng Trung',
       badge: 'HSK',
       icon: '🀄',
-      hint: meaning ? `Nghĩa: ${meaning}` : 'Từ vựng tiếng Trung chuẩn HSK',
+      hint: 'Từ vựng tiếng Trung chuẩn HSK',
       word: cleanWord,
       pinyin,
       meaning

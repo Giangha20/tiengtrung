@@ -7901,7 +7901,6 @@ function startExamSkill(skill) {
     if (skill === 'typing') return switchMode('typing');
     if (skill === 'choice') {
         switchMode('exam');
-        setTimeout(() => startExam(), 30);
     }
 }
 window.startExamSkill = startExamSkill;
@@ -7945,7 +7944,6 @@ function switchMode(mode) {
         if (mode === 'exam' && (!Array.isArray(examQuestions) || examQuestions.length === 0)) {
             updateExamStartInfo();
             resetExamUI();
-            startExam();
         }
         return;
     }
@@ -7962,8 +7960,7 @@ function switchMode(mode) {
     } else if (mode === 'exam') {
         updateExamStartInfo();
         resetExamUI();
-        // Bài tập HSK chỉ có một dạng: Chọn câu đúng. Mở mục là làm ngay.
-        startExam();
+        // Chờ người dùng nhấn "Bắt đầu làm bài" mới tính giờ!
     } else if (mode === 'communication') {
         renderCommunication();
     } else if (mode === 'progress') {
@@ -8232,14 +8229,21 @@ function updateExamStartInfo() {
     const levelSelect = document.getElementById('hsk-level');
     const selectedLevel = levelSelect ? levelSelect.value : "1";
     const count = HSK_QUESTION_COUNT[selectedLevel] || 30;
+    const minutes = HSK_EXAM_TIME[selectedLevel] || 10;
 
     const levelTitle = document.getElementById('exam-level-title');
     const infoText = document.getElementById('exam-info-text');
+    const levelBadge = document.getElementById('exam-level-badge');
+    const startLevelNum = document.getElementById('exam-start-level-num');
+    const startCount = document.getElementById('exam-start-count');
+    const startTime = document.getElementById('exam-start-time');
 
     if (levelTitle) levelTitle.innerText = selectedLevel;
-    const levelBadge = document.getElementById('exam-level-badge');
     if (levelBadge) levelBadge.textContent = selectedLevel;
-    if (infoText) infoText.innerText = `Bài thi gồm ${count} câu hỏi trắc nghiệm từ vựng cấp độ HSK ${selectedLevel}.`;
+    if (startLevelNum) startLevelNum.textContent = selectedLevel;
+    if (startCount) startCount.textContent = `${count} câu`;
+    if (startTime) startTime.textContent = `${minutes} phút`;
+    if (infoText) infoText.innerText = `Bài tập gồm ${count} câu hỏi trắc nghiệm từ vựng cấp độ HSK ${selectedLevel}.`;
 }
 
 // Hàm chuyển chế độ (Cập nhật thêm tính năng đổi số câu)
@@ -8306,8 +8310,12 @@ function renderQuestion() {
     document.getElementById('quiz-word').innerText = q.target.word;
     document.getElementById('quiz-pinyin').innerText = q.target.pinyin ? `[${q.target.pinyin}]` : '';
 
-    if (window.GH?.vocabImages?.renderInto) {
-        window.GH.vocabImages.renderInto('#exam-visual-container', q.target.word, q.target.meaning, q.target.pinyin);
+    // Không hiển thị nghĩa hoặc hình ảnh chứa nghĩa trong câu hỏi thi trắc nghiệm
+    const visualBox = document.getElementById('exam-visual-container');
+    if (visualBox) {
+        visualBox.innerHTML = '';
+        visualBox.classList.add('empty');
+        visualBox.style.display = 'none';
     }
     
     const optionsDiv = document.getElementById('quiz-options');
@@ -8444,9 +8452,20 @@ function resetExamUI() {
     if (typeof stopExamTimer === 'function') {
         stopExamTimer();
     }
-    document.getElementById('exam-start-screen').classList.remove('hidden');
-    document.getElementById('exam-quiz-screen').classList.add('hidden');
-    document.getElementById('exam-result-screen').classList.add('hidden');
+    const startScreen = document.getElementById('exam-start-screen');
+    const quizScreen = document.getElementById('exam-quiz-screen');
+    const resultScreen = document.getElementById('exam-result-screen');
+    if (startScreen) startScreen.classList.remove('hidden');
+    if (quizScreen) quizScreen.classList.add('hidden');
+    if (resultScreen) resultScreen.classList.add('hidden');
+
+    const timerEl = document.getElementById('exam-timer');
+    if (timerEl) {
+        const levelSelect = document.getElementById('hsk-level');
+        const level = levelSelect ? levelSelect.value : "1";
+        const minutes = HSK_EXAM_TIME[level] || 10;
+        timerEl.innerText = `${String(minutes).padStart(2, '0')}:00`;
+    }
 }// 1. Cập nhật hàm chọn cấp độ HSK
 
 
@@ -8500,11 +8519,9 @@ function changeLevel() {
         if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch(e) {} }
         initListening();
     } else if (activeId === 'exam-mode') {
-        // Đang ở Bài tập/Thi HSK: đổi HSK phải dựng lại câu hỏi ngay,
-        // không để màn hình bị trống sau khi reset giao diện.
+        // Đang ở Bài tập HSK: đổi cấp độ thì cập nhật màn hình chờ và reset UI
         updateExamStartInfo();
         resetExamUI();
-        try { startExam(); } catch (e) { console.warn('Premium Chines: restart exam after HSK change failed', e); }
     } else if (activeId === 'progress-mode') {
         updateProgressUI();
     } else if (activeId === 'writing-mode') {

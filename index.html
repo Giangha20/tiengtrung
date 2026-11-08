@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
     <meta name="referrer" content="no-referrer">
 
@@ -13,8 +13,56 @@
     <title>Học Tiếng Trung HSK</title>
 
     <script>
-      // Tu dong xoa cache va bat buoc cap nhat ban moi nhat v45
-      const GH_CURRENT_BUILD = 'gh_v47_20261108';
+      // Chống zoom 2 ngón tay (pinch-to-zoom), double-tap zoom và trackpad pinch trên mọi thiết bị
+      (function() {
+        // 1. Cấm zoom đa điểm (2 ngón tay trở lên)
+        document.addEventListener('touchstart', function(e) {
+          if (e.touches && e.touches.length > 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function(e) {
+          if (e.touches && e.touches.length > 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+
+        // 2. Cấm gesture zoom trên Safari / iOS
+        document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+        document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
+        document.addEventListener('gestureend', function(e) { e.preventDefault(); });
+
+        // 3. Cấm double-tap zoom (chạm 2 lần liên tiếp để phóng to)
+        var lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+          var now = Date.now();
+          if (now - lastTouchEnd <= 300) {
+            var tag = e.target && e.target.tagName;
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') {
+              e.preventDefault();
+            }
+          }
+          lastTouchEnd = now;
+        }, { passive: false });
+
+        // 4. Cấm Ctrl + cuộn chuột / trackpad pinch zoom trên máy tính
+        document.addEventListener('wheel', function(e) {
+          if (e.ctrlKey) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+
+        // 5. Cấm phím tắt phóng to trình duyệt (Ctrl + '+', Ctrl + '-', Ctrl + '0')
+        document.addEventListener('keydown', function(e) {
+          if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 48)) {
+            e.preventDefault();
+          }
+        });
+      })();
+
+      // Tu dong xoa cache va bat buoc cap nhat ban moi nhat v48
+      const GH_CURRENT_BUILD = 'gh_v48_20261108';
       if (localStorage.getItem('gh_app_build') !== GH_CURRENT_BUILD) {
         if ('caches' in window) {
           caches.keys().then(function(keys) {
@@ -329,12 +377,37 @@
         <div>
             <span class="exam-kicker">BÀI TẬP HSK</span>
             <h2>Chọn câu đúng <span id="exam-level-title">1</span></h2>
-            <p>Chọn nghĩa chính xác của từ vựng HSK. Bài tập sẽ bắt đầu ngay khi bạn mở mục này.</p>
+            <p>Chọn nghĩa chính xác của từ vựng HSK. Bấm "Bắt đầu làm bài" để bắt đầu tính giờ.</p>
         </div>
         <div class="exam-level-badge">HSK <span id="exam-level-badge">1</span></div>
     </div>
     <div class="exam-container">
-        <div id="exam-start-screen" class="exam-card hidden"></div>
+        <div id="exam-start-screen" class="exam-card">
+            <div class="exam-start-box" style="text-align: center; max-width: 520px; margin: 0 auto; padding: 24px 12px;">
+                <div style="font-size: 3.5rem; margin-bottom: 12px; line-height: 1;">📝</div>
+                <h3 style="font-size: 1.55rem; font-weight: 800; margin-bottom: 10px; color: var(--text-color, #0f172a);">
+                    Luyện Tập HSK <span id="exam-start-level-num">1</span>
+                </h3>
+                <p id="exam-info-text" style="color: var(--subtext-color, #64748b); font-size: 0.98rem; margin-bottom: 22px; line-height: 1.5;">
+                    Bài tập gồm 30 câu hỏi trắc nghiệm từ vựng cấp độ HSK 1.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 28px; flex-wrap: wrap;">
+                    <div style="background: rgba(37,99,235,0.08); padding: 12px 20px; border-radius: 12px; border: 1px solid rgba(37,99,235,0.2); min-width: 120px;">
+                        <span style="font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 4px; font-weight: 600;">Số lượng câu</span>
+                        <b id="exam-start-count" style="font-size: 1.3rem; color: #2563eb; font-weight: 800;">30 câu</b>
+                    </div>
+                    <div style="background: rgba(16,185,129,0.08); padding: 12px 20px; border-radius: 12px; border: 1px solid rgba(16,185,129,0.2); min-width: 120px;">
+                        <span style="font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 4px; font-weight: 600;">Thời gian</span>
+                        <b id="exam-start-time" style="font-size: 1.3rem; color: #059669; font-weight: 800;">10 phút</b>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" id="exam-btn-start" onclick="startExam()" class="btn-primary" style="font-size: 1.15rem; font-weight: 700; padding: 14px 40px; border-radius: 99px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 24px rgba(37,99,235,0.35); transition: transform 0.15s ease, box-shadow 0.15s ease;">
+                        <span>🚀 Bắt đầu làm bài</span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <div id="exam-quiz-screen" class="exam-card hidden">
             <div class="exam-header">
@@ -346,7 +419,6 @@
                 </span>
             </div>
             <div class="quiz-question">
-                <div id="exam-visual-container" class="exercise-visual-slot empty"></div>
                 <div class="word-display" id="quiz-word" style="font-size: 2.5rem; font-weight: bold;">--</div>
                 <div class="pinyin-display" id="quiz-pinyin" style="color: #6c757d; font-size: 1.2rem; margin-bottom: 15px;">--</div>
                 <p>Chọn nghĩa chính xác của từ trên:</p>
@@ -367,7 +439,7 @@
             
         
             <div id="gh-update-badge" class="gh-update-badge">
-                <span>⚡ v47: Ô Ly Luyện Viết Chuẩn & Không Đè Chữ</span>
+                <span>⚡ v48: Bắt đầu làm bài & Cấm zoom & Ẩn nghĩa câu hỏi</span>
                 <button type="button" onclick="window.GH_forceUpdateApp()">Làm mới dữ liệu</button>
             </div>
         </main>
@@ -384,7 +456,7 @@
     <script src="./streak.js?v=4"></script>
     <script src="./vocab_images.js?v=4"></script>
     <script src="./progress.js?v=4"></script>
-    <script src="script.js?v=39"></script>
+    <script src="script.js?v=40"></script>
     <script src="./favorites.js?v=4"></script>
     <script src="./flashcard.js?v=36"></script>
     <script src="./statistics.js?v=4"></script>
