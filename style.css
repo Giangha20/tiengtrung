@@ -3190,7 +3190,7 @@ html body.dark-mode .container > header .brand-row h1 .brand-h {
   height:20px;
   position:absolute;
   border-radius:50%;
-  background-color:#fff;
+  background-color:#0f172a !important; /* Mau den o giao dien sang */
   left:15%;
   transform-origin:50%;
   animation:circle7124 .5s alternate infinite ease;
@@ -3231,7 +3231,20 @@ html body.dark-mode #online-auth-loader .auth-loader-content{
 }
 html body.dark-mode #online-auth-loader .auth-loader-content strong{color:#f1f6fc !important}
 html body.dark-mode #online-auth-loader .auth-loader-content span{color:#a9bbd0 !important}
-html body.dark-mode #online-auth-loader .circle{background-color:#fff}
+/* Giao diện tối: quả bóng màu trắng sáng rõ */
+html.dark-mode #online-auth-loader,
+html body.dark-mode #online-auth-loader{
+  background:#09131f !important;
+}
+html.dark-mode #online-auth-loader .circle,
+html body.dark-mode #online-auth-loader .circle{
+  background-color:#ffffff !important; /* Mau trang o giao dien toi */
+  box-shadow:0 0 12px rgba(255,255,255,0.45);
+}
+html.dark-mode #online-auth-loader .shadow,
+html body.dark-mode #online-auth-loader .shadow{
+  background-color:rgba(0,0,0,.85) !important;
+}
 
 
 /* ===== Uiverse Logout button — vinodjangid07 ===== */
