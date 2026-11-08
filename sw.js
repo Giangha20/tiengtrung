@@ -54,7 +54,7 @@ self.addEventListener('activate', e => {
 
 // Network-First strategy: Always fetch fresh code online, fallback to cache when offline
 self.addEventListener('fetch', e => {
-  if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin || new URL(e.request.url).pathname.startsWith('/api/')) return;
+  if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin || new URL(e.request.url).pathname.startsWith('/api/') || e.request.url.includes('.mp4')) return;
 
   e.respondWith(
     fetch(e.request, { cache: 'no-cache' })
