@@ -1490,3 +1490,7 @@ body.dark-mode .gh-nav-item {
     padding: 6px 10px;
   }
 }
+
+
+/* Permanently disable mobile bottom dock */
+#gh-mobile-nav { display: none !important; visibility: hidden !important; pointer-events: none !important; }

@@ -331,9 +331,7 @@ body {
 }
 
 /* Floating Bottom Dock on Mobile */
-#gh-mobile-nav {
-  display: none;
-}
+#gh-mobile-nav { display: none !important; }
 
 @media (max-width: 1000px) {
   .gh-quick {
@@ -343,7 +341,7 @@ body {
 
 @media (max-width: 650px) {
   main {
-    padding-bottom: 96px;
+    padding-bottom: 24px;
   }
   .gh-hero {
     padding: 24px;
@@ -375,55 +373,7 @@ body {
     gap: 12px;
   }
 
-  /* Sleek Phone Bottom Navigation */
-  #gh-mobile-nav {
-    position: fixed;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    left: 12px;
-    right: 12px;
-    bottom: calc(10px + env(safe-area-inset-bottom));
-    z-index: 9990;
-    padding: 6px;
-    background: rgba(255, 255, 255, 0.94);
-    border: 1.5px solid rgba(226, 232, 240, 0.85);
-    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.16);
-    border-radius: 24px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-
-  #gh-mobile-nav button {
-    border: 0;
-    background: transparent;
-    color: #64748b;
-    font-size: 1.15rem;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    align-items: center;
-    padding: 6px 2px;
-    border-radius: 16px;
-    cursor: pointer;
-    touch-action: manipulation;
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  #gh-mobile-nav button.active {
-    background: #fee2e2;
-    color: #dc2626;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.18);
-  }
-
-  #gh-mobile-nav button:active {
-    transform: scale(0.9);
-  }
-
-  #gh-mobile-nav span {
-    font-size: 0.68rem;
-    font-weight: 800;
-  }
+  #gh-mobile-nav { display: none !important; }
 }
 
 /* Dark Mode Theme */
@@ -449,18 +399,3 @@ body.dark-mode .gh-review {
   background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
 }
 
-body.dark-mode #gh-mobile-nav {
-  background: rgba(30, 41, 59, 0.94);
-  border-color: rgba(51, 65, 85, 0.85);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
-}
-
-body.dark-mode #gh-mobile-nav button {
-  color: #94a3b8;
-}
-
-body.dark-mode #gh-mobile-nav button.active {
-  background: rgba(239, 68, 68, 0.25);
-  color: #fca5a5;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
-}
