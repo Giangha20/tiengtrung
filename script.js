@@ -7931,6 +7931,23 @@ function initStudyStreak() {
 }
 
 function switchMode(mode) {
+    if (mode === 'home') {
+        document.querySelectorAll('main > section, section').forEach(s => s.classList.remove('active'));
+        const home = document.getElementById('gh-home-mode');
+        if (home) {
+            home.classList.add('active');
+        } else {
+            document.getElementById('list-mode')?.classList.add('active');
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.GH_Audio && typeof window.GH_Audio.stop === 'function') {
+            window.GH_Audio.stop();
+        }
+        try {
+            document.dispatchEvent(new CustomEvent('gh-mode-changed', { detail: { mode: 'home' } }));
+        } catch(e) {}
+        return;
+    }
     const section = document.getElementById(`${mode}-mode`);
     if (!section) return;
 

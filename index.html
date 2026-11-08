@@ -106,6 +106,7 @@
     <link rel="stylesheet" href="./translation.css?v=2">
     <link rel="stylesheet" href="./writing.css?v=4">
     <link rel="stylesheet" href="./ios-layout.css?v=1">
+    <link rel="stylesheet" href="./intro.css?v=1">
 
     
     <script>
@@ -118,11 +119,18 @@
     <script>
       // Detect Capacitor iOS environment and add ios-app class for native layout
       (function() {
-        var isCapacitor = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
-        var isIosPwa = /iPhone|iPad|iPod/.test(navigator.userAgent) && window.navigator.standalone;
-        if (isCapacitor || isIosPwa) {
-          document.documentElement.classList.add('ios-app');
+        function checkIos() {
+          var isCapacitor = !!(window.Capacitor && ((window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) || window.Capacitor.platform === 'ios'));
+          var isCapacitorOrigin = window.location.protocol === 'capacitor:' || window.location.hostname === 'localhost';
+          var isIosDevice = /iPhone|iPad|iPod/.test(navigator.userAgent);
+          var isIosStandalone = isIosDevice && (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches);
+          if (isCapacitor || isCapacitorOrigin || isIosStandalone) {
+            document.documentElement.classList.add('ios-app');
+          }
         }
+        checkIos();
+        document.addEventListener('DOMContentLoaded', checkIos);
+        window.addEventListener('load', checkIos);
       })();
     </script>
 </head>
@@ -168,7 +176,7 @@
     </div>
     <div class="container">
         <header>
-            <div class="brand-row"><h1><span class="brand-h"> </span>Hệ thống Ôn tập HSK</h1></div>
+            <div class="brand-row" onclick="if(window.switchMode)window.switchMode('home');" style="cursor:pointer;" title="Về trang chủ"><h1><span class="brand-h"> </span>Hệ thống Ôn tập HSK</h1></div>
             <div style="display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
                 <span id="online-user-chip" class="online-user-chip"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Đang tải tài khoản...</span>
                 <button id="logout-btn" type="button" class="Btn logout-btn" aria-label="Đăng xuất">
@@ -194,6 +202,7 @@
                   </button>
                   <div id="gh-nav-menu" class="gh-nav-menu" hidden>
                     <div class="gh-nav-title">CÁC MỤC HỌC</div>
+                    <button class="gh-nav-item" data-mode="home">🏠 <span>Trang chủ</span></button>
                     <button class="gh-nav-item" data-action="exercise">🧠 <span>Bài tập mới</span></button>
                                         <button class="gh-nav-item" data-action="flashcard">🃏 <span>Flashcard</span></button>
                     <div class="gh-nav-divider"></div>
@@ -204,6 +213,8 @@
                     <button class="gh-nav-item" data-mode="translation">🌐 <span>Luyện tập dịch tiếng</span></button>
                     <button class="gh-nav-item" data-mode="exam">📝 <span>Luyện tập HSK</span></button>
                     <button class="gh-nav-item" data-mode="progress">📊 <span>Tiến trình</span></button>
+                    <div class="gh-nav-divider"></div>
+                    <button class="gh-nav-item" onclick="if(window.GH_showIntro)window.GH_showIntro();">💡 <span>Xem lại giới thiệu</span></button>
                   </div>
                 </div>
                                 
@@ -549,6 +560,7 @@
       }
     </script>
 
-    <script src="./ios_nav.js?v=1"></script>
+    <script src="./intro.js?v=1"></script>
+    <script src="./ios_nav.js?v=2"></script>
 </body>
 </html>

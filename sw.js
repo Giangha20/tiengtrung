@@ -1,4 +1,4 @@
-const CACHE = 'gh-hsk-shell-v54';
+const CACHE = 'gh-hsk-shell-v55';
 const ASSETS = [
   './',
   './index.html',
@@ -24,6 +24,8 @@ const ASSETS = [
   './translation.css',
   './ios-layout.css',
   './ios_nav.js',
+  './intro.css',
+  './intro.js',
   './translation.js',
   './translation_data.js',
   './writing.css',

@@ -1,101 +1,81 @@
 /**
  * ios_nav.js - iOS Native Tab Bar Navigation Controller
- * Runs only inside Capacitor iOS app (html.ios-app class present)
+ * Supports both Capacitor iOS app and Mobile Web
  */
-(function() {
-  if (!document.documentElement.classList.contains('ios-app')) return;
-
-  var TAB_MODE_MAP = {
-    'home':        null,         // back to default view (home)
-    'flashcard':   'flashcard',
+(() => {
+  const TAB_MODE_MAP = {
+    'home': 'home',
+    'flashcard': 'flashcard',
     'translation': 'translation',
-    'exam':        'exam',
-    'progress':    'progress'
+    'exam': 'exam',
+    'progress': 'progress'
   };
 
   function activateTab(tabId) {
-    // Update tab bar active state
-    var items = document.querySelectorAll('.ios-tab-item');
-    items.forEach(function(el) {
+    if (!tabId) tabId = 'home';
+
+    // Update tab bar active class
+    const items = document.querySelectorAll('.ios-tab-item');
+    items.forEach(el => {
       el.classList.toggle('active', el.dataset.tab === tabId);
     });
 
-    // Trigger mode switch via existing app mechanism
-    var mode = TAB_MODE_MAP[tabId];
-    if (typeof window.switchMode === 'function') {
-      if (mode) {
-        window.switchMode(mode);
+    if (tabId === 'home') {
+      if (typeof window.switchMode === 'function') {
+        window.switchMode('home');
       } else {
-        // Home: go back to home/exercise view
-        window.switchMode('exercise');
+        document.querySelectorAll('main > section, section').forEach(s => s.classList.remove('active'));
+        const home = document.getElementById('gh-home-mode');
+        if (home) home.classList.add('active');
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const mode = TAB_MODE_MAP[tabId] || tabId;
+    if (typeof window.switchMode === 'function') {
+      window.switchMode(mode);
     } else {
-      // Fallback: click existing nav items
-      var navItem = document.querySelector('[data-action="' + (mode || 'exercise') + '"], [data-mode="' + (mode || '') + '"]');
+      const navItem = document.querySelector(`[data-mode="${mode}"]`);
       if (navItem) navItem.click();
     }
   }
 
   window.GH_IOS_NAV = activateTab;
 
-  // Listen for external mode changes (e.g. from links/buttons inside the app)
-  // so the tab bar stays in sync
-  document.addEventListener('gh-mode-changed', function(e) {
-    var mode = e && e.detail && e.detail.mode;
-    var reverseMap = {
-      'exercise':    'home',
-      'flashcard':   'flashcard',
+  function syncTabState(mode) {
+    const reverseMap = {
+      'home': 'home',
+      'flashcard': 'flashcard',
       'translation': 'translation',
-      'exam':        'exam',
-      'progress':    'progress'
+      'exam': 'exam',
+      'progress': 'progress'
     };
-    var tabId = reverseMap[mode] || 'home';
-    var items = document.querySelectorAll('.ios-tab-item');
-    items.forEach(function(el) {
+    const tabId = reverseMap[mode] || 'home';
+    const items = document.querySelectorAll('.ios-tab-item');
+    items.forEach(el => {
       el.classList.toggle('active', el.dataset.tab === tabId);
     });
+  }
+
+  document.addEventListener('gh-mode-changed', e => {
+    const mode = e && e.detail && e.detail.mode;
+    if (mode) syncTabState(mode);
   });
 
-  // Also hook into switchMode if available to sync tab bar
-  var origSwitch = window.switchMode;
-  if (typeof origSwitch === 'function') {
+  // Hook into switchMode
+  function hookSwitchMode() {
+    if (window.__ghIosNavHooked || typeof window.switchMode !== 'function') return;
+    const orig = window.switchMode;
     window.switchMode = function(mode) {
-      origSwitch.apply(this, arguments);
-      var reverseMap = {
-        'exercise':    'home',
-        'flashcard':   'flashcard',
-        'translation': 'translation',
-        'exam':        'exam',
-        'progress':    'progress',
-        'list':        'home',
-        'writing':     'home',
-        'typing':      'home',
-        'listening':   'home'
-      };
-      var tabId = reverseMap[mode] || 'home';
-      var items = document.querySelectorAll('.ios-tab-item');
-      items.forEach(function(el) {
-        el.classList.toggle('active', el.dataset.tab === tabId);
-      });
+      const res = orig.apply(this, arguments);
+      syncTabState(mode);
+      return res;
     };
-  } else {
-    // Wait for switchMode to be defined
-    window.addEventListener('load', function() {
-      var orig = window.switchMode;
-      if (typeof orig === 'function') {
-        window.switchMode = function(mode) {
-          orig.apply(this, arguments);
-          var reverseMap = {
-            'exercise': 'home', 'flashcard': 'flashcard',
-            'translation': 'translation', 'exam': 'exam', 'progress': 'progress'
-          };
-          var items = document.querySelectorAll('.ios-tab-item');
-          var tabId = reverseMap[mode] || 'home';
-          items.forEach(function(el) {
-            el.classList.toggle('active', el.dataset.tab === tabId);
-          });
-        };
-      }
-    });
+    window.__ghIosNavHooked = true;
   }
+
+  hookSwitchMode();
+  window.addEventListener('load', hookSwitchMode);
+  document.addEventListener('DOMContentLoaded', hookSwitchMode);
 })();
