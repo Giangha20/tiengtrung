@@ -1219,9 +1219,9 @@ const hskTier4 = [
 
 const hskData = {
     "1": hskTier1,
-    "2": [...hskTier1, ...hskTier2],
-    "3": [...hskTier1, ...hskTier2, ...hskTier3],
-    "4": [...hskTier1, ...hskTier2, ...hskTier3, ...hskTier4],
+    "2": hskTier2,
+    "3": hskTier3,
+    "4": hskTier4,
     "5": [],
     "6": []
 };

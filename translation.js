@@ -19,20 +19,23 @@
     initialized: false
   };
 
-  // Sound pronunciation helper (Web Speech API) - ONLY called on manual speaker click
+  // Sound pronunciation helper - ONLY called on manual speaker click
   function speakChinese(text) {
-    if (!('speechSynthesis' in window) || !text) return;
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'zh-CN';
-      u.rate = 0.85;
-      window.speechSynthesis.speak(u);
-    } catch (e) {
-      // Ignore audio synthesis errors on unsupported environments
+    if (!text) return;
+    if (window.GH_Audio && typeof window.GH_Audio.play === "function") {
+      window.GH_Audio.play(text);
+    } else if (typeof window.speakWord === "function") {
+      window.speakWord(text);
+    } else if ("speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "zh-CN";
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
     }
   }
-
   // Vietnamese normalization for smart comparison
   function normalizeVi(str) {
     if (!str) return '';
@@ -60,24 +63,20 @@
       .trim();
   }
 
-    // Tokenize Chinese into single character tokens (Tách hết từng chữ Hán, không dính chữ)
+    // Tokenize Chinese into single character tokens (Tách triệt để từng chữ Hán đơn, không dính chữ)
   function tokenizeChinese(text) {
     if (!text) return [];
-    const clean = text.replace(/[\s\.,!\?，。！？、]/g, '');
-    const tokens = [];
-    for (let i = 0; i < clean.length; i++) {
-      const ch = clean[i].trim();
-      if (ch) tokens.push(ch);
-    }
-    return tokens;
+    return String(text).replace(/[^\u4e00-\u9fa5]/g, '').split('').filter(Boolean);
   }
 
-  // Tokenize Vietnamese into single word tokens (Tách hết từng chữ tiếng Việt, không dính chữ)
+  // Tokenize Vietnamese into single word tokens (Tách triệt để từng từ tiếng Việt đơn, không dính chữ)
   function tokenizeVietnamese(text) {
     if (!text) return [];
-    const clean = text.replace(/[.,!?:;\"'“”‘’\(\)\-–]/g, ' ').trim();
-    const words = clean.split(/\s+/).filter(Boolean);
-    return words;
+    const clean = String(text)
+      .replace(/[.,!?:;"'“”‘’()\-–—/\\~\x60…*#@^&+=|{}[\]，。！？、]/g, ' ')
+      .replace(/[\u00A0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/g, ' ')
+      .trim();
+    return clean.split(/\s+/).filter(Boolean);
   }
 
   
