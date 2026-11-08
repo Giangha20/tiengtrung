@@ -62,7 +62,7 @@
       })();
 
       // Tu dong xoa cache va bat buoc cap nhat ban moi nhat v48
-      const GH_CURRENT_BUILD = 'gh_v48_20261108';
+      const GH_CURRENT_BUILD = 'gh_v49_20261108';
       if (localStorage.getItem('gh_app_build') !== GH_CURRENT_BUILD) {
         if ('caches' in window) {
           caches.keys().then(function(keys) {
@@ -438,10 +438,6 @@
 </section>
             
         
-            <div id="gh-update-badge" class="gh-update-badge">
-                <span>⚡ v48: Bắt đầu làm bài & Cấm zoom & Ẩn nghĩa câu hỏi</span>
-                <button type="button" onclick="window.GH_forceUpdateApp()">Làm mới dữ liệu</button>
-            </div>
         </main>
     </div>
 

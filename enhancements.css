@@ -1436,6 +1436,7 @@ body.dark-mode .gh-nav-item {
 
 /* Floating Update Badge & Manual Reset Pill */
 .gh-update-badge {
+  display: none !important;
   position: fixed;
   bottom: 16px;
   right: 16px;
