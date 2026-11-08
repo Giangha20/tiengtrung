@@ -189,11 +189,35 @@
   window.initStudyStreak = () => render();
   window.showStreakCelebration = showCelebration;
 
+  function hydrate() {
+    try {
+      const p = window.ghAuth?.getProgress?.() || {};
+      const cloud = p.streak;
+      if (cloud && typeof cloud === 'object') {
+        const local = calc();
+        const current = Math.max(Number(cloud.current) || 0, Number(local.current) || 0);
+        const best = Math.max(Number(cloud.best) || 0, Number(local.best) || 0, current);
+        const lastDate = (cloud.lastDate && cloud.lastDate >= (local.lastDate || '')) ? cloud.lastDate : local.lastDate;
+        const merged = { ...local, ...cloud, current, best, lastDate };
+        save(merged);
+        render();
+      }
+    } catch (e) {
+      console.warn('Streak hydrate error:', e);
+    }
+  }
+
   // Render on initial load without falsely advancing streak
   window.addEventListener('DOMContentLoaded', () => {
+    hydrate();
     render();
   });
   window.addEventListener('gh-auth-ready', () => {
+    hydrate();
+    render();
+  });
+  window.addEventListener('gh-progress-loaded', () => {
+    hydrate();
     render();
   });
 })();

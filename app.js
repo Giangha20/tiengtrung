@@ -10,6 +10,18 @@
     const existing = document.getElementById('gh-mobile-nav');
     if (existing) existing.remove();
   }
-  function boot(){inject();mobileNav();GH.progress.hydrate().then(update);GH.streak.render();window.addEventListener('gh-progress-updated',update);setInterval(update,15000);}
-  GH.app={update};window.addEventListener('DOMContentLoaded',boot);window.addEventListener('gh-auth-ready',()=>GH.progress.hydrate().then(update));
+  function boot(){
+    inject();
+    mobileNav();
+    GH.progress.hydrate().then(update);
+    GH.streak.render();
+    window.addEventListener('gh-progress-updated', update);
+    window.addEventListener('gh-xp-updated', update);
+    window.addEventListener('gh-progress-loaded', () => GH.progress.hydrate().then(update));
+    setInterval(update, 15000);
+  }
+  GH.app={update};
+  window.addEventListener('DOMContentLoaded', boot);
+  window.addEventListener('gh-auth-ready', () => GH.progress.hydrate().then(update));
+  window.addEventListener('gh-progress-loaded', () => GH.progress.hydrate().then(update));
 })();

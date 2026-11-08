@@ -31,7 +31,65 @@
   function toggleFavorite(id){id=String(id);const i=state.favorites.indexOf(id);if(i>=0)state.favorites.splice(i,1);else state.favorites.push(id);persist();if(window.ghAuth?.[state.favorites.includes(id)?'saveFavorite':'removeFavorite']){window.ghAuth[state.favorites.includes(id)?'saveFavorite':'removeFavorite'](id).catch(()=>{})}sync();return state.favorites.includes(id)}
   function setNote(id,note){state.notes[String(id)]=String(note||'');persist();window.ghAuth?.saveNote?.(id,note).catch(()=>{});sync()}
   async function sync(){if(window.ghAuth?.saveProgress){try{await window.ghAuth.saveProgress({learningEngine:state})}catch(e){console.warn('learning sync',e)}}}
-  async function hydrate(){try{const p=window.ghAuth?.getProgress?.()||{};if(p.learningEngine&&typeof p.learningEngine==='object'){state={...defaults(),...p.learningEngine,...state};}ensureLeaderboardPeriod();persist()}catch(e){}}
+  async function hydrate(){
+    try {
+      const p = window.ghAuth?.getProgress?.() || {};
+      const cloud = p.learningEngine;
+      if (cloud && typeof cloud === 'object') {
+        const xp = Math.max(Number(cloud.xp) || 0, Number(state.xp) || 0);
+        const level = Math.max(Number(cloud.level) || 1, Number(state.level) || 1, xpLevel(xp));
+        const highestLevel = Math.max(Number(cloud.highestLevel) || 1, Number(state.highestLevel) || 1, level);
+
+        const learned = Array.from(new Set([...(cloud.learned || []), ...(state.learned || [])]));
+        const mastered = Array.from(new Set([...(cloud.mastered || []), ...(state.mastered || [])]));
+        const favorites = Array.from(new Set([...(cloud.favorites || []), ...(state.favorites || [])]));
+        const notes = { ...(cloud.notes || {}), ...(state.notes || {}) };
+        const review = { ...(cloud.review || {}), ...(state.review || {}) };
+
+        const stats = {
+          answers: Math.max(cloud.stats?.answers || 0, state.stats?.answers || 0),
+          correct: Math.max(cloud.stats?.correct || 0, state.stats?.correct || 0),
+          studySeconds: Math.max(cloud.stats?.studySeconds || 0, state.stats?.studySeconds || 0),
+          wordsToday: Math.max(cloud.stats?.wordsToday || 0, state.stats?.wordsToday || 0),
+          lastStudy: Math.max(cloud.stats?.lastStudy || 0, state.stats?.lastStudy || 0) || null
+        };
+
+        const leaderboard = {
+          weekKey: cloud.leaderboard?.weekKey || state.leaderboard?.weekKey,
+          weeklyXp: Math.max(cloud.leaderboard?.weeklyXp || 0, state.leaderboard?.weeklyXp || 0),
+          monthKey: cloud.leaderboard?.monthKey || state.leaderboard?.monthKey,
+          monthlyXp: Math.max(cloud.leaderboard?.monthlyXp || 0, state.leaderboard?.monthlyXp || 0)
+        };
+
+        state = {
+          ...defaults(),
+          ...cloud,
+          ...state,
+          xp,
+          level,
+          highestLevel,
+          learned,
+          mastered,
+          favorites,
+          notes,
+          review,
+          stats,
+          leaderboard
+        };
+      }
+      ensureLeaderboardPeriod();
+      persist();
+      window.dispatchEvent(new CustomEvent('gh-progress-updated', { detail: state }));
+      window.dispatchEvent(new CustomEvent('gh-xp-updated', { detail: { gained: 0, level: state.level } }));
+      return state;
+    } catch(e) {
+      console.warn('Hydrate error:', e);
+      return state;
+    }
+  }
   GH.progress={get:()=>state,patch,addXp,periodKeys,ensureLeaderboardPeriod,markWord,answer,markListening,dueWords,toggleFavorite,setNote,hydrate,sync,persist,xpForLevel,xpLevel,scaleReward};
-  window.addEventListener('gh-auth-ready',hydrate); ensureDay(); persist();
+  window.addEventListener('gh-auth-ready', hydrate);
+  window.addEventListener('gh-progress-loaded', hydrate);
+  ensureDay();
+  persist();
 })();

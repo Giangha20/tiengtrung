@@ -43,6 +43,7 @@
             const data = snap.exists ? (snap.data() || {}) : {};
             progressCache = (data.progress && typeof data.progress === 'object') ? data.progress : {};
             progressLoaded = true;
+            window.dispatchEvent(new CustomEvent('gh-progress-loaded', { detail: { progress: progressCache } }));
             return progressCache;
         } catch (error) {
             console.error('Không thể tải tiến trình online:', error);
@@ -87,15 +88,41 @@
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
             progressCache = merged;
-            return true;
         } catch (error) {
             console.warn('Không thể chuyển tiến trình cũ lên Firebase:', error);
-            return false;
         }
+
+        // Migrate local learningEngine XP & level if present and higher
+        try {
+            const rawEngine = localStorage.getItem('gh_learning_engine_v1');
+            const localEngine = rawEngine ? JSON.parse(rawEngine) : null;
+            if (localEngine && typeof localEngine === 'object') {
+                const cloudXp = Number(progressCache?.learningEngine?.xp) || 0;
+                const localXp = Number(localEngine.xp) || 0;
+                if (localXp > cloudXp) {
+                    await saveProgress({ learningEngine: localEngine });
+                }
+            }
+        } catch (e) {
+            console.warn('Không thể migrate learningEngine:', e);
+        }
+        return true;
     }
 
     async function saveProgress(patch) {
         if (!currentUser || !db || !patch || typeof patch !== 'object') return false;
+
+        // Bảo vệ tiến trình: Không bao giờ cho phép lưu đè XP hoặc Level thấp hơn
+        if (patch.learningEngine && progressCache?.learningEngine) {
+            const curXp = Number(progressCache.learningEngine.xp) || 0;
+            const newXp = Number(patch.learningEngine.xp) || 0;
+            if (newXp < curXp) {
+                patch.learningEngine.xp = curXp;
+                patch.learningEngine.level = Math.max(progressCache.learningEngine.level || 1, patch.learningEngine.level || 1);
+                patch.learningEngine.highestLevel = Math.max(progressCache.learningEngine.highestLevel || 1, patch.learningEngine.highestLevel || 1);
+            }
+        }
+
         const next = { ...progressCache, ...patch, updatedAt: new Date().toISOString() };
         progressCache = next;
         try {
@@ -235,11 +262,6 @@
             auth.onAuthStateChanged(async (user) => {
                 currentUser = user || null;
                 window.ghCurrentUser = currentUser;
-                window.dispatchEvent(new CustomEvent('gh-auth-ready',{detail:{user:currentUser}}));
-
-                // Báo sẵn sàng ngay khi Firebase Auth biết trạng thái đăng nhập.
-                // Tuyệt đối không bắt trang login chờ Firestore.
-                window.ghAuthReadyResolve(currentUser);
 
                 if (currentUser) {
                     try {
@@ -252,6 +274,11 @@
                     progressCache = {};
                     progressLoaded = false;
                 }
+
+                // Phát sự kiện SAU KHI đã tải xong dữ liệu tiến trình từ Firestore
+                window.dispatchEvent(new CustomEvent('gh-auth-ready', { detail: { user: currentUser } }));
+                window.dispatchEvent(new CustomEvent('gh-progress-loaded', { detail: { progress: progressCache } }));
+                window.ghAuthReadyResolve(currentUser);
             }, (error) => {
                 console.error('Firebase auth state error:', error);
                 window.ghAuthReadyResolve(null);
