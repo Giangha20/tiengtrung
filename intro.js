@@ -4,7 +4,7 @@
  * Supports both Web and iOS Capacitor App
  */
 (() => {
-  const STORAGE_KEY = 'gh_intro_seen_v1';
+  const STORAGE_KEY = 'gh_intro_video_v3';
   const VIDEO_SRC = './intro.mp4';
 
   let overlayEl = null;
@@ -147,7 +147,7 @@
       closeIntroVideo();
     });
 
-    // Keyboard support: Phím Escape hoặc Space
+    // Keyboard support: Phím Escape hoặc M
     const handleKey = (e) => {
       if (!overlayEl || overlayEl.classList.contains('gh-intro-closing')) return;
       if (e.key === 'Escape') {
@@ -158,12 +158,23 @@
     };
     document.addEventListener('keydown', handleKey);
 
-    // Bắt đầu phát video (muted để bypass autoplay policy trên iOS & Chrome)
+    // Thử phát với âm thanh, nếu trình duyệt chặn thì muted và phát
+    video.muted = false;
     const playPromise = video.play();
     if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch((e) => {
-        console.log('Video autoplay prevented, waiting for user tap:', e);
+      playPromise.catch(() => {
+        video.muted = true;
+        video.play().catch(() => {});
+        if (soundIconMuted) soundIconMuted.style.display = 'inline-block';
+        if (soundIconOn) soundIconOn.style.display = 'none';
+        if (soundLabel) soundLabel.textContent = 'Bật tiếng';
+        if (unmuteHint) unmuteHint.style.opacity = '1';
       });
+    } else {
+      if (soundIconMuted) soundIconMuted.style.display = 'none';
+      if (soundIconOn) soundIconOn.style.display = 'inline-block';
+      if (soundLabel) soundLabel.textContent = 'Tắt tiếng';
+      if (unmuteHint) unmuteHint.style.opacity = '0';
     }
   }
 
@@ -219,6 +230,10 @@
   // Auto trigger on initial load
   function checkAndAutoShow() {
     try {
+      if (location.search.includes('intro=1') || location.search.includes('open=intro')) {
+        setTimeout(() => showIntroVideo(true), 200);
+        return;
+      }
       if (!localStorage.getItem(STORAGE_KEY)) {
         setTimeout(() => {
           showIntroVideo(false);
