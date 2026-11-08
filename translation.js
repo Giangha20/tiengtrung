@@ -22,20 +22,34 @@
   // Sound pronunciation helper - ONLY called on manual speaker click
   function speakChinese(text) {
     if (!text) return;
-    if (window.GH_Audio && typeof window.GH_Audio.play === "function") {
-      window.GH_Audio.play(text);
-    } else if (typeof window.speakWord === "function") {
+    const audioBtn = document.getElementById('tr-audio-btn');
+    if (audioBtn) audioBtn.classList.add('playing');
+    const onEnd = () => {
+      if (audioBtn) audioBtn.classList.remove('playing');
+    };
+    if (window.GH_Audio && typeof window.GH_Audio.play === 'function') {
+      window.GH_Audio.play(text, {
+        onStart: () => { if (audioBtn) audioBtn.classList.add('playing'); },
+        onEnd: onEnd
+      });
+    } else if (typeof window.speakWord === 'function') {
       window.speakWord(text);
-    } else if ("speechSynthesis" in window) {
+      setTimeout(onEnd, 2000);
+    } else if ('speechSynthesis' in window) {
       try {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
-        u.lang = "zh-CN";
+        u.lang = 'zh-CN';
         u.rate = 0.85;
+        u.onend = onEnd;
+        u.onerror = onEnd;
         window.speechSynthesis.speak(u);
-      } catch (e) {}
+      } catch (e) { onEnd(); }
+    } else {
+      onEnd();
     }
   }
+
   // Vietnamese normalization for smart comparison
   function normalizeVi(str) {
     if (!str) return '';
@@ -370,6 +384,11 @@
 
   // Render question without creating new DOM structures (zero-lag 60fps)
   function renderQuestion() {
+    if (window.GH_Audio && typeof window.GH_Audio.stop === 'function') {
+      window.GH_Audio.stop();
+    }
+    const prevAudioBtn = document.getElementById('tr-audio-btn');
+    if (prevAudioBtn) prevAudioBtn.classList.remove('playing');
     const q = TR.questions[TR.currentIndex];
     if (!q) {
       showSummary();

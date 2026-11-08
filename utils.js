@@ -21,10 +21,32 @@
   };
 
   // ==============================================================
-  // RESILIENT MULTI-ENGINE CHINESE AUDIO PLAYER (Mobile & Desktop)
-  // 100% reliable on iOS Safari, Android Chrome, and Desktop browsers.
+  // SINGLE-VOICE RESILIENT AUDIO ENGINE (1 GIỌNG DUY NHẤT, KHÔNG TRÙNG LẶP)
+  // Đảm bảo không bao giờ có 2 giọng nói cùng lúc hay chồng chéo nhau.
   // ==============================================================
   let audioUnlocked = false;
+  let activeAudio = null;
+  let activeTimeout = null;
+
+  function stopAllAudio() {
+    if (activeTimeout) {
+      clearTimeout(activeTimeout);
+      activeTimeout = null;
+    }
+    if (activeAudio) {
+      try {
+        activeAudio.pause();
+        activeAudio.currentTime = 0;
+        activeAudio.src = '';
+      } catch (e) {}
+      activeAudio = null;
+    }
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {}
+    }
+  }
 
   // Pre-unlock speech synthesis on first user interaction
   function unlockAudio() {
@@ -44,11 +66,14 @@
   }
 
   const AudioEngine = {
+    stop: stopAllAudio,
     play(text, options = {}) {
       if (!text) return;
       text = String(text).trim();
       if (!text) return;
 
+      // 1. DỪNG NGAY MỌI ÂM THANH ĐANG PHÁT - ĐẢM BẢO CHỈ 1 GIỌNG DUY NHẤT
+      stopAllAudio();
       unlockAudio();
 
       // Retrieve speed from user settings
@@ -85,11 +110,12 @@
       const onDone = () => {
         if (finished) return;
         finished = true;
+        stopAllAudio();
         if (typeof options.onEnd === 'function') options.onEnd();
       };
 
-      // Native SpeechSynthesis fallback
-      const trySpeechSynth = () => {
+      // Giọng dự phòng duy nhất: Native SpeechSynthesis (chuẩn zh-CN)
+      const speakWithSynth = () => {
         if ('speechSynthesis' in window) {
           try {
             window.speechSynthesis.cancel();
@@ -97,7 +123,9 @@
             u.lang = 'zh-CN';
             u.rate = speechRate;
             const voices = window.speechSynthesis.getVoices() || [];
-            const zhVoice = voices.find(v => v.lang && (v.lang.includes('zh') || v.lang.includes('cmn')));
+            const zhVoice = voices.find(v => v.lang === 'zh-CN' || v.lang === 'zh_CN')
+                         || voices.find(v => v.lang && v.lang.toLowerCase().startsWith('zh-cn'))
+                         || voices.find(v => v.lang && (v.lang.includes('zh') || v.lang.includes('cmn')));
             if (zhVoice) u.voice = zhVoice;
             u.onend = onDone;
             u.onerror = onDone;
@@ -108,52 +136,64 @@
         onDone();
       };
 
-      // Primary: NetEase Youdao Mandarin MP3 (Beijing standard)
+      // Giọng phát âm chuẩn tự nhiên NetEase Youdao (Bắc Kinh tiêu chuẩn)
       const youdaoUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&le=zh`;
-      // Secondary: Google Translate TTS
-      const googleUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
 
-      let audio = new Audio();
+      const audio = new Audio();
+      activeAudio = audio;
       audio.preload = 'auto';
       audio.setAttribute('playsinline', '');
       audio.setAttribute('webkit-playsinline', '');
       audio.playbackRate = playbackRate;
 
-      let fallbackTimeout = setTimeout(() => {
-        trySpeechSynth();
-      }, 3500);
+      // HỦY NGAY TIMER FALLBACK KHI ÂM THANH BẮT ĐẦU PHÁT - KHÔNG BAO GIỜ CHO PHÉP GIỌNG 2 CHÈN VÀO!
+      const cancelFallback = () => {
+        if (activeTimeout) {
+          clearTimeout(activeTimeout);
+          activeTimeout = null;
+        }
+      };
+
+      audio.onplay = cancelFallback;
+      audio.onplaying = cancelFallback;
+      audio.ontimeupdate = () => {
+        if (audio.currentTime > 0) cancelFallback();
+      };
 
       audio.onended = () => {
-        clearTimeout(fallbackTimeout);
+        cancelFallback();
         onDone();
       };
 
-      audio.onerror = () => {
-        clearTimeout(fallbackTimeout);
-        // Try Google TTS as secondary audio stream
-        try {
-          const audio2 = new Audio();
-          audio2.playbackRate = playbackRate;
-          audio2.setAttribute('playsinline', '');
-          audio2.setAttribute('webkit-playsinline', '');
-          audio2.onended = () => onDone();
-          audio2.onerror = () => trySpeechSynth();
-          audio2.src = googleUrl;
-          const p2 = audio2.play();
-          if (p2 && typeof p2.catch === 'function') {
-            p2.catch(() => trySpeechSynth());
-          }
-        } catch (e) {
-          trySpeechSynth();
+      const handleFail = () => {
+        cancelFallback();
+        if (activeAudio === audio) {
+          try {
+            audio.pause();
+            audio.src = '';
+          } catch (e) {}
+          activeAudio = null;
         }
+        speakWithSynth();
       };
+
+      audio.onerror = handleFail;
+
+      // Timeout 4s nếu mạng bị rớt hoặc chặn không thể tải audio
+      activeTimeout = setTimeout(() => {
+        // Nếu audio đang phát bình thường thì tuyệt đối không fallback
+        if (!audio.paused && audio.currentTime > 0) {
+          cancelFallback();
+          return;
+        }
+        handleFail();
+      }, 4000);
 
       audio.src = youdaoUrl;
       const playPromise = audio.play();
       if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch((err) => {
-          console.warn('Youdao play interrupted, switching to secondary/synth:', err);
-          audio.onerror();
+        playPromise.catch(() => {
+          handleFail();
         });
       }
     }
