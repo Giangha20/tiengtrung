@@ -144,11 +144,11 @@
               <span class="writing-hsk-label">Cấp độ:</span>
               <select id="wp-hsk-select" class="writing-hsk-select" title="Chọn cấp độ HSK">
                 <option value="1">HSK 1 (150 từ)</option>
-                <option value="2">HSK 2 (300 từ)</option>
-                <option value="3">HSK 3 (600 từ)</option>
-                <option value="4">HSK 4 (1200 từ)</option>
-                <option value="5">HSK 5 (2500 từ)</option>
-                <option value="6">HSK 6 (5000 từ)</option>
+                <option value="2">HSK 2 (150 từ)</option>
+                <option value="3">HSK 3 (300 từ)</option>
+                <option value="4">HSK 4 (600 từ)</option>
+                <option value="5">HSK 5 (1300 từ)</option>
+                <option value="6">HSK 6 (2500 từ)</option>
               </select>
             </div>
             <!-- Word Search Bar -->

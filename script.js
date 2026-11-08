@@ -7736,13 +7736,14 @@ const hsk5Data = [
 // HSK 5 = 2500 từ (1200 từ HSK1-4 + 1300 từ HSK5)
 // HSK 6 = 5000 từ (2500 từ HSK1-5 + 2500 từ HSK6)
 function syncCumulativeHsk() {
-    hskData["1"] = hskTier1;
-    hskData["2"] = [...hskTier1, ...hskTier2];
-    hskData["3"] = [...hskData["2"], ...hskTier3];
-    hskData["4"] = [...hskData["3"], ...hskTier4];
-    hskData["5"] = [...hskData["4"], ...(Array.isArray(hsk5Data) ? hsk5Data : [])];
+    // Chỉ hiển thị từ vựng riêng của từng cấp độ HSK khi chọn cấp độ đó
+    hskData["1"] = hskTier1; // 150 từ HSK 1
+    hskData["2"] = hskTier2; // 150 từ riêng của HSK 2
+    hskData["3"] = hskTier3; // 300 từ riêng của HSK 3
+    hskData["4"] = hskTier4; // 600 từ riêng của HSK 4
+    hskData["5"] = Array.isArray(hsk5Data) ? hsk5Data : []; // 1300 từ riêng của HSK 5
     const data6 = Array.isArray(window.HSK6_DATA) ? window.HSK6_DATA : [];
-    hskData["6"] = [...hskData["5"], ...data6];
+    hskData["6"] = data6; // 2500 từ riêng của HSK 6
 }
 syncCumulativeHsk();
 
@@ -34740,7 +34741,7 @@ function setWrongListening(items){
 }
 function updateWrongListeningUI(){ const c=document.getElementById('listening-wrong-count'); if(c)c.textContent=getWrongListening().length; const list=document.getElementById('listening-wrong-list'); if(!list)return; const items=getWrongListening(); list.innerHTML=items.length?items.map((q,i)=>`<div class="wrong-item"><div class="wrong-item-text"><strong>${escapeHtml(q.audio)}</strong><small>${escapeHtml(getListeningPinyin(q))}<br>${escapeHtml(q.meaning || getListeningMeaning(q) || '')}</small></div><div class="wrong-item-actions"><button type="button" onclick="speakWrongListening(${i})"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg> Nghe lại</button></div></div>`).join(''):'<div class="listening-hint">Chưa có câu sai. Hãy làm bài và những câu trả lời sai sẽ tự được lưu ở đây.</div>'; }
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q||!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); speechSynthesis.speak(u); }
+function speakWrongListening(i){ const q=getWrongListening()[i]; if(!q) return; speakWord(q.audio); }
 
 // Nghĩa tiếng Việt cho các câu nghe; giữ nguyên dữ liệu cũ và chỉ bổ sung khi trường meaning bị trống.
 const LISTENING_VI_MEANINGS = {
@@ -36823,11 +36824,7 @@ function initListening(){
 }
 function speakListeningSentence(){
   const q=listeningQuestions[listeningIndex]; if(!q) return;
-  if(!('speechSynthesis' in window)){ const h=document.getElementById('listening-hint'); if(h) h.textContent='Thiết bị không hỗ trợ đọc tiếng Trung.'; return; }
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(q.audio); u.lang='zh-CN'; u.rate=Number(document.getElementById('listening-speed')?.value||0.82); u.pitch=1;
-  const voices=speechSynthesis.getVoices(); const v=voices.find(x=>/^zh-(CN|TW)/i.test(x.lang)); if(v) u.voice=v;
-  speechSynthesis.speak(u);
+  speakWord(q.audio);
 }
 function renderListeningQuestion(){
   const q=listeningQuestions[listeningIndex]; if(!q) return;
