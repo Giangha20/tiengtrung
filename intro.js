@@ -2,9 +2,10 @@
  * intro.js - Fullscreen Video Onboarding & Intro Walkthrough
  * Plays intro.mp4 with top-right Skip button (Bỏ qua)
  * Supports both Web and iOS Capacitor App
+ * CẬP NHẬT: Mỗi lần đóng hẳn app và mở lại, video intro sẽ tự động phát lại.
  */
 (() => {
-  const STORAGE_KEY = 'gh_intro_video_v3';
+  const SESSION_KEY = 'gh_intro_session_shown';
   const VIDEO_SRC = './intro.mp4';
 
   let overlayEl = null;
@@ -180,7 +181,12 @@
 
   function closeIntroVideo() {
     try {
-      localStorage.setItem(STORAGE_KEY, '1');
+      // Lưu vào sessionStorage để trong suốt phiên học hiện tại không bị hiện lại liên tục khi chuyển tab
+      sessionStorage.setItem(SESSION_KEY, '1');
+      // Xóa các key vĩnh viễn cũ để mỗi lần ĐÓNG HẲN APP và MỞ LẠI, sessionStorage trống sẽ hiện lại video intro
+      localStorage.removeItem('gh_intro_video_v3');
+      localStorage.removeItem('gh_intro_video_v2');
+      localStorage.removeItem('gh_intro_seen_v1');
     } catch (e) {}
 
     if (videoEl) {
@@ -215,7 +221,8 @@
   function showIntroVideo(force = false) {
     if (!force) {
       try {
-        if (localStorage.getItem(STORAGE_KEY)) return;
+        // Nếu phiên hiện tại đã xem rồi (người dùng đang học trong app), không làm gián đoạn
+        if (sessionStorage.getItem(SESSION_KEY)) return;
       } catch (e) {}
     }
 
@@ -227,20 +234,45 @@
   window.GH_showIntro = window.GH_showIntroVideo;
   window.GH_closeIntro = closeIntroVideo;
 
-  // Auto trigger on initial load
+  // Auto trigger on initial load / fresh app launch
   function checkAndAutoShow() {
     try {
+      // Luôn dọn dẹp các key localStorage cũ
+      localStorage.removeItem('gh_intro_video_v3');
+      localStorage.removeItem('gh_intro_video_v2');
+      localStorage.removeItem('gh_intro_seen_v1');
+
       if (location.search.includes('intro=1') || location.search.includes('open=intro')) {
-        setTimeout(() => showIntroVideo(true), 200);
+        setTimeout(() => showIntroVideo(true), 150);
         return;
       }
-      if (!localStorage.getItem(STORAGE_KEY)) {
+
+      // Mỗi khi đóng hẳn app rồi vào lại (hoặc đóng tab web rồi mở lại):
+      // sessionStorage là trống hoàn toàn -> Video intro sẽ tự động phát lại!
+      if (!sessionStorage.getItem(SESSION_KEY)) {
         setTimeout(() => {
           showIntroVideo(false);
-        }, 200);
+        }, 150);
       }
     } catch (e) {}
   }
+
+  // Theo dõi thời gian app chạy ngầm: Nếu đóng/ẩn app trên 15 phút, khi quay lại cũng kích hoạt intro
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      try {
+        sessionStorage.setItem('gh_last_hidden_time', String(Date.now()));
+      } catch (e) {}
+    } else if (document.visibilityState === 'visible') {
+      try {
+        const lastHidden = parseInt(sessionStorage.getItem('gh_last_hidden_time') || '0', 10);
+        if (lastHidden && (Date.now() - lastHidden > 15 * 60 * 1000)) {
+          sessionStorage.removeItem(SESSION_KEY);
+          showIntroVideo(false);
+        }
+      } catch (e) {}
+    }
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', checkAndAutoShow, { once: true });
