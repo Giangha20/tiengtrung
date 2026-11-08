@@ -387,7 +387,16 @@
     if (progBar) progBar.style.width = `${Math.round(((current - 1) / total) * 100)}%`;
 
     const structPill = document.getElementById('tr-structure-pill');
-    if (structPill) structPill.textContent = `💡 ${q.structure || q.topic}`;
+    if (structPill) {
+      const s = (q.structure || '').trim();
+      if (s && !/^Cấu trúc\s*::?$/i.test(s)) {
+        structPill.textContent = `💡 Cấu trúc: ${s.replace(/^Cấu trúc\s*::?\s*/i, '')}`;
+      } else if (q.topic) {
+        structPill.textContent = `💡 Ngữ pháp: ${q.topic}`;
+      } else {
+        structPill.textContent = `💡 Luyện dịch câu HSK ${q.hsk || ''}`;
+      }
+    }
 
     // Reset feedback
     const fb = document.getElementById('tr-feedback-box');

@@ -1,12 +1,10 @@
-// Ngân Hàng Luyện Tập Dịch Câu Tiếng Trung - Chuẩn HSK 1 đến HSK 6
-// Được phân bổ tỉ mỉ 75 câu mỗi cấp độ (Tổng cộng 450 câu dịch song ngữ chuẩn)
 window.TRANSLATION_DATA = {
   "hsk1": [
     {
       "id": "tr_hsk1_01",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là vợ của tôi.",
       "zh": "那是我的妻子。",
       "pinyin": "Nà shì wǒ de qīzi."
@@ -15,7 +13,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_02",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đây là mẹ của Tiểu Vương.",
       "zh": "这是小王的妈妈。",
       "pinyin": "Zhè shì Xiǎo Wáng de māma."
@@ -24,7 +22,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_03",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là bố của Tiểu Lý.",
       "zh": "那是小李的爸爸。",
       "pinyin": "Nà shì Xiǎo Lǐ de bàba."
@@ -33,7 +31,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_04",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đây là anh trai của Tiểu Hoa.",
       "zh": "这是小花的哥哥。",
       "pinyin": "Zhè shì Xiǎo Huā de gēge."
@@ -42,7 +40,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_05",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là chị gái của Tiểu Lan.",
       "zh": "那是小兰的姐姐。",
       "pinyin": "Nà shì Xiǎo Lán de jiějie."
@@ -51,7 +49,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_06",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đây là em trai của A Minh.",
       "zh": "这是阿明的弟弟。",
       "pinyin": "Zhè shì Ā Míng de dìdi."
@@ -60,7 +58,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_07",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là em gái của Tiểu Hồng.",
       "zh": "那是小红的妹妹。",
       "pinyin": "Nà shì Xiǎo Hóng de mèimei."
@@ -69,7 +67,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_08",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đây là ông nội của David.",
       "zh": "这是大卫的爷爷。",
       "pinyin": "Zhè shì Dàwèi de yéye."
@@ -78,7 +76,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_09",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là bà nội của Mary.",
       "zh": "那是玛丽的奶奶。",
       "pinyin": "Nà shì Mǎlì de nǎinai."
@@ -87,7 +85,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_10",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đây là con trai của Lan Anh.",
       "zh": "这是兰英的儿子。",
       "pinyin": "Zhè shì Lányīng de érzi."
@@ -96,7 +94,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_11",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là con gái của Tuyết Anh.",
       "zh": "那是雪英的女儿。",
       "pinyin": "Nà shì Xuěyīng de nǚ’ér."
@@ -105,7 +103,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_12",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đây là mẹ chồng của chị gái tôi.",
       "zh": "这是我姐姐的婆婆。",
       "pinyin": "Zhè shì wǒ jiějie de pópo."
@@ -114,7 +112,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_13",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là anh rể của tôi.",
       "zh": "那是我的姐夫。",
       "pinyin": "Nà shì wǒ de jiěfu."
@@ -123,7 +121,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_14",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đây là chồng của tôi.",
       "zh": "这是我的老公。",
       "pinyin": "Zhè shì wǒ de lǎogōng."
@@ -132,7 +130,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_15",
       "hsk": 1,
       "topic": "Thành viên gia đình",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đó là bố chồng của Tiểu Lan.",
       "zh": "那是小兰的公公。",
       "pinyin": "Nà shì Xiǎo Lán de gōnggong."
@@ -141,7 +139,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_16",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi là người Việt Nam.",
       "zh": "我是越南人。",
       "pinyin": "Wǒ shì Yuènán rén."
@@ -150,7 +148,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_17",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh ấy là người Nga.",
       "zh": "他是俄罗斯人。",
       "pinyin": "Tā shì Éluósī rén."
@@ -159,7 +157,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_18",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh họ của tôi là người Trung Quốc.",
       "zh": "我的表哥是中国人。",
       "pinyin": "Wǒ de biǎogē shì Zhōngguó rén."
@@ -168,7 +166,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_19",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Vị hôn thê của anh ấy là người Mỹ.",
       "zh": "他的未婚妻是美国人。",
       "pinyin": "Tā de wèihūnqī shì Měiguó rén."
@@ -177,7 +175,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_20",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Vợ của anh ấy là người Hàn Quốc.",
       "zh": "他老婆是韩国人。",
       "pinyin": "Tā lǎopo shì Hánguó rén."
@@ -186,7 +184,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_21",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn cùng phòng của Lệ Lệ là người Đức.",
       "zh": "丽丽的室友是德国人。",
       "pinyin": "Lìli de shìyǒu shì Déguó rén."
@@ -195,7 +193,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_22",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh rể của Lan Anh là người Philippines.",
       "zh": "兰英的姐夫是菲律宾人。",
       "pinyin": "Lányīng de jiěfu shì Fēilǜbīn rén."
@@ -204,7 +202,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_23",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn học của tôi là người Anh.",
       "zh": "我的同学是英国人。",
       "pinyin": "Wǒ de tóngxué shì Yīngguó rén."
@@ -213,7 +211,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_24",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Chị dâu của Tiểu Hoa là người Malaysia.",
       "zh": "小花的嫂子是马来西亚人。",
       "pinyin": "Xiǎohuā de sǎozi shì Mǎláixīyà rén."
@@ -222,7 +220,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_25",
       "hsk": 1,
       "topic": "Quốc tịch",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn trai của Mary là người Pháp.",
       "zh": "玛丽的男朋友是法国人。",
       "pinyin": "Mǎlì de nánpéngyou shì Fǎguó rén."
@@ -231,7 +229,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_26",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tôi đến từ Trung Quốc.",
       "zh": "我来自中国。",
       "pinyin": "Wǒ láizì Zhōngguó."
@@ -240,7 +238,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_27",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh ấy đến từ Việt Nam.",
       "zh": "他来自越南。",
       "pinyin": "Tā láizì Yuènán."
@@ -249,7 +247,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_28",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tiểu An đến từ Bắc Kinh.",
       "zh": "小安来自北京。",
       "pinyin": "Xiǎo Ān láizì Běijīng."
@@ -258,7 +256,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_29",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tiểu Vương đến từ Nhật Bản.",
       "zh": "小王来自日本。",
       "pinyin": "Xiǎo Wáng láizì Rìběn."
@@ -267,7 +265,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_30",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Người đó đến từ Đà Nẵng.",
       "zh": "那个人来自岘港。",
       "pinyin": "Nà ge rén láizì Xiàngǎng."
@@ -276,7 +274,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_31",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn thân của tôi đến từ Thái Lan.",
       "zh": "我的闺蜜来自泰国。",
       "pinyin": "Wǒ de guīmì láizì Tàiguó."
@@ -285,7 +283,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_32",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chồng của cô ấy đến từ Đức.",
       "zh": "她的老公来自德国。",
       "pinyin": "Tā de lǎogōng láizì Déguó."
@@ -294,7 +292,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_33",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh họ của tôi đến từ Hàn Quốc.",
       "zh": "我的表哥来自韩国。",
       "pinyin": "Wǒ de biǎogē láizì Hánguó."
@@ -303,7 +301,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_34",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Ba người này đến từ Anh.",
       "zh": "这三个人来自英国。",
       "pinyin": "Zhè sān ge rén láizì Yīngguó."
@@ -312,7 +310,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_35",
       "hsk": 1,
       "topic": "Quê quán",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Giáo viên của họ đến từ Mỹ.",
       "zh": "他们的老师来自美国。",
       "pinyin": "Tāmen de lǎoshī láizì Měiguó."
@@ -321,7 +319,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_36",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh ấy là bác sĩ ngoại khoa.",
       "zh": "他是外科医生。",
       "pinyin": "Tā shì wàikē yīshēng."
@@ -330,7 +328,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_37",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tôi là giáo viên tiếng Trung.",
       "zh": "我是汉语老师。",
       "pinyin": "Wǒ shì Hànyǔ lǎoshī."
@@ -339,7 +337,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_38",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bố tôi là cảnh sát.",
       "zh": "我爸爸是警察。",
       "pinyin": "Wǒ bàba shì jǐngchá."
@@ -348,7 +346,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_39",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh trai tôi là nhà thiết kế.",
       "zh": "我哥哥是设计师。",
       "pinyin": "Wǒ gēge shì shèjìshī."
@@ -357,7 +355,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_40",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh rể tôi là luật sư.",
       "zh": "我姐夫是律师。",
       "pinyin": "Wǒ jiěfu shì lǜshī."
@@ -366,7 +364,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_41",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mẹ của anh ấy là nông dân.",
       "zh": "他妈妈是农民。",
       "pinyin": "Tā māma shì nóngmín."
@@ -375,7 +373,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_42",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em trai của anh ấy là kỹ sư.",
       "zh": "他弟弟是工程师。",
       "pinyin": "Tā dìdi shì gōngchéngshī."
@@ -384,7 +382,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_43",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "David là công nhân xây dựng.",
       "zh": "大卫是建筑工人。",
       "pinyin": "Dàwèi shì jiànzhù gōngrén."
@@ -393,7 +391,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_44",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em gái tôi là sinh viên.",
       "zh": "我妹妹是大学生。",
       "pinyin": "Wǒ mèimei shì dàxuéshēng."
@@ -402,7 +400,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_45",
       "hsk": 1,
       "topic": "Công việc & Nghề nghiệp",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Vợ tôi là hướng dẫn viên du lịch tiếng Trung.",
       "zh": "我老婆是中文导游。",
       "pinyin": "Wǒ lǎopo shì Zhōngwén dǎoyóu."
@@ -411,7 +409,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_46",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tôi có một quyển sách.",
       "zh": "我有一本书。",
       "pinyin": "Wǒ yǒu yì běn shū."
@@ -420,7 +418,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_47",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em gái tôi có ba cây bút.",
       "zh": "我妹妹有三支笔。",
       "pinyin": "Wǒ mèimei yǒu sān zhī bǐ."
@@ -429,7 +427,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_48",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chị gái tôi có bốn chiếc xe.",
       "zh": "我姐姐有四辆车。",
       "pinyin": "Wǒ jiějie yǒu sì liàng chē."
@@ -438,7 +436,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_49",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mẹ chồng tôi có chín con mèo.",
       "zh": "我婆婆有九只猫。",
       "pinyin": "Wǒ pópo yǒu jiǔ zhī māo."
@@ -447,7 +445,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_50",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh trai tôi có mười bộ quần áo.",
       "zh": "我哥哥有十件衣服。",
       "pinyin": "Wǒ gēge yǒu shí jiàn yīfu."
@@ -456,7 +454,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_51",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em trai tôi có hai quả táo.",
       "zh": "我弟弟有两个苹果。",
       "pinyin": "Wǒ dìdi yǒu liǎng ge píngguǒ."
@@ -465,7 +463,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_52",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn của tôi có năm chiếc điện thoại.",
       "zh": "我的朋友有五台手机。",
       "pinyin": "Wǒ de péngyou yǒu wǔ tái shǒujī."
@@ -474,7 +472,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_53",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Đồng nghiệp của tôi có sáu căn nhà.",
       "zh": "我的同事有六套房子。",
       "pinyin": "Wǒ de tóngshì yǒu liù tào fángzi."
@@ -483,7 +481,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_54",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chồng tôi có bảy chiếc đồng hồ đeo tay.",
       "zh": "我老公有七块手表。",
       "pinyin": "Wǒ lǎogōng yǒu qī kuài shǒubiǎo."
@@ -492,7 +490,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_55",
       "hsk": 1,
       "topic": "Lượng từ cơ bản",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chú tôi có ba con chó.",
       "zh": "我叔叔有三只狗。",
       "pinyin": "Wǒ shūshu yǒu sān zhī gǒu."
@@ -502,7 +500,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Câu chữ 是",
       "structure": "CÁCH HỎI - ĐÁP VỚI “是 shì”",
-      "vi": "Đó là túi của bạn phải không? Phải, đẹp không?",
+      "vi": "Đó là túi của bạn phải không?",
       "zh": "那是你的包吗？",
       "pinyin": "Nà shì nǐ de bāo ma?"
     },
@@ -511,7 +509,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Câu chữ 是",
       "structure": "CÁCH HỎI - ĐÁP VỚI “是 shì”",
-      "vi": "Bạn là học sinh phải không? Phải, tôi là học sinh cấp ba.",
+      "vi": "Bạn là học sinh phải không?",
       "zh": "你是学生吗？",
       "pinyin": "Nǐ shì xuésheng ma?"
     },
@@ -520,7 +518,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Câu chữ 是",
       "structure": "CÁCH HỎI - ĐÁP VỚI “是 shì”",
-      "vi": "Bố bạn là ông chủ phải không? Không phải, bố tôi là công nhân.",
+      "vi": "Bố bạn là ông chủ phải không?",
       "zh": "你爸爸是老板吗？",
       "pinyin": "Nǐ bàba shì lǎobǎn ma?"
     },
@@ -529,7 +527,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Câu chữ 是",
       "structure": "CÁCH HỎI - ĐÁP VỚI “是 shì”",
-      "vi": "Cô ấy là bạn gái của bạn phải không? Không phải, cô ấy là đồng nghiệp của tôi.",
+      "vi": "Cô ấy là bạn gái của bạn phải không?",
       "zh": "她是你女朋友吗？",
       "pinyin": "Tā shì nǐ nǚpéngyou ma?"
     },
@@ -538,7 +536,7 @@ window.TRANSLATION_DATA = {
       "hsk": 1,
       "topic": "Câu chữ 是",
       "structure": "CÁCH HỎI - ĐÁP VỚI “是 shì”",
-      "vi": "Anh ấy là chồng bạn phải không? Phải, chúng tôi kết hôn ba năm rồi.",
+      "vi": "Anh ấy là chồng bạn phải không?",
       "zh": "他是你老公吗？",
       "pinyin": "Tā shì nǐ lǎogōng ma?"
     },
@@ -546,7 +544,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_61",
       "hsk": 1,
       "topic": "Câu chữ 有",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn có tiền không?",
       "zh": "你有钱吗？",
       "pinyin": "Nǐ yǒu qián ma?"
@@ -555,7 +553,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_62",
       "hsk": 1,
       "topic": "Câu chữ 有",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh ấy có điện thoại không?",
       "zh": "他有手机吗？",
       "pinyin": "Tā yǒu shǒujī ma?"
@@ -564,7 +562,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_63",
       "hsk": 1,
       "topic": "Câu chữ 有",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Các bạn có bút không?",
       "zh": "你们有笔吗？",
       "pinyin": "Nǐmen yǒu bǐ ma?"
@@ -573,7 +571,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_64",
       "hsk": 1,
       "topic": "Câu chữ 有",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Thầy giáo/Cô giáo có thời gian không?",
       "zh": "老师有时间吗？",
       "pinyin": "Lǎoshī yǒu shíjiān ma?"
@@ -582,7 +580,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_65",
       "hsk": 1,
       "topic": "Câu chữ 有",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mary có máy tính không?",
       "zh": "玛丽有电脑吗？",
       "pinyin": "Mǎlì yǒu diànnǎo ma?"
@@ -591,8 +589,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_66",
       "hsk": 1,
       "topic": "Hỏi với 什么 & 哪",
-      "structure": "Cấu trúc:",
-      "vi": "Bạn xem gì? Tôi xem tin tức.",
+      "structure": "",
+      "vi": "Bạn xem gì?",
       "zh": "你看什么？",
       "pinyin": "Nǐ kàn shénme?"
     },
@@ -600,8 +598,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_67",
       "hsk": 1,
       "topic": "Hỏi với 什么 & 哪",
-      "structure": "Cấu trúc:",
-      "vi": "David ăn gì? David ăn mì bò.",
+      "structure": "",
+      "vi": "David ăn gì?",
       "zh": "大卫吃什么？",
       "pinyin": "Dàwèi chī shénme?"
     },
@@ -609,8 +607,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_68",
       "hsk": 1,
       "topic": "Hỏi với 什么 & 哪",
-      "structure": "Cấu trúc:",
-      "vi": "Mary nói gì? Mary nói cảm ợn bạn.",
+      "structure": "",
+      "vi": "Mary nói gì?",
       "zh": "玛丽说什么？",
       "pinyin": "Mǎlì shuō shénme?"
     },
@@ -618,7 +616,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_69",
       "hsk": 1,
       "topic": "Hỏi với 什么 & 哪",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh ấy hát bài gì?",
       "zh": "他唱什么歌？",
       "pinyin": "Tā chàng shénme gē?"
@@ -627,8 +625,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_70",
       "hsk": 1,
       "topic": "Hỏi với 什么 & 哪",
-      "structure": "Cấu trúc:",
-      "vi": "Ông nội uống trà gì? Ông uống trà ô long.",
+      "structure": "",
+      "vi": "Ông nội uống trà gì?",
       "zh": "爷爷喝什么茶？",
       "pinyin": "Yéye hē shénme chá?"
     },
@@ -636,8 +634,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_71",
       "hsk": 1,
       "topic": "Số lượng với 几",
-      "structure": "Cấu trúc:",
-      "vi": "Mấy người? Ngày mai mấy người đi công tác?",
+      "structure": "",
+      "vi": "Mấy người?",
       "zh": "几个人？",
       "pinyin": "Jǐ ge rén?"
     },
@@ -645,8 +643,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_72",
       "hsk": 1,
       "topic": "Số lượng với 几",
-      "structure": "Cấu trúc:",
-      "vi": "Mấy quyển sách? Trên giá sách có mấy quyển sách tiếng Trung?",
+      "structure": "",
+      "vi": "Mấy quyển sách?",
       "zh": "几本书？",
       "pinyin": "Jǐ běn shū?"
     },
@@ -654,8 +652,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_73",
       "hsk": 1,
       "topic": "Số lượng với 几",
-      "structure": "Cấu trúc:",
-      "vi": "Mấy chai nước? Chúng ta tổng cộng cần mấy chai nước?",
+      "structure": "",
+      "vi": "Mấy chai nước?",
       "zh": "几瓶水？",
       "pinyin": "Jǐ píng shuǐ?"
     },
@@ -663,8 +661,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_74",
       "hsk": 1,
       "topic": "Thời gian & Giờ giấc",
-      "structure": "Cấu trúc:: Dịch các cặp câu sau:",
-      "vi": "Cuộc họp mấy giờ bắt đầu? Cuộc họp 2 giờ chiều bắt đầu.",
+      "structure": "",
+      "vi": "Cuộc họp mấy giờ bắt đầu?",
       "zh": "会议几点开始？",
       "pinyin": "Huìyì jǐ diǎn kāishǐ?"
     },
@@ -672,8 +670,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk1_75",
       "hsk": 1,
       "topic": "Thời gian & Giờ giấc",
-      "structure": "Cấu trúc:: Dịch các cặp câu sau:",
-      "vi": "Bộ phim mấy giờ bắt đầu? Bộ phim 8 giờ tối bắt đầu.",
+      "structure": "",
+      "vi": "Bộ phim mấy giờ bắt đầu?",
       "zh": "电影几点开始？",
       "pinyin": "Diànyǐng jǐ diǎn kāishǐ?"
     }
@@ -683,7 +681,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_01",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Tôi về nhà rồi.",
       "zh": "我回家了。",
       "pinyin": "Wǒ huí jiā le."
@@ -692,7 +690,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_02",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Họ về nước rồi.",
       "zh": "他们回国了。",
       "pinyin": "Tāmen huí guó le."
@@ -701,7 +699,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_03",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Chị gái tôi kết hôn rồi.",
       "zh": "我姐姐结婚了。",
       "pinyin": "Wǒ jiějie jiéhūn le."
@@ -710,7 +708,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_04",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Bạn bè của tôi đều đến rồi.",
       "zh": "我的朋友都来了。",
       "pinyin": "Wǒ de péngyou dōu lái le."
@@ -719,7 +717,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_05",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Mọi người đi bơi rồi.",
       "zh": "大家去游泳了。",
       "pinyin": "Dàjiā qù yóuyǒng le."
@@ -728,7 +726,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_06",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Bọn trẻ ngủ rồi.",
       "zh": "孩子们睡觉了。",
       "pinyin": "Háizimen shuìjiào le."
@@ -737,7 +735,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_07",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Sếp đã rời đi rồi.",
       "zh": "老板已经离开了。",
       "pinyin": "Lǎobǎn yǐjīng líkāi le."
@@ -746,7 +744,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_08",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Bố mẹ đã ngủ rồi.",
       "zh": "爸爸妈妈已经睡觉了。",
       "pinyin": "Bàba māma yǐjīng shuìjiào le."
@@ -755,7 +753,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_09",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Ông bà già rồi.",
       "zh": "爷爷奶奶老了。",
       "pinyin": "Yéye nǎinai lǎo le."
@@ -764,7 +762,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_10",
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 了",
-      "structure": "Cấu trúc 1:: Thể hiện 1 sự việc đã hoàn thành hoặc sự thay đổi, biến đổi của 1 tình",
+      "structure": "Thể hiện sự việc hoàn thành hoặc thay đổi tình thái với 了",
       "vi": "Chúng tôi lớn rồi.",
       "zh": "我们长大了。",
       "pinyin": "Wǒmen zhǎng dà le."
@@ -774,7 +772,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Tôi uống cà phê, còn các bạn thì sao? Chúng tôi uống trà sữa.",
+      "vi": "Tôi uống cà phê, còn các bạn thì sao?",
       "zh": "我喝咖啡，你们呢？",
       "pinyin": "Wǒ hē kāfēi, nǐmen ne?"
     },
@@ -783,7 +781,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Năm nay tôi 20 tuổi, còn bạn thì sao? Tôi 25 tuổi, đã kết hôn rồi.",
+      "vi": "Năm nay tôi 20 tuổi, còn bạn thì sao?",
       "zh": "我今年20岁，你呢？",
       "pinyin": "Wǒ jīnnián èrshí suì, nǐ ne?"
     },
@@ -792,7 +790,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Tôi là người Việt Nam, còn bạn thì sao? Tôi là người Trung Quốc, tôi đến từ Bắc Kinh.",
+      "vi": "Tôi là người Việt Nam, còn bạn thì sao?",
       "zh": "我是越南人，你呢？",
       "pinyin": "Wǒ shì Yuènán rén, nǐ ne?"
     },
@@ -801,7 +799,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Chồng tôi rất keo kiệt, chồng bạn thì sao? Anh ấy rất hào phóng.",
+      "vi": "Chồng tôi rất keo kiệt, còn chồng bạn thì sao?",
       "zh": "我老公很抠门，你老公呢？",
       "pinyin": "Wǒ lǎogōng hěn kōumén, nǐ lǎogōng ne?"
     },
@@ -810,7 +808,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Mẹ tôi là bác sĩ, mẹ bạn thì sao? Bà ấy là y tá, làm việc ở bệnh viện.",
+      "vi": "Mẹ tôi là bác sĩ, còn mẹ bạn thì sao?",
       "zh": "我妈妈是医生，你妈妈呢？",
       "pinyin": "Wǒ māma shì yīshēng, nǐ māma ne?"
     },
@@ -819,7 +817,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Hôm nay tôi không bận, còn bạn thì sao? Hôm nay tôi cũng không bận, chúng ta đi chợi đi.",
+      "vi": "Hôm nay tôi không bận, còn bạn thì sao?",
       "zh": "我今天不忙，你呢？",
       "pinyin": "Wǒ jīntiān bù máng, nǐ ne?"
     },
@@ -828,7 +826,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Họ sống ở Bắc Kinh, còn các bạn thì sao? Chúng tôi sống ở Thượng Hải.",
+      "vi": "Họ sống ở Bắc Kinh, còn các bạn thì sao?",
       "zh": "他们住在北京，你们呢？",
       "pinyin": "Tāmen zhù zài Běijīng, nǐmen ne?"
     },
@@ -837,7 +835,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Nhà tôi có hai con chó, nhà bạn thì sao? Nhà tôi không có chó, nhà tôi có một con mèo.",
+      "vi": "Nhà tôi có hai con chó, còn nhà bạn thì sao?",
       "zh": "我家有两只狗，你家呢？",
       "pinyin": "Wǒ jiā yǒu liǎng zhī gǒu, nǐ jiā ne?"
     },
@@ -846,7 +844,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Con trai tôi thích ăn táo, con trai bạn thì sao? Con trai tôi không thích ăn trái cây.",
+      "vi": "Con trai tôi thích ăn táo, còn con trai bạn thì sao?",
       "zh": "我儿子喜欢吃苹果，你儿子呢？",
       "pinyin": "Wǒ érzi xǐhuan chī píngguǒ, nǐ érzi ne?"
     },
@@ -855,7 +853,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Trợ từ ngữ khí 呢",
       "structure": "TRỢ TỪ NGỮ KHÍ “呢 ne”",
-      "vi": "Chú chó con của tôi đâu? Nó ở dưới bàn.",
+      "vi": "Chú chó con của tôi đâu rồi?",
       "zh": "我的小狗呢？",
       "pinyin": "Wǒ de xiǎo gǒu ne?"
     },
@@ -936,7 +934,7 @@ window.TRANSLATION_DATA = {
       "hsk": 2,
       "topic": "Kỹ năng: 会 vs 知道",
       "structure": "PHÂN BIỆT “会 huì” với “知道 zhīdào”",
-      "vi": "Em trai tôi biết chợi bóng chuyền, cũng biết chợi bóng rổ.",
+      "vi": "Em trai tôi biết chơi bóng chuyền, cũng biết chơi bóng rổ.",
       "zh": "我弟弟会打排球，也会打篮球。",
       "pinyin": "Wǒ dìdi huì dǎ páiqiú, yě huì dǎ lánqiú."
     },
@@ -953,7 +951,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_31",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bức tranh anh ấy vẽ ở đâu?",
       "zh": "他画的画在哪儿？",
       "pinyin": "Tā huà de huà zài nǎr?"
@@ -962,7 +960,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_32",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mũ của bố ở đâu?",
       "zh": "爸爸的帽子在哪儿？",
       "pinyin": "Bàba de màozi zài nǎr?"
@@ -971,7 +969,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_33",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Con mèo con của tôi ở đâu?",
       "zh": "我的小猫在哪儿？",
       "pinyin": "Wǒ de xiǎo māo zài nǎr?"
@@ -980,7 +978,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_34",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Váy mới của bạn ở đâu?",
       "zh": "你的新裙子在哪儿？",
       "pinyin": "Nǐ de xīn qúnzi zài nǎr?"
@@ -989,7 +987,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_35",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chìa khóa xe của bạn ở đâu?",
       "zh": "你的车钥匙在哪儿？",
       "pinyin": "Nǐ de chē yàoshi zài nǎr?"
@@ -998,7 +996,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_36",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Cái ghế bố làm ở đâu?",
       "zh": "爸爸做的椅子在哪儿？",
       "pinyin": "Bàba zuò de yǐzi zài nǎr?"
@@ -1007,7 +1005,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_37",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Cặp sách của em trai bạn ở đâu?",
       "zh": "你弟弟的书包在哪儿？",
       "pinyin": "Nǐ dìdi de shūbāo zài nǎr?"
@@ -1016,7 +1014,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_38",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Quần áo mẹ giặt ở đâu?",
       "zh": "妈妈洗的衣服在哪儿？",
       "pinyin": "Māma xǐ de yīfu zài nǎr?"
@@ -1025,7 +1023,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_39",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Cây bút tôi tặng bạn ở đâu?",
       "zh": "我送给你的笔在哪儿？",
       "pinyin": "Wǒ sòng gěi nǐ de bǐ zài nǎr?"
@@ -1034,7 +1032,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_40",
       "hsk": 2,
       "topic": "Ở đâu làm gì với 在",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Xe đạp của ông nội ở đâu?",
       "zh": "爷爷的自行车在哪儿？",
       "pinyin": "Yéye de zìxíngchē zài nǎr?"
@@ -1043,7 +1041,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_41",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Minh đi bưu điện gửi thư.",
       "zh": "小明去邮局寄信。",
       "pinyin": "Xiǎomíng qù yóujú jì xìn."
@@ -1052,7 +1050,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_42",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi đến trường đón con.",
       "zh": "我去学校接孩子。",
       "pinyin": "Wǒ qù xuéxiào jiē háizi."
@@ -1061,7 +1059,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_43",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Họ đi nhà hàng ăn tối.",
       "zh": "他们去饭店吃晚饭。",
       "pinyin": "Tāmen qù fàndiàn chī wǎnfàn."
@@ -1070,7 +1068,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_44",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Chúng tôi đến nhà thầy giáo mượn sách.",
       "zh": "我们去老师家借书。",
       "pinyin": "Wǒmen qù lǎoshī jiā jiè shū."
@@ -1079,7 +1077,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_45",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh trai đi sân bay đón bạn.",
       "zh": "哥哥去机场接朋友。",
       "pinyin": "Gēge qù jīchǎng jiē péngyou."
@@ -1088,7 +1086,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_46",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Con trai đến nhà bạn làm bài tập.",
       "zh": "儿子去朋友家写作业。",
       "pinyin": "Érzi qù péngyou jiā xiě zuòyè."
@@ -1097,8 +1095,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_47",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
-      "vi": "Bố đi trung tâm thượng mại mua quần áo.",
+      "structure": "",
+      "vi": "Bố đi trung tâm thương mại mua quần áo.",
       "zh": "爸爸去商场买衣服。",
       "pinyin": "Bàba qù shāngchǎng mǎi yīfu."
     },
@@ -1106,8 +1104,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_48",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
-      "vi": "Họ đến nhà thi đấu chợi bóng rổ.",
+      "structure": "",
+      "vi": "Họ đến nhà thi đấu chơi bóng rổ.",
       "zh": "他们去体育馆打篮球。",
       "pinyin": "Tāmen qù tǐyùguǎn dǎ lánqiú."
     },
@@ -1115,7 +1113,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_49",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Mẹ đi cửa hàng mua đồ.",
       "zh": "妈妈去商店买东西。",
       "pinyin": "Māma qù shāngdiàn mǎi dōngxi."
@@ -1124,7 +1122,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_50",
       "hsk": 2,
       "topic": "Đi đâu làm gì với 去",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi và bố ra công viên đi dạo.",
       "zh": "我和爸爸去公园散步。",
       "pinyin": "Wǒ hé bàba qù gōngyuán sànbù."
@@ -1133,7 +1131,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_51",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Món ăn này nấu thế nào?",
       "zh": "这道菜怎么做？",
       "pinyin": "Zhè dào cài zěnme zuò?"
@@ -1142,7 +1140,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_52",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chúng ta về nhà bằng cách nào?",
       "zh": "我们怎么回家？",
       "pinyin": "Wǒmen zěnme huí jiā?"
@@ -1151,7 +1149,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_53",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Vượng hỏi thầy giáo/cô giáo như thế nào?",
       "zh": "小王怎么问老师？",
       "pinyin": "Xiǎo Wáng zěnme wèn lǎoshī?"
@@ -1160,7 +1158,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_54",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mẹ nấu món này như thế nào?",
       "zh": "妈妈怎么做这个菜？",
       "pinyin": "Māma zěnme zuò zhè ge cài?"
@@ -1169,7 +1167,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_55",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Cái máy tính này bật như thế nào?",
       "zh": "这台电脑怎么打开？",
       "pinyin": "Zhè tái diànnǎo zěnme dǎkāi?"
@@ -1178,7 +1176,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_56",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Xin hỏi, táo bán thế nào?",
       "zh": "请问，苹果怎么卖？",
       "pinyin": "Qǐngwèn, píngguǒ zěnme mài?"
@@ -1187,7 +1185,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_57",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Cô ợi, thịt heo bán thế nào?",
       "zh": "阿姨，猪肉怎么卖？",
       "pinyin": "Āyí, zhūròu zěnme mài?"
@@ -1196,7 +1194,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_58",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Hôm qua các bạn về nhà bằng cách nào?",
       "zh": "你们昨天怎么回家？",
       "pinyin": "Nǐmen zuótiān zěnme huí jiā?"
@@ -1205,7 +1203,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_59",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chúng ta dùng thứ này như thế nào?",
       "zh": "我们怎么用这个东西？",
       "pinyin": "Wǒmen zěnme yòng zhè ge dōngxi?"
@@ -1214,7 +1212,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_60",
       "hsk": 2,
       "topic": "Cách thức với 怎么",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tên của anh bạn đọc như thế nào?",
       "zh": "你哥哥的名字怎么读？",
       "pinyin": "Nǐ gēge de míngzi zěnme dú?"
@@ -1223,8 +1221,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_61",
       "hsk": 2,
       "topic": "Đánh giá với 怎么样",
-      "structure": "Cấu trúc 1:",
-      "vi": "Món ăn anh ấy nấu thế nào? Món anh ấy nấu rất ngon.",
+      "structure": "",
+      "vi": "Món ăn anh ấy nấu thế nào?",
       "zh": "他做的菜怎么样？",
       "pinyin": "Tā zuò de cài zěnme yàng?"
     },
@@ -1232,8 +1230,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_62",
       "hsk": 2,
       "topic": "Đánh giá với 怎么样",
-      "structure": "Cấu trúc 1:",
-      "vi": "Cuốn tiểu thuyết này thế nào? Cuốn tiểu thuyết này rất thú vị.",
+      "structure": "",
+      "vi": "Cuốn tiểu thuyết này thế nào?",
       "zh": "这本小说怎么样？",
       "pinyin": "Zhè běn xiǎoshuō zěnme yàng?"
     },
@@ -1241,8 +1239,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_63",
       "hsk": 2,
       "topic": "Đánh giá với 怎么样",
-      "structure": "Cấu trúc 1:",
-      "vi": "Chiếc túi tôi mới mua thế nào? Tôi thấy rất đẹp.",
+      "structure": "",
+      "vi": "Chiếc túi tôi mới mua thế nào?",
       "zh": "我新买的包怎么样？",
       "pinyin": "Wǒ xīn mǎi de bāo zěnme yàng?"
     },
@@ -1250,8 +1248,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_64",
       "hsk": 2,
       "topic": "Đánh giá với 怎么样",
-      "structure": "Cấu trúc 1:",
-      "vi": "Cốc hồng trà đó thế nào? Cốc hồng trà đó hợi đắng.",
+      "structure": "",
+      "vi": "Cốc hồng trà đó thế nào?",
       "zh": "那杯红茶怎么样？",
       "pinyin": "Nà bēi hóngchá zěnme yàng?"
     },
@@ -1259,8 +1257,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_65",
       "hsk": 2,
       "topic": "Đánh giá với 怎么样",
-      "structure": "Cấu trúc 1:",
-      "vi": "Bộ phim hôm qua các bạn xem thế nào? Bộ phim hôm qua chúng tôi xem rất chán.",
+      "structure": "",
+      "vi": "Bộ phim hôm qua các bạn xem thế nào?",
       "zh": "你们昨天看的电影怎么样？",
       "pinyin": "Nǐmen zuótiān kàn de diànyǐng zěnme yàng?"
     },
@@ -1268,7 +1266,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_66",
       "hsk": 2,
       "topic": "Thời gian: 什么时候",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Sếp khi nào đi Bắc Kinh công tác?",
       "zh": "老板什么时候去北京出差？",
       "pinyin": "Lǎobǎn shénme shíhou qù Běijīng chūchāi?"
@@ -1277,7 +1275,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_67",
       "hsk": 2,
       "topic": "Thời gian: 什么时候",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh bạn khi nào xuống máy bay?",
       "zh": "你哥哥什么时候下飞机？",
       "pinyin": "Nǐ gēge shénme shíhou xià fēijī?"
@@ -1286,7 +1284,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_68",
       "hsk": 2,
       "topic": "Thời gian: 什么时候",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Các bạn khi nào về Việt Nam?",
       "zh": "你们什么时候回越南？",
       "pinyin": "Nǐmen shénme shíhou huí Yuènán?"
@@ -1295,7 +1293,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_69",
       "hsk": 2,
       "topic": "Thời gian: 什么时候",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Con trai bạn khi nào dậy?",
       "zh": "你儿子什么时候起床？",
       "pinyin": "Nǐ érzi shénme shíhou qǐchuáng?"
@@ -1304,7 +1302,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_70",
       "hsk": 2,
       "topic": "Thời gian: 什么时候",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chúng ta khi nào đi ăn cơm?",
       "zh": "我们什么时候去吃饭？",
       "pinyin": "Wǒmen shénme shíhou qù chīfàn?"
@@ -1313,8 +1311,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_71",
       "hsk": 2,
       "topic": "Phủ định với 不 & 没",
-      "structure": "Cấu trúc 1:",
-      "vi": "Bố không đi. Hôm nay bố không đi làm.",
+      "structure": "",
+      "vi": "Bố không đi.",
       "zh": "爸爸不去。",
       "pinyin": "Bàba bú qù."
     },
@@ -1322,8 +1320,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_72",
       "hsk": 2,
       "topic": "Phủ định với 不 & 没",
-      "structure": "Cấu trúc 1:",
-      "vi": "Mẹ không đến. Mẹ không đến vì mẹ quá bận.",
+      "structure": "",
+      "vi": "Mẹ không đến.",
       "zh": "妈妈不来。",
       "pinyin": "Māma bù lái."
     },
@@ -1331,8 +1329,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_73",
       "hsk": 2,
       "topic": "Phủ định với 不 & 没",
-      "structure": "Cấu trúc 1:",
-      "vi": "Em gái không ăn. Em gái không ăn cơm tôi nấu.",
+      "structure": "",
+      "vi": "Em gái không ăn.",
       "zh": "妹妹不吃。",
       "pinyin": "Mèimei bù chī."
     },
@@ -1340,8 +1338,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_74",
       "hsk": 2,
       "topic": "Phủ định với 不 & 没",
-      "structure": "Cấu trúc 1:",
-      "vi": "Anh ấy không nói. Anh ấy không nói tên của mình.",
+      "structure": "",
+      "vi": "Anh ấy không nói.",
       "zh": "他不说。",
       "pinyin": "Tā bù shuō."
     },
@@ -1349,8 +1347,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk2_75",
       "hsk": 2,
       "topic": "Phủ định với 不 & 没",
-      "structure": "Cấu trúc 1:",
-      "vi": "Minh không đi. Minh không đi, anh ấy muốn ở lại đây.",
+      "structure": "",
+      "vi": "Minh không đi.",
       "zh": "阿明不走。",
       "pinyin": "Ā Míng bù zǒu."
     }
@@ -1360,7 +1358,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_01",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Xe của sếp rất đắt.",
       "zh": "老板的车很贵。",
       "pinyin": "Lǎobǎn de chē hěn guì."
@@ -1369,7 +1367,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_02",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Đây là ghế của Minh.",
       "zh": "这是小明的椅子。",
       "pinyin": "Zhè shì Xiǎomíng de yǐzi."
@@ -1378,8 +1376,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_03",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
-      "vi": "Đồ chợi của em trai rất nhiều.",
+      "structure": "",
+      "vi": "Đồ chơi của em trai rất nhiều.",
       "zh": "弟弟的玩具很多。",
       "pinyin": "Dìdi de wánjù hěn duō."
     },
@@ -1387,7 +1385,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_04",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Xe ô tô của bố không đắt lắm.",
       "zh": "爸爸的汽车不太贵。",
       "pinyin": "Bàba de qìchē bú tài guì."
@@ -1396,7 +1394,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_05",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Sở thích của David là đá bóng.",
       "zh": "大卫的爱好是踢足球。",
       "pinyin": "Dàwèi de àihào shì tī zúqiú."
@@ -1405,7 +1403,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_06",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Đây là khu vườn của nhà chúng tôi.",
       "zh": "这是我们家的花园。",
       "pinyin": "Zhè shì wǒmen jiā de huāyuán."
@@ -1414,7 +1412,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_07",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Sách của thầy giáo/cô giáo ở trên bàn.",
       "zh": "老师的书在桌子上。",
       "pinyin": "Lǎoshī de shū zài zhuōzi shàng."
@@ -1423,7 +1421,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_08",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Con của họ rất thông minh.",
       "zh": "他们的孩子很聪明。",
       "pinyin": "Tāmen de háizi hěn cōngming."
@@ -1432,7 +1430,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_09",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Phòng của em gái rất đẹp.",
       "zh": "妹妹的房间很漂亮。",
       "pinyin": "Mèimei de fángjiān hěn piàoliang."
@@ -1441,7 +1439,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_10",
       "hsk": 3,
       "topic": "Định ngữ với 的",
-      "structure": "Cấu trúc:: Trong đó:",
+      "structure": "",
       "vi": "Các đồng nghiệp của mẹ đều rất nhiệt tình.",
       "zh": "妈妈的同事都很热情。",
       "pinyin": "Māma de tóngshì dōu hěn rèqíng."
@@ -1450,7 +1448,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_11",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Đừng nhìn tôi.",
       "zh": "你别看我。",
       "pinyin": "Nǐ bié kàn wǒ."
@@ -1459,7 +1457,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_12",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Mẹ, mẹ đừng đi.",
       "zh": "妈妈，你别走。",
       "pinyin": "Māma, nǐ bié zǒu."
@@ -1468,7 +1466,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_13",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Thầy ợi, thầy đừng phạt em.",
       "zh": "老师，您别罚我。",
       "pinyin": "Lǎoshī, nín bié fá wǒ."
@@ -1477,7 +1475,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_14",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Chồng ợi, anh đừng giận.",
       "zh": "老公，你别生气。",
       "pinyin": "Lǎogōng, nǐ bié shēngqì."
@@ -1486,7 +1484,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_15",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Đừng chạm vào đồ của tôi.",
       "zh": "不要碰我的东西。",
       "pinyin": "Bù yào pèng wǒ de dōngxi."
@@ -1495,7 +1493,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_16",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Tôi không sao, bạn đừng lo.",
       "zh": "我没事，你别担心。",
       "pinyin": "Wǒ méi shì, nǐ bié dānxīn."
@@ -1504,7 +1502,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_17",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Bạn đừng uống quá nhiều cà phê.",
       "zh": "你不要喝太多咖啡。",
       "pinyin": "Nǐ bù yào hē tài duō kāfēi."
@@ -1513,7 +1511,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_18",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Chuyện này bạn đừng nói với anh ấy.",
       "zh": "这件事你别告诉他。",
       "pinyin": "Zhè jiàn shì nǐ bié gàosu tā."
@@ -1522,7 +1520,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_19",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Đừng hút thuốc trong phòng.",
       "zh": "不要在房间里抽烟。",
       "pinyin": "Bù yào zài fángjiān lǐ chōuyān."
@@ -1531,7 +1529,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_20",
       "hsk": 3,
       "topic": "Khuyên bảo: 别 & 不要",
-      "structure": "CÁCH NÓI ĐỪNG VỚI “别 bié” và “不要 búyào” Cấu",
+      "structure": "Cấu trúc đừng làm gì với 别 / 不要",
       "vi": "Đừng ngồi dưới đất, bẩn lắm.",
       "zh": "别坐在地上，很脏。",
       "pinyin": "Bié zuò zài dìshàng, hěn zāng."
@@ -1540,8 +1538,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_21",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Hôm nay tôi hợi mệt.",
+      "structure": "",
+      "vi": "Hôm nay tôi hơi mệt.",
       "zh": "我今天有点儿累。",
       "pinyin": "Wǒ jīntiān yǒudiǎnr lèi."
     },
@@ -1549,8 +1547,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_22",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Món này hợi cay.",
+      "structure": "",
+      "vi": "Món này hơi cay.",
       "zh": "这个菜有点儿辣。",
       "pinyin": "Zhè ge cài yǒudiǎnr là."
     },
@@ -1558,8 +1556,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_23",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Bộ quần áo này hợi đắt.",
+      "structure": "",
+      "vi": "Bộ quần áo này hơi đắt.",
       "zh": "这件衣服有点儿贵。",
       "pinyin": "Zhè jiàn yīfu yǒudiǎr guì."
     },
@@ -1567,8 +1565,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_24",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Dạo này bố hợi bận.",
+      "structure": "",
+      "vi": "Dạo này bố hơi bận.",
       "zh": "爸爸最近有点儿忙。",
       "pinyin": "Bàba zuìjìn yǒudiǎnr máng."
     },
@@ -1576,8 +1574,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_25",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Bài tập hôm nay hợi nhiều.",
+      "structure": "",
+      "vi": "Bài tập hôm nay hơi nhiều.",
       "zh": "今天的作业有点儿多。",
       "pinyin": "Jīntiān de zuòyè yǒudiǎnr duō."
     },
@@ -1585,8 +1583,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_26",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Hôm nay thời tiết hợi lạnh.",
+      "structure": "",
+      "vi": "Hôm nay thời tiết hơi lạnh.",
       "zh": "今天天气有点儿冷。",
       "pinyin": "Jīntiān tiānqì yǒudiǎnr lěng."
     },
@@ -1594,8 +1592,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_27",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Phòng của em gái tôi hợi nhỏ.",
+      "structure": "",
+      "vi": "Phòng của em gái tôi hơi nhỏ.",
       "zh": "我妹妹的房间有点儿小。",
       "pinyin": "Wǒ mèimei de fángjiān yǒudiǎnr xiǎo."
     },
@@ -1603,8 +1601,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_28",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Hôm nay Lan Anh hợi khó chịu.",
+      "structure": "",
+      "vi": "Hôm nay Lan Anh hơi khó chịu.",
       "zh": "兰英今天有点儿不舒服。",
       "pinyin": "Lányīng jīntiān yǒudiǎnr bù shūfu."
     },
@@ -1612,8 +1610,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_29",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Hôm nay mẹ hợi không vui.",
+      "structure": "",
+      "vi": "Hôm nay mẹ hơi không vui.",
       "zh": "妈妈今天有点儿不高兴。",
       "pinyin": "Māma jīntiān yǒudiǎnr bù gāoxìng."
     },
@@ -1621,8 +1619,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_30",
       "hsk": 3,
       "topic": "Mức độ: 有点儿",
-      "structure": "Cấu trúc:",
-      "vi": "Con trai hợi buồn ngủ, nó muốn đi ngủ.",
+      "structure": "",
+      "vi": "Con trai hơi buồn ngủ, nó muốn đi ngủ.",
       "zh": "儿子有点儿困，他想睡觉。",
       "pinyin": "Érzi yǒudiǎnr kùn, tā xiǎng shuìjiào."
     },
@@ -1630,7 +1628,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_31",
       "hsk": 3,
       "topic": "Đang làm gì với 在",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Họ đang nghe nhạc.",
       "zh": "他们在听音乐。",
       "pinyin": "Tāmen zài tīng yīnyuè."
@@ -1639,7 +1637,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_32",
       "hsk": 3,
       "topic": "Đang làm gì với 在",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Mẹ đang nấu bữa tối.",
       "zh": "妈妈在做晚饭。",
       "pinyin": "Māmā zài zuò wǎnfàn."
@@ -1648,7 +1646,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_33",
       "hsk": 3,
       "topic": "Đang làm gì với 在",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi đang viết thư cho mẹ.",
       "zh": "我在给妈妈写信。",
       "pinyin": "Wǒ zài gěi māma xiě xìn."
@@ -1657,7 +1655,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_34",
       "hsk": 3,
       "topic": "Đang làm gì với 在",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi và em trai đang ăn sáng.",
       "zh": "我和弟弟在吃早饭。",
       "pinyin": "Wǒ hé dìdi zài chī zǎofàn."
@@ -1666,7 +1664,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_35",
       "hsk": 3,
       "topic": "Đang làm gì với 在",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh ấy đang trò chuyện với bạn.",
       "zh": "他在跟朋友聊天。",
       "pinyin": "Tā zài gēn péngyǒu liáotiān."
@@ -1675,7 +1673,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_36",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Họ hát với ai?",
       "zh": "他们跟谁唱歌？",
       "pinyin": "Tāmen gēn shéi chànggē?"
@@ -1684,7 +1682,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_37",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mary đi dạo phố với ai?",
       "zh": "玛丽跟谁逛街？",
       "pinyin": "Mǎlì gēn shéi guàngjiē?"
@@ -1693,7 +1691,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_38",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Các bạn nhảy với ai?",
       "zh": "你们跟谁跳舞？",
       "pinyin": "Nǐmen gēn shéi tiàowǔ?"
@@ -1702,7 +1700,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_39",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em trai bạn nói chuyện với ai?",
       "zh": "你弟弟跟谁说话？",
       "pinyin": "Nǐ dìdi gēn shéi shuōhuà?"
@@ -1711,7 +1709,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_40",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em gái đi du lịch với ai?",
       "zh": "妹妹跟谁去旅游？",
       "pinyin": "Mèimei gēn shéi qù lǚyóu?"
@@ -1720,8 +1718,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_41",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
-      "vi": "Con chợi trò chợi với ai?",
+      "structure": "",
+      "vi": "Con chơi trò chơi với ai?",
       "zh": "孩子跟谁玩游戏？",
       "pinyin": "Háizi gēn shéi wán yóuxì?"
     },
@@ -1729,7 +1727,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_42",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Ông đi bệnh viện với ai?",
       "zh": "爷爷跟谁去医院？",
       "pinyin": "Yéye gēn shéi qù yīyuàn?"
@@ -1738,8 +1736,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_43",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
-      "vi": "Em trai chợi bóng rổ với ai?",
+      "structure": "",
+      "vi": "Em trai chơi bóng rổ với ai?",
       "zh": "弟弟跟谁打篮球？",
       "pinyin": "Dìdi gēn shéi dǎ lánqiú?"
     },
@@ -1747,7 +1745,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_44",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn đi xem phim với ai?",
       "zh": "你跟谁去看电影？",
       "pinyin": "Nǐ gēn shéi qù kàn diànyǐng?"
@@ -1756,7 +1754,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_45",
       "hsk": 3,
       "topic": "Cùng ai làm gì: 跟...一起",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh họ bạn trò chuyện với ai?",
       "zh": "你的表哥跟谁聊天？",
       "pinyin": "Nǐ de biǎogē gēn shéi liáotiān?"
@@ -1765,7 +1763,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_46",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn viết thư cho ai?",
       "zh": "你给谁写信？",
       "pinyin": "Nǐ gěi shéi xiě xìn?"
@@ -1774,7 +1772,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_47",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Sếp gọi điện cho ai?",
       "zh": "老板给谁打电话？",
       "pinyin": "Lǎobǎn gěi shéi dǎ diànhuà?"
@@ -1783,7 +1781,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_48",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bà nội làm bữa sáng cho ai?",
       "zh": "奶奶给谁做早饭？",
       "pinyin": "Nǎinai gěi shéi zuò zǎofàn?"
@@ -1792,7 +1790,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_49",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mẹ mua quần áo mới cho ai?",
       "zh": "妈妈给谁买新衣服？",
       "pinyin": "Māma gěi shéi mǎi xīn yīfu?"
@@ -1801,7 +1799,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_50",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh trai tặng hoa cho ai?",
       "zh": "哥哥给谁送花？",
       "pinyin": "Gēge gěi shéi sòng huā?"
@@ -1810,7 +1808,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_51",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Thầy kể chuyện cho ai?",
       "zh": "老师给谁讲故事？",
       "pinyin": "Lǎoshī gěi shéi jiǎng gùshì?"
@@ -1819,7 +1817,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_52",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chị rót trà cho ai?",
       "zh": "姐姐给谁倒茶？",
       "pinyin": "Jiějie gěi shéi dào chá?"
@@ -1828,7 +1826,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_53",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Chị giặt quần áo cho ai?",
       "zh": "姐姐给谁洗衣服？",
       "pinyin": "Jiějie gěi shéi xǐ yīfu?"
@@ -1837,7 +1835,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_54",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Thầy sửa bài tập cho ai?",
       "zh": "老师给谁改作业？",
       "pinyin": "Lǎoshī gěi shéi gǎi zuòyè?"
@@ -1846,7 +1844,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_55",
       "hsk": 3,
       "topic": "Làm gì cho ai với 给",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em trai mua quà sinh nhật cho ai?",
       "zh": "弟弟给谁买生日礼物？",
       "pinyin": "Dìdi gěi shéi mǎi shēngrì lǐwù?"
@@ -1855,8 +1853,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_56",
       "hsk": 3,
       "topic": "Mong muốn với 想",
-      "structure": "Cấu trúc:",
-      "vi": "Bạn muốn ăn món gì? Tôi muốn ăn vịt quay Bắc Kinh.",
+      "structure": "",
+      "vi": "Bạn muốn ăn món gì?",
       "zh": "你想吃什么菜？",
       "pinyin": "Nǐ xiǎng chī shénme cài?"
     },
@@ -1864,8 +1862,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_57",
       "hsk": 3,
       "topic": "Mong muốn với 想",
-      "structure": "Cấu trúc:",
-      "vi": "Anh ấy muốn mua thứ gì? Anh ấy muốn mua một cái bàn.",
+      "structure": "",
+      "vi": "Anh ấy muốn mua thứ gì?",
       "zh": "他想买什么东西？",
       "pinyin": "Tā xiǎng mǎi shénme dōngxi?"
     },
@@ -1873,8 +1871,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_58",
       "hsk": 3,
       "topic": "Mong muốn với 想",
-      "structure": "Cấu trúc:",
-      "vi": "Bố muốn xem tin tức gì? Bố muốn xem tin tức thể thao.",
+      "structure": "",
+      "vi": "Bố muốn xem tin tức gì?",
       "zh": "爸爸想看什么新闻？",
       "pinyin": "Bàba xiǎng kàn shénme xīnwén?"
     },
@@ -1882,8 +1880,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_59",
       "hsk": 3,
       "topic": "Mong muốn với 想",
-      "structure": "Cấu trúc:",
-      "vi": "Em trai bạn sau này muốn làm công việc gì? Em trai tôi sau này muốn làm cảnh sát.",
+      "structure": "",
+      "vi": "Em trai bạn sau này muốn làm công việc gì?",
       "zh": "你弟弟以后想做什么工作？",
       "pinyin": "Nǐ dìdi yǐhòu xiǎng zuò shénme gōngzuò?"
     },
@@ -1891,8 +1889,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_60",
       "hsk": 3,
       "topic": "Mong muốn với 想",
-      "structure": "Cấu trúc:",
-      "vi": "Bạn muốn nói gì? Nói đi. Tôi muốn nói cảm ợn bạn.",
+      "structure": "",
+      "vi": "Bạn muốn nói gì? Nói đi.",
       "zh": "你想说什么？说吧。",
       "pinyin": "Nǐ xiǎng shuō shénme? Shuō ba."
     },
@@ -1900,7 +1898,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_61",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Anh trai tôi cao hơn bạn.",
       "zh": "我哥哥比你高。",
       "pinyin": "Wǒ gēge bǐ nǐ gāo."
@@ -1909,7 +1907,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_62",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em trai tôi mập hơn tôi.",
       "zh": "我弟弟比我胖。",
       "pinyin": "Wǒ dìdi bǐ wǒ pàng."
@@ -1918,7 +1916,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_63",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Hôm nay lạnh hơn hôm qua.",
       "zh": "今天比昨天冷。",
       "pinyin": "Jīntiān bǐ zuótiān lěng."
@@ -1927,7 +1925,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_64",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tiếng Trung khó hơn tiếng Anh.",
       "zh": "中文比英文难。",
       "pinyin": "Zhōngwén bǐ Yīngwén nán."
@@ -1936,7 +1934,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_65",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "David gầy hơn Minh.",
       "zh": "大卫比阿明瘦。",
       "pinyin": "Dàwèi bǐ Ā Míng shòu."
@@ -1945,7 +1943,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_66",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bây giờ nóng hơn lúc sáng.",
       "zh": "现在比上午热。",
       "pinyin": "Xiànzài bǐ shàngwǔ rè."
@@ -1954,7 +1952,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_67",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em gái cô ấy xinh hơn tôi.",
       "zh": "她妹妹比我漂亮。",
       "pinyin": "Tā mèimei bǐ wǒ piàoliang."
@@ -1963,7 +1961,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_68",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Ở đây yên tĩnh hơn ở đó.",
       "zh": "这里比那里安静。",
       "pinyin": "Zhèlǐ bǐ nàlǐ ānjìng."
@@ -1972,7 +1970,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_69",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Sủi cảo ngon hơn bánh bao.",
       "zh": "饺子比包子好吃。",
       "pinyin": "Jiǎozi bǐ bāozi hǎochī."
@@ -1981,7 +1979,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_70",
       "hsk": 3,
       "topic": "So sánh hơn với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Dưa hấu rẻ hơn nho.",
       "zh": "西瓜比葡萄便宜。",
       "pinyin": "Xīguā bǐ pútao piányi."
@@ -1990,7 +1988,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_71",
       "hsk": 3,
       "topic": "So sánh nhất với 最",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Vợ tôi sợ bóng tối nhất.",
       "zh": "我老婆最怕黑。",
       "pinyin": "Wǒ lǎopo zuì pà hēi."
@@ -1999,7 +1997,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_72",
       "hsk": 3,
       "topic": "So sánh nhất với 最",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Mẹ yêu chúng tôi nhất.",
       "zh": "妈妈最爱我们。",
       "pinyin": "Māma zuì ài wǒmen."
@@ -2008,7 +2006,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_73",
       "hsk": 3,
       "topic": "So sánh nhất với 最",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi thích tiếng Trung nhất.",
       "zh": "我最喜欢中文。",
       "pinyin": "Wǒ zuì xǐhuan zhōngwén."
@@ -2017,7 +2015,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_74",
       "hsk": 3,
       "topic": "So sánh nhất với 最",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Con trai tôi sợ thi cử nhất.",
       "zh": "我儿子最怕考试。",
       "pinyin": "Wǒ érzi zuì pà kǎoshì."
@@ -2026,7 +2024,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk3_75",
       "hsk": 3,
       "topic": "So sánh nhất với 最",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Chúng tôi thích ăn lẩu nhất.",
       "zh": "我们最爱吃火锅。",
       "pinyin": "Wǒmen zuì ài chī huǒguō."
@@ -2037,7 +2035,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_01",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn cười nhiều vào.",
       "zh": "你多笑点儿吧。",
       "pinyin": "Nǐ duō xiào diǎnr ba."
@@ -2046,7 +2044,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_02",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn nói nhiều chút đi.",
       "zh": "你多说点儿吧。",
       "pinyin": "Nǐ duō shuō diǎnr ba."
@@ -2055,7 +2053,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_03",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn luyện tập nhiều chút đi.",
       "zh": "你多练习点儿吧。",
       "pinyin": "Nǐ duō liànxí diǎnr ba."
@@ -2064,7 +2062,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_04",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn vận động nhiều vào.",
       "zh": "你多运动点儿吧。",
       "pinyin": "Nǐ duō yùndòng diǎnr ba."
@@ -2073,7 +2071,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_05",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn đọc sách nhiều chút đi.",
       "zh": "你多看点儿书吧。",
       "pinyin": "Nǐ duō kàn diǎnr shū ba."
@@ -2082,7 +2080,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_06",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn uống nhiều nước vào.",
       "zh": "你多喝点儿水吧。",
       "pinyin": "Nǐ duō hē diǎnr shuǐ ba."
@@ -2091,7 +2089,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_07",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn ăn nhiều đồ ăn vào.",
       "zh": "你多吃点儿菜吧。",
       "pinyin": "Nǐ duō chī diǎnr cài ba."
@@ -2100,7 +2098,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_08",
       "hsk": 4,
       "topic": "Làm gì nhiều lên với 多",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn uống nhiều nước ép vào.",
       "zh": "你多喝点儿果汁吧。",
       "pinyin": "Nǐ duō hē diǎnr guǒzhī ba."
@@ -2109,7 +2107,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_09",
       "hsk": 4,
       "topic": "Bớt làm gì lại với 少",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn bớt thức khuya lại đi.",
       "zh": "你少熬夜吧。",
       "pinyin": "Nǐ shǎo áoyè ba."
@@ -2118,7 +2116,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_10",
       "hsk": 4,
       "topic": "Bớt làm gì lại với 少",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn bớt uống rượu lại đi.",
       "zh": "你少喝酒吧。",
       "pinyin": "Nǐ shǎo hē jiǔ ba."
@@ -2127,7 +2125,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_11",
       "hsk": 4,
       "topic": "Bớt làm gì lại với 少",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn bớt hút thuốc lại đi.",
       "zh": "你少抽烟吧。",
       "pinyin": "Nǐ shǎo chōuyān ba."
@@ -2136,7 +2134,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_12",
       "hsk": 4,
       "topic": "Bớt làm gì lại với 少",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn bớt tức giận lại đi.",
       "zh": "你少生气吧。",
       "pinyin": "Nǐ shǎo shēngqì ba."
@@ -2145,7 +2143,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_13",
       "hsk": 4,
       "topic": "Bớt làm gì lại với 少",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn bớt ăn thịt lại đi.",
       "zh": "你少吃肉吧。",
       "pinyin": "Nǐ shǎo chī ròu ba."
@@ -2154,7 +2152,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_14",
       "hsk": 4,
       "topic": "Bớt làm gì lại với 少",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn bớt uống cà phê lại đi.",
       "zh": "你少喝咖啡吧。",
       "pinyin": "Nǐ shǎo hē kāfēi ba."
@@ -2163,8 +2161,8 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_15",
       "hsk": 4,
       "topic": "Bớt làm gì lại với 少",
-      "structure": "Cấu trúc:",
-      "vi": "Bạn bớt chợi game lại đi.",
+      "structure": "",
+      "vi": "Bạn bớt chơi game lại đi.",
       "zh": "你少玩游戏吧。",
       "pinyin": "Nǐ shǎo wán yóuxì ba."
     },
@@ -2172,7 +2170,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_16",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để Minh lái xe đi.",
       "zh": "让阿明来开车吧。",
       "pinyin": "Ràng Ā Míng lái kāi chē ba."
@@ -2181,7 +2179,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_17",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để em gái thử xem.",
       "zh": "让妹妹来试试吧。",
       "pinyin": "Ràng mèimei lái shìshi ba."
@@ -2190,7 +2188,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_18",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để anh trai nói sự thật đi.",
       "zh": "让哥哥来说实话吧。",
       "pinyin": "Ràng gēge lái shuō shíhuà ba."
@@ -2199,7 +2197,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_19",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để tôi mua vé xem phim.",
       "zh": "让我来买电影票吧。",
       "pinyin": "Ràng wǒ lái mǎi diànyǐng piào ba."
@@ -2208,7 +2206,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_20",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để anh ấy hát bài này đi.",
       "zh": "让他来唱这首歌吧。",
       "pinyin": "Ràng tā lái chàng zhè shǒu gē ba."
@@ -2217,7 +2215,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_21",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để con gái giặt quần áo đi.",
       "zh": "让女儿来洗衣服吧。",
       "pinyin": "Ràng nǚ’ér lái xǐ yīfu ba."
@@ -2226,7 +2224,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_22",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để em trai tôi nói với bạn.",
       "zh": "让我弟弟来告诉你吧。",
       "pinyin": "Ràng wǒ dìdi lái gàosu nǐ ba."
@@ -2235,7 +2233,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_23",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để chúng tôi giúp bạn hoàn thành.",
       "zh": "让我们来帮你完成吧。",
       "pinyin": "Ràng wǒmen lái bāng nǐ wánchéng ba."
@@ -2244,7 +2242,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_24",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để lớp trưởng hỏi thầy thử đi.",
       "zh": "让班长来问问老师吧。",
       "pinyin": "Ràng bānzhǎng lái wènwen lǎoshī ba."
@@ -2253,7 +2251,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_25",
       "hsk": 4,
       "topic": "Để ai làm gì với 让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Để họ xử lý chuyện này đi.",
       "zh": "让他们来处理这件事吧。",
       "pinyin": "Ràng tāmen lái chǔlǐ zhè jiàn shì ba."
@@ -2262,7 +2260,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_26",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi bảo anh ấy rửa bát.",
       "zh": "我让他洗碗。",
       "pinyin": "Wǒ ràng tā xǐ wǎn."
@@ -2271,7 +2269,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_27",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Mẹ bảo tôi giặt quần áo.",
       "zh": "妈妈让我洗衣服。",
       "pinyin": "Māma ràng wǒ xǐ yīfu."
@@ -2280,7 +2278,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_28",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bố bảo tôi đóng cửa.",
       "zh": "爸爸让我关门。",
       "pinyin": "Bàba ràng wǒ guān mén."
@@ -2289,7 +2287,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_29",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bà nội bảo tôi uống sữa.",
       "zh": "奶奶让我喝牛奶。",
       "pinyin": "Nǎinai ràng wǒ hē niúnǎi."
@@ -2298,7 +2296,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_30",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Tôi bảo con trai làm bài tập.",
       "zh": "我让儿子写作业。",
       "pinyin": "Wǒ ràng érzi xiě zuòyè."
@@ -2307,7 +2305,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_31",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Chị gái bảo tôi đợi chị ấy.",
       "zh": "姐姐让我等她。",
       "pinyin": "Jiějie ràng wǒ děng tā."
@@ -2316,7 +2314,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_32",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Em gái bảo tôi hát.",
       "zh": "妹妹让我唱歌。",
       "pinyin": "Mèimei ràng wǒ chànggē."
@@ -2325,7 +2323,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_33",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh trai bảo tôi học tiếng Trung.",
       "zh": "哥哥让我学中文。",
       "pinyin": "Gēge ràng wǒ xué Zhōngwén."
@@ -2334,7 +2332,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_34",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh ấy bảo tôi ngồi đây.",
       "zh": "他让我坐这儿。",
       "pinyin": "Tā ràng wǒ zuò zhèr."
@@ -2343,7 +2341,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_35",
       "hsk": 4,
       "topic": "Bảo ai làm gì với 叫/让",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bác sĩ bảo tôi uống nhiều nước.",
       "zh": "医生让我多喝水。",
       "pinyin": "Yīshēng ràng wǒ duō hē shuǐ."
@@ -2352,7 +2350,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_36",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Hôm nay tôi vui hơn hôm qua.",
       "zh": "我今天比昨天开心。",
       "pinyin": "Wǒ jīntiān bǐ zuótiān kāixīn."
@@ -2361,7 +2359,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_37",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Câu cá thú vị hơn leo núi.",
       "zh": "钓鱼比爬山有意思。",
       "pinyin": "Diàoyú bǐ páshān yǒuyìsi."
@@ -2370,7 +2368,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_38",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mèo của tôi thông minh hơn mèo của bạn.",
       "zh": "我的猫比你的猫聪明。",
       "pinyin": "Wǒ de māo bǐ nǐ de māo cōngming."
@@ -2379,7 +2377,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_39",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Con chó này đáng yêu hơn con chó kia.",
       "zh": "这只狗比那只狗可爱。",
       "pinyin": "Zhè zhī gǒu bǐ nà zhī gǒu kě’ài."
@@ -2388,7 +2386,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_40",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "lương của bố cao hơn lương của mẹ.",
       "zh": "爸爸的工资比妈妈的工资高。",
       "pinyin": "Bàba de gōngzī bǐ māma de gōngzī gāo."
@@ -2397,7 +2395,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_41",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 2:",
+      "structure": "",
       "vi": "Tôi cao hơn anh ấy một chút.",
       "zh": "我比他高一点儿。",
       "pinyin": "Wǒ bǐ tā gāo yìdiǎnr."
@@ -2406,7 +2404,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_42",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 2:",
+      "structure": "",
       "vi": "Em trai thấp hơn anh trai một chút.",
       "zh": "弟弟比哥哥矮一些。",
       "pinyin": "Dìdi bǐ gēge ǎi yìxiē."
@@ -2415,7 +2413,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_43",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 2:",
+      "structure": "",
       "vi": "Hôm nay nóng hơn hôm qua một chút.",
       "zh": "今天比昨天热一些。",
       "pinyin": "Jīntiān bǐ zuótiān rè yìxiē."
@@ -2424,7 +2422,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_44",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 2:",
+      "structure": "",
       "vi": "Chị tôi gầy hơn tôi một chút.",
       "zh": "我姐姐比我瘦一些。",
       "pinyin": "Wǒ jiějie bǐ wǒ shòu yìxiē."
@@ -2433,7 +2431,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_45",
       "hsk": 4,
       "topic": "So sánh hơn nâng cao với 比",
-      "structure": "Cấu trúc 2:",
+      "structure": "",
       "vi": "Mary bận hơn tôi một chút.",
       "zh": "玛丽比我忙一点儿。",
       "pinyin": "Mǎlì bǐ wǒ máng yìdiǎnr."
@@ -2442,7 +2440,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_46",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn lại nói dối rồi.",
       "zh": "你又说谎了。",
       "pinyin": "Nǐ yòu shuōhuǎng le."
@@ -2451,7 +2449,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_47",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Họ lại đánh người rồi.",
       "zh": "他们又打人了。",
       "pinyin": "Tāmen yòu dǎ rén le."
@@ -2460,7 +2458,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_48",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Minh lại uống rượu rồi.",
       "zh": "阿明又喝酒了。",
       "pinyin": "Ā Míng yòu hējiǔ le."
@@ -2469,7 +2467,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_49",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Họ lại hút thuốc rồi.",
       "zh": "他们又抽烟了。",
       "pinyin": "Tāmen yòu chōuyān le."
@@ -2478,7 +2476,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_50",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn trai của bạn lại đến rồi.",
       "zh": "你男朋友又来了。",
       "pinyin": "Nǐ nánpéngyou yòu lái le."
@@ -2487,7 +2485,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_51",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Thầy lại mắng Vượng rồi.",
       "zh": "老师又骂小王了。",
       "pinyin": "Lǎoshī yòu mà Xiǎo Wáng le."
@@ -2496,7 +2494,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_52",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Ba lại quên mang chìa khóa rồi.",
       "zh": "爸爸又忘带钥匙了。",
       "pinyin": "Bàba yòu wàng dài yàoshi le."
@@ -2505,7 +2503,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_53",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Hôm nay Mary lại đến muộn rồi.",
       "zh": "玛丽今天又迟到了。",
       "pinyin": "Mǎlì jīntiān yòu chídào le."
@@ -2514,7 +2512,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_54",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Hôm qua bạn lại thức khuya à?",
       "zh": "你昨天又熬夜了吗？",
       "pinyin": "Nǐ zuótiān yòu áoyè le ma?"
@@ -2523,7 +2521,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_55",
       "hsk": 4,
       "topic": "Lặp lại hành động: 又 vs 再",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Con của họ lại khóc rồi.",
       "zh": "他们的孩子又哭了。",
       "pinyin": "Tāmen de háizi yòu kū le."
@@ -2532,7 +2530,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_56",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Cho tôi một ít kẹo.",
       "zh": "给我一点儿糖。",
       "pinyin": "Gěi wǒ yìdiǎnr táng."
@@ -2541,7 +2539,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_57",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn ăn một chút táo đi.",
       "zh": "你吃一点儿苹果吧。",
       "pinyin": "Nǐ chī yìdiǎnr píngguǒ ba."
@@ -2550,7 +2548,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_58",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tôi cần một chút thời gian.",
       "zh": "我需要一点儿时间。",
       "pinyin": "Wǒ xūyào yìdiǎnr shíjiān."
@@ -2559,7 +2557,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_59",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Xin hãy cho tôi một chút thời gian.",
       "zh": "请给我一点儿时间。",
       "pinyin": "Qǐng gěi wǒ yìdiǎnr shíjiān."
@@ -2568,7 +2566,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_60",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn uống một chút trà hoa cúc đi.",
       "zh": "你喝一点儿菊花茶吧。",
       "pinyin": "Nǐ hē yìdiǎnr júhuāchá ba."
@@ -2577,7 +2575,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_61",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Tôi muốn ăn một chút thịt bò.",
       "zh": "我想吃一点儿牛肉。",
       "pinyin": "Wǒ xiǎng chī yìdiǎnr niúròu."
@@ -2586,7 +2584,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_62",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Mẹ muốn mua một ít trái cây.",
       "zh": "妈妈想买一点儿水果。",
       "pinyin": "Māmā xiǎng mǎi yìdiǎnr shuǐguǒ."
@@ -2595,7 +2593,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_63",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn muốn ăn một chút gì đó không?",
       "zh": "你想吃一点儿东西吗？",
       "pinyin": "Nǐ xiǎng chī yìdiǎnr dōngxi ma?"
@@ -2604,7 +2602,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_64",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Bạn gầy quá, ăn nhiều nhiều đồ ăn vào.",
       "zh": "你太瘦了，多吃一点儿菜吧。",
       "pinyin": "Nǐ tài shòu le, duō chī yìdiǎnr cài ba."
@@ -2613,7 +2611,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_65",
       "hsk": 4,
       "topic": "Cấu trúc với 一点儿",
-      "structure": "Cấu trúc 1:",
+      "structure": "",
       "vi": "Em đưa cho con một ít đồ ăn vặt đi.",
       "zh": "你给孩子一点儿零食吧。",
       "pinyin": "Nǐ gěi háizi yìdiǎnr língshí ba."
@@ -2622,7 +2620,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_66",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bạn đỡ hơn chút nào chưa?",
       "zh": "你好点儿了吗？",
       "pinyin": "Nǐ hǎo diǎnr le ma?"
@@ -2631,7 +2629,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_67",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Anh ấy đỡ hơn chút nào chưa?",
       "zh": "他好点儿了吗？",
       "pinyin": "Tā hǎo diǎnr le ma?"
@@ -2640,7 +2638,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_68",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Mẹ bạn đỡ hơn chút nào chưa?",
       "zh": "你妈妈好点儿了吗？",
       "pinyin": "Nǐ māma hǎo diǎnr le ma?"
@@ -2649,7 +2647,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_69",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Răng của con gái đỡ hơn chút nào chưa?",
       "zh": "女儿的牙好点儿了吗？",
       "pinyin": "Nǚ’ér de yá hǎo diǎnr le ma?"
@@ -2658,7 +2656,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_70",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Mắt của con trai đỡ hơn chút nào chưa?",
       "zh": "儿子的眼睛好点儿了吗？",
       "pinyin": "Érzi de yǎnjing hǎo diǎnr le ma?"
@@ -2667,7 +2665,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_71",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Đầu gối của bạn đỡ hơn chút nào chưa?",
       "zh": "你的膝盖好点儿了吗？",
       "pinyin": "Nǐ de xīgài hǎo diǎnr le ma?"
@@ -2676,7 +2674,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_72",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Chân của Minh đỡ hơn chút nào chưa?",
       "zh": "阿明的腿好点儿了吗？",
       "pinyin": "Ā Míng de tuǐ hǎo diǎnr le ma?"
@@ -2685,7 +2683,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_73",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Bệnh của David đỡ hơn chút nào chưa?",
       "zh": "大卫的病好点儿了吗？",
       "pinyin": "Dàwèi de bìng hǎo diǎnr le ma?"
@@ -2694,7 +2692,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_74",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Chân của anh trai bạn đỡ hơn chút nào chưa?",
       "zh": "你哥哥的脚好点儿了吗？",
       "pinyin": "Nǐ gēge de jiǎo hǎo diǎnr le ma?"
@@ -2703,7 +2701,7 @@ window.TRANSLATION_DATA = {
       "id": "tr_hsk4_75",
       "hsk": 4,
       "topic": "Sức khỏe & Triệu chứng",
-      "structure": "Cấu trúc:",
+      "structure": "",
       "vi": "Cổ họng của con anh ấy đỡ hơn chút nào chưa?",
       "zh": "他孩子的嗓子好点儿了吗？",
       "pinyin": "Tā háizi de sǎngzi hǎo diǎnr le ma?"
