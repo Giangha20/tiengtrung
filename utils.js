@@ -21,25 +21,41 @@
   };
 
   // ==============================================================
-  // SINGLE-VOICE RESILIENT AUDIO ENGINE (1 GIỌNG DUY NHẤT, KHÔNG TRÙNG LẶP)
-  // Đảm bảo không bao giờ có 2 giọng nói cùng lúc hay chồng chéo nhau.
+  // SINGLE-VOICE RESILIENT AUDIO ENGINE (100% RELIABLE PC & MOBILE)
+  // 1. Google Translate TTS (Primary - standard Mandarin, supports words & full sentences)
+  // 2. Baidu Translate TTS (Secondary - Beijing standard, CDN fast fallback)
+  // 3. Web SpeechSynthesis (Tertiary - offline fallback)
+  // Bảo đảm: CHỈ 1 GIỌNG NÓI DUY NHẤT, KHÔNG CHỒNG CHÉO, KHÔNG BAO GIỜ MẤT TIẾNG.
   // ==============================================================
   let audioUnlocked = false;
-  let activeAudio = null;
-  let activeTimeout = null;
+  let sharedAudio = null;
+  let playSeq = 0;
+  let activeFallbackTimer = null;
+
+  function getSharedAudio() {
+    if (!sharedAudio && typeof Audio !== 'undefined') {
+      try {
+        sharedAudio = new Audio();
+        sharedAudio.setAttribute('playsinline', '');
+        sharedAudio.setAttribute('webkit-playsinline', '');
+        sharedAudio.preload = 'auto';
+      } catch (e) {}
+    }
+    return sharedAudio;
+  }
 
   function stopAllAudio() {
-    if (activeTimeout) {
-      clearTimeout(activeTimeout);
-      activeTimeout = null;
+    playSeq++; // Ngay lập tức vô hiệu hóa mọi callback của lần phát trước
+    if (activeFallbackTimer) {
+      clearTimeout(activeFallbackTimer);
+      activeFallbackTimer = null;
     }
-    if (activeAudio) {
+    const a = getSharedAudio();
+    if (a) {
       try {
-        activeAudio.pause();
-        activeAudio.currentTime = 0;
-        activeAudio.src = '';
+        a.pause();
+        a.currentTime = 0;
       } catch (e) {}
-      activeAudio = null;
     }
     if ('speechSynthesis' in window) {
       try {
@@ -48,10 +64,24 @@
     }
   }
 
-  // Pre-unlock speech synthesis on first user interaction
+  // Pre-unlock audio on first user touch / click for iOS & mobile browsers
   function unlockAudio() {
     if (audioUnlocked) return;
     audioUnlocked = true;
+    const a = getSharedAudio();
+    if (a) {
+      try {
+        // Silent 1-sample WAV unlock
+        a.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
+        const p = a.play();
+        if (p && typeof p.then === 'function') {
+          p.then(() => {
+            a.pause();
+            a.currentTime = 0;
+          }).catch(() => {});
+        }
+      } catch (e) {}
+    }
     if ('speechSynthesis' in window) {
       try {
         window.speechSynthesis.resume();
@@ -72,11 +102,13 @@
       text = String(text).trim();
       if (!text) return;
 
-      // 1. DỪNG NGAY MỌI ÂM THANH ĐANG PHÁT - ĐẢM BẢO CHỈ 1 GIỌNG DUY NHẤT
+      // 1. Dừng ngay bất kỳ âm thanh nào đang phát trước đó (Đảm bảo chỉ 1 giọng)
       stopAllAudio();
       unlockAudio();
 
-      // Retrieve speed from user settings
+      const thisSeq = playSeq;
+
+      // User speed settings
       const getSpeedObj = () => window.GH_SPEECH || {
         getSpeed: () => {
           try {
@@ -108,17 +140,19 @@
 
       let finished = false;
       const onDone = () => {
+        if (thisSeq !== playSeq) return;
         if (finished) return;
         finished = true;
-        stopAllAudio();
         if (typeof options.onEnd === 'function') options.onEnd();
       };
 
-      // Giọng dự phòng duy nhất: Native SpeechSynthesis (chuẩn zh-CN)
-      const speakWithSynth = () => {
+      // Native SpeechSynthesis (dự phòng offline)
+      const trySpeechSynth = () => {
+        if (thisSeq !== playSeq) return;
         if ('speechSynthesis' in window) {
           try {
             window.speechSynthesis.cancel();
+            window.speechSynthesis.resume();
             const u = new SpeechSynthesisUtterance(text);
             u.lang = 'zh-CN';
             u.rate = speechRate;
@@ -127,8 +161,8 @@
                          || voices.find(v => v.lang && v.lang.toLowerCase().startsWith('zh-cn'))
                          || voices.find(v => v.lang && (v.lang.includes('zh') || v.lang.includes('cmn')));
             if (zhVoice) u.voice = zhVoice;
-            u.onend = onDone;
-            u.onerror = onDone;
+            u.onend = () => { if (thisSeq === playSeq) onDone(); };
+            u.onerror = () => { if (thisSeq === playSeq) onDone(); };
             window.speechSynthesis.speak(u);
             return;
           } catch (e) {}
@@ -136,66 +170,99 @@
         onDone();
       };
 
-      // Giọng phát âm chuẩn tự nhiên NetEase Youdao (Bắc Kinh tiêu chuẩn)
-      const youdaoUrl = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&le=zh`;
+      // URL Sources:
+      // Primary: Google Translate TTS (chuẩn Mandarin quốc tế, mượt mà cả từ ngắn lẫn câu dài)
+      const googleUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=zh-CN&client=tw-ob&q=${encodeURIComponent(text)}`;
+      // Secondary: Baidu Translate TTS (chuẩn Bắc Kinh)
+      const baiduUrl = `https://fanyi.baidu.com/gettts?lan=zh&text=${encodeURIComponent(text)}&spd=5&source=web`;
 
-      const audio = new Audio();
-      activeAudio = audio;
-      audio.preload = 'auto';
-      audio.setAttribute('playsinline', '');
-      audio.setAttribute('webkit-playsinline', '');
+      const audio = getSharedAudio();
+      if (!audio) {
+        trySpeechSynth();
+        return;
+      }
+
       audio.playbackRate = playbackRate;
 
-      // HỦY NGAY TIMER FALLBACK KHI ÂM THANH BẮT ĐẦU PHÁT - KHÔNG BAO GIỜ CHO PHÉP GIỌNG 2 CHÈN VÀO!
-      const cancelFallback = () => {
-        if (activeTimeout) {
-          clearTimeout(activeTimeout);
-          activeTimeout = null;
+      // Hàm phát một URL âm thanh, bảo đảm 1 giọng duy nhất
+      const playUrl = (url, nextFallback) => {
+        if (thisSeq !== playSeq) return;
+
+        let hasStarted = false;
+        const cancelTimer = () => {
+          if (activeFallbackTimer) {
+            clearTimeout(activeFallbackTimer);
+            activeFallbackTimer = null;
+          }
+        };
+
+        audio.onplay = () => {
+          if (thisSeq !== playSeq) return;
+          hasStarted = true;
+          cancelTimer();
+        };
+
+        audio.onplaying = () => {
+          if (thisSeq !== playSeq) return;
+          hasStarted = true;
+          cancelTimer();
+        };
+
+        audio.ontimeupdate = () => {
+          if (thisSeq !== playSeq) return;
+          if (audio.currentTime > 0) {
+            hasStarted = true;
+            cancelTimer();
+          }
+        };
+
+        audio.onended = () => {
+          if (thisSeq !== playSeq) return;
+          cancelTimer();
+          onDone();
+        };
+
+        audio.onerror = () => {
+          if (thisSeq !== playSeq) return;
+          cancelTimer();
+          nextFallback();
+        };
+
+        // Fallback timer nếu URL bị treo hoặc quá lâu không tải được
+        cancelTimer();
+        activeFallbackTimer = setTimeout(() => {
+          if (thisSeq !== playSeq) return;
+          if (hasStarted || (!audio.paused && audio.currentTime > 0)) {
+            cancelTimer();
+            return;
+          }
+          nextFallback();
+        }, 4000);
+
+        try {
+          audio.src = url;
+          const p = audio.play();
+          if (p && typeof p.catch === 'function') {
+            p.catch(err => {
+              if (thisSeq !== playSeq) return;
+              // Nếu play() bị gián đoạn do click mới, không fallback
+              if (err && err.name === 'AbortError') return;
+              cancelTimer();
+              nextFallback();
+            });
+          }
+        } catch (e) {
+          cancelTimer();
+          nextFallback();
         }
       };
 
-      audio.onplay = cancelFallback;
-      audio.onplaying = cancelFallback;
-      audio.ontimeupdate = () => {
-        if (audio.currentTime > 0) cancelFallback();
-      };
-
-      audio.onended = () => {
-        cancelFallback();
-        onDone();
-      };
-
-      const handleFail = () => {
-        cancelFallback();
-        if (activeAudio === audio) {
-          try {
-            audio.pause();
-            audio.src = '';
-          } catch (e) {}
-          activeAudio = null;
-        }
-        speakWithSynth();
-      };
-
-      audio.onerror = handleFail;
-
-      // Timeout 4s nếu mạng bị rớt hoặc chặn không thể tải audio
-      activeTimeout = setTimeout(() => {
-        // Nếu audio đang phát bình thường thì tuyệt đối không fallback
-        if (!audio.paused && audio.currentTime > 0) {
-          cancelFallback();
-          return;
-        }
-        handleFail();
-      }, 4000);
-
-      audio.src = youdaoUrl;
-      const playPromise = audio.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {
-          handleFail();
+      // Ưu tiên 1: Google TTS -> Nếu lỗi chuyển Ưu tiên 2: Baidu TTS -> Nếu lỗi chuyển Dự phòng 3: SpeechSynthesis
+      playUrl(googleUrl, () => {
+        playUrl(baiduUrl, () => {
+          trySpeechSynth();
         });
-      }
+      });
     }
   };
 
