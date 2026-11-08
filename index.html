@@ -14,7 +14,7 @@
 
     <script>
       // Tu dong xoa cache va bat buoc cap nhat ban moi nhat v45
-      const GH_CURRENT_BUILD = 'gh_v46_20261108';
+      const GH_CURRENT_BUILD = 'gh_v47_20261108';
       if (localStorage.getItem('gh_app_build') !== GH_CURRENT_BUILD) {
         if ('caches' in window) {
           caches.keys().then(function(keys) {
@@ -56,7 +56,7 @@
     <link rel="stylesheet" href="./enhancements.css?v=21">
     <link rel="stylesheet" href="./premium_plus.css?v=3">
     <link rel="stylesheet" href="./translation.css?v=2">
-    <link rel="stylesheet" href="./writing.css?v=3">
+    <link rel="stylesheet" href="./writing.css?v=4">
 
     
     <script>
@@ -367,7 +367,7 @@
             
         
             <div id="gh-update-badge" class="gh-update-badge">
-                <span>⚡ v46: Tách riêng HSK 1-6 & Fix Loader</span>
+                <span>⚡ v47: Ô Ly Luyện Viết Chuẩn & Không Đè Chữ</span>
                 <button type="button" onclick="window.GH_forceUpdateApp()">Làm mới dữ liệu</button>
             </div>
         </main>
@@ -398,7 +398,7 @@
     <script src="./translation.js?v=3"></script>
     <script src="./hanzi-writer.min.js"></script>
     <script src="./radicals_data.js?v=2"></script>
-    <script src="./writing.js?v=5"></script>
+    <script src="./writing.js?v=6"></script>
     <script>
   window.GH_forceUpdateApp = function() {
     if ('caches' in window) {

@@ -362,10 +362,11 @@
   transform: scale(1.2);
 }
 
-/* Ô Mễ Tự (Mǐzìgé) Canvas Wrap */
+/* Ô Viết Chữ Hán - Lưới Ô Ly Nhỏ Chuẩn Vở Tập Viết */
 .mizige-box-wrap {
   position: relative;
-  border: 3px solid #dc2626; /* Khung đỏ truyền thống của thư pháp */
+  isolation: isolate; /* Cách ly stacking context, đảm bảo nét chữ z-index: 2 luôn nằm trên nền z-index: 1 */
+  border: 2.5px solid #ef4444; /* Khung đỏ truyền thống của vở tập viết */
   border-radius: 8px;
   background: #fffdfa; /* Nền giấy tập ấm áp */
   overflow: hidden;
@@ -375,17 +376,21 @@
   justify-content: center;
 }
 
-/* Đường kẻ mễ tự 米字格 cân đối */
+/* Đảm bảo chữ Hán và các nét viết LUÔN nằm trên lớp lưới nền (KHÔNG bao giờ bị lưới đè lên chữ) */
+.mizige-box-wrap svg {
+  position: relative;
+  z-index: 2;
+  display: block;
+}
+
+/* Lưới các ô ly nhỏ chuẩn vở tập viết (nằm chìm bên dưới ở z-index: 1, KHÔNG đè lên chữ) */
 .mizige-box-wrap::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(to right, transparent 49.3%, #fca5a5 49.3%, #fca5a5 50.7%, transparent 50.7%),
-    linear-gradient(to bottom, transparent 49.3%, #fca5a5 49.3%, #fca5a5 50.7%, transparent 50.7%),
-    linear-gradient(45deg, transparent 49.4%, #fecaca 49.4%, #fecaca 50.6%, transparent 50.6%),
-    linear-gradient(-45deg, transparent 49.4%, #fecaca 49.4%, #fecaca 50.6%, transparent 50.6%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cline x1='25' y1='0' x2='25' y2='100' stroke='rgba(239,68,68,0.22)' stroke-width='0.6' stroke-dasharray='2,2'/%3E%3Cline x1='75' y1='0' x2='75' y2='100' stroke='rgba(239,68,68,0.22)' stroke-width='0.6' stroke-dasharray='2,2'/%3E%3Cline x1='0' y1='25' x2='100' y2='25' stroke='rgba(239,68,68,0.22)' stroke-width='0.6' stroke-dasharray='2,2'/%3E%3Cline x1='0' y1='75' x2='100' y2='75' stroke='rgba(239,68,68,0.22)' stroke-width='0.6' stroke-dasharray='2,2'/%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='rgba(239,68,68,0.48)' stroke-width='0.8' stroke-dasharray='3,2'/%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='rgba(239,68,68,0.48)' stroke-width='0.8' stroke-dasharray='3,2'/%3E%3C/svg%3E");
   background-size: 100% 100%;
 }
 

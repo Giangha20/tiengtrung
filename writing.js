@@ -136,7 +136,7 @@
         <div class="writing-head">
           <div class="writing-head-titles">
             <h2><span>✍️</span> Luyện Viết Chữ Hán & Thứ Tự Nét</h2>
-            <p>Viết trọn vẹn từng chữ trong từ theo ô Mễ Tự chuẩn, phân tích chi tiết bộ thủ và thứ tự từng nét một.</p>
+            <p>Viết trọn vẹn từng chữ trong từ theo ô ly chuẩn, phân tích chi tiết bộ thủ và thứ tự từng nét một.</p>
           </div>
           <div class="writing-top-controls">
             <!-- Dedicated HSK 1 - 6 Level Selector in Writing Bar -->
