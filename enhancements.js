@@ -28,7 +28,21 @@
   function injectProfile(){
     if(document.getElementById('gh-profile-modal'))return;
     const m=document.createElement('div');m.id='gh-profile-modal';m.className='gh-modal';m.hidden=true;
-    m.innerHTML=`<div class="gh-modal-backdrop" data-profile-close></div><div class="gh-modal-card gh-external-card" role="dialog" aria-modal="true" aria-labelledby="gh-profile-title"><div class="gh-modal-head"><div><span class="gh-mini-kicker">TÀI KHOẢN</span><h2 id="gh-profile-title">Hồ sơ cá nhân</h2><p>Thông tin cá nhân, cấp độ XP và thành tích học tập.</p></div><button class="gh-close" type="button" data-profile-close aria-label="Đóng">×</button></div><div class="gh-profile-card"><div class="gh-avatar-wrap"><img id="gh-profile-avatar" alt="Avatar"><label class="gh-avatar-upload">Đổi avatar<input id="gh-avatar-input" type="file" accept="image/png,image/jpeg,image/webp"></label></div><div class="gh-profile-form"><label>Tên hiển thị<input id="gh-profile-name" maxlength="40" autocomplete="nickname" placeholder="Tên của bạn"></label><label>Ngày / tháng / năm sinh<input id="gh-profile-dob" type="date" autocomplete="bday"></label><div class="gh-profile-stats"><div><small>LEVEL HIỆN TẠI</small><strong id="gh-profile-level">Level 1</strong></div><div><small>XP HIỆN TẠI</small><strong id="gh-profile-xp">0 XP</strong></div><div><small>THÀNH TÍCH HIỆN TẠI</small><strong id="gh-profile-achievement">Tân binh</strong></div><div><small>THÀNH TÍCH CAO NHẤT</small><strong id="gh-profile-best-achievement">Tân binh</strong><span id="gh-profile-best-level">Level 1</span></div></div><div class="gh-profile-xpbar"><div><span id="gh-profile-xp-current">0 XP</span><span id="gh-profile-xp-next">100 XP để lên Level 2</span></div><i><b id="gh-profile-xp-fill"></b></i></div><button id="gh-save-profile" class="gh-primary" type="button">Lưu hồ sơ</button><span id="gh-profile-status" class="gh-status"></span></div></div></div>`;
+    m.innerHTML=`<div class="gh-modal-backdrop" data-profile-close></div><div class="gh-modal-card gh-external-card" role="dialog" aria-modal="true" aria-labelledby="gh-profile-title"><div class="gh-modal-head"><div><span class="gh-mini-kicker">TÀI KHOẢN</span><h2 id="gh-profile-title">Hồ sơ cá nhân</h2><p>Thông tin cá nhân, cấp độ XP và thành tích học tập.</p></div><button class="gh-close" type="button" data-profile-close aria-label="Đóng">×</button></div><div class="gh-profile-card"><div class="gh-avatar-wrap">
+  <img id="gh-profile-avatar" alt="Avatar">
+  <label class="gh-avatar-upload">📁 Tải ảnh từ máy<input id="gh-avatar-input" type="file" accept="image/*"></label>
+  <div class="gh-avatar-presets-title">Hoặc chọn nhanh avatar:</div>
+  <div class="gh-avatar-presets" id="gh-avatar-presets">
+    <button type="button" class="gh-preset-btn" data-preset="🐼" title="Gấu Trúc">🐼</button>
+    <button type="button" class="gh-preset-btn" data-preset="🐉" title="Rồng Vàng">🐉</button>
+    <button type="button" class="gh-preset-btn" data-preset="🐱" title="Mèo Con">🐱</button>
+    <button type="button" class="gh-preset-btn" data-preset="🦊" title="Hồ Ly">🦊</button>
+    <button type="button" class="gh-preset-btn" data-preset="🎓" title="Trạng Nguyên">🎓</button>
+    <button type="button" class="gh-preset-btn" data-preset="🌸" title="Hoa Sen">🌸</button>
+    <button type="button" class="gh-preset-btn" data-preset="🐯" title="Hổ Vàng">🐯</button>
+    <button type="button" class="gh-preset-btn" data-preset="🏮" title="Đèn Lồng">🏮</button>
+  </div>
+</div><div class="gh-profile-form"><label>Tên hiển thị<input id="gh-profile-name" maxlength="40" autocomplete="nickname" placeholder="Tên của bạn"></label><label>Ngày / tháng / năm sinh<input id="gh-profile-dob" type="date" autocomplete="bday"></label><div class="gh-profile-stats"><div><small>LEVEL HIỆN TẠI</small><strong id="gh-profile-level">Level 1</strong></div><div><small>XP HIỆN TẠI</small><strong id="gh-profile-xp">0 XP</strong></div><div><small>THÀNH TÍCH HIỆN TẠI</small><strong id="gh-profile-achievement">Tân binh</strong></div><div><small>THÀNH TÍCH CAO NHẤT</small><strong id="gh-profile-best-achievement">Tân binh</strong><span id="gh-profile-best-level">Level 1</span></div></div><div class="gh-profile-xpbar"><div><span id="gh-profile-xp-current">0 XP</span><span id="gh-profile-xp-next">100 XP để lên Level 2</span></div><i><b id="gh-profile-xp-fill"></b></i></div><button id="gh-save-profile" class="gh-primary" type="button">Lưu hồ sơ</button><span id="gh-profile-status" class="gh-status"></span></div></div></div>`;
     document.body.appendChild(m);
     m.querySelectorAll('[data-profile-close]').forEach(e=>e.addEventListener('click',closeProfile));
     document.getElementById('gh-avatar-input').addEventListener('change',handleAvatar);
@@ -54,10 +68,47 @@
   function avatarSrc(user,profile){return profile?.photoURL||user?.photoURL||'./avatar.jpg'}
   function achievementForLevel(level){const l=Math.max(1,Math.min(100,Number(level)||1));if(l>=100)return'Bậc thầy HSK';if(l>=75)return'Chuyên gia';if(l>=50)return'Cao thủ';if(l>=30)return'Người chinh phục';if(l>=20)return'Học viên ưu tú';if(l>=10)return'Học viên nâng cao';if(l>=5)return'Học viên chăm chỉ';return'Tân binh'}
   function renderProfileStats(state){const p=state||GH.progress?.get?.()||{};const level=Math.max(1,Math.min(100,Number(p.level)||1));const highest=Math.max(level,Math.min(100,Number(p.highestLevel)||level));const xp=Math.max(0,Number(p.xp)||0);const xpFor=GH.progress?.xpForLevel||((n)=>n<=1?0:100*Math.pow(n-1,1.55));const cur=xpFor(level),next=level>=100?cur:xpFor(level+1);const pct=level>=100?100:Math.max(0,Math.min(100,((xp-cur)/Math.max(1,next-cur))*100));const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('gh-profile-level',`Level ${level}`);set('gh-profile-xp',`${xp} XP`);set('gh-profile-achievement',achievementForLevel(level));set('gh-profile-best-achievement',achievementForLevel(highest));set('gh-profile-best-level',`Level ${highest}`);set('gh-profile-xp-current',`${xp} XP`);set('gh-profile-xp-next',level>=100?'Đã đạt Level tối đa 100':`${Math.max(0,next-xp)} XP để lên Level ${level+1}`);const fill=document.getElementById('gh-profile-xp-fill');if(fill)fill.style.width=`${pct}%`}
-  async function loadProfile(){const user=currentUser(),profile=window.ghAuth?.getProfile?await window.ghAuth.getProfile(user):null;const name=profile?.username||profile?.displayName||user?.displayName||user?.email||'Tài khoản';const img=document.getElementById('gh-profile-avatar');if(img){img.src=avatarSrc(user,profile);img.onerror=()=>{img.src='./avatar.jpg'}}const input=document.getElementById('gh-profile-name');if(input)input.value=name;const dob=document.getElementById('gh-profile-dob');if(dob)dob.value=String(profile?.dateOfBirth||'').slice(0,10);renderProfileStats(GH.progress?.get?.()||{});}
+  function makeSvgAvatar(emoji){
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="62" fill="#0f172a" stroke="#00b9d8" stroke-width="4"/><text x="50%" y="54%" font-size="64" text-anchor="middle" dominant-baseline="central">${emoji}</text></svg>`;
+    return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg);
+  }
+  function avatarSrc(user,profile){
+    return profile?.photoURL||profile?.avatarUrl||user?.photoURL||localStorage.getItem('gh_avatar_'+user?.uid)||localStorage.getItem('gh_current_avatar')||'./avatar.jpg';
+  }
+  async function loadProfile(){
+    const user=currentUser(),profile=window.ghAuth?.getProfile?await window.ghAuth.getProfile(user):null;
+    const name=profile?.username||profile?.displayName||user?.displayName||user?.email||'Tài khoản';
+    const av=avatarSrc(user,profile);
+    const img=document.getElementById('gh-profile-avatar');
+    if(img){img.src=av;img.onerror=()=>{img.src='./avatar.jpg'}}
+    const input=document.getElementById('gh-profile-name');if(input)input.value=name;
+    const dob=document.getElementById('gh-profile-dob');if(dob)dob.value=String(profile?.dateOfBirth||'').slice(0,10);
+    renderProfileStats(GH.progress?.get?.()||{});
+  }
   async function resizeImage(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const max=256,scale=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*scale));c.height=Math.max(1,Math.round(im.height*scale));c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.78))};im.onerror=reject;im.src=r.result};r.onerror=reject;r.readAsDataURL(file)})}
   async function handleAvatar(e){const file=e.target.files?.[0];if(!file)return;try{const data=await resizeImage(file),img=document.getElementById('gh-profile-avatar');if(img){img.src=data;img.dataset.pendingAvatar=data}}catch{GH.utils?.toast?.('Không đọc được ảnh avatar','error')}}
-  async function saveProfile(){const user=currentUser(),input=document.getElementById('gh-profile-name'),dob=document.getElementById('gh-profile-dob'),img=document.getElementById('gh-profile-avatar'),status=document.getElementById('gh-profile-status'),btn=document.getElementById('gh-save-profile');if(!user||!window.ghAuth?.updateProfileData){if(status)status.textContent='Chưa sẵn sàng tài khoản';return}const name=String(input?.value||'').trim();const dateOfBirth=String(dob?.value||'').trim();if(name.length<2){if(status)status.textContent='Tên cần ít nhất 2 ký tự.';return}if(dateOfBirth&&new Date(`${dateOfBirth}T00:00:00`) > new Date()){if(status)status.textContent='Ngày sinh không thể ở tương lai.';return}btn.disabled=true;if(status)status.textContent='Đang lưu...';const ok=await window.ghAuth.updateProfileData({displayName:name,username:name,photoURL:img?.dataset.pendingAvatar||user.photoURL||'',dateOfBirth});if(ok){window.ghUserProfile={...(window.ghUserProfile||{}),username:name,displayName:name,photoURL:img?.dataset.pendingAvatar||img?.src||'',dateOfBirth};const chip=document.getElementById('online-user-chip');if(chip)chip.textContent=' '+name;if(status)status.textContent='Đã lưu hồ sơ.';syncLeaderboard(true)}else if(status)status.textContent='Không thể lưu. Hãy kiểm tra mạng/Firebase.';btn.disabled=false}
+  async function saveProfile(){
+    const user=currentUser(),input=document.getElementById('gh-profile-name'),dob=document.getElementById('gh-profile-dob'),img=document.getElementById('gh-profile-avatar'),status=document.getElementById('gh-profile-status'),btn=document.getElementById('gh-save-profile');
+    if(!user||!window.ghAuth?.updateProfileData){if(status)status.textContent='Chưa sẵn sàng tài khoản';return}
+    const name=String(input?.value||'').trim();
+    const dateOfBirth=String(dob?.value||'').trim();
+    if(name.length<2){if(status)status.textContent='Tên cần ít nhất 2 ký tự.';return}
+    if(dateOfBirth&&new Date(`${dateOfBirth}T00:00:00`) > new Date()){if(status)status.textContent='Ngày sinh không thể ở tương lai.';return}
+    btn.disabled=true;if(status)status.textContent='Đang lưu và đồng bộ avatar...';
+    const photoToSave = img?.dataset.pendingAvatar || img?.src || user.photoURL || '';
+    const ok=await window.ghAuth.updateProfileData({displayName:name,username:name,photoURL:photoToSave,dateOfBirth});
+    if(ok){
+      window.ghUserProfile={...(window.ghUserProfile||{}),username:name,displayName:name,photoURL:photoToSave,dateOfBirth};
+      const chip=document.getElementById('online-user-chip');
+      if(chip)chip.innerHTML=`<img src="${photoToSave || './avatar.jpg'}" alt="" class="chip-avatar-img" onerror="this.src='./avatar.jpg'" /> <span>${name}</span>`;
+      if(status)status.textContent='✓ Đã lưu và đồng bộ avatar trên tất cả thiết bị!';
+      syncLeaderboard(true);
+      setTimeout(()=>{if(status)status.textContent=''},3000);
+    }else{
+      if(status)status.textContent='Không thể lưu. Hãy kiểm tra mạng/Firebase.';
+    }
+    btn.disabled=false;
+  }
 
   async function loadRanking(periodName='week'){
     const list=document.getElementById('gh-ranking-list');if(!list)return;const request=++rankRequest;list.innerHTML='<div class="gh-empty">Đang tải thành tích thật...</div>';

@@ -340,7 +340,113 @@
     el.innerHTML = renderHtml(data, options);
   }
 
+  
+  /**
+   * Generates a high quality cultural SVG vector card Data URI
+   * Guarantees 100% of words have a stunning visual representation.
+   */
+  function generateSvgCard(word, meaning = '', pinyin = '') {
+    const w = String(word || '').trim();
+    const p = String(pinyin || '').trim();
+    const m = String(meaning || '').trim();
+
+    // Select color theme based on character hash for nice variation
+    const themes = [
+      { bg1: '#0f172a', bg2: '#1e293b', accent: '#38bdf8', border: '#0284c7', seal: '#ef4444', icon: '🀄' },
+      { bg1: '#14221a', bg2: '#064e3b', accent: '#34d399', border: '#059669', seal: '#f59e0b', icon: '🎋' },
+      { bg1: '#2b1216', bg2: '#4c0519', accent: '#fda4af', border: '#e11d48', seal: '#e11d48', icon: '🏮' },
+      { bg1: '#1e1b4b', bg2: '#312e81', accent: '#a5b4fc', border: '#6366f1', seal: '#ec4899', icon: '📜' },
+      { bg1: '#261b0c', bg2: '#451a03', accent: '#fcd34d', border: '#d97706', seal: '#dc2626', icon: '🏮' }
+    ];
+    let hash = 0;
+    for (let i = 0; i < w.length; i++) hash = (hash * 31 + w.charCodeAt(i)) >>> 0;
+    const theme = themes[hash % themes.length];
+
+    // Escape XML special characters
+    const escXml = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="500" height="300" viewBox="0 0 500 300">
+      <defs>
+        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${theme.bg1}"/>
+          <stop offset="100%" stop-color="${theme.bg2}"/>
+        </linearGradient>
+        <pattern id="lattice" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 0 20 L 40 20 M 20 0 L 20 40" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <!-- Background -->
+      <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+      <rect width="100%" height="100%" fill="url(#lattice)"/>
+      
+      <!-- Ornamental border -->
+      <rect x="12" y="12" width="476" height="276" rx="14" fill="none" stroke="${theme.border}" stroke-width="1.5" stroke-opacity="0.45"/>
+      <circle cx="20" cy="20" r="4" fill="${theme.accent}" opacity="0.6"/>
+      <circle cx="480" cy="20" r="4" fill="${theme.accent}" opacity="0.6"/>
+      <circle cx="20" cy="280" r="4" fill="${theme.accent}" opacity="0.6"/>
+      <circle cx="480" cy="280" r="4" fill="${theme.accent}" opacity="0.6"/>
+
+      <!-- Watermark background character -->
+      <text x="50%" y="54%" font-family="'KaiTi', 'STKaiti', 'SimSun', 'Noto Serif SC', serif" font-size="160" font-weight="900" fill="rgba(255,255,255,0.04)" text-anchor="middle" dominant-baseline="central">${escXml(w)}</text>
+
+      <!-- Category badge -->
+      <rect x="28" y="26" width="90" height="24" rx="12" fill="${theme.accent}" fill-opacity="0.2"/>
+      <text x="73" y="42" font-family="-apple-system, system-ui, sans-serif" font-size="11" font-weight="700" fill="${theme.accent}" text-anchor="middle">HSK • TỪ VỰNG</text>
+
+      <!-- Main Hanzi -->
+      <text x="50%" y="115" font-family="'PingFang SC', 'Microsoft YaHei', 'KaiTi', sans-serif" font-size="${w.length > 3 ? 54 : (w.length > 2 ? 64 : 76)}" font-weight="900" fill="#ffffff" text-anchor="middle" dominant-baseline="central" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.4))">${escXml(w)}</text>
+
+      <!-- Pinyin Badge -->
+      <rect x="${250 - Math.min(180, Math.max(70, p.length * 11 + 24)) / 2}" y="172" width="${Math.min(180, Math.max(70, p.length * 11 + 24))}" height="30" rx="15" fill="rgba(255,255,255,0.12)" stroke="${theme.accent}" stroke-width="1"/>
+      <text x="50%" y="192" font-family="-apple-system, system-ui, sans-serif" font-size="16" font-weight="700" fill="${theme.accent}" text-anchor="middle">${escXml(p || '--')}</text>
+
+      <!-- Vietnamese Meaning -->
+      <text x="50%" y="238" font-family="-apple-system, system-ui, sans-serif" font-size="16" font-weight="600" fill="#f1f5f9" text-anchor="middle">${escXml(m ? (m.length > 32 ? m.slice(0, 30) + '...' : m) : '')}</text>
+
+      <!-- Cultural stamp bottom right -->
+      <rect x="420" y="236" width="46" height="36" rx="4" fill="${theme.seal}" fill-opacity="0.85"/>
+      <text x="443" y="259" font-family="'KaiTi', serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">江河</text>
+    </svg>`;
+
+    return {
+      url: 'data:image/svg+xml;utf8,' + encodeURIComponent(svg),
+      caption: `${w} (${p}) : ${m}`
+    };
+  }
+
+  /**
+   * Get an accurate illustration for ANY word across all HSK levels.
+   * Checks EXACT_IMAGE_MAP, then sub-words, then generates an artistic vector card.
+   */
+  function getWordIllustration(word, meaning = '', pinyin = '') {
+    const clean = String(word || '').trim();
+    if (!clean) return generateSvgCard('字', 'Chữ', 'zì');
+
+    // 1. Direct verified photograph
+    if (EXACT_IMAGE_MAP[clean]) {
+      return {
+        url: EXACT_IMAGE_MAP[clean].url,
+        caption: EXACT_IMAGE_MAP[clean].label
+      };
+    }
+
+    // 2. Sub-word match (e.g. '喝茶' contains '茶', '吃苹果' contains '苹果')
+    for (const key of Object.keys(EXACT_IMAGE_MAP)) {
+      if (clean.length > key.length && clean.includes(key)) {
+        return {
+          url: EXACT_IMAGE_MAP[key].url,
+          caption: `${clean} (${pinyin}) - ${meaning} [Ảnh: ${EXACT_IMAGE_MAP[key].label}]`
+        };
+      }
+    }
+
+    // 3. Artistic vector cultural card (guarantees 100% words have an image)
+    return generateSvgCard(clean, meaning, pinyin);
+  }
+
   GH.vocabImages = {
+    getWordIllustration,
+    generateSvgCard,
     resolve,
     renderHtml,
     renderInto,

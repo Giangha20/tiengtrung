@@ -226,6 +226,17 @@
             <!-- Character Switcher Pills (for multi-character words) -->
             <div class="writing-char-switcher" id="wp-char-switcher" style="display:none;"></div>
 
+            <!-- Vocabulary Illustration Image Card (100% of words) -->
+            <div class="writing-image-box" id="wp-image-box">
+              <div class="writing-box-title">
+                🖼️ Hình Ảnh Minh Họa Từ Vựng
+              </div>
+              <div class="writing-img-container">
+                <img id="wp-vocab-img" src="" alt="Minh họa" class="writing-vocab-img" loading="lazy" />
+                <div class="writing-img-caption" id="wp-vocab-caption">--</div>
+              </div>
+            </div>
+
             <!-- Radical Card -->
             <div class="writing-radical-box">
               <div class="writing-box-title">
@@ -313,6 +324,39 @@
   }
 
   // Render the current word and ALL of its characters simultaneously
+  
+  // Update Word Illustration Image
+  function updateWordImage(item) {
+    if (!item) return;
+    const word = item.word || '';
+    const meaning = item.meaning || '';
+    const pinyin = item.pinyin || '';
+    const imgEl = document.getElementById('wp-vocab-img');
+    const capEl = document.getElementById('wp-vocab-caption');
+    if (!imgEl) return;
+
+    let imgInfo = null;
+    if (window.GH?.vocabImages?.getWordIllustration) {
+      imgInfo = window.GH.vocabImages.getWordIllustration(word, meaning, pinyin);
+    } else if (window.GH?.vocabImages?.EXACT_IMAGE_MAP?.[word]) {
+      imgInfo = {
+        url: window.GH.vocabImages.EXACT_IMAGE_MAP[word].url,
+        caption: window.GH.vocabImages.EXACT_IMAGE_MAP[word].label
+      };
+    }
+
+    if (!imgInfo || !imgInfo.url) {
+      imgInfo = {
+        url: 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="500" height="300" viewBox="0 0 500 300"><rect width="100%" height="100%" fill="#0f172a"/><text x="50%" y="45%" font-size="70" fill="#38bdf8" text-anchor="middle" dominant-baseline="central">${word}</text><text x="50%" y="75%" font-size="20" fill="#ffffff" text-anchor="middle">${meaning}</text></svg>`),
+        caption: `${word} (${pinyin}) : ${meaning}`
+      };
+    }
+
+    imgEl.src = imgInfo.url;
+    imgEl.alt = imgInfo.caption || `${word} - ${meaning}`;
+    if (capEl) capEl.textContent = imgInfo.caption || `${word} (${pinyin}) : ${meaning}`;
+  }
+
   function renderCurrentWord() {
     if (!WP.wordList.length) return;
     if (WP.currentWordIndex < 0) WP.currentWordIndex = 0;
@@ -325,6 +369,7 @@
     document.getElementById('wp-cur-pinyin').textContent = item.pinyin || '';
     document.getElementById('wp-cur-meaning').textContent = item.meaning || '';
     document.getElementById('wp-word-counter').textContent = `${WP.currentWordIndex + 1} / ${WP.wordList.length}`;
+    updateWordImage(item);
 
     // Extract Chinese characters only
     const chars = (item.word || '').replace(/[^\u4e00-\u9fa5]/g, '').split('').filter(Boolean);

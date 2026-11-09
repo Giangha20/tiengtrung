@@ -7836,7 +7836,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const profile = await (window.ghAuth?.getProfile ? window.ghAuth.getProfile(user) : null);
         window.ghUserProfile = profile || {};
         const userChip = document.getElementById('online-user-chip');
-        if (userChip) userChip.textContent = ' ' + (profile?.username || user.displayName || user.email || 'Tài khoản');
+        if (userChip) {
+            const avatar = profile?.photoURL || profile?.avatarUrl || user.photoURL || localStorage.getItem('gh_avatar_' + user.uid) || localStorage.getItem('gh_current_avatar') || './avatar.jpg';
+            const name = profile?.username || profile?.displayName || user.displayName || user.email || 'Tài khoản';
+            userChip.innerHTML = `<img src="${avatar}" alt="" class="chip-avatar-img" onerror="this.src='./avatar.jpg'" /> <span>${name}</span>`;
+        }
 
         document.getElementById('typing-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {

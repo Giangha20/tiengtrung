@@ -821,3 +821,61 @@
     padding: 5px;
   }
 }
+
+
+/* ==============================================================
+   VOCABULARY ILLUSTRATION CARD IN WRITING PRACTICE
+   ============================================================== */
+.writing-image-box {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.writing-img-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.writing-vocab-img {
+  width: 100%;
+  max-height: 200px;
+  min-height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
+  background: #f1f5f9;
+}
+
+.writing-img-caption {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-align: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(37, 99, 235, 0.08);
+  max-width: 100%;
+  word-break: break-word;
+}
+
+body.dark-mode .writing-image-box {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+body.dark-mode .writing-vocab-img {
+  border-color: rgba(255,255,255,0.1);
+  background: #0f172a;
+}
+
+body.dark-mode .writing-img-caption {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+}

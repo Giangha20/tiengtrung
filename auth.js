@@ -265,6 +265,18 @@
 
                 if (currentUser) {
                     try {
+                        // Tải profile Firestore trước để lấy avatar đã lưu trên thiết bị khác
+                        const prof = await getProfile(currentUser);
+                        if (prof) {
+                            window.ghUserProfile = prof;
+                            const av = prof.photoURL || prof.avatarUrl;
+                            if (av) {
+                                try {
+                                    localStorage.setItem('gh_avatar_' + currentUser.uid, av);
+                                    localStorage.setItem('gh_current_avatar', av);
+                                } catch(e) {}
+                            }
+                        }
                         await loadProgress(currentUser);
                         await migrateLegacyProgress(currentUser);
                     } catch (error) {
@@ -300,6 +312,125 @@
         return true;
     }
 
+    
+    async function updateProfileData(data = {}) {
+        if (!currentUser || !db) return false;
+        try {
+            const patch = {
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            if (data.displayName !== undefined) {
+                patch.displayName = String(data.displayName || '').trim();
+                patch.username = patch.displayName;
+            }
+            if (data.username !== undefined) {
+                patch.username = String(data.username || '').trim();
+            }
+            if (data.photoURL !== undefined) {
+                patch.photoURL = String(data.photoURL || '');
+                patch.avatarUrl = patch.photoURL;
+            }
+            if (data.dateOfBirth !== undefined) {
+                patch.dateOfBirth = String(data.dateOfBirth || '');
+            }
+
+            // 1. Cập nhật Firebase Auth profile nếu khả dụng
+            try {
+                const authPatch = {};
+                if (patch.displayName) authPatch.displayName = patch.displayName;
+                if (patch.photoURL && !patch.photoURL.startsWith('data:')) {
+                    authPatch.photoURL = patch.photoURL;
+                }
+                if (Object.keys(authPatch).length) {
+                    await currentUser.updateProfile(authPatch);
+                }
+            } catch (e) {
+                console.warn('Auth user.updateProfile non-blocking:', e);
+            }
+
+            // 2. Lưu trực tiếp vào doc Firestore users/{uid}
+            await db.collection('users').doc(currentUser.uid).set(patch, { merge: true });
+
+            // 3. Đồng bộ avatar và displayName vào progress để loadProgress trên thiết bị khác luôn lấy được
+            try {
+                const progressPatch = {};
+                if (patch.photoURL) progressPatch.photoURL = patch.photoURL;
+                if (patch.displayName) progressPatch.displayName = patch.displayName;
+                if (Object.keys(progressPatch).length) {
+                    await saveProgress(progressPatch);
+                }
+            } catch (e) {}
+
+            // 4. Lưu local cache tức thì
+            window.ghUserProfile = { ...(window.ghUserProfile || {}), ...patch };
+            try {
+                if (patch.photoURL) {
+                    localStorage.setItem('gh_avatar_' + currentUser.uid, patch.photoURL);
+                    localStorage.setItem('gh_current_avatar', patch.photoURL);
+                }
+                if (patch.displayName) {
+                    localStorage.setItem('gh_name_' + currentUser.uid, patch.displayName);
+                }
+            } catch (e) {}
+
+            // Cập nhật UI avatar tức thì
+            try {
+                const chip = document.getElementById('online-user-chip');
+                if (chip) {
+                    const avatar = patch.photoURL || './avatar.jpg';
+                    const name = patch.displayName || currentUser.displayName || 'Tài khoản';
+                    chip.innerHTML = '<img src="' + avatar + '" alt="" class="chip-avatar-img" onerror="this.src=\'./avatar.jpg\'" /> <span>' + name + '</span>';
+                }
+                const modalAvatar = document.getElementById('gh-profile-avatar');
+                if (modalAvatar && patch.photoURL) {
+                    modalAvatar.src = patch.photoURL;
+                }
+            } catch(e) {}
+
+            return true;
+        } catch (err) {
+            console.error('Lỗi khi updateProfileData:', err);
+            return false;
+        }
+    }
+
+    async function saveLeaderboard(entry) {
+        if (!currentUser || !db || !entry) return false;
+        try {
+            const payload = {
+                uid: currentUser.uid,
+                displayName: entry.displayName || currentUser.displayName || currentUser.email || 'Học viên',
+                photoURL: entry.photoURL || '',
+                weeklyXp: Number(entry.weeklyXp) || 0,
+                monthlyXp: Number(entry.monthlyXp) || 0,
+                weekKey: entry.weekKey || '',
+                monthKey: entry.monthKey || '',
+                level: Number(entry.level) || 1,
+                highestLevel: Number(entry.highestLevel) || 1,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            await db.collection('leaderboard').doc(currentUser.uid).set(payload, { merge: true });
+            return true;
+        } catch (e) {
+            console.warn('saveLeaderboard non-fatal error:', e);
+            return false;
+        }
+    }
+
+    async function getLeaderboard(periodName = 'week') {
+        if (!db) return [];
+        try {
+            const field = periodName === 'month' ? 'monthlyXp' : 'weeklyXp';
+            const snap = await db.collection('leaderboard').orderBy(field, 'desc').limit(50).get();
+            const rows = [];
+            snap.forEach(doc => rows.push({ uid: doc.id, ...doc.data() }));
+            return rows;
+        } catch (e) {
+            console.warn('getLeaderboard non-fatal error:', e);
+            return [];
+        }
+    }
+
     window.ghAuth = {
         isConfigured: () => isConfigured && !!auth,
         getUser: () => currentUser,
@@ -312,6 +443,9 @@
         saveNote,
         migrateLegacyProgress: () => migrateLegacyProgress(currentUser),
         getProfile,
+        updateProfileData,
+        saveLeaderboard,
+        getLeaderboard,
         register,
         login,
         logout,

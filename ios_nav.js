@@ -6,6 +6,8 @@
   const TAB_MODE_MAP = {
     'home': 'home',
     'flashcard': 'flashcard',
+      'writing': 'writing',
+    'writing': 'writing',
     'translation': 'translation',
     'exam': 'exam',
     'progress': 'progress'

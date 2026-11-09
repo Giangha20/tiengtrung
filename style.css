@@ -3774,3 +3774,71 @@ body.dark-mode .word-grid .word-card.card .card2 { background-color:#1a1a1a !imp
 .streak-widget, #streak-widget, .tr-streak-badge {
   display: none !important;
 }
+
+
+/* ==============================================================
+   TỐC ĐỘ LUYỆN NGHE (LIGHT & DARK MODE READABILITY)
+   Chế độ sáng: chữ đậm rõ nét (#0f172a)
+   Chế độ tối: chữ trắng thuần khiết (#ffffff !important)
+   ============================================================== */
+.listening-speed {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.listening-speed select,
+#listening-speed {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  font-weight: 700 !important;
+  border-radius: 10px !important;
+  padding: 6px 10px !important;
+  cursor: pointer !important;
+}
+
+.listening-speed select option,
+#listening-speed option {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+}
+
+body.dark-mode .listening-speed,
+html.dark-mode .listening-speed {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+body.dark-mode .listening-speed select,
+body.dark-mode #listening-speed,
+html.dark-mode .listening-speed select,
+html.dark-mode #listening-speed {
+  color: #ffffff !important;
+  background-color: #1e293b !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+body.dark-mode .listening-speed select option,
+body.dark-mode #listening-speed option,
+html.dark-mode .listening-speed select option,
+html.dark-mode #listening-speed option {
+  color: #ffffff !important;
+  background-color: #1e293b !important;
+}
+
+.chip-avatar-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #2563eb;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+body.dark-mode .chip-avatar-img {
+  border-color: #38bdf8;
+}
