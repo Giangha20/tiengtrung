@@ -7,6 +7,9 @@
     "allowsLinkPreview": false,
     "scrollEnabled": true
   },
+  "android": {
+    "allowMixedContent": true
+  },
   "plugins": {
     "StatusBar": {
       "style": "default",

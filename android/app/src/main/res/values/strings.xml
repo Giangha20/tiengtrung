@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Hoc Tieng Trung HSK</string>
+    <string name="title_activity_main">Hoc Tieng Trung HSK</string>
+    <string name="package_name">com.tiengtrung.hsk</string>
+    <string name="custom_url_scheme">com.tiengtrung.hsk</string>
+</resources>

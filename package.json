@@ -7,12 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "build": "node build_www.js",
-    "cap:sync": "node build_www.js && npx cap sync ios"
+    "cap:sync": "node build_www.js && npx cap sync ios",
+    "cap:android": "node build_www.js && npx cap sync android",
+    "cap:sync:all": "node build_www.js && npx cap sync"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@capacitor/android": "^8.6.0",
     "@capacitor/cli": "^8.6.0",
     "@capacitor/core": "^8.6.0",
     "@capacitor/ios": "^8.6.0",
