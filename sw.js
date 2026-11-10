@@ -1,4 +1,4 @@
-const CACHE = 'gh-hsk-shell-v63';
+const CACHE = 'gh-hsk-shell-v64';
 const ASSETS = [
   './',
   './index.html',

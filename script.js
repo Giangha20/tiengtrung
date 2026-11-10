@@ -7849,6 +7849,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                     checkTyping();
                 }
             });
+            // Xử lý khi nhấn dấu cách: nếu từ hiện tại đã khớp thì chặn chèn dấu cách và kiểm tra ngay
+            typingInputEl.addEventListener('keydown', function(e) {
+                if (e.key === ' ' || e.code === 'Space' || e.keyCode === 32) {
+                    const val = (typingInputEl.value || '').trim();
+                    if (ghCheckTypingMatch(val)) {
+                        e.preventDefault();
+                        checkTyping();
+                    }
+                }
+            });
             typingInputEl.addEventListener('input', function() {
                 checkTyping(true); // Tự động nhận diện khi gõ xong
             });
@@ -8064,6 +8074,38 @@ function ghCleanPinyinText(str) {
         .replace(/[^a-z]/g, '');
 }
 
+function ghForceWipeInput(input) {
+    if (!input) return;
+    input.value = "";
+    input.defaultValue = "";
+    try { input.blur(); } catch(e) {}
+    try { input.setSelectionRange(0, 0); } catch(e) {}
+    input.value = "";
+    setTimeout(() => { if (input) { input.value = ""; input.defaultValue = ""; } }, 0);
+    setTimeout(() => { if (input) { input.value = ""; input.defaultValue = ""; } }, 30);
+    setTimeout(() => { if (input) { input.value = ""; input.defaultValue = ""; } }, 80);
+    setTimeout(() => { if (input) { input.value = ""; input.defaultValue = ""; } }, 150);
+}
+
+function ghCheckTypingMatch(rawVal) {
+    if (currentWordIndex >= typingWordList.length) return false;
+    const currentItem = typingWordList[currentWordIndex];
+    if (!currentItem || !rawVal) return false;
+
+    const trimmedVal = rawVal.trim();
+    const cleanInput = ghCleanPinyinText(rawVal);
+    const cleanTargetPinyin = ghCleanPinyinText(currentItem.pinyin);
+    const targetHanzi = (currentItem.word || '').trim();
+
+    const isPinyinMatch = (cleanInput.length > 0 && cleanInput === cleanTargetPinyin) ||
+                          (cleanInput.length >= cleanTargetPinyin.length && cleanTargetPinyin.length > 0 && cleanInput.endsWith(cleanTargetPinyin));
+
+    const isHanziMatch = (targetHanzi.length > 0 && trimmedVal === targetHanzi) ||
+                         (targetHanzi.length > 0 && trimmedVal.endsWith(targetHanzi));
+
+    return isPinyinMatch || isHanziMatch;
+}
+
 function showTypingWord() {
     clearTimeout(ghTypingAdvanceTimer);
     const feedback = document.getElementById('typing-feedback');
@@ -8093,11 +8135,15 @@ function showTypingWord() {
     }
     
     if (input) {
-        input.value = "";
-        input.defaultValue = "";
-        input.disabled = false;
-        try { input.setSelectionRange(0, 0); } catch(e) {}
-        input.focus();
+        ghForceWipeInput(input);
+        setTimeout(() => {
+            if (input) {
+                input.value = "";
+                input.defaultValue = "";
+                input.disabled = false;
+                input.focus();
+            }
+        }, 40);
     }
     if (feedback) feedback.textContent = "";
     if (nextBtn) nextBtn.classList.add('hidden');
@@ -8112,6 +8158,7 @@ function checkTyping(isRealtime = false) {
     const rawVal = input.value || '';
     const trimmedVal = rawVal.trim();
     if (!trimmedVal) {
+        input.value = '';
         if (!isRealtime) {
             const feedback = document.getElementById('typing-feedback');
             if (feedback) {
@@ -8125,19 +8172,17 @@ function checkTyping(isRealtime = false) {
     const currentItem = typingWordList[currentWordIndex];
     if (!currentItem) return;
 
-    const cleanInput = ghCleanPinyinText(rawVal);
-    const cleanTargetPinyin = ghCleanPinyinText(currentItem.pinyin);
     const targetHanzi = (currentItem.word || '').trim();
 
-    // 1. Kiểm tra dạng bàn phím Anh (Pinyin: nihao, ni hao, nǐ hǎo, ...)
-    const isPinyinMatch = (cleanInput.length > 0 && cleanInput === cleanTargetPinyin) ||
-                          (cleanInput.length >= cleanTargetPinyin.length && cleanTargetPinyin.length > 0 && cleanInput.endsWith(cleanTargetPinyin));
+    // KIỂM TRA CHỮ HÁN ĐỌNG LẠI TỪ CÁC TỪ TRƯỚC:
+    // Nếu trong ô nhập có ký tự chữ Hán mà KHÔNG CHỨA từ mục tiêu hiện tại:
+    // Xóa sạch ô nhập ngay lập tức!
+    if (/[\u4e00-\u9fa5]/.test(rawVal) && targetHanzi && !rawVal.includes(targetHanzi)) {
+        ghForceWipeInput(input);
+        return;
+    }
 
-    // 2. Kiểm tra dạng bàn phím Trung (Hán tự: 你好, ...)
-    const isHanziMatch = (targetHanzi.length > 0 && trimmedVal === targetHanzi) ||
-                         (targetHanzi.length > 0 && trimmedVal.endsWith(targetHanzi));
-
-    const isMatch = isPinyinMatch || isHanziMatch;
+    const isMatch = ghCheckTypingMatch(rawVal);
 
     const feedback = document.getElementById('typing-feedback');
     const nextBtn = document.getElementById('next-word-btn');
@@ -8158,12 +8203,8 @@ function checkTyping(isRealtime = false) {
             feedback.className = "correct";
         }
 
-        // Tự động xóa sạch chữ ngay khi gõ xong cho cả dạng bàn phím Trung và Anh
-        input.value = "";
-        input.defaultValue = "";
-        input.disabled = false;
-        try { input.setSelectionRange(0, 0); } catch(e) {}
-        input.focus();
+        // Tự động xóa sạch chữ triệt để ngay khi gõ xong
+        ghForceWipeInput(input);
 
         if (nextBtn) {
             nextBtn.classList.remove('hidden');

@@ -196,6 +196,17 @@
       input.addEventListener('compositionend', () => {
         handleUserInput({ target: input });
       });
+      // Xử lý khi nhấn dấu cách: nếu từ hiện tại đã khớp thì chặn chèn dấu cách và kích nổ ngay
+      input.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.code === 'Space' || e.keyCode === 32) {
+          const val = (input.value || '').trim();
+          if (checkMatch(val)) {
+            e.preventDefault();
+            STATE.isProcessingMatch = true;
+            onWordTypedSuccess();
+          }
+        }
+      });
       // Auto focus input when clicking stage on mobile / tablet
       document.getElementById('pg-stage')?.addEventListener('click', () => {
         if (!input.readOnly) input.focus();
@@ -204,11 +215,13 @@
 
     document.getElementById('pg-btn-clear')?.addEventListener('click', () => {
       if (input) {
-        input.value = '';
-        input.defaultValue = '';
-        input.classList.remove('has-error');
-        if (!input.readOnly) input.focus();
-        updateTypingPreview('');
+        forceWipeInput(input);
+        setTimeout(() => {
+          if (input) {
+            input.value = '';
+            input.focus();
+          }
+        }, 30);
       }
     });
 
@@ -265,14 +278,15 @@
 
     // Reset input completely - pristine blank slate for new word
     if (input) {
-      input.readOnly = false;
-      input.value = '';
-      input.defaultValue = '';
-      input.classList.remove('has-error');
-      try {
-        input.setSelectionRange(0, 0);
-      } catch (e) {}
-      input.focus();
+      forceWipeInput(input);
+      setTimeout(() => {
+        if (input && STATE.active) {
+          input.value = '';
+          input.defaultValue = '';
+          input.classList.remove('has-error');
+          input.focus();
+        }
+      }, 40);
     }
 
     // Set starting position at top with random horizontal offset
@@ -322,56 +336,99 @@
     }
   }
 
+  function forceWipeInput(input) {
+    if (!input) return;
+    input.value = '';
+    input.defaultValue = '';
+    try { input.blur(); } catch (e) {}
+    try { input.setSelectionRange(0, 0); } catch (e) {}
+    input.value = '';
+    setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 0);
+    setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 30);
+    setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 80);
+    setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 150);
+  }
+
+  function checkMatch(val) {
+    if (!STATE.active || !STATE.currentWord) return false;
+    const cleanUser = cleanPinyin(val);
+    const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
+    const targetWord = (STATE.currentWord.word || '').trim();
+
+    const isPinyinMatch = (cleanUser === cleanTarget && cleanTarget.length > 0) ||
+                          (cleanUser.length >= cleanTarget.length && cleanTarget.length > 0 && cleanUser.endsWith(cleanTarget));
+
+    const isHanziMatch = (targetWord.length > 0 && val.trim() === targetWord) ||
+                         (targetWord.length > 0 && val.trim().endsWith(targetWord));
+
+    return isPinyinMatch || isHanziMatch;
+  }
+
   function handleUserInput(e) {
     if (!STATE.active || !STATE.currentWord) return;
 
     const input = e.target;
 
-    // Trong lúc phi tiêu đang bay thì bỏ qua input vội
+    // Trong lúc phi tiêu đang bay thì lập tức xóa sạch input
     if (STATE.isProcessingMatch) {
-      input.value = '';
+      forceWipeInput(input);
       return;
     }
 
     let val = input.value || '';
-    let cleanUser = cleanPinyin(val);
-    const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
-    const targetWord = (STATE.currentWord.word || '').trim();
 
-    // 1. Dạng bàn phím Trung (Hán tự): tự động cắt bỏ nếu bàn phím ảo còn dính từ cũ (vd: "你好苹果"):
-    if (STATE.lastCompletedWord && val.startsWith(STATE.lastCompletedWord) && val.length > STATE.lastCompletedWord.length) {
-      val = val.slice(STATE.lastCompletedWord.length).trim();
-      input.value = val;
-      cleanUser = cleanPinyin(val);
-    } else if (STATE.lastCompletedWord && val === STATE.lastCompletedWord) {
+    // Nếu người dùng bấm phím cách khi ô trống hoặc chỉ có dấu cách -> xóa sạch ngay lập tức
+    if (!val.trim()) {
       input.value = '';
       updateTypingPreview('');
       return;
     }
 
+    const targetWord = (STATE.currentWord.word || '').trim();
+
+    // KIỂM TRA CHỮ HÁN ĐỌNG LẠI (như trong ảnh lỗi: "游泳隐形心"):
+    // Nếu trong ô nhập có ký tự chữ Hán mà KHÔNG CHỨA từ mục tiêu hiện tại (targetWord):
+    // Đây 100% là chữ đọng lại của các từ trước -> XÓA SẠCH NGAY LẬP TỨC!
+    if (/[\u4e00-\u9fa5]/.test(val) && targetWord && !val.includes(targetWord)) {
+      forceWipeInput(input);
+      updateTypingPreview('');
+      return;
+    }
+
+    // Nếu có chứa targetWord ở cuối (vd: "游泳隐形心送"):
+    if (targetWord && val.trim().endsWith(targetWord)) {
+      STATE.isProcessingMatch = true;
+      onWordTypedSuccess();
+      return;
+    }
+
+    // 1. Dạng bàn phím Trung (Hán tự): tự động cắt bỏ nếu bàn phím ảo còn dính từ cũ (vd: "你好苹果"):
+    if (STATE.lastCompletedWord && val.startsWith(STATE.lastCompletedWord) && val.length > STATE.lastCompletedWord.length) {
+      val = val.slice(STATE.lastCompletedWord.length).trim();
+      input.value = val;
+    } else if (STATE.lastCompletedWord && val === STATE.lastCompletedWord) {
+      forceWipeInput(input);
+      updateTypingPreview('');
+      return;
+    }
+
     // 2. Dạng bàn phím Anh (Pinyin): tự động cắt bỏ nếu còn dính từ cũ (vd: "nihaopingguo"):
+    let cleanUser = cleanPinyin(val);
+    const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
+
     if (STATE.lastCompletedPinyin && cleanUser.startsWith(STATE.lastCompletedPinyin) && cleanUser.length > STATE.lastCompletedPinyin.length) {
       val = val.slice(STATE.lastCompletedPinyin.length).trim();
       input.value = val;
       cleanUser = cleanPinyin(val);
     } else if (STATE.lastCompletedPinyin && cleanUser === STATE.lastCompletedPinyin) {
-      input.value = '';
+      forceWipeInput(input);
       updateTypingPreview('');
       return;
     }
 
     updateTypingPreview(val);
 
-    // Kiểm tra khớp cho CẢ 2 dạng: Bàn phím Anh (Pinyin) & Bàn phím Trung (Hán tự)
-    const isPinyinMatch = (cleanUser === cleanTarget && cleanTarget.length > 0) ||
-                          (cleanUser.length >= cleanTarget.length && cleanUser.endsWith(cleanTarget) && cleanTarget.length > 0);
-
-    const isHanziMatch = (targetWord.length > 0 && val.trim() === targetWord) ||
-                         (targetWord.length > 0 && val.trim().endsWith(targetWord));
-
-    const isMatch = isPinyinMatch || isHanziMatch;
-
-    if (isMatch) {
+    if (checkMatch(val)) {
       STATE.isProcessingMatch = true;
       onWordTypedSuccess();
     }
@@ -391,14 +448,9 @@
     // 1. Panda throws dart
     setPandaState('throw');
 
-    // 2. Tự động xóa sạch chữ ngay lập tức trên app và web (không dùng readOnly để không làm tụt bàn phím điện thoại)
-    if (input) {
-      input.value = '';
-      input.defaultValue = '';
-      input.readOnly = false;
-      input.classList.remove('has-error');
-      updateTypingPreview('');
-    }
+    // 2. Tự động xóa sạch chữ triệt để và hủy phiên gõ của dấu cách/IME
+    forceWipeInput(input);
+    updateTypingPreview('');
 
     // 3. Launch flying Shuriken projectile
     GH.PandaArt?.throwShuriken(panda, card, () => {
