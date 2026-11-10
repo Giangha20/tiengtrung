@@ -7842,11 +7842,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             userChip.innerHTML = `<img src="${avatar}" alt="" class="chip-avatar-img" onerror="this.src='./avatar.jpg'" /> <span>${name}</span>`;
         }
 
-        document.getElementById('typing-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkTyping();
-            }
-        });
+        const typingInputEl = document.getElementById('typing-input');
+        if (typingInputEl) {
+            typingInputEl.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkTyping();
+                }
+            });
+            typingInputEl.addEventListener('input', function() {
+                checkTyping(true); // Tự động nhận diện khi gõ xong
+            });
+            typingInputEl.addEventListener('compositionend', function() {
+                checkTyping(true); // Tự động nhận diện khi chọn chữ Hán từ bàn phím Trung
+            });
+        }
 
         const saved = getProgressData();
         if (saved.currentLevel) {
@@ -8042,7 +8051,21 @@ function initTyping() {
     showTypingWord();
 }
 
+let ghTypingAdvanceTimer = null;
+
+function ghCleanPinyinText(str) {
+    return String(str || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/ü/g, 'v')
+        .replace(/[0-9]/g, '')
+        .replace(/[\s\-_'"]/g, '')
+        .replace(/[^a-z]/g, '');
+}
+
 function showTypingWord() {
+    clearTimeout(ghTypingAdvanceTimer);
     const feedback = document.getElementById('typing-feedback');
     const nextBtn = document.getElementById('next-word-btn');
     const input = document.getElementById('typing-input');
@@ -8050,14 +8073,14 @@ function showTypingWord() {
     if (typingWordList.length === 0) {
         document.getElementById('typing-word').textContent = "Trống";
         document.getElementById('typing-meaning').textContent = "Chưa có dữ liệu cho cấp độ này";
-        input.disabled = true;
+        if (input) input.disabled = true;
         return;
     }
 
     if (currentWordIndex >= typingWordList.length) {
         document.getElementById('typing-word').innerHTML = uiIcon("icon-spark");
         document.getElementById('typing-meaning').textContent = "Bạn đã hoàn thành cấp độ này!";
-        input.disabled = true;
+        if (input) input.disabled = true;
         return;
     }
 
@@ -8069,42 +8092,97 @@ function showTypingWord() {
         window.GH.vocabImages.renderInto('#typing-visual-container', currentItem.word, currentItem.meaning, currentItem.pinyin);
     }
     
-    input.value = "";
-    input.disabled = false;
-    input.focus();
-    feedback.textContent = "";
-    nextBtn.classList.add('hidden');
+    if (input) {
+        input.value = "";
+        input.defaultValue = "";
+        input.disabled = false;
+        try { input.setSelectionRange(0, 0); } catch(e) {}
+        input.focus();
+    }
+    if (feedback) feedback.textContent = "";
+    if (nextBtn) nextBtn.classList.add('hidden');
 }
 
-function checkTyping() {
+function checkTyping(isRealtime = false) {
     if (currentWordIndex >= typingWordList.length) return;
 
-    const inputVal = document.getElementById('typing-input').value.trim().toLowerCase();
-    const currentItem = typingWordList[currentWordIndex];
-    
-    const cleanPinyin = currentItem.pinyin.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const input = document.getElementById('typing-input');
+    if (!input) return;
 
-    const isMatch = (inputVal === cleanPinyin) || 
-                    (inputVal === currentItem.pinyin.toLowerCase()) || 
-                    (inputVal === currentItem.word); 
+    const rawVal = input.value || '';
+    const trimmedVal = rawVal.trim();
+    if (!trimmedVal) {
+        if (!isRealtime) {
+            const feedback = document.getElementById('typing-feedback');
+            if (feedback) {
+                feedback.textContent = "Vui lòng nhập Pinyin hoặc chữ Hán!";
+                feedback.className = "incorrect";
+            }
+        }
+        return;
+    }
+
+    const currentItem = typingWordList[currentWordIndex];
+    if (!currentItem) return;
+
+    const cleanInput = ghCleanPinyinText(rawVal);
+    const cleanTargetPinyin = ghCleanPinyinText(currentItem.pinyin);
+    const targetHanzi = (currentItem.word || '').trim();
+
+    // 1. Kiểm tra dạng bàn phím Anh (Pinyin: nihao, ni hao, nǐ hǎo, ...)
+    const isPinyinMatch = (cleanInput.length > 0 && cleanInput === cleanTargetPinyin) ||
+                          (cleanInput.length >= cleanTargetPinyin.length && cleanTargetPinyin.length > 0 && cleanInput.endsWith(cleanTargetPinyin));
+
+    // 2. Kiểm tra dạng bàn phím Trung (Hán tự: 你好, ...)
+    const isHanziMatch = (targetHanzi.length > 0 && trimmedVal === targetHanzi) ||
+                         (targetHanzi.length > 0 && trimmedVal.endsWith(targetHanzi));
+
+    const isMatch = isPinyinMatch || isHanziMatch;
 
     const feedback = document.getElementById('typing-feedback');
     const nextBtn = document.getElementById('next-word-btn');
 
     if (isMatch) {
+        clearTimeout(ghTypingAdvanceTimer);
         try { window.GH?.streak?.activity?.(); } catch (e) {}
-        feedback.textContent = " Chính xác!";
-        feedback.className = "correct";
-        document.getElementById('typing-input').disabled = true;
-        nextBtn.classList.remove('hidden');
-        nextBtn.focus();
-    } else {
-        feedback.textContent = " Sai rồi, thử lại nhé!";
-        feedback.className = "incorrect";
+
+        // Phát âm chuẩn từ này
+        if (window.GH_Audio && typeof window.GH_Audio.play === 'function') {
+            window.GH_Audio.play(targetHanzi);
+        } else if (typeof speakWord === 'function') {
+            speakWord(targetHanzi);
+        }
+
+        if (feedback) {
+            feedback.textContent = `✅ Chính xác: ${targetHanzi} (${currentItem.pinyin})!`;
+            feedback.className = "correct";
+        }
+
+        // Tự động xóa sạch chữ ngay khi gõ xong cho cả dạng bàn phím Trung và Anh
+        input.value = "";
+        input.defaultValue = "";
+        input.disabled = false;
+        try { input.setSelectionRange(0, 0); } catch(e) {}
+        input.focus();
+
+        if (nextBtn) {
+            nextBtn.classList.remove('hidden');
+        }
+
+        // Tự động chuyển từ tiếp theo sau 550ms thư thái
+        ghTypingAdvanceTimer = setTimeout(() => {
+            nextTypingWord();
+        }, 550);
+    } else if (!isRealtime) {
+        if (feedback) {
+            feedback.textContent = "❌ Sai rồi, thử lại nhé!";
+            feedback.className = "incorrect";
+        }
     }
 }
 
 function nextTypingWord() {
+    clearTimeout(ghTypingAdvanceTimer);
     currentWordIndex++;
     saveProgressData({ currentLevel, typingCompleted: Math.max(Number(getProgressData().typingCompleted || 0), currentWordIndex) });
     showTypingWord();

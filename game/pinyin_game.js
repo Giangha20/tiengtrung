@@ -29,7 +29,8 @@
     wordPool: [],
     missedWords: [],
     isProcessingMatch: false,
-    lastCompletedPinyin: ''
+    lastCompletedPinyin: '',
+    lastCompletedWord: ''
   };
 
   /**
@@ -79,6 +80,7 @@
     STATE.missedWords = [];
     STATE.isProcessingMatch = false;
     STATE.lastCompletedPinyin = '';
+    STATE.lastCompletedWord = '';
 
     // Apply base speed (slower by default per user request)
     const base = SPEED_PRESETS[STATE.speedMode].base;
@@ -321,20 +323,38 @@
   }
 
   function handleUserInput(e) {
-    if (!STATE.active || !STATE.currentWord || STATE.isProcessingMatch) return;
+    if (!STATE.active || !STATE.currentWord) return;
 
     const input = e.target;
+
+    // Trong lúc phi tiêu đang bay thì bỏ qua input vội
+    if (STATE.isProcessingMatch) {
+      input.value = '';
+      return;
+    }
+
     let val = input.value || '';
     let cleanUser = cleanPinyin(val);
     const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
+    const targetWord = (STATE.currentWord.word || '').trim();
 
-    // If mobile keyboard concatenated the previous completed word (e.g. "nihaopingguo"):
+    // 1. Dạng bàn phím Trung (Hán tự): tự động cắt bỏ nếu bàn phím ảo còn dính từ cũ (vd: "你好苹果"):
+    if (STATE.lastCompletedWord && val.startsWith(STATE.lastCompletedWord) && val.length > STATE.lastCompletedWord.length) {
+      val = val.slice(STATE.lastCompletedWord.length).trim();
+      input.value = val;
+      cleanUser = cleanPinyin(val);
+    } else if (STATE.lastCompletedWord && val === STATE.lastCompletedWord) {
+      input.value = '';
+      updateTypingPreview('');
+      return;
+    }
+
+    // 2. Dạng bàn phím Anh (Pinyin): tự động cắt bỏ nếu còn dính từ cũ (vd: "nihaopingguo"):
     if (STATE.lastCompletedPinyin && cleanUser.startsWith(STATE.lastCompletedPinyin) && cleanUser.length > STATE.lastCompletedPinyin.length) {
       val = val.slice(STATE.lastCompletedPinyin.length).trim();
       input.value = val;
       cleanUser = cleanPinyin(val);
     } else if (STATE.lastCompletedPinyin && cleanUser === STATE.lastCompletedPinyin) {
-      // Just stale leftover echo of old word
       input.value = '';
       updateTypingPreview('');
       return;
@@ -342,10 +362,14 @@
 
     updateTypingPreview(val);
 
-    // Exact Match! (or endsWith target if previous keystrokes lingered, or exact Hanzi match)
-    const isMatch = (cleanUser === cleanTarget && cleanTarget.length > 0) ||
-                    (cleanUser.length >= cleanTarget.length && cleanUser.endsWith(cleanTarget) && cleanTarget.length > 0) ||
-                    (val.trim() === STATE.currentWord.word);
+    // Kiểm tra khớp cho CẢ 2 dạng: Bàn phím Anh (Pinyin) & Bàn phím Trung (Hán tự)
+    const isPinyinMatch = (cleanUser === cleanTarget && cleanTarget.length > 0) ||
+                          (cleanUser.length >= cleanTarget.length && cleanUser.endsWith(cleanTarget) && cleanTarget.length > 0);
+
+    const isHanziMatch = (targetWord.length > 0 && val.trim() === targetWord) ||
+                         (targetWord.length > 0 && val.trim().endsWith(targetWord));
+
+    const isMatch = isPinyinMatch || isHanziMatch;
 
     if (isMatch) {
       STATE.isProcessingMatch = true;
@@ -360,17 +384,18 @@
 
     if (!card || !panda) return;
 
-    // Remember previous word pinyin to prevent any mobile keyboard concatenation
+    // Lưu lại cả Hán tự và Pinyin của từ vừa hoàn thành để chống dính cho cả 2 loại bàn phím
     STATE.lastCompletedPinyin = cleanPinyin(STATE.currentWord?.pinyin || '');
+    STATE.lastCompletedWord = (STATE.currentWord?.word || '').trim();
 
     // 1. Panda throws dart
     setPandaState('throw');
 
-    // 2. Lock and clear input immediately so the word disappears instantly with zero concatenation
+    // 2. Tự động xóa sạch chữ ngay lập tức trên app và web (không dùng readOnly để không làm tụt bàn phím điện thoại)
     if (input) {
       input.value = '';
       input.defaultValue = '';
-      input.readOnly = true;
+      input.readOnly = false;
       input.classList.remove('has-error');
       updateTypingPreview('');
     }
