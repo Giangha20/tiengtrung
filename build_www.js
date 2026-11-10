@@ -16,10 +16,12 @@ try {
     'package.json',
     'package-lock.json',
     'capacitor.config.json',
-    'vercel.json'
+    'vercel.json',
+    'update_app_icons.py',
+    'gen_icons.py'
   ]);
 
-  const excludeExts = new Set(['.env', '.log', '.md', '.txt']);
+  const excludeExts = new Set(['.env', '.log', '.md', '.txt', '.py']);
 
   const excludeDirs = new Set([
     'node_modules',
