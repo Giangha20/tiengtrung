@@ -229,6 +229,14 @@
     // Reset Panda
     setPandaState('idle');
 
+    // Ensure pristine canvas before starting new character
+    const wrap = document.getElementById('wg-mizige-wrap');
+    if (wrap) {
+      wrap.style.pointerEvents = 'auto';
+      wrap.style.opacity = '1';
+      wrap.innerHTML = '';
+    }
+
     // Start Mǐzìgé Quiz for this character
     startStrokeQuiz(char);
 
@@ -241,6 +249,9 @@
     const status = document.getElementById('wg-stroke-status');
     if (!wrap) return;
 
+    // Pristine canvas reset: ensure no residual strokes or continuous drawing
+    wrap.style.pointerEvents = 'auto';
+    wrap.style.opacity = '1';
     wrap.innerHTML = '';
     const isMobile = window.innerWidth <= 600;
     const boxSize = isMobile ? 220 : 260;
@@ -349,6 +360,18 @@
     const card = document.getElementById('wg-target-card');
     const panda = document.getElementById('wg-panda-char');
     const status = document.getElementById('wg-stroke-status');
+    const wrap = document.getElementById('wg-mizige-wrap');
+
+    // 0. Cancel quiz and immediately clear character so strokes disappear right away!
+    if (STATE.writer) {
+      try { STATE.writer.cancelQuiz(); } catch (e) {}
+    }
+    if (wrap) {
+      wrap.style.pointerEvents = 'none'; // Lock canvas from drawing continuously
+      wrap.style.transition = 'opacity 0.25s ease';
+      wrap.style.opacity = '0.2'; // Visual feedback that character is cleared
+      try { STATE.writer?.hideCharacter?.(); } catch (e) {}
+    }
 
     if (status) {
       status.textContent = `🎉 Xuất sắc! Gấu phi tiêu tiêu diệt chữ!`;
@@ -384,12 +407,26 @@
 
       setTimeout(() => {
         card.style.display = 'none';
+        if (wrap) wrap.innerHTML = ''; // Ensure canvas is completely blank
         spawnNextCharacter();
-      }, 400);
+      }, 350);
     });
   }
 
   function onCharacterTimeExpired() {
+    clearInterval(STATE.timerInterval);
+    cancelAnimationFrame(STATE.animFrameId);
+
+    if (STATE.writer) {
+      try { STATE.writer.cancelQuiz(); } catch (e) {}
+    }
+    const wrap = document.getElementById('wg-mizige-wrap');
+    if (wrap) {
+      wrap.style.pointerEvents = 'none';
+      wrap.style.opacity = '0.2';
+      try { STATE.writer?.hideCharacter?.(); } catch (e) {}
+    }
+
     STATE.lives--;
     STATE.combo = 0;
     if (STATE.currentWord) {
@@ -404,6 +441,7 @@
       card.classList.add('target-exploding');
       setTimeout(() => {
         card.style.display = 'none';
+        if (wrap) wrap.innerHTML = '';
         if (STATE.lives <= 0) {
           triggerGameOver();
         } else {
@@ -452,6 +490,12 @@
     if (STATE.writer) {
       try { STATE.writer.cancelQuiz(); } catch (e) {}
       STATE.writer = null;
+    }
+    const wrap = document.getElementById('wg-mizige-wrap');
+    if (wrap) {
+      wrap.style.pointerEvents = 'auto';
+      wrap.style.opacity = '1';
+      wrap.innerHTML = '';
     }
   }
 

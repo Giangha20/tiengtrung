@@ -28,7 +28,8 @@
     animFrameId: null,
     wordPool: [],
     missedWords: [],
-    isProcessingMatch: false
+    isProcessingMatch: false,
+    lastCompletedPinyin: ''
   };
 
   /**
@@ -77,6 +78,7 @@
     STATE.wordsCleared = 0;
     STATE.missedWords = [];
     STATE.isProcessingMatch = false;
+    STATE.lastCompletedPinyin = '';
 
     // Apply base speed (slower by default per user request)
     const base = SPEED_PRESETS[STATE.speedMode].base;
@@ -189,17 +191,21 @@
     if (input) {
       input.focus();
       input.addEventListener('input', handleUserInput);
+      input.addEventListener('compositionend', () => {
+        handleUserInput({ target: input });
+      });
       // Auto focus input when clicking stage on mobile / tablet
       document.getElementById('pg-stage')?.addEventListener('click', () => {
-        input.focus();
+        if (!input.readOnly) input.focus();
       });
     }
 
     document.getElementById('pg-btn-clear')?.addEventListener('click', () => {
       if (input) {
         input.value = '';
+        input.defaultValue = '';
         input.classList.remove('has-error');
-        input.focus();
+        if (!input.readOnly) input.focus();
         updateTypingPreview('');
       }
     });
@@ -255,10 +261,15 @@
     meaningEl.textContent = item.meaning || '';
     updateTypingPreview('');
 
-    // Reset input
+    // Reset input completely - pristine blank slate for new word
     if (input) {
+      input.readOnly = false;
       input.value = '';
+      input.defaultValue = '';
       input.classList.remove('has-error');
+      try {
+        input.setSelectionRange(0, 0);
+      } catch (e) {}
       input.focus();
     }
 
@@ -312,14 +323,28 @@
   function handleUserInput(e) {
     if (!STATE.active || !STATE.currentWord || STATE.isProcessingMatch) return;
 
-    const val = e.target.value || '';
-    const cleanUser = cleanPinyin(val);
+    const input = e.target;
+    let val = input.value || '';
+    let cleanUser = cleanPinyin(val);
     const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
+
+    // If mobile keyboard concatenated the previous completed word (e.g. "nihaopingguo"):
+    if (STATE.lastCompletedPinyin && cleanUser.startsWith(STATE.lastCompletedPinyin) && cleanUser.length > STATE.lastCompletedPinyin.length) {
+      val = val.slice(STATE.lastCompletedPinyin.length).trim();
+      input.value = val;
+      cleanUser = cleanPinyin(val);
+    } else if (STATE.lastCompletedPinyin && cleanUser === STATE.lastCompletedPinyin) {
+      // Just stale leftover echo of old word
+      input.value = '';
+      updateTypingPreview('');
+      return;
+    }
 
     updateTypingPreview(val);
 
-    // Exact Match! (or exact Hanzi match if using Chinese IME)
+    // Exact Match! (or endsWith target if previous keystrokes lingered, or exact Hanzi match)
     const isMatch = (cleanUser === cleanTarget && cleanTarget.length > 0) ||
+                    (cleanUser.length >= cleanTarget.length && cleanUser.endsWith(cleanTarget) && cleanTarget.length > 0) ||
                     (val.trim() === STATE.currentWord.word);
 
     if (isMatch) {
@@ -335,13 +360,19 @@
 
     if (!card || !panda) return;
 
+    // Remember previous word pinyin to prevent any mobile keyboard concatenation
+    STATE.lastCompletedPinyin = cleanPinyin(STATE.currentWord?.pinyin || '');
+
     // 1. Panda throws dart
     setPandaState('throw');
 
-    // 2. Clear input immediately so player feels responsive feedback
+    // 2. Lock and clear input immediately so the word disappears instantly with zero concatenation
     if (input) {
       input.value = '';
+      input.defaultValue = '';
+      input.readOnly = true;
       input.classList.remove('has-error');
+      updateTypingPreview('');
     }
 
     // 3. Launch flying Shuriken projectile

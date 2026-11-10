@@ -24,6 +24,7 @@ try {
   const excludeDirs = new Set([
     'node_modules',
     'ios',
+    'android',
     'www',
     'secrets',
     '.git',

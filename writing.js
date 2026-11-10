@@ -378,7 +378,15 @@
     WP.quizCompletedChars.clear();
     WP.isAnimating = false;
 
-    // Reset writers and charData
+    // Cleanly cancel and destroy previous writers before moving to next word
+    if (WP.writers && WP.writers.length) {
+      WP.writers.forEach(w => {
+        if (w) {
+          try { w.cancelQuiz(); } catch (e) {}
+          try { w.pauseAnimation(); } catch (e) {}
+        }
+      });
+    }
     WP.writers = [];
     WP.charDataList = [];
 
