@@ -1,8 +1,7 @@
 /**
- * writing_game.js - Game Viết Chữ Hán Phi Tiêu (Hanzi Stroke Panda)
- * The player writes the falling Hanzi strokes on the Mǐzìgé canvas.
- * When the character is written correctly, the Ninja Panda throws a flying shuriken that explodes the word!
- * Divided by HSK 1 - 6 with stroke-by-stroke detection, audio pronunciation, combos, and rewards.
+ * writing_game.js - Game Viết Chữ Hán Phi Tiêu (Hanzi Stroke Panda) - Bản 2.0
+ * Thời gian viết thư thái (45 giây/chữ), có nút gợi ý nét và viết lại.
+ * Khi viết đúng chữ Hán, Gấu Trúc Ninja phóng phi tiêu nổ tung chữ và đọc phát âm chuẩn!
  */
 (() => {
   const GH = window.GH = window.GH || {};
@@ -19,12 +18,13 @@
     currentChar: '',
     writer: null,
     targetY: 0,
-    maxTime: 22, // seconds per word
-    timeLeft: 22,
+    maxTime: 45, // 45 seconds per character - relaxed, comfortable pace
+    timeLeft: 45,
     timerInterval: null,
     animFrameId: null,
     wordPool: [],
-    missedWords: []
+    missedWords: [],
+    isProcessingMatch: false
   };
 
   function getLevelWords(lvl) {
@@ -54,7 +54,9 @@
     STATE.lives = 3;
     STATE.wordsCleared = 0;
     STATE.missedWords = [];
-    STATE.maxTime = Math.max(14, 25 - (Number(STATE.level) - 1) * 2);
+    STATE.isProcessingMatch = false;
+    // Generous time: 45 seconds for HSK1-2, 40s for HSK3-4, 35s for HSK5-6
+    STATE.maxTime = Math.max(30, 48 - (Number(STATE.level) - 1) * 3);
     STATE.wordPool = getLevelWords(STATE.level);
 
     renderGameUi(container);
@@ -69,8 +71,8 @@
         <div class="panda-game-hud">
           <div class="hud-left">
             <button type="button" class="game-btn-icon" id="wg-btn-back" title="Về sảnh trò chơi">◀ Sảnh</button>
-            <div class="hud-pill hud-level">
-              <span class="hud-label">Cấp độ:</span>
+            <div class="hud-pill hud-level" title="Chọn cấp độ HSK">
+              <span class="hud-label">HSK:</span>
               <select id="wg-level-select" class="hud-select">
                 <option value="1" ${STATE.level === '1' ? 'selected' : ''}>HSK 1</option>
                 <option value="2" ${STATE.level === '2' ? 'selected' : ''}>HSK 2</option>
@@ -80,7 +82,7 @@
                 <option value="6" ${STATE.level === '6' ? 'selected' : ''}>HSK 6</option>
               </select>
             </div>
-            <div class="hud-pill hud-lives" id="wg-lives">
+            <div class="hud-pill hud-lives" id="wg-lives" title="Số mạng còn lại">
               ❤️❤️❤️
             </div>
           </div>
@@ -101,7 +103,7 @@
           </div>
         </div>
 
-        <!-- Middle Arena: Split into Left (Falling Target & Panda) and Right (Mǐzìgé Canvas) -->
+        <!-- Middle Arena: Split into Left (Target & Panda) and Right (Mǐzìgé Canvas) -->
         <div class="writing-arena-stage">
           <!-- Left: Falling Target & Ninja Panda -->
           <div class="writing-stage-left" id="wg-stage-left">
@@ -113,7 +115,7 @@
               <div class="target-meaning" id="wg-target-meaning">--</div>
 
               <!-- Time Remaining Bar -->
-              <div class="target-time-wrap">
+              <div class="target-time-wrap" title="Thời gian còn lại">
                 <div class="target-time-fill" id="wg-time-fill"></div>
               </div>
             </div>
@@ -201,8 +203,9 @@
     }
     const item = STATE.wordPool.pop();
     STATE.currentWord = item;
+    STATE.isProcessingMatch = false;
 
-    // Pick first Chinese character in word
+    // Pick Chinese character in word
     const hanziOnly = (item.word || '').replace(/[^\u4e00-\u9fa5]/g, '');
     const char = hanziOnly[0] || '好';
     STATE.currentChar = char;
@@ -282,7 +285,10 @@
           GH.PandaSFX?.playMiss?.();
         },
         onComplete: function() {
-          onCharacterWrittenSuccess();
+          if (!STATE.isProcessingMatch) {
+            STATE.isProcessingMatch = true;
+            onCharacterWrittenSuccess();
+          }
         }
       });
 
@@ -320,7 +326,7 @@
         STATE.targetY = 15 + progress * (maxY - 15);
         card.style.top = `${STATE.targetY}px`;
 
-        if (progress > 0.75) {
+        if (progress > 0.78) {
           card.classList.add('target-danger');
         }
       }

@@ -83,7 +83,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
         with:
           tag_name: ${{ github.ref_name }}
-          name: "Học Tiếng Trung HSK (${{ github.ref_name }})"
+          name: "Học Tiếng Trung HSK 2.0 (${{ github.ref_name }})"
           body: "Bản phát hành ứng dụng Học Tiếng Trung HSK. Bao gồm file cài đặt APK cho Android và IPA cho iOS."
           files: ios/App/build/TiengTrung-HSK.ipa
         env:

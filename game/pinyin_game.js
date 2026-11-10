@@ -1,14 +1,22 @@
 /**
- * pinyin_game.js - Game Gõ Pinyin Phi Tiêu (Pinyin Dart Panda)
- * Real Panda character throws flying shurikens at falling Hanzi words when player types Pinyin correctly!
- * Divided by HSK 1 - 6 with difficulty progression, combos, and sound effects.
+ * pinyin_game.js - Game Gõ Pinyin Phi Tiêu (Pinyin Dart Panda) - Bản 2.0
+ * Tốc độ rơi thư thái, dễ gõ trên cả máy tính lẫn điện thoại.
+ * Hỗ trợ chọn tốc độ (Chậm / Vừa / Nhanh), gõ thông minh không dấu / có dấu / có số tone.
+ * Gấu trúc ninja thật ném phi tiêu nổ tung chữ khi gõ đúng!
  */
 (() => {
   const GH = window.GH = window.GH || {};
 
+  const SPEED_PRESETS = {
+    slow: { base: 0.38, label: '🐢 Chậm' },
+    medium: { base: 0.58, label: '🚶 Vừa' },
+    fast: { base: 0.85, label: '🏃 Nhanh' }
+  };
+
   const STATE = {
     active: false,
     level: '1',
+    speedMode: 'slow',
     score: 0,
     combo: 0,
     maxCombo: 0,
@@ -16,33 +24,35 @@
     wordsCleared: 0,
     currentWord: null,
     targetY: 0,
-    fallSpeed: 1.1, // pixels per frame
+    fallSpeed: 0.38, // Pixels per frame (slower, relaxed pace!)
     animFrameId: null,
     wordPool: [],
-    missedWords: []
+    missedWords: [],
+    isProcessingMatch: false
   };
 
   /**
-   * Normalize Pinyin for easy matching (strips tone marks, spaces, lowercase).
-   * e.g. "píngguǒ" -> "pingguo", "nǐ hǎo" -> "nihao"
+   * Super-clean Pinyin Normalizer
+   * Handles: tone marks, spaces, hyphens, tone numbers, uppercase
+   * e.g. "píngguǒ" -> "pingguo", "nǐ hǎo" -> "nihao", "ni3 hao3" -> "nihao"
    */
   function cleanPinyin(str) {
     return String(str || '')
       .toLowerCase()
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // remove accent marks
+      .replace(/[\u0300-\u036f]/g, '') // remove tone diacritics
       .replace(/ü/g, 'v')
-      .replace(/[^a-z0-9]/g, '');
+      .replace(/[0-9]/g, '')           // remove tone numbers
+      .replace(/[\s\-_'"]/g, '')       // remove spaces, hyphens, apostrophes
+      .replace(/[^a-z]/g, '');
   }
 
   // Get words for selected HSK level
   function getLevelWords(lvl) {
     const list = window.hskData?.[lvl] || [];
     if (Array.isArray(list) && list.length) {
-      // Shuffle list
       return [...list].sort(() => Math.random() - 0.5);
     }
-    // Fallback defaults
     return [
       { word: '你好', pinyin: 'nǐ hǎo', meaning: 'xin chào' },
       { word: '谢谢', pinyin: 'xièxie', meaning: 'cảm ơn' },
@@ -57,15 +67,20 @@
     ];
   }
 
-  function initPinyinGame(container, hskLevel = '1') {
+  function initPinyinGame(container, hskLevel = '1', speedMode = 'slow') {
     STATE.level = String(hskLevel || '1');
+    STATE.speedMode = speedMode in SPEED_PRESETS ? speedMode : 'slow';
     STATE.score = 0;
     STATE.combo = 0;
     STATE.maxCombo = 0;
     STATE.lives = 3;
     STATE.wordsCleared = 0;
     STATE.missedWords = [];
-    STATE.fallSpeed = 0.95 + (Number(STATE.level) - 1) * 0.15;
+    STATE.isProcessingMatch = false;
+
+    // Apply base speed (slower by default per user request)
+    const base = SPEED_PRESETS[STATE.speedMode].base;
+    STATE.fallSpeed = base;
     STATE.wordPool = getLevelWords(STATE.level);
 
     renderGameUi(container);
@@ -81,8 +96,8 @@
         <div class="panda-game-hud">
           <div class="hud-left">
             <button type="button" class="game-btn-icon" id="pg-btn-back" title="Về sảnh trò chơi">◀ Sảnh</button>
-            <div class="hud-pill hud-level">
-              <span class="hud-label">Cấp độ:</span>
+            <div class="hud-pill hud-level" title="Chọn cấp độ HSK">
+              <span class="hud-label">HSK:</span>
               <select id="pg-level-select" class="hud-select">
                 <option value="1" ${STATE.level === '1' ? 'selected' : ''}>HSK 1</option>
                 <option value="2" ${STATE.level === '2' ? 'selected' : ''}>HSK 2</option>
@@ -90,6 +105,15 @@
                 <option value="4" ${STATE.level === '4' ? 'selected' : ''}>HSK 4</option>
                 <option value="5" ${STATE.level === '5' ? 'selected' : ''}>HSK 5</option>
                 <option value="6" ${STATE.level === '6' ? 'selected' : ''}>HSK 6</option>
+              </select>
+            </div>
+            <!-- Speed Control -->
+            <div class="hud-pill hud-speed" title="Tốc độ rơi chữ">
+              <span class="hud-label">Tốc độ:</span>
+              <select id="pg-speed-select" class="hud-select">
+                <option value="slow" ${STATE.speedMode === 'slow' ? 'selected' : ''}>🐢 Chậm</option>
+                <option value="medium" ${STATE.speedMode === 'medium' ? 'selected' : ''}>🚶 Vừa</option>
+                <option value="fast" ${STATE.speedMode === 'fast' ? 'selected' : ''}>🏃 Nhanh</option>
               </select>
             </div>
             <div class="hud-pill hud-lives" id="pg-lives" title="Số mạng còn lại">
@@ -132,7 +156,7 @@
             <div class="target-meaning" id="pg-target-meaning">--</div>
           </div>
 
-          <!-- Ground Baseline Barrier (Nếu chữ chạm đây sẽ mất mạng) -->
+          <!-- Ground Baseline Barrier (Nếu chữ rơi chạm đây sẽ mất mạng) -->
           <div class="stage-ground-barrier">
             <div class="barrier-warning-line"></div>
             <div class="ground-bamboo-fence"></div>
@@ -148,12 +172,12 @@
         <div class="panda-input-dock">
           <div class="input-wrapper">
             <input type="text" id="pg-user-input" class="pinyin-typing-input" 
-              placeholder="Gõ Pinyin vào đây rồi chữ sẽ nổ..." 
+              placeholder="Gõ Pinyin (vd: nihao, pingguo) rồi chữ sẽ nổ..." 
               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
             <button type="button" class="input-clear-btn" id="pg-btn-clear" title="Xóa gõ lại">✕</button>
           </div>
           <div class="input-hint">
-            💡 <b>Mẹo gõ:</b> Gõ Pinyin thông thường (ví dụ: <code>nihao</code>, <code>pingguo</code>, <code>xiexie</code>) là gấu sẽ ném phi tiêu!
+            💡 <b>Mẹo:</b> Gõ Pinyin thường không cần dấu (vd: <code>nihao</code>, <code>xiexie</code>) là Gấu Trúc sẽ phóng phi tiêu ngay!
           </div>
         </div>
       </div>
@@ -165,13 +189,16 @@
     if (input) {
       input.focus();
       input.addEventListener('input', handleUserInput);
-      // Keep focus on mobile stage click
-      document.getElementById('pg-stage')?.addEventListener('click', () => input.focus());
+      // Auto focus input when clicking stage on mobile / tablet
+      document.getElementById('pg-stage')?.addEventListener('click', () => {
+        input.focus();
+      });
     }
 
     document.getElementById('pg-btn-clear')?.addEventListener('click', () => {
       if (input) {
         input.value = '';
+        input.classList.remove('has-error');
         input.focus();
         updateTypingPreview('');
       }
@@ -179,12 +206,18 @@
 
     document.getElementById('pg-level-select')?.addEventListener('change', (e) => {
       stopGameLoop();
-      initPinyinGame(document.getElementById('game-mode'), e.target.value);
+      initPinyinGame(document.getElementById('game-mode'), e.target.value, STATE.speedMode);
+    });
+
+    document.getElementById('pg-speed-select')?.addEventListener('change', (e) => {
+      STATE.speedMode = e.target.value;
+      const base = SPEED_PRESETS[STATE.speedMode].base;
+      STATE.fallSpeed = base;
     });
 
     document.getElementById('pg-btn-restart')?.addEventListener('click', () => {
       stopGameLoop();
-      initPinyinGame(document.getElementById('game-mode'), STATE.level);
+      initPinyinGame(document.getElementById('game-mode'), STATE.level, STATE.speedMode);
     });
 
     document.getElementById('pg-btn-mute')?.addEventListener('click', (e) => {
@@ -209,10 +242,10 @@
     }
     const item = STATE.wordPool.pop();
     STATE.currentWord = item;
+    STATE.isProcessingMatch = false;
 
     const card = document.getElementById('pg-target-card');
     const hanziEl = document.getElementById('pg-target-hanzi');
-    const pinyinEl = document.getElementById('pg-target-pinyin');
     const meaningEl = document.getElementById('pg-target-meaning');
     const input = document.getElementById('pg-user-input');
 
@@ -225,6 +258,7 @@
     // Reset input
     if (input) {
       input.value = '';
+      input.classList.remove('has-error');
       input.focus();
     }
 
@@ -250,6 +284,7 @@
     const cleanUser = cleanPinyin(userVal);
     const cleanTarget = cleanPinyin(STATE.currentWord?.pinyin || '');
     const rawTarget = STATE.currentWord?.pinyin || '';
+    const input = document.getElementById('pg-user-input');
 
     const typedPart = document.getElementById('pg-typed-part');
     const untypedPart = document.getElementById('pg-untyped-part');
@@ -260,15 +295,22 @@
       typedPart.textContent = rawTarget.slice(0, cleanUser.length);
       untypedPart.textContent = rawTarget.slice(cleanUser.length);
       typedPart.style.color = '#10b981'; // Green matched
+      if (input) input.classList.remove('has-error');
+    } else if (cleanUser.length > 0 && !cleanTarget.startsWith(cleanUser)) {
+      typedPart.textContent = '';
+      untypedPart.textContent = rawTarget;
+      typedPart.style.color = '';
+      if (input) input.classList.add('has-error');
     } else {
       typedPart.textContent = '';
       untypedPart.textContent = rawTarget;
       typedPart.style.color = '';
+      if (input) input.classList.remove('has-error');
     }
   }
 
   function handleUserInput(e) {
-    if (!STATE.active || !STATE.currentWord) return;
+    if (!STATE.active || !STATE.currentWord || STATE.isProcessingMatch) return;
 
     const val = e.target.value || '';
     const cleanUser = cleanPinyin(val);
@@ -276,8 +318,12 @@
 
     updateTypingPreview(val);
 
-    // Exact Match!
-    if (cleanUser === cleanTarget && cleanTarget.length > 0) {
+    // Exact Match! (or exact Hanzi match if using Chinese IME)
+    const isMatch = (cleanUser === cleanTarget && cleanTarget.length > 0) ||
+                    (val.trim() === STATE.currentWord.word);
+
+    if (isMatch) {
+      STATE.isProcessingMatch = true;
       onWordTypedSuccess();
     }
   }
@@ -293,14 +339,17 @@
     setPandaState('throw');
 
     // 2. Clear input immediately so player feels responsive feedback
-    if (input) input.value = '';
+    if (input) {
+      input.value = '';
+      input.classList.remove('has-error');
+    }
 
     // 3. Launch flying Shuriken projectile
     GH.PandaArt?.throwShuriken(panda, card, () => {
       // Shuriken arrived at target!
       card.classList.add('target-exploding');
 
-      // Pronounce Chinese word with Google/Baidu audio
+      // Pronounce Chinese word with single-voice engine
       if (STATE.currentWord?.word) {
         window.GH_Audio?.play?.(STATE.currentWord.word);
       }
@@ -326,8 +375,9 @@
       // Hide card and spawn next word after short impact pause
       setTimeout(() => {
         card.style.display = 'none';
-        // Accelerate speed slightly
-        STATE.fallSpeed = Math.min(3.8, STATE.fallSpeed + 0.04);
+        // Gentle, bounded speed scaling so it never gets too fast
+        const base = SPEED_PRESETS[STATE.speedMode].base;
+        STATE.fallSpeed = Math.min(base * 1.35, STATE.fallSpeed + 0.008);
         spawnNextWord();
       }, 260);
     });
@@ -487,7 +537,7 @@
 
     modal.querySelector('#pg-modal-retry')?.addEventListener('click', () => {
       modal.remove();
-      initPinyinGame(document.getElementById('game-mode'), STATE.level);
+      initPinyinGame(document.getElementById('game-mode'), STATE.level, STATE.speedMode);
     });
 
     modal.querySelector('#pg-modal-hub')?.addEventListener('click', () => {
