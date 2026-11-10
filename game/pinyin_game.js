@@ -174,14 +174,20 @@
 
         <!-- Player Input Dock (Bottom) -->
         <div class="panda-input-dock">
+          <!-- Hanzi Candidate Selector -->
+          <div class="candidate-bar" id="pg-candidate-bar" style="display:none;">
+            <span class="candidate-prompt">Chọn chữ Hán:</span>
+            <button type="button" class="hanzi-candidate-btn" id="pg-candidate-btn">1. --</button>
+          </div>
+
           <div class="input-wrapper">
             <input type="text" id="pg-user-input" class="pinyin-typing-input" 
-              placeholder="Gõ Pinyin (vd: nihao, pingguo) rồi chữ sẽ nổ..." 
+              placeholder="Gõ pinyin chọn chữ Hán (vd: 送, 你好)..." 
               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
             <button type="button" class="input-clear-btn" id="pg-btn-clear" title="Xóa gõ lại">✕</button>
           </div>
           <div class="input-hint">
-            💡 <b>Mẹo:</b> Gõ Pinyin thường không cần dấu (vd: <code>nihao</code>, <code>xiexie</code>) là Gấu Trúc sẽ phóng phi tiêu ngay!
+            💡 <b>Mẹo:</b> Dùng bàn phím tiếng Trung gõ Pinyin rồi chọn đúng chữ Hán (hoặc bấm phím cách) để hiện chữ Hán, Gấu Trúc sẽ bắn phi tiêu nổ chữ!
           </div>
         </div>
       </div>
@@ -190,23 +196,40 @@
 
   function bindEvents() {
     const input = document.getElementById('pg-user-input');
+    const candidateBtn = document.getElementById('pg-candidate-btn');
+
+    if (candidateBtn) {
+      candidateBtn.addEventListener('click', () => {
+        const targetWord = (STATE.currentWord?.word || '').trim();
+        commitHanziMatch(targetWord);
+      });
+    }
+
     if (input) {
       input.focus();
       input.addEventListener('input', handleUserInput);
       input.addEventListener('compositionend', () => {
         handleUserInput({ target: input });
       });
-      // Xử lý khi nhấn dấu cách: nếu từ hiện tại đã khớp thì chặn chèn dấu cách và kích nổ ngay
+
+      // Bấm phím cách (Space) hoặc Enter để chọn chữ Hán khi đã gõ đúng Pinyin
       input.addEventListener('keydown', (e) => {
-        if (e.key === ' ' || e.code === 'Space' || e.keyCode === 32) {
-          const val = (input.value || '').trim();
-          if (checkMatch(val)) {
+        if (e.key === ' ' || e.code === 'Space' || e.keyCode === 32 || e.key === 'Enter') {
+          const val = input.value || '';
+          const targetWord = (STATE.currentWord?.word || '').trim();
+          const cleanUser = cleanPinyin(val);
+          const cleanTarget = cleanPinyin(STATE.currentWord?.pinyin || '');
+
+          if (val.trim() === targetWord || val.trim().endsWith(targetWord)) {
             e.preventDefault();
-            STATE.isProcessingMatch = true;
-            onWordTypedSuccess();
+            commitHanziMatch(targetWord);
+          } else if (cleanUser === cleanTarget && cleanTarget.length > 0) {
+            e.preventDefault();
+            commitHanziMatch(targetWord);
           }
         }
       });
+
       // Auto focus input when clicking stage on mobile / tablet
       document.getElementById('pg-stage')?.addEventListener('click', () => {
         if (!input.readOnly) input.focus();
@@ -269,6 +292,9 @@
     const hanziEl = document.getElementById('pg-target-hanzi');
     const meaningEl = document.getElementById('pg-target-meaning');
     const input = document.getElementById('pg-user-input');
+    const candidateBar = document.getElementById('pg-candidate-bar');
+
+    if (candidateBar) candidateBar.style.display = 'none';
 
     if (!card || !hanziEl || !item) return;
 
@@ -349,19 +375,26 @@
     setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 150);
   }
 
-  function checkMatch(val) {
-    if (!STATE.active || !STATE.currentWord) return false;
-    const cleanUser = cleanPinyin(val);
-    const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
-    const targetWord = (STATE.currentWord.word || '').trim();
+  function commitHanziMatch(targetWord) {
+    if (!STATE.active || !STATE.currentWord || STATE.isProcessingMatch) return;
+    STATE.isProcessingMatch = true;
 
-    const isPinyinMatch = (cleanUser === cleanTarget && cleanTarget.length > 0) ||
-                          (cleanUser.length >= cleanTarget.length && cleanTarget.length > 0 && cleanUser.endsWith(cleanTarget));
+    const input = document.getElementById('pg-user-input');
+    const candidateBar = document.getElementById('pg-candidate-bar');
+    if (candidateBar) candidateBar.style.display = 'none';
 
-    const isHanziMatch = (targetWord.length > 0 && val.trim() === targetWord) ||
-                         (targetWord.length > 0 && val.trim().endsWith(targetWord));
+    // 1. HIỆN HẲN CHỮ HÁN RA RÕ RÀNG TRONG Ô NHẬP!
+    if (input) {
+      input.value = targetWord;
+      input.defaultValue = targetWord;
+      updateTypingPreview(targetWord);
+    }
 
-    return isPinyinMatch || isHanziMatch;
+    // 2. KHI PHÁT HIỆN ĐÚNG CHỮ HÁN THÌ MỚI BẮN PHI TIÊU LÊN!
+    // Trễ 120ms để người dùng nhìn thấy rõ chữ Hán đã xuất hiện
+    setTimeout(() => {
+      onWordTypedSuccess();
+    }, 120);
   }
 
   function handleUserInput(e) {
@@ -381,56 +414,51 @@
     if (!val.trim()) {
       input.value = '';
       updateTypingPreview('');
+      const bar = document.getElementById('pg-candidate-bar');
+      if (bar) bar.style.display = 'none';
       return;
     }
 
     const targetWord = (STATE.currentWord.word || '').trim();
+    const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
+    const candidateBar = document.getElementById('pg-candidate-bar');
+    const candidateBtn = document.getElementById('pg-candidate-btn');
 
     // KIỂM TRA CHỮ HÁN ĐỌNG LẠI (như trong ảnh lỗi: "游泳隐形心"):
-    // Nếu trong ô nhập có ký tự chữ Hán mà KHÔNG CHỨA từ mục tiêu hiện tại (targetWord):
+    // Nếu trong ô nhập có ký tự chữ Hán mà không phải là tiền tố của từ mục tiêu và không chứa từ mục tiêu:
     // Đây 100% là chữ đọng lại của các từ trước -> XÓA SẠCH NGAY LẬP TỨC!
-    if (/[\u4e00-\u9fa5]/.test(val) && targetWord && !val.includes(targetWord)) {
+    if (/[\u4e00-\u9fa5]/.test(val) && targetWord && !targetWord.startsWith(val) && !val.includes(targetWord)) {
       forceWipeInput(input);
       updateTypingPreview('');
+      if (candidateBar) candidateBar.style.display = 'none';
       return;
     }
 
-    // Nếu có chứa targetWord ở cuối (vd: "游泳隐形心送"):
-    if (targetWord && val.trim().endsWith(targetWord)) {
-      STATE.isProcessingMatch = true;
-      onWordTypedSuccess();
+    // NẾU Ô NHẬP ĐÃ CHỨA ĐÚNG CHỮ HÁN (người dùng chọn chữ Hán từ bàn phím tiếng Trung hoặc bấm phím cách):
+    if (targetWord && (val.trim() === targetWord || val.trim().endsWith(targetWord))) {
+      commitHanziMatch(targetWord);
       return;
     }
 
-    // 1. Dạng bàn phím Trung (Hán tự): tự động cắt bỏ nếu bàn phím ảo còn dính từ cũ (vd: "你好苹果"):
-    if (STATE.lastCompletedWord && val.startsWith(STATE.lastCompletedWord) && val.length > STATE.lastCompletedWord.length) {
-      val = val.slice(STATE.lastCompletedWord.length).trim();
-      input.value = val;
-    } else if (STATE.lastCompletedWord && val === STATE.lastCompletedWord) {
-      forceWipeInput(input);
-      updateTypingPreview('');
-      return;
-    }
-
-    // 2. Dạng bàn phím Anh (Pinyin): tự động cắt bỏ nếu còn dính từ cũ (vd: "nihaopingguo"):
+    // NẾU ĐANG GÕ PINYIN (chữ cái Latin):
     let cleanUser = cleanPinyin(val);
-    const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
-
-    if (STATE.lastCompletedPinyin && cleanUser.startsWith(STATE.lastCompletedPinyin) && cleanUser.length > STATE.lastCompletedPinyin.length) {
-      val = val.slice(STATE.lastCompletedPinyin.length).trim();
-      input.value = val;
-      cleanUser = cleanPinyin(val);
-    } else if (STATE.lastCompletedPinyin && cleanUser === STATE.lastCompletedPinyin) {
-      forceWipeInput(input);
-      updateTypingPreview('');
-      return;
-    }
-
     updateTypingPreview(val);
 
-    if (checkMatch(val)) {
-      STATE.isProcessingMatch = true;
-      onWordTypedSuccess();
+    // Khi gõ đúng toàn bộ Pinyin của từ mục tiêu:
+    if (cleanUser === cleanTarget && cleanTarget.length > 0) {
+      // Nếu người dùng gõ thêm dấu cách (trên bàn phím ảo điện thoại hoặc phím cứng):
+      if (val.endsWith(' ') || val.endsWith('　')) {
+        commitHanziMatch(targetWord);
+        return;
+      }
+
+      // Hiển thị thanh gợi ý chữ Hán để bấm chọn chữ Hán!
+      if (candidateBar && candidateBtn) {
+        candidateBar.style.display = 'flex';
+        candidateBtn.textContent = '1. ' + targetWord;
+      }
+    } else {
+      if (candidateBar) candidateBar.style.display = 'none';
     }
   }
 
@@ -438,6 +466,8 @@
     const card = document.getElementById('pg-target-card');
     const panda = document.getElementById('pg-panda-char');
     const input = document.getElementById('pg-user-input');
+    const candidateBar = document.getElementById('pg-candidate-bar');
+    if (candidateBar) candidateBar.style.display = 'none';
 
     if (!card || !panda) return;
 
