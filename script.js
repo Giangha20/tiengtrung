@@ -7988,6 +7988,8 @@ function switchMode(mode) {
         updateProgressUI();
     } else if (mode === 'writing') {
         window.GH_Writing?.init?.();
+    } else if (mode === 'game') {
+        window.GH_GameHub?.init?.();
     } else if (mode === 'list') {
         // Danh sách từ luôn lấy đúng currentLevel, không random và không đổi dữ liệu khi bấm lại.
         renderList();

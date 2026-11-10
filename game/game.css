@@ -1,0 +1,1013 @@
+/* ==============================================================
+   GAME.CSS - PANDA NINJA DARTS & ARCADE ARENA
+   Styles for Game Hub, Pinyin Dart Panda & Hanzi Write Dart Panda
+   ============================================================== */
+
+/* Hub Container */
+.panda-hub-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 12px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Hub Hero Banner */
+.panda-hub-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #064e3b 100%);
+  border-radius: 20px;
+  padding: 26px 28px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.panda-hub-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0) 70%);
+  pointer-events: none;
+}
+
+.hub-hero-text {
+  flex: 1;
+}
+
+.hub-kicker {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #38bdf8;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.hub-hero-text h2 {
+  font-size: 1.9rem;
+  margin: 0 0 10px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.hub-hero-text p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+  max-width: 580px;
+}
+
+.hub-hero-panda {
+  width: 130px;
+  height: 140px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pandaBreathe 3.5s ease-in-out infinite;
+}
+
+/* HSK Level Selector in Hub */
+.hub-hsk-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 14px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.selector-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-color, #0f172a);
+}
+
+.hub-level-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hub-level-pill {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hub-level-pill:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.hub-level-pill.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+}
+
+/* Game Cards Grid */
+.panda-game-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.panda-game-card {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.panda-game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-pinyin {
+  border-top: 4px solid #0284c7;
+}
+
+.card-writing {
+  border-top: 4px solid #059669;
+}
+
+.game-card-badge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.card-pinyin .game-card-badge {
+  background: rgba(2, 132, 199, 0.12);
+  color: #0284c7;
+}
+
+.card-writing .game-card-badge {
+  background: rgba(5, 150, 105, 0.12);
+  color: #059669;
+}
+
+.game-card-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.panda-game-card h3 {
+  font-size: 1.45rem;
+  margin: 0;
+  color: var(--text-color, #0f172a);
+}
+
+.game-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--subtext-color, #64748b);
+  margin: 0;
+}
+
+.game-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 0.88rem;
+  color: var(--text-color, #334155);
+}
+
+.game-features-list li {
+  line-height: 1.4;
+}
+
+.btn-play-game {
+  margin-top: auto;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn-play-game.primary {
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: #ffffff;
+}
+
+.btn-play-game.primary:hover {
+  background: linear-gradient(135deg, #0369a1, #1d4ed8);
+  transform: translateY(-2px);
+}
+
+.btn-play-game.success {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #ffffff;
+}
+
+.btn-play-game.success:hover {
+  background: linear-gradient(135deg, #047857, #059669);
+  transform: translateY(-2px);
+}
+
+/* Rules Box */
+.hub-rules-box {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.rules-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-color, #0f172a);
+  margin-bottom: 10px;
+}
+
+.rules-body p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--subtext-color, #64748b);
+}
+
+/* ==============================================================
+   GAME ARENA (PINYIN & WRITING)
+   ============================================================== */
+.panda-game-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+
+/* Top HUD */
+.panda-game-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  z-index: 20;
+}
+
+.hud-left, .hud-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.game-btn-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.game-btn-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hud-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.hud-level .hud-select {
+  background: transparent;
+  border: none;
+  color: #38bdf8;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.hud-score-board {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.hud-score-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #94a3b8;
+}
+
+.hud-score-val {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fde047;
+  font-family: monospace, sans-serif;
+}
+
+.hud-combo-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  padding: 2px 8px;
+  border-radius: 999px;
+  animation: pulseCombo 1s infinite alternate;
+}
+
+.hud-combo-badge.combo-bump {
+  animation: bumpCombo 0.25s ease;
+}
+
+@keyframes bumpCombo {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseCombo {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+/* ==============================================================
+   FALLING STAGE (GAME 1: PINYIN DART PANDA)
+   ============================================================== */
+.panda-falling-stage {
+  position: relative;
+  height: 440px;
+  width: 100%;
+  background: linear-gradient(180deg, #0c1a2e 0%, #152b47 50%, #064e3b 100%);
+  overflow: hidden;
+}
+
+/* Bamboo Scenery on Sides */
+.stage-scenery {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bamboo-stalk {
+  position: absolute;
+  top: 0;
+  bottom: 50px;
+  width: 24px;
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    180deg,
+    #059669 0px,
+    #059669 35px,
+    #064e3b 36px,
+    #064e3b 40px
+  );
+}
+
+.bamboo-left { left: 10px; border-radius: 6px; }
+.bamboo-right { right: 10px; border-radius: 6px; }
+
+/* Falling Target Card */
+.falling-target-card {
+  position: absolute;
+  width: 190px;
+  min-height: 120px;
+  background: radial-gradient(circle at 50% 20%, #ffffff 0%, #fef2f2 100%);
+  border: 2px solid #ef4444;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35), inset 0 2px rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px 12px;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 10;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.target-lantern-hanger {
+  font-size: 1.1rem;
+  margin-top: -6px;
+  line-height: 1;
+}
+
+.target-hanzi {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.15;
+  letter-spacing: 2px;
+}
+
+.target-pinyin-guide {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #2563eb;
+  margin: 3px 0;
+  font-family: -apple-system, system-ui, sans-serif;
+}
+
+.typed-part {
+  background: rgba(16, 185, 129, 0.2);
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
+.target-meaning {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+  max-width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Danger State when target approaches baseline */
+.falling-target-card.target-danger {
+  border-color: #dc2626;
+  animation: targetShake 0.4s infinite alternate;
+  box-shadow: 0 0 22px rgba(220, 38, 38, 0.7);
+}
+
+@keyframes targetShake {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* Exploding State */
+.falling-target-card.target-exploding {
+  animation: targetPop 0.3s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes targetPop {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35) rotate(8deg); opacity: 0.85; filter: brightness(1.8); }
+  100% { transform: scale(0.1) rotate(45deg); opacity: 0; }
+}
+
+/* Ground Barrier Baseline */
+.stage-ground-barrier {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: linear-gradient(180deg, rgba(6, 78, 59, 0.8) 0%, #064e3b 100%);
+  border-top: 2px dashed rgba(239, 68, 68, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.barrier-warning-line {
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(239, 68, 68, 0.4),
+    rgba(239, 68, 68, 0.4) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+/* Ninja Panda Character */
+.ninja-panda-character {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 130px;
+  z-index: 15;
+  transition: transform 0.2s ease;
+}
+
+/* Panda Animations */
+@keyframes pandaBreathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.02); }
+}
+
+.panda-ninja-svg.idle {
+  animation: pandaBreathe 3s ease-in-out infinite;
+}
+
+.panda-ninja-svg.throw .panda-right-arm.arm-throwing {
+  transform-origin: 150px 136px;
+  animation: throwSwing 0.26s ease-out;
+}
+
+@keyframes throwSwing {
+  0% { transform: rotate(-35deg) scale(0.9); }
+  45% { transform: rotate(48deg) scale(1.15); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+.panda-ninja-svg.celebrate {
+  animation: pandaCelebrate 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes pandaCelebrate {
+  0% { transform: translateY(0) rotate(-4deg); }
+  100% { transform: translateY(-10px) rotate(4deg); }
+}
+
+/* Input Dock (Bottom of Game 1) */
+.panda-input-dock {
+  background: #0f172a;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+}
+
+.pinyin-typing-input {
+  width: 100%;
+  background: #1e293b;
+  border: 2px solid #38bdf8;
+  border-radius: 14px;
+  padding: 14px 44px 14px 18px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  outline: none;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.pinyin-typing-input:focus {
+  border-color: #fde047;
+  box-shadow: 0 0 24px rgba(253, 224, 71, 0.4);
+}
+
+.input-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #94a3b8;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.input-hint {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.input-hint code {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ==============================================================
+   GAME 2: HANZI WRITE DART PANDA (STAGE & CANVAS DOJO)
+   ============================================================== */
+.writing-mode-wrap {
+  background: #0f172a;
+}
+
+.writing-arena-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+  min-height: 440px;
+  background: linear-gradient(180deg, #0f172a 0%, #172554 100%);
+}
+
+@media (max-width: 768px) {
+  .writing-arena-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+.writing-stage-left {
+  position: relative;
+  min-height: 380px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.falling-target-card.writing-target {
+  width: 170px;
+  min-height: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 20%, #f0fdf4 0%, #dcfce7 100%);
+  border-color: #059669;
+}
+
+.target-pinyin {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #059669;
+  margin: 4px 0 2px;
+}
+
+.target-time-wrap {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.target-time-fill {
+  width: 100%;
+  height: 100%;
+  background: #10b981;
+  transition: width 0.1s linear;
+}
+
+/* Right Side: Dojo Writing Canvas */
+.writing-stage-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-dojo-panel {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 380px;
+  box-sizing: border-box;
+}
+
+.dojo-panel-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.dojo-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.dojo-stroke-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  min-height: 20px;
+}
+
+.mizige-game-box-wrap {
+  border: 3px solid #b91c1c;
+  border-radius: 14px;
+  padding: 8px;
+  background: #fffdf5;
+  box-shadow: inset 0 0 14px rgba(185, 28, 28, 0.1), 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.dojo-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.game-action-btn {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.game-action-btn.hint {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+}
+
+.game-action-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ==============================================================
+   PROJECTILE & PARTICLES
+   ============================================================== */
+.panda-shuriken-projectile {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px rgba(253, 224, 71, 0.8));
+}
+
+.panda-particle-burst {
+  position: fixed;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.panda-spark {
+  position: absolute;
+  border-radius: 50%;
+  animation: sparkFly 0.55s ease-out forwards;
+}
+
+@keyframes sparkFly {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--vx), var(--vy)) scale(0); opacity: 0; }
+}
+
+/* ==============================================================
+   GAME OVER MODAL
+   ============================================================== */
+.panda-game-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeInModal 0.25s ease;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.panda-game-modal .modal-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px 24px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  animation: zoomInCard 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomInCard {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-emoji {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
+
+.modal-card h2 {
+  font-size: 1.65rem;
+  margin: 0 0 6px;
+  color: #0f172a;
+}
+
+.modal-card p {
+  color: #64748b;
+  margin: 0 0 18px;
+  font-size: 0.92rem;
+}
+
+.game-results-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.res-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.res-stat small {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.res-stat b {
+  font-size: 1.25rem;
+  color: #0f172a;
+}
+
+.missed-words-box {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.missed-words-box span {
+  display: block;
+  font-weight: 700;
+  color: #b91c1c;
+  margin-bottom: 6px;
+}
+
+.missed-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.missed-tags .tag {
+  background: #ffffff;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.game-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.game-btn.primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.game-btn.secondary {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+/* ==============================================================
+   DARK MODE ADJUSTMENTS
+   ============================================================== */
+body.dark-mode .panda-hub-container .hub-hsk-selector,
+body.dark-mode .panda-game-card,
+body.dark-mode .hub-rules-box {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+body.dark-mode .hub-level-pill {
+  background: #0f172a;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+body.dark-mode .canvas-dojo-panel,
+body.dark-mode .modal-card {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+body.dark-mode .dojo-title,
+body.dark-mode .modal-card h2,
+body.dark-mode .res-stat b {
+  color: #ffffff;
+}
+
+body.dark-mode .game-results-box {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+body.dark-mode .game-action-btn {
+  background: #0f172a;
+  color: #f1f5f9;
+  border-color: #334155;
+}

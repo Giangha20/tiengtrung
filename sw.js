@@ -1,4 +1,4 @@
-const CACHE = 'gh-hsk-shell-v59';
+const CACHE = 'gh-hsk-shell-v60';
 const ASSETS = [
   './',
   './index.html',
@@ -30,6 +30,12 @@ const ASSETS = [
   './translation_data.js',
   './writing.css',
   './writing.js',
+  './game/game.css',
+  './game/panda_sfx.js',
+  './game/panda_art.js',
+  './game/pinyin_game.js',
+  './game/writing_game.js',
+  './game/game_hub.js',
   './radicals_data.js',
   './hanzi-writer.min.js',
   './manifest.json',

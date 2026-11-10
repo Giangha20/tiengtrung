@@ -7,6 +7,8 @@
     'home': 'home',
     'flashcard': 'flashcard',
       'writing': 'writing',
+      'game': 'game',
+    'game': 'game',
     'writing': 'writing',
     'translation': 'translation',
     'exam': 'exam',

@@ -106,6 +106,7 @@
     <link rel="stylesheet" href="./translation.css?v=2">
     <link rel="stylesheet" href="./writing.css?v=5">
     <link rel="stylesheet" href="./ios-layout.css?v=1">
+    <link rel="stylesheet" href="./game/game.css?v=1">
     <link rel="stylesheet" href="./intro.css?v=3">
 
     
@@ -215,6 +216,7 @@
                     <button class="gh-nav-item" data-mode="typing">⌨️ <span>Luyện gõ</span></button>
                     <button class="gh-nav-item" data-mode="listening">🎧 <span>Luyện nghe</span></button>
                     <button class="gh-nav-item" data-mode="translation">🌐 <span>Luyện tập dịch tiếng</span></button>
+                    <button class="gh-nav-item" data-mode="game">🎮 <span>Trò chơi (Gấu Trúc Phi Tiêu)</span></button>
                     <button class="gh-nav-item" data-mode="exam">📝 <span>Luyện tập HSK</span></button>
                     <button class="gh-nav-item" data-mode="progress">📊 <span>Tiến trình</span></button>
                     <div class="gh-nav-divider"></div>
@@ -422,6 +424,9 @@
 <!-- Chế độ: Luyện viết chữ Hán -->
 <section id="writing-mode"></section>
 
+<!-- Chế độ: Khu Trò Chơi (Game Hub) -->
+<section id="game-mode" class="gh-extra-mode"></section>
+
 <section id="exam-mode">
     <div class="exam-page-head">
         <div>
@@ -517,6 +522,11 @@
     <script src="./hanzi-writer.min.js"></script>
     <script src="./radicals_data.js?v=2"></script>
     <script src="./writing.js?v=7"></script>
+    <script src="./game/panda_sfx.js?v=1"></script>
+    <script src="./game/panda_art.js?v=1"></script>
+    <script src="./game/pinyin_game.js?v=1"></script>
+    <script src="./game/writing_game.js?v=1"></script>
+    <script src="./game/game_hub.js?v=1"></script>
     <script>
   window.GH_forceUpdateApp = function() {
     if ('caches' in window) {
