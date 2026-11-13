@@ -230,9 +230,23 @@
         }
       });
 
+      // Ngăn chặn layout nhảy dựng che mất sân khấu khi mở bàn phím trên điện thoại
+      input.addEventListener('focus', () => {
+        const container = document.getElementById('pg-container');
+        if (container) {
+          try {
+            window.scrollTo({ top: Math.max(0, container.offsetTop - 8), behavior: 'smooth' });
+          } catch (e) {}
+        }
+      });
+
       // Auto focus input when clicking stage on mobile / tablet
       document.getElementById('pg-stage')?.addEventListener('click', () => {
-        if (!input.readOnly) input.focus();
+        try {
+          input.focus({ preventScroll: true });
+        } catch (e) {
+          input.focus();
+        }
       });
     }
 
@@ -310,7 +324,11 @@
           input.value = '';
           input.defaultValue = '';
           input.classList.remove('has-error');
-          input.focus();
+          try {
+            input.focus({ preventScroll: true });
+          } catch (e) {
+            input.focus();
+          }
         }
       }, 40);
     }
@@ -318,9 +336,9 @@
     // Set starting position at top with random horizontal offset
     const stage = document.getElementById('pg-stage');
     const stageWidth = stage ? stage.clientWidth : 400;
-    const cardWidth = 190;
-    const minX = 18;
-    const maxX = Math.max(minX, stageWidth - cardWidth - 18);
+    const cardWidth = card.offsetWidth || 150;
+    const minX = 14;
+    const maxX = Math.max(minX, stageWidth - cardWidth - 14);
     const randomX = minX + Math.random() * (maxX - minX);
 
     STATE.targetY = 10;
@@ -366,13 +384,10 @@
     if (!input) return;
     input.value = '';
     input.defaultValue = '';
-    try { input.blur(); } catch (e) {}
     try { input.setSelectionRange(0, 0); } catch (e) {}
-    input.value = '';
     setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 0);
     setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 30);
     setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 80);
-    setTimeout(() => { if (input) { input.value = ''; input.defaultValue = ''; } }, 150);
   }
 
   function commitHanziMatch(targetWord) {

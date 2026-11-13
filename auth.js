@@ -200,35 +200,68 @@
 
     async function register(email, password, username) {
         if (!auth || !isConfigured) throw configError();
-        const credential = await auth.createUserWithEmailAndPassword(email.trim().toLowerCase(), password);
-        if (username) {
-            try { await credential.user.updateProfile({ displayName: username.trim() }); }
+        try { await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch (e) { console.warn('Không đặt được persistence:', e); }
+
+        const cleanEmail = email.trim().toLowerCase();
+        const cleanUsername = (username || '').trim();
+        const credential = await auth.createUserWithEmailAndPassword(cleanEmail, password);
+        if (cleanUsername) {
+            try { await credential.user.updateProfile({ displayName: cleanUsername }); }
             catch (e) { console.warn('Không cập nhật được displayName:', e); }
         }
-        // Tạo profile Firestore là bước phụ. Nếu Rules/Firestore chưa sẵn sàng,
-        // tài khoản Firebase Auth vẫn phải được tạo thành công.
+        // Tạo profile Firestore
         try {
-            await createProfile(credential.user, username);
+            await createProfile(credential.user, cleanUsername);
         } catch (profileError) {
             console.warn('Không tạo được profile Firestore, nhưng tài khoản Auth đã tạo:', profileError);
         }
-        // Luồng đăng ký của web: đăng ký xong -> quay lại đăng nhập.
-        await auth.signOut();
+
+        // Giữ phiên đăng nhập ngay sau khi đăng ký để vào thẳng ứng dụng
+        currentUser = credential.user;
+        window.ghCurrentUser = currentUser;
+        try {
+            localStorage.setItem('gh_pwa_login_marker_v2', String(Date.now()));
+            localStorage.setItem('gh_new_registration', '1');
+            localStorage.setItem('gh_last_user_email', cleanEmail);
+            if (cleanUsername) {
+                localStorage.setItem('gh_email_for_' + cleanUsername.toLowerCase(), cleanEmail);
+            }
+        } catch (e) {}
+
         return credential.user;
     }
 
-    async function login(email, password) {
+    async function login(emailOrUsername, password) {
         if (!auth || !isConfigured) throw configError();
         // Luôn dùng persistence LOCAL để phiên đăng nhập còn sau khi đổi trang/mở lại web.
         try { await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL); } catch (e) { console.warn('Không đặt được persistence:', e); }
-        const credential = await auth.signInWithEmailAndPassword(email.trim().toLowerCase(), password);
-        // signInWithEmailAndPassword đã xác nhận tài khoản thành công.
-        // Không chờ Firestore/Auth listener thêm để tránh cảm giác nút bị treo.
+
+        let cleanInput = String(emailOrUsername || '').trim();
+        let email = cleanInput.toLowerCase();
+
+        // Nếu người dùng nhập username (không có @), thử tìm email tương ứng đã lưu
+        if (!email.includes('@')) {
+            const mappedEmail = localStorage.getItem('gh_email_for_' + email);
+            const lastEmail = localStorage.getItem('gh_last_user_email');
+            if (mappedEmail) {
+                email = mappedEmail;
+            } else if (lastEmail) {
+                email = lastEmail;
+            } else {
+                throw { code: 'auth/invalid-email', message: 'Vui lòng nhập địa chỉ Email bạn đã đăng ký để đăng nhập.' };
+            }
+        }
+
+        const credential = await auth.signInWithEmailAndPassword(email, password);
         currentUser = credential.user;
         window.ghCurrentUser = currentUser;
-        // Đánh dấu phiên đăng nhập để PWA có thể chờ Firebase khôi phục phiên
-        // khi mở từ biểu tượng màn hình chính. Không lưu email/mật khẩu/token.
-        try { localStorage.setItem('gh_pwa_login_marker_v2', String(Date.now())); } catch (e) {}
+        try {
+            localStorage.setItem('gh_pwa_login_marker_v2', String(Date.now()));
+            localStorage.setItem('gh_last_user_email', email);
+            if (currentUser.displayName) {
+                localStorage.setItem('gh_email_for_' + currentUser.displayName.toLowerCase(), email);
+            }
+        } catch (e) {}
         return credential.user;
     }
 

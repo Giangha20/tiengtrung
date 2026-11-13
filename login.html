@@ -435,14 +435,14 @@
         <form id="loginForm">
 
             <div class="form-group">
-                <label for="username">Email đăng ký</label>
+                <label for="username">Email hoặc Tên tài khoản</label>
                 <div class="input-wrap">
                     <input
-                        type="email"
+                        type="text"
                         id="username"
                         class="input"
-                        placeholder="example@gmail.com"
-                        autocomplete="email"
+                        placeholder="example@gmail.com hoặc tên đã đăng ký"
+                        autocomplete="username"
                         required
                     >
                     <span class="input-icon">
@@ -558,33 +558,43 @@
                 throw new Error("Firebase chưa được khởi tạo. Kiểm tra firebase-config.js và Authorized domains.");
             }
 
+            // Tự động điền email gần nhất nếu có
+            try {
+                const lastEmail = localStorage.getItem('gh_last_user_email');
+                const uInput = document.getElementById("username");
+                if (lastEmail && uInput && !uInput.value) {
+                    uInput.value = lastEmail;
+                }
+            } catch (e) {}
+
             const loginForm = document.getElementById("loginForm");
             loginForm.addEventListener("submit", async function (e) {
                 e.preventDefault();
-                const email = document.getElementById("username").value.trim().toLowerCase();
+                const identifier = document.getElementById("username").value.trim();
                 const password = document.getElementById("password").value;
                 const btn = this.querySelector('button[type="submit"]');
 
-                if (!email || !email.includes("@")) {
-                    alert("Vui lòng nhập Email đã đăng ký.");
+                if (!identifier) {
+                    alert("Vui lòng nhập Email hoặc Tên tài khoản đã đăng ký.");
                     return;
                 }
 
                 if (btn) { btn.disabled = true; btn.dataset.oldText = btn.innerHTML; btn.innerHTML = "<span>Đang đăng nhập...</span>"; }
                 try {
-                    await window.ghAuth.login(email, password);
+                    await window.ghAuth.login(identifier, password);
                     window.location.replace("./index.html");
                 } catch (error) {
                     console.error("Firebase login error:", error);
                     const messages = {
                         "auth/invalid-credential": "Email hoặc mật khẩu không đúng.",
+                        "auth/invalid-email": "Vui lòng nhập đúng định dạng Email đã dùng khi đăng ký.",
                         "auth/user-not-found": "Không tìm thấy tài khoản.",
                         "auth/wrong-password": "Mật khẩu không đúng.",
                         "auth/too-many-requests": "Có quá nhiều lần thử. Vui lòng thử lại sau.",
                         "auth/network-request-failed": "Không có kết nối mạng hoặc Firebase bị chặn.",
                         "auth/operation-not-allowed": "Firebase chưa bật đăng nhập Email/Password."
                     };
-                    alert(messages[error.code] || ("Đăng nhập thất bại: " + (error.message || error)));
+                    alert(messages[error.code] || (error.message || ("Đăng nhập thất bại: " + error)));
                     if (btn) { btn.disabled = false; btn.innerHTML = btn.dataset.oldText || "<span>Đăng nhập ngay</span>"; }
                 }
             });

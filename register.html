@@ -569,7 +569,9 @@
 
             const readyUser = await window.ghAuthReady;
             if (readyUser) {
-                await window.ghAuth.logout();
+                // Nếu đã đăng nhập sẵn rồi thì không cần đăng ký lại
+                window.location.replace("./index.html");
+                return;
             }
             if (!window.ghFirebaseConfigured) {
                 throw new Error("Firebase chưa được khởi tạo. Kiểm tra firebase-config.js và Authorized domains.");
@@ -590,8 +592,8 @@
                 if (btn) { btn.disabled = true; btn.dataset.oldText = btn.innerHTML; btn.innerHTML = "<span>Đang tạo tài khoản...</span>"; }
                 try {
                     await window.ghAuth.register(email, password, username);
-                    showMessage("Tạo tài khoản thành công! Đang chuyển sang đăng nhập...", "success");
-                    setTimeout(() => window.location.replace("./login.html"), 900);
+                    showMessage("Tạo tài khoản thành công! Đang chuyển vào ứng dụng...", "success");
+                    setTimeout(() => window.location.replace("./index.html"), 600);
                 } catch (error) {
                     console.error("Firebase register error:", error);
                     const messages = {

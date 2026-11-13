@@ -602,6 +602,8 @@
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  user-select: text !important;
+  -webkit-user-select: text !important;
 }
 
 .candidate-bar {
@@ -672,6 +674,8 @@
   box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
   letter-spacing: 1px;
   transition: all 0.2s ease;
+  user-select: text !important;
+  -webkit-user-select: text !important;
 }
 
 .pinyin-typing-input:focus {
@@ -743,6 +747,92 @@
 @media (max-width: 768px) {
   .writing-arena-stage {
     grid-template-columns: 1fr;
+  }
+
+  /* Responsive Pinyin Game trên điện thoại - Giữ nguyên toàn bộ game trong khung nhìn, không bị che */
+  .panda-game-wrap {
+    border-radius: 14px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .panda-game-hud {
+    padding: 8px 12px;
+  }
+
+  .hud-pill {
+    padding: 3px 8px;
+    font-size: 0.78rem;
+  }
+
+  .hud-score-val {
+    font-size: 1.25rem;
+  }
+
+  /* Chiều cao sân khấu 300px giúp toàn bộ HUD + Sân khấu rơi + Ô nhập chữ hiển thị trọn vẹn khi bàn phím ảo bật lên */
+  .panda-falling-stage {
+    height: 300px !important;
+  }
+
+  .stage-ground-barrier {
+    height: 38px !important;
+  }
+
+  .ninja-panda-character {
+    width: 85px !important;
+    height: 92px !important;
+    bottom: 6px !important;
+  }
+
+  .falling-target-card {
+    width: 140px !important;
+    min-height: 88px !important;
+    padding: 6px 8px 8px !important;
+  }
+
+  .target-hanzi {
+    font-size: 1.6rem !important;
+    letter-spacing: 1px !important;
+  }
+
+  .target-pinyin-guide {
+    font-size: 0.9rem !important;
+    margin: 2px 0 !important;
+  }
+
+  .target-meaning {
+    font-size: 0.72rem !important;
+    max-width: 125px !important;
+  }
+
+  .panda-input-dock {
+    padding: 8px 12px 10px !important;
+    gap: 6px !important;
+  }
+
+  .input-hint {
+    display: none !important; /* Ẩn hint dài dòng trên điện thoại để tránh đẩy layout vọt lên trên che mất sân khấu */
+  }
+
+  .pinyin-typing-input {
+    padding: 10px 40px 10px 14px !important;
+    font-size: 1.1rem !important;
+    border-radius: 12px !important;
+  }
+
+  .candidate-bar {
+    padding: 4px 10px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .candidate-prompt {
+    font-size: 0.78rem !important;
+  }
+
+  .hanzi-candidate-btn {
+    font-size: 1.05rem !important;
+    padding: 3px 12px !important;
   }
 }
 
