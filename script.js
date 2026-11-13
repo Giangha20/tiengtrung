@@ -7878,6 +7878,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderCommunication();
         updateProgressUI();
 
+        // Đồng bộ cấp độ HSK và tiến trình ngay khi dữ liệu đám mây tải về
+        window.addEventListener('gh-progress-loaded', function (e) {
+            const p = e.detail?.progress || (window.ghAuth?.getProgress ? window.ghAuth.getProgress() : null);
+            if (!p) return;
+            const cloudLevel = p.currentLevel || p.learningEngine?.hskLevel || p.learningPreferences?.level;
+            if (cloudLevel && String(cloudLevel) !== String(currentLevel)) {
+                currentLevel = String(cloudLevel);
+                const select = document.getElementById('hsk-level');
+                if (select) select.value = currentLevel;
+                document.documentElement.setAttribute('data-hsk-level', currentLevel);
+                renderList();
+                if (typeof initTyping === 'function') initTyping();
+            }
+            updateProgressUI();
+        });
+
         const modeMatch = location.search.match(/mode=([a-z0-9_-]+)/i);
         if (modeMatch && typeof window.switchMode === 'function') {
             setTimeout(() => window.switchMode(modeMatch[1]), 50);

@@ -31,9 +31,9 @@
   function toggleFavorite(id){id=String(id);const i=state.favorites.indexOf(id);if(i>=0)state.favorites.splice(i,1);else state.favorites.push(id);persist();if(window.ghAuth?.[state.favorites.includes(id)?'saveFavorite':'removeFavorite']){window.ghAuth[state.favorites.includes(id)?'saveFavorite':'removeFavorite'](id).catch(()=>{})}sync();return state.favorites.includes(id)}
   function setNote(id,note){state.notes[String(id)]=String(note||'');persist();window.ghAuth?.saveNote?.(id,note).catch(()=>{});sync()}
   async function sync(){if(window.ghAuth?.saveProgress){try{await window.ghAuth.saveProgress({learningEngine:state})}catch(e){console.warn('learning sync',e)}}}
-  async function hydrate(){
+  async function hydrate(e){
     try {
-      const p = window.ghAuth?.getProgress?.() || {};
+      const p = e?.detail?.progress || window.ghAuth?.getProgress?.() || {};
       const cloud = p.learningEngine;
       if (cloud && typeof cloud === 'object') {
         const xp = Math.max(Number(cloud.xp) || 0, Number(state.xp) || 0);
