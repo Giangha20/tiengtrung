@@ -2,6 +2,10 @@
   "appId": "com.tiengtrung.hsk",
   "appName": "Hoc Tieng Trung HSK",
   "webDir": "www",
+  "server": {
+    "url": "https://giangha20.github.io/tiengtrung",
+    "cleartext": true
+  },
   "ios": {
     "contentInset": "always",
     "allowsLinkPreview": false,
