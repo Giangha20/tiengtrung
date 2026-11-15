@@ -20,14 +20,14 @@
 
           <div class="gh-hero-meta">
             <div class="gh-meta-pill gh-meta-xp">
-              <span class="meta-icon">⚡</span>
+              <span class="meta-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-zap"></use></svg></span>
               <div>
                 <b id="gh-xp-value">0 XP</b>
                 <small>Level <span id="gh-level">1</span></small>
               </div>
             </div>
             <div class="gh-meta-pill gh-meta-streak">
-              <span class="meta-icon">🔥</span>
+              <span class="meta-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-flame"></use></svg></span>
               <div>
                 <b id="gh-streak">0 ngày</b>
                 <small>Chuỗi học liên tục</small>
@@ -38,7 +38,7 @@
 
         <div class="gh-hero-goal-card">
           <div class="gh-goal-header">
-            <span>🎯 MỤC TIÊU HÔM NAY</span>
+            <span><svg class="ui-icon" aria-hidden="true" style="width:16px;height:16px;vertical-align:-2px;margin-right:4px;"><use href="#icon-target"></use></svg>MỤC TIÊU HÔM NAY</span>
             <strong id="gh-goal-percent">0%</strong>
           </div>
           <div class="gh-goal-count" id="gh-goal-text">0 / 20 từ</div>
@@ -57,7 +57,7 @@
 
       <div class="gh-quick-grid-v3">
         <button type="button" class="gh-card-btn gh-card-vocab" data-mode="list">
-          <div class="card-icon-wrap" style="--c-bg: #fee2e2; --c-color: #ef4444;">📚</div>
+          <div class="card-icon-wrap" style="--c-bg: #fee2e2; --c-color: #ef4444;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-book"></use></svg></div>
           <div class="card-info">
             <b>Từ vựng HSK</b>
             <small>Tra cứu & học từ HSK 1 - 6</small>
@@ -66,7 +66,7 @@
         </button>
 
         <button type="button" class="gh-card-btn gh-card-flashcard" data-mode="flashcard">
-          <div class="card-icon-wrap" style="--c-bg: #fef3c7; --c-color: #f59e0b;">🃏</div>
+          <div class="card-icon-wrap" style="--c-bg: #fef3c7; --c-color: #f59e0b;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-cards"></use></svg></div>
           <div class="card-info">
             <b>Thẻ Flashcard 3D</b>
             <small>Lật thẻ ghi nhớ thông minh</small>
@@ -75,7 +75,7 @@
         </button>
 
         <button type="button" class="gh-card-btn gh-card-writing" data-mode="writing">
-          <div class="card-icon-wrap" style="--c-bg: #dbeafe; --c-color: #3b82f6;">✍️</div>
+          <div class="card-icon-wrap" style="--c-bg: #dbeafe; --c-color: #3b82f6;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-pen"></use></svg></div>
           <div class="card-info">
             <b>Luyện viết chữ Hán</b>
             <small>Tập viết nét chuẩn Hanzi</small>
@@ -84,7 +84,7 @@
         </button>
 
         <button type="button" class="gh-card-btn gh-card-game" data-mode="game">
-          <div class="card-icon-wrap" style="--c-bg: #dcfce7; --c-color: #10b981;">🎮</div>
+          <div class="card-icon-wrap" style="--c-bg: #dcfce7; --c-color: #10b981;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-gamepad"></use></svg></div>
           <div class="card-info">
             <b>Gấu Trúc Phi Tiêu</b>
             <small>Game gõ Pinyin cực cuốn</small>
@@ -93,7 +93,7 @@
         </button>
 
         <button type="button" class="gh-card-btn gh-card-typing" data-mode="typing">
-          <div class="card-icon-wrap" style="--c-bg: #f3e8ff; --c-color: #a855f7;">⌨️</div>
+          <div class="card-icon-wrap" style="--c-bg: #f3e8ff; --c-color: #a855f7;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-keyboard"></use></svg></div>
           <div class="card-info">
             <b>Luyện gõ Pinyin</b>
             <small>Gõ nhanh chữ Hán & Pinyin</small>
@@ -102,7 +102,7 @@
         </button>
 
         <button type="button" class="gh-card-btn gh-card-listening" data-mode="listening">
-          <div class="card-icon-wrap" style="--c-bg: #ffedd5; --c-color: #f97316;">🎧</div>
+          <div class="card-icon-wrap" style="--c-bg: #ffedd5; --c-color: #f97316;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg></div>
           <div class="card-info">
             <b>Luyện nghe hiểu</b>
             <small>Nghe phản xạ & chọn câu đúng</small>
@@ -111,7 +111,7 @@
         </button>
 
         <button type="button" class="gh-card-btn gh-card-translation" data-mode="translation">
-          <div class="card-icon-wrap" style="--c-bg: #e0e7ff; --c-color: #6366f1;">🌐</div>
+          <div class="card-icon-wrap" style="--c-bg: #e0e7ff; --c-color: #6366f1;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-globe"></use></svg></div>
           <div class="card-info">
             <b>Luyện dịch câu</b>
             <small>Dịch song ngữ Trung - Việt</small>
@@ -120,7 +120,7 @@
         </button>
 
         <button type="button" class="gh-card-btn gh-card-exam" data-mode="exam">
-          <div class="card-icon-wrap" style="--c-bg: #fce7f3; --c-color: #ec4899;">📝</div>
+          <div class="card-icon-wrap" style="--c-bg: #fce7f3; --c-color: #ec4899;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg></div>
           <div class="card-info">
             <b>Đề thi thử HSK</b>
             <small>Trắc nghiệm tính giờ chuẩn format</small>
@@ -131,7 +131,7 @@
 
       <!-- Banner Ôn tập thông minh -->
       <div class="gh-review-card-v3">
-        <div class="review-icon-glow">🧠</div>
+        <div class="review-icon-glow"><svg class="ui-icon" aria-hidden="true" style="width:30px;height:30px;stroke:#fff;"><use href="#icon-brain"></use></svg></div>
         <div class="review-text">
           <small>HỆ THỐNG GHI NHỚ THÔNG MINH (SRS)</small>
           <h3 id="gh-due">0 từ cần ôn hôm nay</h3>

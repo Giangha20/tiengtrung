@@ -217,14 +217,8 @@
               </div>
 
               <div class="gh-fc-footer">
-                <button class="gh-fc-speak-btn" type="button" data-speak aria-label="Phát âm chữ Hán">
-                  <span class="gh-fc-speak-icon">🔊</span>
-                  <span>Nghe phát âm</span>
-                </button>
-                <button class="gh-fc-flip-btn" type="button" data-flip aria-label="Lật thẻ xem đáp án">
-                  <span class="gh-fc-flip-icon">↻</span>
-                  <span>Chạm để lật xem đáp án</span>
-                </button>
+                <button class="gh-fc-speak-btn" type="button" data-speak aria-label="Phát âm chữ Hán"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg><span>Phát âm</span></button>
+                <button class="gh-fc-flip-btn" type="button" data-flip aria-label="Lật thẻ xem đáp án"><svg class="ui-icon gh-fc-flip-svg" aria-hidden="true"><use href="#icon-rotate-3d"></use></svg><span>Lật xem đáp án</span></button>
               </div>
             </div>
 
@@ -242,14 +236,8 @@
               </div>
 
               <div class="gh-fc-footer">
-                <button class="gh-fc-speak-btn" type="button" data-speak aria-label="Phát âm chữ Hán">
-                  <span class="gh-fc-speak-icon">🔊</span>
-                  <span>Nghe lại phát âm</span>
-                </button>
-                <button class="gh-fc-flip-btn" type="button" data-flip aria-label="Lật thẻ về chữ Hán">
-                  <span class="gh-fc-flip-icon">↺</span>
-                  <span>Chạm để quay lại chữ Hán</span>
-                </button>
+                <button class="gh-fc-speak-btn" type="button" data-speak aria-label="Phát âm chữ Hán"><svg class="ui-icon" aria-hidden="true"><use href="#icon-volume"></use></svg><span>Phát âm</span></button>
+                <button class="gh-fc-flip-btn" type="button" data-flip aria-label="Lật thẻ về chữ Hán"><svg class="ui-icon gh-fc-flip-svg" aria-hidden="true"><use href="#icon-rotate-3d"></use></svg><span>Lật về chữ Hán</span></button>
               </div>
             </div>
           </div>
@@ -259,14 +247,14 @@
       <!-- Nút hành động đánh giá thẻ -->
       <div class="gh-fc-actions-dock">
         <button class="gh-fc-btn gh-fc-btn-again" type="button" data-again aria-label="Chưa nhớ - Ôn lại">
-          <span class="gh-fc-btn-icon">↺</span>
+          <span class="gh-fc-btn-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-replay"></use></svg></span>
           <div class="gh-fc-btn-text">
             <b>Chưa nhớ</b>
             <small>Ôn lại từ này</small>
           </div>
         </button>
         <button class="gh-fc-btn gh-fc-btn-known" type="button" data-known aria-label="Đã nhớ - Thuộc từ">
-          <span class="gh-fc-btn-icon">✓</span>
+          <span class="gh-fc-btn-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-check"></use></svg></span>
           <div class="gh-fc-btn-text">
             <b>Đã thuộc</b>
             <small>Từ tiếp theo</small>
@@ -369,7 +357,7 @@
     if (!w) return;
 
     try {
-      GH.progress?.markWord?.(w.word || w.hanzi || '', quality);
+      GH.progress?.markWord?.(w.word || w.hanzi || '', quality, false);
     } catch (e) {}
 
     // Hoạt động ôn tập flashcard luôn tính chuỗi học tập liên tục
@@ -415,9 +403,9 @@
           <p>Lật thẻ 3D trực quan • Ghi nhớ từ vựng qua hình ảnh và phản xạ phát âm.</p>
         </div>
         <div class="gh-fc-head-actions">
-          <button class="gh-primary gh-fc-head-btn" id="gh-fc-start" type="button">🔄 Đổi bộ thẻ</button>
-          <button class="gh-primary gh-fc-head-btn" id="gh-fc-review" type="button">📌 Ôn từ đến hạn</button>
-          <button class="gh-fc-close gh-fc-head-btn" id="gh-fc-close" type="button" aria-label="Đóng Flashcard">✕</button>
+          <button class="gh-primary gh-fc-head-btn" id="gh-fc-start" type="button"><svg class="ui-icon" aria-hidden="true"><use href="#icon-refresh"></use></svg> Đổi bộ thẻ</button>
+          <button class="gh-primary gh-fc-head-btn" id="gh-fc-review" type="button"><svg class="ui-icon" aria-hidden="true"><use href="#icon-pin"></use></svg> Ôn từ đến hạn</button>
+          <button class="gh-fc-close gh-fc-head-btn" id="gh-fc-close" type="button" aria-label="Đóng Flashcard"><svg class="ui-icon" aria-hidden="true"><use href="#icon-x"></use></svg></button>
         </div>
       </div>
       <div id="gh-flashcard-panel"></div>
