@@ -8138,7 +8138,9 @@ function ghGetWordVariants(word, pinyin) {
             if (p1) pinyinList.add(p1);
             if (p2) pinyinList.add(p2);
         }
-        String(pinyin).split(/[\/,\s\(\)（）]+/).filter(Boolean).forEach(part => {
+        // Tách các cách đọc / phát âm khác nhau nếu phân cách bằng / hoặc ; hoặc , (ví dụ "shénme / shén me" hoặc "le; liǎo")
+        // TUYỆT ĐỐI KHÔNG tách theo khoảng trắng \s vì từ ghép như "nǐ hǎo" có dấu cách giữa các âm tiết!
+        String(pinyin).split(/[/,;]+/).filter(Boolean).forEach(part => {
             const c = ghCleanPinyinText(part);
             if (c) pinyinList.add(c);
         });
@@ -8234,6 +8236,8 @@ function checkTyping(isRealtime = false) {
     const currentItem = typingWordList[currentWordIndex];
     if (!currentItem) return;
 
+    const targetHanzi = currentItem.word || '';
+    const speakText = targetHanzi.replace(/[（(].*?[）)]/g, '').trim() || targetHanzi;
     const variants = ghGetWordVariants(currentItem.word, currentItem.pinyin);
 
     // KIỂM TRA CHỮ HÁN ĐỌNG LẠI TỪ CÁC TỪ TRƯỚC:
@@ -8253,11 +8257,15 @@ function checkTyping(isRealtime = false) {
         clearTimeout(ghTypingAdvanceTimer);
         try { window.GH?.streak?.activity?.(); } catch (e) {}
 
-        // Phát âm chuẩn từ này
-        if (window.GH_Audio && typeof window.GH_Audio.play === 'function') {
-            window.GH_Audio.play(targetHanzi);
-        } else if (typeof speakWord === 'function') {
-            speakWord(targetHanzi);
+        // Phát âm chuẩn từ này (bọc an toàn tránh lỗi ngoại lệ làm đơ script)
+        try {
+            if (window.GH_Audio && typeof window.GH_Audio.play === 'function') {
+                window.GH_Audio.play(speakText);
+            } else if (typeof speakWord === 'function') {
+                speakWord(speakText);
+            }
+        } catch (audioErr) {
+            console.warn('[Typing] Audio playback error:', audioErr);
         }
 
         if (feedback) {
@@ -8265,17 +8273,18 @@ function checkTyping(isRealtime = false) {
             feedback.className = "correct";
         }
 
-        // Tự động xóa sạch chữ triệt để ngay khi gõ xong
+        // Tự động xóa sạch chữ triệt để ngay khi gõ đúng
         ghForceWipeInput(input);
 
         if (nextBtn) {
             nextBtn.classList.remove('hidden');
         }
 
-        // Tự động chuyển từ tiếp theo sau 550ms thư thái
+        // Tự động chuyển từ tiếp theo: nhanh hơn khi ấn nút Kiểm tra (200ms), thư thái khi gõ realtime (550ms)
+        const delay = isRealtime ? 550 : 200;
         ghTypingAdvanceTimer = setTimeout(() => {
             nextTypingWord();
-        }, 550);
+        }, delay);
     } else if (!isRealtime) {
         if (feedback) {
             feedback.textContent = "❌ Sai rồi, thử lại nhé!";
@@ -8376,16 +8385,18 @@ function searchWords() {
 
 // 2. Hàm bỏ qua từ trong bài tập gõ
 function skipTypingWord() {
+    clearTimeout(ghTypingAdvanceTimer);
     const feedbackEl = document.getElementById('typing-feedback');
+    const input = document.getElementById('typing-input');
+    if (input) ghForceWipeInput(input);
 
-    // Lấy từ hiện tại đang hiển thị (thay currentTypingWord bằng biến từ hiện tại của bạn)
-    if (typeof currentTypingWord !== 'undefined' && currentTypingWord) {
-        feedbackEl.style.color = '#e67e22';
-        feedbackEl.innerText = `⏭️ Đã bỏ qua. Đáp án: "${currentTypingWord.word}" (${currentTypingWord.pinyin})`;
-        
+    const currentItem = (typingWordList && typingWordList[currentWordIndex]) ? typingWordList[currentWordIndex] : null;
+    if (currentItem && feedbackEl) {
+        feedbackEl.className = "incorrect";
+        feedbackEl.textContent = `⏭️ Đã bỏ qua. Đáp án: ${currentItem.word} (${currentItem.pinyin})`;
         setTimeout(() => {
-            feedbackEl.innerText = '';
-            nextTypingWord(); // Gọi hàm chuyển từ tiếp theo sẵn có của bạn
+            feedbackEl.textContent = '';
+            nextTypingWord();
         }, 1200);
     } else {
         nextTypingWord();

@@ -1,7 +1,7 @@
 {
-  "version": "2.3.4",
-  "build": "gh_v54_20261115",
-  "timestamp": 1731646300000,
-  "title": "Bản cập nhật v2.3.4",
-  "notes": "Cập nhật hệ thống biểu tượng SVG vector thật sắc nét, đồng bộ cho toàn bộ giao diện; tắt cộng điểm XP trong phần Flashcard."
+  "version": "2.3.5",
+  "build": "gh_v55_20261115",
+  "timestamp": 1731649800000,
+  "title": "Bản cập nhật v2.3.5",
+  "notes": "Sửa triệt để lỗi đứng im khi luyện gõ từ; tinh gọn thanh taskbar bên dưới thành thanh biểu tượng icon thuần túy trên cả web và app."
 }
