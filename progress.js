@@ -25,8 +25,8 @@
   }
   function addXp(amount){const gained=scaleReward(amount,state.level||1);ensureLeaderboardPeriod();state.xp+=gained;state.leaderboard.weeklyXp+=gained;state.leaderboard.monthlyXp+=gained;state.level=xpLevel(state.xp);state.highestLevel=Math.max(Number(state.highestLevel)||1,state.level);persist();window.dispatchEvent(new CustomEvent('gh-xp-updated',{detail:{gained,level:state.level}}));sync();return state}
   function markWord(wordId,quality=2,gainXp=false){ensureDay();const id=String(wordId);if(!state.learned.includes(id))state.learned.push(id);if(quality>=3&&!state.mastered.includes(id))state.mastered.push(id);const now=Date.now();const current=state.review[id]||{interval:0,reps:0};const intervals=[1,2,4,7,14,30];const idx=GH.utils.clamp((current.reps||0)+(quality>=2?1:-1),0,intervals.length-1);current.reps=Math.max(0,(current.reps||0)+(quality>=2?1:-1));current.interval=intervals[idx];current.nextAt=now+current.interval*86400000;state.review[id]=current;state.daily.words++;state.stats.wordsToday=state.daily.words;state.stats.lastStudy=now;if(gainXp)addXp(quality>=3?10:5);persist();return current}
-  function answer(correct){ensureDay();state.stats.answers++;if(correct)state.stats.correct++;state.daily.pinyin++;addXp(correct?5:1);persist()}
-  function markListening(correct){ensureDay();state.stats.answers++;if(correct)state.stats.correct++;state.daily.listen++;addXp(correct?8:2);persist()}
+  function answer(correct){ensureDay();state.stats.answers++;if(correct)state.stats.correct++;state.daily.pinyin++;persist()}
+  function markListening(correct){ensureDay();state.stats.answers++;if(correct){state.stats.correct++;addXp(10);}state.daily.listen++;persist()}
   function dueWords(){const now=Date.now();return Object.entries(state.review).filter(([,v])=>v.nextAt<=now).map(([id])=>id)}
   function toggleFavorite(id){id=String(id);const i=state.favorites.indexOf(id);if(i>=0)state.favorites.splice(i,1);else state.favorites.push(id);persist();if(window.ghAuth?.[state.favorites.includes(id)?'saveFavorite':'removeFavorite']){window.ghAuth[state.favorites.includes(id)?'saveFavorite':'removeFavorite'](id).catch(()=>{})}sync();return state.favorites.includes(id)}
   function setNote(id,note){state.notes[String(id)]=String(note||'');persist();window.ghAuth?.saveNote?.(id,note).catch(()=>{});sync()}
@@ -87,7 +87,7 @@
       return state;
     }
   }
-  GH.progress={get:()=>state,patch,addXp,periodKeys,ensureLeaderboardPeriod,markWord,answer,markListening,dueWords,toggleFavorite,setNote,hydrate,sync,persist,xpForLevel,xpLevel,scaleReward};
+  GH.progress={get:()=>state,patch,addXp,addXP:addXp,periodKeys,ensureLeaderboardPeriod,markWord,answer,markListening,dueWords,toggleFavorite,setNote,hydrate,sync,persist,xpForLevel,xpLevel,scaleReward};
   window.addEventListener('gh-auth-ready', hydrate);
   window.addEventListener('gh-progress-loaded', hydrate);
   ensureDay();

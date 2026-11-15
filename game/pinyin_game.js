@@ -683,9 +683,10 @@
     GH.PandaSFX?.playGameOver?.();
 
     // Reward XP to player profile
-    const earnedXp = Math.floor(STATE.score / 15);
-    if (earnedXp > 0 && GH.progress?.addXp) {
-      GH.progress.addXp(earnedXp, 'Chơi game Phi Tiêu Pinyin');
+    const earnedXp = STATE.score > 0 ? Math.max(5, Math.floor(STATE.score / 15)) : 0;
+    if (earnedXp > 0) {
+      if (GH.progress?.addXp) GH.progress.addXp(earnedXp, 'Chơi game Phi Tiêu Pinyin');
+      else if (GH.progress?.addXP) GH.progress.addXP(earnedXp, 'Chơi game Phi Tiêu Pinyin');
     }
 
     const modal = document.createElement('div');

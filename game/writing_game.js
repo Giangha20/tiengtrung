@@ -503,9 +503,10 @@
     cleanup();
     GH.PandaSFX?.playGameOver?.();
 
-    const earnedXp = Math.floor(STATE.score / 12);
-    if (earnedXp > 0 && GH.progress?.addXp) {
-      GH.progress.addXp(earnedXp, 'Chơi game Luyện viết Phi Tiêu');
+    const earnedXp = STATE.score > 0 ? Math.max(5, Math.floor(STATE.score / 12)) : 0;
+    if (earnedXp > 0) {
+      if (GH.progress?.addXp) GH.progress.addXp(earnedXp, 'Chơi game Luyện viết Phi Tiêu');
+      else if (GH.progress?.addXP) GH.progress.addXP(earnedXp, 'Chơi game Luyện viết Phi Tiêu');
     }
 
     const modal = document.createElement('div');

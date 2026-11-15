@@ -1,7 +1,7 @@
 {
-  "version": "2.3.5",
-  "build": "gh_v55_20261115",
-  "timestamp": 1731649800000,
-  "title": "Bản cập nhật v2.3.5",
-  "notes": "Sửa triệt để lỗi đứng im khi luyện gõ từ; tinh gọn thanh taskbar bên dưới thành thanh biểu tượng icon thuần túy trên cả web và app."
+  "version": "2.3.6",
+  "build": "gh_v56_20261115",
+  "timestamp": 1731650800000,
+  "title": "Bản cập nhật v2.3.6",
+  "notes": "Quy chuẩn hệ thống tích lũy XP: chuẩn hóa và chỉ cộng điểm XP cho 4 phân hệ chính: Trò chơi (Game), Luyện nghe hiểu, Dịch câu và Luyện viết chữ Hán."
 }

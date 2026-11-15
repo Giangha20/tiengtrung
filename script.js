@@ -37079,8 +37079,36 @@ function checkListening(choice){
   listeningSessionAnswered++;
   const qMeaning = getListeningMeaning(q);
   const meaning = qMeaning ? `Nghĩa tiếng Việt: ${qMeaning}` : 'Nghĩa tiếng Việt: chưa có dữ liệu cho câu này.';
-  if(choice===q.correct){ listeningScore++; listeningSessionCorrect++; buttons[choice].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✓ Chính xác!</strong><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#00a67d'; if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); } }
-  else { buttons[choice].classList.add('wrong'); buttons[q.correct].classList.add('correct'); document.getElementById('listening-feedback').innerHTML=`<strong>✗ Chưa đúng.</strong><div class="listening-answer">Đáp án: ${q.audio}</div><div class="listening-meaning">${meaning}</div>`; document.getElementById('listening-feedback').style.color='#d63031'; const wrong=getWrongListening().filter(x=>x.audio!==q.audio); wrong.push({audio:q.audio,pinyin:getListeningPinyin(q),meaning:getListeningMeaning(q),level:q.level}); setWrongListening(wrong); }
+  if(choice===q.correct){
+    listeningScore++;
+    listeningSessionCorrect++;
+    buttons[choice].classList.add('correct');
+    document.getElementById('listening-feedback').innerHTML=`<strong>✓ Chính xác! (+10 XP)</strong><div class="listening-meaning">${meaning}</div>`;
+    document.getElementById('listening-feedback').style.color='#00a67d';
+    if(listeningWrongMode){ setWrongListening(getWrongListening().filter(x=>x.audio!==q.audio)); }
+    try {
+      if (window.GH?.progress?.markListening) {
+        window.GH.progress.markListening(true);
+      } else if (window.GH?.progress?.addXp) {
+        window.GH.progress.addXp(10);
+      }
+    } catch(err) {
+      console.warn('[Listening] XP error:', err);
+    }
+  } else {
+    buttons[choice].classList.add('wrong');
+    buttons[q.correct].classList.add('correct');
+    document.getElementById('listening-feedback').innerHTML=`<strong>✗ Chưa đúng.</strong><div class="listening-answer">Đáp án: ${q.audio}</div><div class="listening-meaning">${meaning}</div>`;
+    document.getElementById('listening-feedback').style.color='#d63031';
+    const wrong=getWrongListening().filter(x=>x.audio!==q.audio);
+    wrong.push({audio:q.audio,pinyin:getListeningPinyin(q),meaning:getListeningMeaning(q),level:q.level});
+    setWrongListening(wrong);
+    try {
+      if (window.GH?.progress?.markListening) {
+        window.GH.progress.markListening(false);
+      }
+    } catch(err) {}
+  }
   document.getElementById('listening-score').textContent=`${listeningScore} / ${listeningIndex+1}`;
   saveListeningProgress();
   updateListeningProgressUI();

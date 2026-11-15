@@ -738,16 +738,30 @@
 
   // Show celebratory overlay modal on complete word finish
   function showCelebrationModal(summary) {
-    const modal = document.createElement('div');
-    modal.className = 'writing-celebrate-modal';
     const mistakes = summary?.totalMistakes || 0;
     const stars = mistakes === 0 ? '⭐⭐⭐' : (mistakes <= 2 ? '⭐⭐' : '⭐');
+    const xpReward = mistakes === 0 ? 15 : (mistakes <= 2 ? 10 : 8);
+
+    try {
+      if (window.GH?.progress?.addXp) {
+        window.GH.progress.addXp(xpReward);
+      } else if (window.GH?.progress?.addXP) {
+        window.GH.progress.addXP(xpReward);
+      }
+      if (window.GH?.streak?.activity) window.GH.streak.activity();
+    } catch (e) {
+      console.warn('[Writing] XP reward error:', e);
+    }
+
+    const modal = document.createElement('div');
+    modal.className = 'writing-celebrate-modal';
 
     modal.innerHTML = `
       <div class="writing-celebrate-content">
         <div class="writing-celebrate-icon">🎉</div>
         <h3>Hoàn Thành Từ ${WP.currentWordItem?.word || ''}!</h3>
-        <p style="font-size:1.4rem;margin:4px 0 12px;">${stars}</p>
+        <p style="font-size:1.4rem;margin:4px 0 8px;">${stars}</p>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(5,150,105,0.12);color:#059669;padding:6px 16px;border-radius:999px;font-weight:800;font-size:1.05rem;margin:6px 0 12px;"><span>⚡</span> +${xpReward} XP</div>
         <p>Phiên âm: <b>${WP.currentWordItem?.pinyin || ''}</b> • Nghĩa: <i>${WP.currentWordItem?.meaning || ''}</i></p>
         <p>Số lần sai sót: <b>${mistakes}</b> nét. Bạn đã nắm rất vững thứ tự các nét của từ này!</p>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;">

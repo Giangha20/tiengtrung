@@ -596,7 +596,11 @@
     if (isCorrect) {
       TR.correctCount++;
       TR.streak++;
-      if (window.GH?.progress?.addXP) window.GH.progress.addXP(10);
+      if (window.GH?.progress?.addXp) {
+        window.GH.progress.addXp(10);
+      } else if (window.GH?.progress?.addXP) {
+        window.GH.progress.addXP(10);
+      }
       if (window.GH?.streak?.tick) window.GH.streak.tick();
 
       if (fb && fbTitle && fbSub) {
