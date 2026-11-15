@@ -144,8 +144,8 @@
 
               <!-- Canvas Action Controls -->
               <div class="dojo-actions">
-                <button type="button" class="game-action-btn hint" id="wg-btn-hint">
-                  💡 Gợi ý nét
+                <button type="button" class="game-action-btn hint" id="wg-btn-hint" title="Viết chữ">
+                  ✍️ Viết chữ
                 </button>
                 <button type="button" class="game-action-btn" id="wg-btn-clear">
                   🔁 Viết lại nét này

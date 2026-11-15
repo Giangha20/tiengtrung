@@ -300,18 +300,53 @@ header,
   border-color: #ef4444 !important;
 }
 
-/* Theme Toggle Button */
-#theme-toggle-btn .theme-moon {
-  display: inline;
+/* ==========================================================================
+   THEME TOGGLE BUTTON (Sáng / Tối)
+   ========================================================================== */
+#theme-toggle-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
 }
-#theme-toggle-btn .theme-sun {
-  display: none;
+
+#theme-toggle-btn .gh-mode-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease !important;
 }
-body.dark-mode #theme-toggle-btn .theme-moon {
-  display: none;
+
+.theme-svg-icon {
+  width: 20px !important;
+  height: 20px !important;
+  display: block !important;
+  stroke-width: 2.2 !important;
 }
-body.dark-mode #theme-toggle-btn .theme-sun {
-  display: inline;
+
+/* Light mode: Show Moon (to switch to dark), Hide Sun */
+#theme-toggle-btn .gh-mode-moon {
+  display: inline-flex !important;
+  color: #475569 !important;
+}
+#theme-toggle-btn .gh-mode-sun {
+  display: none !important;
+}
+
+/* Dark mode: Show Sun (to switch to light), Hide Moon */
+html.dark-mode #theme-toggle-btn .gh-mode-sun,
+body.dark-mode #theme-toggle-btn .gh-mode-sun {
+  display: inline-flex !important;
+  color: #f59e0b !important;
+}
+html.dark-mode #theme-toggle-btn .gh-mode-moon,
+body.dark-mode #theme-toggle-btn .gh-mode-moon {
+  display: none !important;
+}
+
+#theme-toggle-btn:hover .theme-svg-icon {
+  transform: rotate(18deg) scale(1.12);
 }
 
 /* ==========================================================================

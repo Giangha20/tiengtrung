@@ -72,7 +72,7 @@
         var isNativeApp = isCap || isCapOrigin || isStandalone;
 
         if (!isNativeApp) {
-          var GH_CURRENT_BUILD = 'gh_v50_20261115';
+          var GH_CURRENT_BUILD = 'gh_v51_20261115';
           if (localStorage.getItem('gh_app_build') !== GH_CURRENT_BUILD) {
             if ('caches' in window) {
               caches.keys().then(function(keys) {
@@ -112,7 +112,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./style.css?v=50">
     <link rel="stylesheet" href="./base.css?v=2">
-    <link rel="stylesheet" href="./app.css?v=50">
+    <link rel="stylesheet" href="./app.css?v=51">
     <link rel="stylesheet" href="./enhancements.css?v=50">
     <link rel="stylesheet" href="./premium_plus.css?v=3">
     <link rel="stylesheet" href="./translation.css?v=2">
@@ -225,8 +225,24 @@
                     </button>
 
                     <button id="theme-toggle-btn" class="header-action-btn" type="button" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">
-                        <span class="theme-icon theme-sun">☀️</span>
-                        <span class="theme-icon theme-moon">🌙</span>
+                        <span class="gh-mode-icon gh-mode-sun" title="Chế độ sáng">
+                            <svg viewBox="0 0 24 24" class="theme-svg-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </span>
+                        <span class="gh-mode-icon gh-mode-moon" title="Chế độ tối">
+                            <svg viewBox="0 0 24 24" class="theme-svg-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </span>
                     </button>
                     <input id="input" type="checkbox" style="display:none;" />
 

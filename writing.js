@@ -215,8 +215,8 @@
               <button type="button" id="wp-btn-next-stroke" class="writing-action-btn">
                 ⏭ Nét sau
               </button>
-              <button type="button" id="wp-btn-hint" class="writing-action-btn success" style="display:none;">
-                💡 Gợi ý nét
+              <button type="button" id="wp-btn-hint" class="writing-action-btn success" style="display:none;" title="Viết chữ">
+                ✍️ Viết chữ
               </button>
             </div>
           </div>
