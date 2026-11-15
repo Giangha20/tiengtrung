@@ -1,23 +1,61 @@
+/* ==========================================================================
+   MODERN UI SYSTEM v2.3.0 - HỌC TIẾNG TRUNG HSK
+   Thiết kế hoàn toàn mới: Cực đẹp, mượt mà, không chèn nền hay thừa thãi.
+   Hỗ trợ hoàn hảo cả Web và App (iOS & Android).
+   ========================================================================== */
+
 :root {
   --gh-primary: #ef4444;
   --gh-primary-hover: #dc2626;
-  --gh-primary-light: #fee2e2;
+  --gh-primary-gradient: linear-gradient(135deg, #ef4444 0%, #f43f5e 100%);
   --gh-accent: #f59e0b;
   --gh-success: #10b981;
-  --gh-ink: #0f172a;
-  --gh-muted: #64748b;
-  --gh-card: #ffffff;
-  --gh-line: #e2e8f0;
-  --gh-soft: #f8fafc;
+  --gh-info: #3b82f6;
+  --gh-purple: #8b5cf6;
+
+  /* Theme sáng (Light Mode) */
+  --bg-app: #f8fafc;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(226, 232, 240, 0.85);
+  --header-bg: rgba(255, 255, 255, 0.88);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --card-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(226, 232, 240, 0.6);
+  --card-shadow-hover: 0 18px 40px -10px rgba(15, 23, 42, 0.1), 0 0 0 1.5px rgba(239, 68, 68, 0.25);
+  --bottom-nav-bg: rgba(255, 255, 255, 0.92);
 }
 
+/* Theme tối (Dark Mode) */
+body.dark-mode, html.dark-mode {
+  --bg-app: #0b0f19;
+  --card-bg: rgba(20, 28, 45, 0.92);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --header-bg: rgba(15, 23, 42, 0.88);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --card-shadow-hover: 0 20px 45px -8px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(239, 68, 68, 0.4);
+  --bottom-nav-bg: rgba(15, 23, 42, 0.94);
+}
+
+/* ==========================================================================
+   TRIỆT TIÊU TOÀN BỘ CÁC NỀN CHÈN VÀ CHI TIẾT THỪA CŨ
+   ========================================================================== */
 body {
-  font-family: "Noto Sans", "Noto Sans CJK SC", "Noto Sans Vietnamese", "Segoe UI", sans-serif;
-  background-color: var(--gh-soft);
-  color: var(--gh-ink);
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-app) !important;
+  background-image: none !important;
+  color: var(--text-main) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Tắt các pseudo-elements cũ gây chèn nền trong header */
+header::before,
+header::after,
+html body.dark-mode header::before,
+html body.dark-mode header::after {
+  display: none !important;
+  content: none !important;
 }
 
 .gh-extra-mode {
@@ -26,376 +64,887 @@ body {
 
 .gh-extra-mode.active {
   display: block !important;
+  animation: ghFadeScaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Youthful Hero Card */
-.gh-hero {
+main > section {
+  display: none;
+}
+
+main > section.active {
+  display: block !important;
+  animation: ghFadeScaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes ghFadeScaleIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   CONTAINER CHÍNH
+   ========================================================================== */
+.container {
+  width: min(1200px, calc(100% - 32px)) !important;
+  margin: 16px auto 80px !important;
+  padding: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: calc(100% - 20px) !important;
+    margin: 10px auto 95px !important;
+  }
+}
+
+/* ==========================================================================
+   HEADER HOÀN TOÀN MỚI (app-header-v3)
+   ========================================================================== */
+header,
+.app-header-v3 {
+  background: var(--header-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 24px !important;
+  padding: 14px 20px !important;
+  margin-bottom: 20px !important;
+  box-shadow: var(--card-shadow) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  position: relative !important;
+  z-index: 100 !important;
+  text-align: left !important;
+}
+
+.header-top-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 32px;
-  border: 1.5px solid var(--gh-line);
+  gap: 12px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Brand Group: Logo + Title */
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  border: 1.5px solid rgba(239, 68, 68, 0.35);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brand-group:hover .brand-logo-img {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  background: linear-gradient(135deg, var(--text-main) 60%, var(--gh-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* HSK Level Pill Selector */
+.header-hsk-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1.5px solid rgba(239, 68, 68, 0.22);
+  border-radius: 999px;
+  padding: 4px 12px 4px 10px;
+  transition: all 0.2s ease;
+}
+
+.header-hsk-badge:hover {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.hsk-badge-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gh-primary);
+  letter-spacing: 0.05em;
+}
+
+.hsk-select-pill {
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 850;
+  color: var(--gh-primary);
+  cursor: pointer;
+  outline: none;
+  padding-right: 4px;
+}
+
+.hsk-select-pill option {
+  background: var(--bg-app);
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Header Action Buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* User Profile Chip */
+.user-chip-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-width: 170px;
+}
+
+.user-chip-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(239, 68, 68, 0.35);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.user-chip-pill .chip-avatar-img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-chip-pill span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Action Buttons (BXH, Theme, Settings, Logout) */
+.header-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 38px;
+  min-width: 38px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.header-action-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--gh-primary);
+}
+
+.header-action-btn:active {
+  transform: scale(0.95);
+}
+
+.header-action-btn .ui-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.logout-action-btn:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #dc2626 !important;
+  border-color: #ef4444 !important;
+}
+
+/* Theme Toggle Button */
+#theme-toggle-btn .theme-moon {
+  display: inline;
+}
+#theme-toggle-btn .theme-sun {
+  display: none;
+}
+body.dark-mode #theme-toggle-btn .theme-moon {
+  display: none;
+}
+body.dark-mode #theme-toggle-btn .theme-sun {
+  display: inline;
+}
+
+/* ==========================================================================
+   DESKTOP / TABLET TOP PILL NAVIGATION (.app-nav-pills)
+   ========================================================================== */
+.app-nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--card-border);
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-pill {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 750;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-pill:hover {
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+body.dark-mode .nav-pill:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-pill.active {
+  background: var(--gh-primary-gradient) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .app-nav-pills {
+    display: none !important; /* Trên mobile sẽ dùng bottom navigation bar */
+  }
+}
+
+/* ==========================================================================
+   UNIVERSAL MOBILE BOTTOM NAVIGATION BAR (#app-bottom-nav)
+   ========================================================================== */
+#app-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #app-bottom-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: space-around;
+    background: var(--bottom-nav-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid var(--card-border);
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .bottom-nav-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 2px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.18s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .bottom-nav-tab .nav-tab-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .bottom-nav-tab.active {
+    color: var(--gh-primary) !important;
+  }
+
+  .bottom-nav-tab.active .nav-tab-icon {
+    transform: translateY(-2px) scale(1.15);
+  }
+}
+
+/* ==========================================================================
+   TRANG CHỦ HOÀN TOÀN MỚI (Hero, Cards, Goals, Review)
+   ========================================================================== */
+.gh-hero-v3 {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 28px;
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+  padding: 32px 36px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 24px;
   position: relative;
   overflow: hidden;
 }
 
-.gh-hero::after {
-  content: "🀄";
-  position: absolute;
-  right: -10px;
-  bottom: -20px;
-  font-size: 7.5rem;
-  opacity: 0.05;
-  pointer-events: none;
-}
-
-.gh-kicker,
-.gh-section-head span,
-.gh-review small,
-.gh-goal small {
+.gh-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--gh-primary);
   font-size: 0.78rem;
   font-weight: 850;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.gh-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gh-primary);
+  box-shadow: 0 0 8px var(--gh-primary);
+}
+
+.gh-hero-v3 h2 {
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin: 0 0 8px;
+  line-height: 1.25;
+  color: var(--text-main);
+}
+
+.gh-hero-v3 p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin: 0 0 20px;
+}
+
+.gh-hero-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gh-meta-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid var(--card-border);
+}
+
+body.dark-mode .gh-meta-pill {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.gh-meta-pill .meta-icon {
+  font-size: 1.5rem;
+}
+
+.gh-meta-pill b {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 850;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.gh-meta-pill small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Daily Goal Card in Hero */
+.gh-hero-goal-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(244, 63, 94, 0.03) 100%);
+  border: 1.5px solid rgba(239, 68, 68, 0.18);
+}
+
+.gh-goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.gh-goal-header span {
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
   color: var(--gh-primary);
 }
 
-.gh-hero h2 {
-  margin: 8px 0 6px;
-  font-size: clamp(1.8rem, 4.2vw, 2.8rem);
-  letter-spacing: -0.03em;
+.gh-goal-header strong {
+  font-size: 1.25rem;
   font-weight: 900;
-  line-height: 1.2;
+  color: var(--gh-primary);
 }
 
-.gh-hero p {
-  margin: 0;
-  color: var(--gh-muted);
-  font-size: 1rem;
-}
-
-.gh-xp {
-  min-width: 130px;
-  align-self: flex-start;
-  padding: 16px;
-  border-radius: 20px;
-  background: #ffffff;
-  border: 1.5px solid var(--gh-line);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-}
-
-.gh-xp b {
-  font-size: 1.45rem;
+.gh-goal-count {
+  font-size: 1.6rem;
   font-weight: 900;
-  color: #f59e0b;
+  color: var(--text-main);
+  margin-bottom: 12px;
 }
 
-.gh-xp span {
-  color: var(--gh-muted);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-/* Daily Goal Bar */
-.gh-goal {
-  margin: 20px 0;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 16px;
-  align-items: center;
-  padding: 18px 24px;
-  background: var(--gh-card);
-  border: 1.5px solid var(--gh-line);
-  border-radius: 22px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
-}
-
-.gh-goal strong {
-  display: block;
-  margin-top: 4px;
-  font-size: 1.05rem;
-}
-
-.gh-progress {
+.gh-goal-bar {
   height: 12px;
-  border-radius: 99px;
-  background: #e2e8f0;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
   overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  margin-bottom: 10px;
 }
 
-.gh-progress i {
-  display: block;
-  width: 0;
+body.dark-mode .gh-goal-bar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.gh-goal-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ef4444 0%, #f97316 100%);
-  border-radius: inherit;
-  transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 0;
+  border-radius: 999px;
+  background: var(--gh-primary-gradient);
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
 }
 
-/* Quick Mode Buttons Grid */
-.gh-quick {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 14px;
-}
-
-.gh-quick button {
-  border: 1.5px solid var(--gh-line);
-  background: var(--gh-card);
-  border-radius: 20px;
-  padding: 18px 14px;
-  text-align: left;
-  cursor: pointer;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, border-color 0.18s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-  touch-action: manipulation;
-}
-
-.gh-quick button:hover {
-  transform: translateY(-3px);
-  border-color: #cbd5e1;
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-}
-
-.gh-quick button:active {
-  transform: scale(0.96) !important;
-}
-
-.gh-quick b {
-  font-size: 1rem;
-  font-weight: 800;
-  color: var(--gh-ink);
-}
-
-.gh-quick small {
-  color: var(--gh-muted);
+.gh-goal-hint {
   font-size: 0.78rem;
-  font-weight: 600;
+  color: var(--text-muted);
 }
 
-/* Gamified Stats Grid */
-.gh-stats {
+/* Section Title */
+.gh-section-title {
+  margin: 32px 0 16px;
+}
+
+.gh-section-title h3 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin: 0 0 4px;
+}
+
+.gh-section-title p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* Quick Mode Grid (8 Cards) */
+.gh-quick-grid-v3 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin: 20px 0;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.gh-stats article {
-  padding: 18px 20px;
-  border: 1.5px solid var(--gh-line);
-  border-radius: 20px;
-  background: var(--gh-card);
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: 14px;
-  align-items: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-  transition: transform 0.15s ease;
-}
-
-.gh-stats article:hover {
-  transform: translateY(-2px);
-}
-
-.gh-stats span {
-  grid-row: span 2;
-  font-size: 1.8rem;
-}
-
-.gh-stats b {
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: var(--gh-ink);
-}
-
-.gh-stats small {
-  color: var(--gh-muted);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-/* Smart Review Banner */
-.gh-review {
+.gh-card-btn {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 18px;
-  padding: 24px 28px;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.gh-card-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+.gh-card-btn:active {
+  transform: scale(0.97);
+}
+
+.card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 14px;
+  background: var(--c-bg);
+  color: var(--c-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.card-info b {
+  font-size: 1.02rem;
+  font-weight: 850;
+  color: var(--text-main);
+}
+
+.card-info small {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.card-arrow {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.gh-card-btn:hover .card-arrow {
+  opacity: 1;
+  color: var(--gh-primary);
+  transform: translateX(3px);
+}
+
+/* Smart Review Card (SRS) */
+.gh-review-card-v3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 30px;
   border-radius: 24px;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   color: #ffffff;
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.2);
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.gh-review h3 {
-  margin: 6px 0;
-  font-size: 1.25rem;
-  font-weight: 800;
+body.dark-mode .gh-review-card-v3 {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
-.gh-review p {
-  margin: 0;
-  color: #94a3b8;
-  font-size: 0.9rem;
+.review-icon-glow {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.6));
 }
 
-.gh-primary,
-.gh-secondary {
-  border: 0;
-  border-radius: 14px;
-  padding: 12px 20px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
-  touch-action: manipulation;
+.review-text {
+  flex: 1;
 }
 
-.gh-primary {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+.review-text small {
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  color: #f59e0b;
 }
 
-.gh-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.45);
-}
-
-.gh-primary:active {
-  transform: scale(0.96);
-}
-
-.gh-secondary {
-  background: #ffffff;
-  color: #0f172a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.gh-secondary:hover {
-  transform: translateY(-2px);
-  background: #f8fafc;
-}
-
-.gh-secondary:active {
-  transform: scale(0.96);
-}
-
-.gh-section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.gh-section-head h2 {
-  margin: 4px 0 6px;
+.review-text h3 {
+  font-size: 1.35rem;
   font-weight: 900;
-}
-
-.gh-section-head p {
-  color: var(--gh-muted);
-  margin: 0;
-}
-
-.gh-toast {
-  position: fixed;
-  left: 50%;
-  bottom: 28px;
-  transform: translate(-50%, 20px);
-  opacity: 0;
-  z-index: 100000;
-  background: #0f172a;
+  margin: 4px 0;
   color: #ffffff;
-  padding: 12px 20px;
+}
+
+.review-text p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #94a3b8;
+}
+
+.gh-review-btn-v3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
   border-radius: 14px;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: var(--gh-primary-gradient);
+  color: #ffffff;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+
+.gh-review-btn-v3:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(239, 68, 68, 0.55);
+}
+
+.gh-review-btn-v3:active {
+  transform: scale(0.96);
+}
+
+/* Gamified Stats Strip (4 boxes) */
+.gh-stats-grid-v3 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.stat-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+.stat-icon {
+  font-size: 2rem;
+}
+
+.stat-details b {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.stat-details small {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   IN-APP UPDATE NOTIFICATION BANNER (.gh-app-update-banner)
+   ========================================================================== */
+.gh-app-update-banner {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%, -100px);
+  z-index: 100000;
+  width: min(500px, calc(100% - 32px));
+  opacity: 0;
   pointer-events: none;
-  font-weight: 700;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.gh-toast.show {
-  opacity: 1;
+.gh-app-update-banner.show {
   transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* Floating Bottom Dock on Mobile */
-#gh-mobile-nav { display: none !important; }
+.update-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 1.5px solid rgba(239, 68, 68, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(239, 68, 68, 0.15);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
 
-@media (max-width: 1000px) {
-  .gh-quick {
+.update-banner-icon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.4));
+}
+
+.update-banner-text {
+  flex: 1;
+}
+
+.update-banner-title {
+  font-size: 0.98rem;
+  font-weight: 850;
+  color: var(--text-main);
+}
+
+.update-banner-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.update-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.update-banner-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 9px 16px;
+  background: var(--gh-primary-gradient);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+  transition: transform 0.18s ease;
+  white-space: nowrap;
+}
+
+.update-banner-btn:active {
+  transform: scale(0.95);
+}
+
+.update-banner-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.update-applying-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(239, 68, 68, 0.2);
+  border-top-color: var(--gh-primary);
+  border-radius: 50%;
+  animation: ghSpin 0.7s linear infinite;
+  margin-right: 10px;
+}
+
+@keyframes ghSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1050px) {
+  .gh-quick-grid-v3 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
+@media (max-width: 820px) {
+  .gh-hero-v3 {
+    grid-template-columns: 1fr;
+  }
+  .gh-quick-grid-v3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gh-stats-grid-v3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 650px) {
-  main {
-    padding-bottom: 24px;
+  .gh-hero-v3 {
+    padding: 22px 20px;
+    border-radius: 22px;
   }
-  .gh-hero {
-    padding: 24px;
-    flex-direction: column;
+  .gh-hero-v3 h2 {
+    font-size: 1.55rem;
   }
-  .gh-xp {
-    align-self: stretch;
-  }
-  .gh-goal {
-    grid-template-columns: 1fr auto;
-  }
-  .gh-progress {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-  .gh-quick {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .gh-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .gh-review {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .gh-section-head {
-    align-items: flex-start;
-    flex-direction: column;
+  .gh-quick-grid-v3 {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
-
-  #gh-mobile-nav { display: none !important; }
+  .gh-review-card-v3 {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  .gh-review-btn-v3 {
+    width: 100%;
+    justify-content: center;
+  }
+  .header-actions {
+    gap: 6px;
+  }
+  .header-action-btn {
+    padding: 0 8px;
+  }
+  .header-action-btn .btn-text {
+    display: none;
+  }
+  .user-chip-pill {
+    max-width: 120px;
+  }
 }
-
-/* Dark Mode Theme */
-body.dark-mode {
-  --gh-card: #1e293b;
-  --gh-line: #334155;
-  --gh-soft: #0f172a;
-  --gh-ink: #f8fafc;
-  --gh-muted: #94a3b8;
-  background-color: var(--gh-soft);
-  color: var(--gh-ink);
-}
-
-body.dark-mode .gh-hero {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-}
-
-body.dark-mode .gh-xp {
-  background: #243448;
-}
-
-body.dark-mode .gh-review {
-  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
-}
-

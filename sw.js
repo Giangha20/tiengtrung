@@ -1,7 +1,9 @@
-const CACHE = 'gh-hsk-shell-v68';
+const CACHE = 'gh-hsk-shell-v69';
 const ASSETS = [
   './',
   './index.html',
+  './updater.js',
+  './version.json',
   './style.css',
   './base.css',
   './app.css',

@@ -7987,7 +7987,7 @@ function switchMode(mode) {
         } catch(e) {}
         return;
     }
-    const section = document.getElementById(`${mode}-mode`);
+    const section = document.getElementById(`${mode}-mode`) || document.getElementById(`gh-${mode}-mode`);
     if (!section) return;
 
     // Nếu đang ở đúng mục này thì KHÔNG khởi tạo lại dữ liệu.
@@ -8025,10 +8025,18 @@ function switchMode(mode) {
         window.GH_Writing?.init?.();
     } else if (mode === 'game') {
         window.GH_GameHub?.init?.();
+    } else if (mode === 'flashcard') {
+        window.GH?.flashcard?.start?.();
+    } else if (mode === 'translation') {
+        window.GH_Translation?.init?.();
     } else if (mode === 'list') {
         // Danh sách từ luôn lấy đúng currentLevel, không random và không đổi dữ liệu khi bấm lại.
         renderList();
     }
+
+    try {
+        document.dispatchEvent(new CustomEvent('gh-mode-changed', { detail: { mode: mode } }));
+    } catch(e) {}
 }
 
 window.hskData = hskData;
@@ -37192,21 +37200,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 })();
 
 function updateThemeButton(dark) {
-    const btn = document.querySelector('.switch');
-    const icon = document.getElementById('theme-toggle-icon');
-    const text = document.getElementById('theme-toggle-text');
+    const btn = document.querySelector('.switch') || document.getElementById('theme-toggle-btn');
+    const checkbox = document.getElementById('input');
+    if (checkbox) checkbox.checked = dark;
     if (!btn) return;
     btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
     btn.setAttribute('aria-label', dark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối');
     btn.setAttribute('title', dark ? 'Chế độ sáng' : 'Chế độ tối');
-    const checkbox = document.getElementById('input');
-    if (checkbox) checkbox.checked = dark;
-    const sun = document.getElementById('theme-sun');
-    const moon = document.getElementById('theme-moon');
-    if (sun) sun.setAttribute('aria-hidden', dark ? 'true' : 'false');
-    if (moon) moon.setAttribute('aria-hidden', dark ? 'false' : 'true');
-    if (icon) icon.textContent = dark ? '🌙' : '☀️';
-    if (text) text.textContent = dark ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối';
 }
 
 function toggleDarkMode() {
@@ -37222,6 +37222,7 @@ function toggleDarkMode() {
 }
 
 window.toggleDarkMode = toggleDarkMode;
+window.toggleTheme = toggleDarkMode;
 
 (function bindUiverseThemeSwitch(){
     const checkbox = document.getElementById('input');
