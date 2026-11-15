@@ -371,8 +371,15 @@
     document.getElementById('wp-word-counter').textContent = `${WP.currentWordIndex + 1} / ${WP.wordList.length}`;
     updateWordImage(item);
 
-    // Extract Chinese characters only
-    const chars = (item.word || '').replace(/[^\u4e00-\u9fa5]/g, '').split('').filter(Boolean);
+    // Extract Chinese characters only (xử lý thông minh từ có ngoặc như "哪（哪儿）")
+    let wordToDraw = (item.word || '').trim();
+    if (wordToDraw.includes('（') || wordToDraw.includes('(')) {
+      const parenMatch = wordToDraw.match(/([^\(（\s]+)[\(（]([^\)）\s]+)[\)）]/);
+      if (parenMatch) {
+        wordToDraw = parenMatch[2]; // Dùng "哪儿" để luyện viết lần lượt "哪" rồi đến "儿"
+      }
+    }
+    const chars = wordToDraw.replace(/[^\u4e00-\u9fa5]/g, '').split('').filter(Boolean);
     WP.currentChars = chars.length ? chars : [item.word?.[0] || '我'];
     WP.activeCharIndex = 0;
     WP.quizCompletedChars.clear();
@@ -876,7 +883,8 @@
     const speakBtn = document.getElementById('wp-speak-btn');
     if (speakBtn) {
       speakBtn.addEventListener('click', () => {
-        const text = WP.currentWordItem?.word || WP.currentChars.join('');
+        const rawText = WP.currentWordItem?.word || WP.currentChars.join('');
+        const text = rawText.replace(/[\(（].*?[\)）]/g, '').trim() || rawText;
         playAudio(text, speakBtn);
       });
     }

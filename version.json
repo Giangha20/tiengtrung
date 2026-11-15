@@ -1,7 +1,7 @@
 {
-  "version": "2.3.1",
-  "build": "gh_v51_20261115",
-  "timestamp": 1731644300000,
-  "title": "Bản cập nhật v2.3.1",
-  "notes": "Hoàn thiện icon chuyển đổi chế độ Sáng / Tối siêu đẹp và sắc nét."
+  "version": "2.3.2",
+  "build": "gh_v52_20261115",
+  "timestamp": 1731644700000,
+  "title": "Bản cập nhật v2.3.2",
+  "notes": "Hỗ trợ nhận diện đầy đủ các biến thể từ 哪 và 哪儿 trong gõ pinyin, trò chơi và luyện viết chữ Hán."
 }

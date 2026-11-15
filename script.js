@@ -8111,6 +8111,45 @@ function ghForceWipeInput(input) {
     setTimeout(() => { if (input) { input.value = ""; input.defaultValue = ""; } }, 150);
 }
 
+function ghGetWordVariants(word, pinyin) {
+    const hanziList = new Set();
+    const pinyinList = new Set();
+
+    if (word) {
+        const w = String(word).trim();
+        hanziList.add(w);
+        // Hỗ trợ từ có dấu ngoặc như "哪（哪儿）" hoặc "哪(哪儿)"
+        const parenMatch = w.match(/([^\(（\s]+)[\(（]([^\)）\s]+)[\)）]/);
+        if (parenMatch) {
+            hanziList.add(parenMatch[1].trim()); // "哪"
+            hanziList.add(parenMatch[2].trim()); // "哪儿"
+        }
+        const stripped = w.replace(/[\(（\)）]/g, '').trim();
+        if (stripped) hanziList.add(stripped);
+    }
+
+    if (pinyin) {
+        const cleanFull = ghCleanPinyinText(pinyin);
+        if (cleanFull) pinyinList.add(cleanFull);
+        const parenMatch = String(pinyin).match(/([^\(（\s]+)[\(（]([^\)）\s]+)[\)）]/);
+        if (parenMatch) {
+            const p1 = ghCleanPinyinText(parenMatch[1]); // "na"
+            const p2 = ghCleanPinyinText(parenMatch[2]); // "nar"
+            if (p1) pinyinList.add(p1);
+            if (p2) pinyinList.add(p2);
+        }
+        String(pinyin).split(/[\/,\s\(\)（）]+/).filter(Boolean).forEach(part => {
+            const c = ghCleanPinyinText(part);
+            if (c) pinyinList.add(c);
+        });
+    }
+
+    return {
+        hanzi: Array.from(hanziList),
+        pinyin: Array.from(pinyinList)
+    };
+}
+
 function ghCheckTypingMatch(rawVal) {
     if (currentWordIndex >= typingWordList.length) return false;
     const currentItem = typingWordList[currentWordIndex];
@@ -8118,14 +8157,13 @@ function ghCheckTypingMatch(rawVal) {
 
     const trimmedVal = rawVal.trim();
     const cleanInput = ghCleanPinyinText(rawVal);
-    const cleanTargetPinyin = ghCleanPinyinText(currentItem.pinyin);
-    const targetHanzi = (currentItem.word || '').trim();
+    const variants = ghGetWordVariants(currentItem.word, currentItem.pinyin);
 
-    const isPinyinMatch = (cleanInput.length > 0 && cleanInput === cleanTargetPinyin) ||
-                          (cleanInput.length >= cleanTargetPinyin.length && cleanTargetPinyin.length > 0 && cleanInput.endsWith(cleanTargetPinyin));
+    const isPinyinMatch = variants.pinyin.some(p => (cleanInput.length > 0 && cleanInput === p) ||
+                                                    (cleanInput.length >= p.length && p.length > 0 && cleanInput.endsWith(p)));
 
-    const isHanziMatch = (targetHanzi.length > 0 && trimmedVal === targetHanzi) ||
-                         (targetHanzi.length > 0 && trimmedVal.endsWith(targetHanzi));
+    const isHanziMatch = variants.hanzi.some(h => (h.length > 0 && trimmedVal === h) ||
+                                                  (h.length > 0 && trimmedVal.endsWith(h)));
 
     return isPinyinMatch || isHanziMatch;
 }
@@ -8196,12 +8234,12 @@ function checkTyping(isRealtime = false) {
     const currentItem = typingWordList[currentWordIndex];
     if (!currentItem) return;
 
-    const targetHanzi = (currentItem.word || '').trim();
+    const variants = ghGetWordVariants(currentItem.word, currentItem.pinyin);
 
     // KIỂM TRA CHỮ HÁN ĐỌNG LẠI TỪ CÁC TỪ TRƯỚC:
-    // Nếu trong ô nhập có ký tự chữ Hán mà KHÔNG CHỨA từ mục tiêu hiện tại:
-    // Xóa sạch ô nhập ngay lập tức!
-    if (/[\u4e00-\u9fa5]/.test(rawVal) && targetHanzi && !rawVal.includes(targetHanzi)) {
+    // Chỉ xóa nếu có ký tự chữ Hán mà không khớp với bất kỳ biến thể nào của từ mục tiêu!
+    const matchesAnyTargetHanzi = variants.hanzi.some(h => rawVal.includes(h) || h.startsWith(trimmedVal) || trimmedVal.startsWith(h));
+    if (/[\u4e00-\u9fa5]/.test(rawVal) && !matchesAnyTargetHanzi) {
         ghForceWipeInput(input);
         return;
     }
@@ -8356,12 +8394,13 @@ function skipTypingWord() {
 // Hàm đọc từ tiếng Trung bằng giọng đọc chuẩn (zh-CN)
 function speakWord(text) {
     if (!text) return;
+    const cleanSpeech = String(text).replace(/[\(（].*?[\)）]/g, '').trim() || String(text).replace(/[\(（\)）]/g, '').trim();
     if (window.GH_Audio && typeof window.GH_Audio.play === 'function') {
-        window.GH_Audio.play(text);
+        window.GH_Audio.play(cleanSpeech);
     } else if ('speechSynthesis' in window) {
         try {
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
+            const utterance = new SpeechSynthesisUtterance(cleanSpeech);
             utterance.lang = 'zh-CN';
             utterance.rate = 0.85;
             window.speechSynthesis.speak(utterance);

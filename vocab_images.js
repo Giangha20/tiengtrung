@@ -225,6 +225,7 @@
     '谁': { role: 'Đại từ nghi vấn', badge: 'Câu hỏi', icon: '👤', hint: 'Hỏi về người (ai)' },
     '哪': { role: 'Đại từ nghi vấn', badge: 'Câu hỏi', icon: '🧭', hint: 'Hỏi để lựa chọn (nào)' },
     '哪儿': { role: 'Đại từ nghi vấn nơi chốn', badge: 'Địa điểm', icon: '🗺️', hint: 'Hỏi về vị trí (ở đâu)' },
+    '哪（哪儿）': { role: 'Đại từ nghi vấn', badge: 'Câu hỏi', icon: '🧭', hint: 'Hỏi để lựa chọn hoặc vị trí (nào, ở đâu)' },
     '怎么': { role: 'Đại từ nghi vấn cách thức', badge: 'Cách thức', icon: '💡', hint: 'Hỏi cách làm việc hoặc nguyên nhân (thế nào, làm sao)' },
     '怎么样': { role: 'Đại từ nghi vấn tính chất', badge: 'Nhận xét', icon: '💬', hint: 'Hỏi về tình hình hoặc xin ý kiến (như thế nào)' },
     '多少': { role: 'Đại từ nghi vấn số lượng', badge: 'Số lượng', icon: '🔢', hint: 'Hỏi số lượng lớn hơn 10 (bao nhiêu)' },

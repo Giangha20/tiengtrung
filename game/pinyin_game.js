@@ -49,6 +49,44 @@
       .replace(/[^a-z]/g, '');
   }
 
+  function getWordVariants(word, pinyin) {
+    const hanziList = new Set();
+    const pinyinList = new Set();
+
+    if (word) {
+      const w = String(word).trim();
+      hanziList.add(w);
+      const parenMatch = w.match(/([^\(（\s]+)[\(（]([^\)）\s]+)[\)）]/);
+      if (parenMatch) {
+        hanziList.add(parenMatch[1].trim()); // "哪"
+        hanziList.add(parenMatch[2].trim()); // "哪儿"
+      }
+      const stripped = w.replace(/[\(（\)）]/g, '').trim();
+      if (stripped) hanziList.add(stripped);
+    }
+
+    if (pinyin) {
+      const cleanFull = cleanPinyin(pinyin);
+      if (cleanFull) pinyinList.add(cleanFull);
+      const parenMatch = String(pinyin).match(/([^\(（\s]+)[\(（]([^\)）\s]+)[\)）]/);
+      if (parenMatch) {
+        const p1 = cleanPinyin(parenMatch[1]);
+        const p2 = cleanPinyin(parenMatch[2]);
+        if (p1) pinyinList.add(p1);
+        if (p2) pinyinList.add(p2);
+      }
+      String(pinyin).split(/[\/,\s\(\)（）]+/).filter(Boolean).forEach(part => {
+        const c = cleanPinyin(part);
+        if (c) pinyinList.add(c);
+      });
+    }
+
+    return {
+      hanzi: Array.from(hanziList),
+      pinyin: Array.from(pinyinList)
+    };
+  }
+
   // Get words for selected HSK level
   function getLevelWords(lvl) {
     const list = window.hskData?.[lvl] || [];
@@ -200,7 +238,8 @@
 
     if (candidateBtn) {
       candidateBtn.addEventListener('click', () => {
-        const targetWord = (STATE.currentWord?.word || '').trim();
+        const variants = getWordVariants(STATE.currentWord?.word, STATE.currentWord?.pinyin);
+        const targetWord = variants.hanzi[1] || variants.hanzi[0] || (STATE.currentWord?.word || '').trim();
         commitHanziMatch(targetWord);
       });
     }
@@ -216,14 +255,15 @@
       input.addEventListener('keydown', (e) => {
         if (e.key === ' ' || e.code === 'Space' || e.keyCode === 32 || e.key === 'Enter') {
           const val = input.value || '';
-          const targetWord = (STATE.currentWord?.word || '').trim();
+          const variants = getWordVariants(STATE.currentWord?.word, STATE.currentWord?.pinyin);
           const cleanUser = cleanPinyin(val);
-          const cleanTarget = cleanPinyin(STATE.currentWord?.pinyin || '');
+          const targetWord = variants.hanzi[1] || variants.hanzi[0] || (STATE.currentWord?.word || '').trim();
 
-          if (val.trim() === targetWord || val.trim().endsWith(targetWord)) {
+          const matchedHanzi = variants.hanzi.find(h => val.trim() === h || val.trim().endsWith(h));
+          if (matchedHanzi) {
             e.preventDefault();
-            commitHanziMatch(targetWord);
-          } else if (cleanUser === cleanTarget && cleanTarget.length > 0) {
+            commitHanziMatch(matchedHanzi);
+          } else if (variants.pinyin.some(p => cleanUser === p && p.length > 0)) {
             e.preventDefault();
             commitHanziMatch(targetWord);
           }
@@ -352,8 +392,9 @@
   }
 
   function updateTypingPreview(userVal) {
+    if (!STATE.currentWord) return;
     const cleanUser = cleanPinyin(userVal);
-    const cleanTarget = cleanPinyin(STATE.currentWord?.pinyin || '');
+    const variants = getWordVariants(STATE.currentWord?.word, STATE.currentWord?.pinyin);
     const rawTarget = STATE.currentWord?.pinyin || '';
     const input = document.getElementById('pg-user-input');
 
@@ -362,12 +403,13 @@
 
     if (!typedPart || !untypedPart) return;
 
-    if (cleanTarget.startsWith(cleanUser) && cleanUser.length > 0) {
+    const matchedPinyinPrefix = variants.pinyin.find(p => p.startsWith(cleanUser));
+    if (matchedPinyinPrefix && cleanUser.length > 0) {
       typedPart.textContent = rawTarget.slice(0, cleanUser.length);
       untypedPart.textContent = rawTarget.slice(cleanUser.length);
       typedPart.style.color = '#10b981'; // Green matched
       if (input) input.classList.remove('has-error');
-    } else if (cleanUser.length > 0 && !cleanTarget.startsWith(cleanUser)) {
+    } else if (cleanUser.length > 0 && !matchedPinyinPrefix) {
       typedPart.textContent = '';
       untypedPart.textContent = rawTarget;
       typedPart.style.color = '';
@@ -434,24 +476,26 @@
       return;
     }
 
-    const targetWord = (STATE.currentWord.word || '').trim();
-    const cleanTarget = cleanPinyin(STATE.currentWord.pinyin);
+    const variants = getWordVariants(STATE.currentWord.word, STATE.currentWord.pinyin);
+    const targetWord = variants.hanzi[1] || variants.hanzi[0] || (STATE.currentWord.word || '').trim();
     const candidateBar = document.getElementById('pg-candidate-bar');
     const candidateBtn = document.getElementById('pg-candidate-btn');
 
     // KIỂM TRA CHỮ HÁN ĐỌNG LẠI (như trong ảnh lỗi: "游泳隐形心"):
-    // Nếu trong ô nhập có ký tự chữ Hán mà không phải là tiền tố của từ mục tiêu và không chứa từ mục tiêu:
+    // Nếu trong ô nhập có ký tự chữ Hán mà không khớp với bất kỳ biến thể nào của từ mục tiêu:
     // Đây 100% là chữ đọng lại của các từ trước -> XÓA SẠCH NGAY LẬP TỨC!
-    if (/[\u4e00-\u9fa5]/.test(val) && targetWord && !targetWord.startsWith(val) && !val.includes(targetWord)) {
+    const matchesAnyTarget = variants.hanzi.some(h => val.includes(h) || h.startsWith(val.trim()) || val.trim().startsWith(h));
+    if (/[\u4e00-\u9fa5]/.test(val) && !matchesAnyTarget) {
       forceWipeInput(input);
       updateTypingPreview('');
       if (candidateBar) candidateBar.style.display = 'none';
       return;
     }
 
-    // NẾU Ô NHẬP ĐÃ CHỨA ĐÚNG CHỮ HÁN (người dùng chọn chữ Hán từ bàn phím tiếng Trung hoặc bấm phím cách):
-    if (targetWord && (val.trim() === targetWord || val.trim().endsWith(targetWord))) {
-      commitHanziMatch(targetWord);
+    // NẾU Ô NHẬP ĐÃ CHỨA ĐÚNG CHỮ HÁN (khớp với bất kỳ biến thể nào):
+    const matchedHanzi = variants.hanzi.find(h => val.trim() === h || val.trim().endsWith(h));
+    if (matchedHanzi) {
+      commitHanziMatch(matchedHanzi);
       return;
     }
 
@@ -459,8 +503,9 @@
     let cleanUser = cleanPinyin(val);
     updateTypingPreview(val);
 
-    // Khi gõ đúng toàn bộ Pinyin của từ mục tiêu:
-    if (cleanUser === cleanTarget && cleanTarget.length > 0) {
+    // Khi gõ đúng bất kỳ Pinyin nào của từ mục tiêu:
+    const isPinyinMatched = variants.pinyin.some(p => cleanUser === p && p.length > 0);
+    if (isPinyinMatched) {
       // Nếu người dùng gõ thêm dấu cách (trên bàn phím ảo điện thoại hoặc phím cứng):
       if (val.endsWith(' ') || val.endsWith('　')) {
         commitHanziMatch(targetWord);
