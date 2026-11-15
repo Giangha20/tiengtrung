@@ -2,6 +2,9 @@
  * Modern Crystal-Clear 3D Flashcard Engine
  * - Crisp, non-blurry typography with hardware accelerated rendering
  * - True 60fps/120fps 3D rotation flip effect without DOM reconstruction
+ * - Synthesized real-time Web Audio card flick/whoosh sound
+ * - Haptic vibration feedback on mobile touch
+ * - Swipe gestures (Left: Chưa nhớ, Right: Đã thuộc, Tap: Lật thẻ)
  * - Verified accurate image integration
  * - Unified streak integration on review actions
  */
@@ -10,6 +13,7 @@
   let list = [];
   let i = 0;
   let flipped = false;
+  let isNavigating = false;
 
   const esc = v => GH.utils?.escapeHtml ? GH.utils.escapeHtml(v) : String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   
@@ -43,6 +47,7 @@
     list = shuffle(uniqueWords(items));
     i = 0;
     flipped = false;
+    isNavigating = false;
     render();
   }
 
@@ -71,12 +76,82 @@
     }
   }
 
+  // Âm thanh lật thẻ Web Audio API tự nhiên, sắc nét
+  function playFlipSound() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!window.__ghFcAudioCtx) {
+        window.__ghFcAudioCtx = new AudioCtx();
+      }
+      const ctx = window.__ghFcAudioCtx;
+      if (ctx.state === 'suspended') {
+        ctx.resume().catch(() => {});
+      }
+      const now = ctx.currentTime;
+      
+      // Tiếng gió lướt của lá bài lật trong không khí (Whoosh noise)
+      const bufSize = Math.floor(ctx.sampleRate * 0.085);
+      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let k = 0; k < bufSize; k++) {
+        data[k] = (Math.random() * 2 - 1) * Math.exp(-k / (bufSize * 0.32));
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buf;
+      
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1400, now);
+      filter.frequency.exponentialRampToValueAtTime(450, now + 0.075);
+      filter.Q.value = 2.2;
+      
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.01, now);
+      gain.gain.linearRampToValueAtTime(0.24, now + 0.018);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      
+      noise.start(now);
+      noise.stop(now + 0.085);
+
+      // Tiếng bật thẻ nhẹ (Paper flick snap)
+      const osc = ctx.createOscillator();
+      const oscGain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(480, now);
+      osc.frequency.exponentialRampToValueAtTime(160, now + 0.05);
+      oscGain.gain.setValueAtTime(0.07, now);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+      osc.connect(oscGain);
+      oscGain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.055);
+    } catch (e) {}
+  }
+
   function toggleFlip() {
     flipped = !flipped;
     const card = document.getElementById('gh-active-flashcard');
     if (card) {
+      card.classList.add('is-flipping');
       card.classList.toggle('is-flipped', flipped);
       card.setAttribute('aria-expanded', String(flipped));
+
+      // Phản hồi rung haptic trên điện thoại
+      try {
+        if (navigator.vibrate) navigator.vibrate(12);
+      } catch (e) {}
+
+      // Phát âm thanh lật thẻ 3D
+      playFlipSound();
+
+      setTimeout(() => {
+        card.classList.remove('is-flipping');
+      }, 620);
     }
   }
 
@@ -146,10 +221,10 @@
                   <span class="gh-fc-speak-icon">🔊</span>
                   <span>Nghe phát âm</span>
                 </button>
-                <div class="gh-fc-tap-hint">
-                  <span class="gh-fc-hint-icon">↻</span>
+                <button class="gh-fc-flip-btn" type="button" data-flip aria-label="Lật thẻ xem đáp án">
+                  <span class="gh-fc-flip-icon">↻</span>
                   <span>Chạm để lật xem đáp án</span>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -171,10 +246,10 @@
                   <span class="gh-fc-speak-icon">🔊</span>
                   <span>Nghe lại phát âm</span>
                 </button>
-                <div class="gh-fc-tap-hint">
-                  <span class="gh-fc-hint-icon">↺</span>
+                <button class="gh-fc-flip-btn" type="button" data-flip aria-label="Lật thẻ về chữ Hán">
+                  <span class="gh-fc-flip-icon">↺</span>
                   <span>Chạm để quay lại chữ Hán</span>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -213,8 +288,57 @@
           toggleFlip();
         }
       };
+
+      // Cử chỉ vuốt lướt thẻ trên màn hình cảm ứng di động
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+      let isSwiping = false;
+
+      card.addEventListener('touchstart', (e) => {
+        const t = e.changedTouches[0];
+        touchStartX = t.clientX;
+        touchStartY = t.clientY;
+        touchStartTime = Date.now();
+        isSwiping = false;
+      }, { passive: true });
+
+      card.addEventListener('touchmove', (e) => {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 15) {
+          isSwiping = true;
+        }
+      }, { passive: true });
+
+      card.addEventListener('touchend', (e) => {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+        const dt = Date.now() - touchStartTime;
+
+        if (isSwiping && Math.abs(dx) > 55 && Math.abs(dy) < 80 && dt < 500) {
+          if (dx > 0) {
+            // Vuốt sang phải = Đã thuộc
+            next(3);
+          } else {
+            // Vuốt sang trái = Chưa nhớ
+            next(1);
+          }
+        }
+      }, { passive: true });
     }
 
+    // Nút lật thẻ riêng
+    host.querySelectorAll('[data-flip]').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        toggleFlip();
+      };
+    });
+
+    // Nút phát âm
     host.querySelectorAll('[data-speak]').forEach(btn => {
       btn.onclick = (e) => {
         e.stopPropagation();
@@ -240,6 +364,7 @@
   }
 
   function next(quality) {
+    if (isNavigating) return;
     const w = list[i];
     if (!w) return;
 
@@ -247,14 +372,32 @@
       GH.progress?.markWord?.(w.word || w.hanzi || '', quality);
     } catch (e) {}
 
-    // Any flashcard review action counts towards learning streak!
+    // Hoạt động ôn tập flashcard luôn tính chuỗi học tập liên tục
     try {
       GH.streak?.activity?.();
     } catch (e) {}
 
-    i++;
-    flipped = false;
-    render();
+    const card = document.getElementById('gh-active-flashcard');
+    if (card) {
+      isNavigating = true;
+      const animClass = quality >= 3 ? 'gh-fc-slide-right' : 'gh-fc-slide-left';
+      card.classList.add(animClass);
+
+      try {
+        if (navigator.vibrate) navigator.vibrate(8);
+      } catch (e) {}
+
+      setTimeout(() => {
+        i++;
+        flipped = false;
+        render();
+        isNavigating = false;
+      }, 230);
+    } else {
+      i++;
+      flipped = false;
+      render();
+    }
   }
 
   function mount() {

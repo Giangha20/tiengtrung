@@ -378,12 +378,13 @@ body.dark-theme .gh-nav-item:hover{background:rgba(92,171,255,.14)!important;col
 }
 
 /* ========================================================
-   MODERN 3D CRYSTAL-CLEAR FLASHCARD (NO BLUR, SMOOTH ROTATION)
+   MODERN 3D CRYSTAL-CLEAR FLASHCARD (ULTRA SMOOTH 3D FLIP)
    ======================================================== */
 .gh-fc-scene {
-  perspective: 1200px;
+  perspective: 1400px;
+  -webkit-perspective: 1400px;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -403,6 +404,51 @@ body.dark-theme .gh-nav-item:hover{background:rgba(92,171,255,.14)!important;col
   user-select: none;
   -webkit-user-select: none;
   border-radius: 24px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+  animation: ghFcCardEnter 0.35s cubic-bezier(0.34, 1.35, 0.64, 1) backwards;
+}
+
+@keyframes ghFcCardEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.gh-fc-card:hover {
+  transform: translateY(-4px);
+}
+
+.gh-fc-card.is-flipping {
+  transform: scale(1.035);
+}
+
+/* Slide out animations when rating known / again */
+.gh-fc-card.gh-fc-slide-right {
+  animation: ghFcSlideRight 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+.gh-fc-card.gh-fc-slide-left {
+  animation: ghFcSlideLeft 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+
+@keyframes ghFcSlideRight {
+  to {
+    opacity: 0;
+    transform: translate3d(90px, -12px, 0) rotate(14deg) scale(0.92);
+  }
+}
+
+@keyframes ghFcSlideLeft {
+  to {
+    opacity: 0;
+    transform: translate3d(-90px, -12px, 0) rotate(-14deg) scale(0.92);
+  }
 }
 
 .gh-fc-flipper {
@@ -410,12 +456,15 @@ body.dark-theme .gh-nav-item:hover{background:rgba(92,171,255,.14)!important;col
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.62s cubic-bezier(0.2, 0.85, 0.32, 1.2);
   border-radius: 24px;
+  will-change: transform;
 }
 
 .gh-fc-card.is-flipped .gh-fc-flipper {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 .gh-fc-face {
@@ -427,20 +476,20 @@ body.dark-theme .gh-nav-item:hover{background:rgba(92,171,255,.14)!important;col
   border-radius: 24px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: geometricPrecision;
   transform-style: preserve-3d;
-  transform: translateZ(1px);
+  -webkit-transform-style: preserve-3d;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 22px 24px;
-  overflow: hidden;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 2px 10px rgba(0, 0, 0, 0.06);
-  border: 1.5px solid rgba(226, 232, 240, 0.8);
+  border: 1.5px solid rgba(226, 232, 240, 0.85);
   background: #ffffff;
-  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.gh-fc-card.is-flipping .gh-fc-face {
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.22), 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 /* Light & Dark Modes for Flashcard Face */
@@ -450,19 +499,66 @@ body.dark-mode .gh-fc-face {
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
 }
 
+body.dark-mode .gh-fc-card.is-flipping .gh-fc-face {
+  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.65), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Sheen reflection across faces */
+.gh-fc-face::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, 0.04) 100%);
+  pointer-events: none;
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+}
+
+body.dark-mode .gh-fc-face::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 100%);
+}
+
 .gh-fc-front {
-  transform: rotateY(0deg) translateZ(1px);
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
   z-index: 2;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.2s ease, visibility 0s 0.25s;
 }
 
 .gh-fc-back {
-  transform: rotateY(180deg) translateZ(1px);
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
   z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
   background: linear-gradient(155deg, #f8fafc 0%, #f1f5f9 100%);
+  transition: opacity 0.2s ease, visibility 0s 0.25s;
 }
 
 body.dark-mode .gh-fc-back {
   background: linear-gradient(155deg, #1e2538 0%, #0d1424 100%);
+}
+
+/* State when flipped: swap cleanly and gracefully */
+.gh-fc-card.is-flipped .gh-fc-front {
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0s 0.25s;
+}
+
+.gh-fc-card.is-flipped .gh-fc-back {
+  z-index: 2;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.2s ease, visibility 0s 0.25s;
 }
 
 /* Flashcard Header */
@@ -1522,4 +1618,49 @@ body.dark-mode .gh-nav-item {
   transform: scale(1.15);
   border-color: #21d5f5;
   background: #0a1724;
+}
+
+
+/* Interactive Flip Button */
+.gh-fc-flip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1.5px solid rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  font-size: 0.84rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.08);
+  user-select: none;
+}
+
+.gh-fc-flip-btn:hover {
+  background: rgba(239, 68, 68, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.16);
+}
+
+.gh-fc-flip-btn:active {
+  transform: scale(0.95);
+}
+
+body.dark-mode .gh-fc-flip-btn {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+.gh-fc-flip-icon {
+  display: inline-block;
+  font-size: 1.05rem;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gh-fc-card.is-flipped .gh-fc-flip-icon {
+  transform: rotate(180deg);
 }

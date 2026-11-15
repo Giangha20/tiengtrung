@@ -1,7 +1,7 @@
 {
-  "version": "2.3.2",
-  "build": "gh_v52_20261115",
-  "timestamp": 1731644700000,
-  "title": "Bản cập nhật v2.3.2",
-  "notes": "Hỗ trợ nhận diện đầy đủ các biến thể từ 哪 và 哪儿 trong gõ pinyin, trò chơi và luyện viết chữ Hán."
+  "version": "2.3.3",
+  "build": "gh_v53_20261115",
+  "timestamp": 1731645100000,
+  "title": "Bản cập nhật v2.3.3",
+  "notes": "Nâng cấp hiệu ứng lật thẻ 3D siêu mượt cho Flashcard với âm thanh lướt thẻ sống động, phản hồi rung haptic và hỗ trợ cử chỉ vuốt lướt thẻ."
 }
