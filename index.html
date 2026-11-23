@@ -72,7 +72,7 @@
         var isNativeApp = isCap || isCapOrigin || isStandalone;
 
         if (!isNativeApp) {
-          var GH_CURRENT_BUILD = 'gh_v56_20261115';
+          var GH_CURRENT_BUILD = 'gh_v57_20261123';
           if (localStorage.getItem('gh_app_build') !== GH_CURRENT_BUILD) {
             if ('caches' in window) {
               caches.keys().then(function(keys) {
@@ -148,7 +148,7 @@
     </script>
 </head>
 <body>
-<!-- Universal Bottom Taskbar (Web & App) -->
+<!-- Universal Bottom Taskbar (Web & App) - Tinh gọn 5 mục cốt lõi, không rối -->
 <nav id="app-bottom-nav" class="app-bottom-nav" aria-label="Điều hướng chính">
   <button class="bottom-nav-tab active" data-mode="home" onclick="if(window.switchMode)window.switchMode('home')" role="tab" title="Trang chủ" aria-label="Trang chủ">
     <span class="nav-tab-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-home"></use></svg></span>
@@ -161,22 +161,6 @@
   <button class="bottom-nav-tab" data-mode="flashcard" onclick="if(window.switchMode)window.switchMode('flashcard')" role="tab" title="Flashcard" aria-label="Flashcard">
     <span class="nav-tab-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-cards"></use></svg></span>
     <span class="nav-tab-label">Flashcard</span>
-  </button>
-  <button class="bottom-nav-tab" data-mode="writing" onclick="if(window.switchMode)window.switchMode('writing')" role="tab" title="Luyện viết" aria-label="Luyện viết">
-    <span class="nav-tab-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-pen"></use></svg></span>
-    <span class="nav-tab-label">Luyện viết</span>
-  </button>
-  <button class="bottom-nav-tab" data-mode="typing" onclick="if(window.switchMode)window.switchMode('typing')" role="tab" title="Gõ Pinyin" aria-label="Gõ Pinyin">
-    <span class="nav-tab-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-keyboard"></use></svg></span>
-    <span class="nav-tab-label">Gõ Pinyin</span>
-  </button>
-  <button class="bottom-nav-tab" data-mode="listening" onclick="if(window.switchMode)window.switchMode('listening')" role="tab" title="Luyện nghe" aria-label="Luyện nghe">
-    <span class="nav-tab-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-listening"></use></svg></span>
-    <span class="nav-tab-label">Luyện nghe</span>
-  </button>
-  <button class="bottom-nav-tab" data-mode="exam" onclick="if(window.switchMode)window.switchMode('exam')" role="tab" title="Luyện thi HSK" aria-label="Luyện thi HSK">
-    <span class="nav-tab-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-exam"></use></svg></span>
-    <span class="nav-tab-label">Luyện thi</span>
   </button>
   <button class="bottom-nav-tab" data-mode="game" onclick="if(window.switchMode)window.switchMode('game')" role="tab" title="Trò chơi" aria-label="Trò chơi">
     <span class="nav-tab-icon"><svg class="ui-icon" aria-hidden="true"><use href="#icon-gamepad"></use></svg></span>

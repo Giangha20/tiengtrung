@@ -1,7 +1,7 @@
 {
-  "version": "2.3.6",
-  "build": "gh_v56_20261115",
-  "timestamp": 1731650800000,
-  "title": "Bản cập nhật v2.3.6",
-  "notes": "Quy chuẩn hệ thống tích lũy XP: chuẩn hóa và chỉ cộng điểm XP cho 4 phân hệ chính: Trò chơi (Game), Luyện nghe hiểu, Dịch câu và Luyện viết chữ Hán."
+  "version": "2.3.7",
+  "build": "gh_v57_20261123",
+  "timestamp": 1732365600000,
+  "title": "Bản cập nhật v2.3.7",
+  "notes": "Sửa triệt để lỗi thẻ từ vựng bị chèn đè lên nhau, bố cục lưới tự co giãn mượt mà; tinh gọn thanh taskbar và lược bỏ phần task trùng lặp giúp giao diện thoáng đãng, dễ dùng."
 }
