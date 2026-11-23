@@ -1,7 +1,7 @@
 {
-  "version": "2.3.7",
-  "build": "gh_v57_20261123",
-  "timestamp": 1732365600000,
-  "title": "Bản cập nhật v2.3.7",
-  "notes": "Sửa triệt để lỗi thẻ từ vựng bị chèn đè lên nhau, bố cục lưới tự co giãn mượt mà; tinh gọn thanh taskbar và lược bỏ phần task trùng lặp giúp giao diện thoáng đãng, dễ dùng."
+  "version": "2.3.8",
+  "build": "gh_v58_20261123",
+  "timestamp": 1732367400000,
+  "title": "Bản cập nhật v2.3.8",
+  "notes": "Mở rộng vượt bậc kho câu luyện dịch song ngữ lên hơn 1.230 câu chuẩn xác cho toàn bộ HSK 1 đến HSK 6 (206 câu/cấp độ) cùng ngữ pháp và mẹo dịch phong phú."
 }
