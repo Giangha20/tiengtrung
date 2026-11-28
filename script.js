@@ -7971,6 +7971,8 @@ function initStudyStreak() {
 
 function switchMode(mode) {
     if (mode === 'home') {
+        const hskBadge = document.querySelector('.header-hsk-badge');
+        if (hskBadge) hskBadge.style.display = '';
         document.querySelectorAll('main > section, section').forEach(s => s.classList.remove('active'));
         const home = document.getElementById('gh-home-mode');
         if (home) {
@@ -8007,6 +8009,12 @@ function switchMode(mode) {
     // Chỉ đổi trạng thái tab khi thực sự chuyển sang mục khác.
     document.querySelectorAll('main > section, section').forEach(s => s.classList.remove('active'));
     section.classList.add('active');
+
+    // Ẩn cấp độ HSK khi vào bảng chữ cái (pinyin) vì là nền tảng chung, không phụ thuộc HSK
+    const hskLevelBadge = document.querySelector('.header-hsk-badge');
+    if (hskLevelBadge) {
+        hskLevelBadge.style.display = (mode === 'pinyin') ? 'none' : '';
+    }
 
     if (mode === 'listening') {
         if ('speechSynthesis' in window) { try { speechSynthesis.cancel(); } catch(e) {} }

@@ -68,8 +68,8 @@
         <button type="button" class="gh-card-btn gh-card-pinyin" data-mode="pinyin">
           <div class="card-icon-wrap" style="--c-bg: #ecfdf5; --c-color: #059669;"><svg class="ui-icon" aria-hidden="true"><use href="#icon-pinyin"></use></svg></div>
           <div class="card-info">
-            <b>Bảng chữ cái Pinyin</b>
-            <small>Thanh mẫu, vận mẫu & cách đọc</small>
+            <b>Bảng chữ cái & Ngữ âm</b>
+            <small>26 chữ cái A-Z, Pinyin & 214 Bộ thủ</small>
           </div>
           <span class="card-arrow">→</span>
         </button>
