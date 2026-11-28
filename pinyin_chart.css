@@ -953,3 +953,418 @@ body.dark-mode .py-filter-chip.active,
   background: #3b82f6;
   color: #ffffff;
 }
+
+/* ==============================================================
+   MỞ RỘNG: CHỮ HÁN TIÊU BIỂU, ÂM HÁN VIỆT & TỪ ĐIỂN CHỮ HÁN A-Z
+   ============================================================== */
+
+.py-letter-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.py-hero-hanzi-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(245, 158, 11, 0.12) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 12px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.py-hero-hanzi-wrap:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.16) 0%, rgba(245, 158, 11, 0.22) 100%);
+  transform: scale(1.02);
+  border-color: #ef4444;
+}
+
+.py-hero-hanzi {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #dc2626;
+  font-family: "KaiTi", "STKaiti", "SimSun", "Noto Serif SC", serif;
+  line-height: 1;
+}
+
+.py-hero-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.py-hero-py {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #059669;
+}
+
+.py-hero-hv {
+  font-size: 0.76rem;
+  color: #d97706;
+  font-weight: 700;
+}
+
+/* Danh sách chữ Hán con trong từng thẻ chữ cái */
+.py-hanzi-group {
+  margin-top: 8px;
+  border-top: 1px dashed var(--border-color, #e2e8f0);
+  padding-top: 8px;
+}
+
+.py-hanzi-group-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted, #64748b);
+  margin-bottom: 6px;
+}
+
+.py-hanzi-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.py-hanzi-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.py-hanzi-chip:hover {
+  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.py-hz-char {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #dc2626;
+  font-family: "KaiTi", "STKaiti", "SimSun", "Noto Serif SC", serif;
+  min-width: 28px;
+}
+
+.py-hz-detail {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.py-hz-py {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.py-hz-hv {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #d97706;
+  background: rgba(217, 119, 6, 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.py-hz-vi {
+  font-size: 0.8rem;
+  color: var(--text-main, #334155);
+}
+
+.py-hz-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.py-hz-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  padding: 3px 6px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.py-hz-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.py-hz-write-btn:hover {
+  background: #10b981;
+  color: #fff;
+  border-color: #10b981;
+}
+
+/* Tab Tra cứu Chữ Hán A-Z */
+.py-letter-selector-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.py-letter-pill {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #cbd5e1);
+  background: transparent;
+  color: var(--text-main, #0f172a);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.py-letter-pill:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.py-letter-pill.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.py-explorer-header h4 {
+  margin: 0 0 14px 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main, #0f172a);
+}
+
+.py-hanzi-full-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.py-hanzi-card {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.py-hanzi-card:hover {
+  transform: translateY(-2px);
+  border-color: #ef4444;
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.1);
+}
+
+.py-hz-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.py-hz-big-char {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #dc2626;
+  font-family: "KaiTi", "STKaiti", "SimSun", "Noto Serif SC", serif;
+  line-height: 1;
+}
+
+.py-hz-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.py-hz-card-py {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #059669;
+}
+
+.py-hz-card-hv {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #d97706;
+}
+
+.py-hz-card-vi {
+  font-size: 0.85rem;
+  color: var(--text-main, #334155);
+  line-height: 1.4;
+}
+
+.py-hz-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.py-btn-card-audio, .py-btn-card-write {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.py-btn-card-audio {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.2);
+  color: #2563eb;
+}
+
+.py-btn-card-audio:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.py-btn-card-write {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: #059669;
+}
+
+.py-btn-card-write:hover {
+  background: #059669;
+  color: #fff;
+}
+
+/* Chữ Hán đại diện trong Thanh mẫu & Vận mẫu */
+.py-card-hero-hanzi {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 8px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.py-card-hero-hanzi:hover {
+  background: rgba(220, 38, 38, 0.15);
+  border-color: #dc2626;
+}
+
+.py-card-hz {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #dc2626;
+  font-family: "KaiTi", "STKaiti", serif;
+}
+
+.py-card-hero-hanzi small {
+  font-size: 0.75rem;
+  color: #991b1b;
+  font-weight: 700;
+}
+
+.py-hz-inline-write {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.88rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.py-hz-inline-write:hover {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.py-tone-zh-big {
+  font-size: 1.4rem;
+  color: #dc2626;
+  font-family: "KaiTi", "STKaiti", serif;
+  margin-right: 4px;
+}
+
+.py-chip-zh {
+  font-size: 1.05rem;
+  color: #dc2626;
+  font-family: "KaiTi", "STKaiti", serif;
+}
+
+.py-opt-zh {
+  font-size: 1.25rem;
+  color: #dc2626;
+  font-family: "KaiTi", "STKaiti", serif;
+  margin: 0 4px;
+}
+
+/* Dark mode bổ sung */
+body.dark-mode .py-hero-hanzi-wrap,
+[data-theme="dark"] .py-hero-hanzi-wrap {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(245, 158, 11, 0.22) 100%);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+body.dark-mode .py-hero-hanzi,
+[data-theme="dark"] .py-hero-hanzi,
+body.dark-mode .py-hz-char,
+[data-theme="dark"] .py-hz-char,
+body.dark-mode .py-hz-big-char,
+[data-theme="dark"] .py-hz-big-char,
+body.dark-mode .py-card-hz,
+[data-theme="dark"] .py-card-hz,
+body.dark-mode .py-tone-zh-big,
+[data-theme="dark"] .py-tone-zh-big,
+body.dark-mode .py-chip-zh,
+[data-theme="dark"] .py-chip-zh,
+body.dark-mode .py-opt-zh,
+[data-theme="dark"] .py-opt-zh {
+  color: #f87171;
+}
+
+body.dark-mode .py-hanzi-chip,
+[data-theme="dark"] .py-hanzi-chip,
+body.dark-mode .py-letter-selector-bar,
+[data-theme="dark"] .py-letter-selector-bar,
+body.dark-mode .py-hanzi-card,
+[data-theme="dark"] .py-hanzi-card {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+body.dark-mode .py-hz-vi,
+[data-theme="dark"] .py-hz-vi,
+body.dark-mode .py-hz-card-vi,
+[data-theme="dark"] .py-hz-card-vi {
+  color: #cbd5e1;
+}
+
+body.dark-mode .py-letter-pill,
+[data-theme="dark"] .py-letter-pill {
+  color: #e2e8f0;
+  border-color: rgba(255, 255, 255, 0.15);
+}

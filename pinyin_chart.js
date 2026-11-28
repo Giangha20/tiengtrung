@@ -1,106 +1,513 @@
 // ==============================================================
-// PINYIN CHART & CHINESE ALPHABET ENGINE
-// Bảng chữ cái tiếng Trung toàn diện (26 Chữ cái A-Z, 23 Thanh mẫu, 
-// 36 Vận mẫu, 4 Thanh điệu, Quy tắc biến điệu, 214 Bộ thủ & Luyện âm)
-// Hệ thống độc lập nền tảng - Không phân chia theo cấp độ HSK
+// PINYIN & HANZI ALPHABET ENGINE (BẢNG CHỮ CÁI & CHỮ HÁN TIẾNG TRUNG)
+// Tích hợp toàn diện 26 Chữ cái A-Z, Chữ Hán tiêu biểu, Âm Hán Việt, 
+// 23 Thanh mẫu, 36 Vận mẫu, 4 Thanh điệu, 214 Bộ thủ & Tra cứu Chữ Hán
+// Kiến thức nền tảng căn bản - Hoàn toàn độc lập khỏi cấp độ HSK
 // ==============================================================
 
 (() => {
   const PY_DATA = {
-    // 26 CHỮ CÁI LA-TINH NGỮ ÂM PINYIN (HÁN NGỮ BÍNH ÂM CHỮ MẪU BIỂU - 汉语拼音字母表)
+    // 26 CHỮ CÁI LA-TINH NGỮ ÂM KÈM CHỮ HÁN TIÊU BIỂU (汉语拼音字母与常用汉字)
     alphabet26: [
-      { char: "Aa", name: "a", pinyin: "a", read: "Đọc như 'a' trong tiếng Việt", role: "Vận mẫu đơn", tip: "Mở rộng khẩu hình miệng, lưỡi ở vị trí thấp nhất, phát âm to rõ ràng.", sound: "ā", ex: { zh: "啊", pinyin: "ā", vi: "A (thán từ ngạc nhiên)" } },
-      { char: "Bb", name: "bê", pinyin: "b", read: "Đọc như 'p' trong tiếng Việt (vô thanh, không bật hơi)", role: "Thanh mẫu hai môi", tip: "Hai môi khép chặt chặn luồng khí, mở nhẹ ra tự nhiên, không bật hơi.", sound: "bō", ex: { zh: "八", pinyin: "bā", vi: "Số 8" } },
-      { char: "Cc", name: "cê", pinyin: "c", read: "Đọc như 'x' bật hơi hoặc 'th' sắc mạnh", role: "Thanh mẫu đầu lưỡi trước", tip: "Đầu lưỡi chạm mặt sau răng trên, nén khí rồi bật mạnh thoát ra khe răng.", sound: "cī", ex: { zh: "菜", pinyin: "cài", vi: "Món ăn / rau" } },
-      { char: "Dd", name: "dê", pinyin: "d", read: "Đọc như 't' trong tiếng Việt (không bật hơi)", role: "Thanh mẫu đầu lưỡi giữa", tip: "Đầu lưỡi chạm nướu trên rồi hạ xuống nhẹ nhàng, phát âm như 't' Việt.", sound: "dē", ex: { zh: "大", pinyin: "dà", vi: "To lớn" } },
-      { char: "Ee", name: "e", pinyin: "e", read: "Đọc như 'ưa' hoặc 'ơ'", role: "Vận mẫu đơn", tip: "Miệng hé mở hình dẹt, phát âm lùi sâu trong cổ họng như 'ưa'.", sound: "ē", ex: { zh: "饿", pinyin: "è", vi: "Đói" } },
-      { char: "Ff", name: "ê-phu", pinyin: "f", read: "Đọc như 'ph' trong tiếng Việt", role: "Thanh mẫu môi răng", tip: "Răng trên chạm nhẹ môi dưới, luồng khí ma sát thoát ra ngoài.", sound: "fō", ex: { zh: "风", pinyin: "fēng", vi: "Gió" } },
-      { char: "Gg", name: "gê", pinyin: "g", read: "Đọc như 'c / k' trong tiếng Việt (không bật hơi)", role: "Thanh mẫu gốc lưỡi", tip: "Gốc lưỡi nâng lên chạm ngạc mềm, hạ xuống nhẹ không bật hơi.", sound: "gē", ex: { zh: "哥", pinyin: "gē", vi: "Anh trai" } },
-      { char: "Hh", name: "ha", pinyin: "h", read: "Đọc nhẹ như 'h' hoặc giữa 'h' và 'kh'", role: "Thanh mẫu gốc lưỡi", tip: "Gốc lưỡi nâng nhẹ gần ngạc mềm, hơi ma sát êm dịu thoát ra.", sound: "hē", ex: { zh: "好", pinyin: "hǎo", vi: "Tốt / đẹp" } },
-      { char: "Ii", name: "yi", pinyin: "i", read: "Đọc như 'i' (sau zh, ch, sh, r, z, c, s đọc là 'ư')", role: "Vận mẫu đơn", tip: "Khóe miệng kéo dẹt sang hai bên như đang cười nhẹ.", sound: "yī", ex: { zh: "一", pinyin: "yī", vi: "Số 1" } },
-      { char: "Jj", name: "jie", pinyin: "j", read: "Đọc như 'ch' trong tiếng Việt (không bật hơi)", role: "Thanh mẫu mặt lưỡi", tip: "Mặt lưỡi phẳng áp ngạc cứng, hạ nhẹ cho hơi thoát, không bật mạnh.", sound: "jī", ex: { zh: "家", pinyin: "jiā", vi: "Nhà / gia đình" } },
-      { char: "Kk", name: "kê", pinyin: "k", read: "Đọc như 'kh' bật hơi rất mạnh", role: "Thanh mẫu gốc lưỡi", tip: "Gốc lưỡi chặn luồng khí rồi đột ngột bật mạnh dứt khoát ra ngoài.", sound: "kē", ex: { zh: "看", pinyin: "kàn", vi: "Xem / nhìn" } },
-      { char: "Ll", name: "ê-lơ", pinyin: "l", read: "Đọc như 'l' trong tiếng Việt", role: "Thanh mẫu đầu lưỡi giữa", tip: "Đầu lưỡi chạm nướu trên, luồng khí thoát đều hai bên mép lưỡi.", sound: "lē", ex: { zh: "来", pinyin: "lái", vi: "Đến / lại" } },
-      { char: "Mm", name: "ê-mơ", pinyin: "m", read: "Đọc như 'm' trong tiếng Việt", role: "Thanh mẫu hai môi", tip: "Hai môi khép kín, luồng khí thoát qua khoang mũi tạo âm vang.", sound: "mō", ex: { zh: "妈妈", pinyin: "māma", vi: "Mẹ" } },
-      { char: "Nn", name: "nê", pinyin: "n", read: "Đọc như 'n' trong tiếng Việt", role: "Thanh mẫu đầu lưỡi giữa", tip: "Đầu lưỡi chạm ngạc trên, âm mũi vang rõ ràng.", sound: "nē", ex: { zh: "你", pinyin: "nǐ", vi: "Bạn / anh / chị" } },
-      { char: "Oo", name: "o", pinyin: "o", read: "Đọc như 'ua' hoặc 'ô' tròn môi", role: "Vận mẫu đơn", tip: "Môi tròn lại hơi nhô về trước, âm thanh tròn trịa và vang.", sound: "ō", ex: { zh: "我", pinyin: "wǒ", vi: "Tôi" } },
-      { char: "Pp", name: "pê", pinyin: "p", read: "Đọc như 'p' bật hơi rất mạnh", role: "Thanh mẫu hai môi", tip: "Hai môi mím chặt, nén khí rồi bật tung ra mạnh làm rung giấy trước mặt.", sound: "pō", ex: { zh: "朋友", pinyin: "péngyou", vi: "Bạn bè" } },
-      { char: "Qq", name: "chiu", pinyin: "q", read: "Đọc như 'ch' bật hơi sắc mạnh", role: "Thanh mẫu mặt lưỡi", tip: "Mặt lưỡi nâng ngạc cứng rồi bật mạnh luồng khí thoát ra ngoài.", sound: "qī", ex: { zh: "去", pinyin: "qù", vi: "Đi" } },
-      { char: "Rr", name: "a-rơ", pinyin: "r", read: "Đọc như 'r' uốn cong lưỡi (không rung)", role: "Thanh mẫu cuộn lưỡi", tip: "Đầu lưỡi uốn cong lên ngạc cứng, luồng khí ma sát êm dịu, không rung lưỡi.", sound: "rī", ex: { zh: "人", pinyin: "rén", vi: "Người" } },
-      { char: "Ss", name: "ê-si", pinyin: "s", read: "Đọc như 'x' nhẹ trong tiếng Việt", role: "Thanh mẫu đầu lưỡi trước", tip: "Đầu lưỡi gần chân răng dưới, luồng hơi ma sát thoát qua khe răng.", sound: "sī", ex: { zh: "三", pinyin: "sān", vi: "Số 3" } },
-      { char: "Tt", name: "thê", pinyin: "t", read: "Đọc như 'th' bật hơi trong tiếng Việt", role: "Thanh mẫu đầu lưỡi giữa", tip: "Đầu lưỡi chạm nướu trên rồi giật lùi bật mạnh luồng khí ra.", sound: "tē", ex: { zh: "天", pinyin: "tiān", vi: "Trời / ngày" } },
-      { char: "Uu", name: "wu", pinyin: "u", read: "Đọc như 'u' trong tiếng Việt", role: "Vận mẫu đơn", tip: "Môi chu tròn nhỏ, gốc lưỡi nâng cao về phía sau họng.", sound: "ū", ex: { zh: "五", pinyin: "wǔ", vi: "Số 5" } },
-      { char: "Vv", name: "vê", pinyin: "v", read: "Đọc như 'v' (chỉ dùng phiên âm từ mượn / gõ chữ ü)", role: "Chữ cái phụ trợ", tip: "Trong bộ gõ bàn phím Trung văn, dùng phím 'v' để gõ chữ 'ü' (như lǚ gõ là lv).", sound: "wēi", ex: { zh: "绿", pinyin: "lǜ (gõ lv)", vi: "Màu xanh lá" } },
-      { char: "Ww", name: "wa", pinyin: "w", read: "Đọc như 'oa' / 'u'", role: "Bán nguyên âm / Phụ âm khởi đầu", tip: "Dùng để viết mở đầu các âm tiết bắt đầu bằng nguyên âm 'u'.", sound: "wā", ex: { zh: "王", pinyin: "wáng", vi: "Vua / Họ Vương" } },
-      { char: "Xx", name: "xi", pinyin: "x", read: "Đọc như 'x' tiếng Việt (mặt lưỡi phẳng)", role: "Thanh mẫu mặt lưỡi", tip: "Mặt lưỡi phẳng nâng sát ngạc cứng, đẩy hơi nhẹ êm qua khe hẹp.", sound: "xī", ex: { zh: "小", pinyin: "xiǎo", vi: "Nhỏ / bé" } },
-      { char: "Yy", name: "ya", pinyin: "y", read: "Đọc như 'd' (miền Nam) hoặc 'i'", role: "Bán nguyên âm / Phụ âm khởi đầu", tip: "Dùng mở đầu các âm tiết bắt đầu bằng 'i' hoặc 'ü'.", sound: "yā", ex: { zh: "月", pinyin: "yuè", vi: "Mặt trăng / tháng" } },
-      { char: "Zz", name: "zê", pinyin: "z", read: "Đọc như 'ch / tr' không bật hơi", role: "Thanh mẫu đầu lưỡi trước", tip: "Đầu lưỡi chạm chân răng trên rồi hé nhẹ, tuyệt đối không bật hơi mạnh.", sound: "zī", ex: { zh: "在", pinyin: "zài", vi: "Ở / tại" } }
+      {
+        char: "Aa",
+        name: "a",
+        pinyin: "a",
+        read: "Đọc như 'a' trong tiếng Việt",
+        role: "Vận mẫu đơn",
+        tip: "Mở rộng khẩu hình miệng, lưỡi ở vị trí thấp nhất, phát âm to rõ ràng.",
+        sound: "ā",
+        hero: { zh: "爱", py: "ài", hv: "Ái", vi: "Yêu / Thích" },
+        hanzi: [
+          { zh: "爱", py: "ài", hv: "Ái", vi: "Yêu, yêu thích" },
+          { zh: "啊", py: "ā", hv: "A", vi: "A (thán từ ngạc nhiên)" },
+          { zh: "安", py: "ān", hv: "An", vi: "Bình an, yên ổn" },
+          { zh: "暗", py: "àn", hv: "Ám", vi: "Tối tăm, bí mật" }
+        ]
+      },
+      {
+        char: "Bb",
+        name: "bê",
+        pinyin: "b",
+        read: "Đọc như 'p' trong tiếng Việt (vô thanh, không bật hơi)",
+        role: "Thanh mẫu hai môi",
+        tip: "Hai môi khép chặt chặn luồng khí, mở nhẹ ra tự nhiên, không bật hơi.",
+        sound: "bō",
+        hero: { zh: "八", py: "bā", hv: "Bát", vi: "Số 8" },
+        hanzi: [
+          { zh: "八", py: "bā", hv: "Bát", vi: "Số tám (8)" },
+          { zh: "爸", py: "bà", hv: "Ba", vi: "Bố, ba, cha" },
+          { zh: "白", py: "bái", hv: "Bạch", vi: "Màu trắng, rõ ràng" },
+          { zh: "百", py: "bǎi", hv: "Bách", vi: "Một trăm (100)" },
+          { zh: "不", py: "bù", hv: "Bất", vi: "Không, chẳng" }
+        ]
+      },
+      {
+        char: "Cc",
+        name: "cê",
+        pinyin: "c",
+        read: "Đọc như 'x' bật hơi hoặc 'th' sắc mạnh",
+        role: "Thanh mẫu đầu lưỡi trước",
+        tip: "Đầu lưỡi chạm mặt sau răng trên, nén khí rồi bật mạnh thoát ra khe răng.",
+        sound: "cī",
+        hero: { zh: "茶", py: "chá", hv: "Trà", vi: "Trà / Chè" },
+        hanzi: [
+          { zh: "茶", py: "chá", hv: "Trà", vi: "Trà, lá chè" },
+          { zh: "菜", py: "cài", hv: "Thái", vi: "Món ăn, rau cỏ" },
+          { zh: "吃", py: "chī", hv: "Ngật", vi: "Ăn uống" },
+          { zh: "车", py: "chē", hv: "Xa", vi: "Xe cộ, phương tiện" },
+          { zh: "出", py: "chū", hv: "Xuất", vi: "Ra ngoài, xuất hiện" }
+        ]
+      },
+      {
+        char: "Dd",
+        name: "dê",
+        pinyin: "d",
+        read: "Đọc như 't' trong tiếng Việt (không bật hơi)",
+        role: "Thanh mẫu đầu lưỡi giữa",
+        tip: "Đầu lưỡi chạm nướu trên rồi hạ xuống nhẹ nhàng, phát âm như 't' Việt.",
+        sound: "dē",
+        hero: { zh: "大", py: "dà", hv: "Đại", vi: "To lớn" },
+        hanzi: [
+          { zh: "大", py: "dà", hv: "Đại", vi: "To lớn, vĩ đại" },
+          { zh: "的", py: "de", hv: "Đích", vi: "Của (trợ từ sở hữu)" },
+          { zh: "点", py: "diǎn", hv: "Điểm", vi: "Giờ, một chút, chấm" },
+          { zh: "东", py: "dōng", hv: "Đông", vi: "Phía Đông, đồ đạc" },
+          { zh: "多", py: "duō", hv: "Đa", vi: "Nhiều, bao nhiêu" }
+        ]
+      },
+      {
+        char: "Ee",
+        name: "e",
+        pinyin: "e",
+        read: "Đọc như 'ưa' hoặc 'ơ'",
+        role: "Vận mẫu đơn",
+        tip: "Miệng hé mở hình dẹt, phát âm lùi sâu trong cổ họng như 'ưa'.",
+        sound: "ē",
+        hero: { zh: "二", py: "èr", hv: "Nhị", vi: "Số 2" },
+        hanzi: [
+          { zh: "二", py: "èr", hv: "Nhị", vi: "Số hai (2)" },
+          { zh: "饿", py: "è", hv: "Ngạ", vi: "Đói bụng" },
+          { zh: "儿", py: "ér", hv: "Nhi", vi: "Con cái, trẻ nhỏ" },
+          { zh: "鹅", py: "é", hv: "Nga", vi: "Con ngỗng" }
+        ]
+      },
+      {
+        char: "Ff",
+        name: "ê-phu",
+        pinyin: "f",
+        read: "Đọc như 'ph' trong tiếng Việt",
+        role: "Thanh mẫu môi răng",
+        tip: "Răng trên chạm nhẹ môi dưới, luồng khí ma sát thoát ra ngoài.",
+        sound: "fō",
+        hero: { zh: "风", py: "fēng", hv: "Phong", vi: "Gió" },
+        hanzi: [
+          { zh: "风", py: "fēng", hv: "Phong", vi: "Gió, phong cảnh" },
+          { zh: "飞", py: "fēi", hv: "Phi", vi: "Bay lượn (máy bay)" },
+          { zh: "分", py: "fēn", hv: "Phân", vi: "Phút, phân chia" },
+          { zh: "饭", py: "fàn", hv: "Phạn", vi: "Cơm, bữa ăn" },
+          { zh: "方", py: "fāng", hv: "Phương", vi: "Hướng, vuông vắn" }
+        ]
+      },
+      {
+        char: "Gg",
+        name: "gê",
+        pinyin: "g",
+        read: "Đọc như 'c / k' trong tiếng Việt (không bật hơi)",
+        role: "Thanh mẫu gốc lưỡi",
+        tip: "Gốc lưỡi nâng lên chạm ngạc mềm, hạ xuống nhẹ không bật hơi.",
+        sound: "gē",
+        hero: { zh: "国", py: "guó", hv: "Quốc", vi: "Đất nước" },
+        hanzi: [
+          { zh: "国", py: "guó", hv: "Quốc", vi: "Đất nước, quốc gia" },
+          { zh: "哥", py: "gē", hv: "Ca", vi: "Anh trai" },
+          { zh: "高", py: "gāo", hv: "Cao", vi: "Cao ráo, vĩ đại" },
+          { zh: "个", py: "gè", hv: "Cá", vi: "Cái, chiếc (lượng từ)" },
+          { zh: "工", py: "gōng", hv: "Công", vi: "Công việc, thợ" }
+        ]
+      },
+      {
+        char: "Hh",
+        name: "ha",
+        pinyin: "h",
+        read: "Đọc nhẹ như 'h' hoặc giữa 'h' và 'kh'",
+        role: "Thanh mẫu gốc lưỡi",
+        tip: "Gốc lưỡi nâng nhẹ gần ngạc mềm, hơi ma sát êm dịu thoát ra.",
+        sound: "hē",
+        hero: { zh: "好", py: "hǎo", hv: "Hảo", vi: "Tốt / Đẹp" },
+        hanzi: [
+          { zh: "好", py: "hǎo", hv: "Hảo", vi: "Tốt, đẹp, khỏe mạnh" },
+          { zh: "和", py: "hé", hv: "Hòa", vi: "Và, cùng với, hòa bình" },
+          { zh: "喝", py: "hē", hv: "Hát", vi: "Uống nước" },
+          { zh: "花", py: "huā", hv: "Hoa", vi: "Bông hoa, tiêu xài" },
+          { zh: "话", py: "huà", hv: "Thoại", vi: "Lời nói, đối thoại" }
+        ]
+      },
+      {
+        char: "Ii",
+        name: "yi",
+        pinyin: "i",
+        read: "Đọc như 'i' (sau zh, ch, sh, r, z, c, s đọc là 'ư')",
+        role: "Vận mẫu đơn",
+        tip: "Khóe miệng kéo dẹt sang hai bên như đang cười nhẹ.",
+        sound: "yī",
+        hero: { zh: "一", py: "yī", hv: "Nhất", vi: "Số 1" },
+        hanzi: [
+          { zh: "一", py: "yī", hv: "Nhất", vi: "Số một (1)" },
+          { zh: "衣", py: "yī", hv: "Y", vi: "Áo, trang phục" },
+          { zh: "医", py: "yī", hv: "Y", vi: "Y học, bác sĩ" },
+          { zh: "以", py: "yǐ", hv: "Dĩ", vi: "Lấy, để mà" }
+        ]
+      },
+      {
+        char: "Jj",
+        name: "jie",
+        pinyin: "j",
+        read: "Đọc như 'ch' trong tiếng Việt (không bật hơi)",
+        role: "Thanh mẫu mặt lưỡi",
+        tip: "Mặt lưỡi phẳng áp ngạc cứng, hạ nhẹ cho hơi thoát, không bật mạnh.",
+        sound: "jī",
+        hero: { zh: "家", py: "jiā", hv: "Gia", vi: "Nhà / Gia đình" },
+        hanzi: [
+          { zh: "家", py: "jiā", hv: "Gia", vi: "Nhà, gia đình" },
+          { zh: "见", py: "jiàn", hv: "Kiến", vi: "Gặp gỡ, nhìn thấy" },
+          { zh: "叫", py: "jiào", hv: "Khiếu", vi: "Tên là, gọi là" },
+          { zh: "九", py: "jiǔ", hv: "Cửu", vi: "Số chín (9)" },
+          { zh: "进", py: "jìn", hv: "Tiến", vi: "Vào trong, tiến bước" }
+        ]
+      },
+      {
+        char: "Kk",
+        name: "kê",
+        pinyin: "k",
+        read: "Đọc như 'kh' bật hơi rất mạnh",
+        role: "Thanh mẫu gốc lưỡi",
+        tip: "Gốc lưỡi chặn luồng khí rồi đột ngột bật mạnh dứt khoát ra ngoài.",
+        sound: "kē",
+        hero: { zh: "看", py: "kàn", hv: "Khán", vi: "Xem / Nhìn" },
+        hanzi: [
+          { zh: "看", py: "kàn", hv: "Khán", vi: "Xem, nhìn, đọc" },
+          { zh: "开", py: "kāi", hv: "Khai", vi: "Mở ra, bắt đầu" },
+          { zh: "口", py: "kǒu", hv: "Khẩu", vi: "Miệng, cửa" },
+          { zh: "快", py: "kuài", hv: "Khoái", vi: "Nhanh nhẹn, vui vẻ" },
+          { zh: "课", py: "kè", hv: "Khóa", vi: "Bài học, tiết học" }
+        ]
+      },
+      {
+        char: "Ll",
+        name: "ê-lơ",
+        pinyin: "l",
+        read: "Đọc như 'l' trong tiếng Việt",
+        role: "Thanh mẫu đầu lưỡi giữa",
+        tip: "Đầu lưỡi chạm nướu trên, luồng khí thoát đều hai bên mép lưỡi.",
+        sound: "lē",
+        hero: { zh: "来", py: "lái", hv: "Lai", vi: "Đến / Tới" },
+        hanzi: [
+          { zh: "来", py: "lái", hv: "Lai", vi: "Đến, tới nơi" },
+          { zh: "老", py: "lǎo", hv: "Lão", vi: "Già, thầy cô (lão sư)" },
+          { zh: "冷", py: "lěng", hv: "Lãnh", vi: "Lạnh lẽo" },
+          { zh: "里", py: "lǐ", hv: "Lý", vi: "Bên trong, dặm" },
+          { zh: "六", py: "liù", hv: "Lục", vi: "Số sáu (6)" }
+        ]
+      },
+      {
+        char: "Mm",
+        name: "ê-mơ",
+        pinyin: "m",
+        read: "Đọc như 'm' trong tiếng Việt",
+        role: "Thanh mẫu hai môi",
+        tip: "Hai môi khép kín, luồng khí thoát qua khoang mũi tạo âm vang.",
+        sound: "mō",
+        hero: { zh: "妈", py: "mā", hv: "Mã", vi: "Mẹ / Má" },
+        hanzi: [
+          { zh: "妈", py: "mā", hv: "Mã", vi: "Mẹ, mẹ hiền" },
+          { zh: "马", py: "mǎ", hv: "Mã", vi: "Con ngựa" },
+          { zh: "买", py: "mǎi", hv: "Mãi", vi: "Mua hàng" },
+          { zh: "忙", py: "máng", hv: "Mang", vi: "Bận rộn" },
+          { zh: "门", py: "mén", hv: "Môn", vi: "Cửa, cánh cổng" }
+        ]
+      },
+      {
+        char: "Nn",
+        name: "nê",
+        pinyin: "n",
+        read: "Đọc như 'n' trong tiếng Việt",
+        role: "Thanh mẫu đầu lưỡi giữa",
+        tip: "Đầu lưỡi chạm ngạc trên, âm mũi vang rõ ràng.",
+        sound: "nē",
+        hero: { zh: "你", py: "nǐ", hv: "Nhĩ", vi: "Bạn / Anh / Chị" },
+        hanzi: [
+          { zh: "你", py: "nǐ", hv: "Nhĩ", vi: "Bạn, ngôi thứ hai" },
+          { zh: "那", py: "nà", hv: "Na", vi: "Kia, đó" },
+          { zh: "男", py: "nán", hv: "Nam", vi: "Nam giới, đàn ông" },
+          { zh: "年", py: "nián", hv: "Niên", vi: "Năm tháng, tuổi tác" },
+          { zh: "牛", py: "niú", hv: "Ngưu", vi: "Con bò" }
+        ]
+      },
+      {
+        char: "Oo",
+        name: "o",
+        pinyin: "o",
+        read: "Đọc như 'ua' hoặc 'ô' tròn môi",
+        role: "Vận mẫu đơn",
+        tip: "Môi tròn lại hơi nhô về trước, âm thanh tròn trịa và vang.",
+        sound: "ō",
+        hero: { zh: "我", py: "wǒ", hv: "Ngã", vi: "Tôi (chứa vần O)" },
+        hanzi: [
+          { zh: "我", py: "wǒ", hv: "Ngã", vi: "Tôi, bản thân" },
+          { zh: "哦", py: "ó", hv: "Nga", vi: "Ồ (thán từ nhận ra)" },
+          { zh: "欧", py: "ōu", hv: "Âu", vi: "Châu Âu" }
+        ]
+      },
+      {
+        char: "Pp",
+        name: "pê",
+        pinyin: "p",
+        read: "Đọc như 'p' bật hơi rất mạnh",
+        role: "Thanh mẫu hai môi",
+        tip: "Hai môi mím chặt, nén khí rồi bật tung ra mạnh làm rung giấy trước mặt.",
+        sound: "pō",
+        hero: { zh: "朋", py: "péng", hv: "Bằng", vi: "Bạn bè" },
+        hanzi: [
+          { zh: "朋", py: "péng", hv: "Bằng", vi: "Bạn bè (bằng hữu)" },
+          { zh: "跑", py: "pǎo", hv: "Bào", vi: "Chạy bộ" },
+          { zh: "漂", py: "piào", hv: "Phiêu", vi: "Xinh đẹp" },
+          { zh: "票", py: "piào", hv: "Phiếu", vi: "Vé tàu, vé xe" },
+          { zh: "平", py: "píng", hv: "Bình", vi: "Bình an, bằng phẳng" }
+        ]
+      },
+      {
+        char: "Qq",
+        name: "chiu",
+        pinyin: "q",
+        read: "Đọc như 'ch' bật hơi sắc mạnh",
+        role: "Thanh mẫu mặt lưỡi",
+        tip: "Mặt lưỡi nâng ngạc cứng rồi bật mạnh luồng khí thoát ra ngoài.",
+        sound: "qī",
+        hero: { zh: "去", py: "qù", hv: "Khứ", vi: "Đi" },
+        hanzi: [
+          { zh: "去", py: "qù", hv: "Khứ", vi: "Đi tới, đi đâu" },
+          { zh: "七", py: "qī", hv: "Thất", vi: "Số bảy (7)" },
+          { zh: "钱", py: "qián", hv: "Tiền", vi: "Tiền bạc" },
+          { zh: "前", py: "qián", hv: "Tiền", vi: "Phía trước" },
+          { zh: "请", py: "qǐng", hv: "Thỉnh", vi: "Mời, xin mời" }
+        ]
+      },
+      {
+        char: "Rr",
+        name: "a-rơ",
+        pinyin: "r",
+        read: "Đọc như 'r' uốn cong lưỡi (không rung)",
+        role: "Thanh mẫu cuộn lưỡi",
+        tip: "Đầu lưỡi uốn cong lên ngạc cứng, luồng khí ma sát êm dịu, không rung lưỡi.",
+        sound: "rī",
+        hero: { zh: "人", py: "rén", hv: "Nhân", vi: "Con người" },
+        hanzi: [
+          { zh: "人", py: "rén", hv: "Nhân", vi: "Con người" },
+          { zh: "日", py: "rì", hv: "Nhật", vi: "Mặt trời, ban ngày" },
+          { zh: "热", py: "rè", hv: "Nhiệt", vi: "Nóng bức, nhiệt độ" },
+          { zh: "认", py: "rèn", hv: "Nhận", vi: "Nhận biết, quen biết" },
+          { zh: "肉", py: "ròu", hv: "Nhục", vi: "Thịt" }
+        ]
+      },
+      {
+        char: "Ss",
+        name: "ê-si",
+        pinyin: "s",
+        read: "Đọc như 'x' nhẹ trong tiếng Việt",
+        role: "Thanh mẫu đầu lưỡi trước",
+        tip: "Đầu lưỡi gần chân răng dưới, luồng hơi ma sát thoát qua khe răng.",
+        sound: "sī",
+        hero: { zh: "山", py: "shān", hv: "Sơn", vi: "Núi non" },
+        hanzi: [
+          { zh: "三", py: "sān", hv: "Tam", vi: "Số ba (3)" },
+          { zh: "四", py: "sì", hv: "Tứ", vi: "Số bốn (4)" },
+          { zh: "是", py: "shì", hv: "Thị", vi: "Là, phải, đúng" },
+          { zh: "水", py: "shuǐ", hv: "Thủy", vi: "Nước" },
+          { zh: "书", py: "shū", hv: "Thư", vi: "Sách vở" }
+        ]
+      },
+      {
+        char: "Tt",
+        name: "thê",
+        pinyin: "t",
+        read: "Đọc như 'th' bật hơi trong tiếng Việt",
+        role: "Thanh mẫu đầu lưỡi giữa",
+        tip: "Đầu lưỡi chạm nướu trên rồi giật lùi bật mạnh luồng khí ra.",
+        sound: "tē",
+        hero: { zh: "天", py: "tiān", hv: "Thiên", vi: "Trời / Ngày" },
+        hanzi: [
+          { zh: "天", py: "tiān", hv: "Thiên", vi: "Trời, ban ngày" },
+          { zh: "他", py: "tā", hv: "Tha", vi: "Anh ấy, cậu ấy" },
+          { zh: "她", py: "tā", hv: "Tha", vi: "Cô ấy, bà ấy" },
+          { zh: "听", py: "tīng", hv: "Thính", vi: "Lắng nghe" },
+          { zh: "同", py: "tóng", hv: "Đồng", vi: "Cùng nhau, bạn bè" }
+        ]
+      },
+      {
+        char: "Uu",
+        name: "wu",
+        pinyin: "u",
+        read: "Đọc như 'u' trong tiếng Việt",
+        role: "Vận mẫu đơn",
+        tip: "Môi chu tròn nhỏ, gốc lưỡi nâng cao về phía sau họng.",
+        sound: "ū",
+        hero: { zh: "五", py: "wǔ", hv: "Ngũ", vi: "Số 5 (vần U)" },
+        hanzi: [
+          { zh: "五", py: "wǔ", hv: "Ngũ", vi: "Số năm (5)" },
+          { zh: "屋", py: "wū", hv: "Ốc", vi: "Căn phòng, nhà" },
+          { zh: "舞", py: "wǔ", hv: "Vũ", vi: "Múa hát, khiêu vũ" }
+        ]
+      },
+      {
+        char: "Vv",
+        name: "vê",
+        pinyin: "v",
+        read: "Dùng gõ chữ 'ü' trên bàn phím hoặc phiên âm từ mượn",
+        role: "Chữ cái phụ trợ",
+        tip: "Trong bộ gõ tiếng Trung, gõ 'v' thay cho 'ü' (ví dụ gõ lv ra 绿, nv ra 女).",
+        sound: "wēi",
+        hero: { zh: "绿", py: "lǜ (lv)", hv: "Lục", vi: "Màu xanh lá" },
+        hanzi: [
+          { zh: "绿", py: "lǜ", hv: "Lục", vi: "Màu xanh lục (gõ lv)" },
+          { zh: "女", py: "nǚ", hv: "Nữ", vi: "Phụ nữ, con gái (gõ nv)" },
+          { zh: "旅", py: "lǚ", hv: "Lữ", vi: "Du lịch, lữ khách (gõ lv)" }
+        ]
+      },
+      {
+        char: "Ww",
+        name: "wa",
+        pinyin: "w",
+        read: "Đọc như 'oa' / 'u'",
+        role: "Bán nguyên âm / Phụ âm khởi đầu",
+        tip: "Dùng để viết mở đầu các âm tiết bắt đầu bằng nguyên âm 'u'.",
+        sound: "wā",
+        hero: { zh: "我", py: "wǒ", hv: "Ngã", vi: "Tôi / Bản thân" },
+        hanzi: [
+          { zh: "我", py: "wǒ", hv: "Ngã", vi: "Tôi, ta" },
+          { zh: "王", py: "wáng", hv: "Vương", vi: "Vua chúa, họ Vương" },
+          { zh: "问", py: "wèn", hv: "Vấn", vi: "Hỏi han, vấn đáp" },
+          { zh: "玩", py: "wán", hv: "Ngoạn", vi: "Vui chơi" },
+          { zh: "文", py: "wén", hv: "Văn", vi: "Văn hóa, chữ nghĩa" }
+        ]
+      },
+      {
+        char: "Xx",
+        name: "xi",
+        pinyin: "x",
+        read: "Đọc như 'x' tiếng Việt (mặt lưỡi phẳng)",
+        role: "Thanh mẫu mặt lưỡi",
+        tip: "Mặt lưỡi phẳng nâng sát ngạc cứng, đẩy hơi nhẹ êm qua khe hẹp.",
+        sound: "xī",
+        hero: { zh: "小", py: "xiǎo", hv: "Tiểu", vi: "Nhỏ / Bé" },
+        hanzi: [
+          { zh: "小", py: "xiǎo", hv: "Tiểu", vi: "Nhỏ bé" },
+          { zh: "想", py: "xiǎng", hv: "Tưởng", vi: "Muốn, nhớ, suy nghĩ" },
+          { zh: "写", py: "xiě", hv: "Tả", vi: "Viết lách, chép" },
+          { zh: "下", py: "xià", hv: "Hạ", vi: "Dưới, hạ xuống" },
+          { zh: "学", py: "xué", hv: "Học", vi: "Học tập, trường học" }
+        ]
+      },
+      {
+        char: "Yy",
+        name: "ya",
+        pinyin: "y",
+        read: "Đọc như 'd' (miền Nam) hoặc 'i'",
+        role: "Bán nguyên âm / Phụ âm khởi đầu",
+        tip: "Dùng mở đầu các âm tiết bắt đầu bằng 'i' hoặc 'ü'.",
+        sound: "yā",
+        hero: { zh: "月", py: "yuè", hv: "Nguyệt", vi: "Mặt trăng / Tháng" },
+        hanzi: [
+          { zh: "月", py: "yuè", hv: "Nguyệt", vi: "Mặt trăng, tháng" },
+          { zh: "有", py: "yǒu", hv: "Hữu", vi: "Có, sở hữu" },
+          { zh: "要", py: "yào", hv: "Yếu", vi: "Muốn, cần, phải" },
+          { zh: "雨", py: "yǔ", hv: "Vũ", vi: "Mưa rơi" },
+          { zh: "语", py: "yǔ", hv: "Ngữ", vi: "Ngôn ngữ, lời nói" }
+        ]
+      },
+      {
+        char: "Zz",
+        name: "zê",
+        pinyin: "z",
+        read: "Đọc như 'ch / tr' không bật hơi",
+        role: "Thanh mẫu đầu lưỡi trước",
+        tip: "Đầu lưỡi chạm chân răng trên rồi hé nhẹ, tuyệt đối không bật hơi mạnh.",
+        sound: "zī",
+        hero: { zh: "中", py: "zhōng", hv: "Trung", vi: "Ở giữa / Trung Quốc" },
+        hanzi: [
+          { zh: "中", py: "zhōng", hv: "Trung", vi: "Ở giữa, Trung Quốc" },
+          { zh: "在", py: "zài", hv: "Tại", vi: "Ở tại, đang làm gì" },
+          { zh: "早", py: "zǎo", hv: "Tảo", vi: "Buổi sáng, sớm" },
+          { zh: "字", py: "zì", hv: "Tự", vi: "Chữ viết, chữ Hán" },
+          { zh: "做", py: "zuò", hv: "Tác", vi: "Làm việc, tạo ra" }
+        ]
+      }
     ],
 
-    // 23 THANH MẪU (SHENGMU - 声母)
+    // 23 THANH MẪU (SHENGMU - 声母) KÈM CHỮ HÁN ĐẠI DIỆN
     initials: [
-      { letter: "b", name: "b (bô / p nhẹ)", group: "Âm hai môi (Song thần âm)", read: "Đọc như 'p' trong tiếng Việt (vô thanh, không bật hơi)", tip: "Hai môi khép chặt chặn luồng khí, sau đó hé mở nhẹ nhàng cho hơi thoát ra tự nhiên. Tuyệt đối không bật hơi mạnh.", sound: "bō", example: { zh: "爸爸", pinyin: "bàba", vi: "Bố / ba" } },
-      { letter: "p", name: "p (pô bật hơi)", group: "Âm hai môi (Song thần âm)", read: "Đọc như 'p' bật hơi rất mạnh", tip: "Hai môi ngậm chặt, nén luồng khí lại rồi bật mạnh dứt khoát ra ngoài. Đặt tờ giấy trước miệng sẽ thấy giấy bay mạnh.", sound: "pō", example: { zh: "苹果", pinyin: "píngguǒ", vi: "Quả táo" } },
-      { letter: "m", name: "m (mô)", group: "Âm hai môi (Song thần âm)", read: "Đọc hoàn toàn như 'm' trong tiếng Việt", tip: "Hai môi khép kín, luồng khí thoát đều qua khoang mũi tạo âm vang nhẹ nhàng.", sound: "mō", example: { zh: "妈妈", pinyin: "māma", vi: "Mẹ" } },
-      { letter: "f", name: "f (phô)", group: "Âm môi răng (Thần xỉ âm)", read: "Đọc hoàn toàn như 'ph' trong tiếng Việt", tip: "Răng cửa hàm trên chạm nhẹ vào môi dưới, đẩy luồng khí ma sát nhẹ nhàng thoát ra.", sound: "fō", example: { zh: "飞机", pinyin: "fēijī", vi: "Máy bay" } },
-      { letter: "d", name: "d (tơ)", group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc như 't' trong tiếng Việt (không bật hơi)", tip: "Đầu lưỡi dán chặt vào nướu răng trên, sau đó hạ nhanh xuống cho luồng khí bật nhẹ ra.", sound: "dē", example: { zh: "弟弟", pinyin: "dìdi", vi: "Em trai" } },
-      { letter: "t", name: "t (thơ bật hơi)", group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc như 'th' bật hơi trong tiếng Việt", tip: "Khẩu hình giống âm 'd' nhưng nén luồng khí mạnh hơn và bật dứt khoát ra ngoài.", sound: "tē", example: { zh: "天气", pinyin: "tiānqì", vi: "Thời tiết" } },
-      { letter: "n", name: "n (nơ)", group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc hoàn toàn như 'n' trong tiếng Việt", tip: "Đầu lưỡi chạm nướu trên chặn khí, ngạc mềm hạ xuống cho luồng khí thoát qua khoang mũi.", sound: "nē", example: { zh: "牛奶", pinyin: "niúnǎi", vi: "Sữa bò" } },
-      { letter: "l", name: "l (lơ)", group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc hoàn toàn như 'l' trong tiếng Việt", tip: "Đầu lưỡi chạm nướu răng trên, luồng khí êm dịu thoát ra ở hai bên mép lưỡi.", sound: "lē", example: { zh: "老师", pinyin: "lǎoshī", vi: "Giáo viên / Thầy cô" } },
-      { letter: "g", name: "g (cơ / kơ)", group: "Âm cuống lưỡi (Thiệt căn âm)", read: "Đọc như 'c' hoặc 'k' trong tiếng Việt (không bật hơi)", tip: "Cuống lưỡi nâng cao chạm ngạc mềm chặn khí, sau đó hạ xuống để hơi thoát êm.", sound: "gē", example: { zh: "高兴", pinyin: "gāoxìng", vi: "Vui vẻ" } },
-      { letter: "k", name: "k (khơ bật hơi)", group: "Âm cuống lưỡi (Thiệt căn âm)", read: "Đọc như 'kh' bật hơi rất mạnh", tip: "Cuống lưỡi ép ngạc mềm nén khí, rồi bật tung luồng khí thật mạnh từ sâu trong cổ họng ra ngoài.", sound: "kē", example: { zh: "开水", pinyin: "kāishuǐ", vi: "Nước sôi" } },
-      { letter: "h", name: "h (hơ nhẹ)", group: "Âm cuống lưỡi (Thiệt căn âm)", read: "Đọc giữa 'h' và 'kh' nhẹ trong tiếng Việt", tip: "Cuống lưỡi nâng gần ngạc mềm tạo khe hẹp, luồng khí ma sát nhẹ nhàng thoát ra.", sound: "hē", example: { zh: "喝水", pinyin: "hēshuǐ", vi: "Uống nước" } },
-      { letter: "j", name: "j (chi)", group: "Âm mặt lưỡi (Thiệt diện âm)", read: "Đọc như 'ch' trong tiếng Việt (mặt lưỡi dẹt, không bật hơi)", tip: "Mặt lưỡi nâng cao ép sát ngạc cứng, đẩy luồng khí nhẹ nhàng thoát ra.", sound: "jī", example: { zh: "北京", pinyin: "běijīng", vi: "Bắc Kinh" } },
-      { letter: "q", name: "q (chi bật hơi)", group: "Âm mặt lưỡi (Thiệt diện âm)", read: "Đọc như 'ch' bật hơi sắc và mạnh", tip: "Khẩu hình giống hệt âm 'j' nhưng nén luồng hơi rất mạnh và phóng dứt khoát ra ngoài.", sound: "qī", example: { zh: "前面", pinyin: "qiánmiàn", vi: "Phía trước" } },
-      { letter: "x", name: "x (xi)", group: "Âm mặt lưỡi (Thiệt diện âm)", read: "Đọc như 'x' trong tiếng Việt (mặt lưỡi dẹt, hơi thoát êm)", tip: "Mặt lưỡi phẳng nâng sát ngạc cứng tạo khe hẹp dài, luồng khí ma sát êm dịu thoát ra.", sound: "xī", example: { zh: "学校", pinyin: "xuéxiào", vi: "Trường học" } },
-      { letter: "z", name: "z (chư / tư)", group: "Âm đầu lưỡi trước (Thiệt tiêm tiền âm)", read: "Đọc như 'ch' nhẹ hoặc 't' kết hợp 'x', không bật hơi", tip: "Đầu lưỡi chạm mặt sau răng cửa trên, mở hé nhẹ cho hơi thoát tự nhiên. Sau z, chữ 'i' đọc là 'ư'.", sound: "zī", example: { zh: "早上", pinyin: "zǎoshang", vi: "Buổi sáng" } },
-      { letter: "c", name: "c (xư bật hơi)", group: "Âm đầu lưỡi trước (Thiệt tiêm tiền âm)", read: "Đọc như 'x' hoặc 'th' bật hơi rất mạnh", tip: "Đầu lưỡi ép mặt sau răng trên chặn khí, rồi bật mạnh tạo tiếng xì dứt khoát.", sound: "cī", example: { zh: "厕所", pinyin: "cèsuǒ", vi: "Nhà vệ sinh" } },
-      { letter: "s", name: "s (sư nhẹ)", group: "Âm đầu lưỡi trước (Thiệt tiêm tiền âm)", read: "Đọc như 'x' nhẹ tiếng Việt", tip: "Đầu lưỡi để sát chân răng dưới, luồng khí ma sát êm dịu qua khe răng.", sound: "sī", example: { zh: "司机", pinyin: "sījī", vi: "Tài xế" } },
-      { letter: "zh", name: "zh (trư uốn lưỡi)", group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 'tr' uốn lưỡi, không bật hơi", tip: "Đầu lưỡi uốn cong lên ngạc cứng chặn khí, mở hé nhẹ để hơi thoát ra. Đi với 'i' đọc thành 'ư'.", sound: "zhī", example: { zh: "中国", pinyin: "zhōngguó", vi: "Trung Quốc" } },
-      { letter: "ch", name: "ch (trư bật hơi)", group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 'tr' uốn lưỡi VÀ bật hơi cực mạnh", tip: "Đầu lưỡi cong lên ngạc cứng như âm 'zh', nén hơi thật mạnh rồi bật tung ra ngoài.", sound: "chī", example: { zh: "吃饭", pinyin: "chīfàn", vi: "Ăn cơm" } },
-      { letter: "sh", name: "sh (sơ uốn lưỡi)", group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 's' uốn cong lưỡi sâu", tip: "Đầu lưỡi cong lên ngạc cứng tạo khe hở, luồng khí ma sát êm đi qua.", sound: "shī", example: { zh: "什么", pinyin: "shénme", vi: "Cái gì" } },
-      { letter: "r", name: "r (rư uốn lưỡi)", group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 'r' uốn cong lưỡi, giọng trầm êm (không rung lưỡi)", tip: "Đầu lưỡi cong lên ngạc cứng, dây thanh rung nhẹ, luồng khí ma sát thoát ra không rung.", sound: "rī", example: { zh: "认识", pinyin: "rènshi", vi: "Quen biết" } },
-      { letter: "y", name: "y (i / di)", group: "Bán nguyên âm (Khởi đầu vần)", read: "Đọc như 'i' hoặc 'd' (miền Nam)", tip: "Được dùng để mở đầu các âm tiết bắt đầu bằng 'i' hoặc 'ü' khi đứng đầu từ (như yi, ya, ye, yu).", sound: "yī", example: { zh: "衣服", pinyin: "yīfu", vi: "Quần áo" } },
-      { letter: "w", name: "w (u / oa)", group: "Bán nguyên âm (Khởi đầu vần)", read: "Đọc như 'u' hoặc 'oa' tròn môi", tip: "Được dùng để mở đầu các âm tiết bắt đầu bằng 'u' khi đứng đầu từ (như wu, wa, wo).", sound: "wū", example: { zh: "我们", pinyin: "wǒmen", vi: "Chúng tôi" } }
+      { letter: "b", name: "b (bô / p nhẹ)", hero: { zh: "八", py: "bā", hv: "Bát", vi: "Số 8" }, group: "Âm hai môi (Song thần âm)", read: "Đọc như 'p' trong tiếng Việt (vô thanh, không bật hơi)", tip: "Hai môi khép chặt chặn luồng khí, sau đó hé mở nhẹ nhàng cho hơi thoát ra tự nhiên. Tuyệt đối không bật hơi mạnh.", sound: "bō", example: { zh: "爸爸", pinyin: "bàba", vi: "Bố / ba" } },
+      { letter: "p", name: "p (pô bật hơi)", hero: { zh: "朋", py: "péng", hv: "Bằng", vi: "Bạn bè" }, group: "Âm hai môi (Song thần âm)", read: "Đọc như 'p' bật hơi rất mạnh", tip: "Hai môi ngậm chặt, nén luồng khí lại rồi bật mạnh dứt khoát ra ngoài. Đặt tờ giấy trước miệng sẽ thấy giấy bay mạnh.", sound: "pō", example: { zh: "苹果", pinyin: "píngguǒ", vi: "Quả táo" } },
+      { letter: "m", name: "m (mô)", hero: { zh: "妈", py: "mā", hv: "Mã", vi: "Mẹ" }, group: "Âm hai môi (Song thần âm)", read: "Đọc hoàn toàn như 'm' trong tiếng Việt", tip: "Hai môi khép kín, luồng khí thoát đều qua khoang mũi tạo âm vang nhẹ nhàng.", sound: "mō", example: { zh: "妈妈", pinyin: "māma", vi: "Mẹ" } },
+      { letter: "f", name: "f (phô)", hero: { zh: "风", py: "fēng", hv: "Phong", vi: "Gió" }, group: "Âm môi răng (Thần xỉ âm)", read: "Đọc hoàn toàn như 'ph' trong tiếng Việt", tip: "Răng cửa hàm trên chạm nhẹ vào môi dưới, đẩy luồng khí ma sát nhẹ nhàng thoát ra.", sound: "fō", example: { zh: "飞机", pinyin: "fēijī", vi: "Máy bay" } },
+      { letter: "d", name: "d (tơ)", hero: { zh: "大", py: "dà", hv: "Đại", vi: "To lớn" }, group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc như 't' trong tiếng Việt (không bật hơi)", tip: "Đầu lưỡi dán chặt vào nướu răng trên, sau đó hạ nhanh xuống cho luồng khí bật nhẹ ra.", sound: "dē", example: { zh: "弟弟", pinyin: "dìdi", vi: "Em trai" } },
+      { letter: "t", name: "t (thơ bật hơi)", hero: { zh: "天", py: "tiān", hv: "Thiên", vi: "Trời / Ngày" }, group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc như 'th' bật hơi trong tiếng Việt", tip: "Khẩu hình giống âm 'd' nhưng nén luồng khí mạnh hơn và bật dứt khoát ra ngoài.", sound: "tē", example: { zh: "天气", pinyin: "tiānqì", vi: "Thời tiết" } },
+      { letter: "n", name: "n (nơ)", hero: { zh: "你", py: "nǐ", hv: "Nhĩ", vi: "Bạn / Anh" }, group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc hoàn toàn như 'n' trong tiếng Việt", tip: "Đầu lưỡi chạm nướu trên chặn khí, ngạc mềm hạ xuống cho luồng khí thoát qua khoang mũi.", sound: "nē", example: { zh: "牛奶", pinyin: "niúnǎi", vi: "Sữa bò" } },
+      { letter: "l", name: "l (lơ)", hero: { zh: "来", py: "lái", hv: "Lai", vi: "Đến / Tới" }, group: "Âm đầu lưỡi (Thiệt tiêm trung âm)", read: "Đọc hoàn toàn như 'l' trong tiếng Việt", tip: "Đầu lưỡi chạm nướu răng trên, luồng khí êm dịu thoát ra ở hai bên mép lưỡi.", sound: "lē", example: { zh: "老师", pinyin: "lǎoshī", vi: "Giáo viên / Thầy cô" } },
+      { letter: "g", name: "g (cơ / kơ)", hero: { zh: "国", py: "guó", hv: "Quốc", vi: "Đất nước" }, group: "Âm cuống lưỡi (Thiệt căn âm)", read: "Đọc như 'c' hoặc 'k' trong tiếng Việt (không bật hơi)", tip: "Cuống lưỡi nâng cao chạm ngạc mềm chặn khí, sau đó hạ xuống để hơi thoát êm.", sound: "gē", example: { zh: "高兴", pinyin: "gāoxìng", vi: "Vui vẻ" } },
+      { letter: "k", name: "k (khơ bật hơi)", hero: { zh: "看", py: "kàn", hv: "Khán", vi: "Xem / Nhìn" }, group: "Âm cuống lưỡi (Thiệt căn âm)", read: "Đọc như 'kh' bật hơi rất mạnh", tip: "Cuống lưỡi ép ngạc mềm nén khí, rồi bật tung luồng khí thật mạnh từ sâu trong cổ họng ra ngoài.", sound: "kē", example: { zh: "开水", pinyin: "kāishuǐ", vi: "Nước sôi" } },
+      { letter: "h", name: "h (hơ nhẹ)", hero: { zh: "好", py: "hǎo", hv: "Hảo", vi: "Tốt / Đẹp" }, group: "Âm cuống lưỡi (Thiệt căn âm)", read: "Đọc giữa 'h' và 'kh' nhẹ trong tiếng Việt", tip: "Cuống lưỡi nâng gần ngạc mềm tạo khe hẹp, luồng khí ma sát nhẹ nhàng thoát ra.", sound: "hē", example: { zh: "喝水", pinyin: "hēshuǐ", vi: "Uống nước" } },
+      { letter: "j", name: "j (chi)", hero: { zh: "家", py: "jiā", hv: "Gia", vi: "Gia đình" }, group: "Âm mặt lưỡi (Thiệt diện âm)", read: "Đọc như 'ch' trong tiếng Việt (mặt lưỡi dẹt, không bật hơi)", tip: "Mặt lưỡi nâng cao ép sát ngạc cứng, đẩy luồng khí nhẹ nhàng thoát ra.", sound: "jī", example: { zh: "北京", pinyin: "běijīng", vi: "Bắc Kinh" } },
+      { letter: "q", name: "q (chi bật hơi)", hero: { zh: "去", py: "qù", hv: "Khứ", vi: "Đi" }, group: "Âm mặt lưỡi (Thiệt diện âm)", read: "Đọc như 'ch' bật hơi sắc và mạnh", tip: "Khẩu hình giống hệt âm 'j' nhưng nén luồng hơi rất mạnh và phóng dứt khoát ra ngoài.", sound: "qī", example: { zh: "前面", pinyin: "qiánmiàn", vi: "Phía trước" } },
+      { letter: "x", name: "x (xi)", hero: { zh: "小", py: "xiǎo", hv: "Tiểu", vi: "Nhỏ / Bé" }, group: "Âm mặt lưỡi (Thiệt diện âm)", read: "Đọc như 'x' trong tiếng Việt (mặt lưỡi dẹt, hơi thoát êm)", tip: "Mặt lưỡi phẳng nâng sát ngạc cứng tạo khe hẹp dài, luồng khí ma sát êm dịu thoát ra.", sound: "xī", example: { zh: "学校", pinyin: "xuéxiào", vi: "Trường học" } },
+      { letter: "z", name: "z (chư / tư)", hero: { zh: "早", py: "zǎo", hv: "Tảo", vi: "Sớm" }, group: "Âm đầu lưỡi trước (Thiệt tiêm tiền âm)", read: "Đọc như 'ch' nhẹ hoặc 't' kết hợp 'x', không bật hơi", tip: "Đầu lưỡi chạm mặt sau răng cửa trên, mở hé nhẹ cho hơi thoát tự nhiên. Sau z, chữ 'i' đọc là 'ư'.", sound: "zī", example: { zh: "早上", pinyin: "zǎoshang", vi: "Buổi sáng" } },
+      { letter: "c", name: "c (xư bật hơi)", hero: { zh: "菜", py: "cài", hv: "Thái", vi: "Món ăn" }, group: "Âm đầu lưỡi trước (Thiệt tiêm tiền âm)", read: "Đọc như 'x' hoặc 'th' bật hơi rất mạnh", tip: "Đầu lưỡi ép mặt sau răng trên chặn khí, rồi bật mạnh tạo tiếng xì dứt khoát.", sound: "cī", example: { zh: "厕所", pinyin: "cèsuǒ", vi: "Nhà vệ sinh" } },
+      { letter: "s", name: "s (sư nhẹ)", hero: { zh: "三", py: "sān", hv: "Tam", vi: "Số 3" }, group: "Âm đầu lưỡi trước (Thiệt tiêm tiền âm)", read: "Đọc như 'x' nhẹ tiếng Việt", tip: "Đầu lưỡi để sát chân răng dưới, luồng khí ma sát êm dịu qua khe răng.", sound: "sī", example: { zh: "司机", pinyin: "sījī", vi: "Tài xế" } },
+      { letter: "zh", name: "zh (trư uốn lưỡi)", hero: { zh: "中", py: "zhōng", hv: "Trung", vi: "Trung Quốc" }, group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 'tr' uốn lưỡi, không bật hơi", tip: "Đầu lưỡi uốn cong lên ngạc cứng chặn khí, mở hé nhẹ để hơi thoát ra. Đi với 'i' đọc thành 'ư'.", sound: "zhī", example: { zh: "中国", pinyin: "zhōngguó", vi: "Trung Quốc" } },
+      { letter: "ch", name: "ch (trư bật hơi)", hero: { zh: "吃", py: "chī", hv: "Ngật", vi: "Ăn cơm" }, group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 'tr' uốn lưỡi VÀ bật hơi cực mạnh", tip: "Đầu lưỡi cong lên ngạc cứng như âm 'zh', nén hơi thật mạnh rồi bật tung ra ngoài.", sound: "chī", example: { zh: "吃饭", pinyin: "chīfàn", vi: "Ăn cơm" } },
+      { letter: "sh", name: "sh (sơ uốn lưỡi)", hero: { zh: "水", py: "shuǐ", hv: "Thủy", vi: "Nước" }, group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 's' uốn cong lưỡi sâu", tip: "Đầu lưỡi cong lên ngạc cứng tạo khe hở, luồng khí ma sát êm đi qua.", sound: "shī", example: { zh: "什么", pinyin: "shénme", vi: "Cái gì" } },
+      { letter: "r", name: "r (rư uốn lưỡi)", hero: { zh: "人", py: "rén", hv: "Nhân", vi: "Con người" }, group: "Âm cuộn lưỡi (Thiệt tiêm hậu âm)", read: "Đọc như 'r' uốn cong lưỡi, giọng trầm êm (không rung lưỡi)", tip: "Đầu lưỡi cong lên ngạc cứng, dây thanh rung nhẹ, luồng khí ma sát thoát ra không rung.", sound: "rī", example: { zh: "认识", pinyin: "rènshi", vi: "Quen biết" } },
+      { letter: "y", name: "y (i / di)", hero: { zh: "月", py: "yuè", hv: "Nguyệt", vi: "Mặt trăng" }, group: "Bán nguyên âm (Khởi đầu vần)", read: "Đọc như 'i' hoặc 'd' (miền Nam)", tip: "Được dùng để mở đầu các âm tiết bắt đầu bằng 'i' hoặc 'ü' khi đứng đầu từ (như yi, ya, ye, yu).", sound: "yī", example: { zh: "衣服", pinyin: "yīfu", vi: "Quần áo" } },
+      { letter: "w", name: "w (u / oa)", hero: { zh: "我", py: "wǒ", hv: "Ngã", vi: "Tôi / Ta" }, group: "Bán nguyên âm (Khởi đầu vần)", read: "Đọc như 'u' hoặc 'oa' tròn môi", tip: "Được dùng để mở đầu các âm tiết bắt đầu bằng 'u' khi đứng đầu từ (như wu, wa, wo).", sound: "wū", example: { zh: "我们", pinyin: "wǒmen", vi: "Chúng tôi" } }
     ],
 
-    // 36 VẬN MẪU (YUNMU - 韵母)
+    // 36 VẬN MẪU (YUNMU - 韵母) KÈM CHỮ HÁN ĐẠI DIỆN
     finals: [
-      { letter: "a", type: "Vận mẫu đơn", read: "Đọc như 'a' trong tiếng Việt", tip: "Miệng mở to, lưỡi ở vị trí thấp tự nhiên.", sound: "ā", example: { zh: "大", pinyin: "dà", vi: "To lớn" } },
-      { letter: "o", type: "Vận mẫu đơn", read: "Đọc như 'ua' hoặc 'ô' tròn môi", tip: "Môi tròn nhô về phía trước, cuống lưỡi nâng cao.", sound: "ō", example: { zh: "波", pinyin: "bō", vi: "Sóng" } },
-      { letter: "e", type: "Vận mẫu đơn", read: "Đọc như 'ưa' hoặc 'ơ'", tip: "Miệng hé dẹt, phát âm lùi sâu vào họng. Rất nhiều người mới học nhầm sang 'e' Việt.", sound: "ē", example: { zh: "喝", pinyin: "hē", vi: "Uống" } },
-      { letter: "i", type: "Vận mẫu đơn", read: "Đọc như 'i' (sau zh,ch,sh,r,z,c,s đọc là 'ư')", tip: "Khóe miệng kéo dẹt sang hai bên như mỉm cười.", sound: "yī", example: { zh: "你", pinyin: "nǐ", vi: "Bạn" } },
-      { letter: "u", type: "Vận mẫu đơn", read: "Đọc như 'u' trong tiếng Việt", tip: "Môi chu tròn nhỏ, cuống lưỡi nâng cao về phía sau.", sound: "wū", example: { zh: "路", pinyin: "lù", vi: "Con đường" } },
-      { letter: "ü", type: "Vận mẫu đơn", read: "Đọc tròn môi giữa 'uy' và 'u'", tip: "Khẩu hình tròn như huýt sáo, cố định môi và phát âm 'i'.", sound: "yǖ", example: { zh: "绿", pinyin: "lǜ", vi: "Màu xanh lá" } },
-      { letter: "ai", type: "Vận mẫu kép", read: "Đọc như 'ai' trong tiếng Việt", tip: "Bắt đầu từ âm 'a' rồi trượt nhanh và êm sang 'i'.", sound: "āi", example: { zh: "白", pinyin: "bái", vi: "Trắng" } },
-      { letter: "ei", type: "Vận mẫu kép", read: "Đọc như 'ây' trong tiếng Việt", tip: "Bắt đầu từ âm 'e' rồi trượt êm sang 'i'.", sound: "ēi", example: { zh: "北", pinyin: "běi", vi: "Phía Bắc" } },
-      { letter: "ui", type: "Vận mẫu kép", read: "Đọc như 'uây' trong tiếng Việt", tip: "Thực chất là 'uei', bắt đầu từ 'u' lướt qua 'e' đến 'i'.", sound: "uī", example: { zh: "水", pinyin: "shuǐ", vi: "Nước" } },
-      { letter: "ao", type: "Vận mẫu kép", read: "Đọc như 'ao' trong tiếng Việt", tip: "Mở miệng âm 'a' rồi thu tròn môi sang âm 'o'.", sound: "āo", example: { zh: "高", pinyin: "gāo", vi: "Cao" } },
-      { letter: "ou", type: "Vận mẫu kép", read: "Đọc như 'âu' trong tiếng Việt", tip: "Bắt đầu từ âm 'o' rồi thu tròn môi chuyển sang 'u'.", sound: "ōu", example: { zh: "狗", pinyin: "gǒu", vi: "Con chó" } },
-      { letter: "iu", type: "Vận mẫu kép", read: "Đọc như 'yêu' trong tiếng Việt", tip: "Thực chất là 'iou', bắt đầu từ 'i' lướt sang 'u'.", sound: "iū", example: { zh: "九", pinyin: "jiǔ", vi: "Số 9" } },
-      { letter: "ie", type: "Vận mẫu kép", read: "Đọc như 'dia' hoặc 'i-ê'", tip: "Bắt đầu từ âm 'i' rồi lướt sang âm 'ê'.", sound: "iē", example: { zh: "写", pinyin: "xiě", vi: "Viết" } },
-      { letter: "üe", type: "Vận mẫu kép", read: "Đọc như 'uy-ê'", tip: "Bắt đầu từ âm 'ü' tròn môi rồi lướt sang âm 'ê'.", sound: "yuē", example: { zh: "月", pinyin: "yuè", vi: "Mặt trăng / tháng" } },
-      { letter: "er", type: "Vận mẫu đặc biệt", read: "Đọc như 'ơ' kết hợp uốn cong đầu lưỡi", tip: "Phát âm 'e' đồng thời cuộn đầu lưỡi lên ngạc cứng.", sound: "ēr", example: { zh: "二", pinyin: "èr", vi: "Số 2" } },
-      { letter: "ia", type: "Vận mẫu kép", read: "Đọc như 'ia' trong tiếng Việt", tip: "Bắt đầu từ âm 'i' rồi mở rộng miệng sang 'a'.", sound: "yā", example: { zh: "家", pinyin: "jiā", vi: "Nhà" } },
-      { letter: "ua", type: "Vận mẫu kép", read: "Đọc như 'oa' trong tiếng Việt", tip: "Bắt đầu từ âm 'u' tròn môi rồi mở rộng miệng sang 'a'.", sound: "wā", example: { zh: "花", pinyin: "huā", vi: "Hoa" } },
-      { letter: "uo", type: "Vận mẫu kép", read: "Đọc như 'ua' hoặc 'u-ô'", tip: "Bắt đầu từ âm 'u' tròn môi rồi lướt sang 'o'.", sound: "wō", example: { zh: "桌", pinyin: "zhuō", vi: "Bàn" } },
-      { letter: "uai", type: "Vận mẫu kép", read: "Đọc như 'oai' trong tiếng Việt", tip: "Bắt đầu từ 'u' lướt nhanh sang 'a' và kết thúc ở 'i'.", sound: "wāi", example: { zh: "快", pinyin: "kuài", vi: "Nhanh" } },
-      { letter: "an", type: "Vận mẫu mũi trước", read: "Đọc như 'an' trong tiếng Việt", tip: "Bắt đầu từ 'a', kết thúc áp đầu lưỡi lên nướu răng trên.", sound: "ān", example: { zh: "看", pinyin: "kàn", vi: "Nhìn" } },
-      { letter: "en", type: "Vận mẫu mũi trước", read: "Đọc như 'ân' trong tiếng Việt", tip: "Bắt đầu từ 'e' (ưa) rồi đưa đầu lưỡi lên nướu trên.", sound: "ēn", example: { zh: "门", pinyin: "mén", vi: "Cửa" } },
-      { letter: "in", type: "Vận mẫu mũi trước", read: "Đọc như 'in' trong tiếng Việt", tip: "Bắt đầu từ 'i' rồi đưa đầu lưỡi lên nướu trên chặn khí.", sound: "yīn", example: { zh: "新", pinyin: "xīn", vi: "Mới" } },
-      { letter: "un", type: "Vận mẫu mũi trước", read: "Đọc như 'uân' trong tiếng Việt", tip: "Thực chất là 'uen', bắt đầu từ 'u' lướt sang 'en'.", sound: "wēn", example: { zh: "春", pinyin: "chūn", vi: "Mùa xuân" } },
-      { letter: "ün", type: "Vận mẫu mũi trước", read: "Đọc như 'uyn' tròn môi", tip: "Bắt đầu từ 'ü' tròn môi rồi đưa lưỡi lên tạo âm mũi 'n'.", sound: "yūn", example: { zh: "云", pinyin: "yún", vi: "Mây" } },
-      { letter: "ian", type: "Vận mẫu mũi trước", read: "Đọc như 'iên' trong tiếng Việt", tip: "Bắt đầu từ 'i' rồi lướt qua 'ê' sang 'n' (không đọc là i-an).", sound: "yān", example: { zh: "见", pinyin: "jiàn", vi: "Gặp" } },
-      { letter: "uan", type: "Vận mẫu mũi trước", read: "Đọc như 'oan' trong tiếng Việt", tip: "Bắt đầu từ 'u' tròn môi rồi mở sang 'an'.", sound: "wān", example: { zh: "关", pinyin: "guān", vi: "Đóng" } },
-      { letter: "üan", type: "Vận mẫu mũi trước", read: "Đọc như 'uyên' tròn môi", tip: "Bắt đầu từ 'ü' tròn môi rồi lướt sang 'an' (đọc thành uyên).", sound: "yuān", example: { zh: "远", pinyin: "yuǎn", vi: "Xa" } },
-      { letter: "ang", type: "Vận mẫu mũi sau", read: "Đọc như 'ang' trong tiếng Việt", tip: "Mở rộng miệng phát âm 'a', cuống lưỡi nâng lên ngạc mềm.", sound: "āng", example: { zh: "忙", pinyin: "máng", vi: "Bận rộn" } },
-      { letter: "eng", type: "Vận mẫu mũi sau", read: "Đọc như 'âng' trong tiếng Việt", tip: "Phát âm 'e' rồi nâng cuống lưỡi lên tạo âm mũi sau.", sound: "ēng", example: { zh: "冷", pinyin: "lěng", vi: "Lạnh" } },
-      { letter: "ing", type: "Vận mẫu mũi sau", read: "Đọc như 'inh' trong tiếng Việt", tip: "Phát âm 'i' kéo dài kết hợp âm mũi sau 'ng'.", sound: "yīng", example: { zh: "听", pinyin: "tīng", vi: "Nghe" } },
-      { letter: "ong", type: "Vận mẫu mũi sau", read: "Đọc như 'ung' tròn môi", tip: "Môi chu tròn, nâng cuống lưỡi lên ngạc mềm.", sound: "ōng", example: { zh: "红", pinyin: "hóng", vi: "Màu đỏ" } },
-      { letter: "iang", type: "Vận mẫu mũi sau", read: "Đọc như 'iang' trong tiếng Việt", tip: "Bắt đầu từ 'i' rồi lướt nhanh sang 'ang'.", sound: "yāng", example: { zh: "想", pinyin: "xiǎng", vi: "Muốn / nhớ" } },
-      { letter: "uang", type: "Vận mẫu mũi sau", read: "Đọc như 'oang' trong tiếng Việt", tip: "Bắt đầu từ 'u' tròn môi rồi mở sang 'ang'.", sound: "wāng", example: { zh: "黄", pinyin: "huáng", vi: "Màu vàng" } },
-      { letter: "iong", type: "Vận mẫu mũi sau", read: "Đọc như 'i-ung' tròn môi", tip: "Bắt đầu từ 'i' rồi lướt nhanh sang 'ong'.", sound: "yōng", example: { zh: "用", pinyin: "yòng", vi: "Dùng" } },
-      { letter: "ueng", type: "Vận mẫu mũi sau", read: "Đọc như 'uâng' trong tiếng Việt", tip: "Bắt đầu từ 'u' tròn môi rồi lướt sang 'eng'.", sound: "wēng", example: { zh: "翁", pinyin: "wēng", vi: "Ông lão" } }
+      { letter: "a", hero: { zh: "大", py: "dà", hv: "Đại", vi: "To lớn" }, type: "Vận mẫu đơn", read: "Đọc như 'a' trong tiếng Việt", tip: "Miệng mở to, lưỡi ở vị trí thấp tự nhiên.", sound: "ā", example: { zh: "大", pinyin: "dà", vi: "To lớn" } },
+      { letter: "o", hero: { zh: "我", py: "wǒ", hv: "Ngã", vi: "Tôi" }, type: "Vận mẫu đơn", read: "Đọc như 'ua' hoặc 'ô' tròn môi", tip: "Môi tròn nhô về phía trước, cuống lưỡi nâng cao.", sound: "ō", example: { zh: "波", pinyin: "bō", vi: "Sóng" } },
+      { letter: "e", hero: { zh: "饿", py: "è", hv: "Ngạ", vi: "Đói" }, type: "Vận mẫu đơn", read: "Đọc như 'ưa' hoặc 'ơ'", tip: "Miệng hé dẹt, phát âm lùi sâu vào họng. Rất nhiều người mới học nhầm sang 'e' Việt.", sound: "ē", example: { zh: "喝", pinyin: "hē", vi: "Uống" } },
+      { letter: "i", hero: { zh: "你", py: "nǐ", hv: "Nhĩ", vi: "Bạn" }, type: "Vận mẫu đơn", read: "Đọc như 'i' (sau zh,ch,sh,r,z,c,s đọc là 'ư')", tip: "Khóe miệng kéo dẹt sang hai bên như mỉm cười.", sound: "yī", example: { zh: "你", pinyin: "nǐ", vi: "Bạn" } },
+      { letter: "u", hero: { zh: "路", py: "lù", hv: "Lộ", vi: "Con đường" }, type: "Vận mẫu đơn", read: "Đọc như 'u' trong tiếng Việt", tip: "Môi chu tròn nhỏ, cuống lưỡi nâng cao về phía sau.", sound: "wū", example: { zh: "路", pinyin: "lù", vi: "Con đường" } },
+      { letter: "ü", hero: { zh: "绿", py: "lǜ", hv: "Lục", vi: "Màu xanh" }, type: "Vận mẫu đơn", read: "Đọc tròn môi giữa 'uy' và 'u'", tip: "Khẩu hình tròn như huýt sáo, cố định môi và phát âm 'i'.", sound: "yǖ", example: { zh: "绿", pinyin: "lǜ", vi: "Màu xanh lá" } },
+      { letter: "ai", hero: { zh: "爱", py: "ài", hv: "Ái", vi: "Yêu thích" }, type: "Vận mẫu kép", read: "Đọc như 'ai' trong tiếng Việt", tip: "Bắt đầu từ âm 'a' rồi trượt nhanh và êm sang 'i'.", sound: "āi", example: { zh: "白", pinyin: "bái", vi: "Trắng" } },
+      { letter: "ei", hero: { zh: "北", py: "běi", hv: "Bắc", vi: "Phía Bắc" }, type: "Vận mẫu kép", read: "Đọc như 'ây' trong tiếng Việt", tip: "Bắt đầu từ âm 'e' rồi trượt êm sang 'i'.", sound: "ēi", example: { zh: "北", pinyin: "běi", vi: "Phía Bắc" } },
+      { letter: "ui", hero: { zh: "水", py: "shuǐ", hv: "Thủy", vi: "Nước" }, type: "Vận mẫu kép", read: "Đọc như 'uây' trong tiếng Việt", tip: "Thực chất là 'uei', bắt đầu từ 'u' lướt qua 'e' đến 'i'.", sound: "uī", example: { zh: "水", pinyin: "shuǐ", vi: "Nước" } },
+      { letter: "ao", hero: { zh: "高", py: "gāo", hv: "Cao", vi: "Chiều cao" }, type: "Vận mẫu kép", read: "Đọc như 'ao' trong tiếng Việt", tip: "Mở miệng âm 'a' rồi thu tròn môi sang âm 'o'.", sound: "āo", example: { zh: "高", pinyin: "gāo", vi: "Cao" } },
+      { letter: "ou", hero: { zh: "头", py: "tóu", hv: "Đầu", vi: "Cái đầu" }, type: "Vận mẫu kép", read: "Đọc như 'âu' trong tiếng Việt", tip: "Bắt đầu từ âm 'o' rồi thu tròn môi chuyển sang 'u'.", sound: "ōu", example: { zh: "狗", pinyin: "gǒu", vi: "Con chó" } },
+      { letter: "iu", hero: { zh: "九", py: "jiǔ", hv: "Cửu", vi: "Số 9" }, type: "Vận mẫu kép", read: "Đọc như 'yêu' trong tiếng Việt", tip: "Thực chất là 'iou', bắt đầu từ 'i' lướt sang 'u'.", sound: "iū", example: { zh: "九", pinyin: "jiǔ", vi: "Số 9" } },
+      { letter: "ie", hero: { zh: "写", py: "xiě", hv: "Tả", vi: "Viết lách" }, type: "Vận mẫu kép", read: "Đọc như 'dia' hoặc 'i-ê'", tip: "Bắt đầu từ âm 'i' rồi lướt sang âm 'ê'.", sound: "iē", example: { zh: "写", pinyin: "xiě", vi: "Viết" } },
+      { letter: "üe", hero: { zh: "月", py: "yuè", hv: "Nguyệt", vi: "Mặt trăng" }, type: "Vận mẫu kép", read: "Đọc như 'uy-ê'", tip: "Bắt đầu từ âm 'ü' tròn môi rồi lướt sang âm 'ê'.", sound: "yuē", example: { zh: "月", pinyin: "yuè", vi: "Mặt trăng / tháng" } },
+      { letter: "er", hero: { zh: "二", py: "èr", hv: "Nhị", vi: "Số 2" }, type: "Vận mẫu đặc biệt", read: "Đọc như 'ơ' kết hợp uốn cong đầu lưỡi", tip: "Phát âm 'e' đồng thời cuộn đầu lưỡi lên ngạc cứng.", sound: "ēr", example: { zh: "二", pinyin: "èr", vi: "Số 2" } },
+      { letter: "ia", hero: { zh: "家", py: "jiā", hv: "Gia", vi: "Nhà cửa" }, type: "Vận mẫu kép", read: "Đọc như 'ia' trong tiếng Việt", tip: "Bắt đầu từ âm 'i' rồi mở rộng miệng sang 'a'.", sound: "yā", example: { zh: "家", pinyin: "jiā", vi: "Nhà" } },
+      { letter: "ua", hero: { zh: "花", py: "huā", hv: "Hoa", vi: "Bông hoa" }, type: "Vận mẫu kép", read: "Đọc như 'oa' trong tiếng Việt", tip: "Bắt đầu từ âm 'u' tròn môi rồi mở rộng miệng sang 'a'.", sound: "wā", example: { zh: "花", pinyin: "huā", vi: "Hoa" } },
+      { letter: "uo", hero: { zh: "桌", py: "zhuō", hv: "Trác", vi: "Cái bàn" }, type: "Vận mẫu kép", read: "Đọc như 'ua' hoặc 'u-ô'", tip: "Bắt đầu từ âm 'u' tròn môi rồi lướt sang 'o'.", sound: "wō", example: { zh: "桌", pinyin: "zhuō", vi: "Bàn" } },
+      { letter: "uai", hero: { zh: "快", py: "kuài", hv: "Khoái", vi: "Nhanh chóng" }, type: "Vận mẫu kép", read: "Đọc như 'oai' trong tiếng Việt", tip: "Bắt đầu từ 'u' lướt nhanh sang 'a' và kết thúc ở 'i'.", sound: "wāi", example: { zh: "快", pinyin: "kuài", vi: "Nhanh" } },
+      { letter: "an", hero: { zh: "安", py: "ān", hv: "An", vi: "Bình an" }, type: "Vận mẫu mũi trước", read: "Đọc như 'an' trong tiếng Việt", tip: "Bắt đầu từ 'a', kết thúc áp đầu lưỡi lên nướu răng trên.", sound: "ān", example: { zh: "看", pinyin: "kàn", vi: "Nhìn" } },
+      { letter: "en", hero: { zh: "门", py: "mén", hv: "Môn", vi: "Cánh cửa" }, type: "Vận mẫu mũi trước", read: "Đọc như 'ân' trong tiếng Việt", tip: "Bắt đầu từ 'e' (ưa) rồi đưa đầu lưỡi lên nướu trên.", sound: "ēn", example: { zh: "门", pinyin: "mén", vi: "Cửa" } },
+      { letter: "in", hero: { zh: "新", py: "xīn", hv: "Tân", vi: "Mới mẻ" }, type: "Vận mẫu mũi trước", read: "Đọc như 'in' trong tiếng Việt", tip: "Bắt đầu từ 'i' rồi đưa đầu lưỡi lên nướu trên chặn khí.", sound: "yīn", example: { zh: "新", pinyin: "xīn", vi: "Mới" } },
+      { letter: "un", hero: { zh: "春", py: "chūn", hv: "Xuân", vi: "Mùa xuân" }, type: "Vận mẫu mũi trước", read: "Đọc như 'uân' trong tiếng Việt", tip: "Thực chất là 'uen', bắt đầu từ 'u' lướt sang 'en'.", sound: "wēn", example: { zh: "春", pinyin: "chūn", vi: "Mùa xuân" } },
+      { letter: "ün", hero: { zh: "云", py: "yún", hv: "Vân", vi: "Mây trời" }, type: "Vận mẫu mũi trước", read: "Đọc như 'uyn' tròn môi", tip: "Bắt đầu từ 'ü' tròn môi rồi đưa lưỡi lên tạo âm mũi 'n'.", sound: "yūn", example: { zh: "云", pinyin: "yún", vi: "Mây" } },
+      { letter: "ian", hero: { zh: "天", py: "tiān", hv: "Thiên", vi: "Trời / Ngày" }, type: "Vận mẫu mũi trước", read: "Đọc như 'iên' trong tiếng Việt", tip: "Bắt đầu từ 'i' rồi lướt qua 'ê' sang 'n' (không đọc là i-an).", sound: "yān", example: { zh: "见", pinyin: "jiàn", vi: "Gặp" } },
+      { letter: "uan", hero: { zh: "关", py: "guān", hv: "Quan", vi: "Đóng lại" }, type: "Vận mẫu mũi trước", read: "Đọc như 'oan' trong tiếng Việt", tip: "Bắt đầu từ 'u' tròn môi rồi mở sang 'an'.", sound: "wān", example: { zh: "关", pinyin: "guān", vi: "Đóng" } },
+      { letter: "üan", hero: { zh: "远", py: "yuǎn", hv: "Viễn", vi: "Xa xôi" }, type: "Vận mẫu mũi trước", read: "Đọc như 'uyên' tròn môi", tip: "Bắt đầu từ 'ü' tròn môi rồi lướt sang 'an' (đọc thành uyên).", sound: "yuān", example: { zh: "远", pinyin: "yuǎn", vi: "Xa" } },
+      { letter: "ang", hero: { zh: "忙", py: "máng", hv: "Mang", vi: "Bận rộn" }, type: "Vận mẫu mũi sau", read: "Đọc như 'ang' trong tiếng Việt", tip: "Mở rộng miệng phát âm 'a', cuống lưỡi nâng lên ngạc mềm.", sound: "āng", example: { zh: "忙", pinyin: "máng", vi: "Bận rộn" } },
+      { letter: "eng", hero: { zh: "冷", py: "lěng", hv: "Lãnh", vi: "Lạnh" }, type: "Vận mẫu mũi sau", read: "Đọc như 'âng' trong tiếng Việt", tip: "Phát âm 'e' rồi nâng cuống lưỡi lên tạo âm mũi sau.", sound: "ēng", example: { zh: "冷", pinyin: "lěng", vi: "Lạnh" } },
+      { letter: "ing", hero: { zh: "听", py: "tīng", hv: "Thính", vi: "Nghe" }, type: "Vận mẫu mũi sau", read: "Đọc như 'inh' trong tiếng Việt", tip: "Phát âm 'i' kéo dài kết hợp âm mũi sau 'ng'.", sound: "yīng", example: { zh: "听", pinyin: "tīng", vi: "Nghe" } },
+      { letter: "ong", hero: { zh: "红", py: "hóng", hv: "Hồng", vi: "Màu đỏ" }, type: "Vận mẫu mũi sau", read: "Đọc như 'ung' tròn môi", tip: "Môi chu tròn, nâng cuống lưỡi lên ngạc mềm.", sound: "ōng", example: { zh: "红", pinyin: "hóng", vi: "Màu đỏ" } },
+      { letter: "iang", hero: { zh: "想", py: "xiǎng", hv: "Tưởng", vi: "Nghĩ / Nhớ" }, type: "Vận mẫu mũi sau", read: "Đọc như 'iang' trong tiếng Việt", tip: "Bắt đầu từ 'i' rồi lướt nhanh sang 'ang'.", sound: "yāng", example: { zh: "想", pinyin: "xiǎng", vi: "Muốn / nhớ" } },
+      { letter: "uang", hero: { zh: "黄", py: "huáng", hv: "Hoàng", vi: "Màu vàng" }, type: "Vận mẫu mũi sau", read: "Đọc như 'oang' trong tiếng Việt", tip: "Bắt đầu từ 'u' tròn môi rồi mở sang 'ang'.", sound: "wāng", example: { zh: "黄", pinyin: "huáng", vi: "Màu vàng" } },
+      { letter: "iong", hero: { zh: "用", py: "yòng", hv: "Dụng", vi: "Sử dụng" }, type: "Vận mẫu mũi sau", read: "Đọc như 'i-ung' tròn môi", tip: "Bắt đầu từ 'i' rồi lướt nhanh sang 'ong'.", sound: "yōng", example: { zh: "用", pinyin: "yòng", vi: "Dùng" } },
+      { letter: "ueng", hero: { zh: "翁", py: "wēng", hv: "Ông", vi: "Ông lão" }, type: "Vận mẫu mũi sau", read: "Đọc như 'uâng' trong tiếng Việt", tip: "Bắt đầu từ 'u' tròn môi rồi lướt sang 'eng'.", sound: "wēng", example: { zh: "翁", pinyin: "wēng", vi: "Ông lão" } }
     ],
 
     // 4 THANH ĐIỆU + KHINH THANH (TONES - 声调)
@@ -112,11 +519,11 @@
         pitch: "Cao độ 55",
         read: "Cao, bằng phẳng và kéo dài đều",
         desc: "Giữ âm vực ở mức cao nhất (mức 5), ngân vang đều, không lên giọng cũng không hạ giọng.",
-        example: { zh: "妈", pinyin: "mā", vi: "Mẹ (thanh 1)" },
+        example: { zh: "妈", pinyin: "mā", hv: "Mã", vi: "Mẹ (thanh 1)" },
         compare: [
-          { pinyin: "mā", zh: "妈", vi: "Mẹ" },
-          { pinyin: "bā", zh: "八", vi: "Số 8" },
-          { pinyin: "tā", zh: "他", vi: "Anh ấy" }
+          { pinyin: "mā", zh: "妈", hv: "Mã", vi: "Mẹ" },
+          { pinyin: "bā", zh: "八", hv: "Bát", vi: "Số 8" },
+          { pinyin: "tā", zh: "他", hv: "Tha", vi: "Anh ấy" }
         ]
       },
       {
@@ -126,11 +533,11 @@
         pitch: "Cao độ 35",
         read: "Đi từ giữa vút lên cao, giống dấu sắc",
         desc: "Bắt đầu từ tầm trung (mức 3) rồi vút mạnh lên đỉnh (mức 5), tựa như khi hỏi ngạc nhiên: 'Hả?'.",
-        example: { zh: "麻", pinyin: "má", vi: "Cây gai (thanh 2)" },
+        example: { zh: "麻", pinyin: "má", hv: "Ma", vi: "Cây gai (thanh 2)" },
         compare: [
-          { pinyin: "má", zh: "麻", vi: "Cây gai" },
-          { pinyin: "bá", zh: "拔", vi: "Nhổ / rút" },
-          { pinyin: "tá", zh: "达", vi: "Đạt được" }
+          { pinyin: "má", zh: "麻", hv: "Ma", vi: "Cây gai" },
+          { pinyin: "bá", zh: "拔", hv: "Bạt", vi: "Nhổ / rút" },
+          { pinyin: "tá", zh: "达", hv: "Đạt", vi: "Đạt được" }
         ]
       },
       {
@@ -140,11 +547,11 @@
         pitch: "Cao độ 214",
         read: "Hạ sâu xuống đáy rồi bật nhẹ lên",
         desc: "Xuống sâu nhất cổ họng (mức 1) rồi lượn nhẹ lên mức 4. Giống sự kết hợp giữa dấu hỏi và dấu nặng.",
-        example: { zh: "马", pinyin: "mǎ", vi: "Con ngựa (thanh 3)" },
+        example: { zh: "马", pinyin: "mǎ", hv: "Mã", vi: "Con ngựa (thanh 3)" },
         compare: [
-          { pinyin: "mǎ", zh: "马", vi: "Con ngựa" },
-          { pinyin: "bǎ", zh: "把", vi: "Cầm / nắm" },
-          { pinyin: "tǎ", zh: "塔", vi: "Cây tháp" }
+          { pinyin: "mǎ", zh: "马", hv: "Mã", vi: "Con ngựa" },
+          { pinyin: "bǎ", zh: "把", hv: "Bả", vi: "Cầm / nắm" },
+          { pinyin: "tǎ", zh: "塔", hv: "Tháp", vi: "Cây tháp" }
         ]
       },
       {
@@ -154,11 +561,11 @@
         pitch: "Cao độ 51",
         read: "Rơi từ cao nhất xuống thấp nhất, dứt khoát",
         desc: "Phát âm dứt khoát, giọng hạ thật nhanh và mạnh từ đỉnh (mức 5) xuống đáy (mức 1) như ra lệnh.",
-        example: { zh: "骂", pinyin: "mà", vi: "Mắng chửi (thanh 4)" },
+        example: { zh: "骂", pinyin: "mà", hv: "Mạ", vi: "Mắng chửi (thanh 4)" },
         compare: [
-          { pinyin: "mà", zh: "骂", vi: "Mắng mỏ" },
-          { pinyin: "bà", zh: "爸", vi: "Bố / ba" },
-          { pinyin: "tà", zh: "踏", vi: "Giẫm lên" }
+          { pinyin: "mà", zh: "骂", hv: "Mạ", vi: "Mắng mỏ" },
+          { pinyin: "bà", zh: "爸", hv: "Ba", vi: "Bố / ba" },
+          { pinyin: "tà", zh: "踏", hv: "Đạp", vi: "Giẫm lên" }
         ]
       },
       {
@@ -168,11 +575,11 @@
         pitch: "Ngắn, nhẹ",
         read: "Đọc thật nhẹ, ngắn và êm",
         desc: "Không mang dấu thanh điệu, đọc lướt qua rất nhanh, phụ thuộc vào cao độ của âm tiết đứng liền trước.",
-        example: { zh: "吗", pinyin: "ma", vi: "Không? (trợ từ)" },
+        example: { zh: "吗", pinyin: "ma", hv: "Ma", vi: "Không? (trợ từ)" },
         compare: [
-          { pinyin: "bàba", zh: "爸爸", vi: "Bố (chữ ba thứ 2 là khinh thanh)" },
-          { pinyin: "māma", zh: "妈妈", vi: "Mẹ (chữ ma thứ 2 là khinh thanh)" },
-          { pinyin: "shénme", zh: "什么", vi: "Cái gì" }
+          { pinyin: "bàba", zh: "爸爸", hv: "Ba ba", vi: "Bố (chữ ba thứ 2 là khinh thanh)" },
+          { pinyin: "māma", zh: "妈妈", hv: "Ma ma", vi: "Mẹ (chữ ma thứ 2 là khinh thanh)" },
+          { pinyin: "shénme", zh: "什么", hv: "Thập ma", vi: "Cái gì" }
         ]
       }
     ],
@@ -239,8 +646,9 @@
 
   const PY = window.GH_PinyinChart = {
     initialized: false,
-    currentTab: 'alphabet', // 'alphabet' | 'initials' | 'finals' | 'tones' | 'rules' | 'radicals' | 'quiz'
+    currentTab: 'alphabet', // 'alphabet' | 'hanzi' | 'initials' | 'finals' | 'tones' | 'rules' | 'radicals' | 'quiz'
     searchQuery: '',
+    selectedHanziLetter: 'A',
     radicalFilterStrokes: 'all',
     quizState: {
       currentQuestion: null,
@@ -264,6 +672,16 @@
         u.rate = 0.85;
         window.speechSynthesis.speak(u);
       } catch (e) {}
+    }
+  }
+
+  // Jump to Writing mode for Hanzi
+  function openPracticeWriting(word) {
+    if (!word) return;
+    if (window.GH_Writing && typeof window.GH_Writing.openWord === 'function') {
+      window.GH_Writing.openWord(word);
+    } else if (typeof window.switchMode === 'function') {
+      window.switchMode('writing');
     }
   }
 
@@ -300,24 +718,28 @@
       <div class="py-header">
         <div class="py-title-box">
           <div class="py-title-row">
-            <h2><span>🔤</span> Bảng Chữ Cái Tiếng Trung & Ngữ Âm Toàn Diện</h2>
+            <h2><span>🔤</span> Bảng Chữ Cái & Chữ Hán Toàn Diện</h2>
             <span class="py-universal-badge">Nền tảng căn bản • Dành cho mọi cấp độ</span>
           </div>
-          <p>Hệ thống văn tự & ngữ âm nhập môn chuẩn Bắc Kinh: 26 chữ cái La-tinh Pinyin, 23 Thanh mẫu, 36 Vận mẫu, 4 Thanh điệu và 214 Bộ thủ cấu tạo chữ Hán.</p>
+          <p>Hệ thống ngữ âm & văn tự Trung văn chuẩn mực: 26 Chữ cái Pinyin (A-Z) kèm Chữ Hán tiêu biểu, âm Hán Việt, 23 Thanh mẫu, 36 Vận mẫu, 4 Thanh điệu và 214 Bộ thủ.</p>
         </div>
 
         <div class="py-hsk-note-banner">
           <span class="py-note-icon">💡</span>
           <div class="py-note-body">
-            <b>Lưu ý quan trọng cho người học:</b>
-            <p>Bảng chữ cái Bính âm (Pinyin) và 214 Bộ thủ chữ Hán là kiến thức nền tảng chung của toàn bộ tiếng Trung, được áp dụng đồng nhất và <strong>hoàn toàn không phân chia theo cấp độ HSK</strong> (từ vựng HSK 1 đến HSK 6 đều được cấu tạo từ các âm và bộ thủ này).</p>
+            <b>Lưu ý nền tảng:</b>
+            <p>Bảng chữ cái Bính âm (Pinyin), Chữ Hán căn bản và 214 Bộ thủ là hệ thống văn tự gốc của toàn bộ tiếng Trung, được áp dụng chung và <strong>hoàn toàn không phân chia theo cấp độ HSK</strong> (toàn bộ từ vựng HSK 1 đến HSK 6 đều được xây dựng từ các chữ và âm này).</p>
           </div>
         </div>
 
         <div class="py-stats-row">
           <div class="py-stat-card">
             <b>26</b>
-            <span>Chữ cái A-Z (字母)</span>
+            <span>Chữ cái Pinyin (A-Z)</span>
+          </div>
+          <div class="py-stat-card">
+            <b>100+</b>
+            <span>Chữ Hán căn bản</span>
           </div>
           <div class="py-stat-card">
             <b>23</b>
@@ -329,14 +751,15 @@
           </div>
           <div class="py-stat-card">
             <b>214</b>
-            <span>Bộ thủ chữ Hán (部首)</span>
+            <span>Bộ thủ Khang Hy (部首)</span>
           </div>
         </div>
       </div>
 
       <!-- Navigation Tabs -->
       <nav class="py-tabs-nav" id="py-tabs-nav" role="tablist" aria-label="Phân loại ngữ âm & văn tự">
-        <button class="py-tab-btn active" data-tab="alphabet">🔤 26 Chữ Cái (A-Z)</button>
+        <button class="py-tab-btn active" data-tab="alphabet">🔤 Chữ Cái & Chữ Hán (A-Z)</button>
+        <button class="py-tab-btn" data-tab="hanzi">📖 Tra Cứu Chữ Hán (A-Z)</button>
         <button class="py-tab-btn" data-tab="initials">📌 Thanh Mẫu (23)</button>
         <button class="py-tab-btn" data-tab="finals">🎯 Vận Mẫu (36)</button>
         <button class="py-tab-btn" data-tab="tones">🎶 Thanh Điệu (4+1)</button>
@@ -348,7 +771,7 @@
       <!-- Quick Search Bar -->
       <div class="py-search-bar" id="py-search-bar">
         <span class="py-search-icon">🔍</span>
-        <input type="text" id="py-search-input" placeholder="Tìm kiếm nhanh chữ cái, âm đọc, bộ thủ hoặc ví dụ..." autocomplete="off">
+        <input type="text" id="py-search-input" placeholder="Tìm kiếm nhanh chữ cái, chữ Hán, Pinyin, âm Hán Việt hoặc bộ thủ..." autocomplete="off">
       </div>
 
       <!-- Content Container -->
@@ -385,11 +808,13 @@
     if (!content) return;
 
     if (searchBar) {
-      searchBar.style.display = (PY.currentTab === 'alphabet' || PY.currentTab === 'initials' || PY.currentTab === 'finals' || PY.currentTab === 'radicals') ? 'flex' : 'none';
+      searchBar.style.display = (PY.currentTab === 'alphabet' || PY.currentTab === 'hanzi' || PY.currentTab === 'initials' || PY.currentTab === 'finals' || PY.currentTab === 'radicals') ? 'flex' : 'none';
     }
 
     if (PY.currentTab === 'alphabet') {
       renderAlphabet(content);
+    } else if (PY.currentTab === 'hanzi') {
+      renderHanziExplorer(content);
     } else if (PY.currentTab === 'initials') {
       renderInitials(content);
     } else if (PY.currentTab === 'finals') {
@@ -404,10 +829,10 @@
       renderQuiz(content);
     }
 
-    attachAudioListeners(content);
+    attachActionListeners(content);
   }
 
-  // 1. Render 26 Chữ Cái La-tinh Pinyin (A-Z)
+  // 1. Render 26 Chữ Cái Kèm Chữ Hán Tiêu Biểu & Âm Hán Việt
   function renderAlphabet(container) {
     let items = PY_DATA.alphabet26;
     if (PY.searchQuery) {
@@ -416,41 +841,74 @@
         it.name.toLowerCase().includes(PY.searchQuery) ||
         it.read.toLowerCase().includes(PY.searchQuery) ||
         it.role.toLowerCase().includes(PY.searchQuery) ||
-        (it.ex && (it.ex.zh.includes(PY.searchQuery) || it.ex.vi.toLowerCase().includes(PY.searchQuery)))
+        (it.hero && (it.hero.zh.includes(PY.searchQuery) || it.hero.hv.toLowerCase().includes(PY.searchQuery) || it.hero.vi.toLowerCase().includes(PY.searchQuery))) ||
+        (it.hanzi && it.hanzi.some(h => h.zh.includes(PY.searchQuery) || h.hv.toLowerCase().includes(PY.searchQuery) || h.vi.toLowerCase().includes(PY.searchQuery)))
       );
     }
 
     container.innerHTML = `
       <div class="py-section-intro">
-        <div class="py-section-badge">BẢNG CHỮ CÁI BÍNH ÂM (汉语拼音字母表)</div>
-        <h3>26 Chữ cái La-tinh trong hệ thống Hán ngữ Bính âm</h3>
-        <p>Hệ thống 26 chữ cái chính thức dùng để phiên âm âm đọc của tất cả chữ Hán. Bấm vào biểu tượng loa để nghe âm đọc chuẩn!</p>
+        <div class="py-section-badge">BẢNG CHỮ CÁI & CHỮ HÁN TIÊU BIỂU (A - Z)</div>
+        <h3>26 Chữ cái La-tinh Pinyin & Các Chữ Hán Căn Bản</h3>
+        <p>Mỗi chữ cái đều có <strong>Chữ Hán đại diện nổi bật</strong>, âm Hán Việt tương ứng, mẹo phát âm và danh sách chữ Hán thông dụng. Bấm vào chữ Hán hoặc nút 🔊 để nghe phát âm, bấm ✍️ để tập viết!</p>
       </div>
 
       <div class="py-alphabet-grid">
         ${items.map(it => `
-          <div class="py-letter-card" data-sound="${it.sound}">
+          <div class="py-letter-card">
+            <!-- Header card: Ký tự chữ cái + Chữ Hán đại diện to -->
             <div class="py-letter-top">
-              <span class="py-letter-main">${it.char}</span>
-              <span class="py-letter-role">${it.role}</span>
-              <button class="py-audio-mini-btn" type="button" data-sound="${it.sound}" title="Nghe phát âm">🔊</button>
+              <div class="py-letter-badges">
+                <span class="py-letter-main">${it.char}</span>
+                <span class="py-letter-role">${it.role}</span>
+              </div>
+              <div class="py-hero-hanzi-wrap" data-sound="${it.hero.zh}" title="Nghe phát âm chữ Hán: ${it.hero.zh} (${it.hero.py})">
+                <span class="py-hero-hanzi">${it.hero.zh}</span>
+                <div class="py-hero-info">
+                  <span class="py-hero-py">${it.hero.py}</span>
+                  <small class="py-hero-hv">${it.hero.hv} • ${it.hero.vi}</small>
+                </div>
+                <button class="py-audio-mini-btn" type="button" data-sound="${it.hero.zh}">🔊</button>
+              </div>
             </div>
+
+            <!-- Tên gọi chữ cái & Cách phát âm -->
             <div class="py-letter-name">
               <span class="py-name-tag">Tên gọi:</span>
               <b>${it.name}</b>
               <span class="py-pinyin-sub">/${it.pinyin}/</span>
+              <button class="py-audio-mini-btn" type="button" data-sound="${it.sound}" title="Nghe âm chữ cái">🔊</button>
             </div>
+
             <div class="py-letter-read">
               <strong>Cách đọc:</strong> ${it.read}
             </div>
+
             <div class="py-letter-tip">
               <em>Mẹo:</em> ${it.tip}
             </div>
-            <div class="py-letter-example" data-sound="${it.ex.zh}">
-              <span class="py-ex-tag">Ví dụ:</span>
-              <b class="py-ex-zh">${it.ex.zh}</b>
-              <span class="py-ex-py">${it.ex.pinyin}</span>
-              <span class="py-ex-vi">(${it.ex.vi})</span>
+
+            <!-- Danh sách chữ Hán tiêu biểu bắt đầu bằng chữ cái này -->
+            <div class="py-hanzi-group">
+              <div class="py-hanzi-group-title">
+                <span>Chữ Hán thông dụng bắt đầu bằng "${it.char[0]}":</span>
+              </div>
+              <div class="py-hanzi-chips">
+                ${(it.hanzi || []).map(hz => `
+                  <div class="py-hanzi-chip" data-sound="${hz.zh}" title="Bấm nghe phát âm: ${hz.zh}">
+                    <span class="py-hz-char">${hz.zh}</span>
+                    <div class="py-hz-detail">
+                      <span class="py-hz-py">${hz.py}</span>
+                      <span class="py-hz-hv">${hz.hv}</span>
+                      <span class="py-hz-vi">${hz.vi}</span>
+                    </div>
+                    <div class="py-hz-actions">
+                      <button class="py-hz-btn" type="button" data-sound="${hz.zh}" title="Nghe đọc">🔊</button>
+                      <button class="py-hz-btn py-hz-write-btn" type="button" data-write="${hz.zh}" title="Tập viết chữ này">✍️</button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
             </div>
           </div>
         `).join('')}
@@ -458,7 +916,95 @@
     `;
   }
 
-  // 2. Render 23 Thanh Mẫu (Initials)
+  // 2. Render Tra Cứu Chữ Hán Theo Vần A-Z (Alphabetical Hanzi Explorer)
+  function renderHanziExplorer(container) {
+    const letters = PY_DATA.alphabet26.map(a => a.char[0]);
+
+    // Lấy danh sách chữ Hán theo ký tự được chọn
+    let targetObj = PY_DATA.alphabet26.find(a => a.char[0] === PY.selectedHanziLetter);
+    let hanziList = targetObj ? targetObj.hanzi : [];
+
+    if (PY.searchQuery) {
+      // Tìm trên toàn bộ từ điển nếu người dùng gõ tìm kiếm
+      hanziList = [];
+      PY_DATA.alphabet26.forEach(it => {
+        (it.hanzi || []).forEach(hz => {
+          if (
+            hz.zh.includes(PY.searchQuery) ||
+            hz.py.toLowerCase().includes(PY.searchQuery) ||
+            hz.hv.toLowerCase().includes(PY.searchQuery) ||
+            hz.vi.toLowerCase().includes(PY.searchQuery)
+          ) {
+            hanziList.push(hz);
+          }
+        });
+      });
+    }
+
+    container.innerHTML = `
+      <div class="py-section-intro">
+        <div class="py-section-badge">TRA CỨU CHỮ HÁN CĂN BẢN (A - Z)</div>
+        <h3>Từ Điển Chữ Hán Nhập Môn Theo Vần Bính Âm</h3>
+        <p>Chọn chữ cái từ A đến Z để khám phá các chữ Hán căn bản nhất. Bấm 🔊 để nghe phát âm chuẩn, bấm ✍️ để chuyển sang chế độ tập viết nét chữ trên ô mễ tự!</p>
+      </div>
+
+      <!-- Alphabet Letter Pills Selector -->
+      <div class="py-letter-selector-bar">
+        ${letters.map(lt => `
+          <button class="py-letter-pill ${lt === PY.selectedHanziLetter && !PY.searchQuery ? 'active' : ''}" type="button" data-letter="${lt}">
+            ${lt}
+          </button>
+        `).join('')}
+      </div>
+
+      <div class="py-hanzi-explorer-results">
+        <div class="py-explorer-header">
+          <h4>${PY.searchQuery ? `Kết quả tìm kiếm cho: "${PY.searchQuery}" (${hanziList.length})` : `Các chữ Hán vần "${PY.selectedHanziLetter}" (${hanziList.length} chữ)`}</h4>
+        </div>
+
+        <div class="py-hanzi-full-grid">
+          ${hanziList.length === 0 ? `
+            <div class="py-no-results">Không tìm thấy chữ Hán nào phù hợp với từ khóa "${PY.searchQuery}".</div>
+          ` : hanziList.map(h => `
+            <div class="py-hanzi-card" data-sound="${h.zh}">
+              <div class="py-hz-card-top">
+                <span class="py-hz-big-char">${h.zh}</span>
+                <div class="py-hz-card-meta">
+                  <span class="py-hz-card-py">${h.py}</span>
+                  <span class="py-hz-card-hv">[Hán Việt: ${h.hv}]</span>
+                </div>
+              </div>
+              <div class="py-hz-card-vi">
+                <strong>Nghĩa:</strong> ${h.vi}
+              </div>
+              <div class="py-hz-card-actions">
+                <button class="py-btn-card-audio" type="button" data-sound="${h.zh}">
+                  🔊 Nghe phát âm
+                </button>
+                <button class="py-btn-card-write" type="button" data-write="${h.zh}">
+                  ✍️ Tập viết nét
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    // Bind letter selector clicks
+    container.querySelectorAll('.py-letter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        PY.selectedHanziLetter = pill.dataset.letter;
+        PY.searchQuery = '';
+        const searchInput = document.getElementById('py-search-input');
+        if (searchInput) searchInput.value = '';
+        renderHanziExplorer(container);
+        attachActionListeners(container);
+      });
+    });
+  }
+
+  // 3. Render 23 Thanh Mẫu (Initials)
   function renderInitials(container) {
     let items = PY_DATA.initials;
     if (PY.searchQuery) {
@@ -467,11 +1013,11 @@
         it.name.toLowerCase().includes(PY.searchQuery) ||
         it.group.toLowerCase().includes(PY.searchQuery) ||
         it.read.toLowerCase().includes(PY.searchQuery) ||
+        (it.hero && (it.hero.zh.includes(PY.searchQuery) || it.hero.hv.toLowerCase().includes(PY.searchQuery) || it.hero.vi.toLowerCase().includes(PY.searchQuery))) ||
         (it.example && (it.example.zh.includes(PY.searchQuery) || it.example.vi.toLowerCase().includes(PY.searchQuery)))
       );
     }
 
-    // Nhóm theo vị trí phát âm
     const groups = {};
     items.forEach(it => {
       if (!groups[it.group]) groups[it.group] = [];
@@ -481,8 +1027,8 @@
     container.innerHTML = `
       <div class="py-section-intro">
         <div class="py-section-badge">THANH MẪU (声母 - SHENGMU)</div>
-        <h3>23 Phụ âm đầu chuẩn tiếng Hán</h3>
-        <p>Thanh mẫu là phụ âm bắt đầu của mỗi âm tiết trong tiếng Trung. Phân loại theo cấu tạo vòm miệng và cơ chế bật hơi.</p>
+        <h3>23 Phụ âm đầu chuẩn tiếng Hán kèm Chữ Hán mẫu</h3>
+        <p>Thanh mẫu là phụ âm bắt đầu của mỗi âm tiết trong tiếng Trung. Mỗi phụ âm đi kèm Chữ Hán đại diện to rõ nét để bạn ghi nhớ dễ dàng.</p>
       </div>
 
       ${Object.keys(groups).map(grp => `
@@ -495,6 +1041,10 @@
                   <div class="py-char-box">
                     <span class="py-char">${it.letter}</span>
                     <span class="py-char-name">${it.name}</span>
+                  </div>
+                  <div class="py-card-hero-hanzi" data-sound="${it.hero.zh}" title="Nghe chữ Hán: ${it.hero.zh}">
+                    <span class="py-card-hz">${it.hero.zh}</span>
+                    <small>${it.hero.py} (${it.hero.hv})</small>
                   </div>
                   <button class="py-audio-btn" type="button" data-sound="${it.sound}" title="Nghe phát âm">🔊</button>
                 </div>
@@ -510,6 +1060,7 @@
                     <b class="py-ex-word">${it.example.zh}</b>
                     <span class="py-ex-pinyin">[${it.example.pinyin}]</span>
                     <span class="py-ex-meaning">${it.example.vi}</span>
+                    <button class="py-hz-inline-write" type="button" data-write="${it.example.zh[0]}" title="Tập viết">✍️</button>
                     <span class="py-ex-sound">🔊</span>
                   </div>
                 </div>
@@ -521,7 +1072,7 @@
     `;
   }
 
-  // 3. Render 36 Vận Mẫu (Finals)
+  // 4. Render 36 Vận Mẫu (Finals)
   function renderFinals(container) {
     let items = PY_DATA.finals;
     if (PY.searchQuery) {
@@ -529,6 +1080,7 @@
         it.letter.toLowerCase().includes(PY.searchQuery) ||
         it.type.toLowerCase().includes(PY.searchQuery) ||
         it.read.toLowerCase().includes(PY.searchQuery) ||
+        (it.hero && (it.hero.zh.includes(PY.searchQuery) || it.hero.hv.toLowerCase().includes(PY.searchQuery) || it.hero.vi.toLowerCase().includes(PY.searchQuery))) ||
         (it.example && (it.example.zh.includes(PY.searchQuery) || it.example.vi.toLowerCase().includes(PY.searchQuery)))
       );
     }
@@ -542,7 +1094,7 @@
     container.innerHTML = `
       <div class="py-section-intro">
         <div class="py-section-badge">VẬN MẪU (韵母 - YUNMU)</div>
-        <h3>36 Nguyên âm và vần chuẩn tiếng Hán</h3>
+        <h3>36 Nguyên âm và vần chuẩn tiếng Hán kèm Chữ Hán mẫu</h3>
         <p>Bao gồm 6 nguyên âm đơn cốt lõi, 13 nguyên âm kép và 17 nguyên âm mũi (mũi trước -n và mũi sau -ng).</p>
       </div>
 
@@ -556,6 +1108,10 @@
                   <div class="py-char-box">
                     <span class="py-char">${it.letter}</span>
                     <span class="py-type-tag">${it.type}</span>
+                  </div>
+                  <div class="py-card-hero-hanzi" data-sound="${it.hero.zh}" title="Nghe chữ Hán: ${it.hero.zh}">
+                    <span class="py-card-hz">${it.hero.zh}</span>
+                    <small>${it.hero.py} (${it.hero.hv})</small>
                   </div>
                   <button class="py-audio-btn" type="button" data-sound="${it.sound}" title="Nghe phát âm">🔊</button>
                 </div>
@@ -571,6 +1127,7 @@
                     <b class="py-ex-word">${it.example.zh}</b>
                     <span class="py-ex-pinyin">[${it.example.pinyin}]</span>
                     <span class="py-ex-meaning">${it.example.vi}</span>
+                    <button class="py-hz-inline-write" type="button" data-write="${it.example.zh[0]}" title="Tập viết">✍️</button>
                     <span class="py-ex-sound">🔊</span>
                   </div>
                 </div>
@@ -582,13 +1139,13 @@
     `;
   }
 
-  // 4. Render Thanh Điệu (Tones)
+  // 5. Render Thanh Điệu (Tones)
   function renderTones(container) {
     container.innerHTML = `
       <div class="py-section-intro">
         <div class="py-section-badge">THANH ĐIỆU (声调 - SHENGDIAO)</div>
         <h3>4 Thanh điệu cơ bản & Khinh thanh</h3>
-        <p>Tiếng Trung là ngôn ngữ có thanh điệu. Cùng một âm tiết nhưng khác thanh điệu sẽ mang nghĩa hoàn toàn khác nhau!</p>
+        <p>Tiếng Trung là ngôn ngữ có thanh điệu. Cùng một âm tiết nhưng khác thanh điệu sẽ tạo ra các chữ Hán với nghĩa hoàn toàn khác nhau!</p>
       </div>
 
       <!-- Tone Pitch Visualizer -->
@@ -604,16 +1161,16 @@
           </div>
           <div class="py-pitch-lines">
             <div class="py-tone-line py-t1" title="Thanh 1: Ngang cao 55">
-              <span class="py-line-label">Thanh 1 (55): mā</span>
+              <span class="py-line-label">Thanh 1 (55): mā (妈)</span>
             </div>
             <div class="py-tone-line py-t2" title="Thanh 2: Đi lên 35">
-              <span class="py-line-label">Thanh 2 (35): má</span>
+              <span class="py-line-label">Thanh 2 (35): má (麻)</span>
             </div>
             <div class="py-tone-line py-t3" title="Thanh 3: Hạ xuống rồi lên 214">
-              <span class="py-line-label">Thanh 3 (214): mǎ</span>
+              <span class="py-line-label">Thanh 3 (214): mǎ (马)</span>
             </div>
             <div class="py-tone-line py-t4" title="Thanh 4: Rơi dứt khoát 51">
-              <span class="py-line-label">Thanh 4 (51): mà</span>
+              <span class="py-line-label">Thanh 4 (51): mà (骂)</span>
             </div>
           </div>
         </div>
@@ -636,19 +1193,20 @@
             </div>
             <div class="py-tone-ex-row">
               <div class="py-tone-main-ex" data-sound="${t.example.zh}">
-                <span>Mẫu đại diện:</span>
-                <b>${t.example.zh}</b>
+                <span>Chữ Hán đại diện:</span>
+                <b class="py-tone-zh-big">${t.example.zh}</b>
                 <em>${t.example.pinyin}</em>
-                <small>${t.example.vi}</small>
+                <small>[${t.example.hv} • ${t.example.vi}]</small>
+                <button class="py-hz-inline-write" type="button" data-write="${t.example.zh[0]}" title="Tập viết chữ này">✍️</button>
                 <span class="py-ex-sound">🔊</span>
               </div>
             </div>
             <div class="py-compare-box">
-              <span>Bấm nghe so sánh:</span>
+              <span>Bấm nghe so sánh chữ Hán cùng âm:</span>
               <div class="py-compare-chips">
                 ${t.compare.map(c => `
                   <button class="py-chip" type="button" data-sound="${c.zh}">
-                    <b>${c.pinyin}</b> (${c.zh})
+                    <b class="py-chip-zh">${c.zh}</b> <span>${c.pinyin}</span> <small>(${c.vi})</small>
                   </button>
                 `).join('')}
               </div>
@@ -659,7 +1217,7 @@
     `;
   }
 
-  // 5. Render Quy Tắc Biến Điệu
+  // 6. Render Quy Tắc Biến Điệu
   function renderRules(container) {
     container.innerHTML = `
       <div class="py-section-intro">
@@ -690,7 +1248,7 @@
     `;
   }
 
-  // 6. Render 214 Bộ Thủ Chữ Hán & Nét Cơ Bản
+  // 7. Render 214 Bộ Thủ Chữ Hán & Nét Cơ Bản
   function renderRadicals(container) {
     const radData = window.GH_RADICALS || {};
     const radicalsList = Array.isArray(radData.list) ? radData.list : [];
@@ -764,7 +1322,10 @@
               <span class="py-radical-char">${r.char}</span>
               ${r.alt ? `<span class="py-radical-alt">(${r.alt})</span>` : ''}
               <span class="py-radical-strokes">${r.strokes} nét</span>
-              <button class="py-mini-sound" type="button" data-sound="${r.char}" title="Phát âm">🔊</button>
+              <div class="py-radical-actions">
+                <button class="py-mini-sound" type="button" data-sound="${r.char}" title="Phát âm">🔊</button>
+                <button class="py-mini-write" type="button" data-write="${r.char}" title="Tập viết bộ này">✍️</button>
+              </div>
             </div>
             <div class="py-radical-name">
               <b>${r.name}</b>
@@ -788,20 +1349,20 @@
         chip.classList.add('active');
         PY.radicalFilterStrokes = chip.dataset.strokes;
         renderRadicals(container);
-        attachAudioListeners(container);
+        attachActionListeners(container);
       });
     });
   }
 
-  // 7. Render Trắc Nghiệm Nghe Pinyin (Quiz)
+  // 8. Render Trắc Nghiệm Nghe Pinyin (Quiz)
   function renderQuiz(container) {
     const allItems = [...PY_DATA.alphabet26, ...PY_DATA.initials, ...PY_DATA.finals];
     
     container.innerHTML = `
       <div class="py-section-intro">
         <div class="py-section-badge">LUYỆN PHẢN XẠ ÂM THANH</div>
-        <h3>Trắc nghiệm nghe & nhận diện Pinyin</h3>
-        <p>Bấm nút nghe âm ngẫu nhiên và chọn đúng chữ cái Pinyin tương ứng để rèn luyện thính giác tiếng Trung.</p>
+        <h3>Trắc nghiệm nghe & nhận diện Pinyin cùng Chữ Hán</h3>
+        <p>Bấm nút nghe âm ngẫu nhiên và chọn đúng chữ cái Pinyin / Chữ Hán tương ứng để rèn luyện thính giác tiếng Trung.</p>
       </div>
 
       <div class="py-quiz-box">
@@ -851,9 +1412,11 @@
 
       optionsBox.innerHTML = choices.map(ch => {
         const displayLabel = ch.char || ch.letter;
+        const zhHero = ch.hero ? ch.hero.zh : (ch.example ? ch.example.zh : '');
         return `
           <button class="py-opt-btn" type="button" data-val="${displayLabel}">
             <b>${displayLabel}</b>
+            ${zhHero ? `<span class="py-opt-zh">${zhHero}</span>` : ''}
             <small>${ch.read || ''}</small>
           </button>
         `;
@@ -906,8 +1469,9 @@
     newQuestion();
   }
 
-  // Audio trigger utility
-  function attachAudioListeners(container) {
+  // Action listeners (Audio & Writing)
+  function attachActionListeners(container) {
+    // Sound buttons
     container.querySelectorAll('[data-sound]').forEach(el => {
       el.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -915,11 +1479,21 @@
         playSound(text);
       });
     });
+
+    // Write buttons
+    container.querySelectorAll('[data-write]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const word = el.dataset.write;
+        openPracticeWriting(word);
+      });
+    });
   }
 
   // Export methods
   PY.init = init;
   PY.playSound = playSound;
+  PY.openPracticeWriting = openPracticeWriting;
   window.GH_PinyinChart = PY;
 
   // Listen to mode changed event across app

@@ -1,7 +1,7 @@
 {
-  "version": "2.4.0",
-  "build": "gh_v60_20261128",
-  "timestamp": 1732774800000,
-  "title": "Bản cập nhật v2.4.0",
-  "notes": "Sửa lỗi hiển thị Bảng chữ cái, bổ sung 26 chữ cái La-tinh Pinyin (A-Z), 214 Bộ thủ Khang Hy & Nét chữ cơ bản, đồng thời tự động ẩn cấp độ HSK khi vào Bảng chữ cái."
+  "version": "2.4.1",
+  "build": "gh_v61_20261128",
+  "timestamp": 1732775400000,
+  "title": "Bản cập nhật v2.4.1",
+  "notes": "Tích hợp toàn diện Chữ Hán vào Bảng chữ cái tiếng Trung (A-Z), bổ sung Chữ Hán tiêu biểu cỡ lớn, âm Hán Việt, nút tập viết nét và Tab Tra cứu Chữ Hán A-Z."
 }
