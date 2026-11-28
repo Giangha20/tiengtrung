@@ -5,7 +5,7 @@
  */
 (() => {
   const BUILD_KEY = 'gh_app_build';
-  const CURRENT_BUILD = 'gh_v58_20261123';
+  const CURRENT_BUILD = 'gh_v59_20261128';
   const VERSION_URL = './version.json';
 
   function isNativePlatform() {

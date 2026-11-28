@@ -8029,6 +8029,8 @@ function switchMode(mode) {
         window.GH?.flashcard?.start?.();
     } else if (mode === 'translation') {
         window.GH_Translation?.init?.();
+    } else if (mode === 'pinyin') {
+        window.GH_PinyinChart?.init?.();
     } else if (mode === 'list') {
         // Danh sách từ luôn lấy đúng currentLevel, không random và không đổi dữ liệu khi bấm lại.
         renderList();

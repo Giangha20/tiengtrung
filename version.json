@@ -1,7 +1,7 @@
 {
-  "version": "2.3.8",
-  "build": "gh_v58_20261123",
-  "timestamp": 1732367400000,
-  "title": "Bản cập nhật v2.3.8",
-  "notes": "Mở rộng vượt bậc kho câu luyện dịch song ngữ lên hơn 1.230 câu chuẩn xác cho toàn bộ HSK 1 đến HSK 6 (206 câu/cấp độ) cùng ngữ pháp và mẹo dịch phong phú."
+  "version": "2.3.9",
+  "build": "gh_v59_20261128",
+  "timestamp": 1732773166000,
+  "title": "Bản cập nhật v2.3.9",
+  "notes": "Bổ sung Bảng chữ cái Pinyin (Bính âm Hán ngữ) toàn diện với đầy đủ 23 Thanh mẫu, 36 Vận mẫu, 4 Thanh điệu, các quy tắc biến điệu thực tế và phát âm chuẩn bản xứ."
 }
